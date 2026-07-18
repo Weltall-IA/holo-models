@@ -4,7 +4,7 @@ branch: ai/embedding-benchmark-v3
 base_branch: master
 commit_base: 9e22f36d690e9cae5c27ca0e60fe4fd4858edf84
 expected_head: PENDING_STATUS_COMMIT
-payload_head: dc9d451184f5a1869867db9f000efcc03f45da37
+payload_head: c38f017dc3cd7a1070fd82adce27cc3bc3139cd4
 status: pronto-para-execucao-local
 turn: executor-local
 last_actor: autor-remoto
@@ -29,8 +29,9 @@ allowed_runtime_write_paths:
   - benchmarks/holo-embedding-benchmark-v3/**
 executor_preflight:
   require_payload_head_ancestor: true
-  payload_head: dc9d451184f5a1869867db9f000efcc03f45da37
+  payload_head: c38f017dc3cd7a1070fd82adce27cc3bc3139cd4
   allow_commits_after_payload_only_for:
     - .ai/tasks/EMBED-BENCH-V3-1.1/STATUS.yml
 blocked_reason: null
-updated_at: "2026-07-18T03:10:00-03:00"
+revision_note: "corrigida validação do repositório pelo remote origin e separadas alterações rastreadas de resíduos locais não rastreados"
+updated_at: "2026-07-18T14:51:35-03:00"
