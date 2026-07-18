@@ -1,142 +1,213 @@
-Cada modelo baixado deve ir para a subpasta de categoria correspondente:
+# AGENTS.md — Regras permanentes para agentes
 
-- text/ — LLMs, chat, punctuation restoration, modelos temáticos de texto
-- audio/ — ASR (Whisper), TTS, voz, processamento de áudio
-- video/ — upscaling, RIFE, CUDA, vídeo
-- image/ — diffusion, super-resolution, faces
-- embed/ — embeddings, rerankers
+Estas regras valem para qualquer IA, automação ou operador que trabalhe no repositório `Weltall-IA/holo-models`.
 
-### Fluxo padrão ao adicionar um novo modelo
+## Finalidade do repositório
 
-1. Baixar o modelo pela fonte apropriada, como Hugging Face CLI, `ollama pull` ou repositório oficial.
+Este repositório governa modelos locais do Projeto Holo:
 
-2. Armazenar o modelo em uma única pasta canônica, dentro da subpasta correspondente à sua categoria principal.
+- inventário e documentação;
+- configurações e `Modelfile`;
+- scripts operacionais;
+- benchmarks reproduzíveis;
+- regras de armazenamento, runtimes e reflink;
+- evidências sanitizadas;
+- tarefas versionadas para colaboração entre agentes.
 
-3. Quando o modelo atender a mais de uma categoria, registrar as categorias adicionais em um arquivo de metadados dentro da pasta. Não duplicar os pesos entre categorias.
+Pesos, caches, bancos, tokens e artefatos volumosos não são publicados no GitHub.
 
-4. Criar um `Modelfile` somente quando o modelo for compatível com o Ollama. Usar as configurações recomendadas na página oficial do modelo ou no repositório do desenvolvedor.
+## Inicialização obrigatória
 
-5. Registrar modelos GGUF compatíveis no Ollama executando `ollama create <nome>:<tag> -f Modelfile` dentro da pasta do modelo, para que caminhos relativos em `FROM` sejam resolvidos corretamente.
+Antes de planejar, editar arquivos ou executar comandos:
 
-6. O `ollama create` importa o modelo para o armazenamento de blobs do Ollama. Essa importação cria inicialmente outra cópia física dos pesos, mesmo quando a biblioteca e o diretório do Ollama estão em bcachefs.
+1. leia `.ai/WORKFLOW.yml`;
+2. leia `docs/ai-collaboration/ROLES.md`;
+3. leia `docs/ai-collaboration/PROTOCOL.md`;
+4. quando ocupar o papel de executor local, leia `docs/ai-collaboration/LOCAL_EXECUTOR.md`;
+5. leia `.ai/tasks/<task-id>/STATUS.yml` e `REQUEST.md`, quando existirem;
+6. leia `docs/model-governance/MODEL_STORAGE.md`;
+7. leia instruções específicas do diretório, scripts e arquivos diretamente envolvidos.
 
-7. Após o `ollama create` terminar e o modelo ser validado, localizar o blob final criado pelo Ollama e substituir o GGUF existente na pasta canônica por um reflink desse blob.
+Não presuma que uma referência textual significa que o conteúdo já foi carregado.
 
-8. Antes de substituir o arquivo canônico, confirmar obrigatoriamente:
+## Modo operacional
 
-   * que o modelo registrado funciona no Ollama;
-   * que o blob final foi identificado corretamente;
-   * que a pasta canônica e `OLLAMA_MODELS` estão no mesmo sistema de arquivos bcachefs;
-   * que o reflink pode ser criado com modo obrigatório, sem fallback para cópia normal;
-   * que o arquivo temporário resultante possui o tamanho esperado.
+A precedência é:
 
-9. Fazer a substituição de forma atômica: criar primeiro o reflink em um arquivo temporário dentro da pasta do modelo e somente depois substituir o arquivo canônico.
+1. modo da tarefa;
+2. modo global;
+3. ausência de modo válido: interromper.
 
-10. Depois da substituição, a pasta organizada e o armazenamento do Ollama terão inodes separados, mas compartilharão os mesmos extents físicos por CoW. O espaço adicional só será alocado se um dos arquivos for posteriormente modificado.
+Os modos válidos são `dual`, `remoto` e `local`.
 
-11. Não aplicar esse procedimento a modelos que não são armazenados pelo Ollama como um único blob GGUF identificável, como alguns modelos multimodais compostos por várias camadas.
+Confirme repositório, branch, HEAD, tarefa, modo, turno, escopo, runtime e restrições antes de editar ou executar.
 
-12. Modelos Transformers, Diffusers, Whisper, ONNX, Safetensors não compatíveis e outros pipelines específicos não devem ser registrados no Ollama. Para eles, manter os pesos diretamente na pasta canônica e usar o runtime apropriado.
+## Fonte de verdade
 
-Exemplo mínimo de Modelfile:
+O GitHub é a fonte de verdade para:
 
-FROM ./model.safetensors
-PARAMETER temperature 0.7
-PARAMETER num_ctx 2048
+- regras;
+- código e scripts;
+- branches, commits e pull requests;
+- tarefas e decisões;
+- metadados, hashes e revisões;
+- evidências sanitizadas.
 
-O campo FROM aceita tanto o caminho local do arquivo do modelo (`.safetensors`, `.gguf` ou diretório do modelo) quanto o nome de um modelo já registrado no Ollama. Os arquivos de blobs e manifests gerados ficam apenas em `ollama/blobs/` e `ollama/manifests/`.
+O armazenamento local é a fonte física dos pesos, mas cada modelo deve ser identificável por repositório, revisão, arquivo, quantização e hash.
 
-Nomenclatura de pastas:
+## Regras Git
 
-- Usar o nome do repositório no Hugging Face ou nome oficial do modelo
-- Sem espaços, apenas hífens/underscores
-- **Incluir a quantização no nome da pasta** (ex: `Qwen3.5-2B-PTBR-Q4_K_M`, `Qwen3.5-4B-PTBR-Q6_K`)
-- A quantização fica registrada no Modelfile e no nome do modelo no Ollama
+- Não trabalhar diretamente em `master` ou branch protegida.
+- Criar ou selecionar feature branch antes de editar.
+- Preservar alterações preexistentes.
+- Sincronizar referências e confirmar o HEAD.
+- Não usar force push.
+- Não fazer merge, release, publicação, deploy ou remoção sem autorização humana.
+- Não usar `git pull`, stash automático, `reset --hard` ou rebase destrutivo automaticamente.
+- Revisar o diff completo antes de commit e push.
+- Não incluir arquivos fora do escopo.
 
-Critério de categoria quando houver duplicidade:
+Em checkout local, execute o equivalente a:
 
-- Escolher a categoria mais específica
-- Whisper: `audio/` (mesmo que gere texto, a finalidade é ASR)
-- Modelos de TTS que também fazem chat: `audio/` (finalidade principal)
-
-Verificação prévia:
-
-- Antes de registrar um modelo no Ollama, verificar com `ollama list` se já existe
-- Se existir, atualizar o Modelfile existente ao invés de criar duplicata
-
-Responsabilidade:
-
-- IA: baixar, mover para categoria, criar Modelfile, registrar via `ollama create` e criar reflink
-- Usuário: validar configurações do Modelfile e sinalizar se algo falhar depois
-
-Ao remover um modelo de qualquer subpasta, também removê-lo do Ollama para não deixar registros órfãos.
-
-Regra anti-órfão:
-
-- Se um modelo for removido de uma subpasta de categoria, removê-lo do Ollama (`ollama rm <modelo>`).
-- Limpeza de blobs órfãos (APÓS remover): cruzar blobs em `ollama/blobs/` contra os digests em `ollama/manifests/` e apagar SÓ os não referenciados.
-
-Fallback para modelos incompatíveis com o Ollama:
-
-- Se `ollama create` falhar (arquitetura/GGUF não suportada pelo Ollama atual), o modelo fica restrito a `transformers`/`llama.cpp`.
-- Criar `OLLAMA_INCOMPATIVEL.txt` na pasta do modelo com o motivo do erro; o Modelfile permanece para uso direto fora do Ollama.
-
-### Regra de armazenamento
-
-O bcachefs suporta reflink CoW. O Ollama não precisa criar o reflink durante o `ollama create`: o procedimento padrão é deixar a importação terminar normalmente e, depois, substituir a cópia canônica do GGUF por um reflink do blob final criado pelo Ollama.
-
-Esse procedimento evita a duplicação permanente dos pesos, embora ainda exija espaço temporário suficiente para manter as duas cópias durante a importação.
-
-A correção central é esta: **o blob do Ollama vira a fonte física dos dados, e o arquivo organizado passa a ser o reflink criado depois da importação**.
-
-### Regra de atualização de lista
-
-Após criar e reflinkar um modelo com sucesso, adicionar sua entrada em `LISTA_MODELOS.md` mantendo a tabela atualizada para visão geral do inventário.
-
-### Regra de blacklist
-
-Quando um modelo falhar no teste de restauração de pontuação da saída do Whisper, registrar em `LISTA_BLACKLIST.md` apenas após validação do usuário (via F12). Formato: `<nome-do-modelo> | motivo`.
-
-### Regra de Modelfile para restauração de pontuação (Whisper)
-
-Modelos usados para pontuar a saída do Whisper precisam de configuração específica no `Modelfile`, além do fluxo geral:
-
-- `SYSTEM` com instrução de restaurar APENAS pontuação/capitalização, sem reescrever, sem raciocínio, saída direta.
-- `PARAMETER temperature 0`
-- `PARAMETER num_predict 1024`
-- `PARAMETER stop` para os tokens de fim do modelo (`<|im_end|>`, `<|im_start|>`, `<|endoftext|>`).
-- Esta versão do ollama-cuda (0.31.2) **não aceita** `PARAMETER enable_thinking` no Modelfile. Para suprimir o bloco `<think>` na inference, chamar a API com `"think": false` ou cortar `<think>…</think>` no pós-processamento do pipeline.
-
-Template:
-
+```text
+git status --short
+git branch --show-current
+git fetch origin
+git rev-parse HEAD
+git rev-parse origin/master
 ```
-FROM ./modelo.gguf
-PARAMETER temperature 0
-PARAMETER num_ctx 2048
-PARAMETER num_predict 1024
-PARAMETER stop "<|endoftext|>"
-PARAMETER stop "<|im_end|>"
-PARAMETER stop "<|im_start|>"
-SYSTEM "Restaure APENAS pontuação e capitalização em texto em português. Não altere palavras, não reescreva frases, não adicione conteúdo. Não faça raciocínio, não explique, não mostre pensamento. Saída direta apenas."
+
+## Papéis no modo dual
+
+O `AUTOR_REMOTO` cria e altera conteúdo versionado. O `EXECUTOR_LOCAL` executa comandos, valida o ambiente, baixa modelos quando autorizado e coleta evidências.
+
+O executor local não modifica conteúdo de projeto por padrão. A exceção exige em `STATUS.yml` ou `REQUEST.md`:
+
+```yaml
+allow_local_project_edits: true
 ```
-## AUTORIA DE ALTERAÇÕES EM ARQUIVOS
 
-- O ChatGPT é o único responsável por definir e redigir alterações em arquivos do projeto.
-- A IA local não deve criar, completar, redesenhar, corrigir ou adaptar conteúdo de arquivos por iniciativa própria.
-- A IA local somente pode aplicar conteúdo integral, patch ou alteração literal fornecida pelo ChatGPT.
-- Antes da aplicação, a IA local deve gerar e exibir o diff completo da alteração proposta.
-- O diff deve conter somente o conteúdo explicitamente aprovado pelo ChatGPT.
-- Se houver qualquer alteração adicional, remoção, reordenação, reformatação ou adaptação, a execução deve parar sem aplicar o diff.
-- Quando o conteúdo fornecido não puder ser aplicado literalmente, a IA local deve parar e retornar o bloqueio.
-- A IA local continua responsável por executar comandos, aplicar patches literais, instalar dependências autorizadas, rodar testes e coletar evidências técnicas.
-- Exceções somente são permitidas quando o usuário autorizar explicitamente a IA local a redigir ou decidir o conteúdo.
+A autorização deve listar caminhos e comportamento permitidos. Uma falha não autoriza correção automática.
 
-## Ambiente local e shell
+## Autoria de alterações
 
-- O sistema operacional do computador local é CachyOS.
-- O shell interativo padrão do usuário é Fish, não Bash.
-- Comandos destinados a serem copiados e executados diretamente pelo usuário devem usar sintaxe compatível com Fish.
-- Não usar atribuição de variável no formato Bash `VAR=valor` em comandos para o terminal do usuário. Em Fish, usar `set VAR valor` ou informar o valor diretamente no comando.
-- Quando uma operação exigir Bash, invocar explicitamente `bash -lc '...'` e não assumir que o terminal atual interpreta Bash.
-- Em unidades systemd, preferir `ExecStart` com o executável e os argumentos diretamente, sem envolver Fish ou Bash desnecessariamente.
-- Scripts existentes devem respeitar o shell declarado no próprio shebang.
+- O ChatGPT é o responsável padrão por definir e redigir alterações em arquivos do projeto.
+- A IA local não cria, completa, redesenha, corrige ou adapta conteúdo versionado por iniciativa própria.
+- A IA local aplica conteúdo integral, patch literal ou executa geradores determinísticos fornecidos pelo autor remoto.
+- Antes de aplicar patch manual, deve exibir o diff completo.
+- Se houver alteração adicional, remoção, reordenação, reformatação ou adaptação não autorizada, deve parar.
+- Quando o conteúdo não puder ser aplicado literalmente, deve retornar o bloqueio.
+- A IA local pode instalar dependências autorizadas, rodar comandos, testes e benchmarks e coletar evidências.
+- Exceções exigem autorização humana explícita.
+
+## Categorias de modelos
+
+Cada modelo baixado deve ficar na categoria principal:
+
+- `text/` — LLMs, chat, restauração de pontuação e texto;
+- `audio/` — ASR, Whisper, TTS, voz e áudio;
+- `video/` — upscaling, RIFE, CUDA e vídeo;
+- `image/` — diffusion, super-resolution e faces;
+- `embed/` — embeddings e rerankers.
+
+Não duplique pesos entre categorias. Registre usos adicionais em metadados.
+
+## Nomenclatura e inventário
+
+- Use o nome oficial ou do repositório Hugging Face.
+- Não use espaços.
+- Inclua a quantização no nome da pasta quando aplicável.
+- Mantenha um único diretório físico canônico.
+- Antes de registrar no Ollama, verifique `ollama list`.
+- Após validação, atualize `LISTA_MODELOS.md`.
+- Modelos reprovados em pontuação do Whisper entram em `LISTA_BLACKLIST.md` somente após validação humana.
+
+## Ollama, formatos e runtimes
+
+- Crie `Modelfile` somente para modelo realmente compatível.
+- Execute `ollama create` dentro da pasta do modelo quando caminhos relativos forem usados.
+- Transformers, Diffusers, Whisper, ONNX, Safetensors e pipelines não compatíveis permanecem no runtime apropriado.
+- Se Ollama falhar por incompatibilidade, registre `OLLAMA_INCOMPATIVEL.txt` com erro sanitizado.
+- Não force conversão, registro ou alteração de arquitetura silenciosamente.
+- O campo `FROM` pode apontar para arquivo, diretório compatível ou modelo registrado, conforme suporte real do runtime.
+
+## Reflink bcachefs
+
+O Ollama pode criar uma segunda cópia temporária dos pesos. Após validação, o blob do Ollama pode se tornar a fonte física e o arquivo canônico pode ser substituído por reflink CoW.
+
+Antes da troca, confirme:
+
+- modelo funcional;
+- blob correto;
+- mesma filesystem bcachefs;
+- reflink obrigatório sem fallback para cópia normal;
+- arquivo temporário com tamanho esperado.
+
+Faça substituição atômica. Não aplique a modelos compostos sem um único blob GGUF identificável.
+
+## Remoção e anti-órfão
+
+Ao remover um modelo canônico, remova o registro correspondente do Ollama quando existir. Limpeza de blobs exige cruzar manifests e digests e provar que não há referência. Não apague caches, pesos ou blobs sem autorização.
+
+## Benchmarks
+
+- Metodologia, corpus, prompts e métricas devem ser versionados.
+- Resultados devem indicar modelo, revisão, backend, dimensão, dtype, normalização e hardware.
+- Não altere corpus congelado para favorecer um modelo.
+- Não escolha vencedor silenciosamente.
+- Não execute gate posterior sem autorização.
+- Não chame API paga sem autorização explícita.
+- Não registre segredo em cache, log ou relatório.
+- Pesos baixados para benchmark ficam em `embed/` ou runtime autorizado e continuam ignorados pelo Git.
+- Resultados brutos volumosos podem ficar em caminho ignorado; sumários e evidências sanitizadas devem ser versionados quando a tarefa exigir.
+
+## Segurança e licenças
+
+- Não registrar tokens, chaves, cookies, credenciais, `.env`, certificados, dumps ou dados pessoais.
+- Não expor segredo em stdout ou relatório.
+- Não contornar licença, autenticação, quota, paywall, CAPTCHA ou termos.
+- Não remover DRM, marca-d'água ou atribuição.
+- Confirme licença e aceite antes de baixar modelo restrito.
+- O repositório é público; qualquer conteúdo versionado deve ser seguro para publicação pública.
+
+## Execução de processos
+
+- Prefira executável, argumentos, diretório, ambiente não secreto e timeout explícitos.
+- Evite `bash -c`, `bash -lc`, `fish -c`, aliases, funções e perfis quando dispensáveis.
+- Respeite o shebang.
+- O computador local usa CachyOS e Fish.
+- Comandos interativos entregues ao usuário devem ser compatíveis com Fish.
+- Quando Bash for indispensável, invoque-o explicitamente.
+- Use `micro` quando edição manual no terminal for necessária.
+- Não use `rm -rf`.
+- Identifique o runtime e ambiente virtual realmente usados.
+- Não imponha editor, shell, modelo ou ferramenta além do necessário para a tarefa.
+
+## Testes e evidências
+
+- Não invente comandos, resultados, versões, hashes, desempenho ou validações.
+- Declare explicitamente tudo que não foi executado.
+- Não desative teste para obter sucesso.
+- Não considere tarefa concluída apenas porque um comando retornou zero.
+- Registre stdout, stderr, código de saída e duração quando aplicável.
+- Associe resultados ao SHA executado.
+- Revise `git diff --check`, `git diff --stat` e o diff dos arquivos alterados.
+- Confirme que nenhum segredo ou peso foi incluído.
+
+## Interrupções obrigatórias
+
+Interrompa diante de:
+
+- branch, SHA, modo ou turno divergente;
+- alteração preexistente que possa ser sobrescrita;
+- risco de perda de dados;
+- segredo ou licença não resolvida;
+- download sem espaço suficiente;
+- modelo, arquivo ou revisão diferente do autorizado;
+- ação destrutiva;
+- custo não autorizado;
+- OOM ou falha CUDA que exigiria alterar o sistema;
+- conflito entre runtime e documentação;
+- tentativa de editar fora do escopo.
+
+O formato de retorno e os responsáveis por cada turno estão em `docs/ai-collaboration/PROTOCOL.md`.
