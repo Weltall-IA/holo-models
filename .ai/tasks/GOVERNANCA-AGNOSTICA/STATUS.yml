@@ -15,7 +15,7 @@ scope:
   excluded:
     - "Código-fonte do benchmark."
     - "Testes do benchmark."
-    - "Dependências."
+    - "Dependências do benchmark."
     - "Modelos, pesos, caches e runtime local."
 
 execution:
@@ -34,22 +34,37 @@ changes:
     - ".ai/tasks/GOVERNANCA-AGNOSTICA/STATUS.yml"
     - ".ai/tasks/EMBED-BENCH-V3-1.1/STATUS.yml"
     - "README.md"
+    - "benchmark/embedding-v3/README.md"
+    - ".ai/templates/REQUEST.md (removido)"
+    - ".ai/templates/EXECUTION.md (removido)"
+    - ".ai/templates/REVIEW.md (removido)"
+    - ".ai/templates/STATUS.yml (removido)"
+    - ".ai/tasks/EMBED-BENCH-V3-1.1/REQUEST.md (removido)"
+    - ".ai/tasks/EMBED-BENCH-V3-1.1/EXECUTION.md (removido após migração do retorno)"
+    - "docs/ai-collaboration/ROLES.md (removido)"
+    - "docs/ai-collaboration/PROTOCOL.md (removido)"
+    - "docs/ai-collaboration/LOCAL_EXECUTOR.md (removido)"
   summary:
     - "Leitura inicial reduzida a PROJECT.yml, WORKFLOW.yml e STATUS.yml."
     - "Execução direta e ciclo automático de correção habilitados."
     - "Versionamento operacional X.Y.Z e linha final obrigatória configurados."
-    - "Estado do benchmark migrado sem perder o retorno já publicado pela IA local."
+    - "Estado e retorno do benchmark migrados para um único STATUS.yml."
     - "Fontes antigas de protocolo, papéis, executor local e templates concorrentes removidas."
+    - "README principal e README do benchmark atualizados para a nova estrutura."
 
 validations:
   executed:
     - "Revisão dos arquivos atuais da governança na feature branch."
     - "Comparação da estrutura antiga com a ordem nova fornecida pelo usuário."
     - "Revisão integral do conteúdo criado e atualizado."
+    - "Comparação da feature branch com master após a migração."
+    - "Verificação das referências conhecidas aos documentos removidos."
   passed:
-    - "Estrutura central criada."
+    - "Estrutura central AGENTS.md, PROJECT.yml, WORKFLOW.yml e STATUS.yml criada."
     - "Workflow contém templates de versão para local, auditor e autora remota."
-    - "STATUS.yml do benchmark preserva resultados, indisponibilidades e próximo passo."
+    - "STATUS.yml do benchmark preserva resultados, indisponibilidades, auditoria e próximo passo."
+    - "Documentos concorrentes de protocolo, papéis e executor local não permanecem na branch."
+    - "Nenhum código-fonte ou teste foi alterado pela tarefa de governança."
   failed: []
   unavailable:
     - "Validações locais de filesystem e comandos do projeto não foram executadas pelo autor remoto."
@@ -61,5 +76,5 @@ audit:
 blockers: []
 
 next:
-  action: "Usar a nova governança em todas as respostas operacionais e auditar o retorno dos Gates 0 e 1."
+  action: "Aplicar a governança nova em todas as respostas operacionais e continuar o benchmark no patch 1.1.1."
   role: "remote_author"
