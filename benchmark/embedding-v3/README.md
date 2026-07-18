@@ -11,16 +11,15 @@ Implementação versionada dos Gates 0 e 1 do benchmark do Projeto Holo.
 - não grava segredos;
 - Gates 2 a 6 retornam bloqueio até nova autorização.
 
-## Execução pelo agente local
+## Estado da tarefa
 
-O fluxo canônico está em:
+O objetivo, o escopo, a etapa, os resultados, a auditoria e o próximo passo ficam concentrados em:
 
 ```text
-.ai/tasks/EMBED-BENCH-V3-1.1/REQUEST.md
 .ai/tasks/EMBED-BENCH-V3-1.1/STATUS.yml
 ```
 
-Comandos são executados no checkout da feature branch e registrados em `EXECUTION.md`.
+A execução deve atualizar esse arquivo e terminar a resposta com a linha de versão definida em `.ai/WORKFLOW.yml`.
 
 ## CLI
 
@@ -42,4 +41,4 @@ Comandos são executados no checkout da feature branch e registrados em `EXECUTI
 
 ## Gate 1 e revisão semântica
 
-A primeira execução gera o corpus candidato e `semantic_review_checklist.json`, retornando código 3. O executor revisa pelo menos 30 itens, cria `semantic_review.json` no schema indicado pela checklist e executa novamente com `--resume`. Qualquer rejeição bloqueia o congelamento e exige decisão do diretor.
+A primeira execução gera o corpus candidato e `semantic_review_checklist.json`, retornando código 3. O executor revisa pelo menos 30 itens, cria `semantic_review.json` no schema indicado pela checklist e executa novamente com `--resume`. Qualquer rejeição bloqueia o congelamento e exige decisão sobre a correção.
