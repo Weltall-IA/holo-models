@@ -21,22 +21,21 @@ image/
 embed/
 ```
 
-## Fonte de verdade
+## Governança de agentes
 
-Leia antes de atuar:
+Antes de atuar, leia:
 
 1. `AGENTS.md`;
-2. `.ai/WORKFLOW.yml`;
-3. `docs/ai-collaboration/ROLES.md`;
-4. `docs/ai-collaboration/PROTOCOL.md`;
-5. `docs/ai-collaboration/LOCAL_EXECUTOR.md`, quando aplicável;
-6. `.ai/tasks/<task-id>/STATUS.yml` e `REQUEST.md`;
-7. `docs/model-governance/MODEL_STORAGE.md`.
+2. `.ai/PROJECT.yml`;
+3. `.ai/WORKFLOW.yml`;
+4. `.ai/tasks/<task-id>/STATUS.yml`, quando existir.
+
+A execução é direta e segue o estágio `X.Y.Z` registrado no estado da tarefa. Correções incrementam somente o patch `Z`. Toda resposta operacional termina com a linha de versão correspondente ao papel ativo.
 
 ## Regras essenciais
 
-- nunca trabalhar diretamente em `master`;
 - não versionar pesos, tokens, caches, bancos ou segredos;
-- não fazer force push, merge, publicação ou remoção de modelos sem autorização humana;
-- resultados e validações devem ser reais e vinculados ao SHA executado;
-- no modo `dual`, o ChatGPT é o autor remoto e a IA local executa, valida e coleta evidências.
+- não inventar resultados, versões ou hashes;
+- revisar alterações e validações reais antes de concluir;
+- respeitar o escopo e o estado da tarefa;
+- não executar gate posterior nem chamar API paga sem autorização explícita.
