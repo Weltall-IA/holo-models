@@ -1,28 +1,74 @@
-version: 1
+schema_version: 1
 
-# Deixe exatamente um modo sem comentário.
-mode: dual
-#mode: remoto
-#mode: local
+execution:
+  mode: "direct"
+  continue_without_confirmation: true
+  automatic_correction_cycle: true
 
-actors:
-  autor_remoto: chatgpt
-  executor_local: agente-local
-  aprovador_final: humano
+editing:
+  existing_files:
+    temporary_copy_required: true
+    diff_required: true
+  new_files:
+    full_content_review_required: true
 
-source_of_truth: github
-base_branch: master
+roles:
+  local:
+    name: "IA local"
+    responsibilities:
+      - execute_commands
+      - edit_within_scope
+      - validate
+      - apply_corrections
+      - update_status
 
-policies:
-  require_feature_branch: true
-  require_pull_request: true
-  require_human_merge_approval: true
-  require_real_test_results: true
-  allow_force_push: false
-  allow_automatic_merge: false
-  allow_automatic_deploy: false
-  allow_automatic_model_publication: false
-  allow_automatic_model_removal: false
-  dual_remote_author_owns_project_edits: true
-  dual_local_executor_can_edit_project_files: false
-  dual_local_executor_can_edit_handoff_files: true
+  auditor:
+    name: "IA auditora"
+    responsibilities:
+      - inspect_return
+      - verify_diffs
+      - verify_validations
+      - approve_or_reject
+      - update_status
+
+  remote_author:
+    name: "IA autora remota"
+    responsibilities:
+      - inspect_project
+      - implement_changes
+      - validate
+      - update_status
+
+stages:
+  format: "X.Y.Z"
+  meaning:
+    X: "macroetapa"
+    Y: "atividade"
+    Z: "patch"
+  initial_patch: 0
+  rules:
+    - "A primeira execução da atividade usa patch 0."
+    - "A correção incrementa somente o patch."
+    - "Executor e auditor usam o mesmo número para o mesmo retorno."
+    - "Após aprovação, a próxima atividade começa com patch 0."
+
+return_version:
+  must_be_last_line: true
+
+  templates:
+    local: "Versão do retorno da IA local: {stage} — {title}"
+    auditor: "Versão do retorno da IA auditora: {stage} — {title}"
+    remote_author: "Versão do retorno da IA autora remota: {stage} — {title}"
+
+  examples:
+    local: "Versão do retorno da IA local: 7.6.5 — Retorno do gerador simplificado de metadata dos quatro pilotos"
+    auditor: "Versão do retorno da IA auditora: 7.6.5 — Auditoria do gerador simplificado de metadata dos quatro pilotos"
+
+states:
+  - IN_PROGRESS
+  - EXECUTED
+  - CORRECTED
+  - APPROVED
+  - REJECTED
+  - BLOCKED
+  - COMPLETED
