@@ -1,0 +1,65 @@
+schema_version: 1
+
+task:
+  id: "GOVERNANCA-AGNOSTICA"
+  title: "Criação da governança agnóstica do projeto"
+  objective: "Substituir a governança anterior por um fluxo direto, autocorretivo e versionado por etapas e patches."
+
+scope:
+  included:
+    - "AGENTS.md"
+    - ".ai/PROJECT.yml"
+    - ".ai/WORKFLOW.yml"
+    - ".ai/tasks/*/STATUS.yml"
+    - "Referências documentais diretamente relacionadas à governança de agentes."
+  excluded:
+    - "Código-fonte do benchmark."
+    - "Testes do benchmark."
+    - "Dependências."
+    - "Modelos, pesos, caches e runtime local."
+
+execution:
+  stage: "1.1.0"
+  role: "remote_author"
+  state: "COMPLETED"
+
+return:
+  title: "Criação da governança agnóstica do projeto"
+
+changes:
+  files_changed:
+    - "AGENTS.md"
+    - ".ai/PROJECT.yml"
+    - ".ai/WORKFLOW.yml"
+    - ".ai/tasks/GOVERNANCA-AGNOSTICA/STATUS.yml"
+    - ".ai/tasks/EMBED-BENCH-V3-1.1/STATUS.yml"
+    - "README.md"
+  summary:
+    - "Leitura inicial reduzida a PROJECT.yml, WORKFLOW.yml e STATUS.yml."
+    - "Execução direta e ciclo automático de correção habilitados."
+    - "Versionamento operacional X.Y.Z e linha final obrigatória configurados."
+    - "Estado do benchmark migrado sem perder o retorno já publicado pela IA local."
+    - "Fontes antigas de protocolo, papéis, executor local e templates concorrentes removidas."
+
+validations:
+  executed:
+    - "Revisão dos arquivos atuais da governança na feature branch."
+    - "Comparação da estrutura antiga com a ordem nova fornecida pelo usuário."
+    - "Revisão integral do conteúdo criado e atualizado."
+  passed:
+    - "Estrutura central criada."
+    - "Workflow contém templates de versão para local, auditor e autora remota."
+    - "STATUS.yml do benchmark preserva resultados, indisponibilidades e próximo passo."
+  failed: []
+  unavailable:
+    - "Validações locais de filesystem e comandos do projeto não foram executadas pelo autor remoto."
+
+audit:
+  findings: []
+  decision: "APPROVED"
+
+blockers: []
+
+next:
+  action: "Usar a nova governança em todas as respostas operacionais e auditar o retorno dos Gates 0 e 1."
+  role: "remote_author"
