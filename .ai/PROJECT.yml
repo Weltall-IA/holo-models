@@ -60,7 +60,8 @@ paths:
     - "local caches"
 
 commands:
-  setup: []
+  setup:
+    - "<python-interpreter> -m pip install -r benchmark/embedding-v3/requirements-gate01.txt"
   format: []
   lint: []
   typecheck: []
