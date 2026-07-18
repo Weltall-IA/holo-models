@@ -1,0 +1,28 @@
+version: 1
+
+# Deixe exatamente um modo sem comentário.
+mode: dual
+#mode: remoto
+#mode: local
+
+actors:
+  autor_remoto: chatgpt
+  executor_local: agente-local
+  aprovador_final: humano
+
+source_of_truth: github
+base_branch: master
+
+policies:
+  require_feature_branch: true
+  require_pull_request: true
+  require_human_merge_approval: true
+  require_real_test_results: true
+  allow_force_push: false
+  allow_automatic_merge: false
+  allow_automatic_deploy: false
+  allow_automatic_model_publication: false
+  allow_automatic_model_removal: false
+  dual_remote_author_owns_project_edits: true
+  dual_local_executor_can_edit_project_files: false
+  dual_local_executor_can_edit_handoff_files: true
