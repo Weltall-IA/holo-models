@@ -23,11 +23,11 @@ scope:
 
 execution:
   stage: "1.1.1"
-  role: "remote_author"
-  state: "CORRECTED"
+  role: "local"
+  state: "EXECUTED"
 
 return:
-  title: "Correção da validação CUDA do Gate 0 com PyTorch"
+  title: "Reexecução do Gate 0 com validação CUDA pelo PyTorch"
 
 changes:
   files_changed:
@@ -57,11 +57,12 @@ validations:
 
 audit:
   findings:
-    - "Um Gate 0 não pode ser aprovado em uma máquina NVIDIA quando a validação CUDA pelo PyTorch e a alocação mínima não foram executadas."
-  decision: "REJECTED"
+    - "Retorno 1.1.1: Gate 0 reexecutado com PyTorch 2.13.0+cu130, CUDA 13.0, RTX 5060 Ti reconhecida, alocação mínima aprovada."
+    - "Gate 1 preservado: 30 obras, 600 chunks, 150 consultas, 35 itens aprovados, SHA-256 8e1b7a6d..."
+  decision: "PENDING"
 
 blockers: []
 
 next:
-  action: "Sincronizar a correção 1.1.1, instalar as dependências mínimas atualizadas no ambiente virtual Python 3.12 e repetir os testes e o Gate 0. O Gate 1 não precisa ser regenerado se seus hashes permanecerem inalterados."
-  role: "local"
+  action: "Auditar a reexecução do Gate 0 e confirmar a validade dos Gates 0 e 1."
+  role: "auditor"

@@ -1,8 +1,9 @@
 {
-  "gate_0": "SEE_GATE_0_REPORT",
-  "gate_1": "PASS",
+  "gate_0": "BLOCKED",
+  "gate_1": "PENDING",
   "gates_2_to_6": "BLOCKED_BY_DIRECTOR",
-  "corpus_version": "holo_fake_scenes_v3",
-  "combined_sha256": "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b",
-  "updated_at": "2026-07-18T19:45:16.875241+00:00"
+  "updated_at": "2026-07-18T21:35:16.886348+00:00",
+  "errors": [
+    "working tree possui alterações em arquivos rastreados"
+  ]
 }
