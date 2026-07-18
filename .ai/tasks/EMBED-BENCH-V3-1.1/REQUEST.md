@@ -56,7 +56,8 @@ A autorização permite apenas executar coletores e geradores versionados e pree
 ## Gate 0
 
 - confirmar checkout, branch, HEAD, `origin/master` e working tree;
-- criar `.venv` isolada com Python 3.11, salvo incompatibilidade comprovada;
+- criar `.venv` isolada com Python 3.12, cuja compatibilidade com as dependências dos Gates 0 e 1 foi comprovada no ambiente local;
+- não usar Python 3.14 nesta tarefa sem nova autorização;
 - instalar dependências autorizadas;
 - inventariar CPU, RAM, GPU, VRAM, driver, CUDA, kernel, Python, filesystem, espaço e bibliotecas;
 - validar CUDA no PyTorch e uma alocação mínima;
