@@ -8,84 +8,60 @@ task:
 scope:
   included:
     - "Testes do benchmark."
-    - "Gate 0 com inventário real do ambiente."
+    - "Gate 0 com inventário real do ambiente e validação CUDA pelo PyTorch."
     - "Gate 1 com geração, revisão semântica e congelamento do corpus."
     - "Python 3.12 em ambiente virtual isolado."
     - "Artefatos e evidências dos Gates 0 e 1."
   excluded:
     - "Python 3.14."
     - "Gates 2 a 6."
-    - "Download ou carregamento de modelos."
+    - "Download ou carregamento de modelos de embedding."
     - "Geração de embeddings."
     - "Chamadas à Voyage AI."
     - "Alteração de drivers, CUDA do sistema, Ollama ou serviços."
     - "Integração ao Holo, merge ou publicação de modelos."
 
 execution:
-  stage: "1.1.0"
-  role: "local"
-  state: "EXECUTED"
+  stage: "1.1.1"
+  role: "remote_author"
+  state: "CORRECTED"
 
 return:
-  title: "Execução dos Gates 0 e 1 do benchmark de embeddings com Python 3.12"
+  title: "Correção da validação CUDA do Gate 0 com PyTorch"
 
 changes:
   files_changed:
-    - "benchmark/embedding-v3/environment.json"
-    - "benchmark/embedding-v3/system_info.json"
-    - "benchmark/embedding-v3/requirements-resolved.txt"
-    - "benchmark/embedding-v3/GATE_0_REPORT.md"
-    - "benchmark/embedding-v3/GATE_1_REPORT.md"
-    - "benchmark/embedding-v3/DIRECTOR_BRIEF.md"
-    - "benchmark/embedding-v3/gate_status.json"
-    - "benchmark/embedding-v3/data/holo_fake_scenes_v3/corpus.jsonl"
-    - "benchmark/embedding-v3/data/holo_fake_scenes_v3/queries.jsonl"
-    - "benchmark/embedding-v3/data/holo_fake_scenes_v3/validation.json"
-    - "benchmark/embedding-v3/data/holo_fake_scenes_v3/semantic_review_checklist.json"
-    - "benchmark/embedding-v3/data/holo_fake_scenes_v3/semantic_review.json"
-    - "benchmark/embedding-v3/data/holo_fake_scenes_v3/hashes.json"
-    - ".ai/tasks/EMBED-BENCH-V3-1.1/EXECUTION.md"
+    - "benchmark/embedding-v3/requirements-gate01.txt"
+    - ".ai/PROJECT.yml"
     - ".ai/tasks/EMBED-BENCH-V3-1.1/STATUS.yml"
   summary:
-    - "Python 3.12.13 utilizado porque Python 3.11 não está disponível."
-    - "9 testes unitários executados e aprovados."
-    - "Gate 0 registrado como PASS pela execução local."
-    - "Gate 1 concluído com 30 obras, 600 chunks, 150 consultas e 35 itens revisados."
-    - "Corpus congelado com SHA-256 conjunto 8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b."
+    - "O retorno 1.1.0 foi rejeitado para o Gate 0 porque PyTorch e a alocação CUDA mínima não foram executados."
+    - "PyTorch foi incluído nas dependências mínimas dos Gates 0 e 1."
+    - "O comando de instalação das dependências mínimas foi registrado em PROJECT.yml."
+    - "Os resultados do Gate 1 permanecem preservados: 30 obras, 600 chunks, 150 consultas, 35 itens revisados e SHA-256 conjunto 8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b."
     - "Nenhum checkpoint foi baixado, nenhuma chamada à Voyage foi feita e nenhum embedding foi executado."
 
 validations:
   executed:
-    - "Compilação Python."
-    - "9 testes unitários."
-    - "Gate 0 em dry-run."
-    - "Gate 0 em execução real."
-    - "Gate 1 para geração do corpus candidato."
-    - "Revisão semântica de 35 itens."
-    - "Gate 1 com retomada e congelamento."
+    - "Revisão do retorno local 1.1.0."
+    - "Comparação do resultado do Gate 0 com o requisito de validação CUDA pelo PyTorch."
+    - "Revisão das dependências mínimas e dos comandos do projeto."
   passed:
-    - "Compilação Python."
-    - "9 de 9 testes unitários."
-    - "Gate 0 dry-run segundo a execução local."
-    - "Gate 0 real segundo a execução local."
-    - "30 obras fictícias."
-    - "600 chunks."
-    - "150 consultas."
-    - "35 de 35 itens da revisão semântica aprovados."
-    - "IDs, consultas, distribuição, negativos difíceis, idioma e limites de tokens validados."
-    - "Congelamento do corpus e geração dos hashes."
-  failed: []
+    - "Gate 1 e o corpus congelado não foram afetados pela correção."
+    - "A dependência torch foi adicionada ao requirements-gate01.txt."
+    - "PROJECT.yml passou a registrar a instalação das dependências mínimas."
+  failed:
+    - "Gate 0 do retorno 1.1.0: PyTorch não estava instalado, torch.cuda.is_available() não foi validado e a alocação CUDA mínima não foi executada."
   unavailable:
-    - "Python 3.11 não está disponível no sistema local."
-    - "Validação CUDA pelo PyTorch e alocação mínima não foram executadas porque torch não estava instalado."
+    - "A instalação do PyTorch e a nova execução CUDA dependem do ambiente local."
 
 audit:
   findings:
-    - "A execução local marcou o Gate 0 como PASS apesar de a validação CUDA pelo PyTorch e a alocação mínima não terem sido executadas; isso exige revisão antes da aprovação."
-  decision: "PENDING"
+    - "Um Gate 0 não pode ser aprovado em uma máquina NVIDIA quando a validação CUDA pelo PyTorch e a alocação mínima não foram executadas."
+  decision: "REJECTED"
 
 blockers: []
 
 next:
-  action: "Revisar os artefatos publicados, decidir a validade do Gate 0 e auditar o corpus congelado antes de qualquer avanço ao Gate 2."
-  role: "remote_author"
+  action: "Sincronizar a correção 1.1.1, instalar as dependências mínimas atualizadas no ambiente virtual Python 3.12 e repetir os testes e o Gate 0. O Gate 1 não precisa ser regenerado se seus hashes permanecerem inalterados."
+  role: "local"
