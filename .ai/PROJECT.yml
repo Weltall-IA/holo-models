@@ -1,0 +1,104 @@
+schema_version: 1
+
+project:
+  name: "holo-models"
+  repository: "Weltall-IA/holo-models"
+  description: "Governança, inventário, configuração e benchmarks reproduzíveis de modelos locais do Projeto Holo."
+  root: "."
+  default_branch: "master"
+
+technology:
+  languages:
+    - "Python"
+    - "YAML"
+    - "JSON"
+    - "Markdown"
+  frameworks: []
+  package_managers:
+    - "pip"
+  runtimes:
+    - "Python"
+    - "Ollama"
+    - "llama.cpp"
+  infrastructure:
+    - "GitHub"
+    - "NVIDIA CUDA"
+    - "bcachefs"
+
+paths:
+  source:
+    - "benchmark/embedding-v3/holo_benchmark"
+    - "benchmark/embedding-v3/benchmark.py"
+  tests:
+    - "benchmark/embedding-v3/tests"
+  documentation:
+    - "README.md"
+    - "docs"
+    - "LISTA_MODELOS.md"
+    - "LISTA_BLACKLIST.md"
+  configuration:
+    - ".ai"
+    - "benchmark/embedding-v3/config"
+    - "benchmark/embedding-v3/requirements-gate01.txt"
+    - "benchmark/embedding-v3/requirements-full.txt"
+  scripts:
+    - "benchmark/embedding-v3/benchmark.py"
+  generated:
+    - "benchmark/embedding-v3/environment.json"
+    - "benchmark/embedding-v3/system_info.json"
+    - "benchmark/embedding-v3/requirements-resolved.txt"
+    - "benchmark/embedding-v3/GATE_0_REPORT.md"
+    - "benchmark/embedding-v3/GATE_1_REPORT.md"
+    - "benchmark/embedding-v3/DIRECTOR_BRIEF.md"
+    - "benchmark/embedding-v3/gate_status.json"
+    - "benchmark/embedding-v3/data/holo_fake_scenes_v3"
+  sensitive:
+    - ".env"
+    - "**/secrets"
+    - "**/credentials"
+    - "model weights"
+    - "local caches"
+
+commands:
+  setup: []
+  format: []
+  lint: []
+  typecheck: []
+  test:
+    - "<python-interpreter> -m unittest discover -s benchmark/embedding-v3/tests -v"
+  build: []
+  validate:
+    - "<python-interpreter> -m compileall -q benchmark/embedding-v3"
+    - "<python-interpreter> benchmark/embedding-v3/benchmark.py --gate 0 --dry-run --skip-api"
+    - "<python-interpreter> benchmark/embedding-v3/benchmark.py --gate 0 --skip-api"
+    - "<python-interpreter> benchmark/embedding-v3/benchmark.py --gate 1 --skip-api"
+    - "<python-interpreter> benchmark/embedding-v3/benchmark.py --gate 1 --resume --skip-api"
+
+environment:
+  required_tools:
+    - "git"
+  optional_tools:
+    - "nvidia-smi"
+    - "nvcc"
+    - "Ollama"
+    - "llama.cpp"
+  required_variables: []
+
+constraints:
+  generated_files:
+    - "Arquivos listados em paths.generated só devem ser atualizados por execução real dos coletores e geradores correspondentes."
+    - "Pesos, caches, ambientes virtuais e resultados brutos volumosos permanecem fora do Git."
+  forbidden_changes:
+    - "Não versionar pesos de modelos, caches, bancos, tokens, chaves ou credenciais."
+    - "Não alterar diretamente a branch master."
+    - "Não usar force push."
+    - "Não fazer merge, deploy, publicação ou remoção de modelos sem autorização humana."
+    - "Não inventar resultados de testes, benchmarks, versões ou hashes."
+  project_specific:
+    - "Modelos devem permanecer em uma única categoria canônica: text, audio, video, image ou embed."
+    - "Não duplicar pesos entre categorias."
+    - "Criar Modelfile e registrar no Ollama somente quando houver compatibilidade real."
+    - "Reflink bcachefs exige mesma filesystem, verificação do blob e substituição atômica."
+    - "Não alterar corpus congelado para favorecer um modelo."
+    - "Não executar gate posterior nem chamar API paga sem autorização explícita."
+    - "Resultados de benchmark devem identificar modelo, revisão, backend, dimensão, dtype, normalização e hardware."
