@@ -1,0 +1,22 @@
+[Unit]
+Description=Vane native SearXNG backend
+Wants=network-online.target
+After=network-online.target
+ConditionPathIsExecutable=/home/alpha/Playstoria/models/runtime/vane-comparison/native-stack/searxng-venv/bin/python
+ConditionPathExists=/home/alpha/Playstoria/models/runtime/vane-comparison/native-stack/searxng-settings.yml
+
+[Service]
+Type=simple
+WorkingDirectory=/home/alpha/Playstoria/models/runtime/vane-comparison/native-stack/searxng
+Environment="SEARXNG_SETTINGS_PATH=/home/alpha/Playstoria/models/runtime/vane-comparison/native-stack/searxng-settings.yml"
+Environment="FLASK_APP=searx.webapp.py"
+Environment="PYTHONUNBUFFERED=1"
+Environment="PYTHONDONTWRITEBYTECODE=1"
+ExecStart=/home/alpha/Playstoria/models/runtime/vane-comparison/native-stack/searxng-venv/bin/python -m flask run --host=127.0.0.1 --port=8082
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=30
+KillSignal=SIGTERM
+
+[Install]
+WantedBy=default.target

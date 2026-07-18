@@ -1,0 +1,11 @@
+modelo,funcao,arquivo,caminho_canonico,tamanho,sha256,origem,oficial,status,data_consolidacao
+APISR RRDB GAN,upscaler 2x,2x_APISR_RRDB_GAN_generator.pth,,17960938,3b0d2b3a3c0461ac17d00f4f32240666fb832b738ea5a48449b1acf07fbb07e5,oficial (GitHub APISR),,ativo,
+FBCNN color,deblur facial,fbcnn_color.pth,,287755111,8b0e4ef23d59cf7ac934a342cb31a17619e4fa4a0b3374a9d78c5174312387e8,oficial (GitHub FBCNN),,arquivado,
+SwinIR CAR JPEG40,deblocking JPEG q40,006_colorCAR_DFWB_s126w7_SwinIR-M_jpeg40.pth,,102873665,265c18d8809aaca0cd97a6283bee0ed1883ab88395e456381264cac2bb7b5867,oficial (GitHub SwinIR),,arquivado,
+NAFNet SIDD width64,denoise,NAFNet-SIDD-width64.pth,,464154961,cd685efaae01f7c4e9951f2deab05780079c8eb1e49ed664b72f6db04dabb445,oficial (GitHub NAFNet),,arquivado,
+NAFNet GoPro width64,deblur,NAFNet-GoPro-width64.pth,,271778961,329d3ab4077b8d6b7ff61de376e483714667960bf85be027bf4335cda701196f,oficial (GitHub NAFNet),,arquivado,
+Restormer real denoising,denoise real,real_denoising.pth,,104611957,4cae18bed8a291b9a5deeeab48756bbe6f61fcf7f31a4cca0969b24608601387,oficial (GitHub Restormer),,arquivado,
+Restormer motion deblurring,deblur motion,motion_deblurring.pth,,104700429,194e38fb5b607c9dc5a5b3e08e65b2e79ee2bf0ef5048e0612f6b2ff2f79da31,oficial (GitHub Restormer),,arquivado,
+CODiff cave,restauracao por difusao,cave.pth,,299686168,d49ef67568ffc9c22123eea934d37f1ceccb460f276455ec379bb6942408840b,oficial (GitHub CODiff),,arquivado,
+CODiff codiff,config/auxiliar CODiff,codiff.pkl,,73199101,24607778dce971037cd4a013bbcba8475b02a29d5204a210a27e4996af19692b,oficial (GitHub CODiff),,arquivado,
+Stable Diffusion 2.1 UNet,base UNet difusao,diffusion_pytorch_model.safetensors,,3463726498,6dfae3e5f7d459b50f4b0850ead945972c75bb0e1897628933e169eb43974214,espelho validado (TVT bundle),,arquivado,

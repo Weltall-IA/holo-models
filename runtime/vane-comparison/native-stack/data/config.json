@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "setupComplete": true,
+  "preferences": {},
+  "personalization": {},
+  "modelProviders": [
+    {
+      "id": "3f0d6d7d-597f-4cda-990f-c8e58baa2ab0",
+      "name": "Transformers",
+      "type": "transformers",
+      "chatModels": [],
+      "embeddingModels": [],
+      "config": {},
+      "hash": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "id": "ba513476-be90-4300-9791-ac6569ee564b",
+      "name": "Ollama Local",
+      "type": "ollama",
+      "config": {
+        "baseURL": "http://127.0.0.1:11434"
+      },
+      "chatModels": [],
+      "embeddingModels": [
+        {
+          "name": "qwen3-embedding:0.6b",
+          "key": "qwen3-embedding:0.6b"
+        }
+      ],
+      "hash": "b63b7340a79ce35c15380dc7f1ede6b9855d1dc47416569d21f712dd9e73da66"
+    }
+  ],
+  "search": {
+    "searxngURL": "http://127.0.0.1:8082"
+  }
+}

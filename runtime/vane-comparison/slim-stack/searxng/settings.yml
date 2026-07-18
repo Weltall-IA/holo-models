@@ -1,0 +1,11 @@
+use_default_settings: true
+general:
+  instance_name: "SearXNG Vane Comparison"
+search:
+  formats:
+    - html
+    - json
+server:
+  bind_address: "0.0.0.0"
+  port: 8080
+  secret_key: "e716c807a265c3d97617b543f14da6d0ba11384240df926446cbb16a6357d8f7"

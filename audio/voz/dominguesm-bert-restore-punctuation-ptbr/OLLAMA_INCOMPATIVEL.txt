@@ -1,0 +1,22 @@
+Modelo NÃO registrado no Ollama (modelblob 2026-07-10).
+
+Motivo (ollama create):
+[?2026h[?25l[1Ggathering model components ⠙ [K[?25h[?2026l[?2026h[?25l[1Ggathering model components ⠹ [K[?25h[?2026l[?2026h[?25l[1Ggathering model components ⠸ [K[?25h[?2026l[?2026h[?25l[1Ggathering model components ⠼ [K[?25h[?2026l[?2026h[?25l[1Ggathering model components ⠴ [K[?25h[?2026l[?2026h[?25l[1Ggathering model components ⠴ [K[?25h[?2026l[?2026h[?25l[1Ggathering model components ⠧ [K[?25h[?2026l[?2026h[?25l[1Ggathering model components ⠧ [K[?25h[?2026l[?2026h[?25l[1Ggathering model components ⠇ [K[?25h[?2026l[?2026h[?25l[1Ggathering model components ⠏ [K[?25h[?2026l[?2026h[?25l[1Ggathering model components [K
+copying file sha256:ca90fbb4517eb1a3c605cb8f7df68a93a5172c51d8b1a01f7afafcd0af94c7ab 0% ⠋ [K[?25h[?2026l[?2026h[?25l[A[1Ggathering model components [K
+copying file sha256:ca90fbb4517eb1a3c605cb8f7df68a93a5172c51d8b1a01f7afafcd0af94c7ab 8% ⠙ [K[?25h[?2026l[?2026h[?25l[A[1Ggathering model components [K
+copying file sha256:ca90fbb4517eb1a3c605cb8f7df68a93a5172c51d8b1a01f7afafcd0af94c7ab 26% ⠹ [K[?25h[?2026l[?2026h[?25l[A[1Ggathering model components [K
+copying file sha256:ca90fbb4517eb1a3c605cb8f7df68a93a5172c51d8b1a01f7afafcd0af94c7ab 37% ⠸ [K[?25h[?2026l[?2026h[?25l[A[1Ggathering model components [K
+copying file sha256:ca90fbb4517eb1a3c605cb8f7df68a93a5172c51d8b1a01f7afafcd0af94c7ab 41% ⠼ [K[?25h[?2026l[?2026h[?25l[A[1Ggathering model components [K
+copying file sha256:ca90fbb4517eb1a3c605cb8f7df68a93a5172c51d8b1a01f7afafcd0af94c7ab 51% ⠴ [K[?25h[?2026l[?2026h[?25l[A[1Ggathering model components [K
+copying file sha256:ca90fbb4517eb1a3c605cb8f7df68a93a5172c51d8b1a01f7afafcd0af94c7ab 61% ⠦ [K[?25h[?2026l[?2026h[?25l[A[1Ggathering model components [K
+copying file sha256:ca90fbb4517eb1a3c605cb8f7df68a93a5172c51d8b1a01f7afafcd0af94c7ab 67% ⠧ [K[?25h[?2026l[?2026h[?25l[A[1Ggathering model components [K
+copying file sha256:ca90fbb4517eb1a3c605cb8f7df68a93a5172c51d8b1a01f7afafcd0af94c7ab 77% ⠇ [K[?25h[?2026l[?2026h[?25l[A[1Ggathering model components [K
+copying file sha256:ca90fbb4517eb1a3c605cb8f7df68a93a5172c51d8b1a01f7afafcd0af94c7ab 87% ⠏ [K[?25h[?2026l[?2026h[?25l[A[1Ggathering model components [K
+copying file sha256:ca90fbb4517eb1a3c605cb8f7df68a93a5172c51d8b1a01f7afafcd0af94c7ab 100% [K[?25h[?2026l[?2026h[?25l[A[1Ggathering model components [K
+copying file sha256:ca90fbb4517eb1a3c605cb8f7df68a93a5172c51d8b1a01f7afafcd0af94c7ab 100% [K
+converting model [K[?25h[?2026l
+Error: open config.json: no such file or directory
+
+Fallback: usar via transformers/llama.cpp (não via Ollama).
+O Modelfile permanece para uso direto fora do Ollama.
+Após resolver, rode 'modelblob clean-orphans' para remover blobs órfãos.

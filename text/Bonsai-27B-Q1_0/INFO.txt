@@ -1,0 +1,1 @@
+Bonsai-27B-dspark-Q4_1.gguf tem aproximadamente 1,79 GB, mas não é o modelo principal. É um modelo auxiliar de speculative decoding, usado para tentar gerar tokens mais rapidamente. Você continua precisando do Q1_0.

@@ -1,0 +1,62 @@
+# Ignore all files by default
+*
+
+# Allow directories (needed for traversal)
+!*/
+
+# Allow tracked extensions only
+!*.gitignore
+!*.md
+!*.py
+!*.txt
+!*.json
+!*.yml
+!*.yaml
+!*.sh
+!*.service
+!*.socket
+!*.jinja
+!*.csv
+!*.png
+!*.jpg
+!*.svg
+!*.toml
+!*.cfg
+!*.conf
+
+# Secrets - explicit block regardless of extension whitelist
+.hf_token
+.env
+.env.*
+*.env
+*.secret
+*.key
+*.pem
+**/secrets/
+**/credentials/
+**/private_key*
+
+# Tokenizer files - too large to version
+**/tokenizer.json
+
+# Benchmark results - regeneratable
+benchmarks/
+
+# Database files - application state, not versioned
+**/*.sqlite
+**/*.sqlite3
+**/_data/
+
+# Runtime - code, dependencies, build output
+runtime/vane-comparison/native-stack/node-v24.5.0-linux-x64/
+runtime/vane-comparison/native-stack/vane/
+runtime/vane-comparison/native-stack/searxng/
+runtime/vane-comparison/native-stack/searxng-venv/
+runtime/vane-comparison/native-stack/playwright-browsers/
+runtime/vane-comparison/native-stack/downloads/
+runtime/vane-comparison/native-stack/data/db.sqlite
+runtime/vane-comparison/native-stack/logs/
+runtime/vane-comparison/slimtoolkit/
+
+# Standalone model dirs - various formats
+standalone/

@@ -1,0 +1,53 @@
+networks:
+  vane-slim-comparison-net:
+    name: vane-slim-comparison-net
+    driver: bridge
+
+volumes:
+  vane-slim-comparison-data:
+    name: vane-slim-comparison-data
+  searxng-vane-comparison-cache:
+    name: searxng-vane-comparison-cache
+
+services:
+  searxng:
+    image: searxng/searxng@sha256:04ddbd037d72775540527eb41f03f0cb30827bc69b91b2fe209346bf7d330179
+    container_name: searxng-vane-comparison
+    networks:
+      - vane-slim-comparison-net
+    ports: []
+    volumes:
+      - type: bind
+        source: ./searxng/settings.yml
+        target: /etc/searxng/settings.yml
+        read_only: true
+      - searxng-vane-comparison-cache:/var/cache/searxng
+    restart: "no"
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import http.client, sys; r=http.client.HTTPConnection('localhost',8080); r.request('GET','/'); resp=r.getresponse(); sys.exit(0 if resp.status<400 else 1)\""]
+      interval: 10s
+      timeout: 10s
+      retries: 12
+      start_period: 30s
+
+  vane:
+    image: itzcrazykns1337/vane@sha256:aaf9da6bf76f01480c3e755388421029982e819773cbcecdcf0e9621a10e0690
+    container_name: vane-slim-official
+    networks:
+      - vane-slim-comparison-net
+    ports:
+      - "127.0.0.1:3001:3000"
+    volumes:
+      - vane-slim-comparison-data:/home/vane/data
+    environment:
+      - SEARXNG_API_URL=http://searxng-vane-comparison:8080
+    restart: "no"
+    depends_on:
+      searxng:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000/', r => { process.exit(r.statusCode >= 200 && r.statusCode < 400 ? 0 : 1) }).on('error', () => process.exit(1))"]
+      interval: 10s
+      timeout: 10s
+      retries: 12
+      start_period: 30s

@@ -1,0 +1,112 @@
+[
+  {
+    "arquivo": "2x_APISR_RRDB_GAN_generator.pth",
+    "caminho": "/home/alpha/Playstoria/models/biblioteca-restauracao/ativo/full-restore/apisr-rrdb-gan/2x_APISR_RRDB_GAN_generator.pth",
+    "tamanho": 17960938,
+    "sha256": "3b0d2b3a3c0461ac17d00f4f32240666fb832b738ea5a48449b1acf07fbb07e5",
+    "modelo": "APISR RRDB GAN",
+    "funcao": "upscaler 2x",
+    "status": "ativo",
+    "origem": "oficial (GitHub APISR)",
+    "data": "2026-07-14"
+  },
+  {
+    "arquivo": "fbcnn_color.pth",
+    "caminho": "/home/alpha/Playstoria/models/biblioteca-restauracao/arquivo/fbcnn/fbcnn_color.pth",
+    "tamanho": 287755111,
+    "sha256": "8b0e4ef23d59cf7ac934a342cb31a17619e4fa4a0b3374a9d78c5174312387e8",
+    "modelo": "FBCNN color",
+    "funcao": "deblur facial",
+    "status": "arquivado",
+    "origem": "oficial (GitHub FBCNN)",
+    "data": "2026-07-14"
+  },
+  {
+    "arquivo": "006_colorCAR_DFWB_s126w7_SwinIR-M_jpeg40.pth",
+    "caminho": "/home/alpha/Playstoria/models/biblioteca-restauracao/arquivo/swinir/006_colorCAR_DFWB_s126w7_SwinIR-M_jpeg40.pth",
+    "tamanho": 102873665,
+    "sha256": "265c18d8809aaca0cd97a6283bee0ed1883ab88395e456381264cac2bb7b5867",
+    "modelo": "SwinIR CAR JPEG40",
+    "funcao": "deblocking JPEG q40",
+    "status": "arquivado",
+    "origem": "oficial (GitHub SwinIR)",
+    "data": "2026-07-14"
+  },
+  {
+    "arquivo": "NAFNet-SIDD-width64.pth",
+    "caminho": "/home/alpha/Playstoria/models/biblioteca-restauracao/arquivo/nafnet/NAFNet-SIDD-width64.pth",
+    "tamanho": 464154961,
+    "sha256": "cd685efaae01f7c4e9951f2deab05780079c8eb1e49ed664b72f6db04dabb445",
+    "modelo": "NAFNet SIDD width64",
+    "funcao": "denoise",
+    "status": "arquivado",
+    "origem": "oficial (GitHub NAFNet)",
+    "data": "2026-07-14"
+  },
+  {
+    "arquivo": "NAFNet-GoPro-width64.pth",
+    "caminho": "/home/alpha/Playstoria/models/biblioteca-restauracao/arquivo/nafnet/NAFNet-GoPro-width64.pth",
+    "tamanho": 271778961,
+    "sha256": "329d3ab4077b8d6b7ff61de376e483714667960bf85be027bf4335cda701196f",
+    "modelo": "NAFNet GoPro width64",
+    "funcao": "deblur",
+    "status": "arquivado",
+    "origem": "oficial (GitHub NAFNet)",
+    "data": "2026-07-14"
+  },
+  {
+    "arquivo": "real_denoising.pth",
+    "caminho": "/home/alpha/Playstoria/models/biblioteca-restauracao/arquivo/restormer/real_denoising.pth",
+    "tamanho": 104611957,
+    "sha256": "4cae18bed8a291b9a5deeeab48756bbe6f61fcf7f31a4cca0969b24608601387",
+    "modelo": "Restormer real denoising",
+    "funcao": "denoise real",
+    "status": "arquivado",
+    "origem": "oficial (GitHub Restormer)",
+    "data": "2026-07-14"
+  },
+  {
+    "arquivo": "motion_deblurring.pth",
+    "caminho": "/home/alpha/Playstoria/models/biblioteca-restauracao/arquivo/restormer/motion_deblurring.pth",
+    "tamanho": 104700429,
+    "sha256": "194e38fb5b607c9dc5a5b3e08e65b2e79ee2bf0ef5048e0612f6b2ff2f79da31",
+    "modelo": "Restormer motion deblurring",
+    "funcao": "deblur motion",
+    "status": "arquivado",
+    "origem": "oficial (GitHub Restormer)",
+    "data": "2026-07-14"
+  },
+  {
+    "arquivo": "cave.pth",
+    "caminho": "/home/alpha/Playstoria/models/biblioteca-restauracao/arquivo/codiff/cave.pth",
+    "tamanho": 299686168,
+    "sha256": "d49ef67568ffc9c22123eea934d37f1ceccb460f276455ec379bb6942408840b",
+    "modelo": "CODiff cave",
+    "funcao": "restauracao por difusao",
+    "status": "arquivado",
+    "origem": "oficial (GitHub CODiff)",
+    "data": "2026-07-14"
+  },
+  {
+    "arquivo": "codiff.pkl",
+    "caminho": "/home/alpha/Playstoria/models/biblioteca-restauracao/arquivo/codiff/codiff.pkl",
+    "tamanho": 73199101,
+    "sha256": "24607778dce971037cd4a013bbcba8475b02a29d5204a210a27e4996af19692b",
+    "modelo": "CODiff codiff",
+    "funcao": "config/auxiliar CODiff",
+    "status": "arquivado",
+    "origem": "oficial (GitHub CODiff)",
+    "data": "2026-07-14"
+  },
+  {
+    "arquivo": "diffusion_pytorch_model.safetensors",
+    "caminho": "/home/alpha/Playstoria/models/biblioteca-restauracao/arquivo/sd21/unet/diffusion_pytorch_model.safetensors",
+    "tamanho": 3463726498,
+    "sha256": "6dfae3e5f7d459b50f4b0850ead945972c75bb0e1897628933e169eb43974214",
+    "modelo": "Stable Diffusion 2.1 UNet",
+    "funcao": "base UNet difusao",
+    "status": "arquivado",
+    "origem": "espelho validado (TVT bundle)",
+    "data": "2026-07-14"
+  }
+]

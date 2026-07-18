@@ -1,0 +1,19 @@
+use_default_settings: true
+
+general:
+  instance_name: 'SearXNG Vane Native Comparison'
+
+search:
+  autocomplete: 'google'
+  formats:
+    - html
+    - json
+
+server:
+  bind_address: '127.0.0.1'
+  port: 8082
+  secret_key: '32564d3380dbc07e014c636942971bcc7d9cbaf410126d6ecab3d635bc8c1772'
+
+engines:
+  - name: wolframalpha
+    disabled: false

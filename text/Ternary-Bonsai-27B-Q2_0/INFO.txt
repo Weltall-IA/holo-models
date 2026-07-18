@@ -1,0 +1,1 @@
+Ternary-Bonsai-27B-dspark-Q4_1.gguf é o modelo auxiliar de speculative decoding. Você continua precisando do Q2_0 como modelo principal.

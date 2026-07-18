@@ -1,0 +1,25 @@
+[Unit]
+Description=Vane native application
+Wants=network-online.target
+After=network-online.target vane-native-searxng.service
+Requires=vane-native-searxng.service
+ConditionPathIsExecutable=/home/alpha/Playstoria/models/runtime/vane-comparison/native-stack/vane/node_modules/.bin/next
+ConditionPathExists=/home/alpha/Playstoria/models/runtime/vane-comparison/native-stack/vane/.next/BUILD_ID
+ConditionPathExists=/home/alpha/Playstoria/models/runtime/vane-comparison/native-stack/drizzle
+
+[Service]
+Type=simple
+WorkingDirectory=/home/alpha/Playstoria/models/runtime/vane-comparison/native-stack/vane
+Environment="DATA_DIR=/home/alpha/Playstoria/models/runtime/vane-comparison/native-stack"
+Environment="SEARXNG_API_URL=http://127.0.0.1:8082"
+Environment="PLAYWRIGHT_BROWSERS_PATH=/home/alpha/Playstoria/models/runtime/vane-comparison/native-stack/playwright-browsers"
+Environment="PATH=/home/alpha/Playstoria/models/runtime/vane-comparison/native-stack/node-v24.5.0-linux-x64/bin:/usr/local/sbin:/usr/local/bin:/usr/bin"
+Environment="NODE_ENV=production"
+ExecStart=/home/alpha/Playstoria/models/runtime/vane-comparison/native-stack/vane/node_modules/.bin/next start -H 127.0.0.1 -p 3000
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=30
+KillSignal=SIGTERM
+
+[Install]
+WantedBy=default.target
