@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0",
+  "models": [
+    {"id":"embeddinggemma","repo":"google/embeddinggemma-300m","kind":"embedding","dimension":768,"backend":"sentence-transformers","gate":2,"trust_remote_code":false,"enabled":true},
+    {"id":"gte_multilingual_base","repo":"Alibaba-NLP/gte-multilingual-base","kind":"embedding","dimension":768,"backend":"sentence-transformers","gate":2,"trust_remote_code":true,"enabled":true},
+    {"id":"qwen3_embedding_06","repo":"Qwen/Qwen3-Embedding-0.6B","kind":"embedding","dimension":1024,"backend":"sentence-transformers","gate":2,"trust_remote_code":false,"enabled":true},
+    {"id":"bge_m3_dense","repo":"BAAI/bge-m3","kind":"embedding","dimension":1024,"backend":"sentence-transformers-or-FlagEmbedding","gate":2,"trust_remote_code":false,"enabled":true,"mode":"dense_only"},
+    {"id":"voyage4_nano","repo":"voyageai/voyage-4-nano","kind":"embedding","dimension":1024,"backend":"sentence-transformers","gate":2,"trust_remote_code":true,"enabled":true},
+    {"id":"qwen3_embedding_8b_gguf","repo":"Qwen/Qwen3-Embedding-8B-GGUF","file":"Qwen3-Embedding-8B-Q8_0.gguf","fallback_file":"Qwen3-Embedding-8B-Q6_K.gguf","kind":"embedding","dimension":1024,"native_dimension":4096,"backend":"llama.cpp","gate":3,"enabled":true},
+    {"id":"embeddinggemma_gguf","repo":"ggml-org/embeddinggemma-300M-GGUF","file":"embeddinggemma-300M-Q8_0.gguf","kind":"embedding","dimension":768,"backend":"llama.cpp","gate":3,"enabled":true},
+    {"id":"qwen3_embedding_06_gguf","repo":"Qwen/Qwen3-Embedding-0.6B-GGUF","file":"Qwen3-Embedding-0.6B-Q8_0.gguf","kind":"embedding","dimension":1024,"backend":"llama.cpp","gate":3,"enabled":true},
+    {"id":"qwen3_reranker_06","repo":"Qwen/Qwen3-Reranker-0.6B","kind":"reranker","backend":"transformers","gate":5,"enabled":true},
+    {"id":"bitnet_270m","repo":"microsoft/bitnet-embedding-270m","kind":"embedding","gate":null,"enabled":false,"reason":"qualidade multilíngue oficial insuficientemente comprovada"},
+    {"id":"bitnet_06b","repo":"microsoft/bitnet-embedding-0.6b","kind":"embedding","gate":null,"enabled":false,"reason":"qualidade multilíngue oficial insuficientemente comprovada"},
+    {"id":"qwen3_embedding_4b","repo":"Qwen/Qwen3-Embedding-4B","kind":"embedding","gate":null,"enabled":false,"reason":"somente se houver lacuna operacional entre 0.6B e 8B"}
+  ]
+}
