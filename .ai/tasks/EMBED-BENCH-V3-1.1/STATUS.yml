@@ -23,46 +23,52 @@ scope:
 
 execution:
   stage: "1.1.1"
-  role: "local"
-  state: "EXECUTED"
+  role: "auditor"
+  state: "REJECTED"
 
 return:
-  title: "Reexecução do Gate 0 com validação CUDA pelo PyTorch"
+  title: "Auditoria da reexecução do Gate 0 com validação CUDA pelo PyTorch"
 
 changes:
   files_changed:
-    - "benchmark/embedding-v3/requirements-gate01.txt"
-    - ".ai/PROJECT.yml"
     - ".ai/tasks/EMBED-BENCH-V3-1.1/STATUS.yml"
   summary:
-    - "O retorno 1.1.0 foi rejeitado para o Gate 0 porque PyTorch e a alocação CUDA mínima não foram executados."
-    - "PyTorch foi incluído nas dependências mínimas dos Gates 0 e 1."
-    - "O comando de instalação das dependências mínimas foi registrado em PROJECT.yml."
-    - "Os resultados do Gate 1 permanecem preservados: 30 obras, 600 chunks, 150 consultas, 35 itens revisados e SHA-256 conjunto 8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b."
-    - "Nenhum checkpoint foi baixado, nenhuma chamada à Voyage foi feita e nenhum embedding foi executado."
+    - "O commit cff571f05c5561304f7926190dacfdd609a3c65f foi auditado."
+    - "PyTorch 2.13.0+cu130 foi importado, CUDA 13.0 ficou disponível, a RTX 5060 Ti foi reconhecida e a alocação mínima foi aprovada."
+    - "O próprio GATE_0_REPORT.md publicou resultado BLOCKED porque havia alterações em arquivos rastreados."
+    - "gate_status.json publicou gate_0 BLOCKED e gate_1 PENDING, divergindo do retorno local que declarou ambos aprovados ou preservados."
+    - "O Gate 1 permanece preservado pelo hash conjunto 8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b e por 35 revisões semânticas aprovadas."
 
 validations:
   executed:
-    - "Revisão do retorno local 1.1.0."
-    - "Comparação do resultado do Gate 0 com o requisito de validação CUDA pelo PyTorch."
-    - "Revisão das dependências mínimas e dos comandos do projeto."
+    - "Inspeção do commit cff571f05c5561304f7926190dacfdd609a3c65f e de seu diff."
+    - "Revisão de GATE_0_REPORT.md."
+    - "Revisão de gate_status.json."
+    - "Revisão de environment.json e system_info.json."
+    - "Revisão de requirements-resolved.txt."
+    - "Conferência de hashes.json do Gate 1."
   passed:
-    - "Gate 1 e o corpus congelado não foram afetados pela correção."
-    - "A dependência torch foi adicionada ao requirements-gate01.txt."
-    - "PROJECT.yml passou a registrar a instalação das dependências mínimas."
+    - "PyTorch 2.13.0+cu130 importado."
+    - "torch.cuda.is_available() verdadeiro."
+    - "NVIDIA GeForce RTX 5060 Ti reconhecida pelo PyTorch."
+    - "Alocação CUDA mínima executada e aprovada."
+    - "Hash conjunto e revisão semântica do Gate 1 preservados."
   failed:
-    - "Gate 0 do retorno 1.1.0: PyTorch não estava instalado, torch.cuda.is_available() não foi validado e a alocação CUDA mínima não foi executada."
+    - "Gate 0 do retorno 1.1.1: GATE_0_REPORT.md registrou BLOCKED por alterações em arquivos rastreados."
+    - "gate_status.json registrou gate_0 BLOCKED e gate_1 PENDING."
+    - "O resumo enviado pela IA local declarou Gate 0 PASS e Gate 1 preservado, mas os artefatos versionados não sustentam essa conclusão."
   unavailable:
-    - "A instalação do PyTorch e a nova execução CUDA dependem do ambiente local."
+    - "Os comandos locais não foram reexecutados pela IA auditora; a auditoria utilizou os artefatos e o commit publicados."
 
 audit:
   findings:
-    - "Retorno 1.1.1: Gate 0 reexecutado com PyTorch 2.13.0+cu130, CUDA 13.0, RTX 5060 Ti reconhecida, alocação mínima aprovada."
-    - "Gate 1 preservado: 30 obras, 600 chunks, 150 consultas, 35 itens aprovados, SHA-256 8e1b7a6d..."
-  decision: "PENDING"
+    - "O dry-run regenera arquivos de saída rastreados; a execução real subsequente interpreta essas próprias saídas como dirty working tree e bloqueia o Gate 0."
+    - "A correção deve ignorar somente os arquivos de saída gerados pelo próprio Gate 0, mantendo bloqueio para quaisquer outras alterações rastreadas."
+    - "A correção deve adicionar teste de regressão para a sequência dry-run seguida de execução real e preservar o teste que bloqueia alterações rastreadas fora dos caminhos gerados."
+  decision: "REJECTED"
 
 blockers: []
 
 next:
-  action: "Auditar a reexecução do Gate 0 e confirmar a validade dos Gates 0 e 1."
-  role: "auditor"
+  action: "Executar o patch 1.1.2: corrigir a verificação de working tree do Gate 0 para desconsiderar somente suas saídas geradas, adicionar testes de regressão, repetir compilação, testes, dry-run e Gate 0 real, atualizar STATUS.yml e publicar o retorno. Não regenerar o Gate 1 quando os hashes permanecerem inalterados."
+  role: "local"
