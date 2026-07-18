@@ -1,0 +1,130 @@
+{
+  "schema_version": "1.0",
+  "created_at": "2026-07-18T19:44:39.889960+00:00",
+  "repo_root": "/home/alpha/Playstoria/models",
+  "project_root": "/home/alpha/Playstoria/models/benchmark/embedding-v3",
+  "voyage_api_key_present": false,
+  "huggingface_token_present": false,
+  "packages": {
+    "torch": null,
+    "transformers": null,
+    "sentence-transformers": null,
+    "accelerate": null,
+    "safetensors": null,
+    "huggingface-hub": null,
+    "FlagEmbedding": null,
+    "voyageai": null,
+    "numpy": null,
+    "scipy": null,
+    "pandas": null,
+    "pyarrow": null,
+    "psutil": "7.2.2",
+    "pydantic": "2.13.4",
+    "orjson": "3.11.9",
+    "tqdm": null,
+    "rich": "15.0.0",
+    "pynvml": "13.0.1"
+  },
+  "task_status": {
+    "task_id": "EMBED-BENCH-V3-1.1",
+    "mode": "dual",
+    "branch": "ai/embedding-benchmark-v3",
+    "base_branch": "master",
+    "commit_base": "9e22f36d690e9cae5c27ca0e60fe4fd4858edf84",
+    "expected_head": "PENDING_STATUS_COMMIT",
+    "payload_head": "e2df11b13f3ffd6c0d3211452dd6758cf6e821d5",
+    "status": "pronto-para-execucao-local",
+    "turn": "executor-local",
+    "last_actor": "autor-remoto",
+    "allow_local_project_edits": "true",
+    "allowed_local_edit_paths": "",
+    "allowed_runtime_write_paths": "",
+    "executor_preflight": "",
+    "blocked_reason": "null",
+    "revision_note": "autorizado Python 3.12 após ausência do Python 3.11 e compatibilidade comprovada para os Gates 0 e 1; Python 3.14 permanece fora do escopo",
+    "updated_at": "2026-07-18T16:43:31-03:00"
+  },
+  "commands": {
+    "git_status": {
+      "args": [
+        "git",
+        "-C",
+        "/home/alpha/Playstoria/models",
+        "status",
+        "--short",
+        "--untracked-files=no"
+      ],
+      "returncode": 0,
+      "duration_seconds": 0.0034,
+      "stdout": "",
+      "stderr": ""
+    },
+    "git_untracked": {
+      "args": [
+        "git",
+        "-C",
+        "/home/alpha/Playstoria/models",
+        "ls-files",
+        "--others",
+        "--exclude-standard"
+      ],
+      "returncode": 0,
+      "duration_seconds": 0.0061,
+      "stdout": "benchmark/embedding-v3/GATE_0_REPORT.md\nbenchmark/embedding-v3/environment.json\nbenchmark/embedding-v3/gate_status.json\nbenchmark/embedding-v3/requirements-resolved.txt\nbenchmark/embedding-v3/system_info.json\nruntime/vane-native-ops/",
+      "stderr": ""
+    },
+    "git_branch": {
+      "args": [
+        "git",
+        "-C",
+        "/home/alpha/Playstoria/models",
+        "branch",
+        "--show-current"
+      ],
+      "returncode": 0,
+      "duration_seconds": 0.0018,
+      "stdout": "ai/embedding-benchmark-v3",
+      "stderr": ""
+    },
+    "git_head": {
+      "args": [
+        "git",
+        "-C",
+        "/home/alpha/Playstoria/models",
+        "rev-parse",
+        "HEAD"
+      ],
+      "returncode": 0,
+      "duration_seconds": 0.0021,
+      "stdout": "9830a832ebfab148c86ccb3662c5d9e05a821dd5",
+      "stderr": ""
+    },
+    "git_origin_master": {
+      "args": [
+        "git",
+        "-C",
+        "/home/alpha/Playstoria/models",
+        "rev-parse",
+        "origin/master"
+      ],
+      "returncode": 0,
+      "duration_seconds": 0.0024,
+      "stdout": "9e22f36d690e9cae5c27ca0e60fe4fd4858edf84",
+      "stderr": ""
+    },
+    "git_origin_url": {
+      "args": [
+        "git",
+        "-C",
+        "/home/alpha/Playstoria/models",
+        "remote",
+        "get-url",
+        "origin"
+      ],
+      "returncode": 0,
+      "duration_seconds": 0.002,
+      "stdout": "https://github.com/Weltall-IA/holo-models.git",
+      "stderr": ""
+    }
+  }
+}

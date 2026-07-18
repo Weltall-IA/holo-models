@@ -5,9 +5,9 @@ base_branch: master
 commit_base: 9e22f36d690e9cae5c27ca0e60fe4fd4858edf84
 expected_head: PENDING_STATUS_COMMIT
 payload_head: e2df11b13f3ffd6c0d3211452dd6758cf6e821d5
-status: pronto-para-execucao-local
-turn: executor-local
-last_actor: autor-remoto
+status: pronto-para-revisao-remota
+turn: autor-remoto
+last_actor: executor-local
 allow_local_project_edits: true
 allowed_local_edit_paths:
   - benchmark/embedding-v3/environment.json
