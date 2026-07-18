@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "corpus_version": "holo_fake_scenes_v3",
+  "reviewer": "agente-local",
+  "reviewed_at": "PREENCHER_ISO8601",
+  "items": [
+    {
+      "query_id": "query-0001",
+      "status": "approved",
+      "relevant_matches_query": true,
+      "negatives_are_hard_but_wrong": true,
+      "query_does_not_leak_answer": true,
+      "notes": "Descreva em uma frase por que o relevante corresponde e os negativos não."
+    }
+  ]
+}
