@@ -10,6 +10,7 @@
 !*.py
 !*.txt
 !*.json
+!*.jsonl
 !*.yml
 !*.yaml
 !*.sh
@@ -39,8 +40,13 @@
 # Tokenizer files - too large to version
 **/tokenizer.json
 
-# Benchmark results - regeneratable
+# Local benchmark runtime and regeneratable raw results
 benchmarks/
+**/.venv/
+**/__pycache__/
+**/*.pyc
+**/results/raw/
+**/cache/
 
 # Database files - application state, not versioned
 **/*.sqlite
@@ -60,3 +66,17 @@ runtime/vane-comparison/slimtoolkit/
 
 # Standalone model dirs - various formats
 standalone/
+
+# Model weights and binary artifacts remain local
+**/*.gguf
+**/*.safetensors
+**/*.bin
+**/*.onnx
+**/*.pt
+**/*.pth
+**/*.ckpt
+**/*.engine
+**/*.tar
+**/*.tar.gz
+**/*.tar.zst
+**/*.zip
