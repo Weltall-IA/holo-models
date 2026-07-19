@@ -60,7 +60,7 @@ validations:
     - "Compilação sem erros."
     - "15 de 15 testes direcionados aprovados."
     - "Modelos GGUF exigem arquivo explícito e não exigem dimensão previamente conhecida."
-    - "Falha opcional não promove execução parcial nem bloqueia conjunto obrigatório completo."
+    - "Falha opcional é registrada e não bloqueia o PASS quando todos os modelos obrigatórios concluem no corpus completo."
     - "Falha obrigatória mantém Gate 2 como PARTIAL ou BLOCKED."
     - "E5 e Qwen3 recebem instruções de consulta; Colibri usa encode_query e encode_document do próprio modelo."
   failed: []
