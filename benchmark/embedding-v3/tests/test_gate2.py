@@ -5,12 +5,15 @@ import tempfile
 import unittest
 from pathlib import Path
 from types import SimpleNamespace
+from unittest import mock
 
 from holo_benchmark.gate2 import (
     Gate2ModelSpec,
+    ResolvedModel,
     _document_text,
     _ensure_destination,
     _query_text,
+    _run_model_worker,
     _select_dataset,
     _status_for_results,
     load_gate2_specs,
@@ -122,6 +125,73 @@ class Gate2ConfigurationTests(unittest.TestCase):
         specs = [Gate2ModelSpec("required", "org/required", "sentence-transformers", 768, required=True)]
         failures = [{"model_id": "required", "required": True}]
         self.assertEqual(_status_for_results(specs, [], failures, True, True), "BLOCKED")
+
+    def test_worker_error_payload_is_preserved_on_exit_code_two(self) -> None:
+        spec = Gate2ModelSpec(
+            "optional",
+            "org/optional",
+            "sentence-transformers",
+            768,
+            required=False,
+        )
+        resolved = ResolvedModel(
+            id=spec.id,
+            repo=spec.repo,
+            revision="abcdef1234567890",
+            expected_size_bytes=1,
+            license="apache-2.0",
+            gated=False,
+            destination="/tmp/embed/optional",
+            trust_remote_code=False,
+            backend=spec.backend,
+            dimension=spec.dimension,
+            required=False,
+        )
+
+        def fake_run(argv: list[str], **kwargs: object) -> SimpleNamespace:
+            output = Path(argv[argv.index("--output") + 1])
+            output.write_text(
+                json.dumps(
+                    {
+                        "status": "error",
+                        "error": {
+                            "type": "ActualModelError",
+                            "message": "causa real",
+                            "traceback": "trace real",
+                        },
+                    }
+                ),
+                encoding="utf-8",
+            )
+            return SimpleNamespace(returncode=2, stderr="warning irrelevante")
+
+        with tempfile.TemporaryDirectory() as tmp, mock.patch(
+            "holo_benchmark.gate2.subprocess.run",
+            side_effect=fake_run,
+        ):
+            root = Path(tmp)
+            result, failure = _run_model_worker(
+                project_root=root,
+                repo_root=root,
+                resolved=resolved,
+                spec=spec,
+                model_path=root / "model",
+                chunks=[],
+                queries=[],
+                prompts={},
+                device="cuda",
+                batch_size=1,
+                corpus_hash="hash",
+                timeout_seconds=30,
+            )
+
+        self.assertIsNone(result)
+        self.assertIsNotNone(failure)
+        assert failure is not None
+        self.assertEqual(failure["error_type"], "ActualModelError")
+        self.assertEqual(failure["error_message"], "causa real")
+        self.assertEqual(failure["returncode"], 2)
+        self.assertIn("trace real", failure["stderr_tail"])
 
 
 if __name__ == "__main__":
