@@ -18,6 +18,7 @@ from holo_benchmark.corpus import (
     validate_semantic_review,
     write_jsonl,
 )
+from holo_benchmark.gate2 import run_gate2
 from holo_benchmark.inventory import collect, gate0_passes, render_report, write_outputs
 
 PROJECT_ROOT = Path(__file__).resolve().parent
@@ -186,6 +187,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--resume", action="store_true")
     parser.add_argument("--models", default="")
     parser.add_argument("--device", choices=["cpu", "cuda", "auto"], default="auto")
+    parser.add_argument("--batch-size", type=int, default=16)
     parser.add_argument("--max-documents", type=int)
     parser.add_argument("--max-queries", type=int)
     parser.add_argument("--skip-api", action="store_true")
@@ -199,10 +201,28 @@ def main() -> int:
     if args.only_api and args.skip_api:
         print("--only-api e --skip-api são incompatíveis", file=sys.stderr)
         return 2
+    if args.batch_size <= 0:
+        print("--batch-size deve ser positivo", file=sys.stderr)
+        return 2
     if args.gate == 0:
         return gate0(args)
     if args.gate == 1:
         return gate1(args)
+    if args.gate == 2:
+        if args.only_api:
+            print("Gate 2 contém somente modelos locais", file=sys.stderr)
+            return 2
+        try:
+            code, payload = run_gate2(
+                project_root=PROJECT_ROOT,
+                repo_root=find_repo_root(PROJECT_ROOT),
+                args=args,
+            )
+        except Exception as exc:
+            print(f"Gate 2 bloqueado: {type(exc).__name__}: {exc}", file=sys.stderr)
+            return 2
+        print(json.dumps(payload, ensure_ascii=False, indent=2))
+        return code
     print(f"Gate {args.gate} bloqueado: exige autorização explícita do diretor e implementação posterior.", file=sys.stderr)
     return 4
 
