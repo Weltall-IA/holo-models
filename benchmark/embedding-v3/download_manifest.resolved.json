@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0",
+  "gate": 2,
+  "created_at": "2026-07-19T02:02:55.324399+00:00",
+  "corpus_sha256": "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b",
+  "models": [
+    {
+      "id": "embeddinggemma",
+      "repo": "google/embeddinggemma-300m",
+      "revision": "57c266a740f537b4dc058e1b0cda161fd15afa75",
+      "expected_size_bytes": 1269643611,
+      "license": "gemma",
+      "gated": "manual",
+      "destination": "/home/alpha/Playstoria/models/embed/embeddinggemma",
+      "trust_remote_code": false,
+      "backend": "sentence-transformers",
+      "dimension": 768
+    },
+    {
+      "id": "gte_multilingual_base",
+      "repo": "Alibaba-NLP/gte-multilingual-base",
+      "revision": "9bbca17d9273fd0d03d5725c7a4b0f6b45142062",
+      "expected_size_bytes": 629638617,
+      "license": "apache-2.0",
+      "gated": false,
+      "destination": "/home/alpha/Playstoria/models/embed/gte_multilingual_base",
+      "trust_remote_code": true,
+      "backend": "sentence-transformers",
+      "dimension": 768
+    },
+    {
+      "id": "qwen3_embedding_06",
+      "repo": "Qwen/Qwen3-Embedding-0.6B",
+      "revision": "97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3",
+      "expected_size_bytes": 1207489041,
+      "license": "apache-2.0",
+      "gated": false,
+      "destination": "/home/alpha/Playstoria/models/embed/qwen3_embedding_06",
+      "trust_remote_code": false,
+      "backend": "sentence-transformers",
+      "dimension": 1024
+    },
+    {
+      "id": "bge_m3_dense",
+      "repo": "BAAI/bge-m3",
+      "revision": "5617a9f61b028005a4858fdac845db406aefb181",
+      "expected_size_bytes": 4587317404,
+      "license": "mit",
+      "gated": false,
+      "destination": "/home/alpha/Playstoria/models/embed/bge_m3_dense",
+      "trust_remote_code": false,
+      "backend": "sentence-transformers-or-FlagEmbedding",
+      "dimension": 1024
+    },
+    {
+      "id": "voyage4_nano",
+      "repo": "voyageai/voyage-4-nano",
+      "revision": "67fabc9bef010dabc5f6024aa1b1b6b93410426f",
+      "expected_size_bytes": 704446658,
+      "license": "apache-2.0",
+      "gated": false,
+      "destination": "/home/alpha/Playstoria/models/embed/voyage4_nano",
+      "trust_remote_code": true,
+      "backend": "sentence-transformers",
+      "dimension": 1024
+    }
+  ],
+  "failures": []
+}

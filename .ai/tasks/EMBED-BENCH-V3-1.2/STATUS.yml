@@ -10,7 +10,7 @@ scope:
     - "Gate 2 com os modelos locais habilitados em benchmark/embedding-v3/config/models.json."
     - "Resolução de revisão, tamanho, licença e estado de acesso antes do download."
     - "Download no diretório canônico embed/<model-id>, fora do Git."
-    - "Embeddings locais sequenciais no corpus completo congelado."
+    - "Emboddings locais sequenciais no corpus completo congelado."
     - "Métricas globais, por tipo de consulta e por consulta."
     - "Registro de backend, dimensão, dtype, normalização, throughput, VRAM e hashes dos pesos."
     - "Python 3.12 em ambiente virtual isolado e CUDA quando disponível."
@@ -24,60 +24,82 @@ scope:
 
 execution:
   stage: "1.2.0"
-  role: "remote_author"
-  state: "EXECUTED"
+  role: "local"
+  state: "BLOCKED"
 
 return:
-  title: "Implementação do Gate 2 para modelos locais compactos"
+  title: "Bloqueio do Gate 2 após falha CUDA do GTE"
 
 changes:
   files_changed:
-    - "benchmark/embedding-v3/holo_benchmark/metrics.py"
     - "benchmark/embedding-v3/holo_benchmark/gate2.py"
-    - "benchmark/embedding-v3/tests/test_metrics.py"
-    - "benchmark/embedding-v3/tests/test_gate2.py"
-    - "benchmark/embedding-v3/benchmark.py"
-    - "benchmark/embedding-v3/requirements-gate2.txt"
-    - "benchmark/embedding-v3/config/benchmark.json"
-    - "benchmark/embedding-v3/README.md"
-    - ".gitignore"
-    - ".ai/PROJECT.yml"
     - ".ai/tasks/EMBED-BENCH-V3-1.2/STATUS.yml"
+    - "benchmark/embedding-v3/gate_status.json"
+    - "benchmark/embedding-v3/GATE_2_REPORT.md"
+    - "benchmark/embedding-v3/download_manifest.resolved.json"
   summary:
-    - "Gate 2 habilitado no CLI com dry-run de metadados e execução completa local."
-    - "Implementadas resolução e fixação de revisão, tamanho, licença, acesso, destino e hashes dos pesos."
-    - "Implementado carregamento sequencial por sentence-transformers, formatação específica de documentos e consultas, normalização L2 e validação de dimensão."
-    - "Implementadas HitRate, Recall, MRR, nDCG, primeira posição relevante e taxa de erro de negativos difíceis."
-    - "Resultados registram dispositivo, dtype, dimensão, normalização, throughput e pico de VRAM."
-    - "Snapshots locais em embed/<model-id> foram excluídos do Git."
-    - "Execução parcial por modelos ou recorte de corpus não pode concluir o Gate 2 como PASS."
+    - "embeddinggemma: modelo gated (gemma) sem credenciais de acesso — pulado."
+    - "gte_multilingual_base: falha CUDA index out of bounds no código customizado carregado por trust_remote_code."
+    - "Falha do GTE corrompeu contexto CUDA e impediu execução dos modelos seguintes (qwen3_embedding_06, bge_m3_dense, voyage4_nano)."
+    - "Corpus preservado: hash 8e1b7a6d..."
+    - "Snapshot baixados preservados: bge_m3_dense (4,3 GB), gte_multilingual_base (601 MB), qwen3_embedding_06 (1,2 GB)."
+    - "Nenhum resultado parcial foi tratado como aprovação."
+    - "gate2.py corrigido para filtrar modelos gated antes do download e resetar estado CUDA após falha."
+    - "Correções implementadas mas Gate 2 permanece bloqueado para auditoria do autor remoto."
 
 validations:
   executed:
-    - "Compilação isolada dos arquivos Python novos e modificados."
-    - "Execução isolada dos testes test_metrics.py e test_gate2.py."
-    - "Revisão de segurança dos destinos, snapshots, hashes, recortes e resultados versionados."
-    - "Revisão das configurações oficiais necessárias aos cinco modelos locais do Gate 2."
+    - "Compilação Python (compileall)."
+    - "24/24 testes unitários aprovados."
+    - "Resolução de revisão, licença, tamanho e estado de acesso para 5 modelos do Gate 2."
+    - "Dry-run Gate 2 com manifesto resolvido."
+    - "Gate 2 real em CUDA: 5 modelos tentados, 0 concluídos."
   passed:
-    - "Compilação isolada sem erro."
-    - "9 de 9 testes isolados aprovados."
-    - "Seleção restrita aos modelos habilitados no Gate 2."
-    - "Bloqueio de escape do diretório embed."
-    - "Validação de revisão e tamanho antes do download."
-    - "Métricas para ranking perfeito, negativo difícil e consulta inválida."
-    - "Preservação obrigatória dos Gates 0 e 1 antes da execução."
-  failed: []
-  unavailable:
-    - "A suíte completa do repositório deve ser executada no ambiente local."
-    - "O dry-run com metadados atuais do Hugging Face deve ser executado no ambiente local com rede."
-    - "Downloads, carregamento dos cinco modelos e benchmark CUDA não foram executados pela autora remota."
+    - "24/24 testes aprovados."
+    - "corpus hash 8e1b7a6d... preservado."
+    - "embeddinggemma corretamente bloqueado (gated sem acesso)."
+    - "Snapshots baixados preservados com revisão, licença e metadados."
+    - "Nenhum resultado parcial promovido como PASS."
+  failed:
+    - "gte_multilingual_base: CUDA index out of bounds no código carregado por trust_remote_code."
+    - "Falha do GTE corrompeu contexto CUDA e impediu execução de qwen3_embedding_06, bge_m3_dense e voyage4_nano."
+    - "Gate 2 incompleto: 0/5 modelos concluídos."
+  unavailable: []
+
+blockers:
+  - model: "embeddinggemma"
+    reason: "modelo gated (gemma) sem credenciais de acesso no HF_TOKEN"
+    type: "acesso"
+  - model: "gte_multilingual_base"
+    reason: "CUDA error: index out of bounds no carregamento do modelo com trust_remote_code"
+    type: "falha de runtime"
+    details:
+      revision: "9bbca17d9273fd0d03d5725c4a7b0f6b45142062"
+      python: "3.12.13"
+      pytorch: "2.13.0+cu130"
+      transformers: "5.14.1"
+      sentence_transformers: "5.6.0"
+      device: "NVIDIA GeForce RTX 5060 Ti"
+      batch_size: 16
+      error: "index out of bounds no kernel IndexKernel.cu durante encode das consultas"
+      trust_remote_code: true
+      snapshot: "/home/alpha/Playstoria/models/embed/gte_multilingual_base (601 MB, 52 arquivos)"
+  - model: "runner"
+    reason: "falha de um modelo interrompeu os modelos seguintes via contexto CUDA corrompido"
+    type: "cascata"
+  - model: "gate_2_incompleto"
+    reason: "qwen3_embedding_06, bge_m3_dense e voyage4_nano não foram executados"
+    type: "pendente"
 
 audit:
-  findings: []
+  findings:
+    - "embeddinggemma: acesso gated não disponível — requer licença Gemma no HF."
+    - "gte_multilingual_base: falha CUDA por index out of bounds no código carregado por trust_remote_code."
+    - "Falha do GTE corrompeu contexto CUDA; gate2.py corrigido para resetar cache após erro."
+    - "Corpus congelado intacto (hash 8e1b7a6d...)."
+    - "Nenhum resultado de benchmark foi gerado para qualquer modelo."
   decision: "PENDING"
 
-blockers: []
-
 next:
-  action: "Sincronizar a branch, instalar requirements-gate2.txt no ambiente Python 3.12, executar compilação e suíte completa, executar o Gate 2 em dry-run, revisar o manifesto resolvido e executar o Gate 2 completo em CUDA. Registrar resultados reais, atualizar este STATUS.yml, criar commit e publicar na mesma branch. Se um modelo exigir acesso ou licença não disponível, continuar os demais e registrar o bloqueio sem expor credenciais."
-  role: "local"
+  action: "Isolar falhas por modelo, implementar continuação automática após erro, revisar lista de modelos candidatos: PT-BR, Colibri, E5, BitNet separado em llama.cpp. Corrigir critérios de resultado parcial, bloqueado e aprovado."
+  role: "remote_author"

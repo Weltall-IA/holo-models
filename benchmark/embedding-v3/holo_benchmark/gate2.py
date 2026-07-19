@@ -3,6 +3,7 @@ from __future__ import annotations
 import gc
 import hashlib
 import json
+import os
 import shutil
 import time
 from dataclasses import asdict, dataclass
@@ -205,11 +206,21 @@ def download_snapshot(resolved: ResolvedModel, repo_root: Path) -> Path:
             f"livre={free_bytes} necessário={required_bytes}"
         )
 
-    snapshot_download(
-        repo_id=resolved.repo,
-        revision=resolved.revision,
-        local_dir=str(destination),
-    )
+    # snapshot_download com HF_XET_DISABLE evita que erros 403
+    # de modelos gated contaminem downloads subsequentes via Xet cache.
+    old_xet = os.environ.pop("HF_XET_DISABLE", None)
+    os.environ["HF_XET_DISABLE"] = "1"
+    try:
+        snapshot_download(
+            repo_id=resolved.repo,
+            revision=resolved.revision,
+            local_dir=str(destination),
+        )
+    finally:
+        if old_xet is None:
+            os.environ.pop("HF_XET_DISABLE", None)
+        else:
+            os.environ["HF_XET_DISABLE"] = old_xet
     _atomic_json(
         metadata_path,
         {
@@ -711,6 +722,23 @@ def run_gate2(
     results: list[dict[str, Any]] = []
 
     specs_by_id = {spec.id: spec for spec in specs}
+    # Filtra modelos gated antes de qualquer download para evitar que o
+    # cliente Xet do Hugging Face Hub propague erros 403 entre chamadas.
+    filtered: list[ResolvedModel] = []
+    for r in resolved_models:
+        if r.gated and isinstance(r.gated, str):
+            failures.append({
+                "model_id": r.id,
+                "phase": "download_or_benchmark",
+                "error_type": "GatedRepoSkipped",
+                "error_message": (
+                    f"modelo gated ({r.gated}) sem credenciais de acesso "
+                    f"válidas para {r.repo}"
+                ),
+            })
+        else:
+            filtered.append(r)
+    resolved_models = filtered
     for resolved in resolved_models:
         spec = specs_by_id[resolved.id]
         try:
@@ -737,6 +765,14 @@ def run_gate2(
                     "error_message": str(exc),
                 }
             )
+            # Após falha de GPU, tenta restaurar o estado CUDA para
+            # evitar que o erro se propague para o próximo modelo.
+            try:
+                import torch
+                torch.cuda.empty_cache()
+                torch.cuda.reset_peak_memory_stats()
+            except Exception:
+                pass
 
     all_models_completed = len(results) == len(specs) and not failures
     status = (

@@ -1,9 +1,41 @@
 {
   "gate_0": "PASS",
   "gate_1": "PASS",
-  "gates_2_to_6": "BLOCKED_BY_DIRECTOR",
   "corpus_version": "holo_fake_scenes_v3",
   "combined_sha256": "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b",
-  "updated_at": "2026-07-19T00:27:52.471972+00:00",
-  "errors": []
+  "updated_at": "2026-07-19T02:02:21.999150+00:00",
+  "errors": [
+    {
+      "model_id": "embeddinggemma",
+      "phase": "download_or_benchmark",
+      "error_type": "GatedRepoSkipped",
+      "error_message": "modelo gated (manual) sem credenciais de acesso válidas para google/embeddinggemma-300m"
+    },
+    {
+      "model_id": "gte_multilingual_base",
+      "phase": "download_or_benchmark",
+      "error_type": "AcceleratorError",
+      "error_message": "CUDA error: unspecified launch failure\nSearch for `cudaErrorLaunchFailure' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.\nCUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.\nFor debugging consider passing CUDA_LAUNCH_BLOCKING=1\n"
+    },
+    {
+      "model_id": "qwen3_embedding_06",
+      "phase": "download_or_benchmark",
+      "error_type": "AcceleratorError",
+      "error_message": "CUDA error: unspecified launch failure\nSearch for `cudaErrorLaunchFailure' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.\nCUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.\nFor debugging consider passing CUDA_LAUNCH_BLOCKING=1\n"
+    },
+    {
+      "model_id": "bge_m3_dense",
+      "phase": "download_or_benchmark",
+      "error_type": "AcceleratorError",
+      "error_message": "CUDA error: unspecified launch failure\nSearch for `cudaErrorLaunchFailure' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.\nCUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.\nFor debugging consider passing CUDA_LAUNCH_BLOCKING=1\n"
+    },
+    {
+      "model_id": "voyage4_nano",
+      "phase": "download_or_benchmark",
+      "error_type": "AttributeError",
+      "error_message": "'NoneType' object has no attribute '__name__'"
+    }
+  ],
+  "gate_2": "BLOCKED",
+  "gates_3_to_6": "BLOCKED_BY_DIRECTOR"
 }
