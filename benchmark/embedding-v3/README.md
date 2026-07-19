@@ -67,6 +67,8 @@ Os quatro modelos obrigatórios concluíram o corpus completo. Nas métricas pri
 
 O parent runner agora preserva o payload de erro estruturado dos workers que encerram com código 2. Diagnósticos parciais restauram os artefatos canônicos após a execução. O worker v2 aplica `truncate_dim` ao Voyage e captura a saída real do `llama-server` durante as tentativas BitNet.
 
+A reexecução local deve usar somente `voyage4_nano,bitnet_270m,bitnet_06b` em `--models`. Os quatro resultados obrigatórios não devem ser recalculados.
+
 ## Resultados
 
 - manifesto resolvido: `download_manifest.resolved.json`;
