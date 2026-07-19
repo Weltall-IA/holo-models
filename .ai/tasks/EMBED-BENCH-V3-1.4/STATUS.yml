@@ -1,0 +1,68 @@
+schema_version: 1
+
+task:
+  id: "EMBED-BENCH-V3-1.4"
+  title: "Inventário completo e cobertura de todos os modelos locais"
+  objective: "Descobrir todos os modelos locais atuais, eliminar omissões silenciosas, validar funcionamento por categoria e executar o benchmark de recuperação em todo modelo de embeddings elegível."
+
+scope:
+  included:
+    - "Inventário automático de modelos em embed, text, audio, video, image e standalone."
+    - "Inventário do Ollama, caches Hugging Face, diretórios do LM Studio e raízes adicionais fornecidas localmente."
+    - "Deduplicação por caminho canônico e metadados."
+    - "Classificação em embedding, reranker, text, audio, image e video."
+    - "Cobertura obrigatória: benchmark concluído, health check concluído, legado justificado ou bloqueio técnico com evidência."
+    - "Benchmark completo no corpus congelado para todo modelo local de embeddings atual e compatível."
+    - "Preservação dos resultados válidos dos Gates 0 a 3 como subconjunto já concluído."
+  excluded:
+    - "Download de modelos antigos apenas para ampliar a lista."
+    - "Forçar LLM, ASR, imagem ou vídeo a executar métricas de embeddings incompatíveis."
+    - "API paga."
+    - "Regeneração do corpus."
+    - "Merge, deploy ou publicação de modelos."
+
+execution:
+  stage: "1.4.0"
+  role: "remote_author"
+  state: "CORRECTED"
+
+return:
+  title: "Correção da cobertura total dos modelos locais"
+
+changes:
+  files_changed:
+    - "benchmark/embedding-v3/holo_benchmark/local_inventory.py"
+    - "benchmark/embedding-v3/inventory_local.py"
+    - "benchmark/embedding-v3/tests/test_local_inventory.py"
+    - ".ai/tasks/EMBED-BENCH-V3-1.4/STATUS.yml"
+  summary:
+    - "A conclusão anterior do Gate 3 cobria somente três modelos GGUF escolhidos na configuração e não atendia à ordem de cobrir todos os modelos locais."
+    - "Foi criado um inventário local dinâmico; nenhum modelo depende de estar previamente cadastrado em models.json para ser descoberto."
+    - "O inventário relaciona cada modelo com resultado existente, benchmark pendente, health check pendente, legado ou não aplicável."
+    - "Modelos não-embedding recebem validação própria; não são comparados artificialmente com métricas de recuperação."
+    - "A atividade só poderá concluir quando a cobertura não tiver pendências silenciosas."
+
+validations:
+  executed:
+    - "Compilação isolada dos novos módulos."
+    - "5 testes direcionados de classificação, descoberta, deduplicação, elegibilidade e relatório de cobertura."
+  passed:
+    - "5/5 testes direcionados aprovados."
+    - "Modelos com .holo-model.json não são duplicados pelos arquivos de peso internos."
+    - "LLMs de texto não são classificados incorretamente como embeddings."
+    - "O relatório exige estado explícito para cada modelo descoberto."
+  failed: []
+  unavailable:
+    - "O inventário real da máquina, os health checks e os benchmarks pendentes dependem do executor local."
+
+audit:
+  findings:
+    - "A aprovação do Gate 3 permanece válida apenas para os três GGUF executados; ela não representa cobertura total da máquina."
+    - "A ordem direta do diretor exige inventário local antes de definir o conjunto final do benchmark."
+  decision: "PENDING"
+
+blockers: []
+
+next:
+  action: "Sincronizar o patch 1.4.0, executar o inventário completo da máquina, publicar a matriz de cobertura e continuar automaticamente até que todos os embeddings atuais estejam benchmarkados e os demais modelos tenham health check ou bloqueio comprovado."
+  role: "local"
