@@ -43,11 +43,13 @@ paths:
     - "benchmark/embedding-v3/requirements-gate2.txt"
     - "benchmark/embedding-v3/requirements-gate3.txt"
     - "benchmark/embedding-v3/requirements-full.txt"
+    - "benchmark/embedding-v3/requirements-voyage.txt"
   scripts:
     - "benchmark/embedding-v3/benchmark.py"
     - "benchmark/embedding-v3/inventory_local.py"
     - "benchmark/embedding-v3/healthcheck_local.py"
     - "benchmark/embedding-v3/validate_coverage.py"
+    - "benchmark/embedding-v3/voyage_benchmark.py"
   generated:
     - "benchmark/embedding-v3/environment.json"
     - "benchmark/embedding-v3/system_info.json"
@@ -62,6 +64,7 @@ paths:
     - "benchmark/embedding-v3/download_manifest_gate3.resolved.json"
     - "benchmark/embedding-v3/results/gate2"
     - "benchmark/embedding-v3/results/gate3"
+    - "benchmark/embedding-v3/results/voyage"
     - "benchmark/embedding-v3/results/local_healthchecks.json"
     - "benchmark/embedding-v3/local_model_inventory.json"
     - "benchmark/embedding-v3/LOCAL_MODEL_INVENTORY_REPORT.md"
@@ -72,12 +75,14 @@ paths:
     - "**/credentials"
     - "model weights"
     - "local caches"
+    - ".voyage4_token"
 
 commands:
   setup:
     - "<python-interpreter> -m pip install -r benchmark/embedding-v3/requirements-gate01.txt"
     - "<python-interpreter> -m pip install -r benchmark/embedding-v3/requirements-gate2.txt"
     - "<python-interpreter> -m pip install -r benchmark/embedding-v3/requirements-gate3.txt"
+    - "<python-interpreter> -m pip install -r benchmark/embedding-v3/requirements-voyage.txt"
   format: []
   lint: []
   typecheck: []
@@ -124,6 +129,7 @@ constraints:
     - "Reflink bcachefs exige mesma filesystem, verificação do blob e substituição atômica."
     - "Não alterar corpus congelado para favorecer um modelo."
     - "Não executar gate posterior nem chamar API paga sem autorização explícita."
+    - "Voyage usa VOYAGE_API_KEY_PATH apontando para .voyage4_token ignorado pelo Git; nunca registrar seu conteúdo."
     - "O Gate 2 deve resolver e registrar revisão, licença, tamanho e hashes antes de concluir cada modelo."
     - "O Gate 3 deve registrar versão do llama.cpp, arquivo GGUF exato, quantização, pooling, dimensões nativa e avaliada, throughput, pico de VRAM e hashes."
     - "O Gate 3 só pode concluir PASS em CUDA, no corpus completo e com todos os modelos obrigatórios."
