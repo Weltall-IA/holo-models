@@ -27,6 +27,7 @@
 
 # Secrets - explicit block regardless of extension whitelist
 .hf_token
+.voyage4_token
 .env
 .env.*
 *.env
