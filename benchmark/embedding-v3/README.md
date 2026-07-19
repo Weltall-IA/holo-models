@@ -48,11 +48,16 @@ Opções relevantes:
 --models
 --device
 --batch-size
+--model-timeout
 --max-documents
 --max-queries
 ```
 
 Uma execução com seleção parcial ou recorte de corpus nunca conclui o Gate 2 como `PASS`.
+
+Quando `--models` é usado para diagnóstico, o runner grava os artefatos em `results/gate2/diagnostics/` e restaura os arquivos canônicos do Gate 2. Assim, a tentativa dos opcionais não apaga nem rebaixa um `PASS` completo já validado.
+
+O Voyage Nano recebe a dimensão configurada por `truncate_dim`. Os BitNet executam por `llama-server`; stdout e stderr do servidor são capturados para registrar a causa real de falhas de runtime.
 
 ## Resultados
 
@@ -60,4 +65,5 @@ Uma execução com seleção parcial ou recorte de corpus nunca conclui o Gate 2
 - relatório: `GATE_2_REPORT.md`;
 - resumo: `results/gate2/summary.json`;
 - resultados por modelo: `results/gate2/<model-id>.json`;
+- diagnóstico de seleção parcial: `results/gate2/diagnostics/`;
 - evidências temporárias de workers: `results/raw/gate2/`, ignoradas pelo Git.
