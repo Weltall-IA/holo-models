@@ -27,12 +27,14 @@ execution:
   state: "CORRECTED"
 
 return:
-  title: "Correção da captura de falhas dos modelos opcionais do Gate 2"
+  title: "Correção da captura e execução dos modelos opcionais do Gate 2"
 
 changes:
   files_changed:
     - "benchmark/embedding-v3/holo_benchmark/gate2.py"
+    - "benchmark/embedding-v3/holo_benchmark/gate2_worker_v2.py"
     - "benchmark/embedding-v3/tests/test_gate2.py"
+    - "benchmark/embedding-v3/tests/test_gate2_optional.py"
     - ".ai/tasks/EMBED-BENCH-V3-1.2/STATUS.yml"
   summary:
     - "O resultado obrigatório do Gate 2 foi auditado: 4/4 modelos obrigatórios concluíram no corpus completo e o hash congelado foi preservado."
@@ -42,6 +44,8 @@ changes:
     - "A captura foi corrigida para ler primeiro o resultado estruturado, preservar tipo, mensagem e traceback reais, e somente usar erro genérico quando o arquivo de saída não existir."
     - "Timeout, saída inválida e inconsistência entre status ok e exit code não zero agora têm erros próprios."
     - "Execuções com --models agora gravam diagnóstico separado em results/gate2/diagnostics e restauram gate_status.json, GATE_2_REPORT.md, download_manifest.resolved.json e summary.json canônicos."
+    - "Voyage Nano agora recebe truncate_dim=1024, coerente com a dimensão configurada e suportada pelo modelo."
+    - "BitNet agora executa pelo worker v2 com stdout/stderr do llama-server capturados; falhas incluem a cauda real do log do runtime."
     - "Os quatro resultados obrigatórios aprovados devem ser preservados; a próxima execução será restrita aos três opcionais."
 
 validations:
@@ -50,23 +54,26 @@ validations:
     - "Conferência de GATE_2_REPORT.md, gate_status.json, summary.json e resultados individuais dos quatro modelos obrigatórios."
     - "Comparação das métricas publicadas entre Colibri, E5, Qwen3 e BGE-M3."
     - "Revisão do fluxo entre gate2_runtime.py e gate2_worker.py."
-    - "Compilação isolada do shim corrigido e dos testes novos."
+    - "Compilação isolada de gate2.py, gate2_worker_v2.py e testes novos."
     - "Teste direcionado da preservação do payload de erro com exit code 2."
     - "Teste direcionado da preservação dos artefatos canônicos durante execução parcial com --models."
+    - "Testes direcionados de truncate_dim do Voyage e captura da cauda do log do llama-server."
   passed:
     - "Gate 0 e Gate 1 permanecem PASS."
     - "Gate 2 obrigatório permanece PASS com 600 documentos, 150 consultas e 4/4 modelos obrigatórios concluídos."
     - "Hash do corpus: 8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b."
     - "Revisões, dimensões, dispositivos CUDA, tempos, VRAM e hashes de pesos estão presentes nos resultados individuais."
     - "Subprocessos impediram falha CUDA em cascata."
-    - "2 de 2 testes direcionados do patch 1.2.2 foram aprovados."
+    - "3 testes direcionados executados no ambiente temporário foram aprovados."
     - "O erro real do worker é preservado mesmo quando o processo retorna código 2."
     - "Diagnóstico parcial não substitui nem rebaixa o PASS canônico do Gate 2."
+    - "Voyage usa a dimensão truncada configurada apenas para o próprio modelo."
+    - "Logs do llama-server deixam de ser descartados nas tentativas BitNet."
   failed:
     - "As causas reais de voyage4_nano, bitnet_270m e bitnet_06b não foram preservadas pela execução 1.2.1."
   unavailable:
     - "A suíte completa não foi reexecutada pela autora remota."
-    - "Os três modelos opcionais dependem de reexecução local para revelar os erros reais e aplicar as correções específicas."
+    - "Os três modelos opcionais dependem de reexecução local para confirmar as correções e revelar incompatibilidades restantes."
 
 audit:
   findings:
@@ -79,5 +86,5 @@ audit:
 blockers: []
 
 next:
-  action: "Sincronizar o patch 1.2.2, executar compilação e suíte completa e reexecutar somente voyage4_nano, bitnet_270m e bitnet_06b com --models. Preservar os quatro resultados obrigatórios e confirmar que o PASS canônico permanece inalterado. Usar os erros estruturados reais para corrigir incompatibilidades dentro do escopo e repetir os opcionais sem interromper os modelos seguintes."
+  action: "Sincronizar o patch 1.2.2, executar compilação e suíte completa e reexecutar somente voyage4_nano, bitnet_270m e bitnet_06b com --models. Preservar os quatro resultados obrigatórios e confirmar que o PASS canônico permanece inalterado. Usar os erros estruturados e logs reais para corrigir incompatibilidades dentro do escopo e repetir os opcionais sem interromper os modelos seguintes."
   role: "local"
