@@ -18,6 +18,7 @@ from holo_benchmark.gate2 import (
     _status_for_results,
     load_gate2_specs,
     resolve_model,
+    run_gate2,
 )
 
 
@@ -192,6 +193,63 @@ class Gate2ConfigurationTests(unittest.TestCase):
         self.assertEqual(failure["error_message"], "causa real")
         self.assertEqual(failure["returncode"], 2)
         self.assertIn("trace real", failure["stderr_tail"])
+
+    def test_selected_model_run_preserves_canonical_gate2_artifacts(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            results = root / "results" / "gate2"
+            results.mkdir(parents=True)
+            canonical = {
+                root / "gate_status.json": b"original status",
+                root / "GATE_2_REPORT.md": b"original report",
+                root / "download_manifest.resolved.json": b"original manifest",
+                results / "summary.json": b"original summary",
+            }
+            for path, content in canonical.items():
+                path.write_bytes(content)
+
+            def fake_original(project_root: Path, repo_root: Path, args: object):
+                (project_root / "gate_status.json").write_bytes(b"diagnostic status")
+                (project_root / "GATE_2_REPORT.md").write_bytes(b"diagnostic report")
+                (project_root / "download_manifest.resolved.json").write_bytes(
+                    b"diagnostic manifest"
+                )
+                (project_root / "results" / "gate2" / "summary.json").write_bytes(
+                    b"diagnostic summary"
+                )
+                return 2, {"status": "BLOCKED", "failures": [{"model_id": "optional"}]}
+
+            args = SimpleNamespace(models="voyage4_nano,bitnet_270m")
+            with mock.patch(
+                "holo_benchmark.gate2._original_run_gate2",
+                side_effect=fake_original,
+            ):
+                code, payload = run_gate2(root, root, args)
+
+            self.assertEqual(code, 2)
+            self.assertEqual(payload["status"], "BLOCKED")
+            for path, content in canonical.items():
+                self.assertEqual(path.read_bytes(), content)
+
+            diagnostics = results / "diagnostics"
+            recorded = json.loads(
+                (diagnostics / "selected_models_summary.json").read_text(
+                    encoding="utf-8"
+                )
+            )
+            self.assertEqual(
+                recorded["selected_models"],
+                ["voyage4_nano", "bitnet_270m"],
+            )
+            self.assertEqual(recorded["payload"]["status"], "BLOCKED")
+            self.assertEqual(
+                (diagnostics / "GATE_2_SELECTED_MODELS_REPORT.md").read_bytes(),
+                b"diagnostic report",
+            )
+            self.assertEqual(
+                (diagnostics / "selected_models_manifest.json").read_bytes(),
+                b"diagnostic manifest",
+            )
 
 
 if __name__ == "__main__":
