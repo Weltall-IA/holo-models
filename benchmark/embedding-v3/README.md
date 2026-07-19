@@ -1,22 +1,23 @@
 # Benchmark de embeddings e reranking v3
 
-Implementação versionada dos Gates 0, 1 e 2 do benchmark do Projeto Holo.
+Implementação versionada dos Gates 0, 1, 2 e 3 do benchmark do Projeto Holo.
 
 ## Segurança
 
 - pesos e caches permanecem fora do Git;
-- nenhuma API paga é chamada no Gate 2;
+- nenhuma API paga é chamada nos Gates 2 ou 3;
 - o corpus congelado não pode ser regenerado;
 - cada modelo é executado em processo isolado;
-- falha CUDA, OOM ou código remoto defeituoso não interrompe os modelos seguintes;
-- Gates 3 a 6 permanecem bloqueados.
+- falha CUDA, OOM, erro de modelo ou falha do `llama-server` não interrompe os modelos seguintes;
+- Gates 4 a 6 permanecem bloqueados até autorização explícita.
 
 ## Estado das tarefas
 
 - Gates 0 e 1: `.ai/tasks/EMBED-BENCH-V3-1.1/STATUS.yml`;
-- Gate 2: `.ai/tasks/EMBED-BENCH-V3-1.2/STATUS.yml`.
+- Gate 2: `.ai/tasks/EMBED-BENCH-V3-1.2/STATUS.yml`;
+- Gate 3: `.ai/tasks/EMBED-BENCH-V3-1.3/STATUS.yml`.
 
-## Gate 2 — candidatos ativos
+## Gate 2 — modelos locais compactos
 
 Obrigatórios para aprovação:
 
@@ -25,21 +26,39 @@ Obrigatórios para aprovação:
 3. `Qwen/Qwen3-Embedding-0.6B`;
 4. `BAAI/bge-m3` em modo denso.
 
-Opcionais, sem bloquear a aprovação quando todos os obrigatórios concluírem no corpus completo:
+O Voyage Nano foi executado como opcional e reproduzido com `transformers==4.57.6`. Os BitNet 270M e 0.6B foram testados, mas os GGUF oficiais são incompatíveis com o llama.cpp 9972 por usarem o tipo removido `TYPE_IQ4_NL_4_4`.
 
-- `voyageai/voyage-4-nano`;
-- `microsoft/bitnet-embedding-270m` via `llama.cpp`;
-- `microsoft/bitnet-embedding-0.6b` via `llama.cpp`.
+O Gate 2 canônico permanece `PASS`.
 
-`google/embeddinggemma-300m` foi desativado por acesso gated indisponível. `Alibaba-NLP/gte-multilingual-base` foi desativado após falha CUDA reproduzida no código carregado por `trust_remote_code`.
+## Gate 3 — embeddings GGUF no llama.cpp
 
-Os BitNet são baselines experimentais de eficiência. A ausência de model card detalhado e de evidência específica em PT-BR deve aparecer nos resultados; eles não substituem os modelos obrigatórios.
+O Gate 3 compara três rotas GGUF executadas pelo `llama-server` estável:
+
+1. `Qwen/Qwen3-Embedding-8B-GGUF`, preferencialmente `Q8_0`, com `Q6_K` permitido apenas como fallback registrado;
+2. `ggml-org/embeddinggemma-300M-GGUF` em `Q8_0`;
+3. `Qwen/Qwen3-Embedding-0.6B-GGUF` em `Q8_0`.
+
+Os três modelos são obrigatórios para `PASS`. A execução completa exige:
+
+- Gates 0, 1 e 2 em `PASS`;
+- corpus completo de 600 documentos e 150 consultas;
+- dispositivo CUDA;
+- revisão imutável, licença, arquivo GGUF, tamanho e SHA-256 registrados;
+- modelo executado em processo e servidor isolados;
+- versão do `llama-server`, pooling, quantização, dimensão, throughput e pico de VRAM registrados.
+
+Qwen3 usa pooling `last` e instrução de consulta. O modelo 8B retorna até 4096 dimensões; o benchmark usa as primeiras 1024 dimensões Matryoshka e normaliza novamente em L2. EmbeddingGemma usa pooling `mean`, dimensão 768 e os prompts assimétricos oficiais de consulta e documento.
+
+Uma seleção parcial com `--models`, execução em CPU ou recorte do corpus nunca conclui o Gate 3 como `PASS`. Diagnósticos parciais são gravados em `results/gate3/diagnostics/` sem substituir os artefatos canônicos.
 
 ## Execução
 
 ```text
 python benchmark.py --gate 2 --dry-run --device cuda --skip-api
 python benchmark.py --gate 2 --device cuda --skip-api
+
+python benchmark.py --gate 3 --dry-run --device cuda --skip-api
+python benchmark.py --gate 3 --device cuda --batch-size 16 --skip-api
 ```
 
 Opções relevantes:
@@ -53,27 +72,22 @@ Opções relevantes:
 --max-queries
 ```
 
-Uma execução com seleção parcial ou recorte de corpus nunca conclui o Gate 2 como `PASS`.
-
-Quando `--models` é usado para diagnóstico, o runner grava os artefatos em `results/gate2/diagnostics/` e restaura os arquivos canônicos do Gate 2. Assim, a tentativa dos opcionais não apaga nem rebaixa um `PASS` completo já validado.
-
-O Voyage Nano recebe a dimensão configurada por `truncate_dim`. Os BitNet executam por `llama-server`; stdout e stderr do servidor são capturados para registrar a causa real de falhas de runtime.
-
-## Resultado obrigatório atual
-
-Os quatro modelos obrigatórios concluíram o corpus completo. Nas métricas principais publicadas, o BGE-M3 liderou HitRate@1, HitRate@10, MRR@10 e nDCG@10 e apresentou a menor taxa de erro de negativos difíceis. O Colibri permaneceu competitivo e usa dimensão menor, mas não liderou MRR ou nDCG nesta execução.
-
-## Patch 1.2.2
-
-O parent runner agora preserva o payload de erro estruturado dos workers que encerram com código 2. Diagnósticos parciais restauram os artefatos canônicos após a execução. O worker v2 aplica `truncate_dim` ao Voyage e captura a saída real do `llama-server` durante as tentativas BitNet.
-
-A reexecução local deve usar somente `voyage4_nano,bitnet_270m,bitnet_06b` em `--models`. Os quatro resultados obrigatórios não devem ser recalculados.
-
 ## Resultados
+
+Gate 2:
 
 - manifesto resolvido: `download_manifest.resolved.json`;
 - relatório: `GATE_2_REPORT.md`;
 - resumo: `results/gate2/summary.json`;
 - resultados por modelo: `results/gate2/<model-id>.json`;
-- diagnóstico de seleção parcial: `results/gate2/diagnostics/`;
-- evidências temporárias de workers: `results/raw/gate2/`, ignoradas pelo Git.
+- diagnósticos: `results/gate2/diagnostics/`.
+
+Gate 3:
+
+- manifesto resolvido: `download_manifest_gate3.resolved.json`;
+- relatório: `GATE_3_REPORT.md`;
+- resumo: `results/gate3/summary.json`;
+- resultados por modelo: `results/gate3/<model-id>.json`;
+- diagnósticos: `results/gate3/diagnostics/`.
+
+Evidências temporárias de workers permanecem em `results/raw/` e são ignoradas pelo Git.
