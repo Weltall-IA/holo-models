@@ -150,6 +150,34 @@ class InventoryRepositoryTests(unittest.TestCase):
         ok, errors = gate0_passes(valid_system_info(), environment)
         self.assertFalse(ok)
 
+    def test_bak_suffix_still_blocks(self) -> None:
+        environment = valid_environment()
+        environment["commands"]["git_status"] = command(
+            " M benchmark/embedding-v3/GATE_0_REPORT.md.bak"
+        )
+        ok, errors = gate0_passes(valid_system_info(), environment)
+        self.assertFalse(ok)
+        self.assertIn(
+            "working tree possui alterações em arquivos rastreados",
+            errors,
+        )
+
+    def test_prefixed_path_still_blocks(self) -> None:
+        environment = valid_environment()
+        environment["commands"]["git_status"] = command(
+            " M xbenchmark/embedding-v3/GATE_0_REPORT.md"
+        )
+        ok, errors = gate0_passes(valid_system_info(), environment)
+        self.assertFalse(ok)
+
+    def test_substring_name_still_blocks(self) -> None:
+        environment = valid_environment()
+        environment["commands"]["git_status"] = command(
+            " M benchmark/embedding-v3/GATE_0_REPORT_extra.md"
+        )
+        ok, errors = gate0_passes(valid_system_info(), environment)
+        self.assertFalse(ok)
+
 
 if __name__ == "__main__":
     unittest.main()

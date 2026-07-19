@@ -59,10 +59,23 @@ def gate0(args: argparse.Namespace) -> int:
     report = render_report(system_info, environment, args.dry_run)
     (PROJECT_ROOT / "GATE_0_REPORT.md").write_text(report, encoding="utf-8")
     ok, errors = gate0_passes(system_info, environment)
+    hashes_path = PROJECT_ROOT / "data" / "holo_fake_scenes_v3" / "hashes.json"
+    gate1_preserved = False
+    if hashes_path.exists():
+        try:
+            hashes = json.loads(hashes_path.read_text(encoding="utf-8"))
+            combined = hashes.get("combined_sha256")
+            review = hashes.get("semantic_review_summary") or {}
+            if combined and review.get("complete") and review.get("errors") == []:
+                gate1_preserved = True
+        except (ValueError, KeyError, TypeError):
+            pass
     status = {
         "gate_0": "PASS" if ok else "BLOCKED",
-        "gate_1": "PENDING",
+        "gate_1": "PASS" if gate1_preserved else "PENDING",
         "gates_2_to_6": "BLOCKED_BY_DIRECTOR",
+        "corpus_version": "holo_fake_scenes_v3" if gate1_preserved else None,
+        "combined_sha256": hashes["combined_sha256"] if gate1_preserved else None,
         "updated_at": datetime.now(timezone.utc).isoformat(),
         "errors": errors,
     }

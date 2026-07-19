@@ -426,7 +426,7 @@ def gate0_passes(
         for line in git_status["stdout"].splitlines()
         if line.strip()
         and not any(
-            output in line.split()[-1] if len(line.split()) >= 2 else False
+            output == line.split()[-1] if len(line.split()) >= 2 else False
             for output in gate0_outputs
         )
     ]
