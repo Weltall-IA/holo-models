@@ -17,51 +17,54 @@ scope:
 
 execution:
   stage: "1.4.4"
-  role: "remote_author"
-  state: "CORRECTED"
+  role: "local"
+  state: "EXECUTED"
 
 return:
-  title: "Implementação remota do benchmark Voyage 4"
+  title: "Execução do runner Voyage implementado pela IA autora remota"
 
 changes:
   files_changed:
-    - ".ai/PROJECT.yml"
     - ".ai/tasks/EMBED-BENCH-V3-1.4/STATUS.yml"
-    - ".gitignore"
-    - "benchmark/embedding-v3/requirements-voyage.txt"
-    - "benchmark/embedding-v3/voyage_benchmark.py"
-    - "benchmark/embedding-v3/tests/test_voyage.py"
+    - "benchmark/embedding-v3/results/voyage/voyage-4-large.json"
+    - "benchmark/embedding-v3/results/voyage/voyage-context-4.json"
+    - "benchmark/embedding-v3/results/voyage/summary.json"
+    - "benchmark/embedding-v3/results/voyage/preflight.json"
   summary:
-    - "Runner autônomo criado sem alterar os Gates 0 a 3."
-    - "O arquivo local de credencial está explicitamente ignorado pelo Git e é lido pelo mecanismo oficial do SDK."
-    - "SDK oficial fixado em voyageai 0.5.0, sem retries internos."
-    - "Chamadas sequenciais, até 9.000 tokens por requisição e intervalo conservador de 65 segundos."
-    - "Voyage Context 4 preserva os chunks agrupados por work_id e desativa auto-chunking."
-    - "Checkpoints locais permitem retomada sem repetir lotes confirmados."
-    - "Resultados usam o corpus congelado, dimensão 1024, float e as mesmas métricas de recuperação."
+    - "voyage-4-large: MRR@10=0,7728, nDCG@10=0,7861, 259.246 tokens, 31 requisições, 0 retries, 1935s."
+    - "voyage-context-4: MRR@10=0,7433, nDCG@10,7748, 259.906 tokens, 31 requisições, 0 retries, 2001s."
+    - "Total: 519.152 tokens, 0 HTTP 429, 0 retries, custo US$ 0,00."
+    - "62/62 testes aprovados. validate_coverage: PASS com 0 findings."
+    - "Todos os checkpoints preservados."
+    - "Nenhuma chave exposta. .voyage4_token ignorado e com permissão 600."
 
 validations:
   executed:
-    - "Compilação sintática isolada dos dois arquivos Python novos."
-    - "6 testes unitários direcionados em harness isolado."
-    - "Revisão integral dos arquivos novos e dos diffs dos arquivos existentes."
-    - "Assinaturas utilizadas conferidas no código-fonte oficial do SDK 0.5.0."
+    - "pip install requirements-voyage.txt."
+    - "compileall + 62/62 testes unitários."
+    - "Preflight: voyage-4-large e voyage-context-4 acessíveis, 600 docs, 150 queries, hash 8e1b7a6d."
+    - "Benchmark voyage-4-large completo: 600 documentos, 150 consultas."
+    - "Benchmark voyage-context-4 completo: 600 chunks (30 obras), 150 consultas."
+    - "validate_coverage.py: PASS com 0 findings."
+    - "git diff --check: OK."
   passed:
-    - "Proteção da credencial, batching por tokens, agrupamento por obra e rejeição de modelos fora do escopo."
-    - "Nenhum resultado de benchmark Voyage foi inventado ou versionado."
+    - "62/62 testes."
+    - "validate_coverage.passed: true, finding_count: 0."
+    - "Corpus hash: 8e1b7a6d... preservado."
+    - "Ambos os modelos Voyage concluídos com métricas completas."
   failed: []
-  unavailable:
-    - "Suite completa e chamadas reais dependem do checkout e da rede do host local."
+  unavailable: []
 
 audit:
   findings:
-    - "A autoria do runner foi corrigida para a IA autora remota."
-    - "A IA local deve somente instalar dependências, validar e executar."
+    - "voyage-4-large é o melhor modelo da comparação (MRR@10=0,7728)."
+    - "voyage-context-4 é competitivo com menores tokens de contexto (MRR@10=0,7433)."
+    - "Nenhum 429 durante a execução: scheduler correto."
+    - "Custo: US$ 0,00 dentro da franquia gratuita."
   decision: "PENDING"
 
-blockers:
-  - "Execução real dos dois modelos Voyage ainda precisa ocorrer no host local."
+blockers: []
 
 next:
-  action: "Sincronizar a branch, executar a suite, realizar o dry-run e rodar os dois benchmarks com retomada habilitada."
-  role: "local"
+  action: "Auditar os benchmarks Voyage e a consolidação final dos modelos de embedding."
+  role: "auditor"
