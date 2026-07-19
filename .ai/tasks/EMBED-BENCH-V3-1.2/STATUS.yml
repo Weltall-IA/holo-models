@@ -3,11 +3,11 @@ schema_version: 1
 task:
   id: "EMBED-BENCH-V3-1.2"
   title: "Benchmark de embeddings e reranking — Gate 2"
-  objective: "Executar e comparar modelos locais compactos no corpus congelado, priorizando evidência nativa em PT-BR, com falhas isoladas e resultados reproduzíveis."
+  objective: "Executar e comparar modelos locais compactos no corpus congelado, priorizando candidatos específicos para PT-BR e baselines multilíngues, com falhas isoladas e resultados reproduzíveis."
 
 scope:
   included:
-    - "Gate 2 com modelos obrigatórios selecionados por evidência em PT-BR e benchmark local."
+    - "Gate 2 com modelos obrigatórios selecionados para comparação em PT-BR e benchmark local."
     - "Colibri PT-BR, Multilingual E5 Large Instruct, Qwen3 Embedding 0.6B e BGE-M3 denso como conjunto obrigatório."
     - "Voyage Nano e dois BitNet como candidatos opcionais."
     - "BitNet executado por llama.cpp usando arquivos GGUF específicos."
@@ -43,7 +43,7 @@ changes:
   summary:
     - "Cada modelo passa a ser executado em subprocesso independente; falhas CUDA não contaminam o processo seguinte."
     - "gte_multilingual_base foi desativado após falha CUDA reproduzida no código remoto e por não ser prioridade PT-BR."
-    - "embeddinggemma foi desativado por acesso gated indisponível; Colibri cobre a família com foco específico em PT-BR."
+    - "embeddinggemma foi desativado por acesso gated indisponível."
     - "Colibri PT-BR e Multilingual E5 Large Instruct foram adicionados ao conjunto obrigatório."
     - "Qwen3 Embedding 0.6B e BGE-M3 permanecem obrigatórios."
     - "Voyage Nano e os dois BitNet são opcionais; falhas opcionais são registradas sem invalidar resultados obrigatórios completos."
