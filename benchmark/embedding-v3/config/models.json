@@ -103,7 +103,7 @@
       "backend": "sentence-transformers",
       "gate": null,
       "enabled": false,
-      "reason": "acesso gated indisponível no ambiente local; Colibri cobre a mesma família com foco PT-BR"
+      "reason": "acesso gated indisponível no ambiente local; Colibri cobre a família com foco PT-BR"
     },
     {
       "id": "gte_multilingual_base",
