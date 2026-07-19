@@ -45,8 +45,8 @@ changes:
     - "A captura foi corrigida para ler primeiro o resultado estruturado, preservar tipo, mensagem e traceback reais, e somente usar erro genérico quando o arquivo de saída não existir."
     - "Timeout, saída inválida e inconsistência entre status ok e exit code não zero agora têm erros próprios."
     - "Execuções com --models agora gravam diagnóstico separado em results/gate2/diagnostics e restauram gate_status.json, GATE_2_REPORT.md, download_manifest.resolved.json e summary.json canônicos."
-    - "Voyage Nano agora recebe truncate_dim=1024, coerente com a dimensão configurada e suportada pelo modelo."
-    - "BitNet agora executa pelo worker v2 com stdout/stderr do llama-server capturados; falhas incluem a cauda real do log do runtime."
+    - "Voyage Nano agora recebe truncate_dim=1024, conforme a dimensão configurada e suportada pela integração oficial do modelo."
+    - "BitNet agora executa pelo worker v2 com stdout/stderr do llama-server capturados; os nomes GGUF configurados correspondem aos arquivos oficiais dos dois repositórios."
     - "Os quatro resultados obrigatórios aprovados devem ser preservados; a próxima execução será restrita aos três opcionais."
 
 validations:
