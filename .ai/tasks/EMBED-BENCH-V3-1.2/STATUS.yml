@@ -35,6 +35,7 @@ changes:
     - "benchmark/embedding-v3/holo_benchmark/gate2_worker_v2.py"
     - "benchmark/embedding-v3/tests/test_gate2.py"
     - "benchmark/embedding-v3/tests/test_gate2_optional.py"
+    - "benchmark/embedding-v3/README.md"
     - ".ai/tasks/EMBED-BENCH-V3-1.2/STATUS.yml"
   summary:
     - "O resultado obrigatório do Gate 2 foi auditado: 4/4 modelos obrigatórios concluíram no corpus completo e o hash congelado foi preservado."
