@@ -2,18 +2,18 @@ schema_version: 1
 
 task:
   id: "EMBED-BENCH-V3-1.4"
-  title: "Inventário completo e cobertura de todos os modelos locais"
-  objective: "Resolver modelos bloqueados, cobrir todos os embeddings e executar Voyage 4 Large e Context com o corpus congelado."
+  title: "Benchmark de embeddings locais e Voyage"
+  objective: "Preservar os benchmarks locais e executar Voyage 4 Large e Voyage Context 4 com o corpus congelado."
 
 scope:
   included:
-    - "Preservação dos benchmarks locais concluídos."
+    - "Benchmarks locais já concluídos."
     - "Runner dedicado para voyage-4-large e voyage-context-4."
-    - "Rate limit compartilhado de 10.000 TPM e 3 RPM."
-    - "Checkpoints retomáveis e métricas equivalentes aos Gates 2 e 3."
+    - "Limite compartilhado de 10.000 TPM e 3 RPM."
+    - "Checkpoints retomáveis e métricas equivalentes às execuções locais."
   excluded:
-    - "LLMs de chat, ASR, TTS, imagem, vídeo, rerankers."
-    - "Voyage 3, Voyage 4 Lite e outros modelos não autorizados."
+    - "LLMs de chat, áudio, imagem, vídeo e rerankers."
+    - "Modelos Voyage não autorizados."
 
 execution:
   stage: "1.4.4"
@@ -32,35 +32,36 @@ changes:
     - "benchmark/embedding-v3/voyage_benchmark.py"
     - "benchmark/embedding-v3/tests/test_voyage.py"
   summary:
-    - "Adicionado runner autônomo para voyage-4-large e voyage-context-4 sem alterar os Gates 0-3."
-    - "A chave é carregada exclusivamente por VOYAGE_API_KEY_PATH apontando para .voyage4_token, que agora está explicitamente ignorado pelo Git."
-    - "SDK fixado em voyageai 0.4.1 e criado com max_retries=0 para impedir retries duplicados."
-    - "Chamadas são sequenciais, com no máximo 9.000 tokens por requisição e intervalo conservador de 65 segundos, respeitando o limite compartilhado de 10.000 TPM e 3 RPM."
-    - "voyage-context-4 preserva os chunks agrupados por work_id, sem auto-chunking e sem misturar obras."
-    - "Checkpoints ficam em results/raw/voyage, fora do Git, e permitem retomada sem repetir lotes concluídos."
-    - "Resultados finais usam o corpus congelado, dimensão 1024, dtype float e as mesmas métricas de recuperação existentes."
+    - "Runner autônomo criado sem alterar os Gates 0 a 3."
+    - "O arquivo local de credencial está explicitamente ignorado pelo Git e é lido pelo mecanismo oficial do SDK."
+    - "SDK oficial fixado em voyageai 0.5.0, sem retries internos."
+    - "Chamadas sequenciais, até 9.000 tokens por requisição e intervalo conservador de 65 segundos."
+    - "Voyage Context 4 preserva os chunks agrupados por work_id e desativa auto-chunking."
+    - "Checkpoints locais permitem retomada sem repetir lotes confirmados."
+    - "Resultados usam o corpus congelado, dimensão 1024, float e as mesmas métricas de recuperação."
 
 validations:
   executed:
-    - "Compilação sintática isolada de voyage_benchmark.py e test_voyage.py."
-    - "6 testes unitários direcionados do novo runner em harness isolado."
-    - "Revisão integral dos arquivos novos e dos diffs de .gitignore e .ai/PROJECT.yml."
+    - "Compilação sintática isolada dos dois arquivos Python novos."
+    - "6 testes unitários direcionados em harness isolado."
+    - "Revisão integral dos arquivos novos e dos diffs dos arquivos existentes."
+    - "Assinaturas utilizadas conferidas no código-fonte oficial do SDK 0.5.0."
   passed:
-    - "Testes de proteção da chave, batching por tokens, agrupamento por obra e bloqueio de modelos antigos."
+    - "Proteção da credencial, batching por tokens, agrupamento por obra e rejeição de modelos fora do escopo."
     - "Nenhum resultado de benchmark Voyage foi inventado ou versionado."
   failed: []
   unavailable:
-    - "Suite completa do repositório e chamadas reais à Voyage dependem do checkout local, da chave e da rede."
+    - "Suite completa e chamadas reais dependem do checkout e da rede do host local."
 
 audit:
   findings:
-    - "O erro anterior foi estrutural: a autoria do runner foi indevidamente delegada à IA local."
-    - "A implementação agora foi feita pela IA autora remota; a IA local deve somente instalar, validar e executar."
+    - "A autoria do runner foi corrigida para a IA autora remota."
+    - "A IA local deve somente instalar dependências, validar e executar."
   decision: "PENDING"
 
 blockers:
-  - "Execução real de voyage-4-large e voyage-context-4 ainda precisa ocorrer no host local."
+  - "Execução real dos dois modelos Voyage ainda precisa ocorrer no host local."
 
 next:
-  action: "Sincronizar a branch, executar a suite, fazer o dry-run e rodar os dois benchmarks Voyage com retomada habilitada."
+  action: "Sincronizar a branch, executar a suite, realizar o dry-run e rodar os dois benchmarks com retomada habilitada."
   role: "local"
