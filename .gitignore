@@ -67,6 +67,9 @@ runtime/vane-comparison/slimtoolkit/
 # Standalone model dirs - various formats
 standalone/
 
+# Canonical local embedding snapshots downloaded by Gate 2
+/embed/*/
+
 # Model weights and binary artifacts remain local
 **/*.gguf
 **/*.safetensors
