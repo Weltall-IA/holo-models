@@ -1,6 +1,7 @@
 {
-  "schema_version": "1.0",
-  "qwen3_query_instruction": "Retrieve scenes from Portuguese-language audiovisual transcripts that best match the described event, dialogue, character, emotion, intention, or narrative context.",
+  "schema_version": "1.1",
+  "qwen3_query_instruction": "Retrieve scenes from Brazilian-Portuguese audiovisual transcripts that best match the described event, dialogue, character, emotion, intention, or narrative context.",
+  "e5_query_instruction": "Given a Brazilian-Portuguese scene-retrieval query, retrieve the transcript passages that best answer it.",
   "embeddinggemma_document": "title: {title_or_none} | text: {text}",
   "embeddinggemma_query": "task: search result | query: {query}",
   "voyage_document_input_type": "document",
@@ -9,5 +10,5 @@
     "method": "contextualized_embed",
     "enable_auto_chunking": false
   },
-  "notes": "BGE-M3, GTE e Voyage Nano devem seguir a model card da revisão fixada."
+  "notes": "Colibri usa os prompts assimétricos da família EmbeddingGemma. E5 e Qwen3 exigem instrução na consulta. BGE-M3 usa texto sem prefixo. BitNet permanece experimental por ausência de model card detalhado."
 }
