@@ -5,6 +5,7 @@ import subprocess
 import sys
 import tempfile
 from dataclasses import asdict
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -139,3 +140,67 @@ def _run_model_worker(
 # run_gate2 foi definido no módulo original e consulta este global em tempo de
 # execução. Substituí-lo aqui corrige o fluxo sem duplicar o restante do runner.
 _runtime._run_model_worker = _run_model_worker
+
+
+_original_run_gate2 = _runtime.run_gate2
+
+
+def _restore_file(path: Path, previous: bytes | None) -> None:
+    if previous is None:
+        path.unlink(missing_ok=True)
+        return
+    temporary = path.with_suffix(path.suffix + ".restore.tmp")
+    temporary.parent.mkdir(parents=True, exist_ok=True)
+    temporary.write_bytes(previous)
+    temporary.replace(path)
+
+
+def run_gate2(project_root: Path, repo_root: Path, args: Any) -> tuple[int, dict[str, Any]]:
+    """Preserve o resultado canônico quando --models executar diagnóstico parcial."""
+    selected = [
+        value.strip()
+        for value in str(getattr(args, "models", "") or "").split(",")
+        if value.strip()
+    ]
+    if not selected:
+        return _original_run_gate2(project_root, repo_root, args)
+
+    canonical_paths = {
+        "gate_status": project_root / "gate_status.json",
+        "report": project_root / "GATE_2_REPORT.md",
+        "manifest": project_root / "download_manifest.resolved.json",
+        "summary": project_root / "results" / "gate2" / "summary.json",
+    }
+    previous = {
+        name: path.read_bytes() if path.exists() else None
+        for name, path in canonical_paths.items()
+    }
+    diagnostics_dir = project_root / "results" / "gate2" / "diagnostics"
+    diagnostics_dir.mkdir(parents=True, exist_ok=True)
+
+    try:
+        code, payload = _original_run_gate2(project_root, repo_root, args)
+        _runtime._atomic_json(
+            diagnostics_dir / "selected_models_summary.json",
+            {
+                "schema_version": "1.0",
+                "selected_models": selected,
+                "generated_at": datetime.now(timezone.utc).isoformat(),
+                "exit_code": code,
+                "payload": payload,
+            },
+        )
+        generated_report = canonical_paths["report"]
+        if generated_report.exists():
+            (diagnostics_dir / "GATE_2_SELECTED_MODELS_REPORT.md").write_bytes(
+                generated_report.read_bytes()
+            )
+        generated_manifest = canonical_paths["manifest"]
+        if generated_manifest.exists():
+            (diagnostics_dir / "selected_models_manifest.json").write_bytes(
+                generated_manifest.read_bytes()
+            )
+        return code, payload
+    finally:
+        for name, path in canonical_paths.items():
+            _restore_file(path, previous[name])
