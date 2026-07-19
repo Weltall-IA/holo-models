@@ -1,13 +1,13 @@
 {
   "schema_version": "1.0",
-  "total_models": 52,
+  "total_models": 53,
   "by_status": {
-    "BENCHMARKED": 9,
+    "BENCHMARKED": 10,
     "BLOCKED": 21,
     "HEALTHCHECK_PASSED": 22
   },
   "by_category": {
-    "embedding": 13,
+    "embedding": 14,
     "text_llm": 30,
     "image": 3,
     "audio": 2,
@@ -153,22 +153,35 @@
     {
       "id": "gte_multilingual_base",
       "category": "embedding",
-      "status": "BLOCKED",
+      "status": "BENCHMARKED",
       "repo": "Alibaba-NLP/gte-multilingual-base",
-      "reason": "CUDA index out of bounds em trust_remote_code",
+      "reason": null,
       "evidence": {
-        "runtime": "transformers 5.14.1 / sentence-transformers 5.6.0",
-        "error": "CUDA error: unspecified launch failure (IndexKernel.cu:111, index out of bounds)",
-        "attempts": [
-          {
-            "action": "batch_size=16, CUDA, trust_remote_code=true",
-            "result": "IndexKernel assertion failure"
-          },
-          {
-            "action": "batch_size=8, CUDA",
-            "result": "same CUDA assertion failure"
-          }
-        ]
+        "artifact": "results/gate2/gte_multilingual_base.json",
+        "runtime": "sentence-transformers 5.6.0 + torch 2.13.0+cu130",
+        "command": [
+          "python",
+          "benchmark.py",
+          "--gate",
+          "2",
+          "--models",
+          "gte_multilingual_base"
+        ],
+        "result": {
+          "MRR@10": 0.56759,
+          "nDCG@10": 0.625176,
+          "dimension": 768,
+          "device": "cuda"
+        }
+      },
+      "revision": "9bbca17d9273fd0d03d5725c4a7b0f6b45142062",
+      "result": {
+        "status": "completed",
+        "device": "cuda",
+        "dimension": 768,
+        "MRR@10": 0.56759,
+        "nDCG@10": 0.625176,
+        "note": "Funcionou com transformers 4.57.6 (não 5.x). Batch 16 OK."
       }
     },
     {
@@ -182,8 +195,20 @@
         "error": "gguf_init_from_reader: tensor blk.0.ffn_down.weight of type 36 (TYPE_IQ4_NL_4_4 REMOVED, use IQ4_NL with runtime repacking)",
         "attempts": [
           {
-            "action": "llama-server -m bitnet-embeddings-270m-bf16-i2_s.gguf --embedding --ngl 99",
-            "result": "exit code 1, tensor type 36 not supported"
+            "action": "llama.cpp stable 9972 com GGUF i2_s",
+            "result": "TYPE_IQ4_NL_4_4 REMOVED, tensor type 36 não suportado"
+          },
+          {
+            "action": "llama.cpp TurboQuant v1 com GGUF i2_s",
+            "result": "Core dump (segfault ao carregar tensor type 36)"
+          },
+          {
+            "action": "Verificação de alternativas HF",
+            "result": "Apenas 1 GGUF i2_s disponível; sem safetensors ou bin; sem quantização alternativa"
+          },
+          {
+            "action": "Verificação de binários adicionais",
+            "result": "Apenas llama.cpp 9972 e TurboQuant v1 encontrados na máquina"
           }
         ]
       }
@@ -199,25 +224,20 @@
         "error": "gguf_init_from_reader: tensor blk.0.ffn_down.weight of type 36 (TYPE_IQ4_NL_4_4 REMOVED, use IQ4_NL with runtime repacking)",
         "attempts": [
           {
-            "action": "llama-server -m bitnet-embeddings-0.6b-bf16-i2_s.gguf --embedding --ngl 99",
-            "result": "exit code 1, tensor type 36 not supported"
-          }
-        ]
-      }
-    },
-    {
-      "id": "gte_multilingual_base_cuda",
-      "category": "embedding",
-      "status": "BLOCKED",
-      "repo": "Alibaba-NLP/gte-multilingual-base",
-      "reason": "CUDA incompatível; modelo desativado no config/models.json",
-      "evidence": {
-        "runtime": "transformers 4.57.6 + sentence-transformers 5.6.0",
-        "error": "trust_remote_code model causes CUDA index assertion",
-        "attempts": [
+            "action": "llama.cpp stable 9972 com GGUF i2_s",
+            "result": "TYPE_IQ4_NL_4_4 REMOVED, tensor type 36 não suportado"
+          },
           {
-            "action": "batch 16, CUDA",
-            "result": "IndexKernel.cu assertion"
+            "action": "llama.cpp TurboQuant v1 com GGUF i2_s",
+            "result": "Core dump (segfault ao carregar tensor type 36)"
+          },
+          {
+            "action": "Verificação de alternativas HF",
+            "result": "Apenas 1 GGUF i2_s disponível; sem safetensors ou bin; sem quantização alternativa"
+          },
+          {
+            "action": "Verificação de binários adicionais",
+            "result": "Apenas llama.cpp 9972 e TurboQuant v1 encontrados na máquina"
           }
         ]
       }
@@ -1008,6 +1028,48 @@
           {
             "action": "Inventário de arquivos em video/rife",
             "result": "10 arquivos de peso encontrados"
+          }
+        ]
+      }
+    },
+    {
+      "id": "voyage-4-large",
+      "category": "embedding",
+      "status": "BLOCKED",
+      "repo": "voyageai/voyage-4-large",
+      "reason": "VOYAGE_API_KEY não configurada no ambiente; aguardando autorização financeira do diretor para ativar",
+      "evidence": {
+        "runtime": "voyageai SDK",
+        "error": "VOYAGE_API_KEY não configurada no ambiente",
+        "attempts": [
+          {
+            "action": "Verificação de VOYAGE_API_KEY",
+            "result": "Variável de ambiente não definida"
+          },
+          {
+            "action": "Verificação do pacote voyageai",
+            "result": "Pacote não instalado no venv"
+          }
+        ]
+      }
+    },
+    {
+      "id": "voyage-context-4",
+      "category": "embedding",
+      "status": "BLOCKED",
+      "repo": "voyageai/voyage-context-4",
+      "reason": "VOYAGE_API_KEY não configurada no ambiente; aguardando autorização financeira do diretor para ativar",
+      "evidence": {
+        "runtime": "voyageai SDK",
+        "error": "VOYAGE_API_KEY não configurada no ambiente",
+        "attempts": [
+          {
+            "action": "Verificação de VOYAGE_API_KEY",
+            "result": "Variável de ambiente não definida"
+          },
+          {
+            "action": "Verificação do pacote voyageai",
+            "result": "Pacote não instalado no venv"
           }
         ]
       }

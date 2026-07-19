@@ -3,65 +3,67 @@ schema_version: 1
 task:
   id: "EMBED-BENCH-V3-1.4"
   title: "Inventário completo e cobertura de todos os modelos locais"
-  objective: "Descobrir todos os modelos locais atuais, eliminar omissões silenciosas, validar funcionamento por categoria e cobrir todo modelo de embedding elegível."
+  objective: "Resolver modelos bloqueados, cobrir todos os embeddings e preparar Voyage API."
 
 scope:
   included:
-    - "Inventário de modelos em embed, text, audio, video e image."
-    - "Health checks com evidência completa para Ollama e GGUFs."
-    - "Classificação: BENCHMARKED, BLOCKED, HEALTHCHECK_PASSED, NOT_APPLICABLE."
-    - "Preservação dos resultados Gates 0-3."
+    - "Resolução de 3 modelos bloqueados (gte, bitnet_270m, bitnet_06b)."
+    - "Benchmark completo do GTE em CUDA (600 docs, 150 queries)."
+    - "Preparação Voyage API (preflight, sem execução paga)."
+    - "Deduplicação e cobertura total."
   excluded:
-    - "Download de modelos antigos. API paga. Regeneração do corpus."
+    - "LLMs de chat, ASR, TTS, imagem, vídeo, rerankers."
 
 execution:
-  stage: "1.4.1"
+  stage: "1.4.3"
   role: "local"
   state: "EXECUTED"
 
 return:
-  title: "Correção e validação real da cobertura de todos os modelos locais"
+  title: "Correção dos embeddings locais e preparação dos benchmarks Voyage"
 
 changes:
   files_changed:
     - ".ai/tasks/EMBED-BENCH-V3-1.4/STATUS.yml"
     - "benchmark/embedding-v3/local_model_inventory.json"
     - "benchmark/embedding-v3/LOCAL_MODEL_INVENTORY_REPORT.md"
-    - "benchmark/embedding-v3/results/healthcheck_evidence/*.json"
-    - "benchmark/embedding-v3/coverage_report.json"
+    - "benchmark/embedding-v3/results/gate2/gte_multilingual_base.json"
+    - "benchmark/embedding-v3/results/gte_attempts.json"
   summary:
-    - "52 modelos descobertos, todos com evidência estruturada."
-    - "validate_coverage.py: passed, finding_count=0, coverage_complete=true."
-    - "9 embeddings benchmarkados (Gates 0-3) com identity comprovada."
-    - "3 embeddings bloqueados com runtime, erro e tentativas documentadas."
-    - "22 health checks aprovados com endpoint, comando, runtime e resultado."
-    - "24 NOT_APPLICABLE bloqueados com evidência de tentativas."
+    - "gte_multilingual_base: BENCHMARKED com transformers 4.57.6 (não 5.x). MRR@10=0,568, nDCG@10=0,625, CUDA, batch 16."
+    - "bitnet_270m e bitnet_06b: mantidos BLOCKED. GGUF TYPE_IQ4_NL_4_4 incompatível com llama.cpp 9972 e TurboQuant v1. Sem alternativa safetensors no HF."
+    - "gte_multilingual_base_cuda: entrada duplicada removida, tentativas consolidadas."
+    - "voyage-4-large e voyage-context-4: BLOCKED sem VOYAGE_API_KEY. Aguardando autorização do diretor."
+    - "53 modelos totais, 10 benchmarkados, 21 bloqueados, 22 health checks."
+    - "validate_coverage.py: PASS, 0 findings."
 
 validations:
   executed:
     - "56/56 testes unitários."
-    - "Inventário automático + consolidação manual."
-    - "17 health checks Ollama (16 /api/generate + 1 /api/embed)."
-    - "validate_coverage.py --write: exit 0."
+    - "GTE: batch CUDA 16, 8, 4, 2 + CPU. batch 16 OK com transformers 4.57.6."
+    - "GTE: corpus completo 600 docs, 150 queries, CUDA."
+    - "BitNet: llama.cpp 9972 + TurboQuant v1. Ambos falham (tensor type 36)."
+    - "BitNet: verificação HF sem alternativas."
+    - "VOYAGE_API_KEY: ausente no ambiente."
+    - "validate_coverage.py: exit 0."
   passed:
-    - "coverage_validation.passed: true."
-    - "coverage_validation.finding_count: 0."
+    - "validate_coverage.passed: true, finding_count: 0."
     - "coverage_complete: true."
     - "pending_embedding_model_ids: []."
     - "pending_healthcheck_model_ids: []."
   failed: []
-  unavailable: []
+  unavailable:
+    - "Voyage benchmarks aguardam VOYAGE_API_KEY e autorização financeira."
 
 audit:
   findings:
-    - "Todos os modelos têm evidência estruturada (runtime, endpoint/command, result)."
-    - "Bloqueios documentados com attempts list."
-    - "Aliases Ollama verificados via /api/embed para embedding."
-    - "GGUFs text/ classificados como BLOCKED quando sem runner."
+    - "GTE resolvido: funciona em CUDA com transformers 4.57.6. O bug era exclusivo do 5.x."
+    - "BitNet: incompatibilidade upstream confirmada. GGUF usa tensor type removido. Sem safetensors."
+    - "Voyage: preparado para execução paga. Estado READY_FOR_VOYAGE_API."
   decision: "PENDING"
 
 blockers: []
 
 next:
-  action: "Auditar a cobertura completa com evidências."
+  action: "Auditar a resolução dos embeddings e preparação Voyage."
   role: "auditor"
