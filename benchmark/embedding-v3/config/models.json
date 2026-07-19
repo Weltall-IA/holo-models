@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.1",
+  "schema_version": "1.2",
   "selection_basis": "PT-BR-specific candidates, multilingual baselines and the local Holo retrieval benchmark",
   "models": [
     {
@@ -125,8 +125,17 @@
       "dimension": 1024,
       "native_dimension": 4096,
       "backend": "llama.cpp",
+      "pooling": "last",
+      "prompt_profile": "qwen3",
+      "context_size": 4096,
+      "server_batch_size": 512,
+      "server_ubatch_size": 512,
+      "gpu_layers": 99,
+      "required": true,
       "gate": 3,
-      "enabled": true
+      "enabled": true,
+      "reason": "candidato de maior qualidade; Q8_0 preferido e Q6_K permitido somente como fallback registrado",
+      "license": "apache-2.0"
     },
     {
       "id": "embeddinggemma_gguf",
@@ -134,9 +143,19 @@
       "file": "embeddinggemma-300M-Q8_0.gguf",
       "kind": "embedding",
       "dimension": 768,
+      "native_dimension": 768,
       "backend": "llama.cpp",
+      "pooling": "mean",
+      "prompt_profile": "embeddinggemma",
+      "context_size": 2048,
+      "server_batch_size": 512,
+      "server_ubatch_size": 512,
+      "gpu_layers": 99,
+      "required": true,
       "gate": 3,
-      "enabled": true
+      "enabled": true,
+      "reason": "rota GGUF pública do EmbeddingGemma para comparar qualidade e eficiência sem o repositório gated",
+      "license": "gemma"
     },
     {
       "id": "qwen3_embedding_06_gguf",
@@ -144,9 +163,20 @@
       "file": "Qwen3-Embedding-0.6B-Q8_0.gguf",
       "kind": "embedding",
       "dimension": 1024,
+      "native_dimension": 1024,
       "backend": "llama.cpp",
+      "pooling": "last",
+      "prompt_profile": "qwen3",
+      "context_size": 4096,
+      "server_batch_size": 512,
+      "server_ubatch_size": 512,
+      "gpu_layers": 99,
+      "required": true,
       "gate": 3,
-      "enabled": true
+      "enabled": true,
+      "reason": "controle quantizado comparável ao Qwen3 0.6B executado no Gate 2",
+      "license": "apache-2.0",
+      "baseline_model_id": "qwen3_embedding_06"
     },
     {
       "id": "qwen3_reranker_06",
