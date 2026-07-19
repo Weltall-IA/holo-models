@@ -3,103 +3,77 @@ schema_version: 1
 task:
   id: "EMBED-BENCH-V3-1.2"
   title: "Benchmark de embeddings e reranking — Gate 2"
-  objective: "Executar e comparar os modelos locais compactos no corpus congelado, com revisões fixadas, métricas reproduzíveis e evidências sanitizadas."
+  objective: "Executar e comparar modelos locais compactos no corpus congelado, priorizando evidência nativa em PT-BR, com falhas isoladas e resultados reproduzíveis."
 
 scope:
   included:
-    - "Gate 2 com os modelos locais habilitados em benchmark/embedding-v3/config/models.json."
-    - "Resolução de revisão, tamanho, licença e estado de acesso antes do download."
-    - "Download no diretório canônico embed/<model-id>, fora do Git."
-    - "Emboddings locais sequenciais no corpus completo congelado."
-    - "Métricas globais, por tipo de consulta e por consulta."
-    - "Registro de backend, dimensão, dtype, normalização, throughput, VRAM e hashes dos pesos."
-    - "Python 3.12 em ambiente virtual isolado e CUDA quando disponível."
+    - "Gate 2 com modelos obrigatórios selecionados por evidência em PT-BR e benchmark local."
+    - "Colibri PT-BR, Multilingual E5 Large Instruct, Qwen3 Embedding 0.6B e BGE-M3 denso como conjunto obrigatório."
+    - "Voyage Nano e dois BitNet como candidatos opcionais."
+    - "BitNet executado por llama.cpp usando arquivos GGUF específicos."
+    - "Processo isolado por modelo para impedir corrupção CUDA em cascata."
+    - "Revisão, licença, tamanho, acesso, backend, dimensão, dtype, throughput, VRAM e hashes."
+    - "Python 3.12, CUDA e llama.cpp local quando disponível."
   excluded:
     - "Gates 3 a 6."
-    - "Modelos GGUF do Gate 3."
-    - "Chamadas à API paga da Voyage AI."
+    - "API paga da Voyage AI."
     - "Reranking."
-    - "Alteração ou regeneração do corpus congelado."
-    - "Integração ao Holo, merge, deploy ou publicação de modelos."
+    - "Regeneração do corpus congelado."
+    - "Merge, deploy ou publicação de modelos."
 
 execution:
-  stage: "1.2.0"
-  role: "local"
-  state: "BLOCKED"
+  stage: "1.2.1"
+  role: "remote_author"
+  state: "CORRECTED"
 
 return:
-  title: "Bloqueio do Gate 2 após falha CUDA do GTE"
+  title: "Correção do Gate 2 com isolamento de processos e seleção PT-BR"
 
 changes:
   files_changed:
     - "benchmark/embedding-v3/holo_benchmark/gate2.py"
+    - "benchmark/embedding-v3/holo_benchmark/gate2_runtime.py"
+    - "benchmark/embedding-v3/holo_benchmark/gate2_worker.py"
+    - "benchmark/embedding-v3/tests/test_gate2.py"
+    - "benchmark/embedding-v3/config/models.json"
+    - "benchmark/embedding-v3/config/prompts.json"
+    - "benchmark/embedding-v3/download_manifest.json"
+    - "benchmark/embedding-v3/README.md"
     - ".ai/tasks/EMBED-BENCH-V3-1.2/STATUS.yml"
-    - "benchmark/embedding-v3/gate_status.json"
-    - "benchmark/embedding-v3/GATE_2_REPORT.md"
-    - "benchmark/embedding-v3/download_manifest.resolved.json"
   summary:
-    - "embeddinggemma: modelo gated (gemma) sem credenciais de acesso — pulado."
-    - "gte_multilingual_base: falha CUDA index out of bounds no código customizado carregado por trust_remote_code."
-    - "Falha do GTE corrompeu contexto CUDA e impediu execução dos modelos seguintes (qwen3_embedding_06, bge_m3_dense, voyage4_nano)."
-    - "Corpus preservado: hash 8e1b7a6d..."
-    - "Snapshot baixados preservados: bge_m3_dense (4,3 GB), gte_multilingual_base (601 MB), qwen3_embedding_06 (1,2 GB)."
-    - "Nenhum resultado parcial foi tratado como aprovação."
-    - "gate2.py corrigido para filtrar modelos gated antes do download e resetar estado CUDA após falha."
-    - "Correções implementadas mas Gate 2 permanece bloqueado para auditoria do autor remoto."
+    - "Cada modelo passa a ser executado em subprocesso independente; falhas CUDA não contaminam o processo seguinte."
+    - "gte_multilingual_base foi desativado após falha CUDA reproduzida no código remoto e por não ser prioridade PT-BR."
+    - "embeddinggemma foi desativado por acesso gated indisponível; Colibri cobre a família com foco específico em PT-BR."
+    - "Colibri PT-BR e Multilingual E5 Large Instruct foram adicionados ao conjunto obrigatório."
+    - "Qwen3 Embedding 0.6B e BGE-M3 permanecem obrigatórios."
+    - "Voyage Nano e os dois BitNet são opcionais; falhas opcionais são registradas sem invalidar resultados obrigatórios completos."
+    - "BitNet 270M e 0.6B usam llama-server em modo embedding e arquivos GGUF específicos."
+    - "O runner diferencia modelos obrigatórios e opcionais e mantém bloqueio para seleção parcial ou corpus recortado."
 
 validations:
   executed:
-    - "Compilação Python (compileall)."
-    - "24/24 testes unitários aprovados."
-    - "Resolução de revisão, licença, tamanho e estado de acesso para 5 modelos do Gate 2."
-    - "Dry-run Gate 2 com manifesto resolvido."
-    - "Gate 2 real em CUDA: 5 modelos tentados, 0 concluídos."
+    - "Compilação dos arquivos gate2.py e gate2_worker.py em ambiente temporário."
+    - "15 testes direcionados de configuração, resolução, prompts, seleção, status obrigatório/opcional e segurança de caminhos."
+    - "Validação sintática dos arquivos JSON de modelos, prompts e manifesto."
+    - "Revisão do fluxo de subprocessos e da continuidade após retorno não zero do worker."
   passed:
-    - "24/24 testes aprovados."
-    - "corpus hash 8e1b7a6d... preservado."
-    - "embeddinggemma corretamente bloqueado (gated sem acesso)."
-    - "Snapshots baixados preservados com revisão, licença e metadados."
-    - "Nenhum resultado parcial promovido como PASS."
-  failed:
-    - "gte_multilingual_base: CUDA index out of bounds no código carregado por trust_remote_code."
-    - "Falha do GTE corrompeu contexto CUDA e impediu execução de qwen3_embedding_06, bge_m3_dense e voyage4_nano."
-    - "Gate 2 incompleto: 0/5 modelos concluídos."
-  unavailable: []
-
-blockers:
-  - model: "embeddinggemma"
-    reason: "modelo gated (gemma) sem credenciais de acesso no HF_TOKEN"
-    type: "acesso"
-  - model: "gte_multilingual_base"
-    reason: "CUDA error: index out of bounds no carregamento do modelo com trust_remote_code"
-    type: "falha de runtime"
-    details:
-      revision: "9bbca17d9273fd0d03d5725c4a7b0f6b45142062"
-      python: "3.12.13"
-      pytorch: "2.13.0+cu130"
-      transformers: "5.14.1"
-      sentence_transformers: "5.6.0"
-      device: "NVIDIA GeForce RTX 5060 Ti"
-      batch_size: 16
-      error: "index out of bounds no kernel IndexKernel.cu durante encode das consultas"
-      trust_remote_code: true
-      snapshot: "/home/alpha/Playstoria/models/embed/gte_multilingual_base (601 MB, 52 arquivos)"
-  - model: "runner"
-    reason: "falha de um modelo interrompeu os modelos seguintes via contexto CUDA corrompido"
-    type: "cascata"
-  - model: "gate_2_incompleto"
-    reason: "qwen3_embedding_06, bge_m3_dense e voyage4_nano não foram executados"
-    type: "pendente"
+    - "Compilação sem erros."
+    - "15 de 15 testes direcionados aprovados."
+    - "Modelos GGUF exigem arquivo explícito e não exigem dimensão previamente conhecida."
+    - "Falha opcional não promove execução parcial nem bloqueia conjunto obrigatório completo."
+    - "Falha obrigatória mantém Gate 2 como PARTIAL ou BLOCKED."
+    - "E5 e Qwen3 recebem instruções de consulta; Colibri usa encode_query e encode_document do próprio modelo."
+  failed: []
+  unavailable:
+    - "A suíte completa e o benchmark real devem ser executados no ambiente local com Python 3.12, CUDA, rede e llama.cpp."
+    - "Nenhum novo modelo foi baixado ou executado pela autora remota."
 
 audit:
-  findings:
-    - "embeddinggemma: acesso gated não disponível — requer licença Gemma no HF."
-    - "gte_multilingual_base: falha CUDA por index out of bounds no código carregado por trust_remote_code."
-    - "Falha do GTE corrompeu contexto CUDA; gate2.py corrigido para resetar cache após erro."
-    - "Corpus congelado intacto (hash 8e1b7a6d...)."
-    - "Nenhum resultado de benchmark foi gerado para qualquer modelo."
+  findings: []
   decision: "PENDING"
 
+blockers: []
+
 next:
-  action: "Isolar falhas por modelo, implementar continuação automática após erro, revisar lista de modelos candidatos: PT-BR, Colibri, E5, BitNet separado em llama.cpp. Corrigir critérios de resultado parcial, bloqueado e aprovado."
-  role: "remote_author"
+  action: "Sincronizar o patch 1.2.1, instalar dependências, executar compilação e suíte completa, rodar o dry-run e depois o Gate 2 completo. Confirmar que uma falha de worker não interrompe os modelos seguintes. Preservar snapshots existentes, não baixar novamente revisões já válidas e não regenerar o corpus."
+  role: "local"
