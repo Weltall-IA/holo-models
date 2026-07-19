@@ -59,7 +59,7 @@ def _run_model_worker(
                 [
                     sys.executable,
                     "-m",
-                    "holo_benchmark.gate2_worker",
+                    "holo_benchmark.gate2_worker_v2",
                     "--request",
                     str(request_path),
                     "--output",
