@@ -3,67 +3,64 @@ schema_version: 1
 task:
   id: "EMBED-BENCH-V3-1.4"
   title: "Inventário completo e cobertura de todos os modelos locais"
-  objective: "Resolver modelos bloqueados, cobrir todos os embeddings e preparar Voyage API."
+  objective: "Resolver modelos bloqueados, cobrir todos os embeddings e executar Voyage 4 Large e Context com o corpus congelado."
 
 scope:
   included:
-    - "Resolução de 3 modelos bloqueados (gte, bitnet_270m, bitnet_06b)."
-    - "Benchmark completo do GTE em CUDA (600 docs, 150 queries)."
-    - "Preparação Voyage API (preflight, sem execução paga)."
-    - "Deduplicação e cobertura total."
+    - "Preservação dos benchmarks locais concluídos."
+    - "Runner dedicado para voyage-4-large e voyage-context-4."
+    - "Rate limit compartilhado de 10.000 TPM e 3 RPM."
+    - "Checkpoints retomáveis e métricas equivalentes aos Gates 2 e 3."
   excluded:
     - "LLMs de chat, ASR, TTS, imagem, vídeo, rerankers."
+    - "Voyage 3, Voyage 4 Lite e outros modelos não autorizados."
 
 execution:
-  stage: "1.4.3"
-  role: "local"
-  state: "EXECUTED"
+  stage: "1.4.4"
+  role: "remote_author"
+  state: "CORRECTED"
 
 return:
-  title: "Correção dos embeddings locais e preparação dos benchmarks Voyage"
+  title: "Implementação remota do benchmark Voyage 4"
 
 changes:
   files_changed:
+    - ".ai/PROJECT.yml"
     - ".ai/tasks/EMBED-BENCH-V3-1.4/STATUS.yml"
-    - "benchmark/embedding-v3/local_model_inventory.json"
-    - "benchmark/embedding-v3/LOCAL_MODEL_INVENTORY_REPORT.md"
-    - "benchmark/embedding-v3/results/gate2/gte_multilingual_base.json"
-    - "benchmark/embedding-v3/results/gte_attempts.json"
+    - ".gitignore"
+    - "benchmark/embedding-v3/requirements-voyage.txt"
+    - "benchmark/embedding-v3/voyage_benchmark.py"
+    - "benchmark/embedding-v3/tests/test_voyage.py"
   summary:
-    - "gte_multilingual_base: BENCHMARKED com transformers 4.57.6 (não 5.x). MRR@10=0,568, nDCG@10=0,625, CUDA, batch 16."
-    - "bitnet_270m e bitnet_06b: mantidos BLOCKED. GGUF TYPE_IQ4_NL_4_4 incompatível com llama.cpp 9972 e TurboQuant v1. Sem alternativa safetensors no HF."
-    - "gte_multilingual_base_cuda: entrada duplicada removida, tentativas consolidadas."
-    - "voyage-4-large e voyage-context-4: BLOCKED sem VOYAGE_API_KEY. Aguardando autorização do diretor."
-    - "53 modelos totais, 10 benchmarkados, 21 bloqueados, 22 health checks."
-    - "validate_coverage.py: PASS, 0 findings."
+    - "Adicionado runner autônomo para voyage-4-large e voyage-context-4 sem alterar os Gates 0-3."
+    - "A chave é carregada exclusivamente por VOYAGE_API_KEY_PATH apontando para .voyage4_token, que agora está explicitamente ignorado pelo Git."
+    - "SDK fixado em voyageai 0.4.1 e criado com max_retries=0 para impedir retries duplicados."
+    - "Chamadas são sequenciais, com no máximo 9.000 tokens por requisição e intervalo conservador de 65 segundos, respeitando o limite compartilhado de 10.000 TPM e 3 RPM."
+    - "voyage-context-4 preserva os chunks agrupados por work_id, sem auto-chunking e sem misturar obras."
+    - "Checkpoints ficam em results/raw/voyage, fora do Git, e permitem retomada sem repetir lotes concluídos."
+    - "Resultados finais usam o corpus congelado, dimensão 1024, dtype float e as mesmas métricas de recuperação existentes."
 
 validations:
   executed:
-    - "56/56 testes unitários."
-    - "GTE: batch CUDA 16, 8, 4, 2 + CPU. batch 16 OK com transformers 4.57.6."
-    - "GTE: corpus completo 600 docs, 150 queries, CUDA."
-    - "BitNet: llama.cpp 9972 + TurboQuant v1. Ambos falham (tensor type 36)."
-    - "BitNet: verificação HF sem alternativas."
-    - "VOYAGE_API_KEY: ausente no ambiente."
-    - "validate_coverage.py: exit 0."
+    - "Compilação sintática isolada de voyage_benchmark.py e test_voyage.py."
+    - "6 testes unitários direcionados do novo runner em harness isolado."
+    - "Revisão integral dos arquivos novos e dos diffs de .gitignore e .ai/PROJECT.yml."
   passed:
-    - "validate_coverage.passed: true, finding_count: 0."
-    - "coverage_complete: true."
-    - "pending_embedding_model_ids: []."
-    - "pending_healthcheck_model_ids: []."
+    - "Testes de proteção da chave, batching por tokens, agrupamento por obra e bloqueio de modelos antigos."
+    - "Nenhum resultado de benchmark Voyage foi inventado ou versionado."
   failed: []
   unavailable:
-    - "Voyage benchmarks aguardam VOYAGE_API_KEY e autorização financeira."
+    - "Suite completa do repositório e chamadas reais à Voyage dependem do checkout local, da chave e da rede."
 
 audit:
   findings:
-    - "GTE resolvido: funciona em CUDA com transformers 4.57.6. O bug era exclusivo do 5.x."
-    - "BitNet: incompatibilidade upstream confirmada. GGUF usa tensor type removido. Sem safetensors."
-    - "Voyage: preparado para execução paga. Estado READY_FOR_VOYAGE_API."
+    - "O erro anterior foi estrutural: a autoria do runner foi indevidamente delegada à IA local."
+    - "A implementação agora foi feita pela IA autora remota; a IA local deve somente instalar, validar e executar."
   decision: "PENDING"
 
-blockers: []
+blockers:
+  - "Execução real de voyage-4-large e voyage-context-4 ainda precisa ocorrer no host local."
 
 next:
-  action: "Auditar a resolução dos embeddings e preparação Voyage."
-  role: "auditor"
+  action: "Sincronizar a branch, executar a suite, fazer o dry-run e rodar os dois benchmarks Voyage com retomada habilitada."
+  role: "local"
