@@ -1,0 +1,341 @@
+[
+  {
+    "id": "ThinkingCap27B-IQ3_M-MTP:latest",
+    "status": "HEALTHCHECK_PASSED",
+    "evidence": {
+      "endpoint": "POST http://127.0.0.1:11434/api/generate",
+      "command": [
+        "curl",
+        "http://127.0.0.1:11434/api/generate",
+        "-d",
+        "{\"model\":\"ThinkingCap27B-IQ3_M-MTP:latest\"...}"
+      ],
+      "runtime": "ollama/ThinkingCap27B-IQ3_M-MTP:latest",
+      "result": {
+        "response": "Here's a thinking process:\n\n1",
+        "eval_count": 8,
+        "eval_duration_ns": 308430000
+      },
+      "elapsed_s": 54.99
+    }
+  },
+  {
+    "id": "Qwopus27B-Coder-MTP:latest",
+    "status": "HEALTHCHECK_PASSED",
+    "evidence": {
+      "endpoint": "POST http://127.0.0.1:11434/api/generate",
+      "command": [
+        "curl",
+        "http://127.0.0.1:11434/api/generate",
+        "-d",
+        "{\"model\":\"Qwopus27B-Coder-MTP:latest\"...}"
+      ],
+      "runtime": "ollama/Qwopus27B-Coder-MTP:latest",
+      "result": {
+        "response": "<think>\n1.  **Analyze",
+        "eval_count": 8,
+        "eval_duration_ns": 359947000
+      },
+      "elapsed_s": 54.02
+    }
+  },
+  {
+    "id": "Qwopus27B-Coder-IQ2_XS:latest",
+    "status": "HEALTHCHECK_PASSED",
+    "evidence": {
+      "endpoint": "POST http://127.0.0.1:11434/api/generate",
+      "command": [
+        "curl",
+        "http://127.0.0.1:11434/api/generate",
+        "-d",
+        "{\"model\":\"Qwopus27B-Coder-IQ2_XS:latest\"...}"
+      ],
+      "runtime": "ollama/Qwopus27B-Coder-IQ2_XS:latest",
+      "result": {
+        "response": "Thinking: The user simply said \"Say",
+        "eval_count": 8,
+        "eval_duration_ns": 271884000
+      },
+      "elapsed_s": 37.67
+    }
+  },
+  {
+    "id": "Qwopus27B-Coder-IQ2_M:latest",
+    "status": "HEALTHCHECK_PASSED",
+    "evidence": {
+      "endpoint": "POST http://127.0.0.1:11434/api/generate",
+      "command": [
+        "curl",
+        "http://127.0.0.1:11434/api/generate",
+        "-d",
+        "{\"model\":\"Qwopus27B-Coder-IQ2_M:latest\"...}"
+      ],
+      "runtime": "ollama/Qwopus27B-Coder-IQ2_M:latest",
+      "result": {
+        "response": "1.  **Analyze the Request",
+        "eval_count": 8,
+        "eval_duration_ns": 274480000
+      },
+      "elapsed_s": 36.53
+    }
+  },
+  {
+    "id": "Vibeforged-14B:latest",
+    "status": "HEALTHCHECK_PASSED",
+    "evidence": {
+      "endpoint": "POST http://127.0.0.1:11434/api/generate",
+      "command": [
+        "curl",
+        "http://127.0.0.1:11434/api/generate",
+        "-d",
+        "{\"model\":\"Vibeforged-14B:latest\"...}"
+      ],
+      "runtime": "ollama/Vibeforged-14B:latest",
+      "result": {
+        "response": "The user is asking me to say \"",
+        "eval_count": 8,
+        "eval_duration_ns": 118660000
+      },
+      "elapsed_s": 18.15
+    }
+  },
+  {
+    "id": "Qwen3.5-4B-PTBR-Q6_K:latest",
+    "status": "HEALTHCHECK_PASSED",
+    "evidence": {
+      "endpoint": "POST http://127.0.0.1:11434/api/generate",
+      "command": [
+        "curl",
+        "http://127.0.0.1:11434/api/generate",
+        "-d",
+        "{\"model\":\"Qwen3.5-4B-PTBR-Q6_K:latest\"...}"
+      ],
+      "runtime": "ollama/Qwen3.5-4B-PTBR-Q6_K:latest",
+      "result": {
+        "response": "1.  **Analyze the Request",
+        "eval_count": 8,
+        "eval_duration_ns": 167748000
+      },
+      "elapsed_s": 14.92
+    }
+  },
+  {
+    "id": "Ornith-9B-MTP-NVFP4:latest",
+    "status": "HEALTHCHECK_PASSED",
+    "evidence": {
+      "endpoint": "POST http://127.0.0.1:11434/api/generate",
+      "command": [
+        "curl",
+        "http://127.0.0.1:11434/api/generate",
+        "-d",
+        "{\"model\":\"Ornith-9B-MTP-NVFP4:latest\"...}"
+      ],
+      "runtime": "ollama/Ornith-9B-MTP-NVFP4:latest",
+      "result": {
+        "response": "Thinking Process:\n1.  **",
+        "eval_count": 8,
+        "eval_duration_ns": 202207000
+      },
+      "elapsed_s": 33.43
+    }
+  },
+  {
+    "id": "NEO-CODE-27B-IQ3_M:latest",
+    "status": "HEALTHCHECK_PASSED",
+    "evidence": {
+      "endpoint": "POST http://127.0.0.1:11434/api/generate",
+      "command": [
+        "curl",
+        "http://127.0.0.1:11434/api/generate",
+        "-d",
+        "{\"model\":\"NEO-CODE-27B-IQ3_M:latest\"...}"
+      ],
+      "runtime": "ollama/NEO-CODE-27B-IQ3_M:latest",
+      "result": {
+        "response": "Thinking process:\n\n1.  **",
+        "eval_count": 8,
+        "eval_duration_ns": 355998000
+      },
+      "elapsed_s": 73.22
+    }
+  },
+  {
+    "id": "Bonsai-27B-Q1_0:latest",
+    "status": "HEALTHCHECK_PASSED",
+    "evidence": {
+      "endpoint": "POST http://127.0.0.1:11434/api/generate",
+      "command": [
+        "curl",
+        "http://127.0.0.1:11434/api/generate",
+        "-d",
+        "{\"model\":\"Bonsai-27B-Q1_0:latest\"...}"
+      ],
+      "runtime": "ollama/Bonsai-27B-Q1_0:latest",
+      "result": {
+        "response": "Here's a thinking process:\n\n1",
+        "eval_count": 8,
+        "eval_duration_ns": 187590000
+      },
+      "elapsed_s": 13.26
+    }
+  },
+  {
+    "id": "qwen3-embedding:0.6b",
+    "status": "HEALTHCHECK_PASSED",
+    "evidence": {
+      "endpoint": "POST http://127.0.0.1:11434/api/embed",
+      "command": [
+        "curl",
+        "http://127.0.0.1:11434/api/embed",
+        "-d",
+        "{\"model\":\"qwen3-embedding:0.6b\"...}"
+      ],
+      "runtime": "ollama/qwen3-embedding:0.6b",
+      "result": {
+        "dimensions": 1024,
+        "sample_norm": 0.0898
+      },
+      "elapsed_s": 4.25
+    }
+  },
+  {
+    "id": "qwythos-9b-v2-mtp:latest",
+    "status": "HEALTHCHECK_PASSED",
+    "evidence": {
+      "endpoint": "POST http://127.0.0.1:11434/api/generate",
+      "command": [
+        "curl",
+        "http://127.0.0.1:11434/api/generate",
+        "-d",
+        "{\"model\":\"qwythos-9b-v2-mtp:latest\"...}"
+      ],
+      "runtime": "ollama/qwythos-9b-v2-mtp:latest",
+      "result": {
+        "response": "The user just asked me to \"Say",
+        "eval_count": 8,
+        "eval_duration_ns": 110732000
+      },
+      "elapsed_s": 24.86
+    }
+  },
+  {
+    "id": "qwen3.5-9b-uncensored-aggressive:latest",
+    "status": "HEALTHCHECK_PASSED",
+    "evidence": {
+      "endpoint": "POST http://127.0.0.1:11434/api/generate",
+      "command": [
+        "curl",
+        "http://127.0.0.1:11434/api/generate",
+        "-d",
+        "{\"model\":\"qwen3.5-9b-uncensored-aggressive:latest\"...}"
+      ],
+      "runtime": "ollama/qwen3.5-9b-uncensored-aggressive:latest",
+      "result": {
+        "response": "Thinking Process:\n\n1.  **",
+        "eval_count": 8,
+        "eval_duration_ns": 144497000
+      },
+      "elapsed_s": 31.41
+    }
+  },
+  {
+    "id": "gemma4-12b-uncensored-balanced:latest",
+    "status": "HEALTHCHECK_PASSED",
+    "evidence": {
+      "endpoint": "POST http://127.0.0.1:11434/api/generate",
+      "command": [
+        "curl",
+        "http://127.0.0.1:11434/api/generate",
+        "-d",
+        "{\"model\":\"gemma4-12b-uncensored-balanced:latest\"...}"
+      ],
+      "runtime": "ollama/gemma4-12b-uncensored-balanced:latest",
+      "result": {
+        "response": "",
+        "eval_count": 8,
+        "eval_duration_ns": 134370000
+      },
+      "elapsed_s": 25.81
+    }
+  },
+  {
+    "id": "Qwen/Qwen3-0.6B-Q8_0:latest",
+    "status": "HEALTHCHECK_PASSED",
+    "evidence": {
+      "endpoint": "POST http://127.0.0.1:11434/api/generate",
+      "command": [
+        "curl",
+        "http://127.0.0.1:11434/api/generate",
+        "-d",
+        "{\"model\":\"Qwen/Qwen3-0.6B-Q8_0:latest\"...}"
+      ],
+      "runtime": "ollama/Qwen/Qwen3-0.6B-Q8_0:latest",
+      "result": {
+        "response": "<think>\nOkay, the user said \"",
+        "eval_count": 8,
+        "eval_duration_ns": 28910000
+      },
+      "elapsed_s": 2.37
+    }
+  },
+  {
+    "id": "marinarosa/MiniCPM5-1B-PTBR-v5-Q4_K_M:latest",
+    "status": "HEALTHCHECK_PASSED",
+    "evidence": {
+      "endpoint": "POST http://127.0.0.1:11434/api/generate",
+      "command": [
+        "curl",
+        "http://127.0.0.1:11434/api/generate",
+        "-d",
+        "{\"model\":\"marinarosa/MiniCPM5-1B-PTBR-v5-Q4_K_M:latest\"...}"
+      ],
+      "runtime": "ollama/marinarosa/MiniCPM5-1B-PTBR-v5-Q4_K_M:latest",
+      "result": {
+        "response": "Okay, I need to write a Python",
+        "eval_count": 8,
+        "eval_duration_ns": 60795000
+      },
+      "elapsed_s": 3.84
+    }
+  },
+  {
+    "id": "lucasmg09/Qwen3.5-2B-PTBR-Q4_K_M:latest",
+    "status": "HEALTHCHECK_PASSED",
+    "evidence": {
+      "endpoint": "POST http://127.0.0.1:11434/api/generate",
+      "command": [
+        "curl",
+        "http://127.0.0.1:11434/api/generate",
+        "-d",
+        "{\"model\":\"lucasmg09/Qwen3.5-2B-PTBR-Q4_K_M:latest\"...}"
+      ],
+      "runtime": "ollama/lucasmg09/Qwen3.5-2B-PTBR-Q4_K_M:latest",
+      "result": {
+        "response": "1.  **Analisar a",
+        "eval_count": 8,
+        "eval_duration_ns": 44318000
+      },
+      "elapsed_s": 4.21
+    }
+  },
+  {
+    "id": "lucasmg09/Qwen3.5-0.8B-PTBR-Q6_K:latest",
+    "status": "HEALTHCHECK_PASSED",
+    "evidence": {
+      "endpoint": "POST http://127.0.0.1:11434/api/generate",
+      "command": [
+        "curl",
+        "http://127.0.0.1:11434/api/generate",
+        "-d",
+        "{\"model\":\"lucasmg09/Qwen3.5-0.8B-PTBR-Q6_K:latest\"...}"
+      ],
+      "runtime": "ollama/lucasmg09/Qwen3.5-0.8B-PTBR-Q6_K:latest",
+      "result": {
+        "response": "1.  **Analisar a",
+        "eval_count": 8,
+        "eval_duration_ns": 39429000
+      },
+      "elapsed_s": 3.46
+    }
+  }
+]

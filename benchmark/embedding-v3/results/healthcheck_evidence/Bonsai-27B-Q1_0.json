@@ -1,0 +1,20 @@
+{
+  "id": "Bonsai-27B-Q1_0:latest",
+  "status": "HEALTHCHECK_PASSED",
+  "evidence": {
+    "endpoint": "POST http://127.0.0.1:11434/api/generate",
+    "command": [
+      "curl",
+      "http://127.0.0.1:11434/api/generate",
+      "-d",
+      "{\"model\":\"Bonsai-27B-Q1_0:latest\"...}"
+    ],
+    "runtime": "ollama/Bonsai-27B-Q1_0:latest",
+    "result": {
+      "response": "Here's a thinking process:\n\n1",
+      "eval_count": 8,
+      "eval_duration_ns": 187590000
+    },
+    "elapsed_s": 13.26
+  }
+}

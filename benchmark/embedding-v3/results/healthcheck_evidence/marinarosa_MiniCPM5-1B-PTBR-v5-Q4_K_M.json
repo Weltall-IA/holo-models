@@ -1,0 +1,20 @@
+{
+  "id": "marinarosa/MiniCPM5-1B-PTBR-v5-Q4_K_M:latest",
+  "status": "HEALTHCHECK_PASSED",
+  "evidence": {
+    "endpoint": "POST http://127.0.0.1:11434/api/generate",
+    "command": [
+      "curl",
+      "http://127.0.0.1:11434/api/generate",
+      "-d",
+      "{\"model\":\"marinarosa/MiniCPM5-1B-PTBR-v5-Q4_K_M:latest\"...}"
+    ],
+    "runtime": "ollama/marinarosa/MiniCPM5-1B-PTBR-v5-Q4_K_M:latest",
+    "result": {
+      "response": "Okay, I need to write a Python",
+      "eval_count": 8,
+      "eval_duration_ns": 60795000
+    },
+    "elapsed_s": 3.84
+  }
+}

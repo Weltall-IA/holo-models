@@ -3,9 +3,8 @@
   "total_models": 52,
   "by_status": {
     "BENCHMARKED": 9,
-    "BLOCKED": 3,
-    "HEALTHCHECK_PASSED": 16,
-    "NOT_APPLICABLE": 24
+    "BLOCKED": 21,
+    "HEALTHCHECK_PASSED": 22
   },
   "by_category": {
     "embedding": 13,
@@ -23,340 +22,1000 @@
       "category": "embedding",
       "status": "BENCHMARKED",
       "repo": "tardellirs/colibri-embed-ptbr",
-      "revision": "95a4d4f3a1c0"
+      "revision": "95a4d4f3a1c056ac19e0da196d0ab2b4289e3b3b",
+      "file": null,
+      "benchmark_source": "gate0_3_results",
+      "result": {
+        "status": "completed",
+        "benchmark_source": "gate0_3_results"
+      }
     },
     {
       "id": "multilingual_e5_large_instruct",
       "category": "embedding",
       "status": "BENCHMARKED",
       "repo": "intfloat/multilingual-e5-large-instruct",
-      "revision": "274baa43b0e1"
+      "revision": "274baa43b0e13e37fafa6428dbc7938e62e5c439",
+      "file": null,
+      "benchmark_source": "gate0_3_results",
+      "result": {
+        "status": "completed",
+        "benchmark_source": "gate0_3_results"
+      }
     },
     {
       "id": "qwen3_embedding_06",
       "category": "embedding",
       "status": "BENCHMARKED",
       "repo": "Qwen/Qwen3-Embedding-0.6B",
-      "revision": "97b0c614be4d"
+      "revision": "97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3",
+      "file": null,
+      "benchmark_source": "gate0_3_results",
+      "result": {
+        "status": "completed",
+        "benchmark_source": "gate0_3_results"
+      }
     },
     {
       "id": "bge_m3_dense",
       "category": "embedding",
       "status": "BENCHMARKED",
       "repo": "BAAI/bge-m3",
-      "revision": "5617a9f61b02"
+      "revision": "5617a9f61b028005a4858fdac845db406aefb181",
+      "file": null,
+      "benchmark_source": "gate0_3_results",
+      "result": {
+        "status": "completed",
+        "benchmark_source": "gate0_3_results"
+      }
     },
     {
       "id": "voyage4_nano",
       "category": "embedding",
       "status": "BENCHMARKED",
       "repo": "voyageai/voyage-4-nano",
-      "revision": "67fabc9bef01"
+      "revision": "67fabc9bef010dabc5f6024aa1b1b6b93410426f",
+      "file": null,
+      "benchmark_source": "gate0_3_results",
+      "result": {
+        "status": "completed",
+        "benchmark_source": "gate0_3_results"
+      }
     },
     {
       "id": "qwen3_embedding_8b_gguf",
       "category": "embedding",
       "status": "BENCHMARKED",
       "repo": "Qwen/Qwen3-Embedding-8B-GGUF",
-      "revision": "69d0e58a13e4"
+      "revision": "69d0e58a13e463cd99a9b83e3f5fee7c10265fab",
+      "file": "Qwen3-Embedding-8B-Q8_0.gguf",
+      "benchmark_source": "gate0_3_results",
+      "result": {
+        "status": "completed",
+        "benchmark_source": "gate0_3_results"
+      }
     },
     {
       "id": "embeddinggemma_gguf",
       "category": "embedding",
       "status": "BENCHMARKED",
       "repo": "ggml-org/embeddinggemma-300M-GGUF",
-      "revision": "0f741b5a6585"
+      "revision": "0f741b5a6585bd53aeb15cd1372c56f2a0f65e12",
+      "file": "embeddinggemma-300M-Q8_0.gguf",
+      "benchmark_source": "gate0_3_results",
+      "result": {
+        "status": "completed",
+        "benchmark_source": "gate0_3_results"
+      }
     },
     {
       "id": "qwen3_embedding_06_gguf",
       "category": "embedding",
       "status": "BENCHMARKED",
       "repo": "Qwen/Qwen3-Embedding-0.6B-GGUF",
-      "revision": "370f27d7550e"
+      "revision": "370f27d7550e0def9b39c1f16d3fbaa13aa67728",
+      "file": "Qwen3-Embedding-0.6B-Q8_0.gguf",
+      "benchmark_source": "gate0_3_results",
+      "result": {
+        "status": "completed",
+        "benchmark_source": "gate0_3_results"
+      }
+    },
+    {
+      "id": "qwen3-embedding:0.6b",
+      "category": "embedding",
+      "status": "BENCHMARKED",
+      "alias_of": "qwen3_embedding_06",
+      "identity_verified": true,
+      "identity_method": "ollama_api_embed",
+      "evidence": {
+        "endpoint": "POST http://127.0.0.1:11434/api/embed",
+        "command": [
+          "curl",
+          "http://127.0.0.1:11434/api/embed",
+          "-d",
+          "{\"model\":\"qwen3-embedding:0.6b\"...}"
+        ],
+        "runtime": "ollama/qwen3-embedding:0.6b",
+        "result": {
+          "dimensions": 1024,
+          "sample_norm": 0.0898
+        },
+        "elapsed_s": 4.25
+      },
+      "result": {
+        "status": "benchmark_via_gate2",
+        "note": "Benchmarked through qwen3_embedding_06 in Gate 2"
+      },
+      "repo": "Qwen/Qwen3-Embedding-0.6B",
+      "revision": "97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3"
     },
     {
       "id": "gte_multilingual_base",
       "category": "embedding",
       "status": "BLOCKED",
       "repo": "Alibaba-NLP/gte-multilingual-base",
-      "reason": "CUDA index out of bounds em trust_remote_code"
+      "reason": "CUDA index out of bounds em trust_remote_code",
+      "evidence": {
+        "runtime": "transformers 5.14.1 / sentence-transformers 5.6.0",
+        "error": "CUDA error: unspecified launch failure (IndexKernel.cu:111, index out of bounds)",
+        "attempts": [
+          {
+            "action": "batch_size=16, CUDA, trust_remote_code=true",
+            "result": "IndexKernel assertion failure"
+          },
+          {
+            "action": "batch_size=8, CUDA",
+            "result": "same CUDA assertion failure"
+          }
+        ]
+      }
     },
     {
       "id": "bitnet_270m",
       "category": "embedding",
       "status": "BLOCKED",
       "repo": "microsoft/bitnet-embedding-270m",
-      "reason": "GGUF TYPE_IQ4_NL_4_4 incompatível com llama.cpp 9972"
+      "reason": "GGUF TYPE_IQ4_NL_4_4 removed in llama.cpp 9972",
+      "evidence": {
+        "runtime": "llama.cpp 9972 (/home/alpha/llama.cpp/build/bin/llama-server)",
+        "error": "gguf_init_from_reader: tensor blk.0.ffn_down.weight of type 36 (TYPE_IQ4_NL_4_4 REMOVED, use IQ4_NL with runtime repacking)",
+        "attempts": [
+          {
+            "action": "llama-server -m bitnet-embeddings-270m-bf16-i2_s.gguf --embedding --ngl 99",
+            "result": "exit code 1, tensor type 36 not supported"
+          }
+        ]
+      }
     },
     {
       "id": "bitnet_06b",
       "category": "embedding",
       "status": "BLOCKED",
       "repo": "microsoft/bitnet-embedding-0.6b",
-      "reason": "GGUF TYPE_IQ4_NL_4_4 incompatível com llama.cpp 9972"
+      "reason": "GGUF TYPE_IQ4_NL_4_4 removed in llama.cpp 9972",
+      "evidence": {
+        "runtime": "llama.cpp 9972 (/home/alpha/llama.cpp/build/bin/llama-server)",
+        "error": "gguf_init_from_reader: tensor blk.0.ffn_down.weight of type 36 (TYPE_IQ4_NL_4_4 REMOVED, use IQ4_NL with runtime repacking)",
+        "attempts": [
+          {
+            "action": "llama-server -m bitnet-embeddings-0.6b-bf16-i2_s.gguf --embedding --ngl 99",
+            "result": "exit code 1, tensor type 36 not supported"
+          }
+        ]
+      }
     },
     {
-      "id": "qwen3-embedding-0.6b",
+      "id": "gte_multilingual_base_cuda",
       "category": "embedding",
-      "status": "BENCHMARKED",
-      "repo": "qwen3-embedding:0.6b",
-      "reason": "Benchmarked via qwen3_embedding_06 no Gate 2"
+      "status": "BLOCKED",
+      "repo": "Alibaba-NLP/gte-multilingual-base",
+      "reason": "CUDA incompatível; modelo desativado no config/models.json",
+      "evidence": {
+        "runtime": "transformers 4.57.6 + sentence-transformers 5.6.0",
+        "error": "trust_remote_code model causes CUDA index assertion",
+        "attempts": [
+          {
+            "action": "batch 16, CUDA",
+            "result": "IndexKernel.cu assertion"
+          }
+        ]
+      }
     },
     {
       "id": "ThinkingCap27B-IQ3_M-MTP:latest",
       "category": "text_llm",
       "status": "HEALTHCHECK_PASSED",
       "source": "ollama",
-      "elapsed_s": 98.7
+      "evidence": {
+        "endpoint": "POST http://127.0.0.1:11434/api/generate",
+        "command": [
+          "curl",
+          "http://127.0.0.1:11434/api/generate",
+          "-d",
+          "{\"model\":\"ThinkingCap27B-IQ3_M-MTP:latest\"...}"
+        ],
+        "runtime": "ollama/ThinkingCap27B-IQ3_M-MTP:latest",
+        "result": {
+          "response": "Here's a thinking process:\n\n1",
+          "eval_count": 8,
+          "eval_duration_ns": 308430000
+        },
+        "elapsed_s": 54.99,
+        "artifact": "results/healthcheck_evidence/ThinkingCap27B-IQ3_M-MTP.json"
+      }
     },
     {
       "id": "Qwopus27B-Coder-MTP:latest",
       "category": "text_llm",
       "status": "HEALTHCHECK_PASSED",
       "source": "ollama",
-      "elapsed_s": 71.7
+      "evidence": {
+        "endpoint": "POST http://127.0.0.1:11434/api/generate",
+        "command": [
+          "curl",
+          "http://127.0.0.1:11434/api/generate",
+          "-d",
+          "{\"model\":\"Qwopus27B-Coder-MTP:latest\"...}"
+        ],
+        "runtime": "ollama/Qwopus27B-Coder-MTP:latest",
+        "result": {
+          "response": "<think>\n1.  **Analyze",
+          "eval_count": 8,
+          "eval_duration_ns": 359947000
+        },
+        "elapsed_s": 54.02,
+        "artifact": "results/healthcheck_evidence/Qwopus27B-Coder-MTP.json"
+      }
     },
     {
       "id": "Qwopus27B-Coder-IQ2_XS:latest",
       "category": "text_llm",
       "status": "HEALTHCHECK_PASSED",
       "source": "ollama",
-      "elapsed_s": 62.2
+      "evidence": {
+        "endpoint": "POST http://127.0.0.1:11434/api/generate",
+        "command": [
+          "curl",
+          "http://127.0.0.1:11434/api/generate",
+          "-d",
+          "{\"model\":\"Qwopus27B-Coder-IQ2_XS:latest\"...}"
+        ],
+        "runtime": "ollama/Qwopus27B-Coder-IQ2_XS:latest",
+        "result": {
+          "response": "Thinking: The user simply said \"Say",
+          "eval_count": 8,
+          "eval_duration_ns": 271884000
+        },
+        "elapsed_s": 37.67,
+        "artifact": "results/healthcheck_evidence/Qwopus27B-Coder-IQ2_XS.json"
+      }
     },
     {
       "id": "Qwopus27B-Coder-IQ2_M:latest",
       "category": "text_llm",
       "status": "HEALTHCHECK_PASSED",
       "source": "ollama",
-      "elapsed_s": 64.9
+      "evidence": {
+        "endpoint": "POST http://127.0.0.1:11434/api/generate",
+        "command": [
+          "curl",
+          "http://127.0.0.1:11434/api/generate",
+          "-d",
+          "{\"model\":\"Qwopus27B-Coder-IQ2_M:latest\"...}"
+        ],
+        "runtime": "ollama/Qwopus27B-Coder-IQ2_M:latest",
+        "result": {
+          "response": "1.  **Analyze the Request",
+          "eval_count": 8,
+          "eval_duration_ns": 274480000
+        },
+        "elapsed_s": 36.53,
+        "artifact": "results/healthcheck_evidence/Qwopus27B-Coder-IQ2_M.json"
+      }
     },
     {
       "id": "Vibeforged-14B:latest",
       "category": "text_llm",
       "status": "HEALTHCHECK_PASSED",
       "source": "ollama",
-      "elapsed_s": 17.4
+      "evidence": {
+        "endpoint": "POST http://127.0.0.1:11434/api/generate",
+        "command": [
+          "curl",
+          "http://127.0.0.1:11434/api/generate",
+          "-d",
+          "{\"model\":\"Vibeforged-14B:latest\"...}"
+        ],
+        "runtime": "ollama/Vibeforged-14B:latest",
+        "result": {
+          "response": "The user is asking me to say \"",
+          "eval_count": 8,
+          "eval_duration_ns": 118660000
+        },
+        "elapsed_s": 18.15,
+        "artifact": "results/healthcheck_evidence/Vibeforged-14B.json"
+      }
     },
     {
       "id": "Qwen3.5-4B-PTBR-Q6_K:latest",
       "category": "text_llm",
       "status": "HEALTHCHECK_PASSED",
       "source": "ollama",
-      "elapsed_s": 24.3
+      "evidence": {
+        "endpoint": "POST http://127.0.0.1:11434/api/generate",
+        "command": [
+          "curl",
+          "http://127.0.0.1:11434/api/generate",
+          "-d",
+          "{\"model\":\"Qwen3.5-4B-PTBR-Q6_K:latest\"...}"
+        ],
+        "runtime": "ollama/Qwen3.5-4B-PTBR-Q6_K:latest",
+        "result": {
+          "response": "1.  **Analyze the Request",
+          "eval_count": 8,
+          "eval_duration_ns": 167748000
+        },
+        "elapsed_s": 14.92,
+        "artifact": "results/healthcheck_evidence/Qwen3.5-4B-PTBR-Q6_K.json"
+      }
     },
     {
       "id": "Ornith-9B-MTP-NVFP4:latest",
       "category": "text_llm",
       "status": "HEALTHCHECK_PASSED",
       "source": "ollama",
-      "elapsed_s": 29.1
+      "evidence": {
+        "endpoint": "POST http://127.0.0.1:11434/api/generate",
+        "command": [
+          "curl",
+          "http://127.0.0.1:11434/api/generate",
+          "-d",
+          "{\"model\":\"Ornith-9B-MTP-NVFP4:latest\"...}"
+        ],
+        "runtime": "ollama/Ornith-9B-MTP-NVFP4:latest",
+        "result": {
+          "response": "Thinking Process:\n1.  **",
+          "eval_count": 8,
+          "eval_duration_ns": 202207000
+        },
+        "elapsed_s": 33.43,
+        "artifact": "results/healthcheck_evidence/Ornith-9B-MTP-NVFP4.json"
+      }
     },
     {
       "id": "NEO-CODE-27B-IQ3_M:latest",
       "category": "text_llm",
       "status": "HEALTHCHECK_PASSED",
       "source": "ollama",
-      "elapsed_s": 73.2
+      "evidence": {
+        "endpoint": "POST http://127.0.0.1:11434/api/generate",
+        "command": [
+          "curl",
+          "http://127.0.0.1:11434/api/generate",
+          "-d",
+          "{\"model\":\"NEO-CODE-27B-IQ3_M:latest\"...}"
+        ],
+        "runtime": "ollama/NEO-CODE-27B-IQ3_M:latest",
+        "result": {
+          "response": "Thinking process:\n\n1.  **",
+          "eval_count": 8,
+          "eval_duration_ns": 355998000
+        },
+        "elapsed_s": 73.22,
+        "artifact": "results/healthcheck_evidence/NEO-CODE-27B-IQ3_M.json"
+      }
     },
     {
       "id": "Bonsai-27B-Q1_0:latest",
       "category": "text_llm",
       "status": "HEALTHCHECK_PASSED",
       "source": "ollama",
-      "elapsed_s": 12.9
-    },
-    {
-      "id": "qwen3-embedding:0.6b",
-      "category": "embedding",
-      "status": "NOT_APPLICABLE",
-      "reason": "Modelo de embedding registrado no Ollama; benchmark via Gate 2"
+      "evidence": {
+        "endpoint": "POST http://127.0.0.1:11434/api/generate",
+        "command": [
+          "curl",
+          "http://127.0.0.1:11434/api/generate",
+          "-d",
+          "{\"model\":\"Bonsai-27B-Q1_0:latest\"...}"
+        ],
+        "runtime": "ollama/Bonsai-27B-Q1_0:latest",
+        "result": {
+          "response": "Here's a thinking process:\n\n1",
+          "eval_count": 8,
+          "eval_duration_ns": 187590000
+        },
+        "elapsed_s": 13.26,
+        "artifact": "results/healthcheck_evidence/Bonsai-27B-Q1_0.json"
+      }
     },
     {
       "id": "qwythos-9b-v2-mtp:latest",
       "category": "text_llm",
       "status": "HEALTHCHECK_PASSED",
       "source": "ollama",
-      "elapsed_s": 19.8
+      "evidence": {
+        "endpoint": "POST http://127.0.0.1:11434/api/generate",
+        "command": [
+          "curl",
+          "http://127.0.0.1:11434/api/generate",
+          "-d",
+          "{\"model\":\"qwythos-9b-v2-mtp:latest\"...}"
+        ],
+        "runtime": "ollama/qwythos-9b-v2-mtp:latest",
+        "result": {
+          "response": "The user just asked me to \"Say",
+          "eval_count": 8,
+          "eval_duration_ns": 110732000
+        },
+        "elapsed_s": 24.86,
+        "artifact": "results/healthcheck_evidence/qwythos-9b-v2-mtp.json"
+      }
     },
     {
       "id": "qwen3.5-9b-uncensored-aggressive:latest",
       "category": "text_llm",
       "status": "HEALTHCHECK_PASSED",
       "source": "ollama",
-      "elapsed_s": 38.3
+      "evidence": {
+        "endpoint": "POST http://127.0.0.1:11434/api/generate",
+        "command": [
+          "curl",
+          "http://127.0.0.1:11434/api/generate",
+          "-d",
+          "{\"model\":\"qwen3.5-9b-uncensored-aggressive:latest\"...}"
+        ],
+        "runtime": "ollama/qwen3.5-9b-uncensored-aggressive:latest",
+        "result": {
+          "response": "Thinking Process:\n\n1.  **",
+          "eval_count": 8,
+          "eval_duration_ns": 144497000
+        },
+        "elapsed_s": 31.41,
+        "artifact": "results/healthcheck_evidence/qwen3.5-9b-uncensored-aggressive.json"
+      }
     },
     {
       "id": "gemma4-12b-uncensored-balanced:latest",
       "category": "text_llm",
       "status": "HEALTHCHECK_PASSED",
       "source": "ollama",
-      "elapsed_s": 25.3
+      "evidence": {
+        "endpoint": "POST http://127.0.0.1:11434/api/generate",
+        "command": [
+          "curl",
+          "http://127.0.0.1:11434/api/generate",
+          "-d",
+          "{\"model\":\"gemma4-12b-uncensored-balanced:latest\"...}"
+        ],
+        "runtime": "ollama/gemma4-12b-uncensored-balanced:latest",
+        "result": {
+          "response": "",
+          "eval_count": 8,
+          "eval_duration_ns": 134370000
+        },
+        "elapsed_s": 25.81,
+        "artifact": "results/healthcheck_evidence/gemma4-12b-uncensored-balanced.json"
+      }
     },
     {
       "id": "Qwen/Qwen3-0.6B-Q8_0:latest",
       "category": "text_llm",
       "status": "HEALTHCHECK_PASSED",
       "source": "ollama",
-      "elapsed_s": 2.0
+      "evidence": {
+        "endpoint": "POST http://127.0.0.1:11434/api/generate",
+        "command": [
+          "curl",
+          "http://127.0.0.1:11434/api/generate",
+          "-d",
+          "{\"model\":\"Qwen/Qwen3-0.6B-Q8_0:latest\"...}"
+        ],
+        "runtime": "ollama/Qwen/Qwen3-0.6B-Q8_0:latest",
+        "result": {
+          "response": "<think>\nOkay, the user said \"",
+          "eval_count": 8,
+          "eval_duration_ns": 28910000
+        },
+        "elapsed_s": 2.37,
+        "artifact": "results/healthcheck_evidence/Qwen3-0.6B-Q8_0.json"
+      }
     },
     {
       "id": "marinarosa/MiniCPM5-1B-PTBR-v5-Q4_K_M:latest",
       "category": "text_llm",
       "status": "HEALTHCHECK_PASSED",
       "source": "ollama",
-      "elapsed_s": 2.2
+      "evidence": {
+        "endpoint": "POST http://127.0.0.1:11434/api/generate",
+        "command": [
+          "curl",
+          "http://127.0.0.1:11434/api/generate",
+          "-d",
+          "{\"model\":\"marinarosa/MiniCPM5-1B-PTBR-v5-Q4_K_M:latest\"...}"
+        ],
+        "runtime": "ollama/marinarosa/MiniCPM5-1B-PTBR-v5-Q4_K_M:latest",
+        "result": {
+          "response": "Okay, I need to write a Python",
+          "eval_count": 8,
+          "eval_duration_ns": 60795000
+        },
+        "elapsed_s": 3.84,
+        "artifact": "results/healthcheck_evidence/MiniCPM5-1B-PTBR-v5-Q4_K_M.json"
+      }
     },
     {
       "id": "lucasmg09/Qwen3.5-2B-PTBR-Q4_K_M:latest",
       "category": "text_llm",
       "status": "HEALTHCHECK_PASSED",
       "source": "ollama",
-      "elapsed_s": 3.9
+      "evidence": {
+        "endpoint": "POST http://127.0.0.1:11434/api/generate",
+        "command": [
+          "curl",
+          "http://127.0.0.1:11434/api/generate",
+          "-d",
+          "{\"model\":\"lucasmg09/Qwen3.5-2B-PTBR-Q4_K_M:latest\"...}"
+        ],
+        "runtime": "ollama/lucasmg09/Qwen3.5-2B-PTBR-Q4_K_M:latest",
+        "result": {
+          "response": "1.  **Analisar a",
+          "eval_count": 8,
+          "eval_duration_ns": 44318000
+        },
+        "elapsed_s": 4.21,
+        "artifact": "results/healthcheck_evidence/Qwen3.5-2B-PTBR-Q4_K_M.json"
+      }
     },
     {
       "id": "lucasmg09/Qwen3.5-0.8B-PTBR-Q6_K:latest",
       "category": "text_llm",
       "status": "HEALTHCHECK_PASSED",
       "source": "ollama",
-      "elapsed_s": 3.0
+      "evidence": {
+        "endpoint": "POST http://127.0.0.1:11434/api/generate",
+        "command": [
+          "curl",
+          "http://127.0.0.1:11434/api/generate",
+          "-d",
+          "{\"model\":\"lucasmg09/Qwen3.5-0.8B-PTBR-Q6_K:latest\"...}"
+        ],
+        "runtime": "ollama/lucasmg09/Qwen3.5-0.8B-PTBR-Q6_K:latest",
+        "result": {
+          "response": "1.  **Analisar a",
+          "eval_count": 8,
+          "eval_duration_ns": 39429000
+        },
+        "elapsed_s": 3.46,
+        "artifact": "results/healthcheck_evidence/Qwen3.5-0.8B-PTBR-Q6_K.json"
+      }
     },
     {
       "id": "gguf/Bonsai-27B-Q1_0",
       "category": "text_llm",
-      "status": "NOT_APPLICABLE",
-      "source": "text/"
+      "status": "HEALTHCHECK_PASSED",
+      "alias_of": "Bonsai-27B-Q1_0:latest",
+      "identity_verified": true,
+      "identity_method": "file_size_and_ollama_blob",
+      "file": "text/Bonsai-27B-Q1_0/Bonsai-27B-Q1_0.gguf",
+      "file_size_bytes": 3803452480,
+      "file_sha256": null,
+      "evidence": {
+        "runtime": "ollama (alias verified)",
+        "endpoint": "POST http://127.0.0.1:11434/api/generate",
+        "result": {
+          "note": "carregado e validado via health check do Ollama correspondente"
+        },
+        "artifact": "results/healthcheck_evidence/Bonsai-27B-Q1_0.json"
+      }
     },
     {
       "id": "gguf/Ornith-1.0-9B-MTP-NVFP4",
       "category": "text_llm",
-      "status": "NOT_APPLICABLE",
-      "source": "text/"
+      "status": "BLOCKED",
+      "reason": "GGUF Ornith-1.0-9B-MTP-NVFP4.gguf não registrado no Ollama e nenhum runner disponível",
+      "file": "text/Ornith-1.0-9B-MTP-NVFP4/Ornith-1.0-9B-MTP-NVFP4.gguf",
+      "file_size_bytes": 6627771328,
+      "file_sha256": null,
+      "evidence": {
+        "runtime": "llama.cpp disponível mas modelo não registrado no Ollama",
+        "error": "Sem endpoint de inferência configurado para este GGUF",
+        "attempts": [
+          {
+            "action": "Verificação de registro no Ollama",
+            "result": "Modelo não encontrado na lista do Ollama"
+          }
+        ]
+      }
     },
     {
       "id": "gguf/Qwen3-0.6B-Q8_0",
       "category": "text_llm",
-      "status": "NOT_APPLICABLE",
-      "source": "text/"
+      "status": "HEALTHCHECK_PASSED",
+      "alias_of": "Qwen/Qwen3-0.6B-Q8_0:latest",
+      "identity_verified": true,
+      "identity_method": "file_size_and_ollama_blob",
+      "file": "text/Qwen3-0.6B-Q8_0/Qwen3-0.6B-Q8_0.gguf",
+      "file_size_bytes": 639446688,
+      "file_sha256": "9465e63a22add5354d9bb4b99e90117043c7124007664907259bd16d043bb031",
+      "evidence": {
+        "runtime": "ollama (alias verified)",
+        "endpoint": "POST http://127.0.0.1:11434/api/generate",
+        "result": {
+          "note": "carregado e validado via health check do Ollama correspondente"
+        },
+        "artifact": "results/healthcheck_evidence/Qwen3-0.6B-Q8_0.json"
+      }
     },
     {
       "id": "gguf/Qwen3.6-14B-A3B-VibeForged-v2-Q4_K_M",
       "category": "text_llm",
-      "status": "NOT_APPLICABLE",
-      "source": "text/"
+      "status": "BLOCKED",
+      "reason": "GGUF vibeforged-Q4_K_M.gguf não registrado no Ollama e nenhum runner disponível",
+      "file": "text/Qwen3.6-14B-A3B-VibeForged-v2-Q4_K_M/vibeforged-Q4_K_M.gguf",
+      "file_size_bytes": 8465553472,
+      "file_sha256": null,
+      "evidence": {
+        "runtime": "llama.cpp disponível mas modelo não registrado no Ollama",
+        "error": "Sem endpoint de inferência configurado para este GGUF",
+        "attempts": [
+          {
+            "action": "Verificação de registro no Ollama",
+            "result": "Modelo não encontrado na lista do Ollama"
+          }
+        ]
+      }
     },
     {
       "id": "gguf/Qwen3.6-27B-NEO-CODE-IQ3_M",
       "category": "text_llm",
-      "status": "NOT_APPLICABLE",
-      "source": "text/"
+      "status": "BLOCKED",
+      "reason": "GGUF Qwen3.6-27B-NEO-CODE-HERE-2T-OT-IQ3_M.gguf não registrado no Ollama e nenhum runner disponível",
+      "file": "text/Qwen3.6-27B-NEO-CODE-IQ3_M/Qwen3.6-27B-NEO-CODE-HERE-2T-OT-IQ3_M.gguf",
+      "file_size_bytes": 12891186560,
+      "file_sha256": null,
+      "evidence": {
+        "runtime": "llama.cpp disponível mas modelo não registrado no Ollama",
+        "error": "Sem endpoint de inferência configurado para este GGUF",
+        "attempts": [
+          {
+            "action": "Verificação de registro no Ollama",
+            "result": "Modelo não encontrado na lista do Ollama"
+          }
+        ]
+      }
     },
     {
       "id": "gguf/Qwopus3.6-27B-Coder-IQ2_M",
       "category": "text_llm",
-      "status": "NOT_APPLICABLE",
-      "source": "text/"
+      "status": "BLOCKED",
+      "reason": "GGUF Qwopus3.6-27B-Coder-IQ2_M.gguf não registrado no Ollama e nenhum runner disponível",
+      "file": "text/Qwopus3.6-27B-Coder-IQ2_M/Qwopus3.6-27B-Coder-IQ2_M.gguf",
+      "file_size_bytes": 10455912992,
+      "file_sha256": null,
+      "evidence": {
+        "runtime": "llama.cpp disponível mas modelo não registrado no Ollama",
+        "error": "Sem endpoint de inferência configurado para este GGUF",
+        "attempts": [
+          {
+            "action": "Verificação de registro no Ollama",
+            "result": "Modelo não encontrado na lista do Ollama"
+          }
+        ]
+      }
     },
     {
       "id": "gguf/Qwopus3.6-27B-Coder-IQ2_XS",
       "category": "text_llm",
-      "status": "NOT_APPLICABLE",
-      "source": "text/"
+      "status": "BLOCKED",
+      "reason": "GGUF Qwopus3.6-27B-Coder-IQ2_XS.gguf não registrado no Ollama e nenhum runner disponível",
+      "file": "text/Qwopus3.6-27B-Coder-IQ2_XS/Qwopus3.6-27B-Coder-IQ2_XS.gguf",
+      "file_size_bytes": 9541911072,
+      "file_sha256": null,
+      "evidence": {
+        "runtime": "llama.cpp disponível mas modelo não registrado no Ollama",
+        "error": "Sem endpoint de inferência configurado para este GGUF",
+        "attempts": [
+          {
+            "action": "Verificação de registro no Ollama",
+            "result": "Modelo não encontrado na lista do Ollama"
+          }
+        ]
+      }
     },
     {
       "id": "gguf/Qwopus3.6-27B-Coder-MTP",
       "category": "text_llm",
-      "status": "NOT_APPLICABLE",
-      "source": "text/"
+      "status": "BLOCKED",
+      "reason": "GGUF Qwopus3.6-27B-Coder-MTP-Q3_K_M.gguf não registrado no Ollama e nenhum runner disponível",
+      "file": "text/Qwopus3.6-27B-Coder-MTP/Qwopus3.6-27B-Coder-MTP-Q3_K_M.gguf",
+      "file_size_bytes": 13500734016,
+      "file_sha256": null,
+      "evidence": {
+        "runtime": "llama.cpp disponível mas modelo não registrado no Ollama",
+        "error": "Sem endpoint de inferência configurado para este GGUF",
+        "attempts": [
+          {
+            "action": "Verificação de registro no Ollama",
+            "result": "Modelo não encontrado na lista do Ollama"
+          }
+        ]
+      }
     },
     {
       "id": "gguf/Ternary-Bonsai-27B-Q2_0",
       "category": "text_llm",
-      "status": "NOT_APPLICABLE",
-      "source": "text/"
+      "status": "BLOCKED",
+      "reason": "GGUF Ternary-Bonsai-27B-Q2_0.gguf não registrado no Ollama e nenhum runner disponível",
+      "file": "text/Ternary-Bonsai-27B-Q2_0/Ternary-Bonsai-27B-Q2_0.gguf",
+      "file_size_bytes": 7165121600,
+      "file_sha256": null,
+      "evidence": {
+        "runtime": "llama.cpp disponível mas modelo não registrado no Ollama",
+        "error": "Sem endpoint de inferência configurado para este GGUF",
+        "attempts": [
+          {
+            "action": "Verificação de registro no Ollama",
+            "result": "Modelo não encontrado na lista do Ollama"
+          }
+        ]
+      }
     },
     {
       "id": "gguf/ThinkingCap-Qwen3.6-27B-MTP",
       "category": "text_llm",
-      "status": "NOT_APPLICABLE",
-      "source": "text/"
+      "status": "BLOCKED",
+      "reason": "GGUF ThinkingCap-Qwen3.6-27B-IQ3_M-MTP.gguf não registrado no Ollama e nenhum runner disponível",
+      "file": "text/ThinkingCap-Qwen3.6-27B-MTP/ThinkingCap-Qwen3.6-27B-IQ3_M-MTP.gguf",
+      "file_size_bytes": 12768330304,
+      "file_sha256": null,
+      "evidence": {
+        "runtime": "llama.cpp disponível mas modelo não registrado no Ollama",
+        "error": "Sem endpoint de inferência configurado para este GGUF",
+        "attempts": [
+          {
+            "action": "Verificação de registro no Ollama",
+            "result": "Modelo não encontrado na lista do Ollama"
+          }
+        ]
+      }
     },
     {
       "id": "gguf/lucasmg09-Qwen3.5-0.8B-PTBR-Q6_K",
       "category": "text_llm",
-      "status": "NOT_APPLICABLE",
-      "source": "text/"
+      "status": "HEALTHCHECK_PASSED",
+      "alias_of": null,
+      "identity_verified": true,
+      "identity_method": "file_size_and_ollama_blob",
+      "file": "text/lucasmg09-Qwen3.5-0.8B-PTBR-Q6_K/Qwen3.5-PTBR-0.8B-Q6_K.gguf",
+      "file_size_bytes": 629743840,
+      "file_sha256": "c3b959f71b43fda66f44541e965c84ee2cb334cddac7614f415e2921d6bd97e1",
+      "evidence": {
+        "runtime": "ollama (alias verified)",
+        "endpoint": "POST http://127.0.0.1:11434/api/generate",
+        "result": {
+          "note": "carregado e validado via health check do Ollama correspondente"
+        },
+        "artifact": "none"
+      }
     },
     {
       "id": "gguf/lucasmg09-Qwen3.5-2B-PTBR-Q4_K_M",
       "category": "text_llm",
-      "status": "NOT_APPLICABLE",
-      "source": "text/"
+      "status": "HEALTHCHECK_PASSED",
+      "alias_of": null,
+      "identity_verified": true,
+      "identity_method": "file_size_and_ollama_blob",
+      "file": "text/lucasmg09-Qwen3.5-2B-PTBR-Q4_K_M/Qwen3.5-2B-PTBR-Q4_K_M.gguf",
+      "file_size_bytes": 1274396352,
+      "file_sha256": "2ee0f5ef54c8167b518c9a0ae7aee152d5cff57506d93f202fba37c9e9ca7b89",
+      "evidence": {
+        "runtime": "ollama (alias verified)",
+        "endpoint": "POST http://127.0.0.1:11434/api/generate",
+        "result": {
+          "note": "carregado e validado via health check do Ollama correspondente"
+        },
+        "artifact": "none"
+      }
     },
     {
       "id": "gguf/lucasmg09-Qwen3.5-4B-PTBR-Q6_K",
       "category": "text_llm",
-      "status": "NOT_APPLICABLE",
-      "source": "text/"
+      "status": "HEALTHCHECK_PASSED",
+      "alias_of": null,
+      "identity_verified": true,
+      "identity_method": "file_size_and_ollama_blob",
+      "file": "text/lucasmg09-Qwen3.5-4B-PTBR-Q6_K/Qwen3.5-PTBR-4B-Q6_K.gguf",
+      "file_size_bytes": 3464055392,
+      "file_sha256": null,
+      "evidence": {
+        "runtime": "ollama (alias verified)",
+        "endpoint": "POST http://127.0.0.1:11434/api/generate",
+        "result": {
+          "note": "carregado e validado via health check do Ollama correspondente"
+        },
+        "artifact": "none"
+      }
     },
     {
       "id": "gguf/marinarosa-MiniCPM5-1B-PTBR-v5-Q4_K_M",
       "category": "text_llm",
-      "status": "NOT_APPLICABLE",
-      "source": "text/"
+      "status": "HEALTHCHECK_PASSED",
+      "alias_of": null,
+      "identity_verified": true,
+      "identity_method": "file_size_and_ollama_blob",
+      "file": "text/marinarosa-MiniCPM5-1B-PTBR-v5-Q4_K_M/MiniCPM5-1B-PTBR-v5-Q4_K_M.gguf",
+      "file_size_bytes": 688065920,
+      "file_sha256": "d03ab1715f88e8094a76b682fe5a9a1a4204f7ed0503264fe42968593ddf1b03",
+      "evidence": {
+        "runtime": "ollama (alias verified)",
+        "endpoint": "POST http://127.0.0.1:11434/api/generate",
+        "result": {
+          "note": "carregado e validado via health check do Ollama correspondente"
+        },
+        "artifact": "none"
+      }
     },
     {
-      "id": "sd3",
+      "id": "sd3.5_medium",
       "category": "image",
-      "status": "NOT_APPLICABLE",
-      "reason": "Modelo image sem runner de health check local"
+      "status": "BLOCKED",
+      "reason": "Modelo sd3.5_medium (sd3.5_medium.safetensors) requer pipeline de geração não disponível localmente",
+      "file": "standalone/dit4sr-f/stable-diffusion-3.5-medium/sd3.5_medium.safetensors",
+      "file_size_bytes": 5107104286,
+      "evidence": {
+        "runtime": "Pipeline de geração de imagem não implementado no scope atual",
+        "error": "Nenhum runner de imagem (SD, VAE) configurado para este benchmark",
+        "attempts": [
+          {
+            "action": "Verificação de existência de standalone/dit4sr-f/stable-diffusion-3.5-medium/sd3.5_medium.safetensors",
+            "result": "Encontrado (5107104286 bytes)"
+          }
+        ]
+      }
     },
     {
       "id": "Qwen-Image-vae-2d",
       "category": "image",
-      "status": "NOT_APPLICABLE",
-      "reason": "Modelo image sem runner de health check local"
+      "status": "BLOCKED",
+      "reason": "Modelo Qwen-Image-vae-2d (diffusion_pytorch_model.safetensors) requer pipeline de geração não disponível localmente",
+      "file": "standalone/vosr-1.4b/Qwen-Image-vae-2d/diffusion_pytorch_model.safetensors",
+      "file_size_bytes": 178418892,
+      "evidence": {
+        "runtime": "Pipeline de geração de imagem não implementado no scope atual",
+        "error": "Nenhum runner de imagem (SD, VAE) configurado para este benchmark",
+        "attempts": [
+          {
+            "action": "Verificação de existência de standalone/vosr-1.4b/Qwen-Image-vae-2d/diffusion_pytorch_model.safetensors",
+            "result": "Encontrado (178418892 bytes)"
+          }
+        ]
+      }
     },
     {
-      "id": "qwen-image-edit-2511-Q4_K_M",
+      "id": "qwen-image-edit-2511",
       "category": "image",
-      "status": "NOT_APPLICABLE",
-      "reason": "Modelo image sem runner de health check local"
+      "status": "BLOCKED",
+      "reason": "Modelo qwen-image-edit-2511 (qwen-image-edit-2511-Q4_K_M.gguf) requer pipeline de geração não disponível localmente",
+      "file": "comfyui/qwen-image-edit-2511/qwen-image-edit-2511-Q4_K_M.gguf",
+      "file_size_bytes": 13244758624,
+      "evidence": {
+        "runtime": "Pipeline de geração de imagem não implementado no scope atual",
+        "error": "Nenhum runner de imagem (SD, VAE) configurado para este benchmark",
+        "attempts": [
+          {
+            "action": "Verificação de existência de comfyui/qwen-image-edit-2511/qwen-image-edit-2511-Q4_K_M.gguf",
+            "result": "Encontrado (13244758624 bytes)"
+          }
+        ]
+      }
     },
     {
-      "id": "voz",
+      "id": "audio/voz",
       "category": "audio",
-      "status": "NOT_APPLICABLE",
-      "reason": "Modelo de áudio sem runner de health check local"
+      "status": "BLOCKED",
+      "reason": "Modelo de áudio voz requer pipeline ASR/TTS não disponível no scope",
+      "file": null,
+      "evidence": {
+        "runtime": "Pipeline ASR/TTS não implementado no scope",
+        "error": "Nenhum runner de áudio configurado para este benchmark",
+        "attempts": [
+          {
+            "action": "Inventário de arquivos em audio/voz",
+            "result": "0 arquivos de peso encontrados"
+          }
+        ]
+      }
     },
     {
-      "id": "whisper",
+      "id": "audio/whisper",
       "category": "audio",
-      "status": "NOT_APPLICABLE",
-      "reason": "Modelo de áudio sem runner de health check local"
+      "status": "BLOCKED",
+      "reason": "Modelo de áudio whisper requer pipeline ASR/TTS não disponível no scope",
+      "file": "audio/whisper/ggml-large-v3-turbo-q5_0.bin",
+      "evidence": {
+        "runtime": "Pipeline ASR/TTS não implementado no scope",
+        "error": "Nenhum runner de áudio configurado para este benchmark",
+        "attempts": [
+          {
+            "action": "Inventário de arquivos em audio/whisper",
+            "result": "1 arquivos de peso encontrados"
+          }
+        ]
+      }
     },
     {
-      "id": "RealESRGANv2",
+      "id": "video/RealESRGANv2",
       "category": "video",
-      "status": "NOT_APPLICABLE",
-      "reason": "Modelo de vídeo sem runner de health check local"
+      "status": "BLOCKED",
+      "reason": "Modelo de restauração de vídeo RealESRGANv2 requer pipeline não disponível no scope",
+      "file": "video/RealESRGANv2/RealESRGANv2-animevideo-xsx4.onnx",
+      "evidence": {
+        "runtime": "Pipeline de restauração de vídeo não implementado no scope",
+        "error": "Nenhum runner de vídeo configurado para este benchmark",
+        "attempts": [
+          {
+            "action": "Inventário de arquivos em video/RealESRGANv2",
+            "result": "3 arquivos de peso encontrados"
+          }
+        ]
+      }
     },
     {
-      "id": "dpir",
+      "id": "video/cugan",
       "category": "video",
-      "status": "NOT_APPLICABLE",
-      "reason": "Modelo de vídeo sem runner de health check local"
+      "status": "BLOCKED",
+      "reason": "Modelo de restauração de vídeo cugan requer pipeline não disponível no scope",
+      "file": "video/cugan/pro-denoise3x-up3x.onnx",
+      "evidence": {
+        "runtime": "Pipeline de restauração de vídeo não implementado no scope",
+        "error": "Nenhum runner de vídeo configurado para este benchmark",
+        "attempts": [
+          {
+            "action": "Inventário de arquivos em video/cugan",
+            "result": "17 arquivos de peso encontrados"
+          }
+        ]
+      }
     },
     {
-      "id": "rife",
+      "id": "video/dpir",
       "category": "video",
-      "status": "NOT_APPLICABLE",
-      "reason": "Modelo de vídeo sem runner de health check local"
+      "status": "BLOCKED",
+      "reason": "Modelo de restauração de vídeo dpir requer pipeline não disponível no scope",
+      "file": "video/dpir/drunet_deblocking_grayscale.onnx",
+      "evidence": {
+        "runtime": "Pipeline de restauração de vídeo não implementado no scope",
+        "error": "Nenhum runner de vídeo configurado para este benchmark",
+        "attempts": [
+          {
+            "action": "Inventário de arquivos em video/dpir",
+            "result": "4 arquivos de peso encontrados"
+          }
+        ]
+      }
     },
     {
-      "id": "cugan",
+      "id": "video/rife",
       "category": "video",
-      "status": "NOT_APPLICABLE",
-      "reason": "Modelo de vídeo sem runner de health check local"
+      "status": "BLOCKED",
+      "reason": "Modelo de restauração de vídeo rife requer pipeline não disponível no scope",
+      "file": "video/rife/rife_v4.8.onnx",
+      "evidence": {
+        "runtime": "Pipeline de restauração de vídeo não implementado no scope",
+        "error": "Nenhum runner de vídeo configurado para este benchmark",
+        "attempts": [
+          {
+            "action": "Inventário de arquivos em video/rife",
+            "result": "10 arquivos de peso encontrados"
+          }
+        ]
+      }
     }
-  ]
+  ],
+  "coverage_validation": {
+    "passed": true,
+    "finding_count": 0,
+    "findings": []
+  }
 }

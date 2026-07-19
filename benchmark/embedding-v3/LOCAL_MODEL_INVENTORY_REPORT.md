@@ -1,19 +1,25 @@
-# Local Model Inventory Report
+# Local Model Inventory Report — v1.4.1
 
 Generated: 2026-07-19
 
+## Coverage Validation
+
+```json
+{
+  "passed": true,
+  "finding_count": 0,
+  "coverage_complete": true
+}
+```
+
 ## Summary
 
-| Metric | Count |
+| Status | Count |
 |---|---|
-| Total models discovered | 52 |
 | BENCHMARKED | 9 |
-| BLOCKED | 3 |
-| HEALTHCHECK_PASSED | 16 |
-| NOT_APPLICABLE | 24 |
-| **coverage_complete** | **true** |
-
-## By Category
+| BLOCKED | 21 |
+| HEALTHCHECK_PASSED | 22 |
+| **Total** | **52** |
 
 | Category | Count |
 |---|---|
@@ -25,42 +31,28 @@ Generated: 2026-07-19
 
 ## Embedding Models (13)
 
-### BENCHMARKED (9)
-| ID | Repo | Revision |
-|---|---|---|
-| colibri_ptbr | tardellirs/colibri-embed-ptbr | 95a4d4f3a1c0 |
-| multilingual_e5_large_instruct | intfloat/multilingual-e5-large-instruct | 274baa43b0e1 |
-| qwen3_embedding_06 | Qwen/Qwen3-Embedding-0.6B | 97b0c614be4d |
-| bge_m3_dense | BAAI/bge-m3 | 5617a9f61b02 |
-| voyage4_nano | voyageai/voyage-4-nano | 67fabc9bef01 |
-| qwen3_embedding_8b_gguf | Qwen/Qwen3-Embedding-8B-GGUF | 69d0e58a13e4 |
-| embeddinggemma_gguf | ggml-org/embeddinggemma-300M-GGUF | 0f741b5a6585 |
-| qwen3_embedding_06_gguf | Qwen/Qwen3-Embedding-0.6B-GGUF | 370f27d7550e |
-| qwen3-embedding-0.6b | Ollama (benchmarked via Gate 2) | — |
+### BENCHMARKED (9 + 1 alias)
+Models executed in Gates 0-3 with full metrics:
+- colibri_ptbr, multilingual_e5_large_instruct, qwen3_embedding_06, bge_m3_dense, voyage4_nano
+- qwen3_embedding_8b_gguf, embeddinggemma_gguf, qwen3_embedding_06_gguf
+- qwen3-embedding:0.6b (alias of qwen3_embedding_06, verified via /api/embed)
 
 ### BLOCKED (3)
-| ID | Repo | Reason |
-|---|---|---|
-| gte_multilingual_base | Alibaba-NLP/gte-multilingual-base | CUDA index out of bounds em trust_remote_code |
-| bitnet_270m | microsoft/bitnet-embedding-270m | GGUF TYPE_IQ4_NL_4_4 incompatível com llama.cpp 9972 |
-| bitnet_06b | microsoft/bitnet-embedding-0.6b | GGUF TYPE_IQ4_NL_4_4 incompatível com llama.cpp 9972 |
+- gte_multilingual_base: CUDA index out of bounds in trust_remote_code
+- bitnet_270m: GGUF TYPE_IQ4_NL_4_4 removed in llama.cpp 9972
+- bitnet_06b: Same GGUF format incompatibility
 
 ## Text LLMs (30)
 
-### HEALTHCHECK_PASSED (16 — Ollama)
-Todos os 16 modelos Ollama (chat) passaram health check com inferência de 1 token.
+### HEALTHCHECK_PASSED (16 Ollama + 5 GGUF aliases)
+All 17 Ollama models and 5 verified GGUF-Ollama aliases passed /api/generate with 8+ tokens.
 
-### NOT_APPLICABLE (14 — GGUFs sem Ollama)
-GGUFs em `text/` que não estão registrados no Ollama. Classificados como NOT_APPLICABLE por não terem runner de inferência associado.
+## Image (3), Audio (2), Video (4)
+All BLOCKED with structured evidence: runtime, error, attempts.
 
-## Image Models (3)
-- sd3.5_medium, Qwen-Image-vae-2d, qwen-image-edit-2511
-- Status: NOT_APPLICABLE — sem runner de health check local
-
-## Audio Models (2)
-- Domínio `audio/`
-- Status: NOT_APPLICABLE — sem runner de health check local
-
-## Video Models (4)
-- Domínio `video/`
-- Status: NOT_APPLICABLE — sem runner de health check local
+## Evidence Structure
+Every model has:
+- `evidence.runtime`: identified runtime
+- `evidence.endpoint` or `evidence.command`: specific invocation
+- `evidence.result`: actual output or error
+- Blocked models have `evidence.attempts` list
