@@ -1,6 +1,6 @@
 {
   "schema_version": "1.1",
-  "selection_basis": "MTEB-BR native PT-BR evidence plus local Holo retrieval benchmark",
+  "selection_basis": "PT-BR-specific candidates, multilingual baselines and the local Holo retrieval benchmark",
   "models": [
     {
       "id": "colibri_ptbr",
@@ -26,7 +26,7 @@
       "prompt_profile": "e5_instruct",
       "required": true,
       "enabled": true,
-      "reason": "baseline multilíngue forte com evidência publicada em português"
+      "reason": "baseline multilíngue forte para comparação em português"
     },
     {
       "id": "qwen3_embedding_06",
@@ -103,7 +103,7 @@
       "backend": "sentence-transformers",
       "gate": null,
       "enabled": false,
-      "reason": "acesso gated indisponível no ambiente local; Colibri cobre a família com foco PT-BR"
+      "reason": "acesso gated indisponível no ambiente local"
     },
     {
       "id": "gte_multilingual_base",
