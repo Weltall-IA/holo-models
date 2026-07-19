@@ -22,12 +22,12 @@ scope:
     - "Integração ao Holo, merge ou publicação de modelos."
 
 execution:
-  stage: "1.1.1"
-  role: "auditor"
-  state: "REJECTED"
+  stage: "1.1.2"
+  role: "local"
+  state: "EXECUTED"
 
 return:
-  title: "Auditoria da reexecução do Gate 0 com validação CUDA pelo PyTorch"
+  title: "Correção do bloqueio causado pelas saídas geradas do Gate 0"
 
 changes:
   files_changed:
@@ -62,13 +62,14 @@ validations:
 
 audit:
   findings:
-    - "O dry-run regenera arquivos de saída rastreados; a execução real subsequente interpreta essas próprias saídas como dirty working tree e bloqueia o Gate 0."
-    - "A correção deve ignorar somente os arquivos de saída gerados pelo próprio Gate 0, mantendo bloqueio para quaisquer outras alterações rastreadas."
-    - "A correção deve adicionar teste de regressão para a sequência dry-run seguida de execução real e preservar o teste que bloqueia alterações rastreadas fora dos caminhos gerados."
-  decision: "REJECTED"
+    - "Retorno 1.1.2: inventory.py corrigido para filtrar os 5 arquivos gerados pelo Gate 0 (GATE_0_REPORT.md, environment.json, system_info.json, gate_status.json, requirements-resolved.txt)."
+    - "3 testes de regressão adicionados: gate0_outputs_do_not_block, non_gate0_change_still_blocks, gate0_only_blocked_by_real_changes."
+    - "12/12 testes aprovados. Gate 0 PASS (dry-run e real). CUDA True/True, alocação True/True."
+    - "Gate 1 preservado: hash 8e1b7a6d... intacto, 35 revisões aprovadas."
+  decision: "PENDING"
 
 blockers: []
 
 next:
-  action: "Executar o patch 1.1.2: corrigir a verificação de working tree do Gate 0 para desconsiderar somente suas saídas geradas, adicionar testes de regressão, repetir compilação, testes, dry-run e Gate 0 real, atualizar STATUS.yml e publicar o retorno. Não regenerar o Gate 1 quando os hashes permanecerem inalterados."
-  role: "local"
+  action: "Auditar a correção do working tree e confirmar os Gates 0 e 1."
+  role: "auditor"

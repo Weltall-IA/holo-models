@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "created_at": "2026-07-18T21:35:15.440444+00:00",
+  "created_at": "2026-07-19T00:07:37.222662+00:00",
   "repo_root": "/home/alpha/Playstoria/models",
   "project_root": "/home/alpha/Playstoria/models/benchmark/embedding-v3",
   "voyage_api_key_present": false,
@@ -48,7 +48,7 @@
         "--untracked-files=no"
       ],
       "returncode": 0,
-      "duration_seconds": 0.0043,
+      "duration_seconds": 0.003,
       "stdout": "M benchmark/embedding-v3/GATE_0_REPORT.md\n M benchmark/embedding-v3/environment.json\n M benchmark/embedding-v3/gate_status.json\n M benchmark/embedding-v3/requirements-resolved.txt\n M benchmark/embedding-v3/system_info.json",
       "stderr": ""
     },
@@ -62,7 +62,7 @@
         "--exclude-standard"
       ],
       "returncode": 0,
-      "duration_seconds": 0.0118,
+      "duration_seconds": 0.0098,
       "stdout": "runtime/vane-native-ops/",
       "stderr": ""
     },
@@ -75,7 +75,7 @@
         "--show-current"
       ],
       "returncode": 0,
-      "duration_seconds": 0.0018,
+      "duration_seconds": 0.0025,
       "stdout": "ai/embedding-benchmark-v3",
       "stderr": ""
     },
@@ -88,8 +88,8 @@
         "HEAD"
       ],
       "returncode": 0,
-      "duration_seconds": 0.0028,
-      "stdout": "7ba1fa75511e7a0b9e8ebb99eb16c36c41abe43e",
+      "duration_seconds": 0.0029,
+      "stdout": "b0b72a827a5620a51cada1d6417e551d6b6b4c19",
       "stderr": ""
     },
     "git_origin_master": {
@@ -115,7 +115,7 @@
         "origin"
       ],
       "returncode": 0,
-      "duration_seconds": 0.0019,
+      "duration_seconds": 0.0022,
       "stdout": "https://github.com/Weltall-IA/holo-models.git",
       "stderr": ""
     }
