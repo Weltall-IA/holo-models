@@ -10,7 +10,6 @@
       "backend": "sentence-transformers",
       "gate": 2,
       "trust_remote_code": false,
-      "prompt_profile": "colibri",
       "encode_api": "asymmetric",
       "required": true,
       "enabled": true,
