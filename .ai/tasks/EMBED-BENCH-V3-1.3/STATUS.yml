@@ -24,7 +24,7 @@ scope:
 execution:
   stage: "1.3.0"
   role: "remote_author"
-  state: "IN_PROGRESS"
+  state: "CORRECTED"
 
 return:
   title: "Implementação do Gate 3 para modelos GGUF no llama.cpp"
@@ -52,7 +52,7 @@ validations:
   executed:
     - "Compilação isolada de gate3.py, gate3_worker.py e benchmark.py."
     - "13 testes direcionados de configuração, resolução de arquivo, fallback, dimensão, quantização e critérios de PASS."
-    - "Validação sintática de models.json e PROJECT.yml."
+    - "Validação sintática de models.json, PROJECT.yml e STATUS.yml."
     - "Revisão das instruções oficiais dos modelos e do servidor llama.cpp para pooling, normalização e prompts."
   passed:
     - "Compilação isolada sem erros."
