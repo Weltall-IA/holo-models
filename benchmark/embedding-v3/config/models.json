@@ -13,7 +13,7 @@
       "encode_api": "asymmetric",
       "required": true,
       "enabled": true,
-      "reason": "modelo compacto treinado especificamente para português brasileiro e líder declarado no MTEB-BR"
+      "reason": "modelo compacto treinado especificamente para português brasileiro"
     },
     {
       "id": "multilingual_e5_large_instruct",
