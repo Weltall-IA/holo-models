@@ -17,7 +17,7 @@ def _atomic_json(path: Path, payload: dict) -> None:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Valida cobertura e evidências do inventário local")
+    parser = argparse.ArgumentParser(description="Valida cobertura, evidências e consistência com resultados concluídos")
     parser.add_argument(
         "--inventory",
         default=str(PROJECT_ROOT / "local_model_inventory.json"),
@@ -26,9 +26,9 @@ def main() -> int:
     args = parser.parse_args()
 
     path = Path(args.inventory)
-    payload, findings = validate_inventory_file(path)
+    payload, findings = validate_inventory_file(path, project_root=PROJECT_ROOT)
     if args.write:
-        _atomic_json(path, apply_validation(payload))
+        _atomic_json(path, apply_validation(payload, findings))
     print(json.dumps(
         {
             "passed": not findings,
