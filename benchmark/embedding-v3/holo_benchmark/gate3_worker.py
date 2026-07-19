@@ -69,7 +69,8 @@ def _find_llama_server() -> str:
 
 
 class _VramSampler:
-    def __init__(self, device_index: int = 0) -> None:
+    def __init__(self, pid: int, device_index: int = 0) -> None:
+        self.pid = pid
         self.device_index = device_index
         self.peak_mib: int | None = None
         self._stop = threading.Event()
@@ -82,7 +83,7 @@ class _VramSampler:
                     [
                         "nvidia-smi",
                         f"--id={self.device_index}",
-                        "--query-compute-apps=used_memory",
+                        "--query-compute-apps=pid,used_memory",
                         "--format=csv,noheader,nounits",
                     ],
                     capture_output=True,
@@ -90,10 +91,13 @@ class _VramSampler:
                     check=False,
                     timeout=3,
                 )
-                values = [int(line.strip()) for line in proc.stdout.splitlines() if line.strip().isdigit()]
-                if values:
-                    current = sum(values)
-                    self.peak_mib = max(self.peak_mib or 0, current)
+                for line in proc.stdout.splitlines():
+                    parts = [part.strip() for part in line.split(",", 1)]
+                    if len(parts) != 2 or not parts[0].isdigit() or int(parts[0]) != self.pid:
+                        continue
+                    memory = parts[1].split()[0]
+                    if memory.isdigit():
+                        self.peak_mib = max(self.peak_mib or 0, int(memory))
             except Exception:
                 pass
             self._stop.wait(0.25)
@@ -174,30 +178,31 @@ def benchmark_model(request: dict[str, Any]) -> dict[str, Any]:
     started = time.monotonic()
     with tempfile.TemporaryDirectory(prefix=f"{spec.id}-llama-") as tmp:
         log_path = Path(tmp) / "llama-server.log"
-        with log_path.open("w", encoding="utf-8") as log_handle, _VramSampler() as vram:
+        with log_path.open("w", encoding="utf-8") as log_handle:
             process = subprocess.Popen(command, stdout=log_handle, stderr=subprocess.STDOUT, text=True)
             failure: BaseException | None = None
-            try:
-                load_started = time.monotonic()
-                _wait_server(port, process, timeout=300)
-                load_seconds = time.monotonic() - load_started
-                doc_started = time.monotonic()
-                doc_raw = _encode(port, documents, batch_size)
-                doc_seconds = time.monotonic() - doc_started
-                query_started = time.monotonic()
-                query_raw = _encode(port, query_texts, batch_size)
-                query_seconds = time.monotonic() - query_started
-            except BaseException as exc:
-                failure = exc
-            finally:
-                if process.poll() is None:
-                    process.terminate()
-                    try:
-                        process.wait(timeout=15)
-                    except subprocess.TimeoutExpired:
-                        process.kill()
-                        process.wait(timeout=15)
-                log_handle.flush()
+            with _VramSampler(process.pid) as vram:
+                try:
+                    load_started = time.monotonic()
+                    _wait_server(port, process, timeout=300)
+                    load_seconds = time.monotonic() - load_started
+                    doc_started = time.monotonic()
+                    doc_raw = _encode(port, documents, batch_size)
+                    doc_seconds = time.monotonic() - doc_started
+                    query_started = time.monotonic()
+                    query_raw = _encode(port, query_texts, batch_size)
+                    query_seconds = time.monotonic() - query_started
+                except BaseException as exc:
+                    failure = exc
+                finally:
+                    if process.poll() is None:
+                        process.terminate()
+                        try:
+                            process.wait(timeout=15)
+                        except subprocess.TimeoutExpired:
+                            process.kill()
+                            process.wait(timeout=15)
+                    log_handle.flush()
         if failure is not None:
             tail = log_path.read_text(encoding="utf-8", errors="replace")[-12000:]
             raise RuntimeError(f"{failure}\nllama-server log tail:\n{tail}") from failure
