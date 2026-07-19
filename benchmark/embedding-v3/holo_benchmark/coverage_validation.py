@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass, asdict
+from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Any
 import json
@@ -78,6 +78,14 @@ def _benchmark_identity_complete(model: dict[str, Any]) -> bool:
     evidence = _evidence(model)
     if evidence.get("alias_of"):
         return bool(evidence.get("identity_verified") and evidence.get("identity_method"))
+    if evidence.get("api_model"):
+        return bool(
+            model.get("repo")
+            and evidence.get("artifact")
+            and evidence.get("runtime")
+            and evidence.get("endpoint")
+            and evidence.get("result") is not None
+        )
     return bool(
         model.get("repo")
         and model.get("revision")
@@ -190,8 +198,80 @@ def validate_inventory_payload(payload: dict[str, Any]) -> list[CoverageFinding]
     return findings
 
 
-def apply_validation(payload: dict[str, Any]) -> dict[str, Any]:
-    findings = validate_inventory_payload(payload)
+def validate_result_consistency(
+    payload: dict[str, Any],
+    project_root: Path,
+) -> list[CoverageFinding]:
+    """Cruza resultados Voyage concluídos com o inventário canônico."""
+    summary_path = project_root / "results" / "voyage" / "summary.json"
+    if not summary_path.exists():
+        return []
+    try:
+        summary = json.loads(summary_path.read_text(encoding="utf-8"))
+    except (OSError, ValueError, TypeError) as exc:
+        return [
+            CoverageFinding(
+                "<voyage-results>",
+                "INVALID_RESULT_SUMMARY",
+                f"summary Voyage inválido: {type(exc).__name__}: {exc}",
+            )
+        ]
+
+    completed = summary.get("models_completed")
+    if not isinstance(completed, list):
+        return [
+            CoverageFinding(
+                "<voyage-results>",
+                "INVALID_COMPLETED_MODELS",
+                "models_completed deve ser uma lista",
+            )
+        ]
+
+    models = payload.get("models")
+    inventory = {
+        _text(item.get("id")): item
+        for item in models if isinstance(item, dict)
+    } if isinstance(models, list) else {}
+
+    findings: list[CoverageFinding] = []
+    for raw_model_id in completed:
+        model_id = _text(raw_model_id)
+        record = inventory.get(model_id)
+        if record is None:
+            findings.append(
+                CoverageFinding(
+                    model_id or "<unknown>",
+                    "RESULT_MODEL_MISSING",
+                    "resultado concluído não possui registro no inventário",
+                )
+            )
+            continue
+        status = _text(record.get("status") or record.get("coverage_status"))
+        if status != "BENCHMARKED":
+            findings.append(
+                CoverageFinding(
+                    model_id,
+                    "RESULT_STATUS_MISMATCH",
+                    f"resultado concluído existe, mas inventário mantém status {status or 'ausente'}",
+                )
+            )
+        artifact = project_root / "results" / "voyage" / f"{model_id}.json"
+        if not artifact.exists():
+            findings.append(
+                CoverageFinding(
+                    model_id,
+                    "RESULT_ARTIFACT_MISSING",
+                    f"artefato esperado ausente: {artifact.relative_to(project_root)}",
+                )
+            )
+    return findings
+
+
+def apply_validation(
+    payload: dict[str, Any],
+    findings: list[CoverageFinding] | None = None,
+) -> dict[str, Any]:
+    findings = validate_inventory_payload(payload) if findings is None else findings
     result = dict(payload)
     serialized = [asdict(item) for item in findings]
     result["coverage_validation"] = {
@@ -209,9 +289,25 @@ def apply_validation(payload: dict[str, Any]) -> dict[str, Any]:
     return result
 
 
-def validate_inventory_file(path: Path) -> tuple[dict[str, Any], list[CoverageFinding]]:
+def validate_inventory_file(
+    path: Path,
+    project_root: Path | None = None,
+) -> tuple[dict[str, Any], list[CoverageFinding]]:
     payload = json.loads(path.read_text(encoding="utf-8"))
-    return payload, validate_inventory_payload(payload)
+    findings = validate_inventory_payload(payload)
+    if project_root is not None:
+        findings.extend(validate_result_consistency(payload, project_root))
+        if bool(payload.get("coverage_complete")) and findings and not any(
+            item.code == "FALSE_COMPLETE" for item in findings
+        ):
+            findings.append(
+                CoverageFinding(
+                    "<inventory>",
+                    "FALSE_COMPLETE",
+                    "coverage_complete=true apesar de divergência com resultados concluídos",
+                )
+            )
+    return payload, findings
 
 
 __all__ = [
@@ -219,4 +315,5 @@ __all__ = [
     "apply_validation",
     "validate_inventory_file",
     "validate_inventory_payload",
+    "validate_result_consistency",
 ]
