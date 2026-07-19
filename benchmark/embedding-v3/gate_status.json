@@ -3,36 +3,9 @@
   "gate_1": "PASS",
   "corpus_version": "holo_fake_scenes_v3",
   "combined_sha256": "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b",
-  "updated_at": "2026-07-19T02:51:25.184346+00:00",
-  "errors": [
-    {
-      "model_id": "voyage4_nano",
-      "required": false,
-      "phase": "benchmark_worker",
-      "error_type": "WorkerProcessError",
-      "error_message": "worker terminou com código 2; o próximo modelo continuará em processo limpo",
-      "returncode": 2,
-      "stderr_tail": "/home/alpha/Playstoria/models/benchmarks/holo-embedding-benchmark-v3/.venv/lib/python3.12/site-packages/torch/cuda/__init__.py:64: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.\n  import pynvml  # type: ignore[import]"
-    },
-    {
-      "model_id": "bitnet_270m",
-      "required": false,
-      "phase": "benchmark_worker",
-      "error_type": "WorkerProcessError",
-      "error_message": "worker terminou com código 2; o próximo modelo continuará em processo limpo",
-      "returncode": 2,
-      "stderr_tail": ""
-    },
-    {
-      "model_id": "bitnet_06b",
-      "required": false,
-      "phase": "benchmark_worker",
-      "error_type": "WorkerProcessError",
-      "error_message": "worker terminou com código 2; o próximo modelo continuará em processo limpo",
-      "returncode": 2,
-      "stderr_tail": ""
-    }
-  ],
+  "updated_at": "2026-07-19T09:07:15.216357+00:00",
+  "errors": [],
   "gate_2": "PASS",
-  "gates_3_to_6": "BLOCKED_BY_DIRECTOR"
+  "gate_3": "PASS",
+  "gates_4_to_6": "BLOCKED_BY_DIRECTOR"
 }
