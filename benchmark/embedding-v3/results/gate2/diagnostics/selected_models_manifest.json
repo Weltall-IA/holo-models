@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.1",
+  "gate": 2,
+  "created_at": "2026-07-19T04:30:00.436873+00:00",
+  "corpus_sha256": "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b",
+  "models": [
+    {
+      "id": "voyage4_nano",
+      "repo": "voyageai/voyage-4-nano",
+      "revision": "67fabc9bef010dabc5f6024aa1b1b6b93410426f",
+      "expected_size_bytes": 704446658,
+      "license": "apache-2.0",
+      "gated": false,
+      "destination": "/home/alpha/Playstoria/models/embed/voyage4_nano",
+      "trust_remote_code": true,
+      "backend": "sentence-transformers",
+      "dimension": 1024,
+      "required": false,
+      "file": null,
+      "prompt_profile": null,
+      "encode_api": "asymmetric",
+      "pooling": null
+    },
+    {
+      "id": "bitnet_270m",
+      "repo": "microsoft/bitnet-embedding-270m",
+      "revision": "5f1c2fd19f37ca653a3d719c8ee6cc1895f4b64f",
+      "expected_size_bytes": 367487040,
+      "license": "mit",
+      "gated": false,
+      "destination": "/home/alpha/Playstoria/models/embed/bitnet_270m",
+      "trust_remote_code": false,
+      "backend": "llama.cpp",
+      "dimension": 0,
+      "required": false,
+      "file": "bitnet-embeddings-270m-bf16-i2_s.gguf",
+      "prompt_profile": null,
+      "encode_api": null,
+      "pooling": "last"
+    },
+    {
+      "id": "bitnet_06b",
+      "repo": "microsoft/bitnet-embedding-0.6b",
+      "revision": "16176d108561b62e3d6f2b558587afe1140b413f",
+      "expected_size_bytes": 427935008,
+      "license": "mit",
+      "gated": false,
+      "destination": "/home/alpha/Playstoria/models/embed/bitnet_06b",
+      "trust_remote_code": false,
+      "backend": "llama.cpp",
+      "dimension": 0,
+      "required": false,
+      "file": "bitnet-embeddings-0.6b-bf16-i2_s.gguf",
+      "prompt_profile": null,
+      "encode_api": null,
+      "pooling": "last"
+    }
+  ],
+  "failures": []
+}

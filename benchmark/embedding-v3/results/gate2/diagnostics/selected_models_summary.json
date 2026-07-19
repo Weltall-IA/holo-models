@@ -1,0 +1,93 @@
+{
+  "schema_version": "1.0",
+  "selected_models": [
+    "voyage4_nano",
+    "bitnet_270m",
+    "bitnet_06b"
+  ],
+  "generated_at": "2026-07-19T04:30:34.716383+00:00",
+  "exit_code": 2,
+  "payload": {
+    "schema_version": "1.1",
+    "gate": 2,
+    "status": "PARTIAL",
+    "corpus_sha256": "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b",
+    "full_dataset": true,
+    "models_requested": [
+      "voyage4_nano",
+      "bitnet_270m",
+      "bitnet_06b"
+    ],
+    "required_models": [],
+    "optional_models": [
+      "voyage4_nano",
+      "bitnet_270m",
+      "bitnet_06b"
+    ],
+    "models_completed": [
+      "voyage4_nano"
+    ],
+    "failures": [
+      {
+        "model_id": "bitnet_270m",
+        "required": false,
+        "phase": "benchmark_worker",
+        "error_type": "RuntimeError",
+        "error_message": "llama-server encerrou com código 1\nllama-server log tail:\n0.00.071.906 I cmn  common_param: common_params_print_info: verbosity = 3 (adjust with the `-lv N` CLI arg)\n0.00.071.979 W srv  llama_server: embeddings enabled with n_batch (2048) > n_ubatch (512)\n0.00.071.979 W srv  llama_server: setting n_batch = n_ubatch = 512 to avoid assertion failure\n0.00.073.727 I srv    load_model: loading model '/home/alpha/Playstoria/models/embed/bitnet_270m/bitnet-embeddings-270m-bf16-i2_s.gguf'\n0.00.203.760 E gguf_init_from_reader: tensor 'blk.0.ffn_down.weight' of type 36 (TYPE_IQ4_NL_4_4 REMOVED, use IQ4_NL with runtime repacking) has 2048 elements per row, not a multiple of block size (0)\n0.00.203.885 E gguf_init_from_reader: failed to read tensor info\n0.00.213.389 E llama_model_load: error loading model: llama_model_loader: failed to load model from /home/alpha/Playstoria/models/embed/bitnet_270m/bitnet-embeddings-270m-bf16-i2_s.gguf\n0.00.213.408 E llama_model_load_from_file_impl: failed to load model\n0.00.213.471 E common_fit_params: encountered an error while trying to fit params to free device memory: failed to load model\n0.00.273.100 E gguf_init_from_reader: tensor 'blk.0.ffn_down.weight' of type 36 (TYPE_IQ4_NL_4_4 REMOVED, use IQ4_NL with runtime repacking) has 2048 elements per row, not a multiple of block size (0)\n0.00.273.120 E gguf_init_from_reader: failed to read tensor info\n0.00.280.875 E llama_model_load: error loading model: llama_model_loader: failed to load model from /home/alpha/Playstoria/models/embed/bitnet_270m/bitnet-embeddings-270m-bf16-i2_s.gguf\n0.00.280.887 E llama_model_load_from_file_impl: failed to load model\n0.00.280.903 E cmn  common_init_: failed to load model '/home/alpha/Playstoria/models/embed/bitnet_270m/bitnet-embeddings-270m-bf16-i2_s.gguf'\n0.00.280.914 E srv    load_model: failed to load model, '/home/alpha/Playstoria/models/embed/bitnet_270m/bitnet-embeddings-270m-bf16-i2_s.gguf'\n0.00.280.920 I srv    operator(): operator(): cleaning up before exit...\n0.00.282.571 E srv  llama_server: exiting due to model loading error\n",
+        "returncode": 2,
+        "stderr_tail": "Traceback (most recent call last):\n  File \"/home/alpha/Playstoria/models/benchmark/embedding-v3/holo_benchmark/gate2_worker_v2.py\", line 118, in _llama_cpp_embeddings\n    _worker._wait_server(port, process)\n  File \"/home/alpha/Playstoria/models/benchmark/embedding-v3/holo_benchmark/gate2_worker.py\", line 181, in _wait_server\n    raise RuntimeError(f\"llama-server encerrou com código {process.returncode}\")\nRuntimeError: llama-server encerrou com código 1\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/home/alpha/Playstoria/models/benchmark/embedding-v3/holo_benchmark/gate2_worker.py\", line 394, in main\n    payload = {\"status\": \"ok\", \"result\": benchmark_model(request)}\n                                         ^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/alpha/Playstoria/models/benchmark/embedding-v3/holo_benchmark/gate2_worker.py\", line 318, in benchmark_model\n    document_embeddings, query_embeddings, runtime = _llama_cpp_embeddings(\n                                                     ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/alpha/Playstoria/models/benchmark/embedding-v3/holo_benchmark/gate2_worker_v2.py\", line 145, in _llama_cpp_embeddings\n    raise RuntimeError(f\"{failure}{detail}\") from failure\nRuntimeError: llama-server encerrou com código 1\nllama-server log tail:\n0.00.071.906 I cmn  common_param: common_params_print_info: verbosity = 3 (adjust with the `-lv N` CLI arg)\n0.00.071.979 W srv  llama_server: embeddings enabled with n_batch (2048) > n_ubatch (512)\n0.00.071.979 W srv  llama_server: setting n_batch = n_ubatch = 512 to avoid assertion failure\n0.00.073.727 I srv    load_model: loading model '/home/alpha/Playstoria/models/embed/bitnet_270m/bitnet-embeddings-270m-bf16-i2_s.gguf'\n0.00.203.760 E gguf_init_from_reader: tensor 'blk.0.ffn_down.weight' of type 36 (TYPE_IQ4_NL_4_4 REMOVED, use IQ4_NL with runtime repacking) has 2048 elements per row, not a multiple of block size (0)\n0.00.203.885 E gguf_init_from_reader: failed to read tensor info\n0.00.213.389 E llama_model_load: error loading model: llama_model_loader: failed to load model from /home/alpha/Playstoria/models/embed/bitnet_270m/bitnet-embeddings-270m-bf16-i2_s.gguf\n0.00.213.408 E llama_model_load_from_file_impl: failed to load model\n0.00.213.471 E common_fit_params: encountered an error while trying to fit params to free device memory: failed to load model\n0.00.273.100 E gguf_init_from_reader: tensor 'blk.0.ffn_down.weight' of type 36 (TYPE_IQ4_NL_4_4 REMOVED, use IQ4_NL with runtime repacking) has 2048 elements per row, not a multiple of block size (0)\n0.00.273.120 E gguf_init_from_reader: failed to read tensor info\n0.00.280.875 E llama_model_load: error loading model: llama_model_loader: failed to load model from /home/alpha/Playstoria/models/embed/bitnet_270m/bitnet-embeddings-270m-bf16-i2_s.gguf\n0.00.280.887 E llama_model_load_from_file_impl: failed to load model\n0.00.280.903 E cmn  common_init_: failed to load model '/home/alpha/Playstoria/models/embed/bitnet_270m/bitnet-embeddings-270m-bf16-i2_s.gguf'\n0.00.280.914 E srv    load_model: failed to load model, '/home/alpha/Playstoria/models/embed/bitnet_270m/bitnet-embeddings-270m-bf16-i2_s.gguf'\n0.00.280.920 I srv    operator(): operator(): cleaning up before exit...\n0.00.282.571 E srv  llama_server: exiting due to model loading error\n\n"
+      },
+      {
+        "model_id": "bitnet_06b",
+        "required": false,
+        "phase": "benchmark_worker",
+        "error_type": "RuntimeError",
+        "error_message": "llama-server encerrou com código 1\nllama-server log tail:\n0.00.068.113 I cmn  common_param: common_params_print_info: verbosity = 3 (adjust with the `-lv N` CLI arg)\n0.00.068.286 W srv  llama_server: embeddings enabled with n_batch (2048) > n_ubatch (512)\n0.00.068.289 W srv  llama_server: setting n_batch = n_ubatch = 512 to avoid assertion failure\n0.00.070.206 I srv    load_model: loading model '/home/alpha/Playstoria/models/embed/bitnet_06b/bitnet-embeddings-0.6b-bf16-i2_s.gguf'\n0.00.130.597 E gguf_init_from_reader: tensor 'blk.0.ffn_down.weight' of type 36 (TYPE_IQ4_NL_4_4 REMOVED, use IQ4_NL with runtime repacking) has 3072 elements per row, not a multiple of block size (0)\n0.00.130.614 E gguf_init_from_reader: failed to read tensor info\n0.00.132.424 E llama_model_load: error loading model: llama_model_loader: failed to load model from /home/alpha/Playstoria/models/embed/bitnet_06b/bitnet-embeddings-0.6b-bf16-i2_s.gguf\n0.00.132.430 E llama_model_load_from_file_impl: failed to load model\n0.00.132.462 E common_fit_params: encountered an error while trying to fit params to free device memory: failed to load model\n0.00.158.162 E gguf_init_from_reader: tensor 'blk.0.ffn_down.weight' of type 36 (TYPE_IQ4_NL_4_4 REMOVED, use IQ4_NL with runtime repacking) has 3072 elements per row, not a multiple of block size (0)\n0.00.158.165 E gguf_init_from_reader: failed to read tensor info\n0.00.160.279 E llama_model_load: error loading model: llama_model_loader: failed to load model from /home/alpha/Playstoria/models/embed/bitnet_06b/bitnet-embeddings-0.6b-bf16-i2_s.gguf\n0.00.160.282 E llama_model_load_from_file_impl: failed to load model\n0.00.160.289 E cmn  common_init_: failed to load model '/home/alpha/Playstoria/models/embed/bitnet_06b/bitnet-embeddings-0.6b-bf16-i2_s.gguf'\n0.00.160.293 E srv    load_model: failed to load model, '/home/alpha/Playstoria/models/embed/bitnet_06b/bitnet-embeddings-0.6b-bf16-i2_s.gguf'\n0.00.160.296 I srv    operator(): operator(): cleaning up before exit...\n0.00.160.977 E srv  llama_server: exiting due to model loading error\n",
+        "returncode": 2,
+        "stderr_tail": "Traceback (most recent call last):\n  File \"/home/alpha/Playstoria/models/benchmark/embedding-v3/holo_benchmark/gate2_worker_v2.py\", line 118, in _llama_cpp_embeddings\n    _worker._wait_server(port, process)\n  File \"/home/alpha/Playstoria/models/benchmark/embedding-v3/holo_benchmark/gate2_worker.py\", line 181, in _wait_server\n    raise RuntimeError(f\"llama-server encerrou com código {process.returncode}\")\nRuntimeError: llama-server encerrou com código 1\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/home/alpha/Playstoria/models/benchmark/embedding-v3/holo_benchmark/gate2_worker.py\", line 394, in main\n    payload = {\"status\": \"ok\", \"result\": benchmark_model(request)}\n                                         ^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/alpha/Playstoria/models/benchmark/embedding-v3/holo_benchmark/gate2_worker.py\", line 318, in benchmark_model\n    document_embeddings, query_embeddings, runtime = _llama_cpp_embeddings(\n                                                     ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/alpha/Playstoria/models/benchmark/embedding-v3/holo_benchmark/gate2_worker_v2.py\", line 145, in _llama_cpp_embeddings\n    raise RuntimeError(f\"{failure}{detail}\") from failure\nRuntimeError: llama-server encerrou com código 1\nllama-server log tail:\n0.00.068.113 I cmn  common_param: common_params_print_info: verbosity = 3 (adjust with the `-lv N` CLI arg)\n0.00.068.286 W srv  llama_server: embeddings enabled with n_batch (2048) > n_ubatch (512)\n0.00.068.289 W srv  llama_server: setting n_batch = n_ubatch = 512 to avoid assertion failure\n0.00.070.206 I srv    load_model: loading model '/home/alpha/Playstoria/models/embed/bitnet_06b/bitnet-embeddings-0.6b-bf16-i2_s.gguf'\n0.00.130.597 E gguf_init_from_reader: tensor 'blk.0.ffn_down.weight' of type 36 (TYPE_IQ4_NL_4_4 REMOVED, use IQ4_NL with runtime repacking) has 3072 elements per row, not a multiple of block size (0)\n0.00.130.614 E gguf_init_from_reader: failed to read tensor info\n0.00.132.424 E llama_model_load: error loading model: llama_model_loader: failed to load model from /home/alpha/Playstoria/models/embed/bitnet_06b/bitnet-embeddings-0.6b-bf16-i2_s.gguf\n0.00.132.430 E llama_model_load_from_file_impl: failed to load model\n0.00.132.462 E common_fit_params: encountered an error while trying to fit params to free device memory: failed to load model\n0.00.158.162 E gguf_init_from_reader: tensor 'blk.0.ffn_down.weight' of type 36 (TYPE_IQ4_NL_4_4 REMOVED, use IQ4_NL with runtime repacking) has 3072 elements per row, not a multiple of block size (0)\n0.00.158.165 E gguf_init_from_reader: failed to read tensor info\n0.00.160.279 E llama_model_load: error loading model: llama_model_loader: failed to load model from /home/alpha/Playstoria/models/embed/bitnet_06b/bitnet-embeddings-0.6b-bf16-i2_s.gguf\n0.00.160.282 E llama_model_load_from_file_impl: failed to load model\n0.00.160.289 E cmn  common_init_: failed to load model '/home/alpha/Playstoria/models/embed/bitnet_06b/bitnet-embeddings-0.6b-bf16-i2_s.gguf'\n0.00.160.293 E srv    load_model: failed to load model, '/home/alpha/Playstoria/models/embed/bitnet_06b/bitnet-embeddings-0.6b-bf16-i2_s.gguf'\n0.00.160.296 I srv    operator(): operator(): cleaning up before exit...\n0.00.160.977 E srv  llama_server: exiting due to model loading error\n\n"
+      }
+    ],
+    "results": [
+      {
+        "model_id": "voyage4_nano",
+        "revision": "67fabc9bef010dabc5f6024aa1b1b6b93410426f",
+        "backend": "sentence-transformers",
+        "dimension": 1024,
+        "metrics": {
+          "HitRate@1": 0.6933333333333334,
+          "Recall@1": 0.6866666666666666,
+          "HitRate@3": 0.7933333333333333,
+          "Recall@3": 0.7833333333333333,
+          "HitRate@5": 0.8133333333333334,
+          "Recall@5": 0.8033333333333333,
+          "HitRate@10": 0.8533333333333334,
+          "Recall@10": 0.8466666666666667,
+          "HitRate@20": 0.96,
+          "Recall@20": 0.96,
+          "HitRate@50": 1.0,
+          "Recall@50": 1.0,
+          "MRR@10": 0.7527566137566137,
+          "nDCG@10": 0.7718721461591177,
+          "mean_first_relevant_rank": 4.1866666666666665,
+          "median_first_relevant_rank": 1.0,
+          "queries_without_relevant": 0,
+          "hard_negative_error_rate": 0.15333333333333332
+        },
+        "runtime": {
+          "dtype": "torch.float32",
+          "load_seconds": 4.313,
+          "document_encode_seconds": 19.5421,
+          "query_encode_seconds": 0.555,
+          "peak_vram_bytes": 2624768512,
+          "device": "cuda",
+          "normalization": "l2",
+          "batch_size": 16,
+          "documents_per_second": 30.7029,
+          "queries_per_second": 270.2703,
+          "total_seconds": 28.7783
+        }
+      }
+    ],
+    "updated_at": "2026-07-19T04:30:34.711597+00:00"
+  }
+}
