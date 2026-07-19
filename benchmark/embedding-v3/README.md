@@ -63,6 +63,10 @@ O Voyage Nano recebe a dimensão configurada por `truncate_dim`. Os BitNet execu
 
 Os quatro modelos obrigatórios concluíram o corpus completo. Nas métricas principais publicadas, o BGE-M3 liderou HitRate@1, HitRate@10, MRR@10 e nDCG@10 e apresentou a menor taxa de erro de negativos difíceis. O Colibri permaneceu competitivo e usa dimensão menor, mas não liderou MRR ou nDCG nesta execução.
 
+## Patch 1.2.2
+
+O parent runner agora preserva o payload de erro estruturado dos workers que encerram com código 2. Diagnósticos parciais restauram os artefatos canônicos após a execução. O worker v2 aplica `truncate_dim` ao Voyage e captura a saída real do `llama-server` durante as tentativas BitNet.
+
 ## Resultados
 
 - manifesto resolvido: `download_manifest.resolved.json`;
