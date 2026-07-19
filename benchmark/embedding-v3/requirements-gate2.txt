@@ -1,0 +1,15 @@
+torch
+transformers>=4.51.0
+sentence-transformers>=5.0.0
+accelerate
+safetensors
+huggingface-hub
+numpy
+scipy
+psutil
+pydantic
+orjson
+tqdm
+rich
+pynvml
+sentencepiece
