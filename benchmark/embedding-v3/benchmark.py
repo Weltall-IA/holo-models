@@ -19,16 +19,19 @@ from holo_benchmark.corpus import (
     write_jsonl,
 )
 from holo_benchmark.gate2 import run_gate2
+from holo_benchmark.gate3 import run_gate3
 from holo_benchmark.inventory import collect, gate0_passes, render_report, write_outputs
 
 PROJECT_ROOT = Path(__file__).resolve().parent
 DATA_DIR = PROJECT_ROOT / "data" / CORPUS_VERSION
+
 
 def atomic_json(path: Path, payload: dict) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     tmp = path.with_suffix(path.suffix + ".tmp")
     tmp.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     tmp.replace(path)
+
 
 def find_repo_root(start: Path) -> Path:
     current = start.resolve()
@@ -42,12 +45,14 @@ def find_repo_root(start: Path) -> Path:
             return path
     raise RuntimeError("checkout Git não encontrado; defina HOLO_MODELS_REPO")
 
+
 def confirm_force() -> None:
     if not sys.stdin.isatty():
         raise RuntimeError("--force-recompute exige terminal interativo")
     answer = input("Digite RECOMPUTAR para confirmar: ").strip()
     if answer != "RECOMPUTAR":
         raise RuntimeError("recomputação cancelada")
+
 
 def gate0(args: argparse.Namespace) -> int:
     repo_root = find_repo_root(PROJECT_ROOT)
@@ -84,6 +89,7 @@ def gate0(args: argparse.Namespace) -> int:
     print(report)
     return 0 if ok else 2
 
+
 def _write_gate1_report(validation: dict, review: dict | None, hashes: dict | None) -> None:
     completed = bool(validation.get("all_automated_checks_passed")) and bool(review and review.get("complete")) and hashes is not None
     lines = [
@@ -117,6 +123,7 @@ def _write_gate1_report(validation: dict, review: dict | None, hashes: dict | No
         "",
     ]
     (PROJECT_ROOT / "DIRECTOR_BRIEF.md").write_text("\n".join(brief), encoding="utf-8")
+
 
 def gate1(args: argparse.Namespace) -> int:
     DATA_DIR.mkdir(parents=True, exist_ok=True)
@@ -180,6 +187,7 @@ def gate1(args: argparse.Namespace) -> int:
     print(json.dumps(status, ensure_ascii=False, indent=2))
     return 0
 
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Benchmark de embeddings e reranking do Projeto Holo")
     parser.add_argument("--gate", type=int, required=True, choices=range(0, 7))
@@ -188,6 +196,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--models", default="")
     parser.add_argument("--device", choices=["cpu", "cuda", "auto"], default="auto")
     parser.add_argument("--batch-size", type=int, default=16)
+    parser.add_argument("--model-timeout", type=int, default=21600)
     parser.add_argument("--max-documents", type=int)
     parser.add_argument("--max-queries", type=int)
     parser.add_argument("--skip-api", action="store_true")
@@ -196,6 +205,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--force-recompute", action="store_true")
     return parser
 
+
 def main() -> int:
     args = build_parser().parse_args()
     if args.only_api and args.skip_api:
@@ -203,6 +213,9 @@ def main() -> int:
         return 2
     if args.batch_size <= 0:
         print("--batch-size deve ser positivo", file=sys.stderr)
+        return 2
+    if args.model_timeout <= 0:
+        print("--model-timeout deve ser positivo", file=sys.stderr)
         return 2
     if args.gate == 0:
         return gate0(args)
@@ -223,8 +236,24 @@ def main() -> int:
             return 2
         print(json.dumps(payload, ensure_ascii=False, indent=2))
         return code
+    if args.gate == 3:
+        if args.only_api:
+            print("Gate 3 contém somente modelos locais GGUF", file=sys.stderr)
+            return 2
+        try:
+            code, payload = run_gate3(
+                project_root=PROJECT_ROOT,
+                repo_root=find_repo_root(PROJECT_ROOT),
+                args=args,
+            )
+        except Exception as exc:
+            print(f"Gate 3 bloqueado: {type(exc).__name__}: {exc}", file=sys.stderr)
+            return 2
+        print(json.dumps(payload, ensure_ascii=False, indent=2))
+        return code
     print(f"Gate {args.gate} bloqueado: exige autorização explícita do diretor e implementação posterior.", file=sys.stderr)
     return 4
+
 
 if __name__ == "__main__":
     raise SystemExit(main())
