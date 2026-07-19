@@ -1,0 +1,77 @@
+schema_version: 1
+
+task:
+  id: "EMBED-BENCH-V3-1.3"
+  title: "Benchmark de embeddings e reranking — Gate 3"
+  objective: "Executar modelos de embedding GGUF pelo llama.cpp no corpus congelado, comparando qualidade, dimensão, throughput, VRAM e custo operacional."
+
+scope:
+  included:
+    - "Gate 3 com Qwen3 Embedding 8B GGUF, EmbeddingGemma 300M GGUF e Qwen3 Embedding 0.6B GGUF."
+    - "Qwen3 8B em Q8_0, com Q6_K permitido somente como fallback explícito e registrado."
+    - "Execução sequencial em subprocesso e llama-server isolados."
+    - "CUDA, corpus completo, revisão imutável, licença, tamanho, GGUF exato, quantização, pooling, dimensões, throughput, VRAM e SHA-256."
+    - "Truncamento Matryoshka do Qwen3 8B de 4096 para 1024 dimensões, seguido de normalização L2."
+    - "Diagnósticos parciais separados dos artefatos canônicos."
+  excluded:
+    - "Gates 4 a 6."
+    - "Reranking."
+    - "API paga."
+    - "Regeneração do corpus congelado."
+    - "Atualização, compilação ou substituição do llama.cpp estável."
+    - "Merge, deploy ou publicação de modelos."
+
+execution:
+  stage: "1.3.0"
+  role: "remote_author"
+  state: "IN_PROGRESS"
+
+return:
+  title: "Implementação do Gate 3 para modelos GGUF no llama.cpp"
+
+changes:
+  files_changed:
+    - "benchmark/embedding-v3/holo_benchmark/gate3.py"
+    - "benchmark/embedding-v3/holo_benchmark/gate3_worker.py"
+    - "benchmark/embedding-v3/tests/test_gate3.py"
+    - "benchmark/embedding-v3/benchmark.py"
+    - "benchmark/embedding-v3/config/models.json"
+    - "benchmark/embedding-v3/requirements-gate3.txt"
+    - "benchmark/embedding-v3/README.md"
+    - ".ai/PROJECT.yml"
+    - ".ai/tasks/EMBED-BENCH-V3-1.3/STATUS.yml"
+  summary:
+    - "Gate 3 habilitado no CLI depois da autorização explícita do diretor."
+    - "Três modelos GGUF obrigatórios configurados com pooling e prompts específicos."
+    - "Resolução de revisão, licença, arquivo primário/fallback e tamanho antes do download."
+    - "Execução por llama-server isolado, com captura estruturada de falhas e logs."
+    - "Dimensões Matryoshka truncadas no cliente e normalizadas novamente."
+    - "Resultados parciais gravados em diagnostics sem substituir o estado canônico."
+
+validations:
+  executed:
+    - "Compilação isolada de gate3.py, gate3_worker.py e benchmark.py."
+    - "13 testes direcionados de configuração, resolução de arquivo, fallback, dimensão, quantização e critérios de PASS."
+    - "Validação sintática de models.json e PROJECT.yml."
+    - "Revisão das instruções oficiais dos modelos e do servidor llama.cpp para pooling, normalização e prompts."
+  passed:
+    - "Compilação isolada sem erros."
+    - "13/13 testes direcionados aprovados."
+    - "Qwen3 8B: Q8_0 primário, Q6_K fallback, pooling last e avaliação em 1024 dimensões."
+    - "EmbeddingGemma: Q8_0, pooling mean, dimensão 768 e prompts assimétricos de recuperação."
+    - "Qwen3 0.6B: Q8_0, pooling last e dimensão 1024."
+    - "Seleção parcial, CPU ou corpus recortado não produzem PASS."
+  failed: []
+  unavailable:
+    - "A suíte completa, o dry-run com Hugging Face e a execução CUDA dependem do ambiente local."
+    - "Nenhum GGUF foi baixado ou executado pela autora remota."
+
+audit:
+  findings: []
+  decision: "PENDING"
+
+blockers: []
+
+next:
+  action: "Sincronizar a implementação 1.3.0, instalar os requisitos, executar compilação e suíte completa, validar o manifesto em dry-run e executar o Gate 3 completo em CUDA. Não avançar ao Gate 4."
+  role: "local"
