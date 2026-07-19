@@ -52,7 +52,7 @@ changes:
 
 validations:
   executed:
-    - "Compilação dos arquivos gate2.py e gate2_worker.py em ambiente temporário."
+    - "Compilação dos arquivos gate2_runtime.py e gate2_worker.py em ambiente temporário."
     - "15 testes direcionados de configuração, resolução, prompts, seleção, status obrigatório/opcional e segurança de caminhos."
     - "Validação sintática dos arquivos JSON de modelos, prompts e manifesto."
     - "Revisão do fluxo de subprocessos e da continuidade após retorno não zero do worker."
