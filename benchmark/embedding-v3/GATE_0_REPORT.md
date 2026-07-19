@@ -3,7 +3,7 @@
 - modo: execução
 - resultado: PASS
 - branch: `ai/embedding-benchmark-v3`
-- HEAD: `b0b72a827a5620a51cada1d6417e551d6b6b4c19`
+- HEAD: `a72c04fe63b13cb0b2bcf3db27f85e1f9efabfa5`
 - origin/master: `9e22f36d690e9cae5c27ca0e60fe4fd4858edf84`
 - origin URL: `https://github.com/Weltall-IA/holo-models.git`
 - CPU: AMD Ryzen 7 2700X Eight-Core Processor
@@ -13,7 +13,7 @@
 - CUDA PyTorch disponível: True
 - alocação CUDA testada/aprovada: True/True
 - filesystem: bcachefs /dev/disk/by-uuid/af4831e9-8c08-48c1-bbd5-d96f2bee591a[/home] /home
-- espaço livre: 1865156431872 bytes
+- espaço livre: 1865153204224 bytes
 - VOYAGE_API_KEY presente: False
 - dependências ausentes: transformers, sentence-transformers, accelerate, safetensors, huggingface-hub, FlagEmbedding, voyageai, numpy, scipy, pandas, pyarrow, tqdm
 

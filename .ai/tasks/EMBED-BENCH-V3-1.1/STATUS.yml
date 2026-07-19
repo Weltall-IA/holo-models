@@ -22,59 +22,56 @@ scope:
     - "Integração ao Holo, merge ou publicação de modelos."
 
 execution:
-  stage: "1.1.2"
-  role: "auditor"
-  state: "REJECTED"
+  stage: "1.1.3"
+  role: "local"
+  state: "EXECUTED"
 
 return:
-  title: "Auditoria da correção do bloqueio causado pelas saídas geradas do Gate 0"
+  title: "Correção exata do filtro de saídas e preservação do Gate 1"
 
 changes:
   files_changed:
+    - "benchmark/embedding-v3/holo_benchmark/inventory.py"
+    - "benchmark/embedding-v3/benchmark.py"
+    - "benchmark/embedding-v3/tests/test_inventory.py"
+    - "benchmark/embedding-v3/GATE_0_REPORT.md"
+    - "benchmark/embedding-v3/environment.json"
+    - "benchmark/embedding-v3/system_info.json"
+    - "benchmark/embedding-v3/gate_status.json"
+    - "benchmark/embedding-v3/requirements-resolved.txt"
     - ".ai/tasks/EMBED-BENCH-V3-1.1/STATUS.yml"
   summary:
-    - "O commit 9f8686d3269c1994193de2aace9700b860b85376 foi auditado."
-    - "O Gate 0 executado publicou PASS, com PyTorch 2.13.0+cu130, CUDA disponível e alocação mínima aprovada."
-    - "O Gate 1 permanece preservado pelo hash conjunto 8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b e por 35 revisões semânticas aprovadas."
-    - "A correção do working tree usa correspondência por substring e não garante que somente os cinco caminhos autorizados sejam ignorados."
-    - "O STATUS.yml do retorno local manteve resumo e validações obsoletos do patch anterior e não registrou integralmente os arquivos alterados no patch 1.1.2."
-    - "gate_status.json publicou gate_1 como PENDING apesar de o retorno declarar o Gate 1 preservado."
+    - "inventory.py: substituída correspondência por substring (output in line.split()[-1]) por igualdade exata (output == line.split()[-1])."
+    - "benchmark.py: gate0() agora preserva gate_1: PASS quando hashes.json existir com combined_sha256 válido, semantic_review_summary complete e errors vazio."
+    - "test_inventory.py: 3 testes de regressão para caminhos com .bak, prefixo e nome semelhante."
+    - "15/15 testes aprovados. Gate 0: PASS. Gate 1: PASS. Hash: 8e1b7a6d..."
 
 validations:
   executed:
-    - "Inspeção do commit 9f8686d3269c1994193de2aace9700b860b85376 e de seu diff."
-    - "Revisão de holo_benchmark/inventory.py."
-    - "Revisão de tests/test_inventory.py."
-    - "Revisão de GATE_0_REPORT.md e gate_status.json."
-    - "Revisão de system_info.json e environment.json."
-    - "Conferência de hashes.json do Gate 1."
-    - "Revisão do STATUS.yml publicado pelo executor local."
+    - "Compilação Python (compileall)."
+    - "15 testes unitários (12 existentes + 3 novos de regressão)."
+    - "Gate 0 dry-run."
+    - "Gate 0 real com CUDA e alocação."
+    - "Conferência do hash conjunto e da revisão semântica do Gate 1."
   passed:
-    - "12 testes foram declarados aprovados no retorno local."
-    - "GATE_0_REPORT.md publicou resultado PASS."
-    - "torch.cuda.is_available() verdadeiro."
-    - "NVIDIA GeForce RTX 5060 Ti reconhecida pelo PyTorch."
-    - "Alocação CUDA mínima executada e aprovada."
-    - "gate_status.json publicou gate_0 PASS sem erros."
-    - "Hash conjunto e revisão semântica do Gate 1 permaneceram inalterados."
-  failed:
-    - "O filtro usa `output in line.split()[-1]`; um caminho diferente que contenha o nome autorizado, como GATE_0_REPORT.md.bak, pode ser ignorado indevidamente."
-    - "Os testes não cobrem caminhos com prefixo ou sufixo que contenham um dos nomes autorizados."
-    - "gate_status.json registra gate_1 PENDING, divergindo da preservação declarada e do hash congelado válido."
-    - "STATUS.yml contém dados obsoletos do patch 1.1.1 e lista incompleta dos arquivos alterados no patch 1.1.2."
-  unavailable:
-    - "Os comandos locais não foram reexecutados pela IA auditora; a auditoria utilizou o commit e os artefatos publicados."
+    - "Testes: 15/15 aprovados."
+    - "Dry-run: PASS."
+    - "Gate 0 real: PASS. CUDA disponível: True. Alocação testada/aprovada: True/True."
+    - "Gate 1: PASS. Hash: 8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b."
+    - "Revisão semântica: 35/35 aprovados, zero erros, zero rejeições."
+  failed: []
+  unavailable: []
 
 audit:
   findings:
-    - "A exceção do working tree deve comparar o caminho normalizado por igualdade exata com a lista autorizada, nunca por substring."
-    - "Deve existir teste de regressão provando que GATE_0_REPORT.md.bak, caminhos prefixados e qualquer outro arquivo semelhante continuam bloqueando o Gate 0."
-    - "A atualização do Gate 0 deve preservar o estado PASS do Gate 1 quando hashes e revisão semântica permanecerem válidos, ou representar explicitamente essa preservação sem rebaixar o gate para PENDING."
-    - "O STATUS.yml do próximo retorno deve substituir integralmente os dados do patch anterior e listar todos os arquivos realmente alterados."
-  decision: "REJECTED"
+    - "Filtro alterado de substring para igualdade exata com os 5 caminhos canônicos."
+    - "Gate 1 preservado com PASS. hash conjunto, revisão completa e corpus congelado confirmados."
+    - "3 testes de regressão: .bak, prefixo e nome semelhante continuam bloqueando."
+    - "STATUS.yml substituído integralmente — sem dados do patch 1.1.1 ou 1.1.2."
+  decision: "PENDING"
 
 blockers: []
 
 next:
-  action: "Executar o patch 1.1.3: substituir a correspondência por substring por comparação exata de caminhos normalizados, adicionar testes contra prefixos e sufixos, preservar corretamente o estado do Gate 1, corrigir integralmente o STATUS.yml e repetir compilação, testes, dry-run e Gate 0 real sem regenerar o corpus."
-  role: "local"
+  action: "Auditar o filtro exato do working tree e confirmar definitivamente os Gates 0 e 1."
+  role: "auditor"

@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "created_at": "2026-07-19T00:07:37.222662+00:00",
+  "created_at": "2026-07-19T00:27:51.018326+00:00",
   "repo_root": "/home/alpha/Playstoria/models",
   "project_root": "/home/alpha/Playstoria/models/benchmark/embedding-v3",
   "voyage_api_key_present": false,
@@ -48,8 +48,8 @@
         "--untracked-files=no"
       ],
       "returncode": 0,
-      "duration_seconds": 0.003,
-      "stdout": "M benchmark/embedding-v3/GATE_0_REPORT.md\n M benchmark/embedding-v3/environment.json\n M benchmark/embedding-v3/gate_status.json\n M benchmark/embedding-v3/requirements-resolved.txt\n M benchmark/embedding-v3/system_info.json",
+      "duration_seconds": 0.0059,
+      "stdout": "M benchmark/embedding-v3/GATE_0_REPORT.md\n M benchmark/embedding-v3/environment.json\n M benchmark/embedding-v3/gate_status.json\n M benchmark/embedding-v3/system_info.json",
       "stderr": ""
     },
     "git_untracked": {
@@ -62,7 +62,7 @@
         "--exclude-standard"
       ],
       "returncode": 0,
-      "duration_seconds": 0.0098,
+      "duration_seconds": 0.0062,
       "stdout": "runtime/vane-native-ops/",
       "stderr": ""
     },
@@ -75,7 +75,7 @@
         "--show-current"
       ],
       "returncode": 0,
-      "duration_seconds": 0.0025,
+      "duration_seconds": 0.0021,
       "stdout": "ai/embedding-benchmark-v3",
       "stderr": ""
     },
@@ -88,8 +88,8 @@
         "HEAD"
       ],
       "returncode": 0,
-      "duration_seconds": 0.0029,
-      "stdout": "b0b72a827a5620a51cada1d6417e551d6b6b4c19",
+      "duration_seconds": 0.0017,
+      "stdout": "a72c04fe63b13cb0b2bcf3db27f85e1f9efabfa5",
       "stderr": ""
     },
     "git_origin_master": {
@@ -101,7 +101,7 @@
         "origin/master"
       ],
       "returncode": 0,
-      "duration_seconds": 0.0023,
+      "duration_seconds": 0.0022,
       "stdout": "9e22f36d690e9cae5c27ca0e60fe4fd4858edf84",
       "stderr": ""
     },
@@ -115,7 +115,7 @@
         "origin"
       ],
       "returncode": 0,
-      "duration_seconds": 0.0022,
+      "duration_seconds": 0.0018,
       "stdout": "https://github.com/Weltall-IA/holo-models.git",
       "stderr": ""
     }
