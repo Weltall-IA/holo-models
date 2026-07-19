@@ -1,0 +1,104 @@
+[
+  {
+    "id": "ollama/ThinkingCap27B-IQ3_M-MTP:latest",
+    "status": "HEALTHCHECK_PASSED",
+    "elapsed_s": 98.7,
+    "eval_count": 1
+  },
+  {
+    "id": "ollama/Qwopus27B-Coder-MTP:latest",
+    "status": "HEALTHCHECK_PASSED",
+    "elapsed_s": 71.7,
+    "eval_count": 1
+  },
+  {
+    "id": "ollama/Qwopus27B-Coder-IQ2_XS:latest",
+    "status": "HEALTHCHECK_PASSED",
+    "elapsed_s": 62.2,
+    "eval_count": 1
+  },
+  {
+    "id": "ollama/Qwopus27B-Coder-IQ2_M:latest",
+    "status": "HEALTHCHECK_PASSED",
+    "elapsed_s": 64.9,
+    "eval_count": 1
+  },
+  {
+    "id": "ollama/Vibeforged-14B:latest",
+    "status": "HEALTHCHECK_PASSED",
+    "elapsed_s": 17.4,
+    "eval_count": 1
+  },
+  {
+    "id": "ollama/Qwen3.5-4B-PTBR-Q6_K:latest",
+    "status": "HEALTHCHECK_PASSED",
+    "elapsed_s": 24.3,
+    "eval_count": 1
+  },
+  {
+    "id": "ollama/Ornith-9B-MTP-NVFP4:latest",
+    "status": "HEALTHCHECK_PASSED",
+    "elapsed_s": 29.1,
+    "eval_count": 1
+  },
+  {
+    "id": "ollama/NEO-CODE-27B-IQ3_M:latest",
+    "status": "HEALTHCHECK_PASSED",
+    "elapsed_s": 73.2,
+    "eval_count": 1
+  },
+  {
+    "id": "ollama/Bonsai-27B-Q1_0:latest",
+    "status": "HEALTHCHECK_PASSED",
+    "elapsed_s": 12.9,
+    "eval_count": 1
+  },
+  {
+    "id": "ollama/qwen3-embedding:0.6b",
+    "status": "HEALTHCHECK_FAILED",
+    "elapsed_s": 0.2,
+    "error": "HTTP Error 400: Bad Request"
+  },
+  {
+    "id": "ollama/qwythos-9b-v2-mtp:latest",
+    "status": "HEALTHCHECK_PASSED",
+    "elapsed_s": 19.8,
+    "eval_count": 1
+  },
+  {
+    "id": "ollama/qwen3.5-9b-uncensored-aggressive:latest",
+    "status": "HEALTHCHECK_PASSED",
+    "elapsed_s": 38.3,
+    "eval_count": 1
+  },
+  {
+    "id": "ollama/gemma4-12b-uncensored-balanced:latest",
+    "status": "HEALTHCHECK_PASSED",
+    "elapsed_s": 25.3,
+    "eval_count": 1
+  },
+  {
+    "id": "ollama/Qwen/Qwen3-0.6B-Q8_0:latest",
+    "status": "HEALTHCHECK_PASSED",
+    "elapsed_s": 2.0,
+    "eval_count": 1
+  },
+  {
+    "id": "ollama/marinarosa/MiniCPM5-1B-PTBR-v5-Q4_K_M:latest",
+    "status": "HEALTHCHECK_PASSED",
+    "elapsed_s": 2.2,
+    "eval_count": 1
+  },
+  {
+    "id": "ollama/lucasmg09/Qwen3.5-2B-PTBR-Q4_K_M:latest",
+    "status": "HEALTHCHECK_PASSED",
+    "elapsed_s": 3.9,
+    "eval_count": 1
+  },
+  {
+    "id": "ollama/lucasmg09/Qwen3.5-0.8B-PTBR-Q6_K:latest",
+    "status": "HEALTHCHECK_PASSED",
+    "elapsed_s": 3.0,
+    "eval_count": 1
+  }
+]

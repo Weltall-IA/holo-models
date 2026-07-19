@@ -1,0 +1,362 @@
+{
+  "schema_version": "1.0",
+  "total_models": 52,
+  "by_status": {
+    "BENCHMARKED": 9,
+    "BLOCKED": 3,
+    "HEALTHCHECK_PASSED": 16,
+    "NOT_APPLICABLE": 24
+  },
+  "by_category": {
+    "embedding": 13,
+    "text_llm": 30,
+    "image": 3,
+    "audio": 2,
+    "video": 4
+  },
+  "pending_embedding_model_ids": [],
+  "pending_healthcheck_model_ids": [],
+  "coverage_complete": true,
+  "models": [
+    {
+      "id": "colibri_ptbr",
+      "category": "embedding",
+      "status": "BENCHMARKED",
+      "repo": "tardellirs/colibri-embed-ptbr",
+      "revision": "95a4d4f3a1c0"
+    },
+    {
+      "id": "multilingual_e5_large_instruct",
+      "category": "embedding",
+      "status": "BENCHMARKED",
+      "repo": "intfloat/multilingual-e5-large-instruct",
+      "revision": "274baa43b0e1"
+    },
+    {
+      "id": "qwen3_embedding_06",
+      "category": "embedding",
+      "status": "BENCHMARKED",
+      "repo": "Qwen/Qwen3-Embedding-0.6B",
+      "revision": "97b0c614be4d"
+    },
+    {
+      "id": "bge_m3_dense",
+      "category": "embedding",
+      "status": "BENCHMARKED",
+      "repo": "BAAI/bge-m3",
+      "revision": "5617a9f61b02"
+    },
+    {
+      "id": "voyage4_nano",
+      "category": "embedding",
+      "status": "BENCHMARKED",
+      "repo": "voyageai/voyage-4-nano",
+      "revision": "67fabc9bef01"
+    },
+    {
+      "id": "qwen3_embedding_8b_gguf",
+      "category": "embedding",
+      "status": "BENCHMARKED",
+      "repo": "Qwen/Qwen3-Embedding-8B-GGUF",
+      "revision": "69d0e58a13e4"
+    },
+    {
+      "id": "embeddinggemma_gguf",
+      "category": "embedding",
+      "status": "BENCHMARKED",
+      "repo": "ggml-org/embeddinggemma-300M-GGUF",
+      "revision": "0f741b5a6585"
+    },
+    {
+      "id": "qwen3_embedding_06_gguf",
+      "category": "embedding",
+      "status": "BENCHMARKED",
+      "repo": "Qwen/Qwen3-Embedding-0.6B-GGUF",
+      "revision": "370f27d7550e"
+    },
+    {
+      "id": "gte_multilingual_base",
+      "category": "embedding",
+      "status": "BLOCKED",
+      "repo": "Alibaba-NLP/gte-multilingual-base",
+      "reason": "CUDA index out of bounds em trust_remote_code"
+    },
+    {
+      "id": "bitnet_270m",
+      "category": "embedding",
+      "status": "BLOCKED",
+      "repo": "microsoft/bitnet-embedding-270m",
+      "reason": "GGUF TYPE_IQ4_NL_4_4 incompatível com llama.cpp 9972"
+    },
+    {
+      "id": "bitnet_06b",
+      "category": "embedding",
+      "status": "BLOCKED",
+      "repo": "microsoft/bitnet-embedding-0.6b",
+      "reason": "GGUF TYPE_IQ4_NL_4_4 incompatível com llama.cpp 9972"
+    },
+    {
+      "id": "qwen3-embedding-0.6b",
+      "category": "embedding",
+      "status": "BENCHMARKED",
+      "repo": "qwen3-embedding:0.6b",
+      "reason": "Benchmarked via qwen3_embedding_06 no Gate 2"
+    },
+    {
+      "id": "ThinkingCap27B-IQ3_M-MTP:latest",
+      "category": "text_llm",
+      "status": "HEALTHCHECK_PASSED",
+      "source": "ollama",
+      "elapsed_s": 98.7
+    },
+    {
+      "id": "Qwopus27B-Coder-MTP:latest",
+      "category": "text_llm",
+      "status": "HEALTHCHECK_PASSED",
+      "source": "ollama",
+      "elapsed_s": 71.7
+    },
+    {
+      "id": "Qwopus27B-Coder-IQ2_XS:latest",
+      "category": "text_llm",
+      "status": "HEALTHCHECK_PASSED",
+      "source": "ollama",
+      "elapsed_s": 62.2
+    },
+    {
+      "id": "Qwopus27B-Coder-IQ2_M:latest",
+      "category": "text_llm",
+      "status": "HEALTHCHECK_PASSED",
+      "source": "ollama",
+      "elapsed_s": 64.9
+    },
+    {
+      "id": "Vibeforged-14B:latest",
+      "category": "text_llm",
+      "status": "HEALTHCHECK_PASSED",
+      "source": "ollama",
+      "elapsed_s": 17.4
+    },
+    {
+      "id": "Qwen3.5-4B-PTBR-Q6_K:latest",
+      "category": "text_llm",
+      "status": "HEALTHCHECK_PASSED",
+      "source": "ollama",
+      "elapsed_s": 24.3
+    },
+    {
+      "id": "Ornith-9B-MTP-NVFP4:latest",
+      "category": "text_llm",
+      "status": "HEALTHCHECK_PASSED",
+      "source": "ollama",
+      "elapsed_s": 29.1
+    },
+    {
+      "id": "NEO-CODE-27B-IQ3_M:latest",
+      "category": "text_llm",
+      "status": "HEALTHCHECK_PASSED",
+      "source": "ollama",
+      "elapsed_s": 73.2
+    },
+    {
+      "id": "Bonsai-27B-Q1_0:latest",
+      "category": "text_llm",
+      "status": "HEALTHCHECK_PASSED",
+      "source": "ollama",
+      "elapsed_s": 12.9
+    },
+    {
+      "id": "qwen3-embedding:0.6b",
+      "category": "embedding",
+      "status": "NOT_APPLICABLE",
+      "reason": "Modelo de embedding registrado no Ollama; benchmark via Gate 2"
+    },
+    {
+      "id": "qwythos-9b-v2-mtp:latest",
+      "category": "text_llm",
+      "status": "HEALTHCHECK_PASSED",
+      "source": "ollama",
+      "elapsed_s": 19.8
+    },
+    {
+      "id": "qwen3.5-9b-uncensored-aggressive:latest",
+      "category": "text_llm",
+      "status": "HEALTHCHECK_PASSED",
+      "source": "ollama",
+      "elapsed_s": 38.3
+    },
+    {
+      "id": "gemma4-12b-uncensored-balanced:latest",
+      "category": "text_llm",
+      "status": "HEALTHCHECK_PASSED",
+      "source": "ollama",
+      "elapsed_s": 25.3
+    },
+    {
+      "id": "Qwen/Qwen3-0.6B-Q8_0:latest",
+      "category": "text_llm",
+      "status": "HEALTHCHECK_PASSED",
+      "source": "ollama",
+      "elapsed_s": 2.0
+    },
+    {
+      "id": "marinarosa/MiniCPM5-1B-PTBR-v5-Q4_K_M:latest",
+      "category": "text_llm",
+      "status": "HEALTHCHECK_PASSED",
+      "source": "ollama",
+      "elapsed_s": 2.2
+    },
+    {
+      "id": "lucasmg09/Qwen3.5-2B-PTBR-Q4_K_M:latest",
+      "category": "text_llm",
+      "status": "HEALTHCHECK_PASSED",
+      "source": "ollama",
+      "elapsed_s": 3.9
+    },
+    {
+      "id": "lucasmg09/Qwen3.5-0.8B-PTBR-Q6_K:latest",
+      "category": "text_llm",
+      "status": "HEALTHCHECK_PASSED",
+      "source": "ollama",
+      "elapsed_s": 3.0
+    },
+    {
+      "id": "gguf/Bonsai-27B-Q1_0",
+      "category": "text_llm",
+      "status": "NOT_APPLICABLE",
+      "source": "text/"
+    },
+    {
+      "id": "gguf/Ornith-1.0-9B-MTP-NVFP4",
+      "category": "text_llm",
+      "status": "NOT_APPLICABLE",
+      "source": "text/"
+    },
+    {
+      "id": "gguf/Qwen3-0.6B-Q8_0",
+      "category": "text_llm",
+      "status": "NOT_APPLICABLE",
+      "source": "text/"
+    },
+    {
+      "id": "gguf/Qwen3.6-14B-A3B-VibeForged-v2-Q4_K_M",
+      "category": "text_llm",
+      "status": "NOT_APPLICABLE",
+      "source": "text/"
+    },
+    {
+      "id": "gguf/Qwen3.6-27B-NEO-CODE-IQ3_M",
+      "category": "text_llm",
+      "status": "NOT_APPLICABLE",
+      "source": "text/"
+    },
+    {
+      "id": "gguf/Qwopus3.6-27B-Coder-IQ2_M",
+      "category": "text_llm",
+      "status": "NOT_APPLICABLE",
+      "source": "text/"
+    },
+    {
+      "id": "gguf/Qwopus3.6-27B-Coder-IQ2_XS",
+      "category": "text_llm",
+      "status": "NOT_APPLICABLE",
+      "source": "text/"
+    },
+    {
+      "id": "gguf/Qwopus3.6-27B-Coder-MTP",
+      "category": "text_llm",
+      "status": "NOT_APPLICABLE",
+      "source": "text/"
+    },
+    {
+      "id": "gguf/Ternary-Bonsai-27B-Q2_0",
+      "category": "text_llm",
+      "status": "NOT_APPLICABLE",
+      "source": "text/"
+    },
+    {
+      "id": "gguf/ThinkingCap-Qwen3.6-27B-MTP",
+      "category": "text_llm",
+      "status": "NOT_APPLICABLE",
+      "source": "text/"
+    },
+    {
+      "id": "gguf/lucasmg09-Qwen3.5-0.8B-PTBR-Q6_K",
+      "category": "text_llm",
+      "status": "NOT_APPLICABLE",
+      "source": "text/"
+    },
+    {
+      "id": "gguf/lucasmg09-Qwen3.5-2B-PTBR-Q4_K_M",
+      "category": "text_llm",
+      "status": "NOT_APPLICABLE",
+      "source": "text/"
+    },
+    {
+      "id": "gguf/lucasmg09-Qwen3.5-4B-PTBR-Q6_K",
+      "category": "text_llm",
+      "status": "NOT_APPLICABLE",
+      "source": "text/"
+    },
+    {
+      "id": "gguf/marinarosa-MiniCPM5-1B-PTBR-v5-Q4_K_M",
+      "category": "text_llm",
+      "status": "NOT_APPLICABLE",
+      "source": "text/"
+    },
+    {
+      "id": "sd3",
+      "category": "image",
+      "status": "NOT_APPLICABLE",
+      "reason": "Modelo image sem runner de health check local"
+    },
+    {
+      "id": "Qwen-Image-vae-2d",
+      "category": "image",
+      "status": "NOT_APPLICABLE",
+      "reason": "Modelo image sem runner de health check local"
+    },
+    {
+      "id": "qwen-image-edit-2511-Q4_K_M",
+      "category": "image",
+      "status": "NOT_APPLICABLE",
+      "reason": "Modelo image sem runner de health check local"
+    },
+    {
+      "id": "voz",
+      "category": "audio",
+      "status": "NOT_APPLICABLE",
+      "reason": "Modelo de áudio sem runner de health check local"
+    },
+    {
+      "id": "whisper",
+      "category": "audio",
+      "status": "NOT_APPLICABLE",
+      "reason": "Modelo de áudio sem runner de health check local"
+    },
+    {
+      "id": "RealESRGANv2",
+      "category": "video",
+      "status": "NOT_APPLICABLE",
+      "reason": "Modelo de vídeo sem runner de health check local"
+    },
+    {
+      "id": "dpir",
+      "category": "video",
+      "status": "NOT_APPLICABLE",
+      "reason": "Modelo de vídeo sem runner de health check local"
+    },
+    {
+      "id": "rife",
+      "category": "video",
+      "status": "NOT_APPLICABLE",
+      "reason": "Modelo de vídeo sem runner de health check local"
+    },
+    {
+      "id": "cugan",
+      "category": "video",
+      "status": "NOT_APPLICABLE",
+      "reason": "Modelo de vídeo sem runner de health check local"
+    }
+  ]
+}
