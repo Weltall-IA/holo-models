@@ -25,7 +25,7 @@ Obrigatórios para aprovação:
 3. `Qwen/Qwen3-Embedding-0.6B`;
 4. `BAAI/bge-m3` em modo denso.
 
-Opcionais, sem bloquear a aprovação dos obrigatórios:
+Opcionais, sem bloquear a aprovação quando todos os obrigatórios concluírem no corpus completo:
 
 - `voyageai/voyage-4-nano`;
 - `microsoft/bitnet-embedding-270m` via `llama.cpp`;
