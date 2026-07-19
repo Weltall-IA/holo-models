@@ -3,7 +3,7 @@ schema_version: 1
 task:
   id: "EMBED-BENCH-V3-1.4"
   title: "Benchmark de embeddings locais e Voyage"
-  objective: "Preservar os benchmarks locais e executar Voyage 4 Large e Voyage Context 4 com o corpus congelado."
+  objective: "Preservar os benchmarks locais, executar Voyage 4 Large e Voyage Context 4 e manter o inventário canônico consistente com os resultados."
 
 scope:
   included:
@@ -11,60 +11,62 @@ scope:
     - "Runner dedicado para voyage-4-large e voyage-context-4."
     - "Limite compartilhado de 10.000 TPM e 3 RPM."
     - "Checkpoints retomáveis e métricas equivalentes às execuções locais."
+    - "Consistência entre resultados Voyage e inventário canônico."
   excluded:
     - "LLMs de chat, áudio, imagem, vídeo e rerankers."
     - "Modelos Voyage não autorizados."
 
 execution:
-  stage: "1.4.4"
-  role: "local"
-  state: "EXECUTED"
+  stage: "1.4.5"
+  role: "remote_author"
+  state: "CORRECTED"
 
 return:
-  title: "Execução do runner Voyage implementado pela IA autora remota"
+  title: "Correção da consistência entre resultados Voyage e inventário"
 
 changes:
   files_changed:
     - ".ai/tasks/EMBED-BENCH-V3-1.4/STATUS.yml"
-    - "benchmark/embedding-v3/results/voyage/voyage-4-large.json"
-    - "benchmark/embedding-v3/results/voyage/voyage-context-4.json"
-    - "benchmark/embedding-v3/results/voyage/summary.json"
-    - "benchmark/embedding-v3/results/voyage/preflight.json"
+    - "benchmark/embedding-v3/holo_benchmark/coverage_validation.py"
+    - "benchmark/embedding-v3/validate_coverage.py"
+    - "benchmark/embedding-v3/tests/test_coverage_validation.py"
   summary:
-    - "voyage-4-large: MRR@10=0,7728, nDCG@10=0,7861, 259.246 tokens, 31 requisições, 0 retries, 1935s."
-    - "voyage-context-4: MRR@10=0,7433, nDCG@10,7748, 259.906 tokens, 31 requisições, 0 retries, 2001s."
-    - "Total: 519.152 tokens, 0 HTTP 429, 0 retries, custo US$ 0,00."
-    - "62/62 testes aprovados. validate_coverage: PASS com 0 findings."
-    - "Todos os checkpoints preservados."
-    - "Nenhuma chave exposta. .voyage4_token ignorado e com permissão 600."
+    - "Os resultados executados no commit 319e210 são tecnicamente válidos e permanecem preservados."
+    - "A auditoria encontrou o inventário canônico ainda com voyage-4-large e voyage-context-4 em BLOCKED."
+    - "As contagens do inventário continuam antigas: 10 BENCHMARKED e 21 BLOCKED, apesar dos dois resultados concluídos."
+    - "O validador foi corrigido para cruzar results/voyage/summary.json com o inventário e rejeitar status divergente."
+    - "Benchmarks de API agora podem provar identidade por modelo, SDK, endpoint, artefato e resultado, sem inventar revisão de pesos."
 
 validations:
   executed:
-    - "pip install requirements-voyage.txt."
-    - "compileall + 62/62 testes unitários."
-    - "Preflight: voyage-4-large e voyage-context-4 acessíveis, 600 docs, 150 queries, hash 8e1b7a6d."
-    - "Benchmark voyage-4-large completo: 600 documentos, 150 consultas."
-    - "Benchmark voyage-context-4 completo: 600 chunks (30 obras), 150 consultas."
-    - "validate_coverage.py: PASS com 0 findings."
-    - "git diff --check: OK."
+    - "Inspeção do commit 319e2107189da1d7a8624ea3cac464606f79754f."
+    - "Conferência dos resultados Voyage, métricas, tokens, requisições e corpus."
+    - "Conferência do inventário canônico e das contagens por status."
+    - "Revisão integral das alterações remotas no validador e nos testes direcionados."
   passed:
-    - "62/62 testes."
-    - "validate_coverage.passed: true, finding_count: 0."
-    - "Corpus hash: 8e1b7a6d... preservado."
-    - "Ambos os modelos Voyage concluídos com métricas completas."
-  failed: []
-  unavailable: []
+    - "voyage-4-large: 600 documentos, 150 consultas, 259.246 tokens, 31 requisições, 0 retries."
+    - "voyage-context-4: 600 chunks, 150 consultas, 259.906 tokens, 31 requisições, 0 retries."
+    - "Corpus SHA-256 preservado: 8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b."
+  failed:
+    - "Inventário canônico não foi consolidado após a execução Voyage."
+    - "validate_coverage anterior retornou falso positivo por não cruzar resultados concluídos."
+  unavailable:
+    - "Suite local e regeneração dos artefatos de inventário dependem do checkout local."
 
 audit:
   findings:
-    - "voyage-4-large é o melhor modelo da comparação (MRR@10=0,7728)."
-    - "voyage-context-4 é competitivo com menores tokens de contexto (MRR@10=0,7433)."
-    - "Nenhum 429 durante a execução: scheduler correto."
-    - "Custo: US$ 0,00 dentro da franquia gratuita."
+    - "voyage-4-large é o melhor resultado de ranking inicial: MRR@10=0,7728 e nDCG@10=0,7861."
+    - "voyage-context-4 tem MRR menor, mas HitRate@10 maior e menor taxa de erro por hard negative."
+    - "A execução não sofreu HTTP 429 e o consumo real ficou alinhado ao preflight."
+    - "O texto anterior que dizia que Context 4 usou menos tokens estava incorreto; ele consumiu 660 tokens a mais que Large."
+    - "A atividade não pode ser aprovada enquanto o inventário e o relatório canônico permanecerem desatualizados."
   decision: "PENDING"
 
-blockers: []
+blockers:
+  - "Atualizar voyage-4-large e voyage-context-4 para BENCHMARKED no inventário."
+  - "Atualizar contagens para 12 BENCHMARKED, 19 BLOCKED e 22 HEALTHCHECK_PASSED."
+  - "Regenerar o relatório de inventário e executar o validador corrigido."
 
 next:
-  action: "Auditar os benchmarks Voyage e a consolidação final dos modelos de embedding."
-  role: "auditor"
+  action: "Sincronizar o patch 1.4.5, atualizar os artefatos gerados do inventário e executar novamente toda a validação."
+  role: "local"
