@@ -41,6 +41,7 @@ paths:
     - "benchmark/embedding-v3/config"
     - "benchmark/embedding-v3/requirements-gate01.txt"
     - "benchmark/embedding-v3/requirements-gate2.txt"
+    - "benchmark/embedding-v3/requirements-gate3.txt"
     - "benchmark/embedding-v3/requirements-full.txt"
   scripts:
     - "benchmark/embedding-v3/benchmark.py"
@@ -51,10 +52,13 @@ paths:
     - "benchmark/embedding-v3/GATE_0_REPORT.md"
     - "benchmark/embedding-v3/GATE_1_REPORT.md"
     - "benchmark/embedding-v3/GATE_2_REPORT.md"
+    - "benchmark/embedding-v3/GATE_3_REPORT.md"
     - "benchmark/embedding-v3/DIRECTOR_BRIEF.md"
     - "benchmark/embedding-v3/gate_status.json"
     - "benchmark/embedding-v3/download_manifest.resolved.json"
+    - "benchmark/embedding-v3/download_manifest_gate3.resolved.json"
     - "benchmark/embedding-v3/results/gate2"
+    - "benchmark/embedding-v3/results/gate3"
     - "benchmark/embedding-v3/data/holo_fake_scenes_v3"
   sensitive:
     - ".env"
@@ -67,6 +71,7 @@ commands:
   setup:
     - "<python-interpreter> -m pip install -r benchmark/embedding-v3/requirements-gate01.txt"
     - "<python-interpreter> -m pip install -r benchmark/embedding-v3/requirements-gate2.txt"
+    - "<python-interpreter> -m pip install -r benchmark/embedding-v3/requirements-gate3.txt"
   format: []
   lint: []
   typecheck: []
@@ -81,6 +86,8 @@ commands:
     - "<python-interpreter> benchmark/embedding-v3/benchmark.py --gate 1 --resume --skip-api"
     - "<python-interpreter> benchmark/embedding-v3/benchmark.py --gate 2 --dry-run --device cuda --skip-api"
     - "<python-interpreter> benchmark/embedding-v3/benchmark.py --gate 2 --device cuda --skip-api"
+    - "<python-interpreter> benchmark/embedding-v3/benchmark.py --gate 3 --dry-run --device cuda --skip-api"
+    - "<python-interpreter> benchmark/embedding-v3/benchmark.py --gate 3 --device cuda --skip-api"
 
 environment:
   required_tools:
@@ -96,7 +103,7 @@ constraints:
   generated_files:
     - "Arquivos listados em paths.generated só devem ser atualizados por execução real dos coletores e geradores correspondentes."
     - "Pesos, caches, ambientes virtuais e resultados brutos volumosos permanecem fora do Git."
-    - "Snapshots baixados pelo Gate 2 permanecem somente em embed/<model-id> e não são versionados."
+    - "Snapshots baixados pelos Gates 2 e 3 permanecem somente em embed/<model-id> e não são versionados."
   forbidden_changes:
     - "Não versionar pesos de modelos, caches, bancos, tokens, chaves ou credenciais."
     - "Não alterar diretamente a branch master."
@@ -111,4 +118,6 @@ constraints:
     - "Não alterar corpus congelado para favorecer um modelo."
     - "Não executar gate posterior nem chamar API paga sem autorização explícita."
     - "O Gate 2 deve resolver e registrar revisão, licença, tamanho e hashes antes de concluir cada modelo."
+    - "O Gate 3 deve registrar versão do llama.cpp, arquivo GGUF exato, quantização, pooling, dimensões nativa e avaliada, throughput, pico de VRAM e hashes."
+    - "O Gate 3 só pode concluir PASS em CUDA, no corpus completo e com todos os modelos obrigatórios."
     - "Resultados de benchmark devem identificar modelo, revisão, backend, dimensão, dtype, normalização e hardware."
