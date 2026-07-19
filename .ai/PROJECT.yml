@@ -45,6 +45,9 @@ paths:
     - "benchmark/embedding-v3/requirements-full.txt"
   scripts:
     - "benchmark/embedding-v3/benchmark.py"
+    - "benchmark/embedding-v3/inventory_local.py"
+    - "benchmark/embedding-v3/healthcheck_local.py"
+    - "benchmark/embedding-v3/validate_coverage.py"
   generated:
     - "benchmark/embedding-v3/environment.json"
     - "benchmark/embedding-v3/system_info.json"
@@ -59,6 +62,9 @@ paths:
     - "benchmark/embedding-v3/download_manifest_gate3.resolved.json"
     - "benchmark/embedding-v3/results/gate2"
     - "benchmark/embedding-v3/results/gate3"
+    - "benchmark/embedding-v3/results/local_healthchecks.json"
+    - "benchmark/embedding-v3/local_model_inventory.json"
+    - "benchmark/embedding-v3/LOCAL_MODEL_INVENTORY_REPORT.md"
     - "benchmark/embedding-v3/data/holo_fake_scenes_v3"
   sensitive:
     - ".env"
@@ -88,6 +94,7 @@ commands:
     - "<python-interpreter> benchmark/embedding-v3/benchmark.py --gate 2 --device cuda --skip-api"
     - "<python-interpreter> benchmark/embedding-v3/benchmark.py --gate 3 --dry-run --device cuda --skip-api"
     - "<python-interpreter> benchmark/embedding-v3/benchmark.py --gate 3 --device cuda --skip-api"
+    - "<python-interpreter> benchmark/embedding-v3/validate_coverage.py"
 
 environment:
   required_tools:
@@ -121,3 +128,8 @@ constraints:
     - "O Gate 3 deve registrar versão do llama.cpp, arquivo GGUF exato, quantização, pooling, dimensões nativa e avaliada, throughput, pico de VRAM e hashes."
     - "O Gate 3 só pode concluir PASS em CUDA, no corpus completo e com todos os modelos obrigatórios."
     - "Resultados de benchmark devem identificar modelo, revisão, backend, dimensão, dtype, normalização e hardware."
+    - "Ausência de runner é pendência de implementação ou bloqueio comprovado; nunca NOT_APPLICABLE."
+    - "HEALTHCHECK_PASSED exige artefato, runtime, comando ou endpoint e resultado sanitizado."
+    - "BLOCKED exige runtime, erro sanitizado e tentativas registradas."
+    - "Alias de modelo só reutiliza benchmark quando a identidade dos pesos ou revisão for verificada."
+    - "A cobertura local só pode concluir quando validate_coverage.py retornar código 0."
