@@ -41,6 +41,7 @@ changes:
     - "O parent runner descartava o JSON de erro estruturado sempre que o worker retornava código 2, registrando apenas WorkerProcessError genérico."
     - "A captura foi corrigida para ler primeiro o resultado estruturado, preservar tipo, mensagem e traceback reais, e somente usar erro genérico quando o arquivo de saída não existir."
     - "Timeout, saída inválida e inconsistência entre status ok e exit code não zero agora têm erros próprios."
+    - "Execuções com --models agora gravam diagnóstico separado em results/gate2/diagnostics e restauram gate_status.json, GATE_2_REPORT.md, download_manifest.resolved.json e summary.json canônicos."
     - "Os quatro resultados obrigatórios aprovados devem ser preservados; a próxima execução será restrita aos três opcionais."
 
 validations:
@@ -49,15 +50,18 @@ validations:
     - "Conferência de GATE_2_REPORT.md, gate_status.json, summary.json e resultados individuais dos quatro modelos obrigatórios."
     - "Comparação das métricas publicadas entre Colibri, E5, Qwen3 e BGE-M3."
     - "Revisão do fluxo entre gate2_runtime.py e gate2_worker.py."
-    - "Compilação isolada do shim corrigido e do novo teste."
+    - "Compilação isolada do shim corrigido e dos testes novos."
     - "Teste direcionado da preservação do payload de erro com exit code 2."
+    - "Teste direcionado da preservação dos artefatos canônicos durante execução parcial com --models."
   passed:
     - "Gate 0 e Gate 1 permanecem PASS."
     - "Gate 2 obrigatório permanece PASS com 600 documentos, 150 consultas e 4/4 modelos obrigatórios concluídos."
     - "Hash do corpus: 8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b."
     - "Revisões, dimensões, dispositivos CUDA, tempos, VRAM e hashes de pesos estão presentes nos resultados individuais."
     - "Subprocessos impediram falha CUDA em cascata."
-    - "O teste direcionado confirmou que o erro real do worker é preservado mesmo quando o processo retorna código 2."
+    - "2 de 2 testes direcionados do patch 1.2.2 foram aprovados."
+    - "O erro real do worker é preservado mesmo quando o processo retorna código 2."
+    - "Diagnóstico parcial não substitui nem rebaixa o PASS canônico do Gate 2."
   failed:
     - "As causas reais de voyage4_nano, bitnet_270m e bitnet_06b não foram preservadas pela execução 1.2.1."
   unavailable:
@@ -75,5 +79,5 @@ audit:
 blockers: []
 
 next:
-  action: "Sincronizar o patch 1.2.2, executar compilação e suíte completa e reexecutar somente voyage4_nano, bitnet_270m e bitnet_06b. Preservar os quatro resultados obrigatórios. Registrar os erros estruturados reais; corrigir incompatibilidades dentro do escopo e repetir os opcionais sem interromper os modelos seguintes."
+  action: "Sincronizar o patch 1.2.2, executar compilação e suíte completa e reexecutar somente voyage4_nano, bitnet_270m e bitnet_06b com --models. Preservar os quatro resultados obrigatórios e confirmar que o PASS canônico permanece inalterado. Usar os erros estruturados reais para corrigir incompatibilidades dentro do escopo e repetir os opcionais sem interromper os modelos seguintes."
   role: "local"
