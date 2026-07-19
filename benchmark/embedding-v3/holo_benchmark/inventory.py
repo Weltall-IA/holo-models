@@ -414,9 +414,25 @@ def gate0_passes(
         errors.append("origin/master indisponível; execute git fetch origin")
 
     git_status = commands["git_status"]
+    gate0_outputs = {
+        "benchmark/embedding-v3/GATE_0_REPORT.md",
+        "benchmark/embedding-v3/environment.json",
+        "benchmark/embedding-v3/system_info.json",
+        "benchmark/embedding-v3/gate_status.json",
+        "benchmark/embedding-v3/requirements-resolved.txt",
+    }
+    real_changes = [
+        line
+        for line in git_status["stdout"].splitlines()
+        if line.strip()
+        and not any(
+            output in line.split()[-1] if len(line.split()) >= 2 else False
+            for output in gate0_outputs
+        )
+    ]
     if git_status["returncode"] != 0:
         errors.append("git status falhou")
-    elif git_status["stdout"].strip():
+    elif real_changes:
         errors.append("working tree possui alterações em arquivos rastreados")
 
     if system_info["filesystem_project"]["free_bytes"] < 2 * 1024**3:

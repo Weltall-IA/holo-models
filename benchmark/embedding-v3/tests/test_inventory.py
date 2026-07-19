@@ -104,6 +104,52 @@ class InventoryRepositoryTests(unittest.TestCase):
             any("remote origin não corresponde" in error for error in errors)
         )
 
+    def test_gate0_outputs_do_not_block(self) -> None:
+        environment = valid_environment()
+        environment["commands"]["git_status"] = command(
+            " M benchmark/embedding-v3/GATE_0_REPORT.md"
+            "\n M benchmark/embedding-v3/environment.json"
+            "\n M benchmark/embedding-v3/system_info.json"
+            "\n M benchmark/embedding-v3/gate_status.json"
+            "\n M benchmark/embedding-v3/requirements-resolved.txt"
+        )
+        ok, errors = gate0_passes(valid_system_info(), environment)
+        self.assertTrue(ok, errors)
+        self.assertNotIn(
+            "working tree possui alterações em arquivos rastreados",
+            errors,
+        )
+
+    def test_non_gate0_change_still_blocks(self) -> None:
+        environment = valid_environment()
+        environment["commands"]["git_status"] = command(
+            " M benchmark/embedding-v3/GATE_0_REPORT.md"
+            "\n M benchmark/embedding-v3/environment.json"
+            "\n M AGENTS.md"
+        )
+        ok, errors = gate0_passes(valid_system_info(), environment)
+        self.assertFalse(ok)
+        self.assertIn(
+            "working tree possui alterações em arquivos rastreados",
+            errors,
+        )
+
+    def test_gate0_only_blocked_by_real_changes(self) -> None:
+        environment = valid_environment()
+        environment["commands"]["git_status"] = command(
+            " M benchmark/embedding-v3/GATE_0_REPORT.md"
+            "\n M benchmark/embedding-v3/environment.json"
+        )
+        ok, errors = gate0_passes(valid_system_info(), environment)
+        self.assertTrue(ok, errors)
+        # Agora adiciona uma alteração real fora dos outputs
+        environment["commands"]["git_status"] = command(
+            " M benchmark/embedding-v3/GATE_0_REPORT.md"
+            "\n M benchmark/embedding-v3/holo_benchmark/inventory.py"
+        )
+        ok, errors = gate0_passes(valid_system_info(), environment)
+        self.assertFalse(ok)
+
 
 if __name__ == "__main__":
     unittest.main()
