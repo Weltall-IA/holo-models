@@ -30,16 +30,16 @@
   },
   "runtime": {
     "dtype": "torch.float32",
-    "load_seconds": 4.313,
-    "document_encode_seconds": 19.5421,
-    "query_encode_seconds": 0.555,
+    "load_seconds": 1.4045,
+    "document_encode_seconds": 18.9637,
+    "query_encode_seconds": 0.4948,
     "peak_vram_bytes": 2624768512,
     "device": "cuda",
     "normalization": "l2",
     "batch_size": 16,
-    "documents_per_second": 30.7029,
-    "queries_per_second": 270.2703,
-    "total_seconds": 28.7783
+    "documents_per_second": 31.6394,
+    "queries_per_second": 303.1528,
+    "total_seconds": 25.6547
   },
   "metrics": {
     "summary": {
@@ -3869,5 +3869,5 @@
       }
     ]
   },
-  "completed_at": "2026-07-19T04:30:31.075477+00:00"
+  "completed_at": "2026-07-19T05:19:49.870825+00:00"
 }

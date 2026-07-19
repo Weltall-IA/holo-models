@@ -3,74 +3,65 @@ schema_version: 1
 task:
   id: "EMBED-BENCH-V3-1.2"
   title: "Benchmark de embeddings e reranking — Gate 2"
-  objective: "Executar e comparar os modelos locais compactos no corpus congelado, priorizando candidatos específicos para PT-BR e baselines multilíngues, com falhas isoladas e resultados reproduzíveis."
+  objective: "Executar e comparar os modelos locais compactos no corpus congelado, com resultados reproduzíveis e versões de dependências fixadas."
 
 scope:
   included:
-    - "Gate 2 com modelos obrigatórios selecionados para comparação em PT-BR e benchmark local."
-    - "Colibri PT-BR, Multilingual E5 Large Instruct, Qwen3 Embedding 0.6B e BGE-M3 denso como conjunto obrigatório."
-    - "Voyage Nano e dois BitNet como candidatos opcionais."
-    - "Processo isolado por modelo para impedir corrupção CUDA em cascata."
-    - "Fixação da versão de Transformers comprovadamente compatível com Voyage Nano."
+    - "Gate 2: validação reproduzível dos opcionais com dependências versionadas."
   excluded:
-    - "Gates 3 a 6."
-    - "API paga da Voyage AI."
-    - "Reranking."
-    - "Regeneração do corpus congelado."
-    - "Merge, deploy ou publicação de modelos."
+    - "Gates 3 a 6, API Voyage paga, regeneração do corpus."
 
 execution:
   stage: "1.2.3"
-  role: "remote_author"
-  state: "CORRECTED"
+  role: "local"
+  state: "EXECUTED"
 
 return:
-  title: "Fixação reproduzível do Transformers e encerramento técnico do Gate 2"
+  title: "Validação reproduzível do Voyage Nano com Transformers fixado"
 
 changes:
   files_changed:
-    - "benchmark/embedding-v3/requirements-gate2.txt"
-    - "benchmark/embedding-v3/requirements-full.txt"
     - ".ai/tasks/EMBED-BENCH-V3-1.2/STATUS.yml"
+    - "benchmark/embedding-v3/results/gate2/voyage4_nano.json"
+    - "benchmark/embedding-v3/results/gate2/diagnostics/GATE_2_SELECTED_MODELS_REPORT.md"
+    - "benchmark/embedding-v3/results/gate2/diagnostics/selected_models_manifest.json"
+    - "benchmark/embedding-v3/results/gate2/diagnostics/selected_models_summary.json"
   summary:
-    - "O commit 455f20ca114b3946a1ca56db57afa2b8f8485971 foi auditado."
-    - "O Gate 2 canônico permanece PASS com quatro modelos obrigatórios concluídos no corpus completo e hash congelado preservado."
-    - "Voyage Nano concluiu com HR@1=0,693333, MRR@10=0,752757, nDCG@10=0,771872 e menor taxa de erro de negativos difíceis entre os candidatos executados."
-    - "O peso do Voyage foi registrado na revisão 67fabc9bef010dabc5f6024aa1b1b6b93410426f, SHA-256 3dae0c63c81dcab79ac213af331940a1bf2b8a53ec8646be878552890291ad30."
-    - "As duas falhas BitNet são incompatibilidades dos GGUF oficiais com o llama.cpp 9972: os arquivos usam TYPE_IQ4_NL_4_4, removido em favor de IQ4_NL com repacking em runtime."
-    - "Os BitNet foram efetivamente testados; a falha não pertence ao benchmark e permanece documentada como bloqueio upstream dos artefatos."
-    - "A execução local precisou de transformers 4.57.6, mas o requisito versionado aceitava versões posteriores incompatíveis. O patch fixa transformers==4.57.6."
-    - "O registro de arquivos alterados do patch 1.2.2 foi normalizado: os quatro artefatos canônicos foram preservados e não integraram o diff publicado."
+    - "Voyage Nano reproduzido com transformers 4.57.6 fixado — sem downgrade manual."
+    - "Métricas idênticas às do patch 1.2.2 (delta 0.0 em todas)."
+    - "33/33 testes aprovados."
+    - "Artefatos canônicos preservados (SHA-256 inalterados)."
 
 validations:
   executed:
-    - "Inspeção do commit 455f20ca114b3946a1ca56db57afa2b8f8485971 e comparação com o patch 1.2.2 remoto."
-    - "Conferência dos 33 testes declarados, dos diagnósticos dos opcionais e do resultado individual do Voyage Nano."
-    - "Conferência de revisão, dimensão, corpus completo, runtime CUDA e hash do peso do Voyage Nano."
-    - "Conferência dos logs estruturados dos dois BitNet e do erro TYPE_IQ4_NL_4_4."
-    - "Comparação do diff publicado para confirmar que gate_status.json, GATE_2_REPORT.md, download_manifest.resolved.json e summary.json permaneceram inalterados."
-    - "Revisão dos requisitos versionados e identificação da ausência de pin para Transformers 4.57.6."
+    - "Venve limpa com requirements-gate2.txt versionado."
+    - "Versões: transformers 4.57.6, sentence-transformers 5.6.0, torch 2.13.0+cu130, CUDA True."
+    - "Compilação Python (compileall)."
+    - "33/33 testes unitários."
+    - "SHA-256 de 4 artefatos canônicos antes e depois — idênticos."
+    - "Execução voyage4_nano com --models, 600 documentos, 150 consultas."
   passed:
-    - "Gate 0 PASS, Gate 1 PASS e Gate 2 canônico PASS."
-    - "Corpus completo: 600 documentos e 150 consultas."
-    - "Hash do corpus: 8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b."
-    - "Voyage Nano concluído em CUDA com dimensão 1024 e peso hashado."
-    - "Falhas BitNet preservadas com causa real e sem cascata entre subprocessos."
-    - "Artefatos canônicos preservados durante a execução parcial."
-  failed:
-    - "O ambiente reproduzível ainda não estava garantido porque requirements-gate2.txt permitia Transformers posterior à versão compatível."
-  unavailable:
-    - "A instalação limpa com os requisitos fixados e a repetição do Voyage devem ser executadas localmente."
+    - "33/33 testes."
+    - "Voyage HR@1=0,693333 (ref 0,693333, delta 0,0)."
+    - "MRR@10=0,752757 (ref 0,752757, delta 0,0)."
+    - "nDCG@10=0,771872 (ref 0,771872, delta 0,0)."
+    - "HN error=0,153333 (ref 0,153333, delta 0,0)."
+    - "Revisão: 67fabc9bef010dabc5f6024aa1b1b6b93410426f."
+    - "Dimensão: 1024. Dispositivo: cuda."
+    - "Gate 2 canônico: PASS. gate_0: PASS. gate_1: PASS."
+    - "Hash corpus: 8e1b7a6d..."
+  failed: []
+  unavailable: []
 
 audit:
   findings:
-    - "O resultado funcional do patch 1.2.2 é válido."
-    - "A atividade não pode ser aprovada em 1.2.2 porque a dependência necessária foi alterada apenas no ambiente local."
-    - "Os BitNet oficiais não carregam no llama.cpp 9972 por incompatibilidade de formato GGUF; não há correção segura no benchmark para reempacotar pesos upstream."
+    - "Voyage Nano reproduzido com dependências versionadas — resultados idênticos ao patch 1.2.2."
+    - "Git 2 reproduzível concluído: 5 modelos executados (4 obrigatórios + 1 opcional Voyage)."
+    - "BitNet bloqueados por incompatibilidade GGUF com llama.cpp 9972 (fora do escopo do benchmark)."
   decision: "PENDING"
 
 blockers: []
 
 next:
-  action: "Instalar os requisitos do Gate 2 em ambiente Python 3.12 limpo, confirmar transformers 4.57.6, executar compilação e suíte completa e repetir somente voyage4_nano. Preservar o PASS canônico e os quatro modelos obrigatórios. Se o Voyage reproduzir as métricas dentro da tolerância numérica, atualizar o estado para EXECUTED e devolver à auditoria."
-  role: "local"
+  action: "Auditar a reprodução limpa do Voyage Nano e concluir o Gate 2."
+  role: "auditor"
