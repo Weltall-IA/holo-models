@@ -72,7 +72,7 @@ validations:
     - "O dry-run com metadados atuais do Hugging Face deve ser executado no ambiente local com rede."
     - "Downloads, carregamento dos cinco modelos e benchmark CUDA não foram executados pela autora remota."
 
- audit:
+audit:
   findings: []
   decision: "PENDING"
 
