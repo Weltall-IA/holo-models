@@ -13,11 +13,11 @@ scope:
 
 execution:
   stage: "1.2.3"
-  role: "local"
-  state: "EXECUTED"
+  role: "auditor"
+  state: "APPROVED"
 
 return:
-  title: "Validação reproduzível do Voyage Nano com Transformers fixado"
+  title: "Auditoria da validação reproduzível do Voyage Nano e conclusão do Gate 2"
 
 changes:
   files_changed:
@@ -27,41 +27,41 @@ changes:
     - "benchmark/embedding-v3/results/gate2/diagnostics/selected_models_manifest.json"
     - "benchmark/embedding-v3/results/gate2/diagnostics/selected_models_summary.json"
   summary:
-    - "Voyage Nano reproduzido com transformers 4.57.6 fixado — sem downgrade manual."
-    - "Métricas idênticas às do patch 1.2.2 (delta 0.0 em todas)."
-    - "33/33 testes aprovados."
-    - "Artefatos canônicos preservados (SHA-256 inalterados)."
+    - "Voyage Nano reproduzido com transformers 4.57.6 fixado e sem alteração manual posterior."
+    - "Métricas reproduzidas exatamente em relação ao patch 1.2.2."
+    - "33/33 testes declarados aprovados."
+    - "Os quatro artefatos canônicos permaneceram fora do diff e o Gate 2 canônico continuou PASS."
 
 validations:
   executed:
-    - "Venve limpa com requirements-gate2.txt versionado."
-    - "Versões: transformers 4.57.6, sentence-transformers 5.6.0, torch 2.13.0+cu130, CUDA True."
-    - "Compilação Python (compileall)."
-    - "33/33 testes unitários."
-    - "SHA-256 de 4 artefatos canônicos antes e depois — idênticos."
-    - "Execução voyage4_nano com --models, 600 documentos, 150 consultas."
+    - "Inspeção do commit 2b0c4ca78137052c7f7b44bf5a3b1627301c59a9."
+    - "Comparação com o patch remoto 1.2.3 para confirmar os cinco arquivos efetivamente alterados."
+    - "Conferência do resultado individual e do diagnóstico estruturado do Voyage Nano."
+    - "Conferência da revisão, dimensão, hash do peso, corpus completo, CUDA e métricas."
+    - "Conferência de que gate_status.json, GATE_2_REPORT.md, download_manifest.resolved.json e summary.json não integraram o diff."
+    - "Conferência do pin transformers==4.57.6 nos requisitos versionados."
   passed:
-    - "33/33 testes."
-    - "Voyage HR@1=0,693333 (ref 0,693333, delta 0,0)."
-    - "MRR@10=0,752757 (ref 0,752757, delta 0,0)."
-    - "nDCG@10=0,771872 (ref 0,771872, delta 0,0)."
-    - "HN error=0,153333 (ref 0,153333, delta 0,0)."
-    - "Revisão: 67fabc9bef010dabc5f6024aa1b1b6b93410426f."
-    - "Dimensão: 1024. Dispositivo: cuda."
-    - "Gate 2 canônico: PASS. gate_0: PASS. gate_1: PASS."
-    - "Hash corpus: 8e1b7a6d..."
+    - "Gate 0 PASS, Gate 1 PASS e Gate 2 canônico PASS."
+    - "Corpus completo: 600 documentos e 150 consultas."
+    - "Hash do corpus: 8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b."
+    - "Voyage Nano: revisão 67fabc9bef010dabc5f6024aa1b1b6b93410426f, dimensão 1024 e CUDA."
+    - "Peso Voyage SHA-256: 3dae0c63c81dcab79ac213af331940a1bf2b8a53ec8646be878552890291ad30."
+    - "HR@1=0,693333; MRR@10=0,752757; nDCG@10=0,771872; hard_negative_error_rate=0,153333."
+    - "O diagnóstico selecionado concluiu voyage4_nano sem falhas."
+    - "O diff contém somente STATUS.yml, resultado Voyage e três diagnósticos."
   failed: []
   unavailable: []
 
 audit:
   findings:
-    - "Voyage Nano reproduzido com dependências versionadas — resultados idênticos ao patch 1.2.2."
-    - "Git 2 reproduzível concluído: 5 modelos executados (4 obrigatórios + 1 opcional Voyage)."
-    - "BitNet bloqueados por incompatibilidade GGUF com llama.cpp 9972 (fora do escopo do benchmark)."
-  decision: "PENDING"
+    - "A reprodução limpa do Voyage Nano é consistente e reproduzível com dependências versionadas."
+    - "O Gate 2 foi concluído com cinco modelos executados: quatro obrigatórios e o Voyage Nano opcional."
+    - "Voyage Nano liderou HR@1, MRR@10, nDCG@10 e taxa de erro de negativos difíceis entre os candidatos executados."
+    - "BitNet 270M e 0.6B foram testados e permanecem incompatíveis com llama.cpp 9972 devido ao formato GGUF upstream TYPE_IQ4_NL_4_4."
+  decision: "APPROVED"
 
 blockers: []
 
 next:
-  action: "Auditar a reprodução limpa do Voyage Nano e concluir o Gate 2."
-  role: "auditor"
+  action: "Aguardar autorização explícita do diretor para iniciar a atividade 1.3.0 e executar o Gate 3."
+  role: "remote_author"
