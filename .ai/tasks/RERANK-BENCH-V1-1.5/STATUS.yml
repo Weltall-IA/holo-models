@@ -21,41 +21,58 @@ scope:
     - "Integração, merge ou implantação."
 
 execution:
-  stage: "1.6.0"
-  role: "local"
-  state: "BLOCKED"
+  stage: "1.6.1"
+  role: "remote_author"
+  state: "CORRECTED"
 
 return:
-  title: "Conclusão das cinco pipelines Voyage rerank-2.5"
+  title: "Fallback Batch para concluir as cinco pipelines Voyage rerank-2.5"
 
 changes:
   files_changed:
     - ".ai/tasks/RERANK-BENCH-V1-1.5/STATUS.yml"
+    - "benchmark/embedding-v3/holo_benchmark/voyage_batch.py"
+    - "benchmark/embedding-v3/holo_benchmark/voyage_batch_runner.py"
+    - "benchmark/embedding-v3/tests/test_voyage_batch.py"
   summary:
-    - "O diretor determinou a continuação do benchmark até concluir as cinco pipelines Voyage rerank-2.5."
-    - "As dez pipelines já aprovadas devem ser reutilizadas sem reexecutar embeddings, candidatos ou Qwen."
-    - "O retorno 429 anterior não deve ser classificado como quota esgotada sem evidência estruturada."
-    - "A nova execução deve retomar o checkpoint e usar intervalo conservador de 65 segundos entre requisições."
+    - "O commit local 7b74edb7f03f4639122b0f8c67075da64d014b5c confirmou dois retornos 429 antes da primeira consulta, mantendo 0/150 no checkpoint em tempo real."
+    - "O painel apresentado pelo diretor confirma 200.000.000 tokens restantes e uso zero para rerank-2.5."
+    - "A hipótese de rate limit acumulado por chamadas antigas de embedding não foi comprovada e não explica dois 429 após 95 segundos."
+    - "Foi criado um transporte pela Batch API oficial, próprio para avaliações assíncronas e compatível com rerank-2.5."
+    - "O job Batch preserva as mesmas 150 consultas, a mesma instrução e a mesma união top-20 usada pelo Qwen."
+    - "Embeddings, candidatos e Qwen não são reexecutados."
+    - "Entrada, estado, saída e erros do Batch permanecem em results/raw/reranker/voyage_batch e fora do Git."
+    - "A execução é retomável por input_file_id e batch_id sem reenviar um job já criado."
 
 validations:
   executed:
-    - "Releitura de AGENTS.md, .ai/PROJECT.yml, .ai/WORKFLOW.yml e STATUS.yml."
-    - "Revisão do runner: o intervalo anterior padrão era 1 segundo e a execução suporta retomada por checkpoint."
+    - "Releitura das regras versionadas atuais e do STATUS da tarefa."
+    - "Inspeção do commit local 7b74edb7f03f4639122b0f8c67075da64d014b5c."
+    - "Revisão integral dos três arquivos novos."
+    - "Compilação isolada dos módulos novos."
+    - "Execução isolada dos testes do transporte Batch."
   passed:
-    - "Os dez resultados locais permanecem aprovados e não precisam ser reexecutados."
-    - "A chamada Voyage rerank-2.5 permanece autorizada pelo escopo da tarefa e pela decisão do diretor."
+    - "3/3 arquivos Python novos compilaram."
+    - "4/4 testes isolados passaram."
+    - "O segredo é lido somente em memória, não é impresso, copiado, versionado ou hasheado."
+    - "Nenhuma API foi chamada pela IA autora remota."
+    - "O parser aceita respostas de rerank em data ou results e restaura a ordem por custom_id e index."
   failed: []
   unavailable:
-    - "A execução da API e as validações completas dependem do host local."
+    - "Submissão, acompanhamento e coleta do Batch dependem do host local e da chave local."
+    - "A suíte completa depende do ambiente local; o total esperado passa de 73 para 77 testes."
 
 audit:
   findings:
-    - "O benchmark permanece incompleto até existirem quinze pipelines."
-    - "A causa do 429 precisa ser registrada pela resposta sanitizada da API, sem inferir consumo de quota."
-  decision: "IN_PROGRESS"
+    - "As dez pipelines existentes permanecem válidas e não precisam ser repetidas."
+    - "A Batch API remove a dependência do limite de throughput da API em tempo real."
+    - "O benchmark permanece incompleto até a saída Batch gerar as cinco pipelines Voyage."
+  decision: "PENDING"
 
-blockers: []
+blockers:
+  - "Executar e aguardar o job Batch de rerank-2.5 no host local."
+  - "Gerar a consolidação final 15/15 e executar as validações locais."
 
 next:
-  action: "Retomar somente a fase Voyage com intervalo de 65 segundos, gerar o relatório final e executar as validações aplicáveis."
+  action: "Executar o runner Batch com retomada, gerar o relatório final e publicar somente os artefatos e o STATUS."
   role: "local"
