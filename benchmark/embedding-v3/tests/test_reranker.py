@@ -10,6 +10,7 @@ from holo_benchmark.reranker_candidates import _scalar_int8_roundtrip
 from holo_benchmark.reranker_metrics import (
     build_union_candidates,
     evaluate_reranker_effect,
+    pipeline_completion,
     scores_to_rankings,
     stable_top_k,
 )
@@ -67,6 +68,39 @@ class RerankerMetricsTests(unittest.TestCase):
         self.assertEqual(effect["damage_rate"], 1.0)
         self.assertAlmostEqual(effect["candidate_coverage"], 2 / 3)
         self.assertEqual(effect["conditional_HitRate@1"], 0.5)
+
+    def test_pipeline_completion_marks_missing_voyage_as_partial(self) -> None:
+        variants = ["embedding_a", "embedding_b"]
+        records = [
+            {"pipeline_id": "embedding_a__none"},
+            {"pipeline_id": "embedding_a__qwen_local"},
+            {"pipeline_id": "embedding_b__none"},
+            {"pipeline_id": "embedding_b__qwen_local"},
+        ]
+        result = pipeline_completion(variants, records)
+        self.assertEqual(result["status"], "PARTIAL")
+        self.assertEqual(result["expected_pipeline_count"], 6)
+        self.assertEqual(result["completed_pipeline_count"], 4)
+        self.assertEqual(
+            result["missing_pipelines"],
+            [
+                "embedding_a__voyage_rerank_2_5",
+                "embedding_b__voyage_rerank_2_5",
+            ],
+        )
+
+    def test_pipeline_completion_requires_full_matrix_for_pass(self) -> None:
+        variants = ["embedding_a"]
+        records = [
+            {"pipeline_id": "embedding_a__none"},
+            {"pipeline_id": "embedding_a__qwen_local"},
+            {"pipeline_id": "embedding_a__voyage_rerank_2_5"},
+        ]
+        result = pipeline_completion(variants, records)
+        self.assertEqual(result["status"], "PASS")
+        self.assertEqual(result["missing_pipelines"], [])
+        self.assertEqual(result["unexpected_pipelines"], [])
+        self.assertEqual(result["duplicate_pipelines"], [])
 
 
 class RerankerRuntimeTests(unittest.TestCase):
