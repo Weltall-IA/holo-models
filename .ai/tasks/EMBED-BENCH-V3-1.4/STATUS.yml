@@ -16,8 +16,8 @@ scope:
 
 execution:
   stage: "1.4.6"
-  role: "remote_author"
-  state: "CORRECTED"
+  role: "local"
+  state: "EXECUTED"
 
 return:
   title: "Gerador canônico do relatório final de embeddings"
