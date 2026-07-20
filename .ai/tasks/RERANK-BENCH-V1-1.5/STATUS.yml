@@ -21,58 +21,56 @@ scope:
     - "Integração, merge ou implantação."
 
 execution:
-  stage: "1.6.1"
+  stage: "1.6.2"
   role: "remote_author"
   state: "CORRECTED"
 
 return:
-  title: "Fallback Batch para concluir as cinco pipelines Voyage rerank-2.5"
+  title: "Correção final do relatório do benchmark completo de rerankers"
 
 changes:
   files_changed:
     - ".ai/tasks/RERANK-BENCH-V1-1.5/STATUS.yml"
-    - "benchmark/embedding-v3/holo_benchmark/voyage_batch.py"
-    - "benchmark/embedding-v3/holo_benchmark/voyage_batch_runner.py"
-    - "benchmark/embedding-v3/tests/test_voyage_batch.py"
+    - "benchmark/embedding-v3/reranker_report.py"
   summary:
-    - "O commit local 7b74edb7f03f4639122b0f8c67075da64d014b5c confirmou dois retornos 429 antes da primeira consulta, mantendo 0/150 no checkpoint em tempo real."
-    - "O painel apresentado pelo diretor confirma 200.000.000 tokens restantes e uso zero para rerank-2.5."
-    - "A hipótese de rate limit acumulado por chamadas antigas de embedding não foi comprovada e não explica dois 429 após 95 segundos."
-    - "Foi criado um transporte pela Batch API oficial, próprio para avaliações assíncronas e compatível com rerank-2.5."
-    - "O job Batch preserva as mesmas 150 consultas, a mesma instrução e a mesma união top-20 usada pelo Qwen."
-    - "Embeddings, candidatos e Qwen não são reexecutados."
-    - "Entrada, estado, saída e erros do Batch permanecem em results/raw/reranker/voyage_batch e fora do Git."
-    - "A execução é retomável por input_file_id e batch_id sem reenviar um job já criado."
+    - "O commit local 0f9607df43713872b75d339eda390d2749b5ef68 concluiu corretamente a matriz com 15 de 15 pipelines."
+    - "O Batch rerank-2.5 concluiu 150 requisições, 4550 pares, 2275458 tokens, 0 falhas e 0 retries."
+    - "As cinco pipelines Voyage rerank-2.5 ocupam as cinco primeiras posições do ranking."
+    - "EmbeddingGemma 768 float32 + Voyage rerank-2.5 é a melhor pipeline numérica geral: MRR@10 0.826444 e nDCG@10 0.834631."
+    - "EmbeddingGemma 768 float32 + Qwen local permanece a melhor pipeline totalmente local: MRR@10 0.791074 e nDCG@10 0.805547."
+    - "O retorno local omitiu as cinco linhas Voyage e declarou incorretamente a melhor qualidade absoluta como indeterminada."
+    - "O relatório gerado ainda exibia o título obsoleto v1.5.2; o gerador foi corrigido para usar título estável sem versão embutida."
 
 validations:
   executed:
-    - "Releitura das regras versionadas atuais e do STATUS da tarefa."
-    - "Inspeção do commit local 7b74edb7f03f4639122b0f8c67075da64d014b5c."
-    - "Revisão integral dos três arquivos novos."
-    - "Compilação isolada dos módulos novos."
-    - "Execução isolada dos testes do transporte Batch."
+    - "Inspeção integral do commit local 0f9607df43713872b75d339eda390d2749b5ef68."
+    - "Comparação com o HEAD autoral b233ad927a2a6d152e7a11d5f1fd282ef8aefd8f."
+    - "Conferência dos oito arquivos gerados e versionados pela execução local."
+    - "Conferência de summary.json, score Voyage, cinco pipelines Voyage e relatório consolidado."
+    - "Revisão do diff do gerador de relatório corrigido."
   passed:
-    - "3/3 arquivos Python novos compilaram."
-    - "4/4 testes isolados passaram."
-    - "O segredo é lido somente em memória, não é impresso, copiado, versionado ou hasheado."
-    - "Nenhuma API foi chamada pela IA autora remota."
-    - "O parser aceita respostas de rerank em data ou results e restaura a ordem por custom_id e index."
-  failed: []
+    - "summary.json: PASS, 15 esperadas, 15 concluídas, nenhuma ausente, inesperada ou duplicada."
+    - "Voyage Batch: status completed, 150/150 concluídas, 0 falhas, 4550 pares e 2275458 tokens."
+    - "Corpus SHA-256 congelado preservado."
+    - "Os resultados das quinze pipelines são consistentes com o relatório versionado."
+    - "77/77 testes, compileall, validate_coverage PASS com 0 findings e git diff --check OK foram registrados pela execução local."
+  failed:
+    - "RERANKER_PIPELINE_REPORT.md ainda contém o título obsoleto v1.5.2 antes da regeneração pelo gerador corrigido."
   unavailable:
-    - "Submissão, acompanhamento e coleta do Batch dependem do host local e da chave local."
-    - "A suíte completa depende do ambiente local; o total esperado passa de 73 para 77 testes."
+    - "A suíte local não foi reexecutada pela IA autora remota; os resultados locais foram conferidos documentalmente."
 
 audit:
   findings:
-    - "As dez pipelines existentes permanecem válidas e não precisam ser repetidas."
-    - "A Batch API remove a dependência do limite de throughput da API em tempo real."
-    - "O benchmark permanece incompleto até a saída Batch gerar as cinco pipelines Voyage."
-  decision: "PENDING"
+    - "A matriz completa 15/15 é válida."
+    - "A melhor qualidade numérica geral é EmbeddingGemma + Voyage rerank-2.5."
+    - "A melhor solução totalmente local é EmbeddingGemma + Qwen3-Reranker-0.6B."
+    - "Gemma + Voyage e Voyage Large + Voyage têm o mesmo HitRate@1 e HitRate@10; a diferença de MRR é 0.000388 e não estabelece significância estatística."
+  decision: "CORRECTION_REQUIRED"
 
 blockers:
-  - "Executar e aguardar o job Batch de rerank-2.5 no host local."
-  - "Gerar a consolidação final 15/15 e executar as validações locais."
+  - "Regenerar somente summary.json e RERANKER_PIPELINE_REPORT.md com o gerador corrigido, sem executar API ou modelos."
+  - "Executar novamente as validações locais aplicáveis."
 
 next:
-  action: "Executar o runner Batch com retomada, gerar o relatório final e publicar somente os artefatos e o STATUS."
+  action: "Sincronizar o patch 1.6.2, regenerar somente o relatório, validar e publicar os artefatos corrigidos."
   role: "local"
