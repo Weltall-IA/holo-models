@@ -21,12 +21,12 @@ scope:
     - "Integração, merge ou implantação."
 
 execution:
-  stage: "1.5.0"
+  stage: "1.5.1"
   role: "remote_author"
   state: "CORRECTED"
 
 return:
-  title: "Runner do benchmark decisório de embeddings e rerankers"
+  title: "Runner corrigido do benchmark decisório de embeddings e rerankers"
 
 changes:
   files_changed:
@@ -40,6 +40,7 @@ changes:
     - "benchmark/embedding-v3/requirements-reranker.txt"
     - "benchmark/embedding-v3/reranker_benchmark.py"
     - "benchmark/embedding-v3/reranker_execution.py"
+    - "benchmark/embedding-v3/reranker_preflight.py"
     - "benchmark/embedding-v3/reranker_report.py"
     - "benchmark/embedding-v3/tests/test_reranker.py"
   summary:
@@ -47,14 +48,17 @@ changes:
     - "Runner criado para cinco conjuntos de candidatos e até quinze pipelines."
     - "Voyage 4 Large reutiliza checkpoints e não realiza nova chamada de embedding."
     - "Qwen local é descoberto e identificado automaticamente."
+    - "O patch 1.5.1 corrigiu o preflight para também aceitar um caminho explícito do Qwen fora dos diretórios de descoberta automática."
     - "Voyage rerank-2.5 fica desativado por padrão e exige autorização explícita na linha de comando."
     - "Os rerankers recebem a mesma instrução, textos e candidatos."
 
 validations:
   executed:
     - "Revisão dos arquivos novos e dos diffs dos arquivos existentes."
-    - "Compilação isolada dos módulos Python novos."
-    - "Execução isolada de sete testes unitários."
+    - "Compilação isolada dos módulos Python novos após o patch 1.5.1."
+    - "Execução isolada de sete testes unitários após o patch 1.5.1."
+    - "Conferência da proteção contra chamada implícita de embedding Voyage Large."
+    - "Conferência da exigência explícita para executar Voyage rerank-2.5."
   passed:
     - "Módulos novos compilaram na validação isolada."
     - "7/7 testes isolados passaram."
@@ -71,6 +75,7 @@ audit:
     - "Recuperação inicial e efeito do reranker são avaliados separadamente."
     - "Rescue rate e damage rate são registrados."
     - "A união de candidatos evita processamento repetido do mesmo par consulta-cena."
+    - "O Qwen pode ser selecionado automaticamente ou por caminho explícito sem alterar código."
   decision: "PENDING"
 
 blockers:
