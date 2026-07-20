@@ -23,7 +23,7 @@ scope:
 execution:
   stage: "1.6.0"
   role: "local"
-  state: "IN_PROGRESS"
+  state: "BLOCKED"
 
 return:
   title: "Conclusão das cinco pipelines Voyage rerank-2.5"
