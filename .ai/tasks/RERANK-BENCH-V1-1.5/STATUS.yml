@@ -1,0 +1,83 @@
+schema_version: 1
+
+task:
+  id: "RERANK-BENCH-V1-1.5"
+  title: "Benchmark decisório de embeddings e rerankers para busca de cenas"
+  objective: "Comparar cinco variantes de embedding sem reranker, com Qwen local e com Voyage rerank-2.5."
+
+scope:
+  included:
+    - "Corpus congelado com 600 documentos e 150 consultas."
+    - "EmbeddingGemma 768 float32."
+    - "Voyage 4 Nano em 1024 float32, 2048 float32 e 2048 int8."
+    - "Voyage 4 Large 1024 float32 reutilizado dos checkpoints existentes."
+    - "Qwen reranker local."
+    - "Voyage rerank-2.5 como referência externa autorizada."
+    - "Top 50 candidatos e reranking principal do top 20."
+  excluded:
+    - "Voyage Context 4."
+    - "Regeneração do corpus."
+    - "Nova chamada de embedding Voyage 4 Large."
+    - "Integração, merge ou implantação."
+
+execution:
+  stage: "1.5.0"
+  role: "remote_author"
+  state: "CORRECTED"
+
+return:
+  title: "Runner do benchmark decisório de embeddings e rerankers"
+
+changes:
+  files_changed:
+    - ".ai/PROJECT.yml"
+    - ".ai/tasks/RERANK-BENCH-V1-1.5/STATUS.yml"
+    - "benchmark/embedding-v3/RERANKER_BENCHMARK.md"
+    - "benchmark/embedding-v3/holo_benchmark/reranker_backends.py"
+    - "benchmark/embedding-v3/holo_benchmark/reranker_candidates.py"
+    - "benchmark/embedding-v3/holo_benchmark/reranker_metrics.py"
+    - "benchmark/embedding-v3/holo_benchmark/reranker_runtime.py"
+    - "benchmark/embedding-v3/requirements-reranker.txt"
+    - "benchmark/embedding-v3/reranker_benchmark.py"
+    - "benchmark/embedding-v3/reranker_execution.py"
+    - "benchmark/embedding-v3/reranker_report.py"
+    - "benchmark/embedding-v3/tests/test_reranker.py"
+  summary:
+    - "Feature branch criada a partir do commit aprovado da etapa 1.4.6."
+    - "Runner criado para cinco conjuntos de candidatos e até quinze pipelines."
+    - "Voyage 4 Large reutiliza checkpoints e não realiza nova chamada de embedding."
+    - "Qwen local é descoberto e identificado automaticamente."
+    - "Voyage rerank-2.5 fica desativado por padrão e exige autorização explícita na linha de comando."
+    - "Os rerankers recebem a mesma instrução, textos e candidatos."
+
+validations:
+  executed:
+    - "Revisão dos arquivos novos e dos diffs dos arquivos existentes."
+    - "Compilação isolada dos módulos Python novos."
+    - "Execução isolada de sete testes unitários."
+  passed:
+    - "Módulos novos compilaram na validação isolada."
+    - "7/7 testes isolados passaram."
+    - "Corpus congelado não foi alterado."
+    - "Nenhuma API foi chamada pela IA autora remota."
+  failed: []
+  unavailable:
+    - "Suíte completa depende do host local."
+    - "Identidade exata do Qwen depende do preflight local."
+    - "Execuções CUDA e medições dependem do host local."
+
+audit:
+  findings:
+    - "Recuperação inicial e efeito do reranker são avaliados separadamente."
+    - "Rescue rate e damage rate são registrados."
+    - "A união de candidatos evita processamento repetido do mesmo par consulta-cena."
+  decision: "PENDING"
+
+blockers:
+  - "Executar preflight local e identificar o Qwen disponível."
+  - "Executar candidatos, Qwen, Voyage autorizado e relatório final."
+  - "Executar suíte completa, compileall e git diff --check no host local."
+
+next:
+  action: "Sincronizar a branch e executar o benchmark e as validações locais."
+  role: "local"
