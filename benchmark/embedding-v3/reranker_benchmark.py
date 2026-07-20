@@ -12,10 +12,10 @@ from holo_benchmark.reranker_runtime import (
 from reranker_execution import (
     DEFAULT_KEY_PATH,
     generate_candidates,
-    preflight,
     run_qwen,
     run_voyage,
 )
+from reranker_preflight import preflight
 from reranker_report import build_report
 
 
