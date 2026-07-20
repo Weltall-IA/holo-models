@@ -66,7 +66,7 @@ def render_report(summary: Mapping[str, Any]) -> str:
         )
     )
     lines = [
-        "# Reranker Pipeline Benchmark — v1.5.0",
+        "# Reranker Pipeline Benchmark — v1.5.1",
         "",
         f"- Frozen corpus SHA-256: `{CORPUS_SHA256}`",
         f"- Pipelines completed: {len(rows)}",
@@ -91,7 +91,6 @@ def render_report(summary: Mapping[str, Any]) -> str:
                 damage="—" if damage is None else f"{float(damage):.6f}",
             )
         )
-
     lines.extend(["", "## Embedding resources", ""])
     lines.extend(
         [
