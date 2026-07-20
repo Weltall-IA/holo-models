@@ -3,66 +3,54 @@ schema_version: 1
 task:
   id: "EMBED-BENCH-V3-1.4"
   title: "Benchmark de embeddings locais e Voyage"
-  objective: "Preservar os benchmarks locais, executar Voyage 4 Large e Voyage Context 4 e manter o inventário e o relatório canônicos consistentes com os resultados."
+  objective: "Gerar inventário e relatório canônicos diretamente dos resultados executados."
 
 scope:
   included:
-    - "Benchmarks locais já concluídos."
-    - "Runner dedicado para voyage-4-large e voyage-context-4."
-    - "Limite compartilhado de 10.000 TPM e 3 RPM."
-    - "Checkpoints retomáveis e métricas equivalentes às execuções locais."
-    - "Consistência entre resultados, inventário e relatório canônico."
+    - "Benchmarks locais e Voyage já concluídos."
+    - "Correção documental e da identidade dos modelos de API."
+    - "Ranking final gerado dos artefatos canônicos."
   excluded:
-    - "LLMs de chat, áudio, imagem, vídeo e rerankers."
-    - "Modelos Voyage não autorizados."
+    - "Reexecução de benchmarks."
+    - "Outras categorias de modelos."
 
 execution:
-  stage: "1.4.5"
-  role: "auditor"
-  state: "REJECTED"
+  stage: "1.4.6"
+  role: "remote_author"
+  state: "CORRECTED"
 
 return:
-  title: "Auditoria da consolidação do inventário e relatório de embeddings"
+  title: "Gerador canônico do relatório final de embeddings"
 
 changes:
   files_changed:
     - ".ai/tasks/EMBED-BENCH-V3-1.4/STATUS.yml"
+    - "benchmark/embedding-v3/consolidate_embedding_inventory.py"
   summary:
-    - "O commit 1f9bfd72d18e7f450abbb13413ad4e2c33534cad consolidou corretamente os dois Voyage como BENCHMARKED e corrigiu as contagens gerais."
-    - "Os resultados Voyage permanecem válidos e não devem ser reexecutados."
-    - "A atividade foi rejeitada somente por inconsistências no relatório final e por revisões artificiais atribuídas aos modelos de API."
+    - "Gerador determinístico implementado pela IA autora remota."
+    - "Remove revisões artificiais dos dois modelos Voyage."
+    - "Lê métricas diretamente dos resultados dos Gates 2, 3 e Voyage."
+    - "Ordena o ranking por MRR@10 decrescente."
+    - "Valida 11 modelos únicos, 1 alias e 2 bloqueados, totalizando 14 embeddings."
+    - "Usa arquivo temporário e mostra o diff antes de substituir os artefatos."
 
 validations:
   executed:
-    - "Inspeção integral do commit 1f9bfd72d18e7f450abbb13413ad4e2c33534cad."
-    - "Conferência dos estados, contagens e evidências Voyage no inventário."
-    - "Comparação do relatório consolidado com os artefatos canônicos dos Gates 2 e 3."
+    - "Revisão do gerador e dos caminhos dos resultados canônicos."
   passed:
-    - "Inventário: 53 modelos, 12 BENCHMARKED, 19 BLOCKED e 22 HEALTHCHECK_PASSED."
-    - "voyage-4-large e voyage-context-4 estão BENCHMARKED com evidências sanitizadas e métricas corretas."
-    - "Os benchmarks Voyage e os resultados locais permanecem preservados."
-  failed:
-    - "LOCAL_MODEL_INVENTORY_REPORT.md lista 14 embeddings, mas apresenta 11 modelos, 1 alias e 3 bloqueados, totalizando 15 entradas."
-    - "gte_multilingual_base_cuda foi removido como duplicata, mas reaparece indevidamente como modelo BLOCKED no relatório."
-    - "O ranking por MRR coloca qwen3_embedding_06_gguf antes de qwen3_embedding_06 apesar de 0,615349 ser menor que 0,616349."
-    - "O relatório registra nDCG incorreto para colibri_ptbr, bge_m3_dense e multilingual_e5_large_instruct."
-    - "O inventário atribui revisões artificiais voyage-4-large-api-2026-07 e voyage-context-4-api-2026-07, embora a identidade de API já seja comprovada sem revisão de pesos."
+    - "Nenhum benchmark foi alterado ou reexecutado."
+  failed: []
   unavailable:
-    - "A suíte local não foi reexecutada pela IA auditora remota."
+    - "Execução e suíte completa dependem do host local."
 
 audit:
   findings:
-    - "Os benchmarks estão corretos; a falha está exclusivamente na consolidação documental e na identidade declarada dos modelos de API."
-    - "O validador ainda não verifica coerência aritmética do relatório, ordenação do ranking ou correspondência exata das métricas canônicas."
-  decision: "REJECTED"
+    - "A geração programática elimina métricas e ordenação manuais divergentes."
+  decision: "PENDING"
 
 blockers:
-  - "Remover as revisões artificiais dos dois modelos Voyage."
-  - "Corrigir a lista de embeddings bloqueados para conter somente bitnet_270m e bitnet_06b."
-  - "Regenerar o ranking em ordem decrescente real de MRR@10."
-  - "Copiar as métricas exatas dos artefatos canônicos, sem valores manuais divergentes."
-  - "Validar que 11 modelos únicos + 1 alias + 2 bloqueados = 14 entradas de embedding."
+  - "Executar o gerador e validar os artefatos resultantes."
 
 next:
-  action: "Corrigir diretamente o inventário e o relatório final sem reexecutar benchmarks."
-  role: "remote_author"
+  action: "Sincronizar a branch, executar o gerador e validar sem reexecutar benchmarks."
+  role: "local"
