@@ -21,52 +21,41 @@ scope:
     - "Integração, merge ou implantação."
 
 execution:
-  stage: "1.5.2"
-  role: "auditor"
-  state: "PARTIAL_APPROVED"
+  stage: "1.6.0"
+  role: "local"
+  state: "IN_PROGRESS"
 
 return:
-  title: "Aprovação parcial da consolidação do benchmark de embeddings e rerankers"
+  title: "Conclusão das cinco pipelines Voyage rerank-2.5"
 
 changes:
   files_changed:
     - ".ai/tasks/RERANK-BENCH-V1-1.5/STATUS.yml"
   summary:
-    - "O commit local 31a9e80ccac030f7086495cd7741e26bafa530d3 regenerou corretamente summary.json e RERANKER_PIPELINE_REPORT.md com o runner 1.5.2."
-    - "A matriz está corretamente marcada como PARTIAL, com 10 pipelines concluídas de 15 esperadas."
-    - "As cinco pipelines ausentes são exclusivamente as combinações com Voyage rerank-2.5."
-    - "EmbeddingGemma 768 float32 + Qwen local lidera numericamente as pipelines concluídas."
-    - "A liderança não representa qualidade absoluta, pois a referência Voyage rerank-2.5 não foi executada."
+    - "O diretor determinou a continuação do benchmark até concluir as cinco pipelines Voyage rerank-2.5."
+    - "As dez pipelines já aprovadas devem ser reutilizadas sem reexecutar embeddings, candidatos ou Qwen."
+    - "O retorno 429 anterior não deve ser classificado como quota esgotada sem evidência estruturada."
+    - "A nova execução deve retomar o checkpoint e usar intervalo conservador de 65 segundos entre requisições."
 
 validations:
   executed:
-    - "Inspeção integral do commit 31a9e80ccac030f7086495cd7741e26bafa530d3."
-    - "Comparação com o HEAD autoral 8da97c4a222223ba14848d404ad3364d5e9ae459."
-    - "Conferência do escopo: somente STATUS.yml, summary.json e RERANKER_PIPELINE_REPORT.md foram alterados pela execução local."
-    - "Conferência da matriz esperada, pipelines concluídas, ausentes, inesperadas e duplicadas."
-    - "Conferência do relatório parcial e da preservação das métricas das dez pipelines já executadas."
+    - "Releitura de AGENTS.md, .ai/PROJECT.yml, .ai/WORKFLOW.yml e STATUS.yml."
+    - "Revisão do runner: o intervalo anterior padrão era 1 segundo e a execução suporta retomada por checkpoint."
   passed:
-    - "summary.json: status PARTIAL, 15 pipelines esperadas, 10 concluídas e 5 ausentes."
-    - "unexpected_pipelines e duplicate_pipelines permanecem vazios."
-    - "As cinco ausências correspondem exatamente ao Voyage rerank-2.5."
-    - "RERANKER_PIPELINE_REPORT.md identifica versão 1.5.2, status PARTIAL e 10/15 pipelines."
-    - "73/73 testes, compileall, validate_coverage PASS com 0 findings e git diff --check OK foram registrados pela execução local."
+    - "Os dez resultados locais permanecem aprovados e não precisam ser reexecutados."
+    - "A chamada Voyage rerank-2.5 permanece autorizada pelo escopo da tarefa e pela decisão do diretor."
   failed: []
   unavailable:
-    - "A suíte local não foi reexecutada pela IA auditora remota; os resultados locais foram conferidos documentalmente."
-    - "Não há artefato estruturado versionado com a resposta de rate limit do Voyage; o bloqueio permanece registrado de forma sanitizada."
+    - "A execução da API e as validações completas dependem do host local."
 
 audit:
   findings:
-    - "As dez pipelines concluídas são válidas e estão aprovadas como resultado parcial."
-    - "EmbeddingGemma + Qwen lidera as pipelines concluídas com MRR@10 0.791074 e nDCG@10 0.805547."
-    - "Voyage Large + Qwen está praticamente empatado, sem evidência de vantagem prática ou significância estatística."
-    - "Melhor qualidade absoluta permanece indeterminada até a execução do Voyage rerank-2.5."
-  decision: "APPROVED_PARTIAL"
+    - "O benchmark permanece incompleto até existirem quinze pipelines."
+    - "A causa do 429 precisa ser registrada pela resposta sanitizada da API, sem inferir consumo de quota."
+  decision: "IN_PROGRESS"
 
-blockers:
-  - "Cinco pipelines Voyage rerank-2.5 permanecem pendentes por indisponibilidade de quota da API."
+blockers: []
 
 next:
-  action: "O diretor deve decidir se aguarda quota para completar as cinco pipelines Voyage ou encerra a decisão com os dez resultados locais aprovados."
-  role: "director"
+  action: "Retomar somente a fase Voyage com intervalo de 65 segundos, gerar o relatório final e executar as validações aplicáveis."
+  role: "local"
