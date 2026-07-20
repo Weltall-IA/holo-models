@@ -59,7 +59,17 @@ def main() -> int:
             )
         outputs: list[dict[str, object]] = []
         if args.phase in {"preflight", "all"}:
-            outputs.append(preflight(args))
+            preflight_result = preflight(args)
+            outputs.append(preflight_result)
+            if preflight_result.get("status") != "READY":
+                print(
+                    json.dumps(
+                        preflight_result,
+                        ensure_ascii=False,
+                        indent=2,
+                    )
+                )
+                return 2
         if args.phase in {"candidates", "all"}:
             outputs.append(generate_candidates(args))
         if args.phase in {"qwen", "all"}:
