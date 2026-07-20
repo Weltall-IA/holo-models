@@ -29,6 +29,8 @@ paths:
   source:
     - "benchmark/embedding-v3/holo_benchmark"
     - "benchmark/embedding-v3/benchmark.py"
+    - "benchmark/embedding-v3/reranker_execution.py"
+    - "benchmark/embedding-v3/reranker_report.py"
   tests:
     - "benchmark/embedding-v3/tests"
   documentation:
@@ -36,6 +38,7 @@ paths:
     - "docs"
     - "LISTA_MODELOS.md"
     - "LISTA_BLACKLIST.md"
+    - "benchmark/embedding-v3/RERANKER_BENCHMARK.md"
   configuration:
     - ".ai"
     - "benchmark/embedding-v3/config"
@@ -44,12 +47,14 @@ paths:
     - "benchmark/embedding-v3/requirements-gate3.txt"
     - "benchmark/embedding-v3/requirements-full.txt"
     - "benchmark/embedding-v3/requirements-voyage.txt"
+    - "benchmark/embedding-v3/requirements-reranker.txt"
   scripts:
     - "benchmark/embedding-v3/benchmark.py"
     - "benchmark/embedding-v3/inventory_local.py"
     - "benchmark/embedding-v3/healthcheck_local.py"
     - "benchmark/embedding-v3/validate_coverage.py"
     - "benchmark/embedding-v3/voyage_benchmark.py"
+    - "benchmark/embedding-v3/reranker_benchmark.py"
   generated:
     - "benchmark/embedding-v3/environment.json"
     - "benchmark/embedding-v3/system_info.json"
@@ -65,6 +70,8 @@ paths:
     - "benchmark/embedding-v3/results/gate2"
     - "benchmark/embedding-v3/results/gate3"
     - "benchmark/embedding-v3/results/voyage"
+    - "benchmark/embedding-v3/results/reranker"
+    - "benchmark/embedding-v3/RERANKER_PIPELINE_REPORT.md"
     - "benchmark/embedding-v3/results/local_healthchecks.json"
     - "benchmark/embedding-v3/local_model_inventory.json"
     - "benchmark/embedding-v3/LOCAL_MODEL_INVENTORY_REPORT.md"
@@ -83,6 +90,7 @@ commands:
     - "<python-interpreter> -m pip install -r benchmark/embedding-v3/requirements-gate2.txt"
     - "<python-interpreter> -m pip install -r benchmark/embedding-v3/requirements-gate3.txt"
     - "<python-interpreter> -m pip install -r benchmark/embedding-v3/requirements-voyage.txt"
+    - "<python-interpreter> -m pip install -r benchmark/embedding-v3/requirements-reranker.txt"
   format: []
   lint: []
   typecheck: []
@@ -100,6 +108,7 @@ commands:
     - "<python-interpreter> benchmark/embedding-v3/benchmark.py --gate 3 --dry-run --device cuda --skip-api"
     - "<python-interpreter> benchmark/embedding-v3/benchmark.py --gate 3 --device cuda --skip-api"
     - "<python-interpreter> benchmark/embedding-v3/validate_coverage.py"
+    - "<python-interpreter> benchmark/embedding-v3/reranker_benchmark.py --phase preflight"
 
 environment:
   required_tools:
@@ -139,3 +148,6 @@ constraints:
     - "BLOCKED exige runtime, erro sanitizado e tentativas registradas."
     - "Alias de modelo só reutiliza benchmark quando a identidade dos pesos ou revisão for verificada."
     - "A cobertura local só pode concluir quando validate_coverage.py retornar código 0."
+    - "O benchmark de rerankers preserva top 50 candidatos e reranqueia top 20 com a mesma instrução e os mesmos textos."
+    - "Voyage 4 Large deve reutilizar os checkpoints existentes; o runner não pode chamar implicitamente a API de embedding."
+    - "Voyage rerank-2.5 só pode executar com a flag --allow-voyage-rerank-api após autorização humana explícita."
