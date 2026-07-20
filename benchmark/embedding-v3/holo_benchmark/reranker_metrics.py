@@ -1,9 +1,13 @@
 from __future__ import annotations
 
 import statistics
+from collections import Counter
 from typing import Any, Mapping, Sequence
 
 from .metrics import DEFAULT_KS, evaluate_rankings
+
+
+DEFAULT_RERANKER_IDS = ("qwen_local", "voyage_rerank_2_5")
 
 
 def stable_top_k(
@@ -100,6 +104,52 @@ def scores_to_rankings(
             )
         )
     return rankings
+
+
+def pipeline_completion(
+    variants: Sequence[str],
+    records: Sequence[Mapping[str, Any]],
+    reranker_ids: Sequence[str] = DEFAULT_RERANKER_IDS,
+) -> dict[str, Any]:
+    """Describe whether the complete embedding × reranker matrix exists."""
+    if not variants:
+        raise ValueError("no embedding variants")
+    if len(variants) != len(set(variants)):
+        raise ValueError("duplicate embedding variants")
+    if len(reranker_ids) != len(set(reranker_ids)):
+        raise ValueError("duplicate reranker ids")
+
+    expected: list[str] = []
+    for variant in variants:
+        expected.append(f"{variant}__none")
+        expected.extend(f"{variant}__{reranker_id}" for reranker_id in reranker_ids)
+
+    completed = [str(record.get("pipeline_id") or "") for record in records]
+    if any(not pipeline_id for pipeline_id in completed):
+        raise ValueError("pipeline record without pipeline_id")
+
+    counts = Counter(completed)
+    completed_set = set(completed)
+    expected_set = set(expected)
+    missing = [pipeline_id for pipeline_id in expected if pipeline_id not in completed_set]
+    unexpected = sorted(completed_set - expected_set)
+    duplicates = sorted(
+        pipeline_id for pipeline_id, count in counts.items() if count > 1
+    )
+
+    complete = not missing and not unexpected and not duplicates
+    status = "PASS" if complete else ("PARTIAL" if completed_set else "BLOCKED")
+    return {
+        "status": status,
+        "expected_pipeline_count": len(expected),
+        "completed_pipeline_count": len(completed_set),
+        "pipeline_record_count": len(completed),
+        "expected_pipelines": expected,
+        "completed_pipelines": sorted(completed_set),
+        "missing_pipelines": missing,
+        "unexpected_pipelines": unexpected,
+        "duplicate_pipelines": duplicates,
+    }
 
 
 def _first_relevant_rank(query: Mapping[str, Any], ranking: Sequence[str]) -> int | None:
