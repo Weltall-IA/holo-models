@@ -1,7 +1,9 @@
-# Reranker Pipeline Benchmark — v1.5.1
+# Reranker Pipeline Benchmark — v1.5.2
 
 - Frozen corpus SHA-256: `8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b`
-- Pipelines completed: 10
+- Benchmark status: `PARTIAL`
+- Pipelines completed: 10 / 15
+- Missing pipelines: `embeddinggemma_768_float32__voyage_rerank_2_5`, `voyage4_nano_1024_float32__voyage_rerank_2_5`, `voyage4_nano_2048_float32__voyage_rerank_2_5`, `voyage4_nano_2048_int8__voyage_rerank_2_5`, `voyage_4_large_1024_float32__voyage_rerank_2_5`
 
 | Rank | Pipeline | HitRate@1 | HitRate@10 | MRR@10 | nDCG@10 | Rescue | Damage |
 |---:|---|---:|---:|---:|---:|---:|---:|
@@ -38,4 +40,6 @@
 - Peak process-tree RSS: `3353128960` bytes
 - API usage: `None`
 
-O relatório separa qualidade, custo de API e recursos locais. Nenhum merge ou escolha de produção é implícito.
+The ranking covers only completed pipelines and does not establish statistical significance between near-tied results.
+The 2048 int8 variant uses corpus-calibrated scalar quantization with dequantized cosine scoring; native vector-database latency was not measured.
+No merge or production choice is implicit.

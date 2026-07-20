@@ -22,8 +22,8 @@ scope:
 
 execution:
   stage: "1.5.2"
-  role: "remote_author"
-  state: "CORRECTED"
+  role: "local"
+  state: "EXECUTED"
 
 return:
   title: "Correção da completude do benchmark decisório de embeddings e rerankers"

@@ -1,6 +1,47 @@
 {
   "schema_version": "1.0",
-  "status": "PASS",
+  "status": "PARTIAL",
+  "expected_pipeline_count": 15,
+  "completed_pipeline_count": 10,
+  "pipeline_record_count": 10,
+  "expected_pipelines": [
+    "embeddinggemma_768_float32__none",
+    "embeddinggemma_768_float32__qwen_local",
+    "embeddinggemma_768_float32__voyage_rerank_2_5",
+    "voyage4_nano_1024_float32__none",
+    "voyage4_nano_1024_float32__qwen_local",
+    "voyage4_nano_1024_float32__voyage_rerank_2_5",
+    "voyage4_nano_2048_float32__none",
+    "voyage4_nano_2048_float32__qwen_local",
+    "voyage4_nano_2048_float32__voyage_rerank_2_5",
+    "voyage4_nano_2048_int8__none",
+    "voyage4_nano_2048_int8__qwen_local",
+    "voyage4_nano_2048_int8__voyage_rerank_2_5",
+    "voyage_4_large_1024_float32__none",
+    "voyage_4_large_1024_float32__qwen_local",
+    "voyage_4_large_1024_float32__voyage_rerank_2_5"
+  ],
+  "completed_pipelines": [
+    "embeddinggemma_768_float32__none",
+    "embeddinggemma_768_float32__qwen_local",
+    "voyage4_nano_1024_float32__none",
+    "voyage4_nano_1024_float32__qwen_local",
+    "voyage4_nano_2048_float32__none",
+    "voyage4_nano_2048_float32__qwen_local",
+    "voyage4_nano_2048_int8__none",
+    "voyage4_nano_2048_int8__qwen_local",
+    "voyage_4_large_1024_float32__none",
+    "voyage_4_large_1024_float32__qwen_local"
+  ],
+  "missing_pipelines": [
+    "embeddinggemma_768_float32__voyage_rerank_2_5",
+    "voyage4_nano_1024_float32__voyage_rerank_2_5",
+    "voyage4_nano_2048_float32__voyage_rerank_2_5",
+    "voyage4_nano_2048_int8__voyage_rerank_2_5",
+    "voyage_4_large_1024_float32__voyage_rerank_2_5"
+  ],
+  "unexpected_pipelines": [],
+  "duplicate_pipelines": [],
   "corpus_sha256": "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b",
   "candidate_top_k": 50,
   "rerank_top_k": 20,
@@ -57758,5 +57799,5 @@
       }
     }
   ],
-  "updated_at": "2026-07-20T20:19:04.345434+00:00"
+  "updated_at": "2026-07-20T22:04:43.770343+00:00"
 }
