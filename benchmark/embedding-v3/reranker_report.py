@@ -23,6 +23,9 @@ from reranker_execution import (
 )
 
 
+REPORT_TITLE = "# Reranker Pipeline Benchmark"
+
+
 def _baseline_record(
     variant: str,
     payload: Mapping[str, Any],
@@ -66,7 +69,7 @@ def render_report(summary: Mapping[str, Any]) -> str:
         )
     )
     lines = [
-        "# Reranker Pipeline Benchmark — v1.5.2",
+        REPORT_TITLE,
         "",
         f"- Frozen corpus SHA-256: `{CORPUS_SHA256}`",
         f"- Benchmark status: `{summary['status']}`",
