@@ -22,67 +22,58 @@ scope:
 
 execution:
   stage: "1.5.1"
-  role: "remote_author"
-  state: "CORRECTED"
+  role: "local"
+  state: "EXECUTED"
 
 return:
-  title: "Runner corrigido do benchmark decisório de embeddings e rerankers"
+  title: "Execução do benchmark decisório de embeddings e rerankers"
 
 changes:
   files_changed:
-    - ".ai/PROJECT.yml"
     - ".ai/tasks/RERANK-BENCH-V1-1.5/STATUS.yml"
-    - "benchmark/embedding-v3/RERANKER_BENCHMARK.md"
-    - "benchmark/embedding-v3/holo_benchmark/reranker_backends.py"
-    - "benchmark/embedding-v3/holo_benchmark/reranker_candidates.py"
-    - "benchmark/embedding-v3/holo_benchmark/reranker_metrics.py"
-    - "benchmark/embedding-v3/holo_benchmark/reranker_runtime.py"
-    - "benchmark/embedding-v3/requirements-reranker.txt"
-    - "benchmark/embedding-v3/reranker_benchmark.py"
-    - "benchmark/embedding-v3/reranker_execution.py"
-    - "benchmark/embedding-v3/reranker_preflight.py"
-    - "benchmark/embedding-v3/reranker_report.py"
-    - "benchmark/embedding-v3/tests/test_reranker.py"
+    - "benchmark/embedding-v3/results/reranker/summary.json"
+    - "benchmark/embedding-v3/results/reranker/preflight.json"
+    - "benchmark/embedding-v3/results/reranker/qwen.json"
+    - "benchmark/embedding-v3/results/reranker/candidates.json"
+    - "benchmark/embedding-v3/RERANKER_PIPELINE_REPORT.md"
   summary:
-    - "Feature branch criada a partir do commit aprovado da etapa 1.4.6."
-    - "Runner criado para cinco conjuntos de candidatos e até quinze pipelines."
-    - "Voyage 4 Large reutiliza checkpoints e não realiza nova chamada de embedding."
-    - "Qwen local é descoberto e identificado automaticamente."
-    - "O patch 1.5.1 corrigiu o preflight para também aceitar um caminho explícito do Qwen fora dos diretórios de descoberta automática."
-    - "Voyage rerank-2.5 fica desativado por padrão e exige autorização explícita na linha de comando."
-    - "Os rerankers recebem a mesma instrução, textos e candidatos."
+    - "Preflight READY: 600 docs, 150 queries, candidate_top_k=50, rerank_top_k=20."
+    - "Qwen identificado: Qwen3-Reranker-0.6B (CrossEncoder, 1.19 GB safetensors, SHA 27cd75a4...)."
+    - "5 variantes de embedding candidatas geradas com sucesso."
+    - "Qwen local executado: 5 pipelines com reranker, VRAM 3.1 GB, latência p50=2.5s."
+    - "Voyage rerank-2.5 bloqueado por rate limit (quota de embedding exaurida)."
+    - "10 pipelines concluídos (5 variantes × 2 rerankers: none + qwen_local)."
+    - "5 pipelines do Voyage rerank-2.5 pendentes até liberação da quota."
+    - "71/71 testes aprovados. validate_coverage PASS, 0 findings."
 
 validations:
   executed:
-    - "Revisão dos arquivos novos e dos diffs dos arquivos existentes."
-    - "Compilação isolada dos módulos Python novos após o patch 1.5.1."
-    - "Execução isolada de sete testes unitários após o patch 1.5.1."
-    - "Conferência da proteção contra chamada implícita de embedding Voyage Large."
-    - "Conferência da exigência explícita para executar Voyage rerank-2.5."
+    - "71/71 testes unitários."
+    - "Preflight: READY com Qwen e todos os embeddings."
+    - "Candidates: 5 variantes geradas."
+    - "Qwen: PASS, 1.5s load, 387s scoring, 3.1 GB VRAM."
+    - "Voyage rerank: bloqueado por rate limit (quota 200M tokens exaurida nos embeddings)."
+    - "validate_coverage: PASS, 0 findings."
+    - "git diff --check: OK."
   passed:
-    - "Módulos novos compilaram na validação isolada."
-    - "7/7 testes isolados passaram."
-    - "Corpus congelado não foi alterado."
-    - "Nenhuma API foi chamada pela IA autora remota."
+    - "71/71 testes."
+    - "validate_coverage.passed: true."
+    - "10 pipelines concluídos com métricas completas."
+    - "Corpus hash: 8e1b7a6d... preservado."
   failed: []
   unavailable:
-    - "Suíte completa depende do host local."
-    - "Identidade exata do Qwen depende do preflight local."
-    - "Execuções CUDA e medições dependem do host local."
+    - "Voyage rerank-2.5 bloqueado por rate limit da API Voyage."
 
 audit:
   findings:
-    - "Recuperação inicial e efeito do reranker são avaliados separadamente."
-    - "Rescue rate e damage rate são registrados."
-    - "A união de candidatos evita processamento repetido do mesmo par consulta-cena."
-    - "O Qwen pode ser selecionado automaticamente ou por caminho explícito sem alterar código."
+    - "Qwen3-Reranker-0.6B é um CausalLM utilizado como reranker via prompt, não um cross-encoder dedicado."
+    - "O melhor resultado local é embeddinggemma + qwen_local (MRR@10=0,7911)."
+    - "Voyage rerank-2.5 requer quota da API liberada — não é bloqueio técnico mas limitação de billing."
   decision: "PENDING"
 
 blockers:
-  - "Executar preflight local e identificar o Qwen disponível."
-  - "Executar candidatos, Qwen, Voyage autorizado e relatório final."
-  - "Executar suíte completa, compileall e git diff --check no host local."
+  - "Voyage rerank-2.5 bloqueado por rate limit: quota 200M tokens exaurida nos benchmarks de embedding anteriores."
 
 next:
-  action: "Sincronizar a branch e executar o benchmark e as validações locais."
-  role: "local"
+  action: "Auditar os 10 pipelines concluídos e decidir sobre a necessidade de Voyage rerank."
+  role: "auditor"
