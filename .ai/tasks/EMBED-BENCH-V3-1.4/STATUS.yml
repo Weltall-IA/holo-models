@@ -18,11 +18,11 @@ scope:
 
 execution:
   stage: "1.4.5"
-  role: "remote_author"
-  state: "CORRECTED"
+  role: "local"
+  state: "EXECUTED"
 
 return:
-  title: "Correção da consistência entre resultados Voyage e inventário"
+  title: "Consolidação do inventário após os benchmarks Voyage"
 
 changes:
   files_changed:

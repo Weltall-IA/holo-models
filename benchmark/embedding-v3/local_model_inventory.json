@@ -2,8 +2,8 @@
   "schema_version": "1.0",
   "total_models": 53,
   "by_status": {
-    "BENCHMARKED": 10,
-    "BLOCKED": 21,
+    "BENCHMARKED": 12,
+    "BLOCKED": 19,
     "HEALTHCHECK_PASSED": 22
   },
   "by_category": {
@@ -1035,43 +1035,92 @@
     {
       "id": "voyage-4-large",
       "category": "embedding",
-      "status": "BLOCKED",
+      "status": "BENCHMARKED",
       "repo": "voyageai/voyage-4-large",
-      "reason": "VOYAGE_API_KEY não configurada no ambiente; aguardando autorização financeira do diretor para ativar",
+      "reason": null,
       "evidence": {
-        "runtime": "voyageai SDK",
-        "error": "VOYAGE_API_KEY não configurada no ambiente",
-        "attempts": [
-          {
-            "action": "Verificação de VOYAGE_API_KEY",
-            "result": "Variável de ambiente não definida"
-          },
-          {
-            "action": "Verificação do pacote voyageai",
-            "result": "Pacote não instalado no venv"
-          }
-        ]
+        "api_model": true,
+        "artifact": "results/voyage/voyage-4-large.json",
+        "runtime": "voyageai 0.5.0",
+        "endpoint": "Client.embed",
+        "dimension": 1024,
+        "dtype": "float",
+        "documents": 600,
+        "queries": 150,
+        "tokens": 259246,
+        "requests": 31,
+        "retries": 0,
+        "MRR@10": 0.7727936507936508,
+        "nDCG@10": 0.7860952189468112,
+        "HitRate@1": 0.7266666666666667,
+        "result": {
+          "MRR@10": 0.7727936507936508,
+          "nDCG@10": 0.7860952189468112,
+          "HitRate@1": 0.7266666666666667,
+          "tokens": 259246,
+          "requests": 31,
+          "retries": 0,
+          "documents": 600,
+          "queries": 150
+        }
+      },
+      "revision": "voyage-4-large-api-2026-07",
+      "result": {
+        "MRR@10": 0.7727936507936508,
+        "nDCG@10": 0.7860952189468112,
+        "HitRate@1": 0.7266666666666667,
+        "tokens": 259246,
+        "requests": 31,
+        "retries": 0,
+        "documents": 600,
+        "queries": 150
       }
     },
     {
       "id": "voyage-context-4",
       "category": "embedding",
-      "status": "BLOCKED",
+      "status": "BENCHMARKED",
       "repo": "voyageai/voyage-context-4",
-      "reason": "VOYAGE_API_KEY não configurada no ambiente; aguardando autorização financeira do diretor para ativar",
+      "reason": null,
       "evidence": {
-        "runtime": "voyageai SDK",
-        "error": "VOYAGE_API_KEY não configurada no ambiente",
-        "attempts": [
-          {
-            "action": "Verificação de VOYAGE_API_KEY",
-            "result": "Variável de ambiente não definida"
-          },
-          {
-            "action": "Verificação do pacote voyageai",
-            "result": "Pacote não instalado no venv"
-          }
-        ]
+        "api_model": true,
+        "artifact": "results/voyage/voyage-context-4.json",
+        "runtime": "voyageai 0.5.0",
+        "endpoint": "Client.contextualized_embed",
+        "dimension": 1024,
+        "dtype": "float",
+        "documents_chunks": 600,
+        "works": 30,
+        "queries": 150,
+        "tokens": 259906,
+        "requests": 31,
+        "retries": 0,
+        "MRR@10": 0.7433042328042329,
+        "nDCG@10": 0.7748319476944924,
+        "HitRate@1": 0.6666666666666666,
+        "result": {
+          "MRR@10": 0.7433042328042329,
+          "nDCG@10": 0.7748319476944924,
+          "HitRate@1": 0.6666666666666666,
+          "tokens": 259906,
+          "requests": 31,
+          "retries": 0,
+          "documents_chunks": 600,
+          "works": 30,
+          "queries": 150
+        }
+      },
+      "revision": "voyage-context-4-api-2026-07",
+      "result": {
+        "MRR@10": 0.7433042328042329,
+        "nDCG@10": 0.7748319476944924,
+        "HitRate@1": 0.6666666666666666,
+        "tokens": 259906,
+        "requests": 31,
+        "retries": 0,
+        "documents_chunks": 600,
+        "works": 30,
+        "queries": 150
       }
     }
   ],
