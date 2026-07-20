@@ -1,4 +1,4 @@
-# Reranker Pipeline Benchmark — v1.5.2
+# Reranker Pipeline Benchmark
 
 - Frozen corpus SHA-256: `8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b`
 - Benchmark status: `PASS`
