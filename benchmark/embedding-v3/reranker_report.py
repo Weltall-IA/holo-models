@@ -6,7 +6,7 @@ from pathlib import Path
 from typing import Any, Mapping, Sequence
 
 from holo_benchmark.metrics import DEFAULT_KS, evaluate_rankings
-from holo_benchmark.reranker_metrics import candidate_ids
+from holo_benchmark.reranker_metrics import candidate_ids, pipeline_completion
 from holo_benchmark.reranker_runtime import (
     CORPUS_SHA256,
     atomic_json,
@@ -66,14 +66,23 @@ def render_report(summary: Mapping[str, Any]) -> str:
         )
     )
     lines = [
-        "# Reranker Pipeline Benchmark — v1.5.1",
+        "# Reranker Pipeline Benchmark — v1.5.2",
         "",
         f"- Frozen corpus SHA-256: `{CORPUS_SHA256}`",
-        f"- Pipelines completed: {len(rows)}",
-        "",
-        "| Rank | Pipeline | HitRate@1 | HitRate@10 | MRR@10 | nDCG@10 | Rescue | Damage |",
-        "|---:|---|---:|---:|---:|---:|---:|---:|",
+        f"- Benchmark status: `{summary['status']}`",
+        "- Pipelines completed: "
+        f"{summary['completed_pipeline_count']} / {summary['expected_pipeline_count']}",
     ]
+    missing = list(summary.get("missing_pipelines") or [])
+    if missing:
+        lines.append("- Missing pipelines: " + ", ".join(f"`{item}`" for item in missing))
+    lines.extend(
+        [
+            "",
+            "| Rank | Pipeline | HitRate@1 | HitRate@10 | MRR@10 | nDCG@10 | Rescue | Damage |",
+            "|---:|---|---:|---:|---:|---:|---:|---:|",
+        ]
+    )
     for rank, row in enumerate(rows, start=1):
         metrics = row["metrics"]["summary"]
         effect = row.get("effect") or {}
@@ -161,7 +170,9 @@ def render_report(summary: Mapping[str, Any]) -> str:
         )
     lines.extend(
         [
-            "O relatório separa qualidade, custo de API e recursos locais. Nenhum merge ou escolha de produção é implícito.",
+            "The ranking covers only completed pipelines and does not establish statistical significance between near-tied results.",
+            "The 2048 int8 variant uses corpus-calibrated scalar quantization with dequantized cosine scoring; native vector-database latency was not measured.",
+            "No merge or production choice is implicit.",
             "",
         ]
     )
@@ -184,9 +195,11 @@ def build_report(args: argparse.Namespace) -> dict[str, Any]:
             path = directory / f"{variant}.json"
             if path.is_file():
                 records.append(_pipeline_record(path))
+
+    completion = pipeline_completion(variants, records)
     summary = {
         "schema_version": "1.0",
-        "status": "PASS",
+        **completion,
         "corpus_sha256": CORPUS_SHA256,
         "candidate_top_k": args.candidate_top_k,
         "rerank_top_k": args.rerank_top_k,
