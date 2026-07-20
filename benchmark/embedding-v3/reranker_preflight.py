@@ -70,7 +70,7 @@ def preflight(args: argparse.Namespace) -> dict[str, Any]:
 
     payload = {
         "schema_version": "1.0",
-        "stage": "1.5.0",
+        "stage": "1.5.1",
         "status": "READY" if not blockers else "BLOCKED",
         "blockers": blockers,
         "corpus_sha256": CORPUS_SHA256,
