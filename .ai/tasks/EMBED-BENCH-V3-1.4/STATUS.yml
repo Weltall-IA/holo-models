@@ -3,7 +3,7 @@ schema_version: 1
 task:
   id: "EMBED-BENCH-V3-1.4"
   title: "Benchmark de embeddings locais e Voyage"
-  objective: "Preservar os benchmarks locais, executar Voyage 4 Large e Voyage Context 4 e manter o inventário canônico consistente com os resultados."
+  objective: "Preservar os benchmarks locais, executar Voyage 4 Large e Voyage Context 4 e manter o inventário e o relatório canônicos consistentes com os resultados."
 
 scope:
   included:
@@ -11,62 +11,58 @@ scope:
     - "Runner dedicado para voyage-4-large e voyage-context-4."
     - "Limite compartilhado de 10.000 TPM e 3 RPM."
     - "Checkpoints retomáveis e métricas equivalentes às execuções locais."
-    - "Consistência entre resultados Voyage e inventário canônico."
+    - "Consistência entre resultados, inventário e relatório canônico."
   excluded:
     - "LLMs de chat, áudio, imagem, vídeo e rerankers."
     - "Modelos Voyage não autorizados."
 
 execution:
   stage: "1.4.5"
-  role: "local"
-  state: "EXECUTED"
+  role: "auditor"
+  state: "REJECTED"
 
 return:
-  title: "Consolidação do inventário após os benchmarks Voyage"
+  title: "Auditoria da consolidação do inventário e relatório de embeddings"
 
 changes:
   files_changed:
     - ".ai/tasks/EMBED-BENCH-V3-1.4/STATUS.yml"
-    - "benchmark/embedding-v3/holo_benchmark/coverage_validation.py"
-    - "benchmark/embedding-v3/validate_coverage.py"
-    - "benchmark/embedding-v3/tests/test_coverage_validation.py"
   summary:
-    - "Os resultados executados no commit 319e210 são tecnicamente válidos e permanecem preservados."
-    - "A auditoria encontrou o inventário canônico ainda com voyage-4-large e voyage-context-4 em BLOCKED."
-    - "As contagens do inventário continuam antigas: 10 BENCHMARKED e 21 BLOCKED, apesar dos dois resultados concluídos."
-    - "O validador foi corrigido para cruzar results/voyage/summary.json com o inventário e rejeitar status divergente."
-    - "Benchmarks de API agora podem provar identidade por modelo, SDK, endpoint, artefato e resultado, sem inventar revisão de pesos."
+    - "O commit 1f9bfd72d18e7f450abbb13413ad4e2c33534cad consolidou corretamente os dois Voyage como BENCHMARKED e corrigiu as contagens gerais."
+    - "Os resultados Voyage permanecem válidos e não devem ser reexecutados."
+    - "A atividade foi rejeitada somente por inconsistências no relatório final e por revisões artificiais atribuídas aos modelos de API."
 
 validations:
   executed:
-    - "Inspeção do commit 319e2107189da1d7a8624ea3cac464606f79754f."
-    - "Conferência dos resultados Voyage, métricas, tokens, requisições e corpus."
-    - "Conferência do inventário canônico e das contagens por status."
-    - "Revisão integral das alterações remotas no validador e nos testes direcionados."
+    - "Inspeção integral do commit 1f9bfd72d18e7f450abbb13413ad4e2c33534cad."
+    - "Conferência dos estados, contagens e evidências Voyage no inventário."
+    - "Comparação do relatório consolidado com os artefatos canônicos dos Gates 2 e 3."
   passed:
-    - "voyage-4-large: 600 documentos, 150 consultas, 259.246 tokens, 31 requisições, 0 retries."
-    - "voyage-context-4: 600 chunks, 150 consultas, 259.906 tokens, 31 requisições, 0 retries."
-    - "Corpus SHA-256 preservado: 8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b."
+    - "Inventário: 53 modelos, 12 BENCHMARKED, 19 BLOCKED e 22 HEALTHCHECK_PASSED."
+    - "voyage-4-large e voyage-context-4 estão BENCHMARKED com evidências sanitizadas e métricas corretas."
+    - "Os benchmarks Voyage e os resultados locais permanecem preservados."
   failed:
-    - "Inventário canônico não foi consolidado após a execução Voyage."
-    - "validate_coverage anterior retornou falso positivo por não cruzar resultados concluídos."
+    - "LOCAL_MODEL_INVENTORY_REPORT.md lista 14 embeddings, mas apresenta 11 modelos, 1 alias e 3 bloqueados, totalizando 15 entradas."
+    - "gte_multilingual_base_cuda foi removido como duplicata, mas reaparece indevidamente como modelo BLOCKED no relatório."
+    - "O ranking por MRR coloca qwen3_embedding_06_gguf antes de qwen3_embedding_06 apesar de 0,615349 ser menor que 0,616349."
+    - "O relatório registra nDCG incorreto para colibri_ptbr, bge_m3_dense e multilingual_e5_large_instruct."
+    - "O inventário atribui revisões artificiais voyage-4-large-api-2026-07 e voyage-context-4-api-2026-07, embora a identidade de API já seja comprovada sem revisão de pesos."
   unavailable:
-    - "Suite local e regeneração dos artefatos de inventário dependem do checkout local."
+    - "A suíte local não foi reexecutada pela IA auditora remota."
 
 audit:
   findings:
-    - "voyage-4-large é o melhor resultado de ranking inicial: MRR@10=0,7728 e nDCG@10=0,7861."
-    - "voyage-context-4 tem MRR menor, mas HitRate@10 maior e menor taxa de erro por hard negative."
-    - "A execução não sofreu HTTP 429 e o consumo real ficou alinhado ao preflight."
-    - "O texto anterior que dizia que Context 4 usou menos tokens estava incorreto; ele consumiu 660 tokens a mais que Large."
-    - "A atividade não pode ser aprovada enquanto o inventário e o relatório canônico permanecerem desatualizados."
-  decision: "PENDING"
+    - "Os benchmarks estão corretos; a falha está exclusivamente na consolidação documental e na identidade declarada dos modelos de API."
+    - "O validador ainda não verifica coerência aritmética do relatório, ordenação do ranking ou correspondência exata das métricas canônicas."
+  decision: "REJECTED"
 
 blockers:
-  - "Atualizar voyage-4-large e voyage-context-4 para BENCHMARKED no inventário."
-  - "Atualizar contagens para 12 BENCHMARKED, 19 BLOCKED e 22 HEALTHCHECK_PASSED."
-  - "Regenerar o relatório de inventário e executar o validador corrigido."
+  - "Remover as revisões artificiais dos dois modelos Voyage."
+  - "Corrigir a lista de embeddings bloqueados para conter somente bitnet_270m e bitnet_06b."
+  - "Regenerar o ranking em ordem decrescente real de MRR@10."
+  - "Copiar as métricas exatas dos artefatos canônicos, sem valores manuais divergentes."
+  - "Validar que 11 modelos únicos + 1 alias + 2 bloqueados = 14 entradas de embedding."
 
 next:
-  action: "Sincronizar o patch 1.4.5, atualizar os artefatos gerados do inventário e executar novamente toda a validação."
-  role: "local"
+  action: "Corrigir diretamente o inventário e o relatório final sem reexecutar benchmarks."
+  role: "remote_author"
