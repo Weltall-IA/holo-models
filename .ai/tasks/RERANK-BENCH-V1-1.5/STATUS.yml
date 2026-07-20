@@ -22,58 +22,51 @@ scope:
 
 execution:
   stage: "1.5.2"
-  role: "local"
-  state: "EXECUTED"
+  role: "auditor"
+  state: "PARTIAL_APPROVED"
 
 return:
-  title: "Correção da completude do benchmark decisório de embeddings e rerankers"
+  title: "Aprovação parcial da consolidação do benchmark de embeddings e rerankers"
 
 changes:
   files_changed:
     - ".ai/tasks/RERANK-BENCH-V1-1.5/STATUS.yml"
-    - "benchmark/embedding-v3/holo_benchmark/reranker_metrics.py"
-    - "benchmark/embedding-v3/reranker_report.py"
-    - "benchmark/embedding-v3/tests/test_reranker.py"
   summary:
-    - "O commit local 05942ac6a036dd0c5a5ec95f773b0a721962e72e produziu dez pipelines válidos: cinco baselines e cinco pipelines com Qwen local."
-    - "A auditoria encontrou que o gerador marcava summary.json como PASS incondicionalmente, apesar de cinco pipelines Voyage rerank-2.5 estarem ausentes."
-    - "O patch 1.5.2 calcula a matriz esperada, registra pipelines concluídas, ausentes, inesperadas e duplicadas e só retorna PASS quando as quinze existem."
-    - "Com os artefatos atuais, o resultado correto após regeneração será PARTIAL, com dez de quinze pipelines."
-    - "A liderança do EmbeddingGemma com Qwen é apenas numérica entre as pipelines concluídas; não representa qualidade absoluta nem significância estatística."
-    - "A variante Nano 2048 int8 é uma quantização escalar calibrada no corpus e avaliada por cosseno após desquantização; latência nativa de banco vetorial int8 não foi medida."
-    - "O Qwen3-Reranker-0.6B foi executado corretamente pela interface CrossEncoder da biblioteca local, usando o checkpoint CausalLM como reranker generativo."
+    - "O commit local 31a9e80ccac030f7086495cd7741e26bafa530d3 regenerou corretamente summary.json e RERANKER_PIPELINE_REPORT.md com o runner 1.5.2."
+    - "A matriz está corretamente marcada como PARTIAL, com 10 pipelines concluídas de 15 esperadas."
+    - "As cinco pipelines ausentes são exclusivamente as combinações com Voyage rerank-2.5."
+    - "EmbeddingGemma 768 float32 + Qwen local lidera numericamente as pipelines concluídas."
+    - "A liderança não representa qualidade absoluta, pois a referência Voyage rerank-2.5 não foi executada."
 
 validations:
   executed:
-    - "Inspeção do commit local e dos dez artefatos de pipeline."
-    - "Conferência do relatório, preflight, score do Qwen, hashes, recursos e métricas."
-    - "Revisão do cálculo de rescue rate, damage rate e cobertura de candidatos."
-    - "Revisão dos diffs do patch 1.5.2 e inclusão de testes para matriz parcial e completa."
+    - "Inspeção integral do commit 31a9e80ccac030f7086495cd7741e26bafa530d3."
+    - "Comparação com o HEAD autoral 8da97c4a222223ba14848d404ad3364d5e9ae459."
+    - "Conferência do escopo: somente STATUS.yml, summary.json e RERANKER_PIPELINE_REPORT.md foram alterados pela execução local."
+    - "Conferência da matriz esperada, pipelines concluídas, ausentes, inesperadas e duplicadas."
+    - "Conferência do relatório parcial e da preservação das métricas das dez pipelines já executadas."
   passed:
-    - "Os dez resultados concluídos são consistentes com os artefatos versionados."
-    - "Qwen3-Reranker-0.6B: peso 1191588280 bytes, SHA-256 27cd75a405b9c1b46b59abfd88aaa209e6fed2a1972cde9b70e7659537c5e65b."
-    - "EmbeddingGemma + Qwen lidera numericamente as pipelines concluídas com MRR@10 0.791074 e nDCG@10 0.805547."
-    - "Voyage Large + Qwen está praticamente empatado: MRR@10 0.790296 e nDCG@10 0.804706."
-    - "Corpus SHA-256 congelado foi preservado."
-  failed:
-    - "O summary.json publicado está incorretamente marcado como PASS antes da regeneração pelo runner corrigido."
+    - "summary.json: status PARTIAL, 15 pipelines esperadas, 10 concluídas e 5 ausentes."
+    - "unexpected_pipelines e duplicate_pipelines permanecem vazios."
+    - "As cinco ausências correspondem exatamente ao Voyage rerank-2.5."
+    - "RERANKER_PIPELINE_REPORT.md identifica versão 1.5.2, status PARTIAL e 10/15 pipelines."
+    - "73/73 testes, compileall, validate_coverage PASS com 0 findings e git diff --check OK foram registrados pela execução local."
+  failed: []
   unavailable:
-    - "A suíte completa e a regeneração dos artefatos dependem do host local."
-    - "A causa exata do bloqueio Voyage rerank-2.5 não possui artefato estruturado versionado; apenas o registro sanitizado no retorno local e no STATUS anterior."
+    - "A suíte local não foi reexecutada pela IA auditora remota; os resultados locais foram conferidos documentalmente."
+    - "Não há artefato estruturado versionado com a resposta de rate limit do Voyage; o bloqueio permanece registrado de forma sanitizada."
 
 audit:
   findings:
-    - "Dez pipelines locais aprovadas como resultados parciais."
-    - "Cinco pipelines Voyage rerank-2.5 continuam ausentes."
-    - "Não é válido declarar melhor qualidade absoluta enquanto a referência Voyage não tiver sido executada."
-    - "A diferença entre EmbeddingGemma + Qwen e Voyage Large + Qwen é 0.000778 em MRR@10 e 0.000841 em nDCG@10, sem teste de significância."
-  decision: "CORRECTION_REQUIRED"
+    - "As dez pipelines concluídas são válidas e estão aprovadas como resultado parcial."
+    - "EmbeddingGemma + Qwen lidera as pipelines concluídas com MRR@10 0.791074 e nDCG@10 0.805547."
+    - "Voyage Large + Qwen está praticamente empatado, sem evidência de vantagem prática ou significância estatística."
+    - "Melhor qualidade absoluta permanece indeterminada até a execução do Voyage rerank-2.5."
+  decision: "APPROVED_PARTIAL"
 
 blockers:
-  - "Regenerar summary.json e RERANKER_PIPELINE_REPORT.md com o runner 1.5.2, sem reexecutar embeddings ou Qwen."
-  - "Executar a suíte local; o total esperado passa de 71 para 73 testes."
-  - "Voyage rerank-2.5 permanece pendente para concluir as quinze pipelines."
+  - "Cinco pipelines Voyage rerank-2.5 permanecem pendentes por indisponibilidade de quota da API."
 
 next:
-  action: "Sincronizar o patch 1.5.2, regenerar somente o relatório, validar e publicar os artefatos corrigidos."
-  role: "local"
+  action: "O diretor deve decidir se aguarda quota para completar as cinco pipelines Voyage ou encerra a decisão com os dez resultados locais aprovados."
+  role: "director"
