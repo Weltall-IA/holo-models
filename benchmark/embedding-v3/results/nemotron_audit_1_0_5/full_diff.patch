@@ -1,9 +1,9 @@
 diff --git a/.ai/tasks/NEMOTRON-AUDIT-1.0.5/STATUS.yml b/.ai/tasks/NEMOTRON-AUDIT-1.0.5/STATUS.yml
 new file mode 100644
-index 0000000000000000000000000000000000000000..65cc2745130971d3a2952967b135655a4e93c90d
+index 0000000..3f9f739
 --- /dev/null
 +++ b/.ai/tasks/NEMOTRON-AUDIT-1.0.5/STATUS.yml
-@@ -0,0 +1,108 @@
+@@ -0,0 +1,114 @@
 +schema_version: 1
 +
 +task:
@@ -28,7 +28,7 @@ index 0000000000000000000000000000000000000000..65cc2745130971d3a2952967b135655a
 +execution:
 +  stage: "1.0.5"
 +  role: "local"
-+  state: "BLOCKED"
++  state: "COMPLETED"
 +
 +queue:
 +  - id: "Q1"
@@ -39,10 +39,10 @@ index 0000000000000000000000000000000000000000..65cc2745130971d3a2952967b135655a
 +    state: "COMPLETED"
 +  - id: "Q3"
 +    action: "Consolidar as cinco inicializações alternadas de cada GGUF 8B."
-+    state: "EXECUTED"
++    state: "COMPLETED"
 +  - id: "Q4"
 +    action: "Consolidar o preflight isolado NVFP4 e a comparação completa com o GGUF 1B."
-+    state: "EXECUTED"
++    state: "COMPLETED"
 +  - id: "Q5"
 +    action: "Registrar os dois perfis Nemotron 1B no benchmark completo."
 +    state: "COMPLETED"
@@ -54,7 +54,7 @@ index 0000000000000000000000000000000000000000..65cc2745130971d3a2952967b135655a
 +    state: "COMPLETED"
 +  - id: "Q8"
 +    action: "Criar commit objetivo, publicar a branch e abrir PR."
-+    state: "BLOCKED"
++    state: "COMPLETED"
 +
 +changes:
 +  files_changed:
@@ -96,8 +96,15 @@ index 0000000000000000000000000000000000000000..65cc2745130971d3a2952967b135655a
 +    - "Nenhuma assinatura comum de segredo encontrada."
 +    - "git diff --cached --check sem achados após normalização de whitespace dos logs."
 +  failed: []
-+  unavailable:
-+    - "Commit, push e PR: gh auth status informa token inválido para Weltall-IA."
++  unavailable: []
++
++publication:
++  gh_auth_validated: true
++  publication_branch: "ai/nemotron-audit-v1.0.5"
++  initial_publication_commit: "1a92ca170cb687649cd0eb9e1183b6eaeb67a107"
++  pull_request: 3
++  pull_request_state: "draft"
++  base_merged: "4dab19f592b95174a6febb2358028cf7a13f5701"
 +
 +audit:
 +  findings:
@@ -106,15 +113,14 @@ index 0000000000000000000000000000000000000000..65cc2745130971d3a2952967b135655a
 +    - "NVFP4 apresentou maior throughput aquecido; GGUF apresentou menor cold start, RAM e VRAM."
 +  decision: "APPROVED"
 +
-+blockers:
-+  - "Reautenticar o GitHub CLI com gh auth login -h github.com para permitir branch, commit, push e PR draft."
++blockers: []
 +
 +next:
-+  action: "Após reautenticar o gh, criar a feature branch dedicada, commitar o escopo já staged, publicar e abrir o PR draft sem merge."
-+  role: "human_then_local"
++  action: "Aguardar revisão humana do PR #3; nenhum merge será realizado sem autorização humana explícita."
++  role: "human_review"
 diff --git a/benchmark/embedding-v3/NEMOTRON_AUDIT_1_0_5_REPORT.md b/benchmark/embedding-v3/NEMOTRON_AUDIT_1_0_5_REPORT.md
 new file mode 100644
-index 0000000000000000000000000000000000000000..7d0e9373a8e5442bedbc7ada66faeff0ed3f0f8d
+index 0000000..7d0e937
 --- /dev/null
 +++ b/benchmark/embedding-v3/NEMOTRON_AUDIT_1_0_5_REPORT.md
 @@ -0,0 +1,214 @@
@@ -333,10 +339,13 @@ index 0000000000000000000000000000000000000000..7d0e9373a8e5442bedbc7ada66faeff0
 +- A primeira compilação NVFP4 é um custo de preparação; caches podem ser
 +  invalidados por mudanças de GPU, driver, CUDA, vLLM ou perfil de execução.
 diff --git a/benchmark/embedding-v3/README.md b/benchmark/embedding-v3/README.md
-index 255e18b4866ca434bc5963211638735eec6dec70..a8ddb6be556c4e344acddf7d709a7712129cb8f1 100644
+index 255e18b..a8ddb6b 100644
 --- a/benchmark/embedding-v3/README.md
 +++ b/benchmark/embedding-v3/README.md
-@@ -53,0 +54,13 @@ Uma seleção parcial com `--models`, execução em CPU ou recorte do corpus nun
+@@ -51,6 +51,19 @@ Qwen3 usa pooling `last` e instrução de consulta. O modelo 8B retorna até 409
+
+ Uma seleção parcial com `--models`, execução em CPU ou recorte do corpus nunca conclui o Gate 3 como `PASS`. Diagnósticos parciais são gravados em `results/gate3/diagnostics/` sem substituir os artefatos canônicos.
+
 +## Perfis Nemotron 1B admitidos
 +
 +Os perfis `nvidia/Nemotron-3-Embed-1B-NVFP4` em vLLM e
@@ -350,9 +359,12 @@ index 255e18b4866ca434bc5963211638735eec6dec70..a8ddb6be556c4e344acddf7d709a7712
 +em lote no host medido. Resultados, limites e evidências da admissão estão em
 +`NEMOTRON_AUDIT_1_0_5_REPORT.md`.
 +
+ ## Execução
+
+ ```text
 diff --git a/benchmark/embedding-v3/build_nemotron_audit_manifest.py b/benchmark/embedding-v3/build_nemotron_audit_manifest.py
 new file mode 100644
-index 0000000000000000000000000000000000000000..a6fc321ca85a345b1110605d0b45de473eb8422e
+index 0000000..009f6df
 --- /dev/null
 +++ b/benchmark/embedding-v3/build_nemotron_audit_manifest.py
 @@ -0,0 +1,145 @@
@@ -440,16 +452,14 @@ index 0000000000000000000000000000000000000000..a6fc321ca85a345b1110605d0b45de47
 +        "state": "COMPLETED",
 +        "task": "NEMOTRON-AUDIT-1.0.5",
 +        "git": {
-+            "branch": _git(repo, "branch", "--show-current"),
-+            "head": _git(repo, "rev-parse", "HEAD"),
-+            "origin_branch": "ai/reranker-benchmark-v1.5",
-+            "local_head_at_inventory": "493ccd2432d550deb6daa84956ea1056bf028c1c",
-+            "remote_head_at_inventory": "4dab19f",
-+            "explanation": (
-+                "A execução foi herdada com artefatos não versionados na branch de "
-+                "reranker; eles foram preservados e a publicação será feita em branch "
-+                "dedicada."
-+            ),
++            "source_branch_at_inventory": "ai/reranker-benchmark-v1.5",
++            "source_head_at_inventory": "493ccd2432d550deb6daa84956ea1056bf028c1c",
++            "base_branch": "ai/reranker-benchmark-v1.5",
++            "base_head_at_publication": "4dab19f592b95174a6febb2358028cf7a13f5701",
++            "publication_branch": _git(repo, "branch", "--show-current"),
++            "initial_publication_commit": "1a92ca170cb687649cd0eb9e1183b6eaeb67a107",
++            "pull_request": 3,
++            "pull_request_state": "draft",
 +        },
 +        "models_not_versioned": [
 +            {
@@ -491,7 +501,9 @@ index 0000000000000000000000000000000000000000..a6fc321ca85a345b1110605d0b45de47
 +        "files": [_entry(repo, path) for path in sorted(set(relative_files))],
 +        "self_hash_note": (
 +            "manifest.json não lista o próprio hash; full_diff.patch é gerado depois "
-+            "do manifesto e documenta o diff completo exceto a si próprio."
++            "do manifesto e documenta o diff completo exceto a si próprio. O SHA do "
++            "commit de correção documental é omitido intencionalmente para evitar "
++            "autorreferência no manifest."
 +        ),
 +    }
 +    args.output.parent.mkdir(parents=True, exist_ok=True)
@@ -503,7 +515,7 @@ index 0000000000000000000000000000000000000000..a6fc321ca85a345b1110605d0b45de47
 +    raise SystemExit(main())
 diff --git a/benchmark/embedding-v3/config/nemotron_1b_profiles.json b/benchmark/embedding-v3/config/nemotron_1b_profiles.json
 new file mode 100644
-index 0000000000000000000000000000000000000000..43fe2de37dd5b8354bf4d8c0ab0f846c1643ed29
+index 0000000..43fe2de
 --- /dev/null
 +++ b/benchmark/embedding-v3/config/nemotron_1b_profiles.json
 @@ -0,0 +1,56 @@
@@ -565,7 +577,7 @@ index 0000000000000000000000000000000000000000..43fe2de37dd5b8354bf4d8c0ab0f846c
 +}
 diff --git a/benchmark/embedding-v3/results/nemotron_audit_1_0_5/abiray_gguf_structure.json b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/abiray_gguf_structure.json
 new file mode 100644
-index 0000000000000000000000000000000000000000..034adc5f8d5e00802d61bbc6fe8df26922b8b696
+index 0000000..034adc5
 --- /dev/null
 +++ b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/abiray_gguf_structure.json
 @@ -0,0 +1 @@
@@ -573,7 +585,7 @@ index 0000000000000000000000000000000000000000..034adc5f8d5e00802d61bbc6fe8df269
 \ No newline at end of file
 diff --git a/benchmark/embedding-v3/results/nemotron_audit_1_0_5/abiray_tail.hex b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/abiray_tail.hex
 new file mode 100644
-index 0000000000000000000000000000000000000000..5fe989766c2972c30898d131bed5d9b00c66bb0d
+index 0000000..5fe9897
 --- /dev/null
 +++ b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/abiray_tail.hex
 @@ -0,0 +1,6 @@
@@ -585,7 +597,7 @@ index 0000000000000000000000000000000000000000..5fe989766c2972c30898d131bed5d9b0
 +00000050: 67 67 75 66 5f 31 37 38 34 36 31 38 33 36 32 0a  gguf_1784618362.
 diff --git a/benchmark/embedding-v3/results/nemotron_audit_1_0_5/abiray_tensor_hashes.txt b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/abiray_tensor_hashes.txt
 new file mode 100644
-index 0000000000000000000000000000000000000000..e44fa35e679c8e6c380463621a041a9c991d2a10
+index 0000000..e44fa35
 --- /dev/null
 +++ b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/abiray_tensor_hashes.txt
 @@ -0,0 +1,619 @@
@@ -1210,7 +1222,7 @@ index 0000000000000000000000000000000000000000..e44fa35e679c8e6c380463621a041a9c
 +uuid      dbad530e-f022-5165-9362-7d251d621622  embed/Nemotron-3-Embed-8B-Abiray-Q4_K_M/Nemotron-3-Embed-8B-Q4_K_M.gguf
 diff --git a/benchmark/embedding-v3/results/nemotron_audit_1_0_5/admission_decision_20260723.json b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/admission_decision_20260723.json
 new file mode 100644
-index 0000000000000000000000000000000000000000..c10bd5743aa44f9fecf786b1b64b080f226d5d40
+index 0000000..c10bd57
 --- /dev/null
 +++ b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/admission_decision_20260723.json
 @@ -0,0 +1,113 @@
@@ -1329,7 +1341,7 @@ index 0000000000000000000000000000000000000000..c10bd5743aa44f9fecf786b1b64b080f
 +}
 diff --git a/benchmark/embedding-v3/results/nemotron_audit_1_0_5/admission_gguf_full_20260723.log b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/admission_gguf_full_20260723.log
 new file mode 100644
-index 0000000000000000000000000000000000000000..62fff25676b1493e630fceecc051ff57cd01d851
+index 0000000..62fff25
 --- /dev/null
 +++ b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/admission_gguf_full_20260723.log
 @@ -0,0 +1,12 @@
@@ -1348,7 +1360,7 @@ index 0000000000000000000000000000000000000000..62fff25676b1493e630fceecc051ff57
 \ No newline at end of file
 diff --git a/benchmark/embedding-v3/results/nemotron_audit_1_0_5/admission_gguf_full_20260723_attempt2.json b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/admission_gguf_full_20260723_attempt2.json
 new file mode 100644
-index 0000000000000000000000000000000000000000..14c7514ebde7f6069cdfae1e0cb1f9bb9e717885
+index 0000000..14c7514
 --- /dev/null
 +++ b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/admission_gguf_full_20260723_attempt2.json
 @@ -0,0 +1,11699 @@
@@ -13053,7 +13065,7 @@ index 0000000000000000000000000000000000000000..14c7514ebde7f6069cdfae1e0cb1f9bb
 +}
 diff --git a/benchmark/embedding-v3/results/nemotron_audit_1_0_5/admission_gguf_full_20260723_attempt2.log b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/admission_gguf_full_20260723_attempt2.log
 new file mode 100644
-index 0000000000000000000000000000000000000000..e41be2f035046ab132f92ae254857457a0df41a6
+index 0000000..e41be2f
 --- /dev/null
 +++ b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/admission_gguf_full_20260723_attempt2.log
 @@ -0,0 +1,2261 @@
@@ -15320,7 +15332,7 @@ index 0000000000000000000000000000000000000000..e41be2f035046ab132f92ae254857457
 +0.36.721.441 I srv    operator(): operator(): cleaning up before exit...
 diff --git a/benchmark/embedding-v3/results/nemotron_audit_1_0_5/admission_nvfp4_full_20260723.json b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/admission_nvfp4_full_20260723.json
 new file mode 100644
-index 0000000000000000000000000000000000000000..ed01ee18c4199e0a7b572ad87166a8d09c8896ea
+index 0000000..ed01ee1
 --- /dev/null
 +++ b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/admission_nvfp4_full_20260723.json
 @@ -0,0 +1,11677 @@
@@ -27003,7 +27015,7 @@ index 0000000000000000000000000000000000000000..ed01ee18c4199e0a7b572ad87166a8d0
 +}
 diff --git a/benchmark/embedding-v3/results/nemotron_audit_1_0_5/admission_nvfp4_full_cached_20260723.json b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/admission_nvfp4_full_cached_20260723.json
 new file mode 100644
-index 0000000000000000000000000000000000000000..753c594d0e95f29456b8b2ea37ff4e9a09c22c95
+index 0000000..753c594
 --- /dev/null
 +++ b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/admission_nvfp4_full_cached_20260723.json
 @@ -0,0 +1,11677 @@
@@ -38686,7 +38698,7 @@ index 0000000000000000000000000000000000000000..753c594d0e95f29456b8b2ea37ff4e9a
 +}
 diff --git a/benchmark/embedding-v3/results/nemotron_audit_1_0_5/aqua00_gguf_structure.json b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/aqua00_gguf_structure.json
 new file mode 100644
-index 0000000000000000000000000000000000000000..47a70482deb8c15ca0221487830364e31f1ac0f9
+index 0000000..47a7048
 --- /dev/null
 +++ b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/aqua00_gguf_structure.json
 @@ -0,0 +1 @@
@@ -38694,7 +38706,7 @@ index 0000000000000000000000000000000000000000..47a70482deb8c15ca0221487830364e3
 \ No newline at end of file
 diff --git a/benchmark/embedding-v3/results/nemotron_audit_1_0_5/aqua00_tail.hex b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/aqua00_tail.hex
 new file mode 100644
-index 0000000000000000000000000000000000000000..4f53c497e15318759f012e02f38403cd1c20c435
+index 0000000..4f53c49
 --- /dev/null
 +++ b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/aqua00_tail.hex
 @@ -0,0 +1,6 @@
@@ -38706,7 +38718,7 @@ index 0000000000000000000000000000000000000000..4f53c497e15318759f012e02f38403cd
 +00000050: 8a a9 e5 66 34 89 a8 18 34 b5 48 4d 63 3a 86 9a  ...f4...4.HMc:..
 diff --git a/benchmark/embedding-v3/results/nemotron_audit_1_0_5/aqua00_tensor_hashes.txt b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/aqua00_tensor_hashes.txt
 new file mode 100644
-index 0000000000000000000000000000000000000000..dea0d37233171c5db97855e6f0ac680dc4e7628f
+index 0000000..dea0d37
 --- /dev/null
 +++ b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/aqua00_tensor_hashes.txt
 @@ -0,0 +1,619 @@
@@ -39331,10 +39343,10 @@ index 0000000000000000000000000000000000000000..dea0d37233171c5db97855e6f0ac680d
 +uuid      dbad530e-f022-5165-9362-7d251d621622  embed/Nemotron-3-Embed-8B-Aqua00-Q4_K_M/Nemotron-3-Embed-8B-Q4_K_M.gguf
 diff --git a/benchmark/embedding-v3/results/nemotron_audit_1_0_5/file_byte_diff.txt b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/file_byte_diff.txt
 new file mode 100644
-index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
+index 0000000..e69de29
 diff --git a/benchmark/embedding-v3/results/nemotron_audit_1_0_5/file_sha256.txt b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/file_sha256.txt
 new file mode 100644
-index 0000000000000000000000000000000000000000..89513c552fdd24d2e0498807b2200540cf18e908
+index 0000000..89513c5
 --- /dev/null
 +++ b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/file_sha256.txt
 @@ -0,0 +1,2 @@
@@ -39342,7 +39354,7 @@ index 0000000000000000000000000000000000000000..89513c552fdd24d2e0498807b2200540
 +1352d929879c61fccf76ff855c6250c7fdc924479932918febcc6fe384cb70a7  embed/Nemotron-3-Embed-8B-Aqua00-Q4_K_M/Nemotron-3-Embed-8B-Q4_K_M.gguf
 diff --git a/benchmark/embedding-v3/results/nemotron_audit_1_0_5/gguf_1b_comparison_20260723/gguf_llama_cpp.log b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/gguf_1b_comparison_20260723/gguf_llama_cpp.log
 new file mode 100644
-index 0000000000000000000000000000000000000000..3bcfc425e95395ef9415b9fb501b7ba69efce672
+index 0000000..3bcfc42
 --- /dev/null
 +++ b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/gguf_1b_comparison_20260723/gguf_llama_cpp.log
 @@ -0,0 +1,18 @@
@@ -39366,7 +39378,7 @@ index 0000000000000000000000000000000000000000..3bcfc425e95395ef9415b9fb501b7ba6
 +0.03.447.793 I srv    operator(): operator(): cleaning up before exit...
 diff --git a/benchmark/embedding-v3/results/nemotron_audit_1_0_5/gguf_1b_comparison_20260723/gguf_preflight.json b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/gguf_1b_comparison_20260723/gguf_preflight.json
 new file mode 100644
-index 0000000000000000000000000000000000000000..ea9f227b3e6903bd6b91d64735a64b9d07fce74c
+index 0000000..ea9f227
 --- /dev/null
 +++ b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/gguf_1b_comparison_20260723/gguf_preflight.json
 @@ -0,0 +1,6231 @@
@@ -45603,7 +45615,7 @@ index 0000000000000000000000000000000000000000..ea9f227b3e6903bd6b91d64735a64b9d
 +}
 diff --git a/benchmark/embedding-v3/results/nemotron_audit_1_0_5/gguf_8b_comparison.json b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/gguf_8b_comparison.json
 new file mode 100644
-index 0000000000000000000000000000000000000000..19b730cc59bb05638a14aa672b3422b6e006b5ce
+index 0000000..19b730c
 --- /dev/null
 +++ b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/gguf_8b_comparison.json
 @@ -0,0 +1,189 @@
@@ -45798,7 +45810,7 @@ index 0000000000000000000000000000000000000000..19b730cc59bb05638a14aa672b3422b6
 +}
 diff --git a/benchmark/embedding-v3/results/nemotron_audit_1_0_5/gguf_startup_logs/01_abiray.log b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/gguf_startup_logs/01_abiray.log
 new file mode 100644
-index 0000000000000000000000000000000000000000..ea304a95906f8f37775ca41b5f23788aecf8cd30
+index 0000000..ea304a9
 --- /dev/null
 +++ b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/gguf_startup_logs/01_abiray.log
 @@ -0,0 +1,15 @@
@@ -45819,7 +45831,7 @@ index 0000000000000000000000000000000000000000..ea304a95906f8f37775ca41b5f23788a
 +0.05.545.772 I srv    operator(): operator(): cleaning up before exit...
 diff --git a/benchmark/embedding-v3/results/nemotron_audit_1_0_5/gguf_startup_logs/02_aqua00.log b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/gguf_startup_logs/02_aqua00.log
 new file mode 100644
-index 0000000000000000000000000000000000000000..305c43285e5d98c73c88ca30e15c6e7c085d824a
+index 0000000..305c432
 --- /dev/null
 +++ b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/gguf_startup_logs/02_aqua00.log
 @@ -0,0 +1,15 @@
@@ -45840,7 +45852,7 @@ index 0000000000000000000000000000000000000000..305c43285e5d98c73c88ca30e15c6e7c
 +0.07.128.297 I srv    operator(): operator(): cleaning up before exit...
 diff --git a/benchmark/embedding-v3/results/nemotron_audit_1_0_5/gguf_startup_logs/03_abiray.log b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/gguf_startup_logs/03_abiray.log
 new file mode 100644
-index 0000000000000000000000000000000000000000..9bad3e7308e4b5bfb7a061f7219fca894d59738e
+index 0000000..9bad3e7
 --- /dev/null
 +++ b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/gguf_startup_logs/03_abiray.log
 @@ -0,0 +1,15 @@
@@ -45861,7 +45873,7 @@ index 0000000000000000000000000000000000000000..9bad3e7308e4b5bfb7a061f7219fca89
 +0.09.867.632 I srv    operator(): operator(): cleaning up before exit...
 diff --git a/benchmark/embedding-v3/results/nemotron_audit_1_0_5/gguf_startup_logs/04_aqua00.log b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/gguf_startup_logs/04_aqua00.log
 new file mode 100644
-index 0000000000000000000000000000000000000000..97398d7a264275cf844122c429040bcefd2bab39
+index 0000000..97398d7
 --- /dev/null
 +++ b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/gguf_startup_logs/04_aqua00.log
 @@ -0,0 +1,15 @@
@@ -45882,7 +45894,7 @@ index 0000000000000000000000000000000000000000..97398d7a264275cf844122c429040bce
 +0.03.133.837 I srv    operator(): operator(): cleaning up before exit...
 diff --git a/benchmark/embedding-v3/results/nemotron_audit_1_0_5/gguf_startup_logs/05_abiray.log b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/gguf_startup_logs/05_abiray.log
 new file mode 100644
-index 0000000000000000000000000000000000000000..8dc77363d5db2779b61e3b61102874bf52a3cda8
+index 0000000..8dc7736
 --- /dev/null
 +++ b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/gguf_startup_logs/05_abiray.log
 @@ -0,0 +1,15 @@
@@ -45903,7 +45915,7 @@ index 0000000000000000000000000000000000000000..8dc77363d5db2779b61e3b61102874bf
 +0.03.239.647 I srv    operator(): operator(): cleaning up before exit...
 diff --git a/benchmark/embedding-v3/results/nemotron_audit_1_0_5/gguf_startup_logs/06_aqua00.log b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/gguf_startup_logs/06_aqua00.log
 new file mode 100644
-index 0000000000000000000000000000000000000000..4c59d9bfc664477147cc865de3f70370a3d07f3d
+index 0000000..4c59d9b
 --- /dev/null
 +++ b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/gguf_startup_logs/06_aqua00.log
 @@ -0,0 +1,15 @@
@@ -45924,7 +45936,7 @@ index 0000000000000000000000000000000000000000..4c59d9bfc664477147cc865de3f70370
 +0.03.281.987 I srv    operator(): operator(): cleaning up before exit...
 diff --git a/benchmark/embedding-v3/results/nemotron_audit_1_0_5/gguf_startup_logs/07_abiray.log b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/gguf_startup_logs/07_abiray.log
 new file mode 100644
-index 0000000000000000000000000000000000000000..b8c84bb7456ae27929e17a97d710be4491d8072c
+index 0000000..b8c84bb
 --- /dev/null
 +++ b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/gguf_startup_logs/07_abiray.log
 @@ -0,0 +1,15 @@
@@ -45945,7 +45957,7 @@ index 0000000000000000000000000000000000000000..b8c84bb7456ae27929e17a97d710be44
 +0.03.296.618 I srv    operator(): operator(): cleaning up before exit...
 diff --git a/benchmark/embedding-v3/results/nemotron_audit_1_0_5/gguf_startup_logs/08_aqua00.log b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/gguf_startup_logs/08_aqua00.log
 new file mode 100644
-index 0000000000000000000000000000000000000000..912685b1e11d762ddfc7ea94ae94ea5f81b250bf
+index 0000000..912685b
 --- /dev/null
 +++ b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/gguf_startup_logs/08_aqua00.log
 @@ -0,0 +1,15 @@
@@ -45966,7 +45978,7 @@ index 0000000000000000000000000000000000000000..912685b1e11d762ddfc7ea94ae94ea5f
 +0.02.998.151 I srv    operator(): operator(): cleaning up before exit...
 diff --git a/benchmark/embedding-v3/results/nemotron_audit_1_0_5/gguf_startup_logs/09_abiray.log b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/gguf_startup_logs/09_abiray.log
 new file mode 100644
-index 0000000000000000000000000000000000000000..ca3a16739eeb0ba46bdffb73275d773709443fe4
+index 0000000..ca3a167
 --- /dev/null
 +++ b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/gguf_startup_logs/09_abiray.log
 @@ -0,0 +1,15 @@
@@ -45987,7 +45999,7 @@ index 0000000000000000000000000000000000000000..ca3a16739eeb0ba46bdffb73275d7737
 +0.03.556.131 I srv    operator(): operator(): cleaning up before exit...
 diff --git a/benchmark/embedding-v3/results/nemotron_audit_1_0_5/gguf_startup_logs/10_aqua00.log b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/gguf_startup_logs/10_aqua00.log
 new file mode 100644
-index 0000000000000000000000000000000000000000..e648e6ec78aae64ebc3423542e0082db3e20dc3b
+index 0000000..e648e6e
 --- /dev/null
 +++ b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/gguf_startup_logs/10_aqua00.log
 @@ -0,0 +1,15 @@
@@ -46008,7 +46020,7 @@ index 0000000000000000000000000000000000000000..e648e6ec78aae64ebc3423542e0082db
 +0.03.159.561 I srv    operator(): operator(): cleaning up before exit...
 diff --git a/benchmark/embedding-v3/results/nemotron_audit_1_0_5/gguf_startups.json b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/gguf_startups.json
 new file mode 100644
-index 0000000000000000000000000000000000000000..d4b3b2dfae1b08a3975c1abff5d6804182ede86f
+index 0000000..d4b3b2d
 --- /dev/null
 +++ b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/gguf_startups.json
 @@ -0,0 +1,487 @@
@@ -46501,21 +46513,23 @@ index 0000000000000000000000000000000000000000..d4b3b2dfae1b08a3975c1abff5d68041
 +}
 diff --git a/benchmark/embedding-v3/results/nemotron_audit_1_0_5/manifest.json b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/manifest.json
 new file mode 100644
-index 0000000000000000000000000000000000000000..af72740d521ccc3f837d426369ea4bc25063abc6
+index 0000000..44162ca
 --- /dev/null
 +++ b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/manifest.json
-@@ -0,0 +1,298 @@
+@@ -0,0 +1,300 @@
 +{
 +  "schema_version": "1.0",
 +  "state": "COMPLETED",
 +  "task": "NEMOTRON-AUDIT-1.0.5",
 +  "git": {
-+    "branch": "ai/reranker-benchmark-v1.5",
-+    "head": "493ccd2432d550deb6daa84956ea1056bf028c1c",
-+    "origin_branch": "ai/reranker-benchmark-v1.5",
-+    "local_head_at_inventory": "493ccd2432d550deb6daa84956ea1056bf028c1c",
-+    "remote_head_at_inventory": "4dab19f",
-+    "explanation": "A execução foi herdada com artefatos não versionados na branch de reranker; eles foram preservados e a publicação será feita em branch dedicada."
++    "source_branch_at_inventory": "ai/reranker-benchmark-v1.5",
++    "source_head_at_inventory": "493ccd2432d550deb6daa84956ea1056bf028c1c",
++    "base_branch": "ai/reranker-benchmark-v1.5",
++    "base_head_at_publication": "4dab19f592b95174a6febb2358028cf7a13f5701",
++    "publication_branch": "ai/nemotron-audit-v1.0.5",
++    "initial_publication_commit": "1a92ca170cb687649cd0eb9e1183b6eaeb67a107",
++    "pull_request": 3,
++    "pull_request_state": "draft"
 +  },
 +  "models_not_versioned": [
 +    {
@@ -46557,8 +46571,8 @@ index 0000000000000000000000000000000000000000..af72740d521ccc3f837d426369ea4bc2
 +  "files": [
 +    {
 +      "path": ".ai/tasks/NEMOTRON-AUDIT-1.0.5/STATUS.yml",
-+      "bytes": 4799,
-+      "sha256": "f36d21bdada8d22e2fb3cb29f1a54f59603c7cbc10f84833d78e7bc10312121b"
++      "bytes": 4855,
++      "sha256": "365d7bdd4dfeb1711f82531b5294ef64080102b048740c7a98ddaf7e15c020ef"
 +    },
 +    {
 +      "path": "benchmark/embedding-v3/NEMOTRON_AUDIT_1_0_5_REPORT.md",
@@ -46572,8 +46586,8 @@ index 0000000000000000000000000000000000000000..af72740d521ccc3f837d426369ea4bc2
 +    },
 +    {
 +      "path": "benchmark/embedding-v3/build_nemotron_audit_manifest.py",
-+      "bytes": 5209,
-+      "sha256": "e11b0988579af991ac94dcbd3a1c0607ef4b3443e7ba1c20ada1b78e6ea4f7c5"
++      "bytes": 5322,
++      "sha256": "e675d8dfbcb1e5096c5e224e01320cae750d7e35dd2b26cf2b85510c9de7dc59"
 +    },
 +    {
 +      "path": "benchmark/embedding-v3/config/nemotron_1b_profiles.json",
@@ -46801,11 +46815,11 @@ index 0000000000000000000000000000000000000000..af72740d521ccc3f837d426369ea4bc2
 +      "sha256": "00daf737ef8c670b43f5270cb84da3e05cb17c2ab8a587ec21b15c263751567f"
 +    }
 +  ],
-+  "self_hash_note": "manifest.json não lista o próprio hash; full_diff.patch é gerado depois do manifesto e documenta o diff completo exceto a si próprio."
++  "self_hash_note": "manifest.json não lista o próprio hash; full_diff.patch é gerado depois do manifesto e documenta o diff completo exceto a si próprio. O SHA do commit de correção documental é omitido intencionalmente para evitar autorreferência no manifest."
 +}
 diff --git a/benchmark/embedding-v3/results/nemotron_audit_1_0_5/nemotron_1b_nvfp4_vs_gguf_summary.json b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/nemotron_1b_nvfp4_vs_gguf_summary.json
 new file mode 100644
-index 0000000000000000000000000000000000000000..dccb2b68b13ec7499ae2827f129f85fb4165a72d
+index 0000000..dccb2b6
 --- /dev/null
 +++ b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/nemotron_1b_nvfp4_vs_gguf_summary.json
 @@ -0,0 +1,50 @@
@@ -46861,7 +46875,7 @@ index 0000000000000000000000000000000000000000..dccb2b68b13ec7499ae2827f129f85fb
 +}
 diff --git a/benchmark/embedding-v3/results/nemotron_audit_1_0_5/nvfp4_attempt_20260723/nvfp4_vllm.log b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/nvfp4_attempt_20260723/nvfp4_vllm.log
 new file mode 100644
-index 0000000000000000000000000000000000000000..caeb38b78857c6de157a1be3414f95648071bdf2
+index 0000000..caeb38b
 --- /dev/null
 +++ b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/nvfp4_attempt_20260723/nvfp4_vllm.log
 @@ -0,0 +1,48 @@
@@ -46915,7 +46929,7 @@ index 0000000000000000000000000000000000000000..caeb38b78857c6de157a1be3414f9564
 +(EngineCore pid=930513) 2026-07-23 02:26:26,164 - INFO - autotuner.py:651 - flashinfer.jit: [Autotuner]: Autotuning process starts ...
 diff --git a/benchmark/embedding-v3/results/nemotron_audit_1_0_5/nvfp4_attempt_20260723_serial/nvfp4_preflight.json b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/nvfp4_attempt_20260723_serial/nvfp4_preflight.json
 new file mode 100644
-index 0000000000000000000000000000000000000000..f26f3f935771acfa02fb05cc3a5515631cab8b47
+index 0000000..f26f3f9
 --- /dev/null
 +++ b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/nvfp4_attempt_20260723_serial/nvfp4_preflight.json
 @@ -0,0 +1,8892 @@
@@ -55813,7 +55827,7 @@ index 0000000000000000000000000000000000000000..f26f3f935771acfa02fb05cc3a551563
 +}
 diff --git a/benchmark/embedding-v3/results/nemotron_audit_1_0_5/nvfp4_attempt_20260723_serial/nvfp4_vllm.log b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/nvfp4_attempt_20260723_serial/nvfp4_vllm.log
 new file mode 100644
-index 0000000000000000000000000000000000000000..f7c7f8d99cbd56f06fd5e7ed7ba78cc9797d8fba
+index 0000000..f7c7f8d
 --- /dev/null
 +++ b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/nvfp4_attempt_20260723_serial/nvfp4_vllm.log
 @@ -0,0 +1,118 @@
@@ -55937,7 +55951,7 @@ index 0000000000000000000000000000000000000000..f7c7f8d99cbd56f06fd5e7ed7ba78cc9
 +(EngineCore pid=936381) INFO 07-23 02:55:39 [core.py:1227] [shutdown] EngineCore: exiting busy loop
 diff --git a/benchmark/embedding-v3/results/nemotron_audit_1_0_5/nvfp4_attempt_20260723_serial/nvfp4_worker_result.json b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/nvfp4_attempt_20260723_serial/nvfp4_worker_result.json
 new file mode 100644
-index 0000000000000000000000000000000000000000..f01b21c909a670af59c99c4a9b05eb79973a4963
+index 0000000..f01b21c
 --- /dev/null
 +++ b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/nvfp4_attempt_20260723_serial/nvfp4_worker_result.json
 @@ -0,0 +1,50 @@
@@ -55993,7 +56007,7 @@ index 0000000000000000000000000000000000000000..f01b21c909a670af59c99c4a9b05eb79
 +}
 diff --git a/benchmark/embedding-v3/results/nemotron_audit_1_0_5/nvfp4_cached_20260723/nvfp4_preflight.json b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/nvfp4_cached_20260723/nvfp4_preflight.json
 new file mode 100644
-index 0000000000000000000000000000000000000000..2b11280903925f8177b58fd0d1fe35ad68e183e8
+index 0000000..2b11280
 --- /dev/null
 +++ b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/nvfp4_cached_20260723/nvfp4_preflight.json
 @@ -0,0 +1,186 @@
@@ -56185,7 +56199,7 @@ index 0000000000000000000000000000000000000000..2b11280903925f8177b58fd0d1fe35ad
 +}
 diff --git a/benchmark/embedding-v3/results/nemotron_audit_1_0_5/nvfp4_cached_20260723/nvfp4_vllm.log b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/nvfp4_cached_20260723/nvfp4_vllm.log
 new file mode 100644
-index 0000000000000000000000000000000000000000..5d75b8ecee94b7d3c1e91f1003fdf2ea5f45b206
+index 0000000..5d75b8e
 --- /dev/null
 +++ b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/nvfp4_cached_20260723/nvfp4_vllm.log
 @@ -0,0 +1,67 @@
@@ -56258,7 +56272,7 @@ index 0000000000000000000000000000000000000000..5d75b8ecee94b7d3c1e91f1003fdf2ea
 +(EngineCore pid=997559) INFO 07-23 02:56:42 [core.py:1227] [shutdown] EngineCore: exiting busy loop
 diff --git a/benchmark/embedding-v3/results/nemotron_audit_1_0_5/nvfp4_cached_20260723/nvfp4_worker_result.json b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/nvfp4_cached_20260723/nvfp4_worker_result.json
 new file mode 100644
-index 0000000000000000000000000000000000000000..3fdc9f25812e1456cbed103d8db39aaf0ffe9f2a
+index 0000000..3fdc9f2
 --- /dev/null
 +++ b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/nvfp4_cached_20260723/nvfp4_worker_result.json
 @@ -0,0 +1,50 @@
@@ -56314,7 +56328,7 @@ index 0000000000000000000000000000000000000000..3fdc9f25812e1456cbed103d8db39aaf
 +}
 diff --git a/benchmark/embedding-v3/results/nemotron_audit_1_0_5/nvfp4_comparison_20260723/nvfp4_preflight.json b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/nvfp4_comparison_20260723/nvfp4_preflight.json
 new file mode 100644
-index 0000000000000000000000000000000000000000..e679a84175e2e32213c27b86e9db831eed390451
+index 0000000..e679a84
 --- /dev/null
 +++ b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/nvfp4_comparison_20260723/nvfp4_preflight.json
 @@ -0,0 +1,174 @@
@@ -56494,7 +56508,7 @@ index 0000000000000000000000000000000000000000..e679a84175e2e32213c27b86e9db831e
 +}
 diff --git a/benchmark/embedding-v3/results/nemotron_audit_1_0_5/nvfp4_comparison_20260723/nvfp4_vllm.log b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/nvfp4_comparison_20260723/nvfp4_vllm.log
 new file mode 100644
-index 0000000000000000000000000000000000000000..3147cfd81337ab64f694a7ac44348ffcce3fa314
+index 0000000..3147cfd
 --- /dev/null
 +++ b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/nvfp4_comparison_20260723/nvfp4_vllm.log
 @@ -0,0 +1,67 @@
@@ -56567,7 +56581,7 @@ index 0000000000000000000000000000000000000000..3147cfd81337ab64f694a7ac44348ffc
 +(EngineCore pid=1001950) INFO 07-23 02:58:45 [core.py:1227] [shutdown] EngineCore: exiting busy loop
 diff --git a/benchmark/embedding-v3/results/nemotron_audit_1_0_5/nvfp4_comparison_20260723/nvfp4_worker_result.json b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/nvfp4_comparison_20260723/nvfp4_worker_result.json
 new file mode 100644
-index 0000000000000000000000000000000000000000..15474f220e6167a9274e8d67b45c0da1e85dada8
+index 0000000..15474f2
 --- /dev/null
 +++ b/benchmark/embedding-v3/results/nemotron_audit_1_0_5/nvfp4_comparison_20260723/nvfp4_worker_result.json
 @@ -0,0 +1,6202 @@
@@ -62775,7 +62789,7 @@ index 0000000000000000000000000000000000000000..15474f220e6167a9274e8d67b45c0da1
 +}
 diff --git a/benchmark/embedding-v3/run_nemotron_1b_admission.py b/benchmark/embedding-v3/run_nemotron_1b_admission.py
 new file mode 100644
-index 0000000000000000000000000000000000000000..a9f9e4ff7a327afc6f9787c1a103ecb8db7912ae
+index 0000000..a9f9e4f
 --- /dev/null
 +++ b/benchmark/embedding-v3/run_nemotron_1b_admission.py
 @@ -0,0 +1,438 @@
@@ -63219,7 +63233,7 @@ index 0000000000000000000000000000000000000000..a9f9e4ff7a327afc6f9787c1a103ecb8
 +    raise SystemExit(main())
 diff --git a/benchmark/embedding-v3/run_nemotron_1b_gguf_preflight.py b/benchmark/embedding-v3/run_nemotron_1b_gguf_preflight.py
 new file mode 100644
-index 0000000000000000000000000000000000000000..00571b70ae19bb2defe3be6a756d14fd428f25e8
+index 0000000..00571b7
 --- /dev/null
 +++ b/benchmark/embedding-v3/run_nemotron_1b_gguf_preflight.py
 @@ -0,0 +1,214 @@
@@ -63439,7 +63453,7 @@ index 0000000000000000000000000000000000000000..00571b70ae19bb2defe3be6a756d14fd
 +    raise SystemExit(main())
 diff --git a/benchmark/embedding-v3/run_nemotron_gguf_startups.py b/benchmark/embedding-v3/run_nemotron_gguf_startups.py
 new file mode 100644
-index 0000000000000000000000000000000000000000..3bc27e05c939eb7fba280d60863a74b4bd0eb8b7
+index 0000000..3bc27e0
 --- /dev/null
 +++ b/benchmark/embedding-v3/run_nemotron_gguf_startups.py
 @@ -0,0 +1,216 @@
@@ -63661,7 +63675,7 @@ index 0000000000000000000000000000000000000000..3bc27e05c939eb7fba280d60863a74b4
 +    raise SystemExit(main())
 diff --git a/benchmark/embedding-v3/run_nemotron_nvfp4_preflight.py b/benchmark/embedding-v3/run_nemotron_nvfp4_preflight.py
 new file mode 100644
-index 0000000000000000000000000000000000000000..0a6e3cdad0e42e9267df758aa7ed69cd2b1f61fd
+index 0000000..0a6e3cd
 --- /dev/null
 +++ b/benchmark/embedding-v3/run_nemotron_nvfp4_preflight.py
 @@ -0,0 +1,239 @@
@@ -63906,7 +63920,7 @@ index 0000000000000000000000000000000000000000..0a6e3cdad0e42e9267df758aa7ed69cd
 +    raise SystemExit(main())
 diff --git a/benchmark/embedding-v3/summarize_nemotron_8b_ggufs.py b/benchmark/embedding-v3/summarize_nemotron_8b_ggufs.py
 new file mode 100644
-index 0000000000000000000000000000000000000000..bb645511a0315d7d6a9c41f372d6ed44032e99c2
+index 0000000..bb64551
 --- /dev/null
 +++ b/benchmark/embedding-v3/summarize_nemotron_8b_ggufs.py
 @@ -0,0 +1,200 @@
