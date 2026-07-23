@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0",
+  "profile_id": "quality_external_optional",
+  "status": "BLOCKED",
+  "backend": "llama.cpp",
+  "dimension": null,
+  "vector_count": null,
+  "norm_range": [
+    0.0,
+    0.0
+  ],
+  "repeatability_cosine": null,
+  "reason": "Perfil 'quality_external_optional' está desabilitado. Use evaluation_mode=true para teste experimental",
+  "runtime_seconds": 0.0,
+  "startup_seconds": null,
+  "weight_sha256": null,
+  "runtime_version": null,
+  "hardware": null
+}

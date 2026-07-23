@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0",
+  "profile_id": "local_default",
+  "status": "PASSED",
+  "backend": "llama.cpp",
+  "dimension": 768,
+  "vector_count": 3,
+  "norm_range": [
+    1.0,
+    1.0
+  ],
+  "repeatability_cosine": 0.333373,
+  "reason": null,
+  "runtime_seconds": 4.509,
+  "startup_seconds": 3.468,
+  "weight_sha256": "b5ce9d77a3fc4b3b39ccb5643c36777911cc4eb46a66962eadfa3f5f60490d63",
+  "runtime_version": "unknown",
+  "hardware": "x86_64; N/A; GPU: NVIDIA GeForce RTX 5060 Ti"
+}
