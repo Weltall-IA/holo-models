@@ -1,0 +1,65 @@
+schema_version: 1
+
+project:
+  name: "holo-models"
+  repository: "Weltall-IA/holo-models"
+  description: "Inventário, configuração, operação e avaliação reproduzível de modelos locais do Projeto Holo."
+  default_branch: "master"
+
+paths:
+  governance:
+    - "AGENTS.md"
+    - ".ai/PROJECT.yml"
+    - ".ai/WORKFLOW.yml"
+    - ".ai/templates"
+    - ".ai/tasks"
+  domain_documentation:
+    - "docs/model-governance/MODEL_STORAGE.md"
+  model_categories:
+    text: "text"
+    audio: "audio"
+    video: "video"
+    image: "image"
+    embeddings_and_rerankers: "embed"
+  inventories:
+    - "LISTA_MODELOS.md"
+    - "LISTA_BLACKLIST.md"
+  sensitive:
+    - ".env"
+    - ".env.*"
+    - "**/secrets"
+    - "**/credentials"
+    - "**/private_key*"
+    - "*.key"
+    - "*.pem"
+    - "model weights"
+    - "local caches"
+    - "databases"
+    - "tokens"
+
+commands:
+  governance_validation:
+    - "python .ai/validate_governance.py"
+    - "git diff --check"
+  application_tests: []
+
+constraints:
+  repository:
+    - "Pesos, caches, bancos, tokens, chaves e credenciais nunca são versionados."
+    - "Cada modelo permanece em uma única categoria canônica; metadados registram categorias adicionais sem duplicar pesos."
+    - "Arquivos gerados só são atualizados por execução real do gerador correspondente."
+    - "Resultados, versões, métricas e hashes só são registrados quando realmente obtidos."
+    - "As regras técnicas de armazenamento e operação de modelos estão em docs/model-governance/MODEL_STORAGE.md."
+  sensitive_changes:
+    - "LISTA_MODELOS.md"
+    - "LISTA_BLACKLIST.md"
+    - "catálogos, taxonomias e regras de domínio"
+    - "manifests e arquivos gerados sensíveis"
+    - "governança, segurança, permissões e controle de acesso"
+    - "operações em runtimes, serviços ou armazenamento externo"
+  model_operations:
+    - "Use o runtime compatível com o formato do modelo; não presuma Ollama, llama.cpp, Transformers ou outro fornecedor."
+    - "Antes de importar, mover ou remover pesos, resolva a origem, o destino, as referências e a possibilidade de recuperação."
+    - "Remoção de modelos, manifests ou blobs é ação destrutiva e exige aprovação humana explícita."
+    - "Reflink só pode ser usado após confirmar o mesmo filesystem, a identidade do blob, o modo obrigatório sem fallback e a substituição atômica."
+    - "Chamadas pagas, publicação externa, deploy e mudanças de conta exigem aprovação humana explícita."

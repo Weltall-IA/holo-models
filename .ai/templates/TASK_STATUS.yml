@@ -1,0 +1,23 @@
+schema_version: 1
+
+task:
+  id: "<task-id>"
+  objective: "<resultado verificável>"
+  scope:
+    included: []
+    excluded: []
+
+status:
+  state: "in_progress"
+  updated_at: "<ISO-8601>"
+  current_step: "<etapa atual>"
+  next_step: "<próxima ação concreta>"
+
+evidence:
+  commits: []
+  pull_requests: []
+  validations_executed: []
+  artifacts: []
+
+blockers: []
+decisions_required: []
