@@ -82,16 +82,14 @@ def main() -> int:
         "state": "COMPLETED",
         "task": "NEMOTRON-AUDIT-1.0.5",
         "git": {
-            "branch": _git(repo, "branch", "--show-current"),
-            "head": _git(repo, "rev-parse", "HEAD"),
-            "origin_branch": "ai/reranker-benchmark-v1.5",
-            "local_head_at_inventory": "493ccd2432d550deb6daa84956ea1056bf028c1c",
-            "remote_head_at_inventory": "4dab19f",
-            "explanation": (
-                "A execução foi herdada com artefatos não versionados na branch de "
-                "reranker; eles foram preservados e a publicação será feita em branch "
-                "dedicada."
-            ),
+            "source_branch_at_inventory": "ai/reranker-benchmark-v1.5",
+            "source_head_at_inventory": "493ccd2432d550deb6daa84956ea1056bf028c1c",
+            "base_branch": "ai/reranker-benchmark-v1.5",
+            "base_head_at_publication": "4dab19f592b95174a6febb2358028cf7a13f5701",
+            "publication_branch": _git(repo, "branch", "--show-current"),
+            "initial_publication_commit": "1a92ca170cb687649cd0eb9e1183b6eaeb67a107",
+            "pull_request": 3,
+            "pull_request_state": "draft",
         },
         "models_not_versioned": [
             {
@@ -133,7 +131,9 @@ def main() -> int:
         "files": [_entry(repo, path) for path in sorted(set(relative_files))],
         "self_hash_note": (
             "manifest.json não lista o próprio hash; full_diff.patch é gerado depois "
-            "do manifesto e documenta o diff completo exceto a si próprio."
+            "do manifesto e documenta o diff completo exceto a si próprio. O SHA do "
+            "commit de correção documental é omitido intencionalmente para evitar "
+            "autorreferência no manifest."
         ),
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)

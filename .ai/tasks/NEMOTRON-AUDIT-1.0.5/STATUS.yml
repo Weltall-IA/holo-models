@@ -22,7 +22,7 @@ scope:
 execution:
   stage: "1.0.5"
   role: "local"
-  state: "BLOCKED"
+  state: "COMPLETED"
 
 queue:
   - id: "Q1"
@@ -33,10 +33,10 @@ queue:
     state: "COMPLETED"
   - id: "Q3"
     action: "Consolidar as cinco inicializações alternadas de cada GGUF 8B."
-    state: "EXECUTED"
+    state: "COMPLETED"
   - id: "Q4"
     action: "Consolidar o preflight isolado NVFP4 e a comparação completa com o GGUF 1B."
-    state: "EXECUTED"
+    state: "COMPLETED"
   - id: "Q5"
     action: "Registrar os dois perfis Nemotron 1B no benchmark completo."
     state: "COMPLETED"
@@ -48,7 +48,7 @@ queue:
     state: "COMPLETED"
   - id: "Q8"
     action: "Criar commit objetivo, publicar a branch e abrir PR."
-    state: "BLOCKED"
+    state: "COMPLETED"
 
 changes:
   files_changed:
@@ -90,8 +90,15 @@ validations:
     - "Nenhuma assinatura comum de segredo encontrada."
     - "git diff --cached --check sem achados após normalização de whitespace dos logs."
   failed: []
-  unavailable:
-    - "Commit, push e PR: gh auth status informa token inválido para Weltall-IA."
+  unavailable: []
+
+publication:
+  gh_auth_validated: true
+  publication_branch: "ai/nemotron-audit-v1.0.5"
+  initial_publication_commit: "1a92ca170cb687649cd0eb9e1183b6eaeb67a107"
+  pull_request: 3
+  pull_request_state: "draft"
+  base_merged: "4dab19f592b95174a6febb2358028cf7a13f5701"
 
 audit:
   findings:
@@ -100,9 +107,8 @@ audit:
     - "NVFP4 apresentou maior throughput aquecido; GGUF apresentou menor cold start, RAM e VRAM."
   decision: "APPROVED"
 
-blockers:
-  - "Reautenticar o GitHub CLI com gh auth login -h github.com para permitir branch, commit, push e PR draft."
+blockers: []
 
 next:
-  action: "Após reautenticar o gh, criar a feature branch dedicada, commitar o escopo já staged, publicar e abrir o PR draft sem merge."
-  role: "human_then_local"
+  action: "Aguardar revisão humana do PR #3; nenhum merge será realizado sem autorização humana explícita."
+  role: "human_review"

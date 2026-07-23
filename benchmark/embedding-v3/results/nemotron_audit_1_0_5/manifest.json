@@ -3,12 +3,14 @@
   "state": "COMPLETED",
   "task": "NEMOTRON-AUDIT-1.0.5",
   "git": {
-    "branch": "ai/reranker-benchmark-v1.5",
-    "head": "493ccd2432d550deb6daa84956ea1056bf028c1c",
-    "origin_branch": "ai/reranker-benchmark-v1.5",
-    "local_head_at_inventory": "493ccd2432d550deb6daa84956ea1056bf028c1c",
-    "remote_head_at_inventory": "4dab19f",
-    "explanation": "A execução foi herdada com artefatos não versionados na branch de reranker; eles foram preservados e a publicação será feita em branch dedicada."
+    "source_branch_at_inventory": "ai/reranker-benchmark-v1.5",
+    "source_head_at_inventory": "493ccd2432d550deb6daa84956ea1056bf028c1c",
+    "base_branch": "ai/reranker-benchmark-v1.5",
+    "base_head_at_publication": "4dab19f592b95174a6febb2358028cf7a13f5701",
+    "publication_branch": "ai/nemotron-audit-v1.0.5",
+    "initial_publication_commit": "1a92ca170cb687649cd0eb9e1183b6eaeb67a107",
+    "pull_request": 3,
+    "pull_request_state": "draft"
   },
   "models_not_versioned": [
     {
@@ -50,8 +52,8 @@
   "files": [
     {
       "path": ".ai/tasks/NEMOTRON-AUDIT-1.0.5/STATUS.yml",
-      "bytes": 4799,
-      "sha256": "f36d21bdada8d22e2fb3cb29f1a54f59603c7cbc10f84833d78e7bc10312121b"
+      "bytes": 4855,
+      "sha256": "365d7bdd4dfeb1711f82531b5294ef64080102b048740c7a98ddaf7e15c020ef"
     },
     {
       "path": "benchmark/embedding-v3/NEMOTRON_AUDIT_1_0_5_REPORT.md",
@@ -65,8 +67,8 @@
     },
     {
       "path": "benchmark/embedding-v3/build_nemotron_audit_manifest.py",
-      "bytes": 5209,
-      "sha256": "e11b0988579af991ac94dcbd3a1c0607ef4b3443e7ba1c20ada1b78e6ea4f7c5"
+      "bytes": 5322,
+      "sha256": "e675d8dfbcb1e5096c5e224e01320cae750d7e35dd2b26cf2b85510c9de7dc59"
     },
     {
       "path": "benchmark/embedding-v3/config/nemotron_1b_profiles.json",
@@ -294,5 +296,5 @@
       "sha256": "00daf737ef8c670b43f5270cb84da3e05cb17c2ab8a587ec21b15c263751567f"
     }
   ],
-  "self_hash_note": "manifest.json não lista o próprio hash; full_diff.patch é gerado depois do manifesto e documenta o diff completo exceto a si próprio."
+  "self_hash_note": "manifest.json não lista o próprio hash; full_diff.patch é gerado depois do manifesto e documenta o diff completo exceto a si próprio. O SHA do commit de correção documental é omitido intencionalmente para evitar autorreferência no manifest."
 }
