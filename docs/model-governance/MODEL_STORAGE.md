@@ -1,6 +1,7 @@
 # Armazenamento e operação de modelos
 
-Este documento incorpora e organiza as regras históricas do repositório.
+Este documento preserva e organiza as regras técnicas históricas do repositório. Ele
+especializa o contexto do projeto sem criar outro fluxo para agentes.
 
 ## Categorias canônicas
 
@@ -16,18 +17,18 @@ Quando um modelo tiver usos adicionais, registre-os em metadados; não duplique 
 
 ## Fluxo para adicionar modelo
 
-1. confirmar tarefa, gate, licença, revisão, arquivo e tamanho;
-2. conferir espaço livre e manter margem temporária adequada;
-3. baixar pela fonte oficial no diretório canônico;
-4. registrar revisão, hash, formato, quantização, backend e finalidade;
-5. criar `Modelfile` somente quando houver compatibilidade real com Ollama;
-6. validar o modelo no runtime adequado;
-7. atualizar `LISTA_MODELOS.md` somente após validação;
-8. não publicar pesos no GitHub.
+1. confirme objetivo, escopo, licença, revisão, arquivo e tamanho;
+2. confira espaço livre e mantenha margem temporária adequada;
+3. baixe pela fonte oficial no diretório canônico;
+4. registre revisão, hash, formato, quantização, backend e finalidade;
+5. crie `Modelfile` somente quando houver compatibilidade real com Ollama;
+6. valide o modelo no runtime adequado;
+7. atualize `LISTA_MODELOS.md` somente após validação;
+8. não publique pesos em repositório remoto.
 
 ## Nomenclatura
 
-- use o nome oficial ou do repositório Hugging Face;
+- use o nome oficial ou do repositório de origem;
 - não use espaços;
 - inclua quantização no nome da pasta quando aplicável;
 - mantenha um único diretório físico canônico por modelo.
@@ -36,17 +37,21 @@ Quando um modelo tiver usos adicionais, registre-os em metadados; não duplique 
 
 Antes de `ollama create`, execute `ollama list` e evite duplicatas.
 
-O `FROM` do `Modelfile` deve apontar para arquivo ou diretório compatível. Modelos Transformers, Diffusers, Whisper, ONNX, Safetensors ou pipelines não suportados permanecem no runtime apropriado.
+O `FROM` do `Modelfile` deve apontar para arquivo ou diretório compatível. Modelos
+Transformers, Diffusers, Whisper, ONNX, Safetensors ou pipelines não suportados
+permanecem no runtime apropriado.
 
 Se `ollama create` falhar por incompatibilidade:
 
-- mantenha o modelo para Transformers ou `llama.cpp`, quando aplicável;
+- mantenha o modelo no runtime compatível, quando aplicável;
 - crie `OLLAMA_INCOMPATIVEL.txt` com erro sanitizado;
 - não force conversão nem altere o modelo silenciosamente.
 
 ## Reflink bcachefs
 
-A importação do Ollama pode criar uma segunda cópia temporária. Após validação, o blob do Ollama pode se tornar a fonte física e o arquivo canônico pode ser substituído por reflink CoW.
+A importação do Ollama pode criar uma segunda cópia temporária. Após validação, o blob
+do Ollama pode se tornar a fonte física e o arquivo canônico pode ser substituído por
+reflink CoW.
 
 Antes da substituição, confirme:
 
@@ -56,24 +61,31 @@ Antes da substituição, confirme:
 - reflink obrigatório disponível, sem fallback para cópia normal;
 - arquivo temporário com tamanho esperado.
 
-Faça a troca atomicamente: crie o reflink temporário no diretório de destino e só depois substitua o arquivo canônico. Não aplique a modelos compostos que não correspondam a um único blob GGUF identificável.
+Faça a troca atomicamente: crie o reflink temporário no diretório de destino e só depois
+substitua o arquivo canônico. Não aplique esse procedimento a modelos compostos que não
+correspondam a um único blob GGUF identificável.
 
 ## Remoção e anti-órfão
 
-Remover um diretório canônico exige remover também o registro correspondente do Ollama, quando existir. Limpeza de blobs só pode ocorrer após cruzar manifests e digests e provar que o blob não é referenciado. Não apague caches ou blobs sem autorização humana.
+Remover um diretório canônico exige remover também o registro correspondente do Ollama,
+quando existir. Limpeza de blobs só pode ocorrer após cruzar manifests e digests e provar
+que o blob não é referenciado. Não apague modelos, caches ou blobs sem aprovação humana
+explícita.
 
 ## Restauração de pontuação do Whisper
 
-Modelos usados para pontuação/capitalização devem:
+Modelos usados para pontuação e capitalização devem:
 
 - restaurar apenas pontuação e capitalização;
 - não reescrever palavras;
 - não adicionar conteúdo;
 - usar temperatura zero;
-- limitar saída;
+- limitar a saída;
 - suprimir raciocínio na chamada quando o runtime suportar.
 
-A versão documentada do Ollama não aceita `PARAMETER enable_thinking` no `Modelfile`; use `think: false` na API ou pós-processamento aprovado.
+A versão historicamente documentada do Ollama não aceita `PARAMETER enable_thinking` no
+`Modelfile`; use `think: false` na API ou pós-processamento aprovado quando essa limitação
+for confirmada na versão em uso.
 
 Modelo de configuração:
 

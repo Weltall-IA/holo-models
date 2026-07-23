@@ -3,8 +3,7 @@ schema_version: 1
 project:
   name: "holo-models"
   repository: "Weltall-IA/holo-models"
-  description: "Governança, inventário, configuração e benchmarks reproduzíveis de modelos locais do Projeto Holo."
-  root: "."
+  description: "Inventário, configuração, operação, benchmark reproduzível e avaliação de modelos locais do Projeto Holo."
   default_branch: "master"
 
 technology:
@@ -26,6 +25,23 @@ technology:
     - "bcachefs"
 
 paths:
+  governance:
+    - "AGENTS.md"
+    - ".ai/PROJECT.yml"
+    - ".ai/WORKFLOW.yml"
+    - ".ai/templates"
+    - ".ai/tasks"
+  domain_documentation:
+    - "docs/model-governance/MODEL_STORAGE.md"
+  model_categories:
+    text: "text"
+    audio: "audio"
+    video: "video"
+    image: "image"
+    embeddings_and_rerankers: "embed"
+  inventories:
+    - "LISTA_MODELOS.md"
+    - "LISTA_BLACKLIST.md"
   source:
     - "benchmark/embedding-v3/holo_benchmark"
     - "benchmark/embedding-v3/benchmark.py"
@@ -36,8 +52,6 @@ paths:
   documentation:
     - "README.md"
     - "docs"
-    - "LISTA_MODELOS.md"
-    - "LISTA_BLACKLIST.md"
     - "benchmark/embedding-v3/RERANKER_BENCHMARK.md"
   configuration:
     - ".ai"
@@ -78,37 +92,71 @@ paths:
     - "benchmark/embedding-v3/data/holo_fake_scenes_v3"
   sensitive:
     - ".env"
+    - ".env.*"
     - "**/secrets"
     - "**/credentials"
+    - "**/private_key*"
+    - "*.key"
+    - "*.pem"
     - "model weights"
     - "local caches"
+    - "databases"
+    - "tokens"
     - ".voyage4_token"
 
 commands:
+  governance_validation:
+    - "python .ai/validate_governance.py"
+    - "git diff --check"
   setup:
     - "<python-interpreter> -m pip install -r benchmark/embedding-v3/requirements-gate01.txt"
     - "<python-interpreter> -m pip install -r benchmark/embedding-v3/requirements-gate2.txt"
     - "<python-interpreter> -m pip install -r benchmark/embedding-v3/requirements-gate3.txt"
     - "<python-interpreter> -m pip install -r benchmark/embedding-v3/requirements-voyage.txt"
     - "<python-interpreter> -m pip install -r benchmark/embedding-v3/requirements-reranker.txt"
-  format: []
-  lint: []
-  typecheck: []
   test:
     - "<python-interpreter> -m unittest discover -s benchmark/embedding-v3/tests -v"
-  build: []
   validate:
     - "<python-interpreter> -m compileall -q benchmark/embedding-v3"
-    - "<python-interpreter> benchmark/embedding-v3/benchmark.py --gate 0 --dry-run --skip-api"
-    - "<python-interpreter> benchmark/embedding-v3/benchmark.py --gate 0 --skip-api"
-    - "<python-interpreter> benchmark/embedding-v3/benchmark.py --gate 1 --skip-api"
-    - "<python-interpreter> benchmark/embedding-v3/benchmark.py --gate 1 --resume --skip-api"
-    - "<python-interpreter> benchmark/embedding-v3/benchmark.py --gate 2 --dry-run --device cuda --skip-api"
-    - "<python-interpreter> benchmark/embedding-v3/benchmark.py --gate 2 --device cuda --skip-api"
-    - "<python-interpreter> benchmark/embedding-v3/benchmark.py --gate 3 --dry-run --device cuda --skip-api"
-    - "<python-interpreter> benchmark/embedding-v3/benchmark.py --gate 3 --device cuda --skip-api"
     - "<python-interpreter> benchmark/embedding-v3/validate_coverage.py"
     - "<python-interpreter> benchmark/embedding-v3/reranker_benchmark.py --phase preflight"
+
+constraints:
+  repository:
+    - "Pesos, caches, bancos, tokens, chaves e credenciais nunca são versionados."
+    - "Cada modelo permanece em uma única categoria canônica; metadados registram categorias adicionais sem duplicar pesos."
+    - "Arquivos gerados só são atualizados por execução real do gerador correspondente."
+    - "Resultados, versões, métricas e hashes só são registrados quando realmente obtidos."
+    - "As regras técnicas de armazenamento e operação de modelos estão em docs/model-governance/MODEL_STORAGE.md."
+  sensitive_changes:
+    - "LISTA_MODELOS.md"
+    - "LISTA_BLACKLIST.md"
+    - "catálogos, taxonomias e regras de domínio"
+    - "manifests e arquivos gerados sensíveis"
+    - "governança, segurança, permissões e controle de acesso"
+    - "operações em runtimes, serviços ou armazenamento externo"
+  model_operations:
+    - "Use o runtime compatível com o formato do modelo; não presuma Ollama, llama.cpp, Transformers ou outro fornecedor."
+    - "Antes de importar, mover ou remover pesos, resolva a origem, o destino, as referências e a possibilidade de recuperação."
+    - "Remoção de modelos, manifests ou blobs é ação destrutiva e exige aprovação humana explícita."
+    - "Reflink só pode ser usado após confirmar o mesmo filesystem, a identidade do blob, o modo obrigatório sem fallback e a substituição atômica."
+    - "Chamadas pagas, publicação externa, deploy e mudanças de conta exigem aprovação humana explícita."
+  benchmark:
+    - "Não alterar corpus congelado do benchmark para favorecer um modelo."
+    - "Não executar gate posterior nem chamar API paga sem autorização explícita."
+    - "Voyage usa VOYAGE_API_KEY_PATH apontando para .voyage4_token ignorado pelo Git; nunca registrar seu conteúdo."
+    - "Gate 2 deve resolver e registrar revisão, licença, tamanho e hashes antes de concluir cada modelo."
+    - "Gate 3 deve registrar versão do llama.cpp, arquivo GGUF exato, quantização, pooling, dimensões nativa e avaliada, throughput, pico de VRAM e hashes."
+    - "Gate 3 só pode concluir PASS em CUDA, no corpus completo e com todos os modelos obrigatórios."
+    - "Resultados de benchmark devem identificar modelo, revisão, backend, dimensão, dtype, normalização e hardware."
+    - "Ausência de runner é pendência de implementação ou bloqueio comprovado; nunca NOT_APPLICABLE."
+    - "HEALTHCHECK_PASSED exige artefato, runtime, comando ou endpoint e resultado sanitizado."
+    - "BLOCKED exige runtime, erro sanitizado e tentativas registradas."
+    - "Alias de modelo só reutiliza benchmark quando a identidade dos pesos ou revisão for verificada."
+    - "A cobertura local só pode concluir quando validate_coverage.py retornar código 0."
+    - "Benchmark de rerankers preserva top 50 candidatos e reranqueia top 20 com a mesma instrução e os mesmos textos."
+    - "Voyage 4 Large deve reutilizar checkpoints existentes; o runner não pode chamar implicitamente a API de embedding."
+    - "Voyage rerank-2.5 só pode executar com a flag --allow-voyage-rerank-api após autorização humana explícita."
 
 environment:
   required_tools:
@@ -119,35 +167,3 @@ environment:
     - "Ollama"
     - "llama.cpp"
   required_variables: []
-
-constraints:
-  generated_files:
-    - "Arquivos listados em paths.generated só devem ser atualizados por execução real dos coletores e geradores correspondentes."
-    - "Pesos, caches, ambientes virtuais e resultados brutos volumosos permanecem fora do Git."
-    - "Snapshots baixados pelos Gates 2 e 3 permanecem somente em embed/<model-id> e não são versionados."
-  forbidden_changes:
-    - "Não versionar pesos de modelos, caches, bancos, tokens, chaves ou credenciais."
-    - "Não alterar diretamente a branch master."
-    - "Não usar force push."
-    - "Não fazer merge, deploy, publicação ou remoção de modelos sem autorização humana."
-    - "Não inventar resultados de testes, benchmarks, versões ou hashes."
-  project_specific:
-    - "Modelos devem permanecer em uma única categoria canônica: text, audio, video, image ou embed."
-    - "Não duplicar pesos entre categorias."
-    - "Criar Modelfile e registrar no Ollama somente quando houver compatibilidade real."
-    - "Reflink bcachefs exige mesma filesystem, verificação do blob e substituição atômica."
-    - "Não alterar corpus congelado para favorecer um modelo."
-    - "Não executar gate posterior nem chamar API paga sem autorização explícita."
-    - "Voyage usa VOYAGE_API_KEY_PATH apontando para .voyage4_token ignorado pelo Git; nunca registrar seu conteúdo."
-    - "O Gate 2 deve resolver e registrar revisão, licença, tamanho e hashes antes de concluir cada modelo."
-    - "O Gate 3 deve registrar versão do llama.cpp, arquivo GGUF exato, quantização, pooling, dimensões nativa e avaliada, throughput, pico de VRAM e hashes."
-    - "O Gate 3 só pode concluir PASS em CUDA, no corpus completo e com todos os modelos obrigatórios."
-    - "Resultados de benchmark devem identificar modelo, revisão, backend, dimensão, dtype, normalização e hardware."
-    - "Ausência de runner é pendência de implementação ou bloqueio comprovado; nunca NOT_APPLICABLE."
-    - "HEALTHCHECK_PASSED exige artefato, runtime, comando ou endpoint e resultado sanitizado."
-    - "BLOCKED exige runtime, erro sanitizado e tentativas registradas."
-    - "Alias de modelo só reutiliza benchmark quando a identidade dos pesos ou revisão for verificada."
-    - "A cobertura local só pode concluir quando validate_coverage.py retornar código 0."
-    - "O benchmark de rerankers preserva top 50 candidatos e reranqueia top 20 com a mesma instrução e os mesmos textos."
-    - "Voyage 4 Large deve reutilizar os checkpoints existentes; o runner não pode chamar implicitamente a API de embedding."
-    - "Voyage rerank-2.5 só pode executar com a flag --allow-voyage-rerank-api após autorização humana explícita."

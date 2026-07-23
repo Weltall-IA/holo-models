@@ -1,41 +1,34 @@
 # Holo Models
 
-Repositório do Projeto Holo para governança, inventário, configuração, benchmark e operação de modelos locais.
+Repositório do Projeto Holo para inventário, configuração, operação e avaliação
+reproduzível de modelos locais.
 
-## Escopo
+Os pesos permanecem fora do Git e ficam em uma única categoria canônica:
+`text/`, `audio/`, `video/`, `image/` ou `embed/`.
 
-- metadados e documentação de modelos;
-- `Modelfile`, configurações e scripts operacionais;
-- benchmarks reproduzíveis;
-- inventário e blacklist;
-- regras de armazenamento, runtimes e reflink;
-- tarefas versionadas para colaboração entre agentes.
+## Governança
 
-Os pesos não são publicados no GitHub. No checkout local, ficam nas categorias canônicas:
+O fluxo é local, autônomo e independente de modelo, fornecedor, editor, extensão,
+sistema operacional ou ferramenta.
+
+Antes de atuar:
+
+1. leia `AGENTS.md`;
+2. leia `.ai/PROJECT.yml`;
+3. leia integralmente `.ai/WORKFLOW.yml`;
+4. leia o `STATUS.yml` da tarefa somente quando ele existir.
+
+`.ai/WORKFLOW.yml` é a única fonte canônica das regras operacionais. O fluxo normal é:
 
 ```text
-text/
-audio/
-video/
-image/
-embed/
+branch → implementação → testes aplicáveis → revisão do diff → commit → push → PR → merge
 ```
 
-## Governança de agentes
+Um único agente pode concluir mudanças rotineiras de ponta a ponta. Condições sensíveis,
+incluindo governança, segurança, dados canônicos, conflitos, validações indispensáveis
+indisponíveis, deploy, custos e ações destrutivas, exigem aprovação humana explícita
+antes do merge.
 
-Antes de atuar, leia:
-
-1. `AGENTS.md`;
-2. `.ai/PROJECT.yml`;
-3. `.ai/WORKFLOW.yml`;
-4. `.ai/tasks/<task-id>/STATUS.yml`, quando existir.
-
-A execução é direta e segue o estágio `X.Y.Z` registrado no estado da tarefa. Correções incrementam somente o patch `Z`. Toda resposta operacional termina com a linha de versão correspondente ao papel ativo.
-
-## Regras essenciais
-
-- não versionar pesos, tokens, caches, bancos ou segredos;
-- não inventar resultados, versões ou hashes;
-- revisar alterações e validações reais antes de concluir;
-- respeitar o escopo e o estado da tarefa;
-- não executar gate posterior nem chamar API paga sem autorização explícita.
+Registros persistentes em `.ai/tasks/` são opcionais e existem somente quando o estado
+precisa atravessar sessões, ambientes ou pessoas. Registros concluídos são evidência
+histórica e não são reescritos para acompanhar versões posteriores do workflow.

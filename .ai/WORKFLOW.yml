@@ -1,74 +1,160 @@
-schema_version: 1
+schema_version: 2
+
+authority:
+  canonical_source: ".ai/WORKFLOW.yml"
+  applies_to: "qualquer agente, modelo, fornecedor, editor, extensão, sistema operacional ou ferramenta"
+  supporting_files:
+    project_context: ".ai/PROJECT.yml"
+    optional_task_state: ".ai/tasks/<task-id>/STATUS.yml"
+  precedence:
+    - "instruções explícitas do usuário"
+    - "AGENTS.md aplicável ao caminho"
+    - ".ai/WORKFLOW.yml"
+    - ".ai/PROJECT.yml"
+  rule: "Arquivos de tarefa registram estado e evidência; não definem regras operacionais."
+
+startup:
+  read:
+    - "AGENTS.md aplicável"
+    - ".ai/PROJECT.yml"
+    - ".ai/WORKFLOW.yml integralmente"
+    - "STATUS.yml da tarefa, somente quando existir"
+  inspect_git:
+    - "branch e upstream"
+    - "status, alterações staged e unstaged"
+    - "arquivos não versionados"
+    - "branches, worktrees e stashes existentes"
+  preservation:
+    - "Trabalho preexistente pertence ao usuário até prova em contrário."
+    - "Não sobrescreva, mova, descarte, inclua em commit ou esconda trabalho fora do escopo."
+    - "Use branch ou worktree separado quando o checkout atual contiver trabalho não relacionado."
+
+task_state:
+  create_only_when:
+    - "o estado precisa atravessar sessões, ambientes ou pessoas"
+    - "há execução longa, bloqueio externo ou retomada posterior"
+    - "o usuário ou processo do projeto exige rastreabilidade persistente"
+  do_not_create_for:
+    - "tarefas rotineiras concluídas na mesma sessão"
+    - "substituir commit, PR, logs de teste ou descrição do PR"
+    - "representar papéis, turnos, handoffs ou aprovações intermediárias"
+  template: ".ai/templates/TASK_STATUS.yml"
+  history: "Registros concluídos são evidência histórica e não devem ser reescritos para acompanhar mudanças posteriores do workflow."
 
 execution:
-  mode: "direct"
-  continue_without_confirmation: true
-  automatic_correction_cycle: true
+  mode: "autonomous"
+  agent_model: "single_agent"
+  routine_flow:
+    - "branch"
+    - "implementação"
+    - "testes aplicáveis"
+    - "revisão do diff completo"
+    - "commit"
+    - "push"
+    - "pull request"
+    - "merge"
+  allowed_without_repeated_confirmation:
+    - "inspecionar arquivos, histórico e estado"
+    - "implementar e corrigir somente dentro do escopo autorizado"
+    - "executar validações aplicáveis e repetir após correções"
+    - "revisar o diff completo"
+    - "criar feature branch, commit, push e pull request"
+    - "fazer merge rotineiro quando todos os gates de merge rotineiro forem satisfeitos"
+  correction_cycle:
+    - "identificar falha dentro do escopo"
+    - "corrigir"
+    - "reexecutar a validação afetada"
+    - "revisar o novo diff"
+    - "continuar sem pedir aprovação intermediária"
 
-editing:
-  existing_files:
-    temporary_copy_required: true
-    diff_required: true
-  new_files:
-    full_content_review_required: true
+git:
+  branch:
+    - "Atualize a referência remota da branch principal antes de criar a feature branch."
+    - "Nunca edite diretamente a branch principal."
+    - "Baseie a feature branch na branch principal remota atualizada."
+    - "Preserve branches, worktrees, stashes e arquivos não versionados existentes."
+  commit:
+    - "Inclua somente arquivos do escopo."
+    - "Use mensagem objetiva que descreva a mudança."
+  push:
+    - "Publique somente a feature branch."
+    - "Nunca use force-push."
+  pull_request:
+    - "Descreva mudanças, motivação, impacto e validações realmente executadas."
+    - "Use draft enquanto houver trabalho, validação ou decisão pendente."
+    - "Não declare o PR pronto se houver comentários acionáveis ou conflitos pendentes."
 
-roles:
-  local:
-    name: "IA local"
-    responsibilities:
-      - execute_commands
-      - edit_within_scope
-      - validate
-      - apply_corrections
-      - update_status
-
-  auditor:
-    name: "IA auditora"
-    responsibilities:
-      - inspect_return
-      - verify_diffs
-      - verify_validations
-      - approve_or_reject
-      - update_status
-
-  remote_author:
-    name: "IA autora remota"
-    responsibilities:
-      - inspect_project
-      - implement_changes
-      - validate
-      - update_status
-
-stages:
-  format: "X.Y.Z"
-  meaning:
-    X: "macroetapa"
-    Y: "atividade"
-    Z: "patch"
-  initial_patch: 0
+validation:
   rules:
-    - "A primeira execução da atividade usa patch 0."
-    - "A correção incrementa somente o patch."
-    - "Executor e auditor usam o mesmo número para o mesmo retorno."
-    - "Após aprovação, a próxima atividade começa com patch 0."
+    - "Execute somente validações aplicáveis ao escopo, priorizando as definidas em .ai/PROJECT.yml."
+    - "Resultados de testes e comandos só podem ser declarados quando realmente executados."
+    - "Registre falhas e indisponibilidades com o motivo real; nunca converta ausência de evidência em sucesso."
+    - "Revise o diff completo após a última correção."
+  governance_changes:
+    - "validar sintaxe e estrutura dos arquivos alterados"
+    - "detectar chaves YAML duplicadas"
+    - "verificar coerência entre instruções, workflow, documentação e templates"
+    - "verificar ausência de referências ativas às regras removidas"
+    - "confirmar a preservação das proteções de segurança"
+    - "executar git diff --check"
 
-return_version:
-  must_be_last_line: true
+merge:
+  routine_without_additional_confirmation:
+    all_required:
+      - "objetivo e escopo satisfeitos"
+      - "mudança em feature branch com pull request"
+      - "validações relevantes aprovadas"
+      - "nenhuma validação indispensável indisponível"
+      - "diff completo revisado"
+      - "nenhum conflito"
+      - "nenhum segredo"
+      - "nenhuma mudança fora do escopo"
+      - "nenhum comentário acionável pendente"
+      - "nenhuma condição sensível presente"
+  explicit_human_approval_required:
+    any_of:
+      - "alteração de dados canônicos, catálogo, taxonomia ou regras de domínio"
+      - "manifest ou arquivo gerado sensível"
+      - "mudança de governança, segurança, permissões ou controle de acesso"
+      - "conflito de merge"
+      - "teste falhando ou validação indispensável indisponível"
+      - "deploy, produção, publicação externa, custo ou mudança de conta"
+      - "decisão visual ou de produto subjetiva"
+      - "ação destrutiva, irreversível ou difícil de reverter"
+  blocked_action: "Quando qualquer condição sensível estiver presente, prepare o PR e aguarde aprovação humana explícita antes do merge."
 
-  templates:
-    local: "Versão do retorno da IA local: {stage} — {title}"
-    auditor: "Versão do retorno da IA auditora: {stage} — {title}"
-    remote_author: "Versão do retorno da IA autora remota: {stage} — {title}"
+safety:
+  mandatory:
+    no_direct_main_edit: true
+    no_preexisting_work_overwrite: true
+    no_automatic_stash: true
+    no_force_push: true
+    no_hard_reset: true
+    no_secret_commit_or_report: true
+    no_arbitrary_conflict_resolution: true
+    corrections_only_in_authorized_scope: true
+    report_only_executed_results: true
+  destructive_actions:
+    - "Resolva alvos exatos com verificações somente leitura."
+    - "Prefira operações reversíveis."
+    - "Exija aprovação humana explícita antes de executar."
+  conflicts:
+    - "Não escolha arbitrariamente um lado."
+    - "Interrompa o merge e solicite decisão humana com o contexto necessário."
 
-  examples:
-    local: "Versão do retorno da IA local: 7.6.5 — Retorno do gerador simplificado de metadata dos quatro pilotos"
-    auditor: "Versão do retorno da IA auditora: 7.6.5 — Auditoria do gerador simplificado de metadata dos quatro pilotos"
+portability:
+  principles:
+    - "Descreva capacidades e resultados, não marcas ou interfaces específicas."
+    - "Use as ferramentas disponíveis no ambiente sem tornar uma ferramenta requisito de governança."
+    - "Respeite o shell, o sistema operacional e as convenções detectadas."
+    - "Não presuma acesso de rede, interface gráfica, runtime, editor ou serviço."
 
-states:
-  - IN_PROGRESS
-  - EXECUTED
-  - CORRECTED
-  - APPROVED
-  - REJECTED
-  - BLOCKED
-  - COMPLETED
+completion:
+  routine: "Conclua o fluxo até o merge quando todos os gates rotineiros forem satisfeitos."
+  sensitive: "Conclua implementação, validação, commit, push e PR; pare antes do merge e solicite aprovação humana explícita."
+  report:
+    - "trabalho realizado"
+    - "arquivos alterados"
+    - "validações e resultados"
+    - "bloqueios reais"
+    - "próximo passo humano, somente quando necessário"
