@@ -1,0 +1,174 @@
+{
+  "state": "EXECUTED",
+  "backend": "vllm",
+  "isolated_environment": "/tmp/vllm-env",
+  "command": [
+    "/tmp/vllm-env/bin/python",
+    "/home/alpha/Playstoria/models/benchmark/embedding-v3/run_nemotron_nvfp4_preflight.py",
+    "--worker",
+    "--model",
+    "/home/alpha/Playstoria/models/embed/Nemotron-3-Embed-1B-NVFP4",
+    "--worker-result",
+    "/home/alpha/Playstoria/models/benchmark/embedding-v3/results/nemotron_audit_1_0_5/nvfp4_comparison_20260723/nvfp4_worker_result.json"
+  ],
+  "timeout_seconds": 600,
+  "timed_out": false,
+  "return_code": 0,
+  "wall_seconds": 26.79645886900107,
+  "peak_rss_mib": 3107.11328125,
+  "peak_vram_mib": 2056.0,
+  "samples": [
+    {
+      "elapsed_seconds": 0.0007294419992831536,
+      "rss_mib": 15.1875,
+      "vram_mib": 0.0,
+      "process_count": 1
+    },
+    {
+      "elapsed_seconds": 1.0497384169939323,
+      "rss_mib": 427.99609375,
+      "vram_mib": 0.0,
+      "process_count": 1
+    },
+    {
+      "elapsed_seconds": 2.0956418529967777,
+      "rss_mib": 547.4296875,
+      "vram_mib": 0.0,
+      "process_count": 1
+    },
+    {
+      "elapsed_seconds": 3.1560257710007136,
+      "rss_mib": 606.81640625,
+      "vram_mib": 0.0,
+      "process_count": 1
+    },
+    {
+      "elapsed_seconds": 4.213093959995604,
+      "rss_mib": 625.265625,
+      "vram_mib": 0.0,
+      "process_count": 1
+    },
+    {
+      "elapsed_seconds": 5.267478020999988,
+      "rss_mib": 673.09765625,
+      "vram_mib": 0.0,
+      "process_count": 1
+    },
+    {
+      "elapsed_seconds": 6.316640976998315,
+      "rss_mib": 768.02734375,
+      "vram_mib": 0.0,
+      "process_count": 1
+    },
+    {
+      "elapsed_seconds": 7.363211915995635,
+      "rss_mib": 1158.03125,
+      "vram_mib": 0.0,
+      "process_count": 2
+    },
+    {
+      "elapsed_seconds": 8.556358000998443,
+      "rss_mib": 1277.43359375,
+      "vram_mib": 0.0,
+      "process_count": 2
+    },
+    {
+      "elapsed_seconds": 9.625230027995713,
+      "rss_mib": 1352.49609375,
+      "vram_mib": 0.0,
+      "process_count": 2
+    },
+    {
+      "elapsed_seconds": 10.733224962998065,
+      "rss_mib": 1399.1640625,
+      "vram_mib": 0.0,
+      "process_count": 2
+    },
+    {
+      "elapsed_seconds": 11.803011917996628,
+      "rss_mib": 1418.41796875,
+      "vram_mib": 0.0,
+      "process_count": 2
+    },
+    {
+      "elapsed_seconds": 12.867761179993977,
+      "rss_mib": 1457.08203125,
+      "vram_mib": 0.0,
+      "process_count": 2
+    },
+    {
+      "elapsed_seconds": 13.936615529994015,
+      "rss_mib": 1504.72265625,
+      "vram_mib": 0.0,
+      "process_count": 2
+    },
+    {
+      "elapsed_seconds": 15.000034134995076,
+      "rss_mib": 1561.48046875,
+      "vram_mib": 0.0,
+      "process_count": 2
+    },
+    {
+      "elapsed_seconds": 16.074981004996516,
+      "rss_mib": 1033.43359375,
+      "vram_mib": 0.0,
+      "process_count": 3
+    },
+    {
+      "elapsed_seconds": 17.173062895999465,
+      "rss_mib": 1940.03515625,
+      "vram_mib": 0.0,
+      "process_count": 3
+    },
+    {
+      "elapsed_seconds": 18.24931257499702,
+      "rss_mib": 2063.51953125,
+      "vram_mib": 0.0,
+      "process_count": 3
+    },
+    {
+      "elapsed_seconds": 19.332311407997622,
+      "rss_mib": 1123.484375,
+      "vram_mib": 0.0,
+      "process_count": 1
+    },
+    {
+      "elapsed_seconds": 20.384695189000922,
+      "rss_mib": 2174.6875,
+      "vram_mib": 0.0,
+      "process_count": 2
+    },
+    {
+      "elapsed_seconds": 21.452646812998864,
+      "rss_mib": 2305.75390625,
+      "vram_mib": 174.0,
+      "process_count": 2
+    },
+    {
+      "elapsed_seconds": 22.53271802299423,
+      "rss_mib": 2581.1640625,
+      "vram_mib": 2056.0,
+      "process_count": 4
+    },
+    {
+      "elapsed_seconds": 23.617743262999284,
+      "rss_mib": 2786.30078125,
+      "vram_mib": 1308.0,
+      "process_count": 2
+    },
+    {
+      "elapsed_seconds": 24.681619752998813,
+      "rss_mib": 3107.11328125,
+      "vram_mib": 1358.0,
+      "process_count": 2
+    },
+    {
+      "elapsed_seconds": 25.75167868599965,
+      "rss_mib": 1134.21875,
+      "vram_mib": 0.0,
+      "process_count": 1
+    }
+  ],
+  "log": "/home/alpha/Playstoria/models/benchmark/embedding-v3/results/nemotron_audit_1_0_5/nvfp4_comparison_20260723/nvfp4_vllm.log",
+  "worker_result": "/home/alpha/Playstoria/models/benchmark/embedding-v3/results/nemotron_audit_1_0_5/nvfp4_comparison_20260723/nvfp4_worker_result.json"
+}

@@ -1,0 +1,12 @@
+0.00.040.156 I cmn  common_param: common_params_print_info: verbosity = 3 (adjust with the `-lv N` CLI arg)
+0.00.183.260 W srv  llama_server: embeddings enabled with n_batch (2048) > n_ubatch (512)
+0.00.183.264 W srv  llama_server: setting n_batch = n_ubatch = 512 to avoid assertion failure
+0.00.183.543 I srv          init: The UI is disabled
+0.00.183.549 I srv          init: Use --ui/--no-ui (or deprecated --webui/--no-webui) to enable/disable
+0.00.185.238 I srv    load_model: loading model '/home/alpha/Playstoria/models/embed/Nemotron-3-Embed-1B-Q4_K_M/nemotron-3-embed-1b-q4_k_m.gguf'
+0.00.640.510 W common_fit_params: failed to fit params to free device memory: n_gpu_layers already set by user to -2, abort
+0.01.148.471 W llama_context: setting new yarn_attn_factor = 1.0000 (mscale == 1.0, mscale_all_dim = 1.0)
+0.01.151.808 E ggml_backend_cuda_buffer_type_alloc_buffer: allocating 265.02 MiB on device 0: cudaMalloc failed: out of memory
+0.01.151.813 E ggml_gallocr_reserve_n_impl: failed to allocate CUDA0 buffer of size 277889024
+0.01.151.814 E graph_reserve: failed to allocate compute buffers
+0.01.152.365 E

@@ -1,0 +1,113 @@
+{
+  "state": "EXECUTED",
+  "purpose": "Select Nemotron 1B deployment profiles for the full multi-model benchmark",
+  "decision": {
+    "admitted": [
+      "nvidia/Nemotron-3-Embed-1B-NVFP4",
+      "Nemotron-3-Embed-1B-Q4_K_M-GGUF"
+    ],
+    "benchmark_policy": "Evaluate and report both formats as distinct deployment profiles; do not collapse either result into an alias.",
+    "operational_default": "nvidia/Nemotron-3-Embed-1B-NVFP4",
+    "low_resource_cold_start_option": "Nemotron-3-Embed-1B-Q4_K_M-GGUF",
+    "reason": [
+      "Quality differences on the frozen corpus are small and paired 95% bootstrap intervals include zero.",
+      "NVFP4 uses official QAD weights and has materially higher document and query throughput.",
+      "The measured steady-state RAM and VRAM requirements fit the local machine.",
+      "GGUF represents a materially different low-resource and fast cold-start operating point that must remain visible in the full benchmark."
+    ]
+  },
+  "dataset": {
+    "name": "holo_fake_scenes_v3",
+    "combined_sha256": "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b",
+    "documents": 600,
+    "queries": 150,
+    "document_prefix": "passage: ",
+    "query_prefix": "query: "
+  },
+  "quality": {
+    "nvfp4": {
+      "HitRate@1": 0.74,
+      "HitRate@10": 0.8466666666666667,
+      "MRR@10": 0.7753412698412698,
+      "nDCG@10": 0.7849820111117471,
+      "hard_negative_error_rate": 0.13333333333333333
+    },
+    "gguf": {
+      "HitRate@1": 0.7266666666666667,
+      "HitRate@10": 0.8533333333333334,
+      "MRR@10": 0.7695079365079365,
+      "nDCG@10": 0.7820185776084891,
+      "hard_negative_error_rate": 0.13333333333333333
+    },
+    "paired_nvfp4_minus_gguf": {
+      "HitRate@1": {
+        "delta": 0.013333333333333334,
+        "bootstrap_95_percent": [
+          -0.013333333333333334,
+          0.04
+        ]
+      },
+      "HitRate@10": {
+        "delta": -0.006666666666666667,
+        "bootstrap_95_percent": [
+          -0.03333333333333333,
+          0.013333333333333334
+        ]
+      },
+      "MRR@10": {
+        "delta": 0.005833333333333333,
+        "bootstrap_95_percent": [
+          -0.00788888888888889,
+          0.021055555555555553
+        ]
+      },
+      "nDCG@10": {
+        "delta": 0.002963433503258046,
+        "bootstrap_95_percent": [
+          -0.009418563539566847,
+          0.01574777622524365
+        ]
+      }
+    },
+    "first_relevant_rank_comparison": {
+      "nvfp4_better_queries": 20,
+      "gguf_better_queries": 14,
+      "ties": 116
+    },
+    "mean_top10_overlap": 0.8726666666666669
+  },
+  "steady_runtime": {
+    "nvfp4": {
+      "load_seconds": 16.246896598000603,
+      "document_encode_seconds": 4.137199311997392,
+      "query_encode_seconds": 0.3621999129973119,
+      "documents_per_second": 145.02564531036018,
+      "queries_per_second": 414.13593603241213,
+      "total_seconds": 28.3923646559997,
+      "peak_rss_mib": 3573.38671875,
+      "peak_vram_mib": 2072.0
+    },
+    "gguf": {
+      "load_seconds": 1.3244759770022938,
+      "document_encode_seconds": 33.9176440730007,
+      "query_encode_seconds": 1.5268634379972355,
+      "documents_per_second": 17.68990790482453,
+      "queries_per_second": 98.24061292393826,
+      "total_seconds": 37.26975809700525,
+      "peak_rss_mib": 1213.484375,
+      "peak_vram_mib": 1288.0
+    }
+  },
+  "reproducibility": {
+    "nvfp4_repeated_top50_rankings_equal": true,
+    "nvfp4_repeated_document_embedding_sha256_equal": false,
+    "nvfp4_repeated_query_embedding_sha256_equal": false,
+    "interpretation": "The repeated GPU execution preserved all evaluated rankings but was not bitwise deterministic at the float embedding level."
+  },
+  "evidence": {
+    "nvfp4_first_full_run": "admission_nvfp4_full_20260723.json",
+    "nvfp4_cached_full_run": "admission_nvfp4_full_cached_20260723.json",
+    "gguf_full_run": "admission_gguf_full_20260723_attempt2.json",
+    "gguf_log": "admission_gguf_full_20260723_attempt2.log"
+  }
+}

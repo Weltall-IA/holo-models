@@ -1,0 +1,15 @@
+0.00.024.147 I cmn  common_param: common_params_print_info: verbosity = 3 (adjust with the `-lv N` CLI arg)
+0.00.143.946 I srv          init: The UI is disabled
+0.00.143.949 I srv          init: Use --ui/--no-ui (or deprecated --webui/--no-webui) to enable/disable
+0.00.145.601 I srv    load_model: loading model '/home/alpha/Playstoria/models/embed/Nemotron-3-Embed-8B-Aqua00-Q4_K_M/Nemotron-3-Embed-8B-Q4_K_M.gguf'
+0.02.829.380 W llama_context: setting new yarn_attn_factor = 1.0000 (mscale == 1.0, mscale_all_dim = 1.0)
+0.02.917.099 I srv    load_model: initializing, n_slots = 1, n_ctx_slot = 512, kv_unified = 'false'
+0.02.919.677 I srv  llama_server: model loaded
+0.02.919.684 I srv  llama_server: listening on http://127.0.0.1:18081
+0.03.097.118 I slot get_availabl: id  0 | task -1 | selected slot by LRU, t_last = -1
+0.03.097.127 I slot launch_slot_: id  0 | task 0 | processing task, is_child = 0
+0.03.141.498 I slot      release: id  0 | task 0 | stop processing: n_tokens = 10, truncated = 0
+0.03.141.519 I slot get_availabl: id  0 | task -1 | selected slot by LRU, t_last = 37324681718
+0.03.141.524 I slot launch_slot_: id  0 | task 1 | processing task, is_child = 0
+0.03.248.393 I slot      release: id  0 | task 1 | stop processing: n_tokens = 15, truncated = 0
+0.03.281.987 I srv    operator(): operator(): cleaning up before exit...
