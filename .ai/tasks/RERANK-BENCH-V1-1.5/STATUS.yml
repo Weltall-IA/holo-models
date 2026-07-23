@@ -22,55 +22,48 @@ scope:
 
 execution:
   stage: "1.6.2"
-  role: "remote_author"
-  state: "CORRECTED"
+  role: "auditor"
+  state: "APPROVED"
 
 return:
-  title: "Correção final do relatório do benchmark completo de rerankers"
+  title: "Aprovação final do benchmark completo de embeddings e rerankers"
 
 changes:
   files_changed:
     - ".ai/tasks/RERANK-BENCH-V1-1.5/STATUS.yml"
-    - "benchmark/embedding-v3/reranker_report.py"
   summary:
-    - "O commit local 0f9607df43713872b75d339eda390d2749b5ef68 concluiu corretamente a matriz com 15 de 15 pipelines."
-    - "O Batch rerank-2.5 concluiu 150 requisições, 4550 pares, 2275458 tokens, 0 falhas e 0 retries."
-    - "As cinco pipelines Voyage rerank-2.5 ocupam as cinco primeiras posições do ranking."
-    - "EmbeddingGemma 768 float32 + Voyage rerank-2.5 é a melhor pipeline numérica geral: MRR@10 0.826444 e nDCG@10 0.834631."
-    - "EmbeddingGemma 768 float32 + Qwen local permanece a melhor pipeline totalmente local: MRR@10 0.791074 e nDCG@10 0.805547."
-    - "O retorno local omitiu as cinco linhas Voyage e declarou incorretamente a melhor qualidade absoluta como indeterminada."
-    - "O relatório gerado ainda exibia o título obsoleto v1.5.2; o gerador foi corrigido para usar título estável sem versão embutida."
+    - "O commit local 493ccd2432d550deb6daa84956ea1056bf028c1c regenerou corretamente summary.json e RERANKER_PIPELINE_REPORT.md sem executar API ou modelos."
+    - "A consolidação final está em PASS com 15 pipelines concluídas de 15 esperadas."
+    - "O relatório usa o título estável Reranker Pipeline Benchmark, sem a versão obsoleta v1.5.2."
+    - "EmbeddingGemma 768 float32 + Voyage rerank-2.5 lidera numericamente a matriz completa."
+    - "EmbeddingGemma 768 float32 + Qwen3-Reranker-0.6B é a melhor pipeline totalmente local."
 
 validations:
   executed:
-    - "Inspeção integral do commit local 0f9607df43713872b75d339eda390d2749b5ef68."
-    - "Comparação com o HEAD autoral b233ad927a2a6d152e7a11d5f1fd282ef8aefd8f."
-    - "Conferência dos oito arquivos gerados e versionados pela execução local."
-    - "Conferência de summary.json, score Voyage, cinco pipelines Voyage e relatório consolidado."
-    - "Revisão do diff do gerador de relatório corrigido."
+    - "Inspeção integral do commit 493ccd2432d550deb6daa84956ea1056bf028c1c."
+    - "Comparação com o HEAD autoral 571099195a84f56b7eeee6b53531e570704d179d."
+    - "Conferência de que somente summary.json e RERANKER_PIPELINE_REPORT.md foram alterados pela execução local."
+    - "Conferência do título do relatório, status PASS e preservação da matriz 15/15."
   passed:
-    - "summary.json: PASS, 15 esperadas, 15 concluídas, nenhuma ausente, inesperada ou duplicada."
-    - "Voyage Batch: status completed, 150/150 concluídas, 0 falhas, 4550 pares e 2275458 tokens."
-    - "Corpus SHA-256 congelado preservado."
-    - "Os resultados das quinze pipelines são consistentes com o relatório versionado."
+    - "summary.json permanece em PASS com 15 esperadas, 15 concluídas e nenhuma pipeline ausente, inesperada ou duplicada."
+    - "RERANKER_PIPELINE_REPORT.md não contém mais o título obsoleto v1.5.2."
+    - "Melhor pipeline geral: embeddinggemma_768_float32__voyage_rerank_2_5, MRR@10 0.826444 e nDCG@10 0.834631."
+    - "Melhor pipeline totalmente local: embeddinggemma_768_float32__qwen_local, MRR@10 0.791074 e nDCG@10 0.805547."
     - "77/77 testes, compileall, validate_coverage PASS com 0 findings e git diff --check OK foram registrados pela execução local."
-  failed:
-    - "RERANKER_PIPELINE_REPORT.md ainda contém o título obsoleto v1.5.2 antes da regeneração pelo gerador corrigido."
+  failed: []
   unavailable:
-    - "A suíte local não foi reexecutada pela IA autora remota; os resultados locais foram conferidos documentalmente."
+    - "A suíte local não foi reexecutada pela IA auditora remota; os resultados locais foram conferidos documentalmente."
 
 audit:
   findings:
-    - "A matriz completa 15/15 é válida."
-    - "A melhor qualidade numérica geral é EmbeddingGemma + Voyage rerank-2.5."
-    - "A melhor solução totalmente local é EmbeddingGemma + Qwen3-Reranker-0.6B."
-    - "Gemma + Voyage e Voyage Large + Voyage têm o mesmo HitRate@1 e HitRate@10; a diferença de MRR é 0.000388 e não estabelece significância estatística."
-  decision: "CORRECTION_REQUIRED"
+    - "A matriz completa 15/15 é válida e reproduzível pelos artefatos versionados."
+    - "Voyage rerank-2.5 melhora o primeiro resultado em relação ao Qwen local, mas exige API."
+    - "EmbeddingGemma + Qwen permanece a referência local sem custo de API."
+    - "EmbeddingGemma + Voyage e Voyage Large + Voyage estão praticamente empatados; a diferença de MRR@10 é 0.000388 e não demonstra significância estatística."
+  decision: "APPROVED"
 
-blockers:
-  - "Regenerar somente summary.json e RERANKER_PIPELINE_REPORT.md com o gerador corrigido, sem executar API ou modelos."
-  - "Executar novamente as validações locais aplicáveis."
+blockers: []
 
 next:
-  action: "Sincronizar o patch 1.6.2, regenerar somente o relatório, validar e publicar os artefatos corrigidos."
-  role: "local"
+  action: "O diretor deve escolher a pipeline de produção e autorizar separadamente qualquer integração, merge ou implantação."
+  role: "director"
