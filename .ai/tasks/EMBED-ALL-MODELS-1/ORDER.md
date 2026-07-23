@@ -1,233 +1,227 @@
-# EMBED-ALL-MODELS-1 — DOWNLOAD COMPLETO ANTES DO BENCHMARK
+# EMBED-ALL-MODELS-1 — BAIXAR TUDO E EXECUTAR UM ÚNICO BENCHMARK
 
-## Objetivo
+## Objetivo único
 
-Corrigir a execução anterior: nenhum modelo pode ser excluído por `enabled:false`, `required:false`, `optional`, alias, preferência operacional, incompatibilidade do runtime atual ou decisão interna de prioridade.
+Encontrar o melhor modelo de embedding textual no computador local.
 
-A sequência obrigatória é:
+Fluxo obrigatório:
 
-1. inventariar todos os perfis;
-2. baixar e verificar todos os pesos ausentes;
-3. preparar um runtime compatível para cada formato;
-4. confirmar o gate de completude;
-5. somente então executar um benchmark unificado no corpus congelado;
-6. não publicar vencedor enquanto existir perfil sem resultado real.
+1. verificar todos os pesos já existentes;
+2. baixar todos os pesos ausentes das listas abaixo;
+3. corrigir qualquer erro de download ou runtime até o modelo funcionar;
+4. confirmar que todos os downloads estão completos;
+5. somente então executar um único benchmark textual consolidado;
+6. depois aplicar o reranker local a todos os embeddings concluídos.
 
-## Regra absoluta
+Não criar nova branch, PR, issue, repositório, auditoria, integração ou deploy. Use esta branch já existente e mantenha resultados localmente. Não faça commit nem push adicionais.
 
-É PROIBIDO iniciar o benchmark enquanto qualquer item da fila de download não estiver presente e verificado.
+## Repositório
 
-Se qualquer download falhar, pare antes do benchmark e retorne o erro exato. Não execute subconjunto. Não transforme falha em `optional`, `disabled`, `not applicable`, `alias` ou `coverage_complete`.
+- local: `/home/alpha/Playstoria/models`
+- remoto esperado: `Weltall-IA/holo-models`
+- branch existente: `ai/download-all-before-full-benchmark-v1`
 
-Modelos já presentes não devem ser baixados novamente. Apenas verifique caminho, revisão, tamanho e SHA-256.
+Preserve sem alteração os arquivos preexistentes não relacionados, inclusive:
 
-## Repositório e preservação
+- `benchmark/benchmark/`
+- `benchmark/embedding-v3/run_voyage.py`
+- `comandos.md`
+- `runtime/vane-native-ops/`
 
-- Repositório: `Weltall-IA/holo-models`
-- Checkout local esperado: `/home/alpha/Playstoria/models`
-- Branch: `ai/download-all-before-full-benchmark-v1`
-- Preserve integralmente qualquer arquivo não versionado ou trabalho fora do escopo, inclusive:
-  - `benchmark/benchmark/`
-  - `benchmark/embedding-v3/run_voyage.py`
-  - `comandos.md`
-  - `runtime/vane-native-ops/`
-- Não use stash automático, reset destrutivo, force-push ou remoção de pesos existentes.
-- Pesos e caches permanecem fora do Git.
+Pesos e caches continuam fora do Git.
 
-## Fila obrigatória atualmente sem benchmark completo
+## Regra contra exclusão
 
-### Nemotron
+Nenhum modelo desta ordem pode receber `enabled:false`, `optional`, `disabled`, `not applicable`, `blocked` como encerramento, nem ser retirado por preferência, licença, idioma, formato ou dificuldade de runtime.
 
-1. `nvidia/Nemotron-3-Embed-8B-BF16`
-   - situação: ausente do benchmark e do manifesto anterior;
-   - baixar o checkpoint oficial completo;
-   - backend preferencial: vLLM ou Transformers/Sentence Transformers isolado, conforme suporte real.
+Erro significa: diagnosticar, corrigir e repetir.
 
-2. `Abiray/Nemotron-3-Embed-8B-GGUF`
-   - arquivo Q4_K_M local já identificado;
-   - situação: somente inspeção estrutural e cinco startups; NÃO houve benchmark de retrieval no corpus completo;
-   - executar como perfil independente.
+Não prossiga para o benchmark antes de todos os downloads das listas textual e VL estarem presentes e verificados.
 
-3. `Aqua00/Nemotron-3-Embed-8B-GGUF`
-   - arquivo Q4_K_M local já identificado;
-   - situação: somente inspeção estrutural e cinco startups; NÃO houve benchmark de retrieval no corpus completo;
-   - executar como perfil independente, mesmo que os payloads de tensor coincidam com o Abiray.
+## Lista textual obrigatória a verificar ou baixar
 
-4. `nvidia/Nemotron-3-Embed-1B-BF16`
-   - situação: ausente do benchmark;
-   - baixar e executar como perfil separado do NVFP4 e do GGUF.
+### Já existentes, mas ainda sem benchmark textual completo confiável
 
-### Qwen
+1. `gte_multilingual_base`
+2. `KaLM-Embedding-Gemma3-12B-2511-i1-Q4_K_M`
+3. `KaLM-Embedding-Gemma3-12B-2511-Q4_K_M`
+4. `LFM2.5-Embedding-350M-Q4_K_M`
+5. `Nemotron-3-Embed-8B-Abiray-Q4_K_M`
+6. `Nemotron-3-Embed-8B-Aqua00-Q4_K_M`
+7. `nomic-embed-text-v2-moe-Q4_K_M`
+8. `snowflake-arctic-embed-l-v2.0-Q4_K_M`
+9. `embeddinggemma/` — checkpoint Transformers nativo
+10. `microsoft/bitnet-embedding-270m`
+11. `microsoft/bitnet-embedding-0.6b`
 
-5. `Qwen/Qwen3-Embedding-4B`
-   - situação: foi marcado `enabled:false` e omitido;
-   - baixar checkpoint nativo completo e executar.
+Os dois Nemotron 8B desta tarefa são exclusivamente os dois Q4_K_M já baixados, Abiray e Aqua00. Não baixar Nemotron 8B BF16 ou FP16. Não baixar Nemotron 1B BF16.
 
-6. `Qwen/Qwen3-Embedding-4B-GGUF`
-   - arquivo primário: `Qwen3-Embedding-4B-Q8_0.gguf`;
-   - situação: perfil não criado anteriormente;
-   - baixar e executar via llama.cpp;
-   - não substituir silenciosamente por outra quantização.
+### Adições obrigatórias
 
-### BitNet
+12. `ibm-granite/granite-embedding-311m-multilingual-r2`
+13. `ibm-granite/granite-embedding-97m-multilingual-r2`
+14. `jinaai/jina-embeddings-v5-text-small`
+15. `ai-sage/Giga-Embeddings-instruct`
 
-7. `microsoft/bitnet-embedding-270m`
-   - arquivo: `bitnet-embeddings-270m-bf16-i2_s.gguf`;
-   - situação: peso já resolvido/baixado, mas benchmark não concluído por incompatibilidade do llama.cpp 9972;
-   - preparar runtime isolado compatível; não alterar nem substituir o llama.cpp estável existente.
+Registrar a licença, mas não excluir por licença. O Jina é somente para avaliação porque a licença é `CC-BY-NC-4.0`; ainda assim deve ser baixado e benchmarkado. Granite e Giga permanecem na comparação.
 
-8. `microsoft/bitnet-embedding-0.6b`
-   - arquivo: `bitnet-embeddings-0.6b-bf16-i2_s.gguf`;
-   - situação: peso já resolvido/baixado, mas benchmark não concluído por incompatibilidade do llama.cpp 9972;
-   - preparar runtime isolado compatível; não alterar nem substituir o llama.cpp estável existente.
+Não adicionar Qwen3-Embedding-4B, novos Nemotron BF16/FP16 ou qualquer modelo textual não listado nesta ordem.
 
-### EmbeddingGemma
+## Baselines textuais já benchmarkados que também entram na nova rodada única
 
-9. `google/embeddinggemma-300m`
-   - situação: checkpoint nativo foi excluído por acesso gated; somente o GGUF foi benchmarkado;
-   - tentar download autenticado do checkpoint nativo;
-   - se o acesso não estiver concedido, parar antes do benchmark e retornar esse único bloqueio, sem executar subconjunto.
+Reexecutar no mesmo ciclo, sem aproveitar o resultado antigo como substituto:
 
-## Não adicionar modelo inexistente
+- `colibri_ptbr`
+- `multilingual_e5_large_instruct`
+- `qwen3_embedding_06`
+- `bge_m3_dense`
+- `voyage4_nano`
+- `qwen3_embedding_8b_gguf`
+- `embeddinggemma_gguf`
+- `qwen3_embedding_06_gguf`
+- `nemotron_3_embed_1b_nvfp4`
+- `nemotron_3_embed_1b_q4_k_m_gguf`
 
-Até a data desta ordem, a coleção oficial NVIDIA contém `Nemotron-3-Embed-1B-NVFP4`, `Nemotron-3-Embed-1B-BF16` e `Nemotron-3-Embed-8B-BF16`. Não inventar um perfil oficial `Nemotron-3-Embed-8B-NVFP4` sem repositório e pesos reais.
+`gte_multilingual_base` já está na lista obrigatória e deve ser reexecutado após correção do runtime.
 
-## Fase 1 — Manifesto único de download
+Os resultados congelados de `voyage-4-large` e `voyage-context-4` podem aparecer somente como referência histórica separada. Não chamar API paga nesta tarefa.
 
-Crie um manifesto versionável que liste TODOS os perfis existentes e ausentes, sem campos que permitam exclusão silenciosa.
+## Lista VL — baixar agora, benchmark depois
 
-Arquivo sugerido:
+Verificar e baixar, sem executar benchmark nesta fase:
 
-`benchmark/embedding-v3/config/all_models_benchmark_manifest.json`
+1. `llama-nemotron-embed-vl-1b-v2-FP8`
+2. exatamente as cinco variações `Qwen3-VL-Embedding-*` já solicitadas ou inventariadas localmente
 
-Para cada perfil registre:
+Resolva os cinco nomes e repositórios exatos a partir do inventário e metadados existentes. Não invente uma sexta variação e não adicione outro VL.
 
-- `id`;
-- `repo`;
-- `revision` fixada;
-- `format`;
-- `weight_file` ou lista de arquivos;
-- `expected_size_bytes`;
-- `local_path`;
-- `sha256` real;
-- `download_state`: somente `PRESENT_VERIFIED`, `DOWNLOADED_VERIFIED` ou `DOWNLOAD_FAILED`;
-- `benchmark_state`: inicialmente `PENDING`;
-- `runtime` planejado;
-- dimensão nativa e dimensão comparável;
-- licença.
+Gerar uma lista final dos seis modelos VL com caminho, revisão, arquivos, tamanho e SHA-256. O benchmark VL será uma tarefa posterior.
 
-Não use `enabled`, `required`, `optional`, `selected`, `priority` ou campos equivalentes para retirar modelo da execução.
+## Fase 1 — Gate real de download
 
-Inclua no manifesto todos os modelos já benchmarkados anteriormente, além dos nove perfis acima. O benchmark final será uma única matriz completa.
+Para cada modelo textual e VL:
 
-## Fase 2 — Download antes de qualquer inferência
+- localizar pesos já presentes;
+- identificar repositório e revisão exatos;
+- validar arquivos necessários, tamanho e SHA-256;
+- baixar somente o que estiver ausente ou incompleto;
+- usar download retomável;
+- não apagar nem substituir pesos válidos existentes;
+- não iniciar inferência ou smoke test nesta fase.
 
-1. Verifique espaço livre e tamanho total antes de baixar.
-2. Baixe sequencialmente para evitar pressão desnecessária de RAM/disco.
-3. Use revisão fixada e download retomável.
-4. Valide tamanho e SHA-256 após cada download.
-5. Não execute embedding, smoke test ou benchmark nesta fase.
-6. Não apague versões ou pesos existentes.
-7. Não marque download como concluído sem arquivo real e hash.
-
-Ao final, gere:
+Gerar localmente:
 
 `benchmark/embedding-v3/results/all_models_download_gate.json`
 
-O campo `download_gate_passed` só pode ser `true` quando TODOS os perfis estiverem `PRESENT_VERIFIED` ou `DOWNLOADED_VERIFIED`.
+O arquivo deve listar cada modelo com apenas um destes estados:
 
-Se for `false`, encerre a execução e retorne a lista exata de falhas. NÃO INICIE BENCHMARK.
+- `PRESENT_VERIFIED`
+- `DOWNLOADED_VERIFIED`
+- `IN_PROGRESS`
+- `ERROR_RETRYING`
 
-## Fase 3 — Preparação dos runtimes
+Não existe estado final de desistência.
 
-Somente após `download_gate_passed=true`:
+`download_gate_passed=true` somente quando todos os modelos textuais e todos os seis VL estiverem verificados.
 
-- mantenha o llama.cpp estável 9972 intacto;
-- crie runtime/build isolado para BitNet, se necessário;
-- use ambiente isolado para Nemotron BF16/NVFP4;
-- não reutilize vetores falsos;
-- valide apenas carregamento mínimo e encerramento limpo de cada runtime;
-- uma falha de runtime bloqueia o benchmark completo; não prossiga com subconjunto.
+## Política obrigatória de insistência
 
-Gere:
+### Download
 
-`benchmark/embedding-v3/results/all_models_runtime_gate.json`
+Em caso de erro:
 
-O benchmark só pode começar com `runtime_gate_passed=true` para todos.
+1. confirmar repo, revisão e nome de arquivo;
+2. retomar download parcial;
+3. verificar autenticação Hugging Face quando necessária;
+4. tentar `hf download`, snapshot download e mecanismo Xet compatível;
+5. verificar espaço e integridade;
+6. repetir até concluir ou até existir um impedimento externo que o usuário precise resolver, como aceitar licença gated.
 
-## Fase 4 — Benchmark unificado, uma única vez
+Não continuar com subconjunto.
 
-Depois dos dois gates aprovados, execute todos os perfis no mesmo corpus congelado:
+### Runtime
 
-- 600 documentos;
-- 150 consultas;
+Depois de todos os downloads:
+
+- usar runtime compatível com cada formato;
+- criar ambiente ou build isolado quando necessário;
+- não substituir nem quebrar o llama.cpp estável;
+- para BitNet, preparar uma versão/build compatível com `TYPE_IQ4_NL_4_4`;
+- para GTE, corrigir dependências/código customizado/CUDA; se CUDA continuar tecnicamente impossível, executar qualidade em CPU e registrar desempenho separadamente;
+- para modelos com `trust_remote_code`, usar ambiente isolado e revisão fixada;
+- para OOM, reduzir batch/contexto operacional sem truncar o texto de maneira diferente dos demais modelos e sem mudar os pesos;
+- repetir carregamento e inferência até obter embeddings válidos, finitos e normalizados.
+
+Não declarar modelo encerrado por erro de runtime.
+
+## Fase 2 — Benchmark textual único
+
+Começar somente após `download_gate_passed=true`.
+
+Executar todos os modelos textuais desta ordem e todos os baselines listados em uma única rodada consolidada, usando:
+
+- o mesmo corpus congelado de 600 documentos e 150 consultas;
 - SHA-256 `8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b`;
-- prefixos oficiais por modelo;
-- normalização recomendada e registrada;
-- mesmo protocolo de métricas;
-- execução isolada por perfil;
-- nenhum resultado reaproveitado como sucesso sem reexecução neste ciclo, exceto baselines remotos Voyage congelados que não exijam nova cobrança.
+- os prompts/prefixos oficiais de cada modelo;
+- dimensão nativa;
+- dimensão Matryoshka adicional somente quando oficialmente suportada, reportada como perfil separado;
+- normalização recomendada;
+- execução isolada e sequencial por perfil.
 
-Métricas mínimas:
+Os dois Nemotron 8B Q4_K_M devem ser executados e reportados separadamente, mesmo que os tensores sejam equivalentes.
 
-- HitRate/Recall @1, @3, @5, @10, @20 e @50;
+Métricas mínimas por perfil:
+
+- HitRate e Recall @1, @3, @5, @10, @20 e @50;
 - MRR@10;
 - nDCG@10;
-- mean/median first relevant rank;
-- hard-negative error rate;
-- load/startup;
+- posição média e mediana do primeiro relevante;
+- erro de negativo difícil;
+- carga/startup;
 - documentos/s e consultas/s;
 - RAM e VRAM de pico;
 - tempo total;
-- revisão, arquivo, hash, backend, dtype, dimensão, pooling e normalização.
+- revisão, formato, arquivo, hash, backend, dtype, dimensão, pooling, prompt e normalização.
 
-Para modelos com dimensão Matryoshka:
+Se um modelo falhar durante a rodada, corrija e reexecute esse modelo. Não remova o modelo e não publique ranking incompleto.
 
-- registre a dimensão nativa;
-- execute também a dimensão comparável de 1024 quando oficialmente suportada;
-- reporte os dois perfis separadamente; não esconda um deles.
+## Fase 3 — Reranker local em todos
 
-Os dois GGUF Nemotron 8B devem ser executados separadamente no corpus completo, apesar da equivalência estrutural observada.
+Depois de todos os embeddings textuais concluírem:
 
-## Fase 5 — Reranking local completo
+- aplicar `Qwen3-Reranker-0.6B` local a cada perfil;
+- preservar top 50 e reranquear top 20;
+- usar os mesmos textos e a mesma instrução;
+- registrar HitRate, MRR, nDCG, rescue e damage;
+- não excluir nenhum modelo.
 
-Após todos os embeddings concluírem:
+## Saída final
 
-- aplique o Qwen3-Reranker-0.6B local a TODOS os perfis de embedding;
-- preserve top 50 e reranqueie top 20 com os mesmos textos e instrução;
-- registre rescue e damage;
-- não exclua Nemotron, BitNet, Qwen 4B ou qualquer outro perfil.
+Gerar um único relatório claro com:
 
-Não faça nova chamada paga ao Voyage nesta ordem. Reutilize apenas resultados remotos congelados já existentes como baseline. Uma nova rodada paga exige autorização de custo separada.
+1. lista de downloads textuais e VL, todos verificados;
+2. ranking de qualidade sem reranker;
+3. ranking de qualidade com reranker local;
+4. ranking de velocidade;
+5. ranking de RAM/VRAM;
+6. melhor qualidade absoluta;
+7. melhor opção totalmente local prática;
+8. melhor modelo leve;
+9. limitações de licença, separadas da qualidade;
+10. lista pronta dos seis VL para o benchmark posterior.
 
-## Critério de conclusão
+Não criar PR, não fazer merge e não iniciar integração de aplicação.
 
-A tarefa só pode ser declarada concluída quando:
-
-- todos os nove perfis anteriormente ausentes tiverem download e hash verificados;
-- todos os modelos do manifesto tiverem runtime funcional;
-- todos tiverem resultado completo no corpus, sem `PENDING`, `BLOCKED`, `OPTIONAL`, `DISABLED` ou `NOT_APPLICABLE`;
-- todos os embeddings concluídos tiverem pipeline com o reranker local;
-- o ranking final incluir cada perfil explicitamente;
-- testes, parse de JSON/YAML, `compileall`, `validate_coverage.py`, scan de segredos e `git diff --check` passarem;
-- nenhum modelo seja escondido por alias sem resultado próprio, exceto duplicata byte a byte quando o usuário autorizar explicitamente — não há essa autorização nesta ordem.
-
-## Publicação
-
-- Commit e push somente na feature branch.
-- Abra PR draft enquanto downloads, runtime ou benchmark estiverem incompletos.
-- Não faça merge enquanto existir qualquer perfil faltante ou falha.
-- Não crie outro repositório, integração de aplicação ou deploy.
-
-## Retorno curto obrigatório
+## Retorno curto no chat
 
 Retorne somente:
 
-1. total de perfis no manifesto;
-2. downloads: verificados / falhos;
-3. lista de qualquer download falho;
-4. runtime gate: PASS/FAIL e falhas;
-5. benchmark iniciado: SIM/NÃO;
-6. se iniciado, resultados concluídos / total;
-7. PR/commit atual;
-8. próximo bloqueio real, se houver.
+- downloads textuais: `verificados/total`;
+- downloads VL: `verificados/6`;
+- download gate: `PASS/EM_ANDAMENTO`;
+- runtime corrigido para todos: `SIM/NÃO`;
+- benchmark textual iniciado: `SIM/NÃO`;
+- benchmark textual concluído: `concluídos/total`;
+- reranker concluído: `concluídos/total`;
+- caminho do relatório final;
+- único impedimento externo que ainda dependa do usuário, se existir.
