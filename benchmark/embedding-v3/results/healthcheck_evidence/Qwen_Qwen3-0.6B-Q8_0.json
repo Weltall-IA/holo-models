@@ -1,0 +1,20 @@
+{
+  "id": "Qwen/Qwen3-0.6B-Q8_0:latest",
+  "status": "HEALTHCHECK_PASSED",
+  "evidence": {
+    "endpoint": "POST http://127.0.0.1:11434/api/generate",
+    "command": [
+      "curl",
+      "http://127.0.0.1:11434/api/generate",
+      "-d",
+      "{\"model\":\"Qwen/Qwen3-0.6B-Q8_0:latest\"...}"
+    ],
+    "runtime": "ollama/Qwen/Qwen3-0.6B-Q8_0:latest",
+    "result": {
+      "response": "<think>\nOkay, the user said \"",
+      "eval_count": 8,
+      "eval_duration_ns": 28910000
+    },
+    "elapsed_s": 2.37
+  }
+}

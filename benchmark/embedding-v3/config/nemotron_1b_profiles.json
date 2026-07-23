@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0",
+  "purpose": "Perfis Nemotron 1B admitidos no benchmark completo de embeddings",
+  "dataset": {
+    "name": "holo_fake_scenes_v3",
+    "combined_sha256": "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b",
+    "documents": 600,
+    "queries": 150
+  },
+  "shared_protocol": {
+    "document_prefix": "passage: ",
+    "query_prefix": "query: ",
+    "pooling": "mean",
+    "normalization": "L2",
+    "context_size": 1024,
+    "report_profiles_separately": true
+  },
+  "profiles": [
+    {
+      "id": "nemotron_3_embed_1b_nvfp4",
+      "repo": "nvidia/Nemotron-3-Embed-1B-NVFP4",
+      "local_path": "embed/Nemotron-3-Embed-1B-NVFP4",
+      "weight_file": "model.safetensors",
+      "weight_sha256": "f2753954c89055eb679a45b7dfea27a3e05c04ecbdb1f4e6c086180fe8c32bc7",
+      "license": "OpenMDW-1.1",
+      "backend": "vllm",
+      "backend_version": "0.25.0",
+      "isolated_environment": "/tmp/vllm-env",
+      "runtime_policy": {
+        "allowed": [
+          "vllm"
+        ],
+        "forbidden": [
+          "transformers",
+          "sentence-transformers",
+          "llama.cpp",
+          "ollama"
+        ]
+      },
+      "state": "APPROVED",
+      "result": "results/nemotron_audit_1_0_5/admission_nvfp4_full_cached_20260723.json"
+    },
+    {
+      "id": "nemotron_3_embed_1b_q4_k_m_gguf",
+      "repo": "zenmagnets/Nemotron-3-Embed-1B-Q4_K_M-GGUF",
+      "local_path": "embed/Nemotron-3-Embed-1B-Q4_K_M",
+      "weight_file": "nemotron-3-embed-1b-q4_k_m.gguf",
+      "weight_sha256": "9a74166f51dbc280073748fa199bea49283bd21f7f9280f2dec2b4d975ddfd1d",
+      "license": "OpenMDW-1.1",
+      "backend": "llama.cpp",
+      "backend_version": "9972 (c92e806d1)",
+      "state": "APPROVED",
+      "result": "results/nemotron_audit_1_0_5/admission_gguf_full_20260723_attempt2.json"
+    }
+  ]
+}

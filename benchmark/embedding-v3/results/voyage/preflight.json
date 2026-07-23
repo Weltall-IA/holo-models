@@ -1,0 +1,19 @@
+{
+  "models": [
+    "voyage-4-large",
+    "voyage-context-4"
+  ],
+  "sdk_version": "0.5.0",
+  "corpus_sha256": "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b",
+  "estimated_tokens": {
+    "voyage-4-large": {
+      "documents": 255159,
+      "queries": 4897
+    },
+    "voyage-context-4": {
+      "documents": 255159,
+      "queries": 4897
+    }
+  },
+  "api_key_path_configured": true
+}

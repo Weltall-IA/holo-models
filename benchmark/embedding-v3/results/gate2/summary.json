@@ -1,0 +1,221 @@
+{
+  "schema_version": "1.1",
+  "gate": 2,
+  "status": "PASS",
+  "corpus_sha256": "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b",
+  "full_dataset": true,
+  "models_requested": [
+    "colibri_ptbr",
+    "multilingual_e5_large_instruct",
+    "qwen3_embedding_06",
+    "bge_m3_dense",
+    "voyage4_nano",
+    "bitnet_270m",
+    "bitnet_06b"
+  ],
+  "required_models": [
+    "colibri_ptbr",
+    "multilingual_e5_large_instruct",
+    "qwen3_embedding_06",
+    "bge_m3_dense"
+  ],
+  "optional_models": [
+    "voyage4_nano",
+    "bitnet_270m",
+    "bitnet_06b"
+  ],
+  "models_completed": [
+    "colibri_ptbr",
+    "multilingual_e5_large_instruct",
+    "qwen3_embedding_06",
+    "bge_m3_dense"
+  ],
+  "failures": [
+    {
+      "model_id": "voyage4_nano",
+      "required": false,
+      "phase": "benchmark_worker",
+      "error_type": "WorkerProcessError",
+      "error_message": "worker terminou com código 2; o próximo modelo continuará em processo limpo",
+      "returncode": 2,
+      "stderr_tail": "/home/alpha/Playstoria/models/benchmarks/holo-embedding-benchmark-v3/.venv/lib/python3.12/site-packages/torch/cuda/__init__.py:64: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.\n  import pynvml  # type: ignore[import]"
+    },
+    {
+      "model_id": "bitnet_270m",
+      "required": false,
+      "phase": "benchmark_worker",
+      "error_type": "WorkerProcessError",
+      "error_message": "worker terminou com código 2; o próximo modelo continuará em processo limpo",
+      "returncode": 2,
+      "stderr_tail": ""
+    },
+    {
+      "model_id": "bitnet_06b",
+      "required": false,
+      "phase": "benchmark_worker",
+      "error_type": "WorkerProcessError",
+      "error_message": "worker terminou com código 2; o próximo modelo continuará em processo limpo",
+      "returncode": 2,
+      "stderr_tail": ""
+    }
+  ],
+  "results": [
+    {
+      "model_id": "colibri_ptbr",
+      "revision": "95a4d4f3a1c056ac19e0da196d0ab2b4289e3b3b",
+      "backend": "sentence-transformers",
+      "dimension": 768,
+      "metrics": {
+        "HitRate@1": 0.6066666666666667,
+        "Recall@1": 0.5966666666666667,
+        "HitRate@3": 0.7733333333333333,
+        "Recall@3": 0.7633333333333333,
+        "HitRate@5": 0.8133333333333334,
+        "Recall@5": 0.8033333333333333,
+        "HitRate@10": 0.8466666666666667,
+        "Recall@10": 0.8366666666666667,
+        "HitRate@20": 0.9666666666666667,
+        "Recall@20": 0.9666666666666667,
+        "HitRate@50": 1.0,
+        "Recall@50": 1.0,
+        "MRR@10": 0.6966111111111111,
+        "nDCG@10": 0.7258090775724064,
+        "mean_first_relevant_rank": 4.24,
+        "median_first_relevant_rank": 1.0,
+        "queries_without_relevant": 0,
+        "hard_negative_error_rate": 0.24666666666666667
+      },
+      "runtime": {
+        "dtype": "torch.float32",
+        "load_seconds": 3.1677,
+        "document_encode_seconds": 13.8287,
+        "query_encode_seconds": 0.9124,
+        "peak_vram_bytes": 1155092480,
+        "device": "cuda",
+        "normalization": "l2",
+        "batch_size": 16,
+        "documents_per_second": 43.388,
+        "queries_per_second": 164.4016,
+        "total_seconds": 26.2292
+      }
+    },
+    {
+      "model_id": "multilingual_e5_large_instruct",
+      "revision": "274baa43b0e13e37fafa6428dbc7938e62e5c439",
+      "backend": "sentence-transformers",
+      "dimension": 1024,
+      "metrics": {
+        "HitRate@1": 0.5266666666666666,
+        "Recall@1": 0.5233333333333333,
+        "HitRate@3": 0.6933333333333334,
+        "Recall@3": 0.6833333333333333,
+        "HitRate@5": 0.78,
+        "Recall@5": 0.77,
+        "HitRate@10": 0.8466666666666667,
+        "Recall@10": 0.8366666666666667,
+        "HitRate@20": 0.9333333333333333,
+        "Recall@20": 0.9233333333333333,
+        "HitRate@50": 0.9533333333333334,
+        "Recall@50": 0.9466666666666667,
+        "MRR@10": 0.63289417989418,
+        "nDCG@10": 0.6787630104388015,
+        "mean_first_relevant_rank": 9.64,
+        "median_first_relevant_rank": 1.0,
+        "queries_without_relevant": 0,
+        "hard_negative_error_rate": 0.25333333333333335
+      },
+      "runtime": {
+        "dtype": "torch.float16",
+        "load_seconds": 7.0038,
+        "document_encode_seconds": 5.5216,
+        "query_encode_seconds": 0.2573,
+        "peak_vram_bytes": 1310021632,
+        "device": "cuda",
+        "normalization": "l2",
+        "batch_size": 16,
+        "documents_per_second": 108.6642,
+        "queries_per_second": 582.9771,
+        "total_seconds": 22.6695
+      }
+    },
+    {
+      "model_id": "qwen3_embedding_06",
+      "revision": "97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3",
+      "backend": "sentence-transformers",
+      "dimension": 1024,
+      "metrics": {
+        "HitRate@1": 0.52,
+        "Recall@1": 0.52,
+        "HitRate@3": 0.6666666666666666,
+        "Recall@3": 0.66,
+        "HitRate@5": 0.7666666666666667,
+        "Recall@5": 0.76,
+        "HitRate@10": 0.8266666666666667,
+        "Recall@10": 0.8166666666666667,
+        "HitRate@20": 0.96,
+        "Recall@20": 0.96,
+        "HitRate@50": 0.9866666666666667,
+        "Recall@50": 0.9866666666666667,
+        "MRR@10": 0.6163492063492063,
+        "nDCG@10": 0.6634192577497056,
+        "mean_first_relevant_rank": 5.84,
+        "median_first_relevant_rank": 1.0,
+        "queries_without_relevant": 0,
+        "hard_negative_error_rate": 0.25333333333333335
+      },
+      "runtime": {
+        "dtype": "torch.bfloat16",
+        "load_seconds": 6.5958,
+        "document_encode_seconds": 17.7018,
+        "query_encode_seconds": 0.6749,
+        "peak_vram_bytes": 2300719104,
+        "device": "cuda",
+        "normalization": "l2",
+        "batch_size": 16,
+        "documents_per_second": 33.8949,
+        "queries_per_second": 222.2551,
+        "total_seconds": 30.392
+      }
+    },
+    {
+      "model_id": "bge_m3_dense",
+      "revision": "5617a9f61b028005a4858fdac845db406aefb181",
+      "backend": "sentence-transformers",
+      "dimension": 1024,
+      "metrics": {
+        "HitRate@1": 0.6466666666666666,
+        "Recall@1": 0.6366666666666667,
+        "HitRate@3": 0.76,
+        "Recall@3": 0.75,
+        "HitRate@5": 0.82,
+        "Recall@5": 0.81,
+        "HitRate@10": 0.88,
+        "Recall@10": 0.87,
+        "HitRate@20": 0.9533333333333334,
+        "Recall@20": 0.9533333333333334,
+        "HitRate@50": 0.9866666666666667,
+        "Recall@50": 0.9866666666666667,
+        "MRR@10": 0.7181666666666666,
+        "nDCG@10": 0.7490128789710545,
+        "mean_first_relevant_rank": 4.933333333333334,
+        "median_first_relevant_rank": 1.0,
+        "queries_without_relevant": 0,
+        "hard_negative_error_rate": 0.18666666666666668
+      },
+      "runtime": {
+        "dtype": "torch.float32",
+        "load_seconds": 12.732,
+        "document_encode_seconds": 18.016,
+        "query_encode_seconds": 0.4224,
+        "peak_vram_bytes": 2614809088,
+        "device": "cuda",
+        "normalization": "l2",
+        "batch_size": 16,
+        "documents_per_second": 33.3037,
+        "queries_per_second": 355.1136,
+        "total_seconds": 40.2611
+      }
+    }
+  ],
+  "updated_at": "2026-07-19T02:51:25.152418+00:00"
+}

@@ -1,0 +1,19 @@
+{
+  "id": "qwen3-embedding:0.6b",
+  "status": "HEALTHCHECK_PASSED",
+  "evidence": {
+    "endpoint": "POST http://127.0.0.1:11434/api/embed",
+    "command": [
+      "curl",
+      "http://127.0.0.1:11434/api/embed",
+      "-d",
+      "{\"model\":\"qwen3-embedding:0.6b\"...}"
+    ],
+    "runtime": "ollama/qwen3-embedding:0.6b",
+    "result": {
+      "dimensions": 1024,
+      "sample_norm": 0.0898
+    },
+    "elapsed_s": 4.25
+  }
+}

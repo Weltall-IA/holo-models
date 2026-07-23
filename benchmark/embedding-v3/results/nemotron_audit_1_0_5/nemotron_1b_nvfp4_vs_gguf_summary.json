@@ -1,0 +1,50 @@
+{
+  "state": "EXECUTED",
+  "scope": "Three-text smoke test; not a retrieval-quality benchmark",
+  "texts": [
+    "query: Onde está a chave azul?",
+    "passage: A chave azul está sobre a mesa da cozinha.",
+    "passage: O casaco vermelho está pendurado atrás da porta."
+  ],
+  "nvfp4": {
+    "model": "nvidia/Nemotron-3-Embed-1B-NVFP4",
+    "backend": "vLLM 0.25.0",
+    "isolated_environment": "/tmp/vllm-env",
+    "first_load_seconds": 1568.9528137689995,
+    "cached_load_seconds": 17.140080960998603,
+    "cached_embedding_seconds": 0.1157422849937575,
+    "cached_embeddings_per_second": 25.919654171004172,
+    "peak_rss_mib": 3107.11328125,
+    "peak_vram_mib": 2056.0,
+    "query_positive_cosine": 0.4813166543399988,
+    "query_negative_cosine": 0.1476838233831817,
+    "ranking_margin": 0.3336328309568171
+  },
+  "gguf": {
+    "model": "Nemotron-3-Embed-1B-Q4_K_M",
+    "backend": "llama.cpp c92e806d1",
+    "startup_seconds": 3.2893688249969273,
+    "embedding_seconds": 0.14184853899496375,
+    "embeddings_per_second": 21.149318993736788,
+    "peak_rss_mib": 1113.1796875,
+    "peak_vram_mib": 1218.0,
+    "query_positive_cosine": 0.48334589811232526,
+    "query_negative_cosine": 0.18517865292387023,
+    "ranking_margin": 0.29816724518845505
+  },
+  "same_text_cross_backend_cosine": [
+    0.9691686496300351,
+    0.9727702776104953,
+    0.9760651074774709
+  ],
+  "observations": [
+    "Both backends ranked the relevant passage above the unrelated passage.",
+    "NVFP4 used more host RAM and VRAM and had slower cached startup.",
+    "NVFP4 had slightly faster embedding throughput in this tiny run, which is too small for a stable throughput conclusion.",
+    "No general quality conclusion is drawn from this smoke test."
+  ],
+  "evidence": {
+    "nvfp4": "nvfp4_comparison_20260723/nvfp4_preflight.json",
+    "gguf": "gguf_1b_comparison_20260723/gguf_preflight.json"
+  }
+}

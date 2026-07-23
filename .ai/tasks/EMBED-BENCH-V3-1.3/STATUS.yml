@@ -1,0 +1,77 @@
+schema_version: 1
+
+task:
+  id: "EMBED-BENCH-V3-1.3"
+  title: "Benchmark de embeddings e reranking — Gate 3"
+  objective: "Executar modelos de embedding GGUF pelo llama.cpp no corpus congelado, comparando qualidade, dimensão, throughput, VRAM e custo operacional."
+
+scope:
+  included:
+    - "Gate 3 com Qwen3 Embedding 8B GGUF, EmbeddingGemma 300M GGUF e Qwen3 Embedding 0.6B GGUF."
+    - "Qwen3 8B em Q8_0 primário; fallback Q6_K registrado e não aplicado."
+    - "Execução sequencial em subprocesso e llama-server isolados."
+    - "CUDA, corpus completo, revisão imutável, licença, tamanho, GGUF exato, quantização, pooling, dimensões, throughput, VRAM e SHA-256."
+    - "Truncamento Matryoshka do Qwen3 8B de 4096 para 1024 dimensões, seguido de normalização L2."
+  excluded:
+    - "Gates 4 a 6. Reranking. API paga. Regeneração do corpus."
+
+execution:
+  stage: "1.3.0"
+  role: "auditor"
+  state: "APPROVED"
+
+return:
+  title: "Auditoria da execução do Gate 3 para modelos GGUF no llama.cpp"
+
+changes:
+  files_changed:
+    - ".ai/tasks/EMBED-BENCH-V3-1.3/STATUS.yml"
+    - "benchmark/embedding-v3/gate_status.json"
+    - "benchmark/embedding-v3/GATE_3_REPORT.md"
+    - "benchmark/embedding-v3/download_manifest_gate3.resolved.json"
+    - "benchmark/embedding-v3/results/gate3/qwen3_embedding_8b_gguf.json"
+    - "benchmark/embedding-v3/results/gate3/embeddinggemma_gguf.json"
+    - "benchmark/embedding-v3/results/gate3/qwen3_embedding_06_gguf.json"
+    - "benchmark/embedding-v3/results/gate3/summary.json"
+  summary:
+    - "Gate 3 aprovado com os três modelos obrigatórios concluídos em CUDA no corpus completo."
+    - "Os três arquivos Q8_0 primários foram utilizados; o fallback Q6_K não foi necessário."
+    - "EmbeddingGemma liderou os modelos GGUF em MRR@10 e nDCG@10, com o menor consumo de VRAM."
+    - "Qwen3 8B foi avaliado em 1024 dimensões após truncamento Matryoshka de 4096 e renormalização L2."
+    - "Qwen3 0.6B GGUF permaneceu compatível com o resultado nativo do Gate 2."
+    - "Os Gates 0, 1 e 2 e o hash congelado do corpus foram preservados."
+
+validations:
+  executed:
+    - "Inspeção do commit a13230f25337583d064cb9bfde6c982373bf998a."
+    - "Comparação com o head remoto 4bd38cb63f9a4ba1b9e9daebd7ad67094a47c2fe."
+    - "Conferência dos oito arquivos efetivamente alterados e confirmação de ausência de mudanças em código."
+    - "Conferência de GATE_3_REPORT.md, manifesto resolvido, gate_status.json, summary.json e resultados individuais."
+    - "Conferência de revisões, arquivos Q8_0, fallback, dimensões, pooling, hashes dos pesos, CUDA, throughput e VRAM."
+    - "Conferência da comparação Qwen3 0.6B GGUF versus resultado nativo do Gate 2."
+  passed:
+    - "46/46 testes declarados aprovados e dry-run READY."
+    - "Gate 0 PASS, Gate 1 PASS, Gate 2 PASS e Gate 3 PASS."
+    - "Corpus completo: 600 documentos e 150 consultas."
+    - "Hash do corpus: 8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b."
+    - "Qwen3 8B Q8_0: revisão 69d0e58a13e463cd99a9b83e3f5fee7c10265fab; peso SHA-256 d20ddc71e8a5c4344f2343481e242233a997dc5eaff442427a945836c97b4deb."
+    - "EmbeddingGemma Q8_0: revisão 0f741b5a6585bd53aeb15cd1372c56f2a0f65e12; peso SHA-256 b5ce9d77a3fc4b3b39ccb5643c36777911cc4eb46a66962eadfa3f5f60490d63."
+    - "Qwen3 0.6B Q8_0: revisão 370f27d7550e0def9b39c1f16d3fbaa13aa67728; peso SHA-256 06507c7b42688469c4e7298b0a1e16deff06caf291cf0a5b278c308249c3e439."
+    - "Nenhuma falha, nenhum fallback e nenhum bloqueio no Gate 3."
+  failed: []
+  unavailable: []
+
+audit:
+  findings:
+    - "O status PASS é consistente com CUDA, corpus completo, conjunto integral de modelos e ausência de falhas obrigatórias."
+    - "EmbeddingGemma obteve MRR@10=0,738852 e nDCG@10=0,760875 usando aproximadamente 383 MiB de VRAM."
+    - "Qwen3 8B obteve MRR@10=0,692042 e nDCG@10=0,727498 usando aproximadamente 9,0 GiB de VRAM."
+    - "Qwen3 0.6B GGUF apresentou delta MRR@10=-0,001000 e nDCG@10=-0,000928 em relação ao nativo."
+    - "A execução preservou os artefatos canônicos do Gate 2 porque nenhum arquivo do Gate 2 integra o diff."
+  decision: "APPROVED"
+
+blockers: []
+
+next:
+  action: "Aguardar autorização explícita do diretor para iniciar a atividade 1.4.0 e executar o Gate 4."
+  role: "remote_author"

@@ -1,0 +1,20 @@
+{
+  "id": "Qwopus27B-Coder-MTP:latest",
+  "status": "HEALTHCHECK_PASSED",
+  "evidence": {
+    "endpoint": "POST http://127.0.0.1:11434/api/generate",
+    "command": [
+      "curl",
+      "http://127.0.0.1:11434/api/generate",
+      "-d",
+      "{\"model\":\"Qwopus27B-Coder-MTP:latest\"...}"
+    ],
+    "runtime": "ollama/Qwopus27B-Coder-MTP:latest",
+    "result": {
+      "response": "<think>\n1.  **Analyze",
+      "eval_count": 8,
+      "eval_duration_ns": 359947000
+    },
+    "elapsed_s": 54.02
+  }
+}

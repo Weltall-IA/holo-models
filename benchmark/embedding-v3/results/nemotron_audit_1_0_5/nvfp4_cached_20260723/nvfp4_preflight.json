@@ -1,0 +1,186 @@
+{
+  "state": "EXECUTED",
+  "backend": "vllm",
+  "isolated_environment": "/tmp/vllm-env",
+  "command": [
+    "/tmp/vllm-env/bin/python",
+    "/home/alpha/Playstoria/models/benchmark/embedding-v3/run_nemotron_nvfp4_preflight.py",
+    "--worker",
+    "--model",
+    "/home/alpha/Playstoria/models/embed/Nemotron-3-Embed-1B-NVFP4",
+    "--worker-result",
+    "/home/alpha/Playstoria/models/benchmark/embedding-v3/results/nemotron_audit_1_0_5/nvfp4_cached_20260723/nvfp4_worker_result.json"
+  ],
+  "timeout_seconds": 600,
+  "timed_out": false,
+  "return_code": 0,
+  "wall_seconds": 29.55754091500421,
+  "peak_rss_mib": 3492.234375,
+  "peak_vram_mib": 2052.0,
+  "samples": [
+    {
+      "elapsed_seconds": 0.000732582004275173,
+      "rss_mib": 14.875,
+      "vram_mib": 0.0,
+      "process_count": 1
+    },
+    {
+      "elapsed_seconds": 1.105725159002759,
+      "rss_mib": 381.4140625,
+      "vram_mib": 0.0,
+      "process_count": 1
+    },
+    {
+      "elapsed_seconds": 2.1444380750035634,
+      "rss_mib": 484.99609375,
+      "vram_mib": 0.0,
+      "process_count": 1
+    },
+    {
+      "elapsed_seconds": 3.193376684001123,
+      "rss_mib": 558.0546875,
+      "vram_mib": 0.0,
+      "process_count": 1
+    },
+    {
+      "elapsed_seconds": 4.24870102800196,
+      "rss_mib": 612.74609375,
+      "vram_mib": 0.0,
+      "process_count": 1
+    },
+    {
+      "elapsed_seconds": 5.294866604999697,
+      "rss_mib": 626.19921875,
+      "vram_mib": 0.0,
+      "process_count": 1
+    },
+    {
+      "elapsed_seconds": 6.350275105003675,
+      "rss_mib": 672.65625,
+      "vram_mib": 0.0,
+      "process_count": 1
+    },
+    {
+      "elapsed_seconds": 7.4042989580048015,
+      "rss_mib": 762.8046875,
+      "vram_mib": 0.0,
+      "process_count": 1
+    },
+    {
+      "elapsed_seconds": 8.452767294998921,
+      "rss_mib": 1140.390625,
+      "vram_mib": 0.0,
+      "process_count": 2
+    },
+    {
+      "elapsed_seconds": 9.593367803005094,
+      "rss_mib": 1275.03125,
+      "vram_mib": 0.0,
+      "process_count": 2
+    },
+    {
+      "elapsed_seconds": 10.677070605001063,
+      "rss_mib": 1351.55859375,
+      "vram_mib": 0.0,
+      "process_count": 2
+    },
+    {
+      "elapsed_seconds": 11.735326890004217,
+      "rss_mib": 1400.4140625,
+      "vram_mib": 0.0,
+      "process_count": 2
+    },
+    {
+      "elapsed_seconds": 12.793848893001268,
+      "rss_mib": 1433.53515625,
+      "vram_mib": 0.0,
+      "process_count": 2
+    },
+    {
+      "elapsed_seconds": 13.86358974200266,
+      "rss_mib": 1479.7578125,
+      "vram_mib": 0.0,
+      "process_count": 2
+    },
+    {
+      "elapsed_seconds": 14.943987666003522,
+      "rss_mib": 1558.65625,
+      "vram_mib": 0.0,
+      "process_count": 2
+    },
+    {
+      "elapsed_seconds": 16.013855721001164,
+      "rss_mib": 801.0625,
+      "vram_mib": 0.0,
+      "process_count": 1
+    },
+    {
+      "elapsed_seconds": 17.055184652999742,
+      "rss_mib": 1633.15625,
+      "vram_mib": 0.0,
+      "process_count": 3
+    },
+    {
+      "elapsed_seconds": 18.15033498700359,
+      "rss_mib": 2065.22265625,
+      "vram_mib": 0.0,
+      "process_count": 3
+    },
+    {
+      "elapsed_seconds": 19.24826190600288,
+      "rss_mib": 1095.8828125,
+      "vram_mib": 0.0,
+      "process_count": 1
+    },
+    {
+      "elapsed_seconds": 20.301876561003155,
+      "rss_mib": 1158.34375,
+      "vram_mib": 0.0,
+      "process_count": 1
+    },
+    {
+      "elapsed_seconds": 21.35065169200243,
+      "rss_mib": 2254.27734375,
+      "vram_mib": 128.0,
+      "process_count": 2
+    },
+    {
+      "elapsed_seconds": 22.43171213199821,
+      "rss_mib": 2515.32421875,
+      "vram_mib": 1084.0,
+      "process_count": 4
+    },
+    {
+      "elapsed_seconds": 23.560206747999473,
+      "rss_mib": 3492.234375,
+      "vram_mib": 2052.0,
+      "process_count": 3
+    },
+    {
+      "elapsed_seconds": 25.299063297999965,
+      "rss_mib": 2546.265625,
+      "vram_mib": 1224.0,
+      "process_count": 2
+    },
+    {
+      "elapsed_seconds": 26.360383160004858,
+      "rss_mib": 2901.4375,
+      "vram_mib": 1308.0,
+      "process_count": 2
+    },
+    {
+      "elapsed_seconds": 27.44407512500038,
+      "rss_mib": 3105.14453125,
+      "vram_mib": 1358.0,
+      "process_count": 2
+    },
+    {
+      "elapsed_seconds": 28.504870511998888,
+      "rss_mib": 1136.98046875,
+      "vram_mib": 0.0,
+      "process_count": 1
+    }
+  ],
+  "log": "/home/alpha/Playstoria/models/benchmark/embedding-v3/results/nemotron_audit_1_0_5/nvfp4_cached_20260723/nvfp4_vllm.log",
+  "worker_result": "/home/alpha/Playstoria/models/benchmark/embedding-v3/results/nemotron_audit_1_0_5/nvfp4_cached_20260723/nvfp4_worker_result.json"
+}

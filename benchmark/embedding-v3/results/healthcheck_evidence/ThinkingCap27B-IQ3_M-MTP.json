@@ -1,0 +1,20 @@
+{
+  "id": "ThinkingCap27B-IQ3_M-MTP:latest",
+  "status": "HEALTHCHECK_PASSED",
+  "evidence": {
+    "endpoint": "POST http://127.0.0.1:11434/api/generate",
+    "command": [
+      "curl",
+      "http://127.0.0.1:11434/api/generate",
+      "-d",
+      "{\"model\":\"ThinkingCap27B-IQ3_M-MTP:latest\"...}"
+    ],
+    "runtime": "ollama/ThinkingCap27B-IQ3_M-MTP:latest",
+    "result": {
+      "response": "Here's a thinking process:\n\n1",
+      "eval_count": 8,
+      "eval_duration_ns": 308430000
+    },
+    "elapsed_s": 54.99
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "model_id": "gte_multilingual_base",
+  "model": {
+    "repo": "Alibaba-NLP/gte-multilingual-base",
+    "revision": "9bbca17d9273fd0d03d5725c4a7b0f6b45142062",
+    "actual_dimension": 768,
+    "trust_remote_code": true
+  },
+  "metrics": {
+    "summary": {
+      "HitRate@1": 0.44666666666666666,
+      "HitRate@3": 0.64,
+      "HitRate@5": 0.7066666666666667,
+      "HitRate@10": 0.82,
+      "HitRate@20": 0.94,
+      "HitRate@50": 0.98,
+      "MRR@10": 0.5675899470899473,
+      "nDCG@10": 0.6251758534446522,
+      "mean_first_relevant_rank": 7.406666666666666,
+      "queries_without_relevant": 0,
+      "hard_negative_error_rate": 0.36666666666666664
+    }
+  },
+  "runtime": {
+    "device": "cuda",
+    "dtype": "torch.float32",
+    "batch_size": 16,
+    "load_seconds": 1.7,
+    "document_encode_seconds": 7.1,
+    "query_encode_seconds": 0.2,
+    "peak_vram_bytes": 1717000192,
+    "documents_per_second": 84.51,
+    "queries_per_second": 750.0,
+    "normalization": "l2"
+  },
+  "corpus_sha256": "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b"
+}

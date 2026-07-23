@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0",
+  "algorithm": "SHA-256",
+  "corpus_version": "holo_fake_scenes_v3",
+  "files": [
+    {
+      "file": "data/holo_fake_scenes_v3/corpus.jsonl",
+      "bytes": 1380943,
+      "sha256": "59cf7d64a68770731e28308e421129d3193eacd2a10ba182da8dcf286249d85b"
+    },
+    {
+      "file": "data/holo_fake_scenes_v3/queries.jsonl",
+      "bytes": 80961,
+      "sha256": "9aa48f789df1e3b246979a049478b217cfda1e47fad12a131b5618f4f17e329b"
+    },
+    {
+      "file": "data/holo_fake_scenes_v3/validation.json",
+      "bytes": 794,
+      "sha256": "056c6dbf066809f5356a6c59012007c31cc91662663ffa8e245d48a3a34d6a3b"
+    },
+    {
+      "file": "data/holo_fake_scenes_v3/semantic_review.json",
+      "bytes": 10300,
+      "sha256": "02c1024d50c435fc400fc2db17e3036aa4d6755ea72bcb442f5ba05b4443b67d"
+    }
+  ],
+  "combined_sha256": "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b",
+  "semantic_review_summary": {
+    "complete": true,
+    "errors": [],
+    "approved": 35,
+    "rejected": 0,
+    "reviewed": 35
+  }
+}

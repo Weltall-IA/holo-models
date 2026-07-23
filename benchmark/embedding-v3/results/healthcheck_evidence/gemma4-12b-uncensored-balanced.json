@@ -1,0 +1,20 @@
+{
+  "id": "gemma4-12b-uncensored-balanced:latest",
+  "status": "HEALTHCHECK_PASSED",
+  "evidence": {
+    "endpoint": "POST http://127.0.0.1:11434/api/generate",
+    "command": [
+      "curl",
+      "http://127.0.0.1:11434/api/generate",
+      "-d",
+      "{\"model\":\"gemma4-12b-uncensored-balanced:latest\"...}"
+    ],
+    "runtime": "ollama/gemma4-12b-uncensored-balanced:latest",
+    "result": {
+      "response": "",
+      "eval_count": 8,
+      "eval_duration_ns": 134370000
+    },
+    "elapsed_s": 25.81
+  }
+}

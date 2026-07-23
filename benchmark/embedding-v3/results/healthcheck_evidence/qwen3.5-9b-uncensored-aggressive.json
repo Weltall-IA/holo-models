@@ -1,0 +1,20 @@
+{
+  "id": "qwen3.5-9b-uncensored-aggressive:latest",
+  "status": "HEALTHCHECK_PASSED",
+  "evidence": {
+    "endpoint": "POST http://127.0.0.1:11434/api/generate",
+    "command": [
+      "curl",
+      "http://127.0.0.1:11434/api/generate",
+      "-d",
+      "{\"model\":\"qwen3.5-9b-uncensored-aggressive:latest\"...}"
+    ],
+    "runtime": "ollama/qwen3.5-9b-uncensored-aggressive:latest",
+    "result": {
+      "response": "Thinking Process:\n\n1.  **",
+      "eval_count": 8,
+      "eval_duration_ns": 144497000
+    },
+    "elapsed_s": 31.41
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.1",
+  "gate": 2,
+  "created_at": "2026-07-19T05:19:22.189857+00:00",
+  "corpus_sha256": "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b",
+  "models": [
+    {
+      "id": "voyage4_nano",
+      "repo": "voyageai/voyage-4-nano",
+      "revision": "67fabc9bef010dabc5f6024aa1b1b6b93410426f",
+      "expected_size_bytes": 704446658,
+      "license": "apache-2.0",
+      "gated": false,
+      "destination": "/home/alpha/Playstoria/models/embed/voyage4_nano",
+      "trust_remote_code": true,
+      "backend": "sentence-transformers",
+      "dimension": 1024,
+      "required": false,
+      "file": null,
+      "prompt_profile": null,
+      "encode_api": "asymmetric",
+      "pooling": null
+    }
+  ],
+  "failures": []
+}

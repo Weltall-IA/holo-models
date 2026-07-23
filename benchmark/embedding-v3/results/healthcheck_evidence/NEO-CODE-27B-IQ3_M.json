@@ -1,0 +1,20 @@
+{
+  "id": "NEO-CODE-27B-IQ3_M:latest",
+  "status": "HEALTHCHECK_PASSED",
+  "evidence": {
+    "endpoint": "POST http://127.0.0.1:11434/api/generate",
+    "command": [
+      "curl",
+      "http://127.0.0.1:11434/api/generate",
+      "-d",
+      "{\"model\":\"NEO-CODE-27B-IQ3_M:latest\"...}"
+    ],
+    "runtime": "ollama/NEO-CODE-27B-IQ3_M:latest",
+    "result": {
+      "response": "Thinking process:\n\n1.  **",
+      "eval_count": 8,
+      "eval_duration_ns": 355998000
+    },
+    "elapsed_s": 73.22
+  }
+}

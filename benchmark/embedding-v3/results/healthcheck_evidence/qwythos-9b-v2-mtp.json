@@ -1,0 +1,20 @@
+{
+  "id": "qwythos-9b-v2-mtp:latest",
+  "status": "HEALTHCHECK_PASSED",
+  "evidence": {
+    "endpoint": "POST http://127.0.0.1:11434/api/generate",
+    "command": [
+      "curl",
+      "http://127.0.0.1:11434/api/generate",
+      "-d",
+      "{\"model\":\"qwythos-9b-v2-mtp:latest\"...}"
+    ],
+    "runtime": "ollama/qwythos-9b-v2-mtp:latest",
+    "result": {
+      "response": "The user just asked me to \"Say",
+      "eval_count": 8,
+      "eval_duration_ns": 110732000
+    },
+    "elapsed_s": 24.86
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "id": "lucasmg09/Qwen3.5-2B-PTBR-Q4_K_M:latest",
+  "status": "HEALTHCHECK_PASSED",
+  "evidence": {
+    "endpoint": "POST http://127.0.0.1:11434/api/generate",
+    "command": [
+      "curl",
+      "http://127.0.0.1:11434/api/generate",
+      "-d",
+      "{\"model\":\"lucasmg09/Qwen3.5-2B-PTBR-Q4_K_M:latest\"...}"
+    ],
+    "runtime": "ollama/lucasmg09/Qwen3.5-2B-PTBR-Q4_K_M:latest",
+    "result": {
+      "response": "1.  **Analisar a",
+      "eval_count": 8,
+      "eval_duration_ns": 44318000
+    },
+    "elapsed_s": 4.21
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0",
+  "corpus_version": "holo_fake_scenes_v3",
+  "seed": 20260718,
+  "counts": {
+    "works": 30,
+    "chunks_per_work": 20,
+    "chunks": 600,
+    "queries": 150
+  },
+  "chunking": {
+    "target_min_tokens": 180,
+    "target_max_tokens": 420,
+    "hard_max_tokens": 512,
+    "overlap": 0
+  },
+  "query_distribution": {
+    "semantic_event": 40,
+    "context_dependency": 30,
+    "emotion_intention": 25,
+    "indirect_dialogue": 20,
+    "character_name": 15,
+    "exact_phrase": 10,
+    "similar_scene": 10
+  },
+  "metrics": [
+    "HitRate@1",
+    "HitRate@3",
+    "HitRate@5",
+    "HitRate@10",
+    "HitRate@20",
+    "HitRate@50",
+    "Recall@1",
+    "Recall@3",
+    "Recall@5",
+    "Recall@10",
+    "Recall@20",
+    "Recall@50",
+    "MRR@10",
+    "nDCG@10",
+    "mean_first_relevant_rank",
+    "median_first_relevant_rank",
+    "hard_negative_error_rate"
+  ],
+  "gates": {
+    "0": "inventory",
+    "1": "corpus",
+    "2": "compact_local",
+    "3": "advanced_and_quantization",
+    "4": "voyage_api",
+    "5": "reranking",
+    "6": "chunk_ablation_and_consolidation"
+  },
+  "allowed_now": [0, 1, 2]
+}

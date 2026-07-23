@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "status": "PASS",
+  "generated": [
+    "embeddinggemma_768_float32",
+    "voyage4_nano_1024_float32",
+    "voyage4_nano_2048_float32",
+    "voyage4_nano_2048_int8",
+    "voyage_4_large_1024_float32"
+  ],
+  "reused": [],
+  "variants": [
+    "embeddinggemma_768_float32",
+    "voyage4_nano_1024_float32",
+    "voyage4_nano_2048_float32",
+    "voyage4_nano_2048_int8",
+    "voyage_4_large_1024_float32"
+  ],
+  "candidate_top_k": 50,
+  "updated_at": "2026-07-20T19:57:34.898511+00:00"
+}

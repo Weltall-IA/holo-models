@@ -1,0 +1,114 @@
+schema_version: 1
+
+task:
+  id: "NEMOTRON-AUDIT-1.0.5"
+  title: "Correção de licença, inspeção dos GGUFs Nemotron 8B e preflight isolado do NVFP4"
+  objective: "Concluir a ordem de auditoria 1.0.5 com evidências reproduzíveis e admitir os perfis Nemotron 1B NVFP4 e GGUF no benchmark completo."
+
+scope:
+  included:
+    - "Licença dos pesos Nemotron como OpenMDW-1.1."
+    - "Inspeção estrutural e hashes por tensor dos GGUFs 8B Abiray e Aqua00."
+    - "Cinco inicializações alternadas por GGUF 8B."
+    - "Preflight NVFP4 exclusivamente em vLLM isolado."
+    - "Benchmark completo dos perfis Nemotron 1B NVFP4 e GGUF no corpus congelado."
+    - "Manifesto, relatório, arquivos modificados e diff completo do escopo."
+  excluded:
+    - "APIs pagas."
+    - "Integração do modelo à aplicação."
+    - "Pesos, caches e ambientes virtuais no Git."
+    - "Merge ou deploy."
+
+execution:
+  stage: "1.0.5"
+  role: "local"
+  state: "COMPLETED"
+
+queue:
+  - id: "Q1"
+    action: "Inventariar o estado Git e preservar trabalho preexistente."
+    state: "COMPLETED"
+  - id: "Q2"
+    action: "Consolidar o diff estrutural, os metadados e os hashes por tensor dos GGUFs 8B."
+    state: "COMPLETED"
+  - id: "Q3"
+    action: "Consolidar as cinco inicializações alternadas de cada GGUF 8B."
+    state: "COMPLETED"
+  - id: "Q4"
+    action: "Consolidar o preflight isolado NVFP4 e a comparação completa com o GGUF 1B."
+    state: "COMPLETED"
+  - id: "Q5"
+    action: "Registrar os dois perfis Nemotron 1B no benchmark completo."
+    state: "COMPLETED"
+  - id: "Q6"
+    action: "Gerar manifesto, relatório 1.0.5, arquivos modificados e diff completo."
+    state: "COMPLETED"
+  - id: "Q7"
+    action: "Executar todas as validações aplicáveis e revisar o diff."
+    state: "COMPLETED"
+  - id: "Q8"
+    action: "Criar commit objetivo, publicar a branch e abrir PR."
+    state: "COMPLETED"
+
+changes:
+  files_changed:
+    - ".ai/tasks/NEMOTRON-AUDIT-1.0.5/STATUS.yml"
+    - "benchmark/embedding-v3/NEMOTRON_AUDIT_1_0_5_REPORT.md"
+    - "benchmark/embedding-v3/README.md"
+    - "benchmark/embedding-v3/build_nemotron_audit_manifest.py"
+    - "benchmark/embedding-v3/config/nemotron_1b_profiles.json"
+    - "benchmark/embedding-v3/run_nemotron_1b_admission.py"
+    - "benchmark/embedding-v3/run_nemotron_1b_gguf_preflight.py"
+    - "benchmark/embedding-v3/run_nemotron_gguf_startups.py"
+    - "benchmark/embedding-v3/run_nemotron_nvfp4_preflight.py"
+    - "benchmark/embedding-v3/summarize_nemotron_8b_ggufs.py"
+    - "benchmark/embedding-v3/results/nemotron_audit_1_0_5/"
+  summary:
+    - "Fila persistente criada porque a execução atravessa sessões e ambientes."
+    - "Licença OpenMDW-1.1 consolidada para todos os pesos Nemotron avaliados."
+    - "GGUFs 8B comparados estruturalmente e por SHA-256 de 308 tensores."
+    - "Cinco inicializações alternadas por conversor consolidadas."
+    - "NVFP4 executado exclusivamente em vLLM isolado e comparado ao GGUF 1B no corpus completo."
+    - "Os dois perfis Nemotron 1B foram admitidos separadamente no benchmark completo."
+
+validations:
+  executed:
+    - "PYTHONPATH=benchmark/embedding-v3 /tmp/vllm-env/bin/python -m unittest discover -s benchmark/embedding-v3/tests -v"
+    - "python -m compileall nos seis scripts Nemotron."
+    - "Parse de todos os JSON do escopo."
+    - "Parse de PROJECT.yml, WORKFLOW.yml e STATUS.yml com detecção de chaves duplicadas."
+    - "Validação dos campos state contra a lista permitida."
+    - "Validação dos quatro SHA-256 completos e sem reticências."
+    - "Busca por assinaturas comuns de segredo no diff."
+    - "git diff --cached --check"
+  passed:
+    - "77 de 77 testes."
+    - "18 JSON válidos."
+    - "3 YAML válidos e sem chaves duplicadas."
+    - "27 campos state válidos e nenhum estado proibido no escopo canônico."
+    - "4 SHA-256 de modelos completos."
+    - "Nenhuma assinatura comum de segredo encontrada."
+    - "git diff --cached --check sem achados após normalização de whitespace dos logs."
+  failed: []
+  unavailable: []
+
+publication:
+  gh_auth_validated: true
+  publication_branch: "ai/nemotron-audit-v1.0.5"
+  initial_publication_commit: "1a92ca170cb687649cd0eb9e1183b6eaeb67a107"
+  pull_request: 3
+  pull_request_state: "draft"
+  base_merged: "4dab19f592b95174a6febb2358028cf7a13f5701"
+
+audit:
+  findings:
+    - "Os arquivos 8B completos diferem, mas o cabeçalho GGUF válido e os 308 payloads de tensor são idênticos; o Abiray acrescenta 55 bytes após o último tensor."
+    - "Nenhum intervalo bootstrap de qualidade Nemotron 1B excluiu zero."
+    - "NVFP4 apresentou maior throughput aquecido; GGUF apresentou menor cold start, RAM e VRAM."
+  decision: "APPROVED"
+
+blockers: []
+
+next:
+  action: "Aguardar revisão humana do PR #3; nenhum merge será realizado sem autorização humana explícita."
+  role: "human_review"

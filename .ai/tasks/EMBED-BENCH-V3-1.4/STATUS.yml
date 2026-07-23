@@ -1,0 +1,62 @@
+schema_version: 1
+
+task:
+  id: "EMBED-BENCH-V3-1.4"
+  title: "Benchmark de embeddings locais e Voyage"
+  objective: "Gerar inventário e relatório canônicos diretamente dos resultados executados."
+
+scope:
+  included:
+    - "Benchmarks locais e Voyage já concluídos."
+    - "Correção documental e da identidade dos modelos de API."
+    - "Ranking final gerado dos artefatos canônicos."
+  excluded:
+    - "Reexecução de benchmarks."
+    - "Outras categorias de modelos."
+
+execution:
+  stage: "1.4.6"
+  role: "auditor"
+  state: "APPROVED"
+
+return:
+  title: "Aprovação da consolidação canônica final dos benchmarks de embedding"
+
+changes:
+  files_changed:
+    - ".ai/tasks/EMBED-BENCH-V3-1.4/STATUS.yml"
+  summary:
+    - "O commit a64912abc4073ffba482334b5285cd9564c1714e executou corretamente o gerador canônico."
+    - "As revisões artificiais dos modelos Voyage foram removidas."
+    - "O relatório passou a ler as métricas dos artefatos canônicos e ordenar o ranking por MRR@10 decrescente."
+    - "A composição final contém 11 modelos únicos benchmarkados, 1 alias verificado e 2 embeddings bloqueados."
+    - "Nenhum benchmark foi alterado ou reexecutado."
+
+validations:
+  executed:
+    - "Inspeção integral do commit a64912abc4073ffba482334b5285cd9564c1714e."
+    - "Comparação com o HEAD autoral 91f4ecf5ad6ec164c0814fc36d3fa515d4602fdc."
+    - "Conferência do inventário, relatório, ranking e evidências dos modelos Voyage."
+    - "Conferência do escopo: somente STATUS.yml, local_model_inventory.json e LOCAL_MODEL_INVENTORY_REPORT.md foram alterados pela execução local."
+  passed:
+    - "Inventário: 53 modelos, 12 BENCHMARKED, 19 BLOCKED e 22 HEALTHCHECK_PASSED."
+    - "Embeddings: 11 modelos únicos benchmarkados, 1 alias verificado e 2 bloqueados, totalizando 14 entradas."
+    - "voyage-4-large e voyage-context-4 estão BENCHMARKED sem revisões artificiais."
+    - "Ranking final e métricas coincidem com os artefatos canônicos."
+    - "64/64 testes, validate_coverage PASS com 0 findings e git diff --check OK foram registrados pela execução local."
+  failed: []
+  unavailable:
+    - "A suíte local não foi reexecutada pela IA auditora remota; os resultados locais foram conferidos documentalmente."
+
+audit:
+  findings:
+    - "voyage-4-large lidera o ranking por MRR@10 e nDCG@10."
+    - "voyage-context-4 fica em terceiro por MRR@10 e mantém melhor cobertura em profundidade que o Voyage Large em alguns cortes."
+    - "A consolidação final é internamente consistente e reproduzível pelo gerador versionado."
+  decision: "APPROVED"
+
+blockers: []
+
+next:
+  action: "O diretor deve escolher o modelo de embedding definitivo e autorizar qualquer integração ou merge."
+  role: "director"

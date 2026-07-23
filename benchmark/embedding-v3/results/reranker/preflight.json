@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0",
+  "stage": "1.5.1",
+  "status": "READY",
+  "blockers": [],
+  "corpus_sha256": "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b",
+  "documents": 600,
+  "queries": 150,
+  "candidate_top_k": 50,
+  "rerank_top_k": 20,
+  "rerank_instruction": "Classifique as cenas pela correspondência com a consulta, considerando acontecimento, diálogo, personagens, intenção emocional e contexto. Não favoreça apenas sobreposição literal de palavras.",
+  "paths": {
+    "embeddinggemma": {
+      "path": "/home/alpha/Playstoria/models/embed/embeddinggemma_gguf/embeddinggemma-300M-Q8_0.gguf",
+      "exists": true
+    },
+    "voyage4_nano": {
+      "path": "/home/alpha/Playstoria/models/embed/voyage4_nano",
+      "exists": true
+    },
+    "voyage_large_documents_checkpoint": {
+      "path": "/home/alpha/Playstoria/models/benchmark/embedding-v3/results/raw/voyage/voyage-4-large/documents.json",
+      "exists": true
+    },
+    "voyage_large_queries_checkpoint": {
+      "path": "/home/alpha/Playstoria/models/benchmark/embedding-v3/results/raw/voyage/voyage-4-large/queries.json",
+      "exists": true
+    }
+  },
+  "qwen_candidates": [
+    {
+      "path": "/home/alpha/.cache/huggingface/hub/models--Qwen--Qwen3-Reranker-0.6B/snapshots/e61197ed45024b0ed8a2d74b80b4d909f1255473",
+      "backend": "cross-encoder",
+      "name": "e61197ed45024b0ed8a2d74b80b4d909f1255473",
+      "bytes": 1207486774,
+      "strength": 0.0,
+      "weight_files": [
+        "model.safetensors"
+      ]
+    }
+  ],
+  "qwen_model_path_requested": "/home/alpha/.cache/huggingface/hub/models--Qwen--Qwen3-Reranker-0.6B/snapshots/e61197ed45024b0ed8a2d74b80b4d909f1255473",
+  "voyage_rerank_api_enabled": false,
+  "voyage_key_path_configured": true,
+  "created_at": "2026-07-20T19:56:31.477400+00:00"
+}

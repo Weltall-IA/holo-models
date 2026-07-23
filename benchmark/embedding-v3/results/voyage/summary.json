@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0",
+  "status": "PASS",
+  "corpus_sha256": "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b",
+  "models_completed": [
+    "voyage-4-large",
+    "voyage-context-4"
+  ],
+  "results": [
+    {
+      "model_id": "voyage-4-large",
+      "metrics": {
+        "HitRate@1": 0.7266666666666667,
+        "Recall@1": 0.7166666666666667,
+        "HitRate@3": 0.8,
+        "Recall@3": 0.79,
+        "HitRate@5": 0.8266666666666667,
+        "Recall@5": 0.8166666666666667,
+        "HitRate@10": 0.86,
+        "Recall@10": 0.85,
+        "HitRate@20": 0.98,
+        "Recall@20": 0.98,
+        "HitRate@50": 0.9866666666666667,
+        "Recall@50": 0.9866666666666667,
+        "MRR@10": 0.7727936507936508,
+        "nDCG@10": 0.7860952189468112,
+        "mean_first_relevant_rank": 4.886666666666667,
+        "median_first_relevant_rank": 1.0,
+        "queries_without_relevant": 0,
+        "hard_negative_error_rate": 0.18
+      },
+      "usage": {
+        "tokens": 259246,
+        "requests": 31,
+        "retries": 0,
+        "seconds": 1934.5091337420308
+      },
+      "runtime": {
+        "device": "remote-api",
+        "total_seconds": 1951.942
+      }
+    },
+    {
+      "model_id": "voyage-context-4",
+      "metrics": {
+        "HitRate@1": 0.6666666666666666,
+        "Recall@1": 0.6566666666666666,
+        "HitRate@3": 0.8133333333333334,
+        "Recall@3": 0.8133333333333334,
+        "HitRate@5": 0.84,
+        "Recall@5": 0.84,
+        "HitRate@10": 0.8733333333333333,
+        "Recall@10": 0.8733333333333333,
+        "HitRate@20": 1.0,
+        "Recall@20": 1.0,
+        "HitRate@50": 1.0,
+        "Recall@50": 1.0,
+        "MRR@10": 0.7433042328042329,
+        "nDCG@10": 0.7748319476944924,
+        "mean_first_relevant_rank": 3.34,
+        "median_first_relevant_rank": 1.0,
+        "queries_without_relevant": 0,
+        "hard_negative_error_rate": 0.15333333333333332
+      },
+      "usage": {
+        "tokens": 259906,
+        "requests": 31,
+        "retries": 0,
+        "seconds": 2000.743715375982
+      },
+      "runtime": {
+        "device": "remote-api",
+        "total_seconds": 2014.7348
+      }
+    }
+  ],
+  "updated_at": "2026-07-19T23:07:18.699415+00:00"
+}

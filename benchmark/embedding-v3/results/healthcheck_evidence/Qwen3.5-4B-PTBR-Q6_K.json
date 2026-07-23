@@ -1,0 +1,20 @@
+{
+  "id": "Qwen3.5-4B-PTBR-Q6_K:latest",
+  "status": "HEALTHCHECK_PASSED",
+  "evidence": {
+    "endpoint": "POST http://127.0.0.1:11434/api/generate",
+    "command": [
+      "curl",
+      "http://127.0.0.1:11434/api/generate",
+      "-d",
+      "{\"model\":\"Qwen3.5-4B-PTBR-Q6_K:latest\"...}"
+    ],
+    "runtime": "ollama/Qwen3.5-4B-PTBR-Q6_K:latest",
+    "result": {
+      "response": "1.  **Analyze the Request",
+      "eval_count": 8,
+      "eval_duration_ns": 167748000
+    },
+    "elapsed_s": 14.92
+  }
+}

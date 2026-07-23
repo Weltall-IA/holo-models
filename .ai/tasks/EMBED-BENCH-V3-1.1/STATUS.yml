@@ -1,0 +1,72 @@
+schema_version: 1
+
+task:
+  id: "EMBED-BENCH-V3-1.1"
+  title: "Benchmark de embeddings e reranking — Gates 0 e 1"
+  objective: "Validar o ambiente local e gerar, revisar e congelar o corpus fictício antes de baixar ou executar modelos."
+
+scope:
+  included:
+    - "Testes do benchmark."
+    - "Gate 0 com inventário real do ambiente e validação CUDA pelo PyTorch."
+    - "Gate 1 com geração, revisão semântica e congelamento do corpus."
+    - "Python 3.12 em ambiente virtual isolado."
+    - "Artefatos e evidências dos Gates 0 e 1."
+  excluded:
+    - "Python 3.14."
+    - "Gates 2 a 6."
+    - "Download ou carregamento de modelos de embedding."
+    - "Geração de embeddings."
+    - "Chamadas à Voyage AI."
+    - "Alteração de drivers, CUDA do sistema, Ollama ou serviços."
+    - "Integração ao Holo, merge ou publicação de modelos."
+
+execution:
+  stage: "1.1.3"
+  role: "auditor"
+  state: "APPROVED"
+
+return:
+  title: "Auditoria da correção exata do filtro de saídas e preservação do Gate 1"
+
+changes:
+  files_changed:
+    - ".ai/tasks/EMBED-BENCH-V3-1.1/STATUS.yml"
+  summary:
+    - "O commit 427aabfe23ca9f601202fc13c0803be4384ecf5d foi auditado."
+    - "O filtro do working tree passou a comparar os cinco caminhos autorizados por igualdade exata."
+    - "Os testes cobrem os caminhos exatos e bloqueiam sufixo .bak, prefixo e nome semelhante."
+    - "Gate 0 aprovado com PyTorch 2.13.0+cu130, CUDA disponível e alocação mínima aprovada."
+    - "Gate 1 preservado como PASS com hash conjunto 8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b e 35 revisões aprovadas."
+    - "O registro de arquivos foi normalizado conforme o diff final; requirements-resolved.txt não apresentou alteração líquida no patch 1.1.3."
+
+validations:
+  executed:
+    - "Inspeção do commit 427aabfe23ca9f601202fc13c0803be4384ecf5d e de seu diff."
+    - "Revisão de holo_benchmark/inventory.py."
+    - "Revisão de benchmark.py."
+    - "Revisão de tests/test_inventory.py."
+    - "Revisão de GATE_0_REPORT.md e gate_status.json."
+    - "Conferência de hashes.json e da revisão semântica do Gate 1."
+    - "Comparação do patch 1.1.3 com o retorno de auditoria anterior."
+  passed:
+    - "Comparação exata aplicada aos cinco caminhos gerados pelo Gate 0."
+    - "Testes negativos para sufixo, prefixo e nome semelhante presentes."
+    - "15 de 15 testes declarados aprovados."
+    - "Gate 0 dry-run e real declarados PASS."
+    - "torch.cuda.is_available() verdadeiro e alocação CUDA mínima aprovada."
+    - "gate_status.json registra Gate 0 PASS e Gate 1 PASS."
+    - "Hash conjunto e 35 revisões semânticas do Gate 1 preservados."
+  failed: []
+  unavailable:
+    - "Os comandos locais não foram reexecutados pela IA auditora; a decisão utilizou o código, o diff e os artefatos publicados."
+
+audit:
+  findings: []
+  decision: "APPROVED"
+
+blockers: []
+
+next:
+  action: "Encerrar a atividade dos Gates 0 e 1 e aguardar autorização humana antes de iniciar qualquer atividade dos Gates 2 a 6."
+  role: "remote_author"

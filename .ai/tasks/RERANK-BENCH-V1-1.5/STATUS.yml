@@ -1,0 +1,69 @@
+schema_version: 1
+
+task:
+  id: "RERANK-BENCH-V1-1.5"
+  title: "Benchmark decisório de embeddings e rerankers para busca de cenas"
+  objective: "Comparar cinco variantes de embedding sem reranker, com Qwen local e com Voyage rerank-2.5."
+
+scope:
+  included:
+    - "Corpus congelado com 600 documentos e 150 consultas."
+    - "EmbeddingGemma 768 float32."
+    - "Voyage 4 Nano em 1024 float32, 2048 float32 e 2048 int8."
+    - "Voyage 4 Large 1024 float32 reutilizado dos checkpoints existentes."
+    - "Qwen reranker local."
+    - "Voyage rerank-2.5 como referência externa autorizada."
+    - "Top 50 candidatos e reranking principal do top 20."
+  excluded:
+    - "Voyage Context 4."
+    - "Regeneração do corpus."
+    - "Nova chamada de embedding Voyage 4 Large."
+    - "Integração, merge ou implantação."
+
+execution:
+  stage: "1.6.2"
+  role: "auditor"
+  state: "APPROVED"
+
+return:
+  title: "Aprovação final do benchmark completo de embeddings e rerankers"
+
+changes:
+  files_changed:
+    - ".ai/tasks/RERANK-BENCH-V1-1.5/STATUS.yml"
+  summary:
+    - "O commit local 493ccd2432d550deb6daa84956ea1056bf028c1c regenerou corretamente summary.json e RERANKER_PIPELINE_REPORT.md sem executar API ou modelos."
+    - "A consolidação final está em PASS com 15 pipelines concluídas de 15 esperadas."
+    - "O relatório usa o título estável Reranker Pipeline Benchmark, sem a versão obsoleta v1.5.2."
+    - "EmbeddingGemma 768 float32 + Voyage rerank-2.5 lidera numericamente a matriz completa."
+    - "EmbeddingGemma 768 float32 + Qwen3-Reranker-0.6B é a melhor pipeline totalmente local."
+
+validations:
+  executed:
+    - "Inspeção integral do commit 493ccd2432d550deb6daa84956ea1056bf028c1c."
+    - "Comparação com o HEAD autoral 571099195a84f56b7eeee6b53531e570704d179d."
+    - "Conferência de que somente summary.json e RERANKER_PIPELINE_REPORT.md foram alterados pela execução local."
+    - "Conferência do título do relatório, status PASS e preservação da matriz 15/15."
+  passed:
+    - "summary.json permanece em PASS com 15 esperadas, 15 concluídas e nenhuma pipeline ausente, inesperada ou duplicada."
+    - "RERANKER_PIPELINE_REPORT.md não contém mais o título obsoleto v1.5.2."
+    - "Melhor pipeline geral: embeddinggemma_768_float32__voyage_rerank_2_5, MRR@10 0.826444 e nDCG@10 0.834631."
+    - "Melhor pipeline totalmente local: embeddinggemma_768_float32__qwen_local, MRR@10 0.791074 e nDCG@10 0.805547."
+    - "77/77 testes, compileall, validate_coverage PASS com 0 findings e git diff --check OK foram registrados pela execução local."
+  failed: []
+  unavailable:
+    - "A suíte local não foi reexecutada pela IA auditora remota; os resultados locais foram conferidos documentalmente."
+
+audit:
+  findings:
+    - "A matriz completa 15/15 é válida e reproduzível pelos artefatos versionados."
+    - "Voyage rerank-2.5 melhora o primeiro resultado em relação ao Qwen local, mas exige API."
+    - "EmbeddingGemma + Qwen permanece a referência local sem custo de API."
+    - "EmbeddingGemma + Voyage e Voyage Large + Voyage estão praticamente empatados; a diferença de MRR@10 é 0.000388 e não demonstra significância estatística."
+  decision: "APPROVED"
+
+blockers: []
+
+next:
+  action: "O diretor deve escolher a pipeline de produção e autorizar separadamente qualquer integração, merge ou implantação."
+  role: "director"

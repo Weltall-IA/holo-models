@@ -1,0 +1,20 @@
+{
+  "id": "Vibeforged-14B:latest",
+  "status": "HEALTHCHECK_PASSED",
+  "evidence": {
+    "endpoint": "POST http://127.0.0.1:11434/api/generate",
+    "command": [
+      "curl",
+      "http://127.0.0.1:11434/api/generate",
+      "-d",
+      "{\"model\":\"Vibeforged-14B:latest\"...}"
+    ],
+    "runtime": "ollama/Vibeforged-14B:latest",
+    "result": {
+      "response": "The user is asking me to say \"",
+      "eval_count": 8,
+      "eval_duration_ns": 118660000
+    },
+    "elapsed_s": 18.15
+  }
+}
