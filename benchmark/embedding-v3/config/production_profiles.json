@@ -1,0 +1,104 @@
+{
+  "schema_version": "1.0",
+  "purpose": "Perfis operacionais de retrieval aprovados para o Projeto Holo, baseados exclusivamente em resultados de benchmark consolidados",
+  "documentation": "benchmark/embedding-v3/PRODUCTION_PROFILE_DECISION.md",
+  "profiles": [
+    {
+      "id": "local_default",
+      "label": "Padrão local — sem custo de API",
+      "enabled": true,
+      "embedding": {
+        "id": "embeddinggemma_768_float32",
+        "backend": "llama.cpp",
+        "dimension": 768,
+        "dtype": "float32",
+        "normalization": "L2",
+        "pooling": "mean",
+        "weight_sha256": "c84df84e00a126d3b0e7fba0fb94a21a8e3eb871ddfd03f19ba5362b622b0e20",
+        "result_gate3": "results/gate3/embeddinggemma_gguf.json",
+        "result_reranker_candidates": "results/reranker/candidates/embeddinggemma_768_float32.json"
+      },
+      "reranker": {
+        "id": "qwen_local",
+        "backend": "transformers",
+        "purpose": "reranking local dos top 50 candidatos para top 20",
+        "result_pipeline": "results/reranker/pipelines/qwen_local",
+        "result_scores": "results/reranker/scores/qwen_local.json"
+      },
+      "source": "pipeline qwen_local + embeddinggemma_768_float32 no benchmark completo de rerankers",
+      "reason": "Perfil autossuficiente, sem dependência de API, throughput adequado para operação local."
+    },
+    {
+      "id": "quality_external_optional",
+      "label": "Qualidade externa com Voyage rerank — opcional, desabilitado por padrão",
+      "enabled": false,
+      "requires_api": true,
+      "requires_authorization": true,
+      "embedding": {
+        "id": "embeddinggemma_768_float32",
+        "backend": "llama.cpp",
+        "dimension": 768,
+        "dtype": "float32",
+        "normalization": "L2",
+        "pooling": "mean",
+        "weight_sha256": "c84df84e00a126d3b0e7fba0fb94a21a8e3eb871ddfd03f19ba5362b622b0e20",
+        "result_gate3": "results/gate3/embeddinggemma_gguf.json",
+        "result_reranker_candidates": "results/reranker/candidates/embeddinggemma_768_float32.json"
+      },
+      "reranker": {
+        "id": "voyage_rerank_2_5",
+        "backend": "voyage_api",
+        "purpose": "reranking via API Voyage Rerank 2.5",
+        "result_pipeline": "results/reranker/pipelines/voyage_rerank_2_5",
+        "result_scores": "results/reranker/scores/voyage_rerank_2_5.json"
+      },
+      "source": "pipeline voyage_rerank_2_5 + embeddinggemma_768_float32 no benchmark completo de rerankers",
+      "reason": "Melhor qualidade de reranking medida, porém depende de API paga e autorização operacional explícita."
+    },
+    {
+      "id": "nemotron_gguf_evaluation",
+      "label": "Nemotron 1B GGUF — perfil econômico de avaliação",
+      "enabled": false,
+      "embedding": {
+        "id": "nemotron_3_embed_1b_q4_k_m_gguf",
+        "repo": "zenmagnets/Nemotron-3-Embed-1B-Q4_K_M-GGUF",
+        "backend": "llama.cpp",
+        "dimension": 1024,
+        "dtype": "q4_k_m",
+        "normalization": "L2",
+        "pooling": "mean",
+        "license": "OpenMDW-1.1",
+        "weight_sha256": "9a74166f51dbc280073748fa199bea49283bd21f7f9280f2dec2b4d975ddfd1d",
+        "result_admission": "results/nemotron_audit_1_0_5/admission_gguf_full_20260723_attempt2.json"
+      },
+      "source": "auditoria Nemotron 1.0.5 — admission_gguf_full_20260723_attempt2",
+      "reason": "Menor cold start, RAM e VRAM entre as opções Nemotron 1B. Adequado para ambientes com recursos limitados. Não usar como padrão antes de teste de integração da aplicação."
+    },
+    {
+      "id": "nemotron_nvfp4_evaluation",
+      "label": "Nemotron 1B NVFP4 — perfil de throughput aquecido",
+      "enabled": false,
+      "embedding": {
+        "id": "nemotron_3_embed_1b_nvfp4",
+        "repo": "nvidia/Nemotron-3-Embed-1B-NVFP4",
+        "backend": "vllm",
+        "isolated_environment": "/tmp/vllm-env",
+        "dimension": 1024,
+        "dtype": "nvfp4",
+        "normalization": "L2",
+        "pooling": "mean",
+        "license": "OpenMDW-1.1",
+        "weight_sha256": "f2753954c89055eb679a45b7dfea27a3e05c04ecbdb1f4e6c086180fe8c32bc7",
+        "result_admission": "results/nemotron_audit_1_0_5/admission_nvfp4_full_cached_20260723.json"
+      },
+      "source": "auditoria Nemotron 1.0.5 — admission_nvfp4_full_cached_20260723",
+      "reason": "Maior throughput em lote aquecido no host medido. Exige vLLM isolado. Não usar como padrão antes de teste de integração da aplicação."
+    }
+  ],
+  "validation": {
+    "each_profile_references_existing_results": true,
+    "each_embedding_id_exists_in_models_config_or_nemotron_profiles": true,
+    "each_reranker_id_exists_in_reranker_results": true,
+    "disabled_by_default_requires_explicit_authorization": true
+  }
+}
