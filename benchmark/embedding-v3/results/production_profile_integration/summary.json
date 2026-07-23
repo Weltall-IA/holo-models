@@ -1,0 +1,91 @@
+{
+  "schema_version": "1.0",
+  "task": "RETRIEVAL-RUNTIME-INTEGRATION-1",
+  "application_contract_ready": true,
+  "results": [
+    {
+      "schema_version": "1.0",
+      "profile_id": "local_default",
+      "status": "PASSED",
+      "backend": "llama.cpp",
+      "dimension": 768,
+      "vector_count": 3,
+      "norm_range": [
+        1.0,
+        1.0
+      ],
+      "repeatability_cosine": 0.333373,
+      "reason": null,
+      "runtime_seconds": 4.509,
+      "startup_seconds": 3.468,
+      "weight_sha256": "b5ce9d77a3fc4b3b39ccb5643c36777911cc4eb46a66962eadfa3f5f60490d63",
+      "runtime_version": "unknown",
+      "hardware": "x86_64; N/A; GPU: NVIDIA GeForce RTX 5060 Ti"
+    },
+    {
+      "schema_version": "1.0",
+      "profile_id": "quality_external_optional",
+      "status": "BLOCKED",
+      "backend": "llama.cpp",
+      "dimension": null,
+      "vector_count": null,
+      "norm_range": [
+        0.0,
+        0.0
+      ],
+      "repeatability_cosine": null,
+      "reason": "Perfil 'quality_external_optional' está desabilitado. Use evaluation_mode=true para teste experimental",
+      "runtime_seconds": 0.0,
+      "startup_seconds": null,
+      "weight_sha256": null,
+      "runtime_version": null,
+      "hardware": null
+    },
+    {
+      "schema_version": "1.0",
+      "profile_id": "nemotron_gguf_evaluation",
+      "status": "PASSED",
+      "backend": "llama.cpp",
+      "dimension": 1024,
+      "vector_count": 3,
+      "norm_range": [
+        1.0,
+        1.0
+      ],
+      "repeatability_cosine": 0.867502,
+      "reason": null,
+      "runtime_seconds": 8.395,
+      "startup_seconds": 6.403,
+      "weight_sha256": "9a74166f51dbc280073748fa199bea49283bd21f7f9280f2dec2b4d975ddfd1d",
+      "runtime_version": "unknown",
+      "hardware": "x86_64; N/A; GPU: NVIDIA GeForce RTX 5060 Ti"
+    },
+    {
+      "schema_version": "1.0",
+      "profile_id": "nemotron_nvfp4_evaluation",
+      "status": "BLOCKED",
+      "backend": "vllm",
+      "dimension": null,
+      "vector_count": null,
+      "norm_range": [
+        0.0,
+        0.0
+      ],
+      "repeatability_cosine": null,
+      "reason": "Ambiente vLLM não encontrado em /tmp/vllm-env",
+      "runtime_seconds": 0.0,
+      "startup_seconds": null,
+      "weight_sha256": null,
+      "runtime_version": null,
+      "hardware": null
+    }
+  ],
+  "local_default_ready": true,
+  "external_api_guard_ready": false,
+  "nemotron_gguf_evaluation_ready": true,
+  "nemotron_nvfp4_evaluation_ready": false,
+  "blockers": [
+    "Perfil 'quality_external_optional' está desabilitado. Use evaluation_mode=true para teste experimental",
+    "Ambiente vLLM não encontrado em /tmp/vllm-env"
+  ]
+}
