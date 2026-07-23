@@ -1,0 +1,2 @@
+a2aa29c618da6eed10d9474e72e33188c61e5fd700aed2fe9a1d98abdc90c6fc  embed/Nemotron-3-Embed-8B-Abiray-Q4_K_M/Nemotron-3-Embed-8B-Q4_K_M.gguf
+1352d929879c61fccf76ff855c6250c7fdc924479932918febcc6fe384cb70a7  embed/Nemotron-3-Embed-8B-Aqua00-Q4_K_M/Nemotron-3-Embed-8B-Q4_K_M.gguf

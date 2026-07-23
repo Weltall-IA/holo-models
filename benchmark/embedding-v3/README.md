@@ -51,6 +51,19 @@ Qwen3 usa pooling `last` e instrução de consulta. O modelo 8B retorna até 409
 
 Uma seleção parcial com `--models`, execução em CPU ou recorte do corpus nunca conclui o Gate 3 como `PASS`. Diagnósticos parciais são gravados em `results/gate3/diagnostics/` sem substituir os artefatos canônicos.
 
+## Perfis Nemotron 1B admitidos
+
+Os perfis `nvidia/Nemotron-3-Embed-1B-NVFP4` em vLLM e
+`zenmagnets/Nemotron-3-Embed-1B-Q4_K_M-GGUF` em llama.cpp permanecem separados
+no benchmark completo. A configuração canônica está em
+`config/nemotron_1b_profiles.json`; ambos usam o corpus congelado completo,
+prefixos `query: ` e `passage: `, pooling mean e normalização L2.
+
+O NVFP4 deve ser executado somente com vLLM em ambiente isolado. O GGUF é o
+perfil de menor consumo e cold start; o NVFP4 é o perfil de maior throughput
+em lote no host medido. Resultados, limites e evidências da admissão estão em
+`NEMOTRON_AUDIT_1_0_5_REPORT.md`.
+
 ## Execução
 
 ```text

@@ -1,0 +1,300 @@
+{
+  "schema_version": "1.0",
+  "state": "COMPLETED",
+  "task": "NEMOTRON-AUDIT-1.0.5",
+  "git": {
+    "source_branch_at_inventory": "ai/reranker-benchmark-v1.5",
+    "source_head_at_inventory": "493ccd2432d550deb6daa84956ea1056bf028c1c",
+    "base_branch": "ai/reranker-benchmark-v1.5",
+    "base_head_at_publication": "4dab19f592b95174a6febb2358028cf7a13f5701",
+    "publication_branch": "ai/nemotron-audit-v1.0.5",
+    "initial_publication_commit": "1a92ca170cb687649cd0eb9e1183b6eaeb67a107",
+    "pull_request": 3,
+    "pull_request_state": "draft"
+  },
+  "models_not_versioned": [
+    {
+      "path": "embed/Nemotron-3-Embed-8B-Abiray-Q4_K_M/Nemotron-3-Embed-8B-Q4_K_M.gguf",
+      "bytes": 4896390039,
+      "sha256": "a2aa29c618da6eed10d9474e72e33188c61e5fd700aed2fe9a1d98abdc90c6fc"
+    },
+    {
+      "path": "embed/Nemotron-3-Embed-8B-Aqua00-Q4_K_M/Nemotron-3-Embed-8B-Q4_K_M.gguf",
+      "bytes": 4896389984,
+      "sha256": "1352d929879c61fccf76ff855c6250c7fdc924479932918febcc6fe384cb70a7"
+    },
+    {
+      "path": "embed/Nemotron-3-Embed-1B-NVFP4/model.safetensors",
+      "bytes": 1027789672,
+      "sha256": "f2753954c89055eb679a45b7dfea27a3e05c04ecbdb1f4e6c086180fe8c32bc7"
+    },
+    {
+      "path": "embed/Nemotron-3-Embed-1B-Q4_K_M/nemotron-3-embed-1b-q4_k_m.gguf",
+      "bytes": 749352096,
+      "sha256": "9a74166f51dbc280073748fa199bea49283bd21f7f9280f2dec2b4d975ddfd1d"
+    }
+  ],
+  "runtime_not_versioned": {
+    "vllm_environment": "/tmp/vllm-env",
+    "vllm": "0.25.0",
+    "python": "3.12.13",
+    "torch": "2.11.0+cu130",
+    "llama_cpp": "9972 (c92e806d1)",
+    "gpu": "NVIDIA GeForce RTX 5060 Ti",
+    "driver": "610.43.03",
+    "vram_mib": 16311
+  },
+  "preserved_preexisting_untracked": [
+    "benchmark/embedding-v3/run_voyage.py",
+    "comandos.md",
+    "runtime/vane-native-ops/"
+  ],
+  "files": [
+    {
+      "path": ".ai/tasks/NEMOTRON-AUDIT-1.0.5/STATUS.yml",
+      "bytes": 4855,
+      "sha256": "365d7bdd4dfeb1711f82531b5294ef64080102b048740c7a98ddaf7e15c020ef"
+    },
+    {
+      "path": "benchmark/embedding-v3/NEMOTRON_AUDIT_1_0_5_REPORT.md",
+      "bytes": 9583,
+      "sha256": "31711151227f9f014c7f51f30c2c0d9e63255efd1785170dcec690781bec167e"
+    },
+    {
+      "path": "benchmark/embedding-v3/README.md",
+      "bytes": 4066,
+      "sha256": "703c340eb1776d48ba83a5481db3e8e8c7be89f4e792c9b0f36bd5b7ba44d076"
+    },
+    {
+      "path": "benchmark/embedding-v3/build_nemotron_audit_manifest.py",
+      "bytes": 5322,
+      "sha256": "e675d8dfbcb1e5096c5e224e01320cae750d7e35dd2b26cf2b85510c9de7dc59"
+    },
+    {
+      "path": "benchmark/embedding-v3/config/nemotron_1b_profiles.json",
+      "bytes": 1842,
+      "sha256": "683e879803d3a3db14a239cf952b772ea60bb6a66802b77017dce1c33c252f72"
+    },
+    {
+      "path": "benchmark/embedding-v3/results/nemotron_audit_1_0_5/abiray_gguf_structure.json",
+      "bytes": 35583,
+      "sha256": "a73d22b18370208a862315360863badff47fba7927d303a0e84e9e242796fa6f"
+    },
+    {
+      "path": "benchmark/embedding-v3/results/nemotron_audit_1_0_5/abiray_tail.hex",
+      "bytes": 456,
+      "sha256": "278c0d5b3a7ed03211a6ab5fcdbcc7a299a29287db884d7145798800eb0511d6"
+    },
+    {
+      "path": "benchmark/embedding-v3/results/nemotron_audit_1_0_5/abiray_tensor_hashes.txt",
+      "bytes": 97866,
+      "sha256": "20760fe815f5f74e974bb53b0201466dfe41c91363b4d75f45c22407c0b7f51c"
+    },
+    {
+      "path": "benchmark/embedding-v3/results/nemotron_audit_1_0_5/admission_decision_20260723.json",
+      "bytes": 3989,
+      "sha256": "5b4dfb069a362014a5d20363546f9788b4b9051617928eccbb3bd8d22452786b"
+    },
+    {
+      "path": "benchmark/embedding-v3/results/nemotron_audit_1_0_5/admission_gguf_full_20260723.log",
+      "bytes": 1124,
+      "sha256": "c16506657df4aa399747e147ed52d217666a18868bc64452a55fd8669d4db33d"
+    },
+    {
+      "path": "benchmark/embedding-v3/results/nemotron_audit_1_0_5/admission_gguf_full_20260723_attempt2.json",
+      "bytes": 463459,
+      "sha256": "ba6b92d9c98d080037536c408378209ba59385dd9ebc0183934fab44d13da7fc"
+    },
+    {
+      "path": "benchmark/embedding-v3/results/nemotron_audit_1_0_5/admission_gguf_full_20260723_attempt2.log",
+      "bytes": 213499,
+      "sha256": "92fa146bbbbe13df8b9386573431310eca6cc00c0a75f2ebd8835d77412b614a"
+    },
+    {
+      "path": "benchmark/embedding-v3/results/nemotron_audit_1_0_5/admission_nvfp4_full_20260723.json",
+      "bytes": 462874,
+      "sha256": "7ab5797adb1ae83182d54d9f70b3662bbafa446fcfc507d88281f8c789f876c1"
+    },
+    {
+      "path": "benchmark/embedding-v3/results/nemotron_audit_1_0_5/admission_nvfp4_full_cached_20260723.json",
+      "bytes": 462876,
+      "sha256": "e193ae96fe27ff3925ae6486d45784f794a46c34300a6bc9bdb016b9a6b037fd"
+    },
+    {
+      "path": "benchmark/embedding-v3/results/nemotron_audit_1_0_5/aqua00_gguf_structure.json",
+      "bytes": 35583,
+      "sha256": "753e0ffb53381ba5aae836752ed1e38089a77b51d4ea7bdaabbdc5919e07048e"
+    },
+    {
+      "path": "benchmark/embedding-v3/results/nemotron_audit_1_0_5/aqua00_tail.hex",
+      "bytes": 456,
+      "sha256": "fc427d5ec38f17528598f2f923982864f8065932f5dfba76aa1fccc5db06875d"
+    },
+    {
+      "path": "benchmark/embedding-v3/results/nemotron_audit_1_0_5/aqua00_tensor_hashes.txt",
+      "bytes": 97866,
+      "sha256": "c40fa88f14bb07b6f1cebb5f77f74cd3c0085c8522995c81bfe1628b89af4074"
+    },
+    {
+      "path": "benchmark/embedding-v3/results/nemotron_audit_1_0_5/file_byte_diff.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "benchmark/embedding-v3/results/nemotron_audit_1_0_5/file_sha256.txt",
+      "bytes": 276,
+      "sha256": "1b03a207a20695a303f8de3a1bdaf35c1fb42e4a91b279b7e7a205af20b254fb"
+    },
+    {
+      "path": "benchmark/embedding-v3/results/nemotron_audit_1_0_5/gguf_1b_comparison_20260723/gguf_llama_cpp.log",
+      "bytes": 1655,
+      "sha256": "8bce743ad644ee1f231f31731a18a75ffaae964c2296ab883f7e0b41982b46b4"
+    },
+    {
+      "path": "benchmark/embedding-v3/results/nemotron_audit_1_0_5/gguf_1b_comparison_20260723/gguf_preflight.json",
+      "bytes": 175882,
+      "sha256": "2406b8375b049e45249854fd40341adff06561893546de5d39e040eab274a068"
+    },
+    {
+      "path": "benchmark/embedding-v3/results/nemotron_audit_1_0_5/gguf_8b_comparison.json",
+      "bytes": 5948,
+      "sha256": "afd1a12488d44395eef58048f4f1c340a30d09c6f06225fd877a11906a4417c8"
+    },
+    {
+      "path": "benchmark/embedding-v3/results/nemotron_audit_1_0_5/gguf_startup_logs/01_abiray.log",
+      "bytes": 1350,
+      "sha256": "e2a990f4e35a9bf398fa77b6a74792bd84b195ac5d829706b15bd94026ce1e48"
+    },
+    {
+      "path": "benchmark/embedding-v3/results/nemotron_audit_1_0_5/gguf_startup_logs/02_aqua00.log",
+      "bytes": 1350,
+      "sha256": "f4757f47a2a14196876cf2e8f94c863e4364ec796161b4d5232f2a62245fce03"
+    },
+    {
+      "path": "benchmark/embedding-v3/results/nemotron_audit_1_0_5/gguf_startup_logs/03_abiray.log",
+      "bytes": 1350,
+      "sha256": "e06161b591b9d2b4ba2d906445fb63611cc67cce2d76b3607ee85f63606e999c"
+    },
+    {
+      "path": "benchmark/embedding-v3/results/nemotron_audit_1_0_5/gguf_startup_logs/04_aqua00.log",
+      "bytes": 1350,
+      "sha256": "6d5cf298b5c81c002eb3f79c4a4cb9656082afcd71f0b039409de65ee5a02fbd"
+    },
+    {
+      "path": "benchmark/embedding-v3/results/nemotron_audit_1_0_5/gguf_startup_logs/05_abiray.log",
+      "bytes": 1350,
+      "sha256": "9890bdb1223933ebf6df5a5fc63853f9e8f94725fdeb4cb95f1ed9ddbe986c1b"
+    },
+    {
+      "path": "benchmark/embedding-v3/results/nemotron_audit_1_0_5/gguf_startup_logs/06_aqua00.log",
+      "bytes": 1350,
+      "sha256": "4db5810c6340805e8317e83eccb1b8875695440baffb1eeda289c811c34dd77a"
+    },
+    {
+      "path": "benchmark/embedding-v3/results/nemotron_audit_1_0_5/gguf_startup_logs/07_abiray.log",
+      "bytes": 1350,
+      "sha256": "6517d87e285fe813cf25d1be0a2a9cdc65207ca960463ff96a32ab3f41a0f62c"
+    },
+    {
+      "path": "benchmark/embedding-v3/results/nemotron_audit_1_0_5/gguf_startup_logs/08_aqua00.log",
+      "bytes": 1350,
+      "sha256": "9cfd6e675f832f3ad1bc4baa2d6f2169bd5d5c411a42d4e80200d0a949b7662a"
+    },
+    {
+      "path": "benchmark/embedding-v3/results/nemotron_audit_1_0_5/gguf_startup_logs/09_abiray.log",
+      "bytes": 1350,
+      "sha256": "6cb165fed2f206280344044e0b33c593e2a7453faf0dee8617a1309107a65bcb"
+    },
+    {
+      "path": "benchmark/embedding-v3/results/nemotron_audit_1_0_5/gguf_startup_logs/10_aqua00.log",
+      "bytes": 1350,
+      "sha256": "e59daa26c02f0d1350f5cc8ff54ae95cf7b8cf40f5d62766251c663f62a41824"
+    },
+    {
+      "path": "benchmark/embedding-v3/results/nemotron_audit_1_0_5/gguf_startups.json",
+      "bytes": 13602,
+      "sha256": "0d8fa6a2088516bc92678885428e41b389d73a35cd0ca10ad288c48d96e21f10"
+    },
+    {
+      "path": "benchmark/embedding-v3/results/nemotron_audit_1_0_5/nemotron_1b_nvfp4_vs_gguf_summary.json",
+      "bytes": 1896,
+      "sha256": "c8ee4e3853f9bfcfed6bf1c92c37147dea837574a065905bd9ed6e6c28acc9b4"
+    },
+    {
+      "path": "benchmark/embedding-v3/results/nemotron_audit_1_0_5/nvfp4_attempt_20260723/nvfp4_vllm.log",
+      "bytes": 10187,
+      "sha256": "0a2da2f107fb3e33812c931aaf75a44cfe1eebc6d764dd3285aa7c9f34829403"
+    },
+    {
+      "path": "benchmark/embedding-v3/results/nemotron_audit_1_0_5/nvfp4_attempt_20260723_serial/nvfp4_preflight.json",
+      "bytes": 206409,
+      "sha256": "5fb59de9b6fbc5ec758a61901c49751a8b21c161b0ebe22cd832bae177b50775"
+    },
+    {
+      "path": "benchmark/embedding-v3/results/nemotron_audit_1_0_5/nvfp4_attempt_20260723_serial/nvfp4_vllm.log",
+      "bytes": 18422,
+      "sha256": "72dcf62ea5c4fbf33f2a19f8edf3f8d7c0c3df3f96db1c4c0a0db34edfb4af4e"
+    },
+    {
+      "path": "benchmark/embedding-v3/results/nemotron_audit_1_0_5/nvfp4_attempt_20260723_serial/nvfp4_worker_result.json",
+      "bytes": 1208,
+      "sha256": "f2d763187152f51322a7c131025e72fc989229f88fd327357999b1a6c1a7d924"
+    },
+    {
+      "path": "benchmark/embedding-v3/results/nemotron_audit_1_0_5/nvfp4_cached_20260723/nvfp4_preflight.json",
+      "bytes": 4637,
+      "sha256": "124adfc0e0bdcaca657e3e3844dde01e952f3ffa3e11e4a04c480fcf75ad9b55"
+    },
+    {
+      "path": "benchmark/embedding-v3/results/nemotron_audit_1_0_5/nvfp4_cached_20260723/nvfp4_vllm.log",
+      "bytes": 14045,
+      "sha256": "7162d940e9b31337754791d642d8d2d5dcac2922829beb002c62870f7a076f16"
+    },
+    {
+      "path": "benchmark/embedding-v3/results/nemotron_audit_1_0_5/nvfp4_cached_20260723/nvfp4_worker_result.json",
+      "bytes": 1206,
+      "sha256": "340aadb58519ebb618a7e3dc727bf7c6b64820669c318d55cc889ecf2c2b965f"
+    },
+    {
+      "path": "benchmark/embedding-v3/results/nemotron_audit_1_0_5/nvfp4_comparison_20260723/nvfp4_preflight.json",
+      "bytes": 4396,
+      "sha256": "ae0f2b797c993423a5c0b9b993a37606c2204c68f1467254c89663cd9010cf21"
+    },
+    {
+      "path": "benchmark/embedding-v3/results/nemotron_audit_1_0_5/nvfp4_comparison_20260723/nvfp4_vllm.log",
+      "bytes": 151229,
+      "sha256": "9a4b8b09986b91b4ce99af211f3cd628fba8490d97f8b3f5115d9d321bdb3c2f"
+    },
+    {
+      "path": "benchmark/embedding-v3/results/nemotron_audit_1_0_5/nvfp4_comparison_20260723/nvfp4_worker_result.json",
+      "bytes": 175253,
+      "sha256": "c542a360554e0cc8aa00252ef3f3323d82e225fe5546af339d4c921b4f2c67d9"
+    },
+    {
+      "path": "benchmark/embedding-v3/run_nemotron_1b_admission.py",
+      "bytes": 14012,
+      "sha256": "e6a14b664a4e453859a6a2fb02d4d98e5359a2df01df27a43d45175b4742387f"
+    },
+    {
+      "path": "benchmark/embedding-v3/run_nemotron_1b_gguf_preflight.py",
+      "bytes": 7112,
+      "sha256": "f7b1ed3a35c9821ebf2c225bc90e07e3c07da4e3e9d621b8d7a003ef5dd62f60"
+    },
+    {
+      "path": "benchmark/embedding-v3/run_nemotron_gguf_startups.py",
+      "bytes": 6979,
+      "sha256": "1ffdfcd0ee1c4f5a128ecb4e3bc9c3dd902b4ff4081029f95fd83a393b871ded"
+    },
+    {
+      "path": "benchmark/embedding-v3/run_nemotron_nvfp4_preflight.py",
+      "bytes": 7786,
+      "sha256": "93be3071f9143a83f20cfeb287d653f1bebb673fd5c32b59bd23b7c752b73567"
+    },
+    {
+      "path": "benchmark/embedding-v3/summarize_nemotron_8b_ggufs.py",
+      "bytes": 7746,
+      "sha256": "00daf737ef8c670b43f5270cb84da3e05cb17c2ab8a587ec21b15c263751567f"
+    }
+  ],
+  "self_hash_note": "manifest.json não lista o próprio hash; full_diff.patch é gerado depois do manifesto e documenta o diff completo exceto a si próprio. O SHA do commit de correção documental é omitido intencionalmente para evitar autorreferência no manifest."
+}
