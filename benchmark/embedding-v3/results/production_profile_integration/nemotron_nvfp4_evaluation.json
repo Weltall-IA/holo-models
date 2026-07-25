@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0",
+  "profile_id": "nemotron_nvfp4_evaluation",
+  "status": "BLOCKED",
+  "backend": "vllm",
+  "dimension": null,
+  "vector_count": null,
+  "norm_range": [
+    0.0,
+    0.0
+  ],
+  "repeatability_cosine": null,
+  "reason": "Ambiente vLLM não encontrado em /tmp/vllm-env",
+  "runtime_seconds": 0.0,
+  "startup_seconds": null,
+  "weight_sha256": null,
+  "runtime_version": null,
+  "hardware": null
+}

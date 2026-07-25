@@ -1,96 +1,239 @@
-schema_version: "1.0"
-session: "reranker_top5"
+schema_version: 1
 
-description: >
-  Sessão de reranking local aplicada às 5 melhores famílias de embeddings.
-  Colapso por família (mantido modelo nativo) selecionado por MRR@10 sobre o corpus
-  holo_fake_scenes_v3 (600 docs, 150 queries). Candidatos top 50 reutilizados;
-  embeddings não recalculados.
+session:
+  id: RERANKER-TOP5-1
+  title: Benchmark de rerankers nos cinco melhores embeddings brutos
+  status: READY
+  objective: >-
+    Comparar rerankers somente sobre os cinco melhores modelos de embedding sem
+    reranking, evitando gastar tempo com embeddings inferiores e evitando repetir
+    combinações já concluídas. Colapso por família (mantido modelo nativo de cada família).
 
-selected_embeddings:
-  criteria: "MRR@10 descending on raw benchmark results, collapsed by family"
-  top_n: 5
-  families_collapsed:
-    - family: gemma
-      models: [embeddinggemma, embeddinggemma_gguf]
-      selected: embeddinggemma (native)
-    - family: perplexity
-      models: [pplx_embed_v1_06b_native, pplx_embed_v1_4b_q8_0]
-      selected: pplx_embed_v1_4b_q8_0 (4B GGUF)
-    - family: voyage
-      models: [voyage4_nano]
-      selected: Excluded (API dependency)
-    - family: nomic
-      models: [nomic_embed_text_v2_moe_q4]
-      selected: nomic_embed_text_v2_moe_q4
-    - family: bge
-      models: [bge_m3_dense]
-      selected: bge_m3_dense
-    - family: snowflake
-      models: [snowflake_arctic_embed_l_v2_q4]
-      selected: snowflake_arctic_embed_l_v2_q4
-  embeddings:
-    - id: embeddinggemma
-      family: gemma
-      source: gate2
-      mrr10: 0.7562
-      hr10: 0.8600
-      ndcg10: 0.7739
-    - id: pplx_embed_v1_4b_q8_0
-      family: perplexity
-      source: gate3
-      mrr10: 0.7562
-      hr10: 0.8600
-      ndcg10: 0.7778
-    - id: nomic_embed_text_v2_moe_q4
-      family: nomic
-      source: gate3
-      mrr10: 0.7420
-      hr10: 0.8333
-      ndcg10: 0.7562
-    - id: bge_m3_dense
-      family: bge
-      source: gate2
-      mrr10: 0.7182
-      hr10: 0.8800
-      ndcg10: 0.7490
-    - id: snowflake_arctic_embed_l_v2_q4
-      family: snowflake
-      source: gate3
-      mrr10: 0.7113
-      hr10: 0.8600
-      ndcg10: 0.7394
+repository:
+  expected: Weltall-IA/holo-models
+  root: /home/alpha/Playstoria/models
 
-local_rerankers:
-  - id: qwen_local
-    model: Qwen3-Reranker-0.6B
-    path: rerank/qwen3_reranker_06
-    type: cross_encoder
-  - id: kalm_reranker_v1_nano
-    model: KaLM-Reranker-V1-Nano
-    path: rerank/kalm_reranker_v1_nano
-    type: encoder_decoder
-  - id: kalm_reranker_v1_small
-    model: KaLM-Reranker-V1-Small
-    path: rerank/kalm_reranker_v1_small
-    type: encoder_decoder
-  - id: jina_reranker_v3_noncommercial
-    model: jina-reranker-v3
-    path: rerank/jina_reranker_v3_noncommercial
-    type: causal_lm_projector
-  - id: querit_reranker_4b
-    model: Querit-4B
-    path: rerank/querit_reranker_4b
-    type: causal_lm_head
-    scoring_note: "score = P(no) - P(yes); descending sort for ranking"
+protocol:
+  corpus:
+    documents: 600
+    queries: 150
+    combined_sha256: 8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b
+  candidate_top_k: 50
+  rerank_top_k: 20
+  preserve_same_queries: true
+  preserve_same_documents: true
+  preserve_same_instruction: true
+  preserve_same_relevance_judgments: true
+  vl_enabled: false
 
-rules:
-  - "Reutilizar candidatos top 50 salvos; não recalcular embeddings"
-  - "5 famílias distintas: gemma, perplexity, nomic, bge, snowflake"
-  - "Não repetir pipelines já concluídos"
-  - "Processar rerankers sequencialmente, limpando RAM/VRAM entre eles"
-  - "Corrigir falhas de loader e repetir até concluir"
-  - "Não aceitar pesos inicializados aleatoriamente"
-  - "Não iniciar benchmark VL"
-  - "Reutilizar resultados Voyage existentes"
-  - "Não fazer novas chamadas pagas ao Voyage"
+selection:
+  source_of_truth:
+    - benchmark/embedding-v3/results
+    - benchmark/embedding-v3/BENCHMARK_RESULTS_REGISTRY.json
+  population:
+    include:
+      - completed base embedding profiles on the frozen corpus
+    exclude:
+      - pipeline_variant
+      - incomplete results
+      - results from another corpus hash
+      - models without a valid base ranking
+  distinct_model_families: true
+  family_collapse:
+    enabled: true
+    rule: "Colapsar por família, mantendo modelo nativo de cada família"
+    collapsed_families:
+      - family: gemma
+        models: [embeddinggemma, embeddinggemma_gguf]
+        selected: embeddinggemma
+        reason: "native preferred over GGUF"
+      - family: perplexity
+        models: [pplx_embed_v1_06b_native, pplx_embed_v1_4b_q8_0]
+        selected: pplx_embed_v1_4b_q8_0
+        reason: "4B GGUF selected for best quality"
+      - family: voyage
+        models: [voyage4_nano]
+        selected: null
+        reason: "excluded — API dependency"
+      - family: nomic
+        models: [nomic_embed_text_v2_moe_q4]
+        selected: nomic_embed_text_v2_moe_q4
+      - family: bge
+        models: [bge_m3_dense]
+        selected: bge_m3_dense
+      - family: snowflake
+        models: [snowflake_arctic_embed_l_v2_q4]
+        selected: snowflake_arctic_embed_l_v2_q4
+    final_selection:
+      - embeddinggemma
+      - pplx_embed_v1_4b_q8_0
+      - nomic_embed_text_v2_moe_q4
+      - bge_m3_dense
+      - snowflake_arctic_embed_l_v2_q4
+  duplicate_policy:
+    exact_weight_aliases: select_one_canonical_profile
+    identical_candidate_rankings: select_one_canonical_profile
+    canonical_profile_preference:
+      - commercially eligible
+      - fully local
+      - CUDA result
+      - lower latency
+      - lower VRAM
+    record_excluded_aliases: true
+  ranking_without_reranker:
+    primary: mrr_at_10
+    tie_breakers:
+      - ndcg_at_10
+      - hit_rate_at_1
+      - hit_rate_at_10
+      - lower_query_latency
+      - lower_peak_vram
+  select_count: 5
+  materialize_selection_before_execution: true
+  selection_output: benchmark/embedding-v3/config/selected_embeddings.json
+
+rerankers:
+  include:
+    - qwen_local
+    - voyage_rerank_2_5
+    - kalm_reranker_v1_nano
+    - kalm_reranker_v1_small
+    - querit_reranker_a043b
+    - querit_reranker_4b
+    - jina_reranker_v3_noncommercial
+  eligibility:
+    qwen_local:
+      type: local
+      production_eligible: true
+    voyage_rerank_2_5:
+      type: paid_api
+      production_eligible: true
+      missing_pipeline_calls_require_explicit_cost_approval: true
+    kalm_reranker_v1_nano:
+      type: local
+      production_eligible: true
+    kalm_reranker_v1_small:
+      type: local
+      production_eligible: true
+    querit_reranker_a043b:
+      type: local
+      production_eligible: false
+      status: BLOCKED
+      reason: "shard 1 truncated on HuggingFace upstream"
+    querit_reranker_4b:
+      type: local
+      production_eligible: true
+      scoring_note: "score = P(no) - P(yes); descending sort for ranking"
+    jina_reranker_v3_noncommercial:
+      type: local
+      production_eligible: false
+      license: CC-BY-NC-4.0
+  discovery:
+    allow_additional_registered_rerankers: true
+    require_explicit_identity: true
+    never_use_generic_result_id: true
+
+reuse_and_skip:
+  skip_completed_pipeline: true
+  completed_pipeline_sources:
+    - benchmark/embedding-v3/results/reranker
+    - benchmark/embedding-v3/RERANKER_PIPELINE_REPORT.md
+    - benchmark/embedding-v3/BENCHMARK_RESULTS_REGISTRY.json
+  voyage_rule: >-
+    Não repetir Voyage rerank-2.5 para qualquer embedding selecionado que já possua
+    resultado válido no mesmo corpus, top-k, instrução e revisão de API.
+  general_rule: >-
+    Não repetir nenhuma combinação embedding + reranker já concluída com protocolo
+    equivalente. Reexecutar somente quando houver revisão nova, correção documentada
+    de scoring/adaptador, artefato inválido ou autorização explícita para auditoria.
+  reuse_candidates_top_50: true
+  recalculate_embeddings: false
+
+execution:
+  order:
+    - validate_repository_and_governance
+    - ingest_existing_raw_results
+    - materialize_top_5_base_selection
+    - enumerate_missing_pipeline_matrix
+    - validate_each_reranker
+    - execute_only_missing_local_pipelines
+    - request_cost_approval_only_for_missing_voyage_pipelines
+    - execute_authorized_missing_voyage_pipelines
+    - generate_final_comparison
+    - append_registry
+  failure_policy:
+    create_random_head: false
+    silently_skip: false
+    mark_not_applicable: false
+    correction_cycle:
+      - identify_real_failure
+      - correct_loader_runtime_or_checkpoint
+      - run_deterministic_smoke_test
+      - rerun_affected_pipeline
+  resource_policy:
+    sequential_models: true
+    clear_ram_vram_between_models: true
+    reduce_batch_before_changing_protocol: true
+
+metrics:
+  required:
+    - hit_rate_at_1
+    - hit_rate_at_3
+    - hit_rate_at_5
+    - hit_rate_at_10
+    - hit_rate_at_20
+    - mrr_at_10
+    - ndcg_at_10
+    - hard_negative_error
+    - rescue_count
+    - rescue_rate
+    - damage_count
+    - damage_rate
+    - latency_p50_seconds
+    - latency_p95_seconds
+    - latency_max_seconds
+    - total_seconds
+    - peak_ram_bytes
+    - peak_vram_bytes
+  rank_final_by:
+    - mrr_at_10
+    - ndcg_at_10
+    - hit_rate_at_1
+    - hit_rate_at_10
+    - lower_damage_rate
+    - lower_latency_p95_seconds
+    - lower_peak_vram_bytes
+
+outputs:
+  directory: benchmark/embedding-v3/results/reranker_top5
+  required:
+    - selected_embeddings.json
+    - existing_pipeline_matrix.json
+    - missing_pipeline_matrix.json
+    - scores
+    - pipelines
+    - RERANKER_TOP5_REPORT.md
+  update_registry:
+    path: benchmark/embedding-v3/BENCHMARK_RESULTS_REGISTRY.json
+    mode: append_only
+    require_real_execution: true
+  final_status_contract:
+    selected_embeddings: 5
+    local_missing_pipelines: all_completed
+    voyage_existing_pipelines: reused
+    voyage_missing_pipelines: completed_if_authorized_otherwise_explicitly_pending_cost_approval
+    pending_technical_errors: 0
+    vl_started: false
+
+completion:
+  do_not_return_partial_report: true
+  report:
+    - five_selected_embeddings_and_base_metrics
+    - skipped_existing_pipelines
+    - newly_executed_pipelines
+    - best_pipeline_per_reranker
+    - best_quality_pipeline
+    - best_fully_local_commercial_pipeline
+    - best_efficiency_pipeline
+    - noncommercial_results_separate
+    - unresolved_paid_api_combinations_separate
