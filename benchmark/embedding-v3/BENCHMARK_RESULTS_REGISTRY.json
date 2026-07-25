@@ -1,0 +1,176 @@
+{
+  "schema_version": "1.0.0",
+  "registry_type": "curated_benchmark_results",
+  "canonical_for_historical_lookup": true,
+  "updated_at": "2026-07-25",
+  "repository": "Weltall-IA/holo-models",
+  "dataset": {
+    "documents": 600,
+    "queries": 150,
+    "corpus_sha256": "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b",
+    "candidate_top_k": 50,
+    "rerank_top_k": 20
+  },
+  "purpose": [
+    "Evitar repetir benchmarks já executados.",
+    "Permitir que agentes futuros identifiquem modelos, formatos e rerankers já avaliados.",
+    "Preservar resultados ruins, bloqueios reais e incompatibilidades para não repetir trabalho sem mudança de versão, runtime ou hipótese."
+  ],
+  "rules": {
+    "append_only": true,
+    "raw_artifacts_remain_authoritative": true,
+    "missing_metrics_are_null": true,
+    "never_replace_measured_results_with_estimates": true,
+    "rerun_requires_reason": [
+      "nova revisão de pesos",
+      "novo runtime ou correção de adaptador",
+      "mudança controlada de protocolo",
+      "auditoria de resultado suspeito"
+    ]
+  },
+  "leaders": {
+    "best_mrr_at_10_recorded": {
+      "pipeline_id": "embeddinggemma_768_float32__voyage_rerank_2_5",
+      "mrr_at_10": 0.826444,
+      "hit_rate_at_10": 0.873333,
+      "scope": "comparação histórica Voyage/Qwen com cinco variantes"
+    },
+    "best_fully_local_pipeline_recorded": {
+      "pipeline_id": "qwen3_embedding_4b_q8_0__qwen_local",
+      "mrr_at_10": 0.8243,
+      "hit_rate_at_10": 0.8867,
+      "scope": "rodada complementar reportada pela execução local"
+    },
+    "best_new_local_reranker_pipeline_recorded": {
+      "pipeline_id": "pplx_embed_v1_4b_q8_0__kalm_reranker_v1_small",
+      "mrr_at_10": 0.8136,
+      "hit_rate_at_10": 0.88
+    },
+    "best_base_hit_rate_at_10_recorded": {
+      "profile_id": "bge_m3_dense",
+      "hit_rate_at_10": 0.88
+    },
+    "best_qwen_reranked_hit_rate_at_10_recorded": {
+      "profile_ids": [
+        "embeddinggemma_transformers",
+        "embeddinggemma_gguf"
+      ],
+      "hit_rate_at_10": 0.8933
+    }
+  },
+  "comparability_notes": [
+    "Voyage rerank-2.5 foi comparado diretamente com Qwen local em cinco variantes no relatório histórico RERANKER_PIPELINE_REPORT.md.",
+    "Voyage rerank-2.5 ainda não foi aplicado ao Qwen3 Embedding 4B nem à shortlist complementar completa.",
+    "EmbeddingGemma + Voyage possui o maior MRR registrado; Qwen3 Embedding 4B + Qwen é o melhor pipeline totalmente local registrado.",
+    "Uma diferença de aproximadamente 0.006667 em HitRate sobre 150 consultas corresponde a uma consulta.",
+    "Empates próximos não estabelecem significância estatística."
+  ],
+  "runs": [
+    {
+      "run_id": "RERANKER_PIPELINE_REPORT_HISTORICAL",
+      "status": "PASS",
+      "source": {
+        "type": "repository_generated_report",
+        "path": "benchmark/embedding-v3/RERANKER_PIPELINE_REPORT.md"
+      },
+      "pipelines_completed": 15,
+      "pipelines": [
+        {"rank": 1, "pipeline_id": "embeddinggemma_768_float32__voyage_rerank_2_5", "hit_rate_at_1": 0.813333, "hit_rate_at_10": 0.873333, "mrr_at_10": 0.826444, "ndcg_at_10": 0.834631, "rescue_rate": 0.44, "damage_rate": 0.0},
+        {"rank": 2, "pipeline_id": "voyage_4_large_1024_float32__voyage_rerank_2_5", "hit_rate_at_1": 0.813333, "hit_rate_at_10": 0.873333, "mrr_at_10": 0.826056, "ndcg_at_10": 0.830447, "rescue_rate": 0.368421, "damage_rate": 0.009174},
+        {"rank": 3, "pipeline_id": "voyage4_nano_1024_float32__voyage_rerank_2_5", "hit_rate_at_1": 0.806667, "hit_rate_at_10": 0.866667, "mrr_at_10": 0.820989, "ndcg_at_10": 0.827871, "rescue_rate": 0.45, "damage_rate": 0.009615},
+        {"rank": 4, "pipeline_id": "voyage4_nano_2048_int8__voyage_rerank_2_5", "hit_rate_at_1": 0.806667, "hit_rate_at_10": 0.866667, "mrr_at_10": 0.820037, "ndcg_at_10": 0.825795, "rescue_rate": 0.411765, "damage_rate": 0.009259},
+        {"rank": 5, "pipeline_id": "voyage4_nano_2048_float32__voyage_rerank_2_5", "hit_rate_at_1": 0.806667, "hit_rate_at_10": 0.866667, "mrr_at_10": 0.819481, "ndcg_at_10": 0.825333, "rescue_rate": 0.447368, "damage_rate": 0.009524},
+        {"rank": 6, "pipeline_id": "embeddinggemma_768_float32__qwen_local", "hit_rate_at_1": 0.76, "hit_rate_at_10": 0.873333, "mrr_at_10": 0.791074, "ndcg_at_10": 0.805547, "rescue_rate": 0.44, "damage_rate": 0.08},
+        {"rank": 7, "pipeline_id": "voyage_4_large_1024_float32__qwen_local", "hit_rate_at_1": 0.76, "hit_rate_at_10": 0.873333, "mrr_at_10": 0.790296, "ndcg_at_10": 0.804706, "rescue_rate": 0.368421, "damage_rate": 0.082569},
+        {"rank": 8, "pipeline_id": "voyage4_nano_2048_float32__qwen_local", "hit_rate_at_1": 0.753333, "hit_rate_at_10": 0.86, "mrr_at_10": 0.783704, "ndcg_at_10": 0.796649, "rescue_rate": 0.473684, "damage_rate": 0.095238},
+        {"rank": 9, "pipeline_id": "voyage4_nano_2048_int8__qwen_local", "hit_rate_at_1": 0.753333, "hit_rate_at_10": 0.86, "mrr_at_10": 0.783545, "ndcg_at_10": 0.796497, "rescue_rate": 0.441176, "damage_rate": 0.092593},
+        {"rank": 10, "pipeline_id": "voyage4_nano_1024_float32__qwen_local", "hit_rate_at_1": 0.753333, "hit_rate_at_10": 0.86, "mrr_at_10": 0.783471, "ndcg_at_10": 0.796417, "rescue_rate": 0.475, "damage_rate": 0.096154},
+        {"rank": 11, "pipeline_id": "voyage_4_large_1024_float32__none", "hit_rate_at_1": 0.726667, "hit_rate_at_10": 0.86, "mrr_at_10": 0.772794, "ndcg_at_10": 0.786095, "rescue_rate": null, "damage_rate": null},
+        {"rank": 12, "pipeline_id": "voyage4_nano_2048_int8__none", "hit_rate_at_1": 0.72, "hit_rate_at_10": 0.86, "mrr_at_10": 0.768119, "ndcg_at_10": 0.783713, "rescue_rate": null, "damage_rate": null},
+        {"rank": 13, "pipeline_id": "voyage4_nano_2048_float32__none", "hit_rate_at_1": 0.7, "hit_rate_at_10": 0.86, "mrr_at_10": 0.756071, "ndcg_at_10": 0.774639, "rescue_rate": null, "damage_rate": null},
+        {"rank": 14, "pipeline_id": "voyage4_nano_1024_float32__none", "hit_rate_at_1": 0.693333, "hit_rate_at_10": 0.853333, "mrr_at_10": 0.752757, "ndcg_at_10": 0.771872, "rescue_rate": null, "damage_rate": null},
+        {"rank": 15, "pipeline_id": "embeddinggemma_768_float32__none", "hit_rate_at_1": 0.666667, "hit_rate_at_10": 0.86, "mrr_at_10": 0.738852, "ndcg_at_10": 0.760875, "rescue_rate": null, "damage_rate": null}
+      ],
+      "runtime": {
+        "voyage_rerank_2_5": {"total_seconds": 304.2701, "requests": 150, "tokens": 2275458, "estimated_standard_price_usd": 0.1137729},
+        "qwen_local": {"total_seconds": 388.1375, "latency_p50_seconds": 2.5037, "latency_p95_seconds": 3.622, "latency_max_seconds": 4.3147, "peak_vram_bytes": 3144946176, "peak_rss_bytes": 3353128960}
+      }
+    },
+    {
+      "run_id": "EMBED_ALL_MODELS_1",
+      "status": "PASS",
+      "source": {"type": "reported_local_execution", "detailed_raw_artifacts_in_registry": false},
+      "embedding_profiles": 21,
+      "pipeline_variants": 3,
+      "qwen_pipelines": 24,
+      "profiles": [
+        {"rank_by_qwen_hit_rate_at_10": 1, "profile_id": "embeddinggemma_transformers", "base_hit_rate_at_10": 0.86, "qwen_hit_rate_at_10": 0.8933, "delta": 0.0333},
+        {"rank_by_qwen_hit_rate_at_10": 2, "profile_id": "embeddinggemma_gguf", "base_hit_rate_at_10": 0.86, "qwen_hit_rate_at_10": 0.8933, "delta": 0.0333},
+        {"rank_by_qwen_hit_rate_at_10": 3, "profile_id": "embeddinggemma_768_float32_pipeline", "base_hit_rate_at_10": null, "qwen_hit_rate_at_10": 0.8933, "delta": null, "profile_type": "pipeline_variant"},
+        {"rank_by_qwen_hit_rate_at_10": 4, "profile_id": "colibri_ptbr", "base_hit_rate_at_10": 0.8467, "qwen_hit_rate_at_10": 0.8867, "delta": 0.04},
+        {"rank_by_qwen_hit_rate_at_10": 5, "profile_id": "giga_embeddings_instruct", "base_hit_rate_at_10": 0.84, "qwen_hit_rate_at_10": 0.8867, "delta": 0.0467},
+        {"rank_by_qwen_hit_rate_at_10": 6, "profile_id": "nemotron_8b_abiray_q4", "base_hit_rate_at_10": 0.8267, "qwen_hit_rate_at_10": 0.8867, "delta": 0.06},
+        {"rank_by_qwen_hit_rate_at_10": 7, "profile_id": "nemotron_8b_aqua00_q4", "base_hit_rate_at_10": 0.8267, "qwen_hit_rate_at_10": 0.8867, "delta": 0.06},
+        {"rank_by_qwen_hit_rate_at_10": 8, "profile_id": "voyage4_nano_1024_float32", "base_hit_rate_at_10": 0.8533, "qwen_hit_rate_at_10": 0.8867, "delta": 0.0334},
+        {"rank_by_qwen_hit_rate_at_10": 9, "profile_id": "voyage4_nano_2048_float32", "base_hit_rate_at_10": null, "qwen_hit_rate_at_10": 0.8867, "delta": null, "profile_type": "pipeline_variant"},
+        {"rank_by_qwen_hit_rate_at_10": 10, "profile_id": "voyage_4_large_1024_float32", "base_hit_rate_at_10": null, "qwen_hit_rate_at_10": 0.8867, "delta": null, "profile_type": "pipeline_variant"},
+        {"rank_by_qwen_hit_rate_at_10": 11, "profile_id": "gte_multilingual_base", "base_hit_rate_at_10": 0.82, "qwen_hit_rate_at_10": 0.88, "delta": 0.06, "device": "cpu"},
+        {"rank_by_qwen_hit_rate_at_10": 12, "profile_id": "multilingual_e5_large_instruct", "base_hit_rate_at_10": 0.8467, "qwen_hit_rate_at_10": 0.88, "delta": 0.0333},
+        {"rank_by_qwen_hit_rate_at_10": 13, "profile_id": "nomic_embed_text_v2_moe_q4", "base_hit_rate_at_10": 0.8333, "qwen_hit_rate_at_10": 0.88, "delta": 0.0467},
+        {"rank_by_qwen_hit_rate_at_10": 14, "profile_id": "bge_m3_dense", "base_hit_rate_at_10": 0.88, "qwen_hit_rate_at_10": 0.8733, "delta": -0.0067},
+        {"rank_by_qwen_hit_rate_at_10": 15, "profile_id": "granite_embedding_311m_r2", "base_hit_rate_at_10": 0.84, "qwen_hit_rate_at_10": 0.8733, "delta": 0.0333},
+        {"rank_by_qwen_hit_rate_at_10": 16, "profile_id": "jina_embeddings_v5_text_small", "base_hit_rate_at_10": 0.8267, "qwen_hit_rate_at_10": 0.8733, "delta": 0.0466},
+        {"rank_by_qwen_hit_rate_at_10": 17, "profile_id": "qwen3_embedding_06", "base_hit_rate_at_10": 0.8267, "qwen_hit_rate_at_10": 0.8733, "delta": 0.0466},
+        {"rank_by_qwen_hit_rate_at_10": 18, "profile_id": "snowflake_arctic_embed_l_v2_q4", "base_hit_rate_at_10": 0.86, "qwen_hit_rate_at_10": 0.8733, "delta": 0.0133},
+        {"rank_by_qwen_hit_rate_at_10": 19, "profile_id": "granite_embedding_97m_r2", "base_hit_rate_at_10": 0.7933, "qwen_hit_rate_at_10": 0.8467, "delta": 0.0534},
+        {"rank_by_qwen_hit_rate_at_10": 20, "profile_id": "qwen3_embedding_8b_gguf", "base_hit_rate_at_10": 0.8467, "qwen_hit_rate_at_10": 0.8467, "delta": 0.0},
+        {"rank_by_qwen_hit_rate_at_10": 21, "profile_id": "lfm_25_embedding_350m_q4", "base_hit_rate_at_10": 0.6933, "qwen_hit_rate_at_10": 0.8333, "delta": 0.14},
+        {"rank_by_qwen_hit_rate_at_10": 22, "profile_id": "qwen3_embedding_06_gguf", "base_hit_rate_at_10": 0.8267, "qwen_hit_rate_at_10": 0.8067, "delta": -0.02},
+        {"rank_by_qwen_hit_rate_at_10": 23, "profile_id": "kalm_embedding_gemma3_12b_q4", "base_hit_rate_at_10": 0.4467, "qwen_hit_rate_at_10": 0.6933, "delta": 0.2466},
+        {"rank_by_qwen_hit_rate_at_10": 24, "profile_id": "kalm_embedding_gemma3_12b_i1_q4", "base_hit_rate_at_10": 0.4, "qwen_hit_rate_at_10": 0.5867, "delta": 0.1867}
+      ]
+    },
+    {
+      "run_id": "EMBED_COMPLEMENTARY_2026_07",
+      "status": "PARTIAL_PASS",
+      "source": {"type": "reported_local_execution", "detailed_raw_artifacts_in_registry": false},
+      "completion": {
+        "new_embeddings_base": "6/6",
+        "new_embeddings_qwen": "6/6",
+        "shortlist": 10,
+        "new_rerankers": "4/5",
+        "new_pipelines": 40,
+        "vl_started": false
+      },
+      "rerankers": {
+        "kalm_reranker_v1_nano": {"status": "PASS", "pipelines": 10},
+        "kalm_reranker_v1_small": {"status": "PASS", "pipelines": 10},
+        "jina_reranker_v3_noncommercial": {"status": "PASS", "pipelines": 10, "production_eligible": false},
+        "querit_reranker_4b": {"status": "PASS_WITH_SCORING_AUDIT_REQUIRED", "pipelines": 10, "observed_mrr_range": [0.2, 0.26]},
+        "querit_reranker_a043b": {"status": "PENDING_RED0WNLOAD_AND_RETEST", "pipelines": 0, "reason": "local safetensors shard incomplete/truncated"}
+      },
+      "known_results": [
+        {"pipeline_id": "qwen3_embedding_4b_q8_0__qwen_local", "mrr_at_10": 0.8243, "hit_rate_at_10": 0.8867, "designation": "best fully local pipeline reported"},
+        {"pipeline_id": "pplx_embed_v1_4b_q8_0__kalm_reranker_v1_small", "mrr_at_10": 0.8136, "hit_rate_at_10": 0.88, "designation": "best newly downloaded local reranker pipeline reported"}
+      ],
+      "pending_evidence": [
+        "Importar métricas individuais dos seis embeddings novos.",
+        "Importar as quarenta linhas de pipeline dos quatro novos rerankers.",
+        "Concluir e registrar Querit A0.43B.",
+        "Auditar scoring do Querit 4B antes de usar o resultado como comparação definitiva."
+      ]
+    }
+  ],
+  "do_not_retest_without_reason": [
+    {"profile_id": "kalm_embedding_gemma3_12b_i1_q4", "reason": "base e reranked muito inferiores na revisão testada"},
+    {"profile_id": "kalm_embedding_gemma3_12b_q4", "reason": "base e reranked muito inferiores na revisão testada"},
+    {"profile_id": "qwen3_embedding_06_gguf", "reason": "reranker reduziu HR@10 na revisão testada"},
+    {"profile_id": "qwen3_embedding_8b_gguf", "reason": "sem ganho de HR@10 com Qwen e custo elevado"},
+    {"profile_id": "lfm_25_embedding_350m_q4", "reason": "grande rescue, mas resultado final abaixo dos líderes"}
+  ],
+  "references": [
+    "benchmark/embedding-v3/RERANKER_PIPELINE_REPORT.md",
+    "benchmark/embedding-v3/results/reranker",
+    "benchmark/embedding-v3/config/RERANKER_TOP5_SESSION.yml"
+  ]
+}
