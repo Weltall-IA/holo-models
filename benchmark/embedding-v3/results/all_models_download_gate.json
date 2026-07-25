@@ -1,0 +1,13 @@
+{
+  "schema_version": "1.0",
+  "task": "EMBED-ALL-MODELS-1",
+  "download_gate_passed": true,
+  "textual": {
+    "verified": 15,
+    "total": 15
+  },
+  "vl": {
+    "verified": 8,
+    "total": 8
+  }
+}

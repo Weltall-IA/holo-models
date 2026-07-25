@@ -1,0 +1,75 @@
+schema_version: "1.0"
+session: "reranker_top5"
+
+description: >
+  Sessão de reranking local aplicada aos 5 melhores embeddings brutos.
+  Seleção por MRR@10 sobre o corpus holo_fake_scenes_v3 (600 docs, 150 queries).
+  Candidatos top 50 reutilizados; embeddings não recalculados.
+
+selected_embeddings:
+  criteria: "MRR@10 descending on raw benchmark results"
+  top_n: 5
+  embeddings:
+    - id: embeddinggemma
+      source: gate2
+      mrr10: 0.7562
+      hr10: 0.8600
+      ndcg10: 0.7739
+    - id: pplx_embed_v1_4b_q8_0
+      source: gate3
+      mrr10: 0.7562
+      hr10: 0.8600
+      ndcg10: 0.7778
+    - id: voyage4_nano
+      source: gate2
+      mrr10: 0.7528
+      hr10: 0.8533
+      ndcg10: 0.7719
+      candidate_variants:
+        - voyage4_nano_1024_float32
+        - voyage4_nano_2048_float32
+        - voyage4_nano_2048_int8
+    - id: nomic_embed_text_v2_moe_q4
+      source: gate3
+      mrr10: 0.7420
+      hr10: 0.8333
+      ndcg10: 0.7562
+    - id: embeddinggemma_gguf
+      source: gate3
+      mrr10: 0.7389
+      hr10: 0.8600
+      ndcg10: 0.7609
+
+local_rerankers:
+  - id: qwen_local
+    model: Qwen3-Reranker-0.6B
+    path: rerank/qwen3_reranker_06
+    type: cross_encoder
+  - id: kalm_reranker_v1_nano
+    model: KaLM-Reranker-V1-Nano
+    path: rerank/kalm_reranker_v1_nano
+    type: encoder_decoder
+  - id: kalm_reranker_v1_small
+    model: KaLM-Reranker-V1-Small
+    path: rerank/kalm_reranker_v1_small
+    type: encoder_decoder
+  - id: jina_reranker_v3_noncommercial
+    model: jina-reranker-v3
+    path: rerank/jina_reranker_v3_noncommercial
+    type: causal_lm_projector
+  - id: querit_reranker_4b
+    model: Querit-4B
+    path: rerank/querit_reranker_4b
+    type: causal_lm_head
+    scoring_note: "score = P(no) - P(yes); ascending sort for ranking"
+
+rules:
+  - "Reutilizar candidatos top 50 salvos; não recalcular embeddings"
+  - "Para voyage4_nano, usar variante voyage4_nano_1024_float32 como candidato"
+  - "Não repetir pipelines já concluídos"
+  - "Processar rerankers sequencialmente, limpando RAM/VRAM entre eles"
+  - "Corrigir falhas de loader e repetir até concluir"
+  - "Não aceitar pesos inicializados aleatoriamente"
+  - "Não iniciar benchmark VL"
+  - "Reutilizar resultados Voyage existentes"
+  - "Não fazer novas chamadas pagas ao Voyage"
