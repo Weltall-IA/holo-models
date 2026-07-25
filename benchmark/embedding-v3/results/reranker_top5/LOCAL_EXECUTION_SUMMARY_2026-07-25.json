@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "RERANKER_TOP5_1_LOCAL_EXECUTION",
+  "source": "reported_local_execution",
+  "recorded_at": "2026-07-25",
+  "repository": "Weltall-IA/holo-models",
+  "dataset": {
+    "documents": 600,
+    "queries": 150,
+    "corpus_sha256": "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b",
+    "candidate_top_k": 50,
+    "rerank_top_k": 20
+  },
+  "completion": {
+    "selected_embeddings": "5/5",
+    "local_pipelines_missing": 0,
+    "local_pipelines_completed": "25/25",
+    "existing_pipelines_reused": 20,
+    "voyage_existing_reused": 5,
+    "voyage_missing_pending_cost_approval": 0,
+    "pending_technical_errors": 0,
+    "vl_started": false,
+    "status": "PASS_LOCAL"
+  },
+  "top_5_by_mrr_at_10": [
+    {"rank": 1, "pipeline_id": "nomic_embed_text_v2_moe_q4__qwen_local", "mrr_at_10": 0.8229, "ndcg_at_10": 0.8290, "hit_rate_at_1": 0.7933, "hit_rate_at_10": 0.8800},
+    {"rank": 2, "pipeline_id": "voyage4_nano__qwen_local", "mrr_at_10": 0.8223, "ndcg_at_10": 0.8303, "hit_rate_at_1": 0.7867, "hit_rate_at_10": 0.8867},
+    {"rank": 3, "pipeline_id": "pplx_embed_v1_4b_q8_0__qwen_local", "mrr_at_10": 0.8221, "ndcg_at_10": 0.8282, "hit_rate_at_1": 0.7933, "hit_rate_at_10": 0.8800},
+    {"rank": 4, "pipeline_id": "embeddinggemma_gguf__qwen_local", "mrr_at_10": 0.8198, "ndcg_at_10": 0.8295, "hit_rate_at_1": 0.7867, "hit_rate_at_10": 0.8933},
+    {"rank": 5, "pipeline_id": "embeddinggemma__qwen_local", "mrr_at_10": 0.8197, "ndcg_at_10": 0.8294, "hit_rate_at_1": 0.7867, "hit_rate_at_10": 0.8933}
+  ],
+  "rerankers": {
+    "qwen_local": {"status": "PASS", "observation": "Dominou as cinco primeiras posições da matriz Top-5 local."},
+    "querit_reranker_4b": {"status": "PASS", "scoring_audit": "PASS", "sort_order": "descending", "smoke_test": "PASS", "observed_mrr_range": [0.18, 0.26], "designation": "terceiro reranker local na execução reportada"},
+    "querit_reranker_a043b": {"status": "BLOCKED", "pipelines_completed": 0, "reason": "shard 1 truncado no repositório remoto segundo validação HTTP HEAD da execução local", "observed_size_mb": 1557, "expected_size_description": "aproximadamente 5 GB", "loader_fault": false, "retest_policy": "Não repetir até nova revisão ou correção comprovada do checkpoint remoto."}
+  },
+  "comparability_notes": [
+    "Esta tabela contém somente as cinco primeiras posições reportadas da matriz Top-5 x 5 rerankers; as vinte linhas restantes permanecem nos artefatos locais produzidos pelo executor.",
+    "O melhor MRR histórico registrado continua sendo embeddinggemma_768_float32__voyage_rerank_2_5 com 0.826444.",
+    "O melhor pipeline totalmente local histórico registrado continua sendo qwen3_embedding_4b_q8_0__qwen_local com MRR@10 0.8243.",
+    "O resultado Top-5 atual confirma a dominância do qwen_local dentro da matriz selecionada, mas não substitui os líderes históricos fora dessa seleção."
+  ],
+  "reported_artifacts": [
+    "benchmark/embedding-v3/config/RERANKER_TOP5_SESSION.yml",
+    "benchmark/embedding-v3/BENCHMARK_RESULTS_REGISTRY.json",
+    "benchmark/embedding-v3/RERANKER_TOP5_REPORT.md",
+    "benchmark/embedding-v3/results/reranker_top5/pipelines/*/voyage4_nano.json"
+  ]
+}
