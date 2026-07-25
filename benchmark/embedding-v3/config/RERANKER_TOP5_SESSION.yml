@@ -2,43 +2,64 @@ schema_version: "1.0"
 session: "reranker_top5"
 
 description: >
-  Sessão de reranking local aplicada aos 5 melhores embeddings brutos.
-  Seleção por MRR@10 sobre o corpus holo_fake_scenes_v3 (600 docs, 150 queries).
-  Candidatos top 50 reutilizados; embeddings não recalculados.
+  Sessão de reranking local aplicada às 5 melhores famílias de embeddings.
+  Colapso por família (mantido modelo nativo) selecionado por MRR@10 sobre o corpus
+  holo_fake_scenes_v3 (600 docs, 150 queries). Candidatos top 50 reutilizados;
+  embeddings não recalculados.
 
 selected_embeddings:
-  criteria: "MRR@10 descending on raw benchmark results"
+  criteria: "MRR@10 descending on raw benchmark results, collapsed by family"
   top_n: 5
+  families_collapsed:
+    - family: gemma
+      models: [embeddinggemma, embeddinggemma_gguf]
+      selected: embeddinggemma (native)
+    - family: perplexity
+      models: [pplx_embed_v1_06b_native, pplx_embed_v1_4b_q8_0]
+      selected: pplx_embed_v1_4b_q8_0 (4B GGUF)
+    - family: voyage
+      models: [voyage4_nano]
+      selected: Excluded (API dependency)
+    - family: nomic
+      models: [nomic_embed_text_v2_moe_q4]
+      selected: nomic_embed_text_v2_moe_q4
+    - family: bge
+      models: [bge_m3_dense]
+      selected: bge_m3_dense
+    - family: snowflake
+      models: [snowflake_arctic_embed_l_v2_q4]
+      selected: snowflake_arctic_embed_l_v2_q4
   embeddings:
     - id: embeddinggemma
+      family: gemma
       source: gate2
       mrr10: 0.7562
       hr10: 0.8600
       ndcg10: 0.7739
     - id: pplx_embed_v1_4b_q8_0
+      family: perplexity
       source: gate3
       mrr10: 0.7562
       hr10: 0.8600
       ndcg10: 0.7778
-    - id: voyage4_nano
-      source: gate2
-      mrr10: 0.7528
-      hr10: 0.8533
-      ndcg10: 0.7719
-      candidate_variants:
-        - voyage4_nano_1024_float32
-        - voyage4_nano_2048_float32
-        - voyage4_nano_2048_int8
     - id: nomic_embed_text_v2_moe_q4
+      family: nomic
       source: gate3
       mrr10: 0.7420
       hr10: 0.8333
       ndcg10: 0.7562
-    - id: embeddinggemma_gguf
+    - id: bge_m3_dense
+      family: bge
+      source: gate2
+      mrr10: 0.7182
+      hr10: 0.8800
+      ndcg10: 0.7490
+    - id: snowflake_arctic_embed_l_v2_q4
+      family: snowflake
       source: gate3
-      mrr10: 0.7389
+      mrr10: 0.7113
       hr10: 0.8600
-      ndcg10: 0.7609
+      ndcg10: 0.7394
 
 local_rerankers:
   - id: qwen_local
@@ -61,11 +82,11 @@ local_rerankers:
     model: Querit-4B
     path: rerank/querit_reranker_4b
     type: causal_lm_head
-    scoring_note: "score = P(no) - P(yes); ascending sort for ranking"
+    scoring_note: "score = P(no) - P(yes); descending sort for ranking"
 
 rules:
   - "Reutilizar candidatos top 50 salvos; não recalcular embeddings"
-  - "Para voyage4_nano, usar variante voyage4_nano_1024_float32 como candidato"
+  - "5 famílias distintas: gemma, perplexity, nomic, bge, snowflake"
   - "Não repetir pipelines já concluídos"
   - "Processar rerankers sequencialmente, limpando RAM/VRAM entre eles"
   - "Corrigir falhas de loader e repetir até concluir"

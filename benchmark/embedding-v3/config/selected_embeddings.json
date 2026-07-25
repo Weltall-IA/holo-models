@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0",
+  "session": "reranker_top5",
+  "selection_criteria": "Top 5 families after family collapse by MRR@10 descending",
+  "families_collapsed": {
+    "gemma": [
+      "embeddinggemma (native)",
+      "embeddinggemma_gguf (GGUF)"
+    ],
+    "perplexity": [
+      "pplx_embed_v1_06b_native (native)",
+      "pplx_embed_v1_4b_q8_0 (GGUF Q8_0)"
+    ],
+    "voyage": [
+      "voyage4_nano (API - excluded from Top 5 due to API dependency)"
+    ],
+    "qwen": [
+      "qwen3_embedding_06 (native)",
+      "qwen3_embedding_06_gguf (GGUF)",
+      "qwen3_embedding_4b_q8_0 (GGUF)",
+      "qwen3_embedding_8b_gguf (GGUF)"
+    ],
+    "nemotron": [
+      "nemotron_8b_abiray_q4 (GGUF)",
+      "nemotron_8b_aqua00_q4 (GGUF)"
+    ],
+    "kalm": [
+      "kalm_embedding_gemma3_12b_q4 (GGUF)",
+      "kalm_embedding_gemma3_12b_i1_q4 (GGUF)"
+    ]
+  },
+  "selected_embeddings": [
+    {
+      "id": "embeddinggemma",
+      "family": "gemma",
+      "mrr10": 0.7562,
+      "hr10": 0.86,
+      "ndcg10": 0.7739
+    },
+    {
+      "id": "pplx_embed_v1_4b_q8_0",
+      "family": "perplexity",
+      "mrr10": 0.7562,
+      "hr10": 0.86,
+      "ndcg10": 0.7778
+    },
+    {
+      "id": "nomic_embed_text_v2_moe_q4",
+      "family": "nomic",
+      "mrr10": 0.742,
+      "hr10": 0.8333,
+      "ndcg10": 0.7562
+    },
+    {
+      "id": "bge_m3_dense",
+      "family": "bge",
+      "mrr10": 0.7182,
+      "hr10": 0.88,
+      "ndcg10": 0.749
+    },
+    {
+      "id": "snowflake_arctic_embed_l_v2_q4",
+      "family": "snowflake",
+      "mrr10": 0.7113,
+      "hr10": 0.86,
+      "ndcg10": 0.7394
+    }
+  ]
+}
