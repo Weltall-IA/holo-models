@@ -7,7 +7,7 @@ session:
   objective: >-
     Comparar rerankers somente sobre os cinco melhores modelos de embedding sem
     reranking, evitando gastar tempo com embeddings inferiores e evitando repetir
-    combinações já concluídas.
+    combinações já concluídas. Colapso por família (mantido modelo nativo de cada família).
 
 repository:
   expected: Weltall-IA/holo-models
@@ -39,6 +39,37 @@ selection:
       - results from another corpus hash
       - models without a valid base ranking
   distinct_model_families: true
+  family_collapse:
+    enabled: true
+    rule: "Colapsar por família, mantendo modelo nativo de cada família"
+    collapsed_families:
+      - family: gemma
+        models: [embeddinggemma, embeddinggemma_gguf]
+        selected: embeddinggemma
+        reason: "native preferred over GGUF"
+      - family: perplexity
+        models: [pplx_embed_v1_06b_native, pplx_embed_v1_4b_q8_0]
+        selected: pplx_embed_v1_4b_q8_0
+        reason: "4B GGUF selected for best quality"
+      - family: voyage
+        models: [voyage4_nano]
+        selected: null
+        reason: "excluded — API dependency"
+      - family: nomic
+        models: [nomic_embed_text_v2_moe_q4]
+        selected: nomic_embed_text_v2_moe_q4
+      - family: bge
+        models: [bge_m3_dense]
+        selected: bge_m3_dense
+      - family: snowflake
+        models: [snowflake_arctic_embed_l_v2_q4]
+        selected: snowflake_arctic_embed_l_v2_q4
+    final_selection:
+      - embeddinggemma
+      - pplx_embed_v1_4b_q8_0
+      - nomic_embed_text_v2_moe_q4
+      - bge_m3_dense
+      - snowflake_arctic_embed_l_v2_q4
   duplicate_policy:
     exact_weight_aliases: select_one_canonical_profile
     identical_candidate_rankings: select_one_canonical_profile
@@ -59,7 +90,7 @@ selection:
       - lower_peak_vram
   select_count: 5
   materialize_selection_before_execution: true
-  selection_output: benchmark/embedding-v3/results/reranker_top5/selected_embeddings.json
+  selection_output: benchmark/embedding-v3/config/selected_embeddings.json
 
 rerankers:
   include:
@@ -86,12 +117,13 @@ rerankers:
       production_eligible: true
     querit_reranker_a043b:
       type: local
-      production_eligible: true
-      precondition: checkpoint_and_smoke_test_pass
+      production_eligible: false
+      status: BLOCKED
+      reason: "shard 1 truncated on HuggingFace upstream"
     querit_reranker_4b:
       type: local
       production_eligible: true
-      precondition: official_scoring_audit_pass
+      scoring_note: "score = P(no) - P(yes); descending sort for ranking"
     jina_reranker_v3_noncommercial:
       type: local
       production_eligible: false
