@@ -141,15 +141,46 @@ def _json_request(
 
 
 def _text_request(path: str, api_key: str) -> str:
-    request = urllib.request.Request(
-        API_BASE + path,
-        headers={
-            "Authorization": f"Bearer {api_key}",
-            "Accept": "text/plain",
-        },
-        method="GET",
-    )
-    return _open(request).decode("utf-8")
+    url = API_BASE + path
+    try:
+        import requests
+    except ImportError:
+        requests = None
+    if requests is not None:
+        resp = requests.get(
+            url,
+            headers={"Authorization": f"Bearer {api_key}", "Accept": "text/plain"},
+            allow_redirects=True,
+            timeout=300,
+        )
+        if resp.status_code >= 400:
+            raise VoyageBatchHTTPError(
+                int(resp.status_code),
+                _sanitized_error(resp.content),
+                _retry_after(dict(resp.headers.items())),
+            )
+        return resp.text
+    # urllib fallback: Voyage redirects file content to a pre-signed URL, so
+    # follow redirects manually (dropping the auth header on the redirect,
+    # since the target is self-authenticated) using a no-redirect opener.
+    headers = {"Authorization": f"Bearer {api_key}", "Accept": "text/plain"}
+    opener = urllib.request.build_opener(urllib.request.HTTPHandler)
+    for _ in range(6):
+        req = urllib.request.Request(url, headers=headers, method="GET")
+        try:
+            with opener.open(req, timeout=180) as response:
+                return response.read().decode("utf-8")
+        except urllib.error.HTTPError as exc:
+            if int(exc.code) in (301, 302, 303, 307, 308) and exc.headers.get("Location"):
+                url = exc.headers["Location"]
+                headers = {"Accept": "text/plain"}
+                continue
+            raise VoyageBatchHTTPError(
+                int(exc.code),
+                _sanitized_error(exc.read()),
+                _retry_after(dict(exc.headers.items())),
+            ) from exc
+    raise RuntimeError("Voyage Batch API exceeded redirect limit")
 
 
 def _upload_jsonl(path: Path, api_key: str) -> dict[str, Any]:

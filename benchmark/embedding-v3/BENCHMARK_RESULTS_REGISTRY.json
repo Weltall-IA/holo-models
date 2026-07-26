@@ -2,7 +2,7 @@
   "schema_version": "1.0.0",
   "registry_type": "curated_benchmark_results",
   "canonical_for_historical_lookup": true,
-  "updated_at": "2026-07-25",
+  "updated_at": "2026-07-26T00:42:01.080834+00:00",
   "repository": "Weltall-IA/holo-models",
   "dataset": {
     "documents": 600,
@@ -1134,6 +1134,81 @@
           "voyage4_nano": "API dependency",
           "embeddinggemma_gguf": "duplicate of gemma family (native preferred)"
         }
+      }
+    },
+    {
+      "run_id": "VOYAGE_RERANK_2_5_AUTHORIZED4_BATCH",
+      "status": "PASS",
+      "source": {
+        "type": "voyage_batch_api",
+        "path": "benchmark/embedding-v3/results/reranker/scores/voyage_rerank_2_5_authorized4.json",
+        "batch_id": "batch-7vzuBuWXsCmo5UFkFaVvKNLAxToqnMj6pA2BC",
+        "model": "rerank-2.5",
+        "endpoint": "/v1/rerank",
+        "transport": "batch",
+        "tier": "free",
+        "charged_cost_usd": null,
+        "note": "Execução na franquia gratuita da Voyage (sem método de pagamento); nenhuma cobrança observada. Reutilizou embeddinggemma_768_float32__voyage_rerank_2_5 (sessão histórica) sem nova chamada."
+      },
+      "pipelines_completed": 4,
+      "pipelines": [
+        {
+          "pipeline_id": "nomic_embed_text_v2_moe_q4__voyage_rerank_2_5",
+          "hit_rate_at_1": 0.8067,
+          "hit_rate_at_10": 0.8667,
+          "mrr_at_10": 0.8209,
+          "ndcg_at_10": 0.8236,
+          "rescue_rate": 0.5142857142857142,
+          "damage_rate": 0.009615384615384616,
+          "rank": 1
+        },
+        {
+          "pipeline_id": "pplx_embed_v1_4b_q8_0__voyage_rerank_2_5",
+          "hit_rate_at_1": 0.8067,
+          "hit_rate_at_10": 0.8667,
+          "mrr_at_10": 0.8206,
+          "ndcg_at_10": 0.8277,
+          "rescue_rate": 0.3953488372093023,
+          "damage_rate": 0.009523809523809525,
+          "rank": 2
+        },
+        {
+          "pipeline_id": "bge_m3_dense__voyage_rerank_2_5",
+          "hit_rate_at_1": 0.7933,
+          "hit_rate_at_10": 0.8467,
+          "mrr_at_10": 0.804,
+          "ndcg_at_10": 0.8116,
+          "rescue_rate": 0.4782608695652174,
+          "damage_rate": 0.0,
+          "rank": 3
+        },
+        {
+          "pipeline_id": "snowflake_arctic_embed_l_v2_q4__voyage_rerank_2_5",
+          "hit_rate_at_1": 0.7933,
+          "hit_rate_at_10": 0.8467,
+          "mrr_at_10": 0.804,
+          "ndcg_at_10": 0.8059,
+          "rescue_rate": 0.5319148936170213,
+          "damage_rate": 0.010526315789473684,
+          "rank": 4
+        }
+      ],
+      "runtime": {
+        "backend": "Voyage Batch API",
+        "transport": "batch",
+        "model": "rerank-2.5",
+        "endpoint": "/v1/rerank",
+        "completion_window": "12h",
+        "requests": 150,
+        "tokens": 2380494,
+        "failed": 0,
+        "created_at": "2026-07-25T21:43:31.794084+00:00",
+        "completed_at": "2026-07-25T21:50:17.700302+00:00",
+        "duration_seconds": 406.9,
+        "estimated_standard_price_usd": 0.1190247,
+        "charged_cost_usd": null,
+        "free_tier": true,
+        "note": "Franquia gratuita; sem cobrança observada."
       }
     }
   ],
