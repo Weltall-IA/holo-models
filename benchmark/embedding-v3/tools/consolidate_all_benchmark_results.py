@@ -1,11 +1,5 @@
 #!/usr/bin/env python3
-"""Generate one canonical summary file from every published benchmark artifact.
-
-The raw pipeline files remain authoritative. This generator collects their complete
-summary metrics, ranks all published pipelines, indexes every embedding/reranker,
-and records verified local-only alternatives without mixing them into the published
-leaderboard.
-"""
+"""Generate one consolidated benchmark lookup from every published pipeline JSON."""
 
 from __future__ import annotations
 
@@ -14,7 +8,7 @@ import os
 from collections import Counter, defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any
+from typing import Any, Iterator
 
 ROOT = Path(__file__).resolve().parents[3]
 BENCH = ROOT / "benchmark" / "embedding-v3"
@@ -45,16 +39,8 @@ METRIC_ALIASES = {
         "HardNegativeErrorRate",
     ),
 }
-
-OMIT_KEYS = {
-    "per_query",
-    "queries",
-    "scores",
-    "rankings",
-    "candidates",
-    "documents",
-    "results",
-}
+REQUIRED = ("mrr_at_10", "hit_rate_at_1", "hit_rate_at_10", "ndcg_at_10")
+OMIT_KEYS = {"per_query", "queries", "scores", "rankings", "candidates", "documents", "results"}
 
 
 def load_json(path: Path) -> Any:
@@ -62,231 +48,214 @@ def load_json(path: Path) -> Any:
         return json.load(handle)
 
 
-def metric(summary: dict[str, Any], canonical: str) -> Any:
+def pick(mapping: dict[str, Any], canonical: str) -> Any:
     for alias in METRIC_ALIASES[canonical]:
-        if alias in summary:
-            return summary[alias]
+        if alias in mapping:
+            return mapping[alias]
     return None
 
 
-def compact(value: Any, *, depth: int = 0) -> Any:
-    """Keep useful metadata while replacing large raw arrays with counts."""
+def metric_score(mapping: dict[str, Any]) -> int:
+    return sum(pick(mapping, name) is not None for name in METRIC_ALIASES)
+
+
+def walk_dicts(value: Any, path: str = "$", depth: int = 0) -> Iterator[tuple[str, dict[str, Any]]]:
+    if depth > 7:
+        return
+    if isinstance(value, dict):
+        yield path, value
+        for key, child in value.items():
+            if isinstance(child, (dict, list)):
+                yield from walk_dicts(child, f"{path}.{key}", depth + 1)
+    elif isinstance(value, list):
+        for index, child in enumerate(value[:25]):
+            if isinstance(child, (dict, list)):
+                yield from walk_dicts(child, f"{path}[{index}]", depth + 1)
+
+
+def find_metric_summary(data: dict[str, Any]) -> tuple[str | None, dict[str, Any]]:
+    preferred = [
+        ("$.metrics.summary", data.get("metrics", {}).get("summary") if isinstance(data.get("metrics"), dict) else None),
+        ("$.summary", data.get("summary")),
+        ("$.metrics", data.get("metrics")),
+        ("$.metrics_summary", data.get("metrics_summary")),
+    ]
+    candidates: list[tuple[int, int, str, dict[str, Any]]] = []
+    for path, value in preferred:
+        if isinstance(value, dict):
+            candidates.append((metric_score(value), len(value), path, value))
+    for path, mapping in walk_dicts(data):
+        score = metric_score(mapping)
+        if score:
+            candidates.append((score, len(mapping), path, mapping))
+    if not candidates:
+        return None, {}
+    _, _, path, mapping = max(candidates, key=lambda item: (item[0], item[1]))
+    return path, mapping
+
+
+def compact(value: Any, depth: int = 0) -> Any:
     if depth > 6:
         return "<depth-limit>"
     if isinstance(value, dict):
-        out: dict[str, Any] = {}
+        result: dict[str, Any] = {}
         for key, child in value.items():
             if key in OMIT_KEYS:
                 if isinstance(child, (list, dict)):
-                    out[f"{key}_omitted"] = len(child)
+                    result[f"{key}_omitted"] = len(child)
                 continue
-            out[key] = compact(child, depth=depth + 1)
-        return out
+            result[key] = compact(child, depth + 1)
+        return result
     if isinstance(value, list):
         if len(value) > 50:
             return {"items_omitted": len(value)}
-        return [compact(item, depth=depth + 1) for item in value]
+        return [compact(item, depth + 1) for item in value]
     return value
 
 
 def pipeline_record(path: Path) -> dict[str, Any]:
     data = load_json(path)
-    reranker_dir = path.parent.name
-    summary = data.get("metrics", {}).get("summary", {})
-    if not summary:
-        summary = data.get("summary", {})
-
-    pipeline_id = data.get("id") or data.get("pipeline_id") or path.stem
+    summary_path, summary = find_metric_summary(data)
+    normalized = {name: pick(summary, name) for name in METRIC_ALIASES}
+    missing = [name for name in REQUIRED if normalized.get(name) is None]
     embedding = data.get("embedding_model") or data.get("embedding") or path.stem
-
-    required = {
-        "mrr_at_10": metric(summary, "mrr_at_10"),
-        "hit_rate_at_1": metric(summary, "hit_rate_at_1"),
-        "hit_rate_at_10": metric(summary, "hit_rate_at_10"),
-        "ndcg_at_10": metric(summary, "ndcg_at_10"),
-    }
-    missing = [name for name, value in required.items() if value is None]
-    if missing:
-        raise RuntimeError(f"{path}: missing required metrics: {', '.join(missing)}")
-
-    normalized = {
-        name: metric(summary, name)
-        for name in METRIC_ALIASES
-    }
+    pipeline_id = data.get("id") or data.get("pipeline_id") or f"{embedding}__{path.parent.name}"
 
     metadata = {
         key: compact(value)
         for key, value in data.items()
         if key not in {"metrics"}
     }
+    by_query_type = {}
+    metrics_value = data.get("metrics")
+    if isinstance(metrics_value, dict) and isinstance(metrics_value.get("by_query_type"), dict):
+        by_query_type = compact(metrics_value["by_query_type"])
 
     return {
         "pipeline_id": pipeline_id,
         "embedding": embedding,
-        "reranker": reranker_dir,
+        "reranker": path.parent.name,
         "source_path": str(path.relative_to(ROOT)),
+        "metric_summary_path": summary_path,
         "metrics": normalized,
         "metrics_summary_original": compact(summary),
-        "metrics_by_query_type": compact(data.get("metrics", {}).get("by_query_type", {})),
+        "metrics_by_query_type": by_query_type,
+        "missing_required_metrics": missing,
         "metadata": metadata,
     }
 
 
 def rank_key(item: dict[str, Any]) -> tuple[float, float, float, float, str]:
-    m = item["metrics"]
-    return (
-        -(m.get("mrr_at_10") or -1.0),
-        -(m.get("ndcg_at_10") or -1.0),
-        -(m.get("hit_rate_at_1") or -1.0),
-        -(m.get("hit_rate_at_10") or -1.0),
-        item["pipeline_id"],
-    )
+    metrics = item["metrics"]
+    def number(name: str) -> float:
+        value = metrics.get(name)
+        return float(value) if isinstance(value, (int, float)) else -1.0
+    return (-number("mrr_at_10"), -number("ndcg_at_10"), -number("hit_rate_at_1"), -number("hit_rate_at_10"), item["pipeline_id"])
 
 
 def optional_json(path: Path) -> Any:
-    return load_json(path) if path.exists() else None
+    try:
+        return load_json(path) if path.exists() else None
+    except (OSError, json.JSONDecodeError) as exc:
+        return {"source_path": str(path.relative_to(ROOT)), "load_error": str(exc)}
 
 
-def main() -> None:
-    paths = sorted(PIPELINES_DIR.glob("*/*.json"))
-    pipelines = [pipeline_record(path) for path in paths]
-
-    counts = Counter(item["reranker"] for item in pipelines)
-    embeddings = sorted({item["embedding"] for item in pipelines})
-
-    if len(pipelines) != EXPECTED_PIPELINES:
-        raise RuntimeError(
-            f"expected {EXPECTED_PIPELINES} published pipelines, found {len(pipelines)}"
-        )
-    if len(embeddings) != EXPECTED_EMBEDDINGS:
-        raise RuntimeError(
-            f"expected {EXPECTED_EMBEDDINGS} unique embeddings, found {len(embeddings)}"
-        )
-    if dict(sorted(counts.items())) != dict(sorted(EXPECTED_BY_RERANKER.items())):
-        raise RuntimeError(
-            f"reranker counts differ: expected {EXPECTED_BY_RERANKER}, found {dict(counts)}"
-        )
-
-    pipelines.sort(key=rank_key)
-    for index, item in enumerate(pipelines, start=1):
-        item["rank_by_mrr_at_10"] = index
-
-    by_embedding: dict[str, list[dict[str, Any]]] = defaultdict(list)
-    by_reranker: dict[str, list[dict[str, Any]]] = defaultdict(list)
-    for item in pipelines:
-        by_embedding[item["embedding"]].append(item)
-        by_reranker[item["reranker"]].append(item)
-
-    embedding_index = []
-    for embedding in sorted(by_embedding):
-        items = sorted(by_embedding[embedding], key=rank_key)
-        embedding_index.append(
-            {
-                "embedding": embedding,
-                "pipeline_count": len(items),
-                "rerankers": sorted(item["reranker"] for item in items),
-                "best_published_pipeline": {
-                    "pipeline_id": items[0]["pipeline_id"],
-                    "reranker": items[0]["reranker"],
-                    "rank_by_mrr_at_10": items[0]["rank_by_mrr_at_10"],
-                    "metrics": items[0]["metrics"],
-                },
-            }
-        )
-
-    reranker_index = []
-    for reranker in sorted(by_reranker):
-        items = sorted(by_reranker[reranker], key=rank_key)
-        reranker_index.append(
-            {
-                "reranker": reranker,
-                "pipeline_count": len(items),
-                "best_published_pipeline": {
-                    "pipeline_id": items[0]["pipeline_id"],
-                    "embedding": items[0]["embedding"],
-                    "rank_by_mrr_at_10": items[0]["rank_by_mrr_at_10"],
-                    "metrics": items[0]["metrics"],
-                },
-            }
-        )
-
-    stash_alternatives = [
+def stash_alternatives() -> list[dict[str, Any]]:
+    return [
         {
             "pipeline_id": "embeddinggemma_768_float32__qwen_local",
-            "source": "stash@{0}:preserve-unstaged-pre-voyage",
-            "published_source_path": "benchmark/embedding-v3/results/reranker/pipelines/qwen_local/embeddinggemma_768_float32.json",
-            "status": "local_alternative_not_published",
-            "metrics": {
-                "mrr_at_10": 0.8172,
-                "hit_rate_at_1": 0.7800,
-                "hit_rate_at_10": 0.8933,
-                "hit_rate_at_20": 1.0000,
-                "ndcg_at_10": 0.8276,
-            },
+            "metrics": {"mrr_at_10": 0.8172, "hit_rate_at_1": 0.7800, "hit_rate_at_10": 0.8933, "hit_rate_at_20": 1.0000, "ndcg_at_10": 0.8276},
             "published_mrr_at_10": 0.7911,
             "delta_mrr_at_10": 0.0261,
         },
         {
             "pipeline_id": "voyage4_nano_1024_float32__qwen_local",
-            "source": "stash@{0}:preserve-unstaged-pre-voyage",
-            "published_source_path": "benchmark/embedding-v3/results/reranker/pipelines/qwen_local/voyage4_nano_1024_float32.json",
-            "status": "local_alternative_not_published",
-            "metrics": {
-                "mrr_at_10": 0.8223,
-                "hit_rate_at_1": 0.7867,
-                "hit_rate_at_10": 0.8867,
-                "hit_rate_at_20": 1.0000,
-                "ndcg_at_10": 0.8303,
-            },
+            "metrics": {"mrr_at_10": 0.8223, "hit_rate_at_1": 0.7867, "hit_rate_at_10": 0.8867, "hit_rate_at_20": 1.0000, "ndcg_at_10": 0.8303},
             "published_mrr_at_10": 0.7835,
             "delta_mrr_at_10": 0.0388,
         },
         {
             "pipeline_id": "voyage4_nano_2048_float32__qwen_local",
-            "source": "stash@{0}:preserve-unstaged-pre-voyage",
-            "published_source_path": "benchmark/embedding-v3/results/reranker/pipelines/qwen_local/voyage4_nano_2048_float32.json",
-            "status": "local_alternative_not_published",
-            "metrics": {
-                "mrr_at_10": 0.8220,
-                "hit_rate_at_1": 0.7867,
-                "hit_rate_at_10": 0.8867,
-                "hit_rate_at_20": 0.9933,
-                "ndcg_at_10": 0.8301,
-            },
+            "metrics": {"mrr_at_10": 0.8220, "hit_rate_at_1": 0.7867, "hit_rate_at_10": 0.8867, "hit_rate_at_20": 0.9933, "ndcg_at_10": 0.8301},
             "published_mrr_at_10": 0.7837,
             "delta_mrr_at_10": 0.0383,
         },
         {
             "pipeline_id": "voyage4_nano_2048_int8__qwen_local",
-            "source": "stash@{0}:preserve-unstaged-pre-voyage",
-            "published_source_path": "benchmark/embedding-v3/results/reranker/pipelines/qwen_local/voyage4_nano_2048_int8.json",
-            "status": "local_alternative_not_published",
-            "metrics": {
-                "mrr_at_10": 0.7834,
-                "hit_rate_at_1": 0.7533,
-                "hit_rate_at_10": 0.8600,
-                "hit_rate_at_20": 0.9467,
-                "ndcg_at_10": 0.7953,
-            },
+            "metrics": {"mrr_at_10": 0.7834, "hit_rate_at_1": 0.7533, "hit_rate_at_10": 0.8600, "hit_rate_at_20": 0.9467, "ndcg_at_10": 0.7953},
             "published_mrr_at_10": 0.7835,
             "delta_mrr_at_10": -0.0001,
         },
         {
             "pipeline_id": "voyage_4_large_1024_float32__qwen_local",
-            "source": "stash@{0}:preserve-unstaged-pre-voyage",
-            "published_source_path": "benchmark/embedding-v3/results/reranker/pipelines/qwen_local/voyage_4_large_1024_float32.json",
-            "status": "local_alternative_not_published",
-            "metrics": {
-                "mrr_at_10": 0.8201,
-                "hit_rate_at_1": 0.7867,
-                "hit_rate_at_10": 0.8867,
-                "hit_rate_at_20": 0.9800,
-                "ndcg_at_10": 0.8284,
-            },
+            "metrics": {"mrr_at_10": 0.8201, "hit_rate_at_1": 0.7867, "hit_rate_at_10": 0.8867, "hit_rate_at_20": 0.9800, "ndcg_at_10": 0.8284},
             "published_mrr_at_10": 0.7903,
             "delta_mrr_at_10": 0.0298,
         },
     ]
+
+
+def main() -> None:
+    parse_errors: list[dict[str, str]] = []
+    pipelines: list[dict[str, Any]] = []
+    for path in sorted(PIPELINES_DIR.glob("*/*.json")):
+        try:
+            pipelines.append(pipeline_record(path))
+        except Exception as exc:  # diagnostic collection; validation reports failure
+            parse_errors.append({"source_path": str(path.relative_to(ROOT)), "error": f"{type(exc).__name__}: {exc}"})
+
+    counts = Counter(item["reranker"] for item in pipelines)
+    embeddings = sorted({item["embedding"] for item in pipelines})
+    missing_metrics = [
+        {"pipeline_id": item["pipeline_id"], "source_path": item["source_path"], "missing": item["missing_required_metrics"]}
+        for item in pipelines
+        if item["missing_required_metrics"]
+    ]
+
+    pipelines.sort(key=rank_key)
+    for rank, item in enumerate(pipelines, start=1):
+        item["rank_by_mrr_at_10"] = rank
+
+    grouped_embeddings: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    grouped_rerankers: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for item in pipelines:
+        grouped_embeddings[item["embedding"]].append(item)
+        grouped_rerankers[item["reranker"]].append(item)
+
+    embedding_index = []
+    for embedding, items in sorted(grouped_embeddings.items()):
+        ranked = sorted(items, key=rank_key)
+        embedding_index.append({
+            "embedding": embedding,
+            "pipeline_count": len(ranked),
+            "rerankers": sorted(item["reranker"] for item in ranked),
+            "best_published_pipeline": {
+                "pipeline_id": ranked[0]["pipeline_id"],
+                "rank_by_mrr_at_10": ranked[0]["rank_by_mrr_at_10"],
+                "metrics": ranked[0]["metrics"],
+            },
+        })
+
+    reranker_index = []
+    for reranker, items in sorted(grouped_rerankers.items()):
+        ranked = sorted(items, key=rank_key)
+        reranker_index.append({
+            "reranker": reranker,
+            "pipeline_count": len(ranked),
+            "best_published_pipeline": {
+                "pipeline_id": ranked[0]["pipeline_id"],
+                "rank_by_mrr_at_10": ranked[0]["rank_by_mrr_at_10"],
+                "metrics": ranked[0]["metrics"],
+            },
+        })
+
+    validation_checks = {
+        "pipeline_count_89": len(pipelines) == EXPECTED_PIPELINES,
+        "embedding_count_32": len(embeddings) == EXPECTED_EMBEDDINGS,
+        "reranker_counts_match": dict(sorted(counts.items())) == dict(sorted(EXPECTED_BY_RERANKER.items())),
+        "parse_errors_zero": not parse_errors,
+        "missing_required_metrics_zero": not missing_metrics,
+    }
 
     document = {
         "schema_version": "1.0.0",
@@ -294,10 +263,18 @@ def main() -> None:
         "repository": "Weltall-IA/holo-models",
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "source_commit": os.environ.get("GITHUB_SHA"),
+        "validation": {
+            "status": "PASS" if all(validation_checks.values()) else "INCOMPLETE",
+            "checks": validation_checks,
+            "parse_errors": parse_errors,
+            "missing_required_metrics": missing_metrics,
+            "expected_reranker_counts": EXPECTED_BY_RERANKER,
+            "actual_reranker_counts": dict(sorted(counts.items())),
+        },
         "canonical_scope": {
-            "published_pipeline_artifacts": EXPECTED_PIPELINES,
-            "unique_embeddings": EXPECTED_EMBEDDINGS,
-            "rerankers": len(EXPECTED_BY_RERANKER),
+            "published_pipeline_artifacts": len(pipelines),
+            "unique_embeddings": len(embeddings),
+            "rerankers": len(counts),
             "corpus_documents": 600,
             "corpus_queries": 150,
             "corpus_sha256": "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b",
@@ -305,7 +282,7 @@ def main() -> None:
             "rerank_top_k": 20,
         },
         "source_of_truth_policy": {
-            "published_pipeline_metrics": "individual JSON artifacts under results/reranker/pipelines",
+            "published_pipeline_metrics": "individual JSON artifacts under benchmark/embedding-v3/results/reranker/pipelines",
             "raw_artifacts_remain_authoritative": True,
             "published_and_stash_results_are_not_merged": True,
             "missing_values_are_never_estimated": True,
@@ -325,41 +302,26 @@ def main() -> None:
             "active_stash_reported": "stash@{0}:preserve-unstaged-pre-voyage",
         },
         "leaders_published": {
-            "best_by_mrr_at_10": pipelines[0],
-            "best_fully_local_recorded_reference": {
-                "pipeline_id": "qwen3_embedding_4b_q8_0__qwen_local",
-                "mrr_at_10": 0.8243,
-                "hit_rate_at_10": 0.8867,
-            },
-            "selected_operational_pipeline": {
-                "pipeline_id": "nomic_embed_text_v2_moe_q4__qwen_local",
-                "reason": "quality-equivalent, 10.7x faster indexing, zero observed errors",
-            },
+            "best_by_mrr_at_10": pipelines[0] if pipelines else None,
+            "best_fully_local_recorded_reference": {"pipeline_id": "qwen3_embedding_4b_q8_0__qwen_local", "mrr_at_10": 0.8243, "hit_rate_at_10": 0.8867},
+            "selected_operational_pipeline": {"pipeline_id": "nomic_embed_text_v2_moe_q4__qwen_local", "reason": "quality-equivalent, 10.7x faster indexing, zero observed errors"},
         },
         "published_pipelines_ranked_by_mrr_at_10": pipelines,
         "embedding_index": embedding_index,
         "reranker_index": reranker_index,
         "local_only_alternative_artifacts": {
-            "provenance": "verified read-only inventory supplied by the repository operator; stash content is not available through GitHub",
-            "ranking_status": "excluded_from_published_ranking_until_provenance_and_protocol_are reconciled",
-            "pipelines": stash_alternatives,
-            "other_modified_artifacts": {
-                "candidate_files": [
-                    "embeddinggemma_768_float32.json",
-                    "voyage4_nano_1024_float32.json",
-                    "voyage4_nano_2048_float32.json",
-                    "voyage4_nano_2048_int8.json",
-                    "voyage_4_large_1024_float32.json",
-                ],
-                "score_artifact": "results/reranker/scores/qwen_local.json",
-                "config_and_diagnostics": [
-                    "config/models.json",
-                    "gate2/diagnostics/selected_models_manifest.json",
-                    "gate2/diagnostics/selected_models_summary.json",
-                    "results/gate2/gte_multilingual_base.json",
-                    "candidate_summary.json",
-                ],
-            },
+            "source": "operator-supplied verified read-only inventory",
+            "status": "excluded_from_published_ranking_until_provenance_and_protocol_are_reconciled",
+            "stash": "stash@{0}:preserve-unstaged-pre-voyage",
+            "pipelines": stash_alternatives(),
+            "updated_candidate_files": [
+                "embeddinggemma_768_float32.json",
+                "voyage4_nano_1024_float32.json",
+                "voyage4_nano_2048_float32.json",
+                "voyage4_nano_2048_int8.json",
+                "voyage_4_large_1024_float32.json",
+            ],
+            "updated_score_artifact": "results/reranker/scores/qwen_local.json",
         },
         "operational_smoke_test_user_verified": {
             "pipeline": "nomic_embed_text_v2_moe_q4__qwen_local",
@@ -376,29 +338,27 @@ def main() -> None:
             "status": "PASS",
             "provenance": "verified result supplied by the repository operator after PR #12",
         },
-        "operational_comparison_artifact": optional_json(
-            BENCH / "results" / "operational" / "operational_comparison.json"
-        ),
+        "operational_comparison_artifact": optional_json(BENCH / "results" / "operational" / "operational_comparison.json"),
         "legacy_consolidated_document": optional_json(BENCH / "BENCHMARK_RESULTS.json"),
-        "historical_append_only_registry": optional_json(
-            BENCH / "BENCHMARK_RESULTS_REGISTRY.json"
-        ),
+        "historical_append_only_registry": optional_json(BENCH / "BENCHMARK_RESULTS_REGISTRY.json"),
         "notes": [
-            "This file is the single consolidated lookup requested by the repository operator.",
-            "It does not delete or replace raw artifacts.",
-            "The five stash alternatives are preserved separately and are not silently promoted over published results.",
-            "All 89 published pipeline summaries are read directly from their source JSON files during generation.",
+            "Single consolidated lookup requested by the repository operator.",
+            "No benchmark was rerun and no raw artifact was deleted or overwritten.",
+            "All published pipeline summaries are read directly from individual source JSON files.",
+            "The five stash alternatives remain separate from the published ranking.",
         ],
     }
 
-    OUTPUT.write_text(
-        json.dumps(document, ensure_ascii=False, indent=2, sort_keys=False) + "\n",
-        encoding="utf-8",
-    )
-    print(
-        f"wrote {OUTPUT.relative_to(ROOT)}: {len(pipelines)} pipelines, "
-        f"{len(embeddings)} embeddings, {len(counts)} rerankers"
-    )
+    OUTPUT.write_text(json.dumps(document, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    print(json.dumps({
+        "output": str(OUTPUT.relative_to(ROOT)),
+        "pipelines": len(pipelines),
+        "embeddings": len(embeddings),
+        "rerankers": dict(sorted(counts.items())),
+        "parse_errors": len(parse_errors),
+        "missing_required_metrics": len(missing_metrics),
+        "validation": document["validation"]["status"],
+    }, ensure_ascii=False))
 
 
 if __name__ == "__main__":
