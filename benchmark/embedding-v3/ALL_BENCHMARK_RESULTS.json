@@ -1,8 +1,8 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "2.0.0",
   "title": "Holo — Complete Consolidated Embedding and Reranker Benchmark Results",
   "repository": "Weltall-IA/holo-models",
-  "generated_at": "2026-07-27T02:45:14.212144+00:00",
+  "generated_at": "2026-07-27T03:38:49.752479+00:00",
   "source_commit": "2489df8c04c4dfbed15a6523a95f7f5b9f029d80",
   "validation": {
     "status": "PASS",
@@ -12,7 +12,13 @@
       "reranker_counts_match": true,
       "parse_errors_zero": true,
       "missing_required_metrics_zero": true,
-      "reranked_metric_selection_corrected": true
+      "reranked_metric_selection_corrected": true,
+      "raw_profile_count_36": true,
+      "raw_source_counts_match": true,
+      "qwen3_embedding_8b_present": true,
+      "nemotron_nvfp4_present": true,
+      "raw_and_reranked_separated": true,
+      "temporary_files_removed_from_final_diff": true
     },
     "parse_errors": [],
     "missing_required_metrics": [],
@@ -32,7 +38,15 @@
       "qwen_local": 32,
       "voyage_rerank_2_5": 9
     },
-    "reranked_metric_paths": 14
+    "reranked_metric_paths": 14,
+    "raw_profile_count": 36,
+    "raw_profile_source_counts": {
+      "gate2": 11,
+      "gate3": 16,
+      "voyage_raw": 2,
+      "nemotron_admission": 2,
+      "historical_raw_none": 5
+    }
   },
   "canonical_scope": {
     "published_pipeline_artifacts": 89,
@@ -42,7 +56,10 @@
     "corpus_queries": 150,
     "corpus_sha256": "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b",
     "candidate_top_k": 50,
-    "rerank_top_k": 20
+    "rerank_top_k": 20,
+    "published_reranked_pipeline_artifacts": 89,
+    "raw_embedding_profiles": 36,
+    "benchmark_records_total": 125
   },
   "source_of_truth_policy": {
     "published_pipeline_metrics": "individual JSON artifacts under benchmark/embedding-v3/results/reranker/pipelines",
@@ -55,7 +72,9 @@
       "HitRate@1",
       "HitRate@10",
       "pipeline_id"
-    ]
+    ],
+    "raw_embedding_metrics": "Gate 2, Gate 3, Voyage raw, Nemotron admission, and historical reranker_id=none artifacts",
+    "raw_and_reranked_are_ranked_separately": true
   },
   "inventory": {
     "published_pipeline_count": 89,
@@ -14981,5 +15000,3423 @@
     "reason": "Historical pipeline artifacts contain both base_metrics and reranked_metrics; ranking must use reranked_metrics.",
     "affected_scope": "published ranking and best-pipeline indices",
     "raw_artifacts_changed": false
+  },
+  "raw_embedding_profiles_ranked_by_mrr_at_10": [
+    {
+      "profile_id": "nemotron_3_embed_1b_nvfp4",
+      "source_group": "nemotron_admission",
+      "source_path": "benchmark/embedding-v3/results/nemotron_audit_1_0_5/admission_nvfp4_full_cached_20260723.json",
+      "metrics": {
+        "mrr_at_10": 0.7753412698412698,
+        "hit_rate_at_1": 0.74,
+        "hit_rate_at_10": 0.8466666666666667,
+        "ndcg_at_10": 0.7849820111117471,
+        "hit_rate_at_20": 0.9666666666666667,
+        "hard_negative_error_rate": 0.13333333333333333
+      },
+      "runtime": {
+        "load_seconds": 16.246896598000603,
+        "document_encode_seconds": 4.137199311997392,
+        "query_encode_seconds": 0.3621999129973119,
+        "documents_per_second": 145.02564531036018,
+        "queries_per_second": 414.13593603241213,
+        "total_seconds": 28.3923646559997,
+        "peak_vram_mib": 2072.0,
+        "peak_ram_mib": 3573.38671875,
+        "device": null,
+        "backend": "vllm",
+        "backend_version": "0.25.0"
+      },
+      "metadata": {
+        "model": {
+          "path": "/home/alpha/Playstoria/models/embed/Nemotron-3-Embed-1B-NVFP4",
+          "weight_file": "/home/alpha/Playstoria/models/embed/Nemotron-3-Embed-1B-NVFP4/model.safetensors",
+          "bytes": 1027789672,
+          "sha256": "f2753954c89055eb679a45b7dfea27a3e05c04ecbdb1f4e6c086180fe8c32bc7",
+          "license": "OpenMDW-1.1"
+        },
+        "id": null,
+        "gate": null,
+        "state": "EXECUTED",
+        "dataset": {
+          "name": "holo_fake_scenes_v3",
+          "combined_sha256": "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b",
+          "documents": 600,
+          "queries": 150,
+          "document_prefix": "passage: ",
+          "query_prefix": "query: "
+        }
+      },
+      "rank_by_mrr_at_10": 1
+    },
+    {
+      "profile_id": "voyage-4-large",
+      "source_group": "voyage_raw",
+      "source_path": "benchmark/embedding-v3/results/voyage/voyage-4-large.json",
+      "metrics": {
+        "mrr_at_10": 0.7727936507936508,
+        "hit_rate_at_1": 0.7266666666666667,
+        "hit_rate_at_10": 0.86,
+        "ndcg_at_10": 0.7860952189468112,
+        "hit_rate_at_20": 0.98,
+        "hard_negative_error_rate": 0.18
+      },
+      "runtime": {
+        "load_seconds": null,
+        "document_encode_seconds": null,
+        "query_encode_seconds": null,
+        "documents_per_second": null,
+        "queries_per_second": null,
+        "total_seconds": 1951.942,
+        "peak_vram_mib": null,
+        "peak_ram_mib": null,
+        "device": "remote-api",
+        "backend": null,
+        "backend_version": null
+      },
+      "metadata": {
+        "model": {
+          "id": "voyage-4-large",
+          "provider": "Voyage AI",
+          "backend": "voyage-api",
+          "endpoint": "Client.embed",
+          "sdk_version": "0.5.0",
+          "dimension": 1024,
+          "dtype": "float",
+          "auto_chunking": false
+        },
+        "id": null,
+        "gate": "voyage",
+        "state": null,
+        "dataset": {
+          "corpus_version": "holo_fake_scenes_v3",
+          "combined_sha256": "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b",
+          "documents": 600,
+          "queries": 150,
+          "works": 30
+        }
+      },
+      "rank_by_mrr_at_10": 2
+    },
+    {
+      "profile_id": "voyage_4_large_1024_float32",
+      "source_group": "historical_raw_none",
+      "source_path": "benchmark/embedding-v3/results/reranker/summary.json",
+      "metrics": {
+        "mrr_at_10": 0.7727936507936508,
+        "hit_rate_at_1": 0.7266666666666667,
+        "hit_rate_at_10": 0.86,
+        "ndcg_at_10": 0.7860952189468112,
+        "hit_rate_at_20": 0.98,
+        "hard_negative_error_rate": 0.16666666666666666
+      },
+      "runtime": {},
+      "metadata": {
+        "model": "voyage_4_large_1024_float32",
+        "id": "voyage_4_large_1024_float32",
+        "gate": null,
+        "state": null,
+        "dataset": {
+          "documents": 600,
+          "queries": 150
+        },
+        "historical_pipeline_id": "voyage_4_large_1024_float32__none"
+      },
+      "rank_by_mrr_at_10": 3
+    },
+    {
+      "profile_id": "nemotron_3_embed_1b_q4_k_m_gguf",
+      "source_group": "nemotron_admission",
+      "source_path": "benchmark/embedding-v3/results/nemotron_audit_1_0_5/admission_gguf_full_20260723_attempt2.json",
+      "metrics": {
+        "mrr_at_10": 0.7695079365079365,
+        "hit_rate_at_1": 0.7266666666666667,
+        "hit_rate_at_10": 0.8533333333333334,
+        "ndcg_at_10": 0.7820185776084891,
+        "hit_rate_at_20": 0.94,
+        "hard_negative_error_rate": 0.13333333333333333
+      },
+      "runtime": {
+        "load_seconds": 1.3244759770022938,
+        "document_encode_seconds": 33.9176440730007,
+        "query_encode_seconds": 1.5268634379972355,
+        "documents_per_second": 17.68990790482453,
+        "queries_per_second": 98.24061292393826,
+        "total_seconds": 37.26975809700525,
+        "peak_vram_mib": 1288.0,
+        "peak_ram_mib": 1213.484375,
+        "device": null,
+        "backend": "llama.cpp",
+        "backend_version": "version: 9972 (c92e806d1)\nbuilt with GNU 16.1.1 for Linux x86_64"
+      },
+      "metadata": {
+        "model": {
+          "path": "/home/alpha/Playstoria/models/embed/Nemotron-3-Embed-1B-Q4_K_M/nemotron-3-embed-1b-q4_k_m.gguf",
+          "weight_file": "/home/alpha/Playstoria/models/embed/Nemotron-3-Embed-1B-Q4_K_M/nemotron-3-embed-1b-q4_k_m.gguf",
+          "bytes": 749352096,
+          "sha256": "9a74166f51dbc280073748fa199bea49283bd21f7f9280f2dec2b4d975ddfd1d",
+          "license": "OpenMDW-1.1"
+        },
+        "id": null,
+        "gate": null,
+        "state": "EXECUTED",
+        "dataset": {
+          "name": "holo_fake_scenes_v3",
+          "combined_sha256": "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b",
+          "documents": 600,
+          "queries": 150,
+          "document_prefix": "passage: ",
+          "query_prefix": "query: "
+        }
+      },
+      "rank_by_mrr_at_10": 4
+    },
+    {
+      "profile_id": "voyage4_nano_2048_int8",
+      "source_group": "historical_raw_none",
+      "source_path": "benchmark/embedding-v3/results/reranker/summary.json",
+      "metrics": {
+        "mrr_at_10": 0.7681190476190476,
+        "hit_rate_at_1": 0.72,
+        "hit_rate_at_10": 0.86,
+        "ndcg_at_10": 0.7837125831615664,
+        "hit_rate_at_20": 0.9466666666666667,
+        "hard_negative_error_rate": 0.15333333333333332
+      },
+      "runtime": {},
+      "metadata": {
+        "model": "voyage4_nano_2048_int8",
+        "id": "voyage4_nano_2048_int8",
+        "gate": null,
+        "state": null,
+        "dataset": {
+          "documents": 600,
+          "queries": 150
+        },
+        "historical_pipeline_id": "voyage4_nano_2048_int8__none"
+      },
+      "rank_by_mrr_at_10": 5
+    },
+    {
+      "profile_id": "embeddinggemma",
+      "source_group": "gate2",
+      "source_path": "benchmark/embedding-v3/results/gate2/embeddinggemma.json",
+      "metrics": {
+        "mrr_at_10": 0.7562486772486773,
+        "hit_rate_at_1": 0.7,
+        "hit_rate_at_10": 0.86,
+        "ndcg_at_10": 0.7738602311114637,
+        "hit_rate_at_20": 1.0,
+        "hard_negative_error_rate": 0.18
+      },
+      "runtime": {
+        "load_seconds": 6.7921,
+        "document_encode_seconds": 10.1985,
+        "query_encode_seconds": 0.5684,
+        "documents_per_second": 58.8322,
+        "queries_per_second": 263.8987,
+        "total_seconds": 22.4732,
+        "peak_vram_mib": 1692.322265625,
+        "peak_ram_mib": null,
+        "device": "cuda",
+        "backend": null,
+        "backend_version": null
+      },
+      "metadata": {
+        "model": {
+          "id": "embeddinggemma",
+          "repo": "google/embeddinggemma-300m",
+          "revision": "57c266a740f537b4dc058e1b0cda161fd15afa75",
+          "backend": "sentence-transformers",
+          "mode": null,
+          "required": false,
+          "configured_dimension": 768,
+          "actual_dimension": 768,
+          "trust_remote_code": false,
+          "license": "gemma",
+          "gated": "manual",
+          "file": null,
+          "weight_files": [
+            {
+              "file": "2_Dense/model.safetensors",
+              "bytes": 9437272,
+              "sha256": "c327f2acb00149676ade24a75e11eb6ebbd367f9ee050267ba56829d2979f702"
+            },
+            {
+              "file": "3_Dense/model.safetensors",
+              "bytes": 9437272,
+              "sha256": "ffb6cc5162e11e2ce6bc2367e121ee3bbbc4e82e1ee26826bd7573d4948d81b8"
+            },
+            {
+              "file": "model.safetensors",
+              "bytes": 1211486072,
+              "sha256": "cbf5a78393b6a033e0b8a63a57549964f7ed5c6fbeb4ba0694214f36123f2fd2"
+            }
+          ]
+        },
+        "id": null,
+        "gate": 2,
+        "state": null,
+        "dataset": {
+          "corpus_version": "holo_fake_scenes_v3",
+          "combined_sha256": "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b",
+          "documents": 600,
+          "queries": 150
+        }
+      },
+      "rank_by_mrr_at_10": 6
+    },
+    {
+      "profile_id": "pplx_embed_v1_4b_q8_0",
+      "source_group": "gate3",
+      "source_path": "benchmark/embedding-v3/results/gate3/pplx_embed_v1_4b_q8_0.json",
+      "metrics": {
+        "mrr_at_10": 0.7562407407407408,
+        "hit_rate_at_1": 0.7,
+        "hit_rate_at_10": 0.86,
+        "ndcg_at_10": 0.7778241030502849,
+        "hit_rate_at_20": 0.9866666666666667,
+        "hard_negative_error_rate": 0.18
+      },
+      "runtime": {
+        "load_seconds": 20.674397867998778,
+        "document_encode_seconds": 70.22975888699875,
+        "query_encode_seconds": 3.3039394410006935,
+        "documents_per_second": 8.543386870591616,
+        "queries_per_second": 45.40034788124572,
+        "total_seconds": null,
+        "peak_vram_mib": 8662.0,
+        "peak_ram_mib": 1486.0,
+        "device": "cuda",
+        "backend": null,
+        "backend_version": null
+      },
+      "metadata": {
+        "model": null,
+        "id": "pplx_embed_v1_4b_q8_0",
+        "gate": 3,
+        "state": "COMPLETED",
+        "dataset": null
+      },
+      "rank_by_mrr_at_10": 7
+    },
+    {
+      "profile_id": "voyage4_nano_2048_float32",
+      "source_group": "historical_raw_none",
+      "source_path": "benchmark/embedding-v3/results/reranker/summary.json",
+      "metrics": {
+        "mrr_at_10": 0.7560714285714286,
+        "hit_rate_at_1": 0.7,
+        "hit_rate_at_10": 0.86,
+        "ndcg_at_10": 0.7746393604370004,
+        "hit_rate_at_20": 0.9533333333333334,
+        "hard_negative_error_rate": 0.16
+      },
+      "runtime": {},
+      "metadata": {
+        "model": "voyage4_nano_2048_float32",
+        "id": "voyage4_nano_2048_float32",
+        "gate": null,
+        "state": null,
+        "dataset": {
+          "documents": 600,
+          "queries": 150
+        },
+        "historical_pipeline_id": "voyage4_nano_2048_float32__none"
+      },
+      "rank_by_mrr_at_10": 8
+    },
+    {
+      "profile_id": "voyage4_nano",
+      "source_group": "gate2",
+      "source_path": "benchmark/embedding-v3/results/gate2/voyage4_nano.json",
+      "metrics": {
+        "mrr_at_10": 0.7527566137566137,
+        "hit_rate_at_1": 0.6933333333333334,
+        "hit_rate_at_10": 0.8533333333333334,
+        "ndcg_at_10": 0.7718721461591177,
+        "hit_rate_at_20": 0.96,
+        "hard_negative_error_rate": 0.15333333333333332
+      },
+      "runtime": {
+        "load_seconds": 1.4045,
+        "document_encode_seconds": 18.9637,
+        "query_encode_seconds": 0.4948,
+        "documents_per_second": 31.6394,
+        "queries_per_second": 303.1528,
+        "total_seconds": 25.6547,
+        "peak_vram_mib": 2503.17431640625,
+        "peak_ram_mib": null,
+        "device": "cuda",
+        "backend": null,
+        "backend_version": null
+      },
+      "metadata": {
+        "model": {
+          "id": "voyage4_nano",
+          "repo": "voyageai/voyage-4-nano",
+          "revision": "67fabc9bef010dabc5f6024aa1b1b6b93410426f",
+          "backend": "sentence-transformers",
+          "mode": null,
+          "required": false,
+          "configured_dimension": 1024,
+          "actual_dimension": 1024,
+          "trust_remote_code": true,
+          "license": "apache-2.0",
+          "gated": false,
+          "file": null,
+          "weight_files": [
+            {
+              "file": "model.safetensors",
+              "bytes": 692919112,
+              "sha256": "3dae0c63c81dcab79ac213af331940a1bf2b8a53ec8646be878552890291ad30"
+            }
+          ]
+        },
+        "id": null,
+        "gate": 2,
+        "state": null,
+        "dataset": {
+          "corpus_version": "holo_fake_scenes_v3",
+          "combined_sha256": "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b",
+          "documents": 600,
+          "queries": 150
+        }
+      },
+      "rank_by_mrr_at_10": 9
+    },
+    {
+      "profile_id": "voyage4_nano_1024_float32",
+      "source_group": "historical_raw_none",
+      "source_path": "benchmark/embedding-v3/results/reranker/summary.json",
+      "metrics": {
+        "mrr_at_10": 0.7527566137566137,
+        "hit_rate_at_1": 0.6933333333333334,
+        "hit_rate_at_10": 0.8533333333333334,
+        "ndcg_at_10": 0.7718721461591177,
+        "hit_rate_at_20": 0.96,
+        "hard_negative_error_rate": 0.15333333333333332
+      },
+      "runtime": {},
+      "metadata": {
+        "model": "voyage4_nano_1024_float32",
+        "id": "voyage4_nano_1024_float32",
+        "gate": null,
+        "state": null,
+        "dataset": {
+          "documents": 600,
+          "queries": 150
+        },
+        "historical_pipeline_id": "voyage4_nano_1024_float32__none"
+      },
+      "rank_by_mrr_at_10": 10
+    },
+    {
+      "profile_id": "voyage-context-4",
+      "source_group": "voyage_raw",
+      "source_path": "benchmark/embedding-v3/results/voyage/voyage-context-4.json",
+      "metrics": {
+        "mrr_at_10": 0.7433042328042329,
+        "hit_rate_at_1": 0.6666666666666666,
+        "hit_rate_at_10": 0.8733333333333333,
+        "ndcg_at_10": 0.7748319476944924,
+        "hit_rate_at_20": 1.0,
+        "hard_negative_error_rate": 0.15333333333333332
+      },
+      "runtime": {
+        "load_seconds": null,
+        "document_encode_seconds": null,
+        "query_encode_seconds": null,
+        "documents_per_second": null,
+        "queries_per_second": null,
+        "total_seconds": 2014.7348,
+        "peak_vram_mib": null,
+        "peak_ram_mib": null,
+        "device": "remote-api",
+        "backend": null,
+        "backend_version": null
+      },
+      "metadata": {
+        "model": {
+          "id": "voyage-context-4",
+          "provider": "Voyage AI",
+          "backend": "voyage-api",
+          "endpoint": "Client.contextualized_embed",
+          "sdk_version": "0.5.0",
+          "dimension": 1024,
+          "dtype": "float",
+          "auto_chunking": false
+        },
+        "id": null,
+        "gate": "voyage",
+        "state": null,
+        "dataset": {
+          "corpus_version": "holo_fake_scenes_v3",
+          "combined_sha256": "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b",
+          "documents": 600,
+          "queries": 150,
+          "works": 30
+        }
+      },
+      "rank_by_mrr_at_10": 11
+    },
+    {
+      "profile_id": "nomic_embed_text_v2_moe_q4",
+      "source_group": "gate3",
+      "source_path": "benchmark/embedding-v3/results/gate3/nomic_embed_text_v2_moe_q4.json",
+      "metrics": {
+        "mrr_at_10": 0.7419761904761906,
+        "hit_rate_at_1": 0.6933333333333334,
+        "hit_rate_at_10": 0.8333333333333334,
+        "ndcg_at_10": 0.7562339480484944,
+        "hit_rate_at_20": 0.9266666666666666,
+        "hard_negative_error_rate": 0.15333333333333332
+      },
+      "runtime": {
+        "load_seconds": null,
+        "document_encode_seconds": null,
+        "query_encode_seconds": null,
+        "documents_per_second": null,
+        "queries_per_second": null,
+        "total_seconds": null,
+        "peak_vram_mib": null,
+        "peak_ram_mib": null,
+        "device": null,
+        "backend": null,
+        "backend_version": null
+      },
+      "metadata": {
+        "model": null,
+        "id": "nomic_embed_text_v2_moe_q4",
+        "gate": 3,
+        "state": "COMPLETED",
+        "dataset": null
+      },
+      "rank_by_mrr_at_10": 12
+    },
+    {
+      "profile_id": "embeddinggemma_768_float32",
+      "source_group": "historical_raw_none",
+      "source_path": "benchmark/embedding-v3/results/reranker/summary.json",
+      "metrics": {
+        "mrr_at_10": 0.7388518518518519,
+        "hit_rate_at_1": 0.6666666666666666,
+        "hit_rate_at_10": 0.86,
+        "ndcg_at_10": 0.7608749927791206,
+        "hit_rate_at_20": 1.0,
+        "hard_negative_error_rate": 0.19333333333333333
+      },
+      "runtime": {},
+      "metadata": {
+        "model": "embeddinggemma_768_float32",
+        "id": "embeddinggemma_768_float32",
+        "gate": null,
+        "state": null,
+        "dataset": {
+          "documents": 600,
+          "queries": 150
+        },
+        "historical_pipeline_id": "embeddinggemma_768_float32__none"
+      },
+      "rank_by_mrr_at_10": 13
+    },
+    {
+      "profile_id": "embeddinggemma_gguf",
+      "source_group": "gate3",
+      "source_path": "benchmark/embedding-v3/results/gate3/embeddinggemma_gguf.json",
+      "metrics": {
+        "mrr_at_10": 0.7388518518518519,
+        "hit_rate_at_1": 0.6666666666666666,
+        "hit_rate_at_10": 0.86,
+        "ndcg_at_10": 0.7608749927791206,
+        "hit_rate_at_20": 1.0,
+        "hard_negative_error_rate": 0.19333333333333333
+      },
+      "runtime": {
+        "load_seconds": 3.0175,
+        "document_encode_seconds": 20.1636,
+        "query_encode_seconds": 0.7662,
+        "documents_per_second": 29.7565,
+        "queries_per_second": 195.7731,
+        "total_seconds": 24.241,
+        "peak_vram_mib": 365.0,
+        "peak_ram_mib": null,
+        "device": "cuda",
+        "backend": null,
+        "backend_version": null
+      },
+      "metadata": {
+        "model": {
+          "id": "embeddinggemma_gguf",
+          "repo": "ggml-org/embeddinggemma-300M-GGUF",
+          "revision": "0f741b5a6585bd53aeb15cd1372c56f2a0f65e12",
+          "file": "embeddinggemma-300M-Q8_0.gguf",
+          "fallback_used": false,
+          "backend": "llama.cpp",
+          "license": "gemma",
+          "gated": false,
+          "quantization": "Q8_0",
+          "pooling": "mean",
+          "native_dimension": 768,
+          "configured_dimension": 768,
+          "actual_dimension": 768,
+          "weight_files": [
+            {
+              "file": "embeddinggemma-300M-Q8_0.gguf",
+              "bytes": 333590944,
+              "sha256": "b5ce9d77a3fc4b3b39ccb5643c36777911cc4eb46a66962eadfa3f5f60490d63"
+            }
+          ]
+        },
+        "id": null,
+        "gate": 3,
+        "state": null,
+        "dataset": {
+          "corpus_version": "holo_fake_scenes_v3",
+          "combined_sha256": "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b",
+          "documents": 600,
+          "queries": 150
+        }
+      },
+      "rank_by_mrr_at_10": 14
+    },
+    {
+      "profile_id": "bge_m3_dense",
+      "source_group": "gate2",
+      "source_path": "benchmark/embedding-v3/results/gate2/bge_m3_dense.json",
+      "metrics": {
+        "mrr_at_10": 0.7181666666666666,
+        "hit_rate_at_1": 0.6466666666666666,
+        "hit_rate_at_10": 0.88,
+        "ndcg_at_10": 0.7490128789710545,
+        "hit_rate_at_20": 0.9533333333333334,
+        "hard_negative_error_rate": 0.18666666666666668
+      },
+      "runtime": {
+        "load_seconds": 12.732,
+        "document_encode_seconds": 18.016,
+        "query_encode_seconds": 0.4224,
+        "documents_per_second": 33.3037,
+        "queries_per_second": 355.1136,
+        "total_seconds": 40.2611,
+        "peak_vram_mib": 2493.67626953125,
+        "peak_ram_mib": null,
+        "device": "cuda",
+        "backend": null,
+        "backend_version": null
+      },
+      "metadata": {
+        "model": {
+          "id": "bge_m3_dense",
+          "repo": "BAAI/bge-m3",
+          "revision": "5617a9f61b028005a4858fdac845db406aefb181",
+          "backend": "sentence-transformers",
+          "mode": "dense_only",
+          "required": true,
+          "configured_dimension": 1024,
+          "actual_dimension": 1024,
+          "trust_remote_code": false,
+          "license": "mit",
+          "gated": false,
+          "file": null,
+          "weight_files": [
+            {
+              "file": "colbert_linear.pt",
+              "bytes": 2100674,
+              "sha256": "19bfbae397c2b7524158c919d0e9b19393c5639d098f0a66932c91ed8f5f9abb"
+            },
+            {
+              "file": "pytorch_model.bin",
+              "bytes": 2271145830,
+              "sha256": "b5e0ce3470abf5ef3831aa1bd5553b486803e83251590ab7ff35a117cf6aad38"
+            },
+            {
+              "file": "sparse_linear.pt",
+              "bytes": 3516,
+              "sha256": "45c93804d2142b8f6d7ec6914ae23a1eee9c6a1d27d83d908a20d2afb3595ad9"
+            }
+          ]
+        },
+        "id": null,
+        "gate": 2,
+        "state": null,
+        "dataset": {
+          "corpus_version": "holo_fake_scenes_v3",
+          "combined_sha256": "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b",
+          "documents": 600,
+          "queries": 150
+        }
+      },
+      "rank_by_mrr_at_10": 15
+    },
+    {
+      "profile_id": "snowflake_arctic_embed_l_v2_q4",
+      "source_group": "gate3",
+      "source_path": "benchmark/embedding-v3/results/gate3/snowflake_arctic_embed_l_v2_q4.json",
+      "metrics": {
+        "mrr_at_10": 0.7113201058201059,
+        "hit_rate_at_1": 0.6333333333333333,
+        "hit_rate_at_10": 0.86,
+        "ndcg_at_10": 0.7393608465035213,
+        "hit_rate_at_20": 0.9466666666666667,
+        "hard_negative_error_rate": 0.15333333333333332
+      },
+      "runtime": {
+        "load_seconds": null,
+        "document_encode_seconds": null,
+        "query_encode_seconds": null,
+        "documents_per_second": null,
+        "queries_per_second": null,
+        "total_seconds": null,
+        "peak_vram_mib": null,
+        "peak_ram_mib": null,
+        "device": null,
+        "backend": null,
+        "backend_version": null
+      },
+      "metadata": {
+        "model": null,
+        "id": "snowflake_arctic_embed_l_v2_q4",
+        "gate": 3,
+        "state": "COMPLETED",
+        "dataset": null
+      },
+      "rank_by_mrr_at_10": 16
+    },
+    {
+      "profile_id": "qwen3_embedding_4b_q8_0",
+      "source_group": "gate3",
+      "source_path": "benchmark/embedding-v3/results/gate3/qwen3_embedding_4b_q8_0.json",
+      "metrics": {
+        "mrr_at_10": 0.7010343915343915,
+        "hit_rate_at_1": 0.6266666666666667,
+        "hit_rate_at_10": 0.84,
+        "ndcg_at_10": 0.72852922047902,
+        "hit_rate_at_20": 0.98,
+        "hard_negative_error_rate": 0.22
+      },
+      "runtime": {
+        "load_seconds": 20.100036264000664,
+        "document_encode_seconds": 70.07425684400005,
+        "query_encode_seconds": 3.2274214919998485,
+        "documents_per_second": 8.562345532050744,
+        "queries_per_second": 46.476730842817055,
+        "total_seconds": null,
+        "peak_vram_mib": 8880.0,
+        "peak_ram_mib": 230.0,
+        "device": "cuda",
+        "backend": null,
+        "backend_version": null
+      },
+      "metadata": {
+        "model": null,
+        "id": "qwen3_embedding_4b_q8_0",
+        "gate": 3,
+        "state": "COMPLETED",
+        "dataset": null
+      },
+      "rank_by_mrr_at_10": 17
+    },
+    {
+      "profile_id": "colibri_ptbr",
+      "source_group": "gate2",
+      "source_path": "benchmark/embedding-v3/results/gate2/colibri_ptbr.json",
+      "metrics": {
+        "mrr_at_10": 0.6966111111111111,
+        "hit_rate_at_1": 0.6066666666666667,
+        "hit_rate_at_10": 0.8466666666666667,
+        "ndcg_at_10": 0.7258090775724064,
+        "hit_rate_at_20": 0.9666666666666667,
+        "hard_negative_error_rate": 0.24666666666666667
+      },
+      "runtime": {
+        "load_seconds": 3.1677,
+        "document_encode_seconds": 13.8287,
+        "query_encode_seconds": 0.9124,
+        "documents_per_second": 43.388,
+        "queries_per_second": 164.4016,
+        "total_seconds": 26.2292,
+        "peak_vram_mib": 1101.58203125,
+        "peak_ram_mib": null,
+        "device": "cuda",
+        "backend": null,
+        "backend_version": null
+      },
+      "metadata": {
+        "model": {
+          "id": "colibri_ptbr",
+          "repo": "tardellirs/colibri-embed-ptbr",
+          "revision": "95a4d4f3a1c056ac19e0da196d0ab2b4289e3b3b",
+          "backend": "sentence-transformers",
+          "mode": null,
+          "required": true,
+          "configured_dimension": 768,
+          "actual_dimension": 768,
+          "trust_remote_code": false,
+          "license": "gemma",
+          "gated": false,
+          "file": null,
+          "weight_files": [
+            {
+              "file": "2_Dense/model.safetensors",
+              "bytes": 9437272,
+              "sha256": "94e0ed668eafb9d55a49877a5002958300398b07b2d137ed9d318939d26e39d6"
+            },
+            {
+              "file": "3_Dense/model.safetensors",
+              "bytes": 9437272,
+              "sha256": "8ea34e717149c8e263f0337eb3923dffa11c2ff408ca425e04c7239ae5fed5fc"
+            },
+            {
+              "file": "model.safetensors",
+              "bytes": 602787368,
+              "sha256": "4e24b5ee42f5cdd9fd752d95989d46c62af05fc107a42a4be78a394c791d9561"
+            }
+          ]
+        },
+        "id": null,
+        "gate": 2,
+        "state": null,
+        "dataset": {
+          "corpus_version": "holo_fake_scenes_v3",
+          "combined_sha256": "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b",
+          "documents": 600,
+          "queries": 150
+        }
+      },
+      "rank_by_mrr_at_10": 18
+    },
+    {
+      "profile_id": "qwen3_embedding_8b_gguf",
+      "source_group": "gate3",
+      "source_path": "benchmark/embedding-v3/results/gate3/qwen3_embedding_8b_gguf.json",
+      "metrics": {
+        "mrr_at_10": 0.6920423280423281,
+        "hit_rate_at_1": 0.6133333333333333,
+        "hit_rate_at_10": 0.8466666666666667,
+        "ndcg_at_10": 0.7274982581289288,
+        "hit_rate_at_20": 0.9466666666666667,
+        "hard_negative_error_rate": 0.18
+      },
+      "runtime": {
+        "load_seconds": 54.7212,
+        "document_encode_seconds": 143.2268,
+        "query_encode_seconds": 9.6674,
+        "documents_per_second": 4.1892,
+        "queries_per_second": 15.516,
+        "total_seconds": 208.771,
+        "peak_vram_mib": 8596.0,
+        "peak_ram_mib": null,
+        "device": "cuda",
+        "backend": null,
+        "backend_version": null
+      },
+      "metadata": {
+        "model": {
+          "id": "qwen3_embedding_8b_gguf",
+          "repo": "Qwen/Qwen3-Embedding-8B-GGUF",
+          "revision": "69d0e58a13e463cd99a9b83e3f5fee7c10265fab",
+          "file": "Qwen3-Embedding-8B-Q8_0.gguf",
+          "fallback_used": false,
+          "backend": "llama.cpp",
+          "license": "apache-2.0",
+          "gated": false,
+          "quantization": "Q8_0",
+          "pooling": "last",
+          "native_dimension": 4096,
+          "configured_dimension": 1024,
+          "actual_dimension": 1024,
+          "weight_files": [
+            {
+              "file": "Qwen3-Embedding-8B-Q8_0.gguf",
+              "bytes": 8047105824,
+              "sha256": "d20ddc71e8a5c4344f2343481e242233a997dc5eaff442427a945836c97b4deb"
+            }
+          ]
+        },
+        "id": null,
+        "gate": 3,
+        "state": null,
+        "dataset": {
+          "corpus_version": "holo_fake_scenes_v3",
+          "combined_sha256": "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b",
+          "documents": 600,
+          "queries": 150
+        }
+      },
+      "rank_by_mrr_at_10": 19
+    },
+    {
+      "profile_id": "nemotron_8b_abiray_q4",
+      "source_group": "gate3",
+      "source_path": "benchmark/embedding-v3/results/gate3/nemotron_8b_abiray_q4.json",
+      "metrics": {
+        "mrr_at_10": 0.6918677248677249,
+        "hit_rate_at_1": 0.6266666666666667,
+        "hit_rate_at_10": 0.8266666666666667,
+        "ndcg_at_10": 0.7187619979708944,
+        "hit_rate_at_20": 0.9533333333333334,
+        "hard_negative_error_rate": 0.20666666666666667
+      },
+      "runtime": {
+        "load_seconds": null,
+        "document_encode_seconds": null,
+        "query_encode_seconds": null,
+        "documents_per_second": null,
+        "queries_per_second": null,
+        "total_seconds": null,
+        "peak_vram_mib": null,
+        "peak_ram_mib": null,
+        "device": null,
+        "backend": null,
+        "backend_version": null
+      },
+      "metadata": {
+        "model": null,
+        "id": "nemotron_8b_abiray_q4",
+        "gate": 3,
+        "state": "COMPLETED",
+        "dataset": null
+      },
+      "rank_by_mrr_at_10": 20
+    },
+    {
+      "profile_id": "nemotron_8b_aqua00_q4",
+      "source_group": "gate3",
+      "source_path": "benchmark/embedding-v3/results/gate3/nemotron_8b_aqua00_q4.json",
+      "metrics": {
+        "mrr_at_10": 0.6918677248677249,
+        "hit_rate_at_1": 0.6266666666666667,
+        "hit_rate_at_10": 0.8266666666666667,
+        "ndcg_at_10": 0.7187619979708944,
+        "hit_rate_at_20": 0.9533333333333334,
+        "hard_negative_error_rate": 0.20666666666666667
+      },
+      "runtime": {
+        "load_seconds": null,
+        "document_encode_seconds": null,
+        "query_encode_seconds": null,
+        "documents_per_second": null,
+        "queries_per_second": null,
+        "total_seconds": null,
+        "peak_vram_mib": null,
+        "peak_ram_mib": null,
+        "device": null,
+        "backend": null,
+        "backend_version": null
+      },
+      "metadata": {
+        "model": null,
+        "id": "nemotron_8b_aqua00_q4",
+        "gate": 3,
+        "state": "COMPLETED",
+        "dataset": null
+      },
+      "rank_by_mrr_at_10": 21
+    },
+    {
+      "profile_id": "jina_embeddings_v5_text_small",
+      "source_group": "gate2",
+      "source_path": "benchmark/embedding-v3/results/gate2/jina_embeddings_v5_text_small.json",
+      "metrics": {
+        "mrr_at_10": 0.6742301587301588,
+        "hit_rate_at_1": 0.58,
+        "hit_rate_at_10": 0.8266666666666667,
+        "ndcg_at_10": 0.7053981641822897,
+        "hit_rate_at_20": 0.9866666666666667,
+        "hard_negative_error_rate": 0.23333333333333334
+      },
+      "runtime": {
+        "load_seconds": 6.8022,
+        "document_encode_seconds": 28.3366,
+        "query_encode_seconds": 1.3117,
+        "documents_per_second": 21.174,
+        "queries_per_second": 114.3554,
+        "total_seconds": 41.7571,
+        "peak_vram_mib": 2650.251953125,
+        "peak_ram_mib": null,
+        "device": "cuda",
+        "backend": null,
+        "backend_version": null
+      },
+      "metadata": {
+        "model": {
+          "id": "jina_embeddings_v5_text_small",
+          "repo": "jinaai/jina-embeddings-v5-text-small",
+          "revision": "dd76d535f5447ca3897a9c893fb1e612ead98192",
+          "backend": "sentence-transformers",
+          "mode": null,
+          "required": false,
+          "configured_dimension": 1024,
+          "actual_dimension": 1024,
+          "trust_remote_code": true,
+          "license": "cc-by-nc-4.0",
+          "gated": false,
+          "file": null,
+          "weight_files": [
+            {
+              "file": "adapters/classification/adapter_model.safetensors",
+              "bytes": 40420208,
+              "sha256": "4ff3d2222b6f48354bdcf51b4dee4540c0da948d06240c7e042308f79e46c2e7"
+            },
+            {
+              "file": "adapters/clustering/adapter_model.safetensors",
+              "bytes": 40420208,
+              "sha256": "276e311513d8bdf3a2a099bf6b365b28d5c8e0b64cc4ac55b526f1ae76cc2b4a"
+            },
+            {
+              "file": "adapters/retrieval/adapter_model.safetensors",
+              "bytes": 40420176,
+              "sha256": "2bc6ab71895eb04664e4d995ee29e1620603f3a3fc4dfc573bc2383dfc85bb94"
+            },
+            {
+              "file": "adapters/text-matching/adapter_model.safetensors",
+              "bytes": 40420208,
+              "sha256": "c3a3051591b1c769eb9b0f87fc762b599aedf11094b5b3d7488e8007cc5cfa4d"
+            },
+            {
+              "file": "model.safetensors",
+              "bytes": 1192133208,
+              "sha256": "045fa75ff963a528cda2589fb1ca0a9ad848b53511780ed4f08f6fe10f6167c3"
+            }
+          ]
+        },
+        "id": null,
+        "gate": 2,
+        "state": null,
+        "dataset": {
+          "corpus_version": "holo_fake_scenes_v3",
+          "combined_sha256": "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b",
+          "documents": 600,
+          "queries": 150
+        }
+      },
+      "rank_by_mrr_at_10": 22
+    },
+    {
+      "profile_id": "octen_embedding_8b_q8_0",
+      "source_group": "gate3",
+      "source_path": "benchmark/embedding-v3/results/gate3/octen_embedding_8b_q8_0.json",
+      "metrics": {
+        "mrr_at_10": 0.6738518518518519,
+        "hit_rate_at_1": 0.58,
+        "hit_rate_at_10": 0.84,
+        "ndcg_at_10": 0.7080909164735831,
+        "hit_rate_at_20": 0.9066666666666666,
+        "hard_negative_error_rate": 0.12
+      },
+      "runtime": {
+        "load_seconds": 31.444646888001444,
+        "document_encode_seconds": 109.85340182100117,
+        "query_encode_seconds": 5.380981233000057,
+        "documents_per_second": 5.461824486579489,
+        "queries_per_second": 27.87595672701697,
+        "total_seconds": null,
+        "peak_vram_mib": 12706.0,
+        "peak_ram_mib": 193.0,
+        "device": "cuda",
+        "backend": null,
+        "backend_version": null
+      },
+      "metadata": {
+        "model": null,
+        "id": "octen_embedding_8b_q8_0",
+        "gate": 3,
+        "state": "COMPLETED",
+        "dataset": null
+      },
+      "rank_by_mrr_at_10": 23
+    },
+    {
+      "profile_id": "granite_embedding_311m_r2",
+      "source_group": "gate2",
+      "source_path": "benchmark/embedding-v3/results/gate2/granite_embedding_311m_r2.json",
+      "metrics": {
+        "mrr_at_10": 0.6709153439153439,
+        "hit_rate_at_1": 0.5866666666666667,
+        "hit_rate_at_10": 0.84,
+        "ndcg_at_10": 0.7071692320245465,
+        "hit_rate_at_20": 0.9666666666666667,
+        "hard_negative_error_rate": 0.18
+      },
+      "runtime": {
+        "load_seconds": 3.8769,
+        "document_encode_seconds": 3.9455,
+        "query_encode_seconds": 0.2671,
+        "documents_per_second": 152.072,
+        "queries_per_second": 561.5874,
+        "total_seconds": 13.3081,
+        "peak_vram_mib": 784.33349609375,
+        "peak_ram_mib": null,
+        "device": "cuda",
+        "backend": null,
+        "backend_version": null
+      },
+      "metadata": {
+        "model": {
+          "id": "granite_embedding_311m_r2",
+          "repo": "ibm-granite/granite-embedding-311m-multilingual-r2",
+          "revision": "44399559930365213510b1ee2eb15ded83374f0e",
+          "backend": "sentence-transformers",
+          "mode": null,
+          "required": false,
+          "configured_dimension": 768,
+          "actual_dimension": 768,
+          "trust_remote_code": false,
+          "license": "apache-2.0",
+          "gated": false,
+          "file": null,
+          "weight_files": [
+            {
+              "file": "model.safetensors",
+              "bytes": 623341952,
+              "sha256": "dcb6431bfa6e817fe100a2b0521360cec3383963b03fa966b685de18ca310d31"
+            },
+            {
+              "file": "openvino/granite_embedding_int8.bin",
+              "bytes": 313662989,
+              "sha256": "7db8c57219190d8870e0d274baa87f5039cf7b3fa3c3a6014802dc31d80952d5"
+            },
+            {
+              "file": "openvino/openvino_model_qint8_quantized.bin",
+              "bytes": 312563184,
+              "sha256": "19cd99b8657e8f86529ce05384194b1bf3dbde94fd48a571a832344c119c27bc"
+            },
+            {
+              "file": "openvino_model.bin",
+              "bytes": 1246658016,
+              "sha256": "bb1ab2f8bc859e6c8d9db5cd539b95242caeb63da5dec34554549889f80680e9"
+            }
+          ]
+        },
+        "id": null,
+        "gate": 2,
+        "state": null,
+        "dataset": {
+          "corpus_version": "holo_fake_scenes_v3",
+          "combined_sha256": "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b",
+          "documents": 600,
+          "queries": 150
+        }
+      },
+      "rank_by_mrr_at_10": 24
+    },
+    {
+      "profile_id": "pplx_embed_v1_06b_native",
+      "source_group": "gate3",
+      "source_path": "benchmark/embedding-v3/results/gate3/pplx_embed_v1_06b_native.json",
+      "metrics": {
+        "mrr_at_10": 0.6632910052910053,
+        "hit_rate_at_1": 0.56,
+        "hit_rate_at_10": 0.86,
+        "ndcg_at_10": 0.7074096619273186,
+        "hit_rate_at_20": 0.9733333333333334,
+        "hard_negative_error_rate": 0.22
+      },
+      "runtime": {
+        "load_seconds": 13.365854523999587,
+        "document_encode_seconds": 34.55264998399798,
+        "query_encode_seconds": 0.8261583550010982,
+        "documents_per_second": 17.364804154757216,
+        "queries_per_second": 181.56325490383813,
+        "total_seconds": null,
+        "peak_vram_mib": 4295.0,
+        "peak_ram_mib": 1469.0,
+        "device": "cuda",
+        "backend": null,
+        "backend_version": null
+      },
+      "metadata": {
+        "model": null,
+        "id": "pplx_embed_v1_06b_native",
+        "gate": 3,
+        "state": "COMPLETED",
+        "dataset": null
+      },
+      "rank_by_mrr_at_10": 25
+    },
+    {
+      "profile_id": "giga_embeddings_instruct",
+      "source_group": "gate2",
+      "source_path": "benchmark/embedding-v3/results/gate2/giga_embeddings_instruct.json",
+      "metrics": {
+        "mrr_at_10": 0.6466984126984127,
+        "hit_rate_at_1": 0.5666666666666667,
+        "hit_rate_at_10": 0.84,
+        "ndcg_at_10": 0.6848998922627375,
+        "hit_rate_at_20": 0.92,
+        "hard_negative_error_rate": 0.22666666666666666
+      },
+      "runtime": {
+        "load_seconds": null,
+        "document_encode_seconds": null,
+        "query_encode_seconds": null,
+        "documents_per_second": null,
+        "queries_per_second": null,
+        "total_seconds": null,
+        "peak_vram_mib": null,
+        "peak_ram_mib": null,
+        "device": null,
+        "backend": null,
+        "backend_version": null
+      },
+      "metadata": {
+        "model": null,
+        "id": "giga_embeddings_instruct",
+        "gate": null,
+        "state": null,
+        "dataset": null
+      },
+      "rank_by_mrr_at_10": 26
+    },
+    {
+      "profile_id": "bidirlm_17b_embedding",
+      "source_group": "gate3",
+      "source_path": "benchmark/embedding-v3/results/gate3/bidirlm_17b_embedding.json",
+      "metrics": {
+        "mrr_at_10": 0.6423333333333333,
+        "hit_rate_at_1": 0.5466666666666666,
+        "hit_rate_at_10": 0.82,
+        "ndcg_at_10": 0.6859591984946962,
+        "hit_rate_at_20": 0.96,
+        "hard_negative_error_rate": 0.24
+      },
+      "runtime": {
+        "load_seconds": 13.776106244997209,
+        "document_encode_seconds": 61.05588685700059,
+        "query_encode_seconds": 0.8803166559991951,
+        "documents_per_second": 9.827062235706512,
+        "queries_per_second": 170.3932317737916,
+        "total_seconds": null,
+        "peak_vram_mib": 10337.0,
+        "peak_ram_mib": 802.0,
+        "device": "cuda",
+        "backend": null,
+        "backend_version": null
+      },
+      "metadata": {
+        "model": null,
+        "id": "bidirlm_17b_embedding",
+        "gate": 3,
+        "state": "COMPLETED",
+        "dataset": null
+      },
+      "rank_by_mrr_at_10": 27
+    },
+    {
+      "profile_id": "multilingual_e5_large_instruct",
+      "source_group": "gate2",
+      "source_path": "benchmark/embedding-v3/results/gate2/multilingual_e5_large_instruct.json",
+      "metrics": {
+        "mrr_at_10": 0.63289417989418,
+        "hit_rate_at_1": 0.5266666666666666,
+        "hit_rate_at_10": 0.8466666666666667,
+        "ndcg_at_10": 0.6787630104388015,
+        "hit_rate_at_20": 0.9333333333333333,
+        "hard_negative_error_rate": 0.25333333333333335
+      },
+      "runtime": {
+        "load_seconds": 7.0038,
+        "document_encode_seconds": 5.5216,
+        "query_encode_seconds": 0.2573,
+        "documents_per_second": 108.6642,
+        "queries_per_second": 582.9771,
+        "total_seconds": 22.6695,
+        "peak_vram_mib": 1249.333984375,
+        "peak_ram_mib": null,
+        "device": "cuda",
+        "backend": null,
+        "backend_version": null
+      },
+      "metadata": {
+        "model": {
+          "id": "multilingual_e5_large_instruct",
+          "repo": "intfloat/multilingual-e5-large-instruct",
+          "revision": "274baa43b0e13e37fafa6428dbc7938e62e5c439",
+          "backend": "sentence-transformers",
+          "mode": null,
+          "required": true,
+          "configured_dimension": 1024,
+          "actual_dimension": 1024,
+          "trust_remote_code": false,
+          "license": "mit",
+          "gated": false,
+          "file": null,
+          "weight_files": [
+            {
+              "file": "model.safetensors",
+              "bytes": 1119825680,
+              "sha256": "dd6b6e4f52db0a7aff83a13d10e6c5342ef9f6ab799bad3221f4b35ef390fa85"
+            }
+          ]
+        },
+        "id": null,
+        "gate": 2,
+        "state": null,
+        "dataset": {
+          "corpus_version": "holo_fake_scenes_v3",
+          "combined_sha256": "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b",
+          "documents": 600,
+          "queries": 150
+        }
+      },
+      "rank_by_mrr_at_10": 28
+    },
+    {
+      "profile_id": "qwen3_embedding_06",
+      "source_group": "gate2",
+      "source_path": "benchmark/embedding-v3/results/gate2/qwen3_embedding_06.json",
+      "metrics": {
+        "mrr_at_10": 0.6163492063492063,
+        "hit_rate_at_1": 0.52,
+        "hit_rate_at_10": 0.8266666666666667,
+        "ndcg_at_10": 0.6634192577497056,
+        "hit_rate_at_20": 0.96,
+        "hard_negative_error_rate": 0.25333333333333335
+      },
+      "runtime": {
+        "load_seconds": 6.5958,
+        "document_encode_seconds": 17.7018,
+        "query_encode_seconds": 0.6749,
+        "documents_per_second": 33.8949,
+        "queries_per_second": 222.2551,
+        "total_seconds": 30.392,
+        "peak_vram_mib": 2194.13671875,
+        "peak_ram_mib": null,
+        "device": "cuda",
+        "backend": null,
+        "backend_version": null
+      },
+      "metadata": {
+        "model": {
+          "id": "qwen3_embedding_06",
+          "repo": "Qwen/Qwen3-Embedding-0.6B",
+          "revision": "97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3",
+          "backend": "sentence-transformers",
+          "mode": null,
+          "required": true,
+          "configured_dimension": 1024,
+          "actual_dimension": 1024,
+          "trust_remote_code": false,
+          "license": "apache-2.0",
+          "gated": false,
+          "file": null,
+          "weight_files": [
+            {
+              "file": "model.safetensors",
+              "bytes": 1191586416,
+              "sha256": "0437e45c94563b09e13cb7a64478fc406947a93cb34a7e05870fc8dcd48e23fd"
+            }
+          ]
+        },
+        "id": null,
+        "gate": 2,
+        "state": null,
+        "dataset": {
+          "corpus_version": "holo_fake_scenes_v3",
+          "combined_sha256": "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b",
+          "documents": 600,
+          "queries": 150
+        }
+      },
+      "rank_by_mrr_at_10": 29
+    },
+    {
+      "profile_id": "qwen3_embedding_06_gguf",
+      "source_group": "gate3",
+      "source_path": "benchmark/embedding-v3/results/gate3/qwen3_embedding_06_gguf.json",
+      "metrics": {
+        "mrr_at_10": 0.6153492063492064,
+        "hit_rate_at_1": 0.52,
+        "hit_rate_at_10": 0.8266666666666667,
+        "ndcg_at_10": 0.6624913351977169,
+        "hit_rate_at_20": 0.96,
+        "hard_negative_error_rate": 0.25333333333333335
+      },
+      "runtime": {
+        "load_seconds": 2.0586,
+        "document_encode_seconds": 44.1068,
+        "query_encode_seconds": 1.9547,
+        "documents_per_second": 13.6033,
+        "queries_per_second": 76.7373,
+        "total_seconds": 48.7265,
+        "peak_vram_mib": 1380.0,
+        "peak_ram_mib": null,
+        "device": "cuda",
+        "backend": null,
+        "backend_version": null
+      },
+      "metadata": {
+        "model": {
+          "id": "qwen3_embedding_06_gguf",
+          "repo": "Qwen/Qwen3-Embedding-0.6B-GGUF",
+          "revision": "370f27d7550e0def9b39c1f16d3fbaa13aa67728",
+          "file": "Qwen3-Embedding-0.6B-Q8_0.gguf",
+          "fallback_used": false,
+          "backend": "llama.cpp",
+          "license": "apache-2.0",
+          "gated": false,
+          "quantization": "Q8_0",
+          "pooling": "last",
+          "native_dimension": 1024,
+          "configured_dimension": 1024,
+          "actual_dimension": 1024,
+          "weight_files": [
+            {
+              "file": "Qwen3-Embedding-0.6B-Q8_0.gguf",
+              "bytes": 639150592,
+              "sha256": "06507c7b42688469c4e7298b0a1e16deff06caf291cf0a5b278c308249c3e439"
+            }
+          ]
+        },
+        "id": null,
+        "gate": 3,
+        "state": null,
+        "dataset": {
+          "corpus_version": "holo_fake_scenes_v3",
+          "combined_sha256": "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b",
+          "documents": 600,
+          "queries": 150
+        }
+      },
+      "rank_by_mrr_at_10": 30
+    },
+    {
+      "profile_id": "gte_multilingual_base",
+      "source_group": "gate2",
+      "source_path": "benchmark/embedding-v3/results/gate2/gte_multilingual_base.json",
+      "metrics": {
+        "mrr_at_10": 0.5675899470899473,
+        "hit_rate_at_1": 0.44666666666666666,
+        "hit_rate_at_10": 0.82,
+        "ndcg_at_10": 0.6251758534446522,
+        "hit_rate_at_20": 0.94,
+        "hard_negative_error_rate": 0.36666666666666664
+      },
+      "runtime": {
+        "load_seconds": 1.7,
+        "document_encode_seconds": 7.1,
+        "query_encode_seconds": 0.2,
+        "documents_per_second": 84.51,
+        "queries_per_second": 750.0,
+        "total_seconds": null,
+        "peak_vram_mib": 1637.458984375,
+        "peak_ram_mib": null,
+        "device": "cuda",
+        "backend": null,
+        "backend_version": null
+      },
+      "metadata": {
+        "model": {
+          "repo": "Alibaba-NLP/gte-multilingual-base",
+          "revision": "9bbca17d9273fd0d03d5725c4a7b0f6b45142062",
+          "actual_dimension": 768,
+          "trust_remote_code": true
+        },
+        "id": null,
+        "gate": null,
+        "state": null,
+        "dataset": null
+      },
+      "rank_by_mrr_at_10": 31
+    },
+    {
+      "profile_id": "granite_embedding_97m_r2",
+      "source_group": "gate2",
+      "source_path": "benchmark/embedding-v3/results/gate2/granite_embedding_97m_r2.json",
+      "metrics": {
+        "mrr_at_10": 0.5630793650793651,
+        "hit_rate_at_1": 0.44666666666666666,
+        "hit_rate_at_10": 0.7933333333333333,
+        "ndcg_at_10": 0.6133671225713789,
+        "hit_rate_at_20": 0.9333333333333333,
+        "hard_negative_error_rate": 0.2733333333333333
+      },
+      "runtime": {
+        "load_seconds": 2.3966,
+        "document_encode_seconds": 1.984,
+        "query_encode_seconds": 0.2217,
+        "documents_per_second": 302.4194,
+        "queries_per_second": 676.59,
+        "total_seconds": 10.0982,
+        "peak_vram_mib": 320.939453125,
+        "peak_ram_mib": null,
+        "device": "cuda",
+        "backend": null,
+        "backend_version": null
+      },
+      "metadata": {
+        "model": {
+          "id": "granite_embedding_97m_r2",
+          "repo": "ibm-granite/granite-embedding-97m-multilingual-r2",
+          "revision": "835ad14087e140460703cf0fae09f97d469d65c2",
+          "backend": "sentence-transformers",
+          "mode": null,
+          "required": false,
+          "configured_dimension": 384,
+          "actual_dimension": 384,
+          "trust_remote_code": false,
+          "license": "apache-2.0",
+          "gated": false,
+          "file": null,
+          "weight_files": [
+            {
+              "file": "model.safetensors",
+              "bytes": 194889568,
+              "sha256": "f3ea88b230492811046145513710e76b4cc8c2ad49e8708da0e7247e548903be"
+            },
+            {
+              "file": "openvino/openvino_model_qint8_quantized.bin",
+              "bytes": 97950112,
+              "sha256": "6a2d84b6c1b09d24af2a10c4cc5dd374d305f5e98bed3ca3db016797753f6d37"
+            },
+            {
+              "file": "openvino_model.bin",
+              "bytes": 389764960,
+              "sha256": "29091e79be57c55d6448eff9bc0ec1b387eb29f05a3b61a39e97cc689c1c49bf"
+            }
+          ]
+        },
+        "id": null,
+        "gate": 2,
+        "state": null,
+        "dataset": {
+          "corpus_version": "holo_fake_scenes_v3",
+          "combined_sha256": "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b",
+          "documents": 600,
+          "queries": 150
+        }
+      },
+      "rank_by_mrr_at_10": 32
+    },
+    {
+      "profile_id": "lfm_25_embedding_350m_q4",
+      "source_group": "gate3",
+      "source_path": "benchmark/embedding-v3/results/gate3/lfm_25_embedding_350m_q4.json",
+      "metrics": {
+        "mrr_at_10": 0.49472751322751324,
+        "hit_rate_at_1": 0.4066666666666667,
+        "hit_rate_at_10": 0.6933333333333334,
+        "ndcg_at_10": 0.536500004277885,
+        "hit_rate_at_20": 0.8266666666666667,
+        "hard_negative_error_rate": 0.26666666666666666
+      },
+      "runtime": {
+        "load_seconds": null,
+        "document_encode_seconds": null,
+        "query_encode_seconds": null,
+        "documents_per_second": null,
+        "queries_per_second": null,
+        "total_seconds": null,
+        "peak_vram_mib": null,
+        "peak_ram_mib": null,
+        "device": null,
+        "backend": null,
+        "backend_version": null
+      },
+      "metadata": {
+        "model": null,
+        "id": "lfm_25_embedding_350m_q4",
+        "gate": 3,
+        "state": "COMPLETED",
+        "dataset": null
+      },
+      "rank_by_mrr_at_10": 33
+    },
+    {
+      "profile_id": "kalm_embedding_gemma3_12b_q4",
+      "source_group": "gate3",
+      "source_path": "benchmark/embedding-v3/results/gate3/kalm_embedding_gemma3_12b_q4.json",
+      "metrics": {
+        "mrr_at_10": 0.1969100529100529,
+        "hit_rate_at_1": 0.10666666666666667,
+        "hit_rate_at_10": 0.44666666666666666,
+        "ndcg_at_10": 0.25269043727839524,
+        "hit_rate_at_20": 0.6066666666666667,
+        "hard_negative_error_rate": 0.5266666666666666
+      },
+      "runtime": {
+        "load_seconds": null,
+        "document_encode_seconds": null,
+        "query_encode_seconds": null,
+        "documents_per_second": null,
+        "queries_per_second": null,
+        "total_seconds": null,
+        "peak_vram_mib": null,
+        "peak_ram_mib": null,
+        "device": null,
+        "backend": null,
+        "backend_version": null
+      },
+      "metadata": {
+        "model": null,
+        "id": "kalm_embedding_gemma3_12b_q4",
+        "gate": 3,
+        "state": "COMPLETED",
+        "dataset": null
+      },
+      "rank_by_mrr_at_10": 34
+    },
+    {
+      "profile_id": "kalm_embedding_gemma3_12b_i1_q4",
+      "source_group": "gate3",
+      "source_path": "benchmark/embedding-v3/results/gate3/kalm_embedding_gemma3_12b_i1_q4.json",
+      "metrics": {
+        "mrr_at_10": 0.17661640211640212,
+        "hit_rate_at_1": 0.1,
+        "hit_rate_at_10": 0.4,
+        "ndcg_at_10": 0.22544965929592445,
+        "hit_rate_at_20": 0.54,
+        "hard_negative_error_rate": 0.5933333333333334
+      },
+      "runtime": {
+        "load_seconds": null,
+        "document_encode_seconds": null,
+        "query_encode_seconds": null,
+        "documents_per_second": null,
+        "queries_per_second": null,
+        "total_seconds": null,
+        "peak_vram_mib": null,
+        "peak_ram_mib": null,
+        "device": null,
+        "backend": null,
+        "backend_version": null
+      },
+      "metadata": {
+        "model": null,
+        "id": "kalm_embedding_gemma3_12b_i1_q4",
+        "gate": 3,
+        "state": "COMPLETED",
+        "dataset": null
+      },
+      "rank_by_mrr_at_10": 35
+    },
+    {
+      "profile_id": "boom_4b_v1_q8_0",
+      "source_group": "gate3",
+      "source_path": "benchmark/embedding-v3/results/gate3/boom_4b_v1_q8_0.json",
+      "metrics": {
+        "mrr_at_10": 0.1615978835978836,
+        "hit_rate_at_1": 0.08,
+        "hit_rate_at_10": 0.43333333333333335,
+        "ndcg_at_10": 0.22351681627129746,
+        "hit_rate_at_20": 0.5866666666666667,
+        "hard_negative_error_rate": 0.37333333333333335
+      },
+      "runtime": {
+        "load_seconds": 18.736343922999367,
+        "document_encode_seconds": 70.0482844649996,
+        "query_encode_seconds": 3.34761836799953,
+        "documents_per_second": 8.565520263380563,
+        "queries_per_second": 44.807974957323765,
+        "total_seconds": null,
+        "peak_vram_mib": 11714.0,
+        "peak_ram_mib": 806.0,
+        "device": "cuda",
+        "backend": null,
+        "backend_version": null
+      },
+      "metadata": {
+        "model": null,
+        "id": "boom_4b_v1_q8_0",
+        "gate": 3,
+        "state": "COMPLETED",
+        "dataset": null
+      },
+      "rank_by_mrr_at_10": 36
+    }
+  ],
+  "raw_embedding_profiles_by_id": {
+    "nemotron_3_embed_1b_nvfp4": {
+      "profile_id": "nemotron_3_embed_1b_nvfp4",
+      "source_group": "nemotron_admission",
+      "source_path": "benchmark/embedding-v3/results/nemotron_audit_1_0_5/admission_nvfp4_full_cached_20260723.json",
+      "metrics": {
+        "mrr_at_10": 0.7753412698412698,
+        "hit_rate_at_1": 0.74,
+        "hit_rate_at_10": 0.8466666666666667,
+        "ndcg_at_10": 0.7849820111117471,
+        "hit_rate_at_20": 0.9666666666666667,
+        "hard_negative_error_rate": 0.13333333333333333
+      },
+      "runtime": {
+        "load_seconds": 16.246896598000603,
+        "document_encode_seconds": 4.137199311997392,
+        "query_encode_seconds": 0.3621999129973119,
+        "documents_per_second": 145.02564531036018,
+        "queries_per_second": 414.13593603241213,
+        "total_seconds": 28.3923646559997,
+        "peak_vram_mib": 2072.0,
+        "peak_ram_mib": 3573.38671875,
+        "device": null,
+        "backend": "vllm",
+        "backend_version": "0.25.0"
+      },
+      "metadata": {
+        "model": {
+          "path": "/home/alpha/Playstoria/models/embed/Nemotron-3-Embed-1B-NVFP4",
+          "weight_file": "/home/alpha/Playstoria/models/embed/Nemotron-3-Embed-1B-NVFP4/model.safetensors",
+          "bytes": 1027789672,
+          "sha256": "f2753954c89055eb679a45b7dfea27a3e05c04ecbdb1f4e6c086180fe8c32bc7",
+          "license": "OpenMDW-1.1"
+        },
+        "id": null,
+        "gate": null,
+        "state": "EXECUTED",
+        "dataset": {
+          "name": "holo_fake_scenes_v3",
+          "combined_sha256": "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b",
+          "documents": 600,
+          "queries": 150,
+          "document_prefix": "passage: ",
+          "query_prefix": "query: "
+        }
+      },
+      "rank_by_mrr_at_10": 1
+    },
+    "voyage-4-large": {
+      "profile_id": "voyage-4-large",
+      "source_group": "voyage_raw",
+      "source_path": "benchmark/embedding-v3/results/voyage/voyage-4-large.json",
+      "metrics": {
+        "mrr_at_10": 0.7727936507936508,
+        "hit_rate_at_1": 0.7266666666666667,
+        "hit_rate_at_10": 0.86,
+        "ndcg_at_10": 0.7860952189468112,
+        "hit_rate_at_20": 0.98,
+        "hard_negative_error_rate": 0.18
+      },
+      "runtime": {
+        "load_seconds": null,
+        "document_encode_seconds": null,
+        "query_encode_seconds": null,
+        "documents_per_second": null,
+        "queries_per_second": null,
+        "total_seconds": 1951.942,
+        "peak_vram_mib": null,
+        "peak_ram_mib": null,
+        "device": "remote-api",
+        "backend": null,
+        "backend_version": null
+      },
+      "metadata": {
+        "model": {
+          "id": "voyage-4-large",
+          "provider": "Voyage AI",
+          "backend": "voyage-api",
+          "endpoint": "Client.embed",
+          "sdk_version": "0.5.0",
+          "dimension": 1024,
+          "dtype": "float",
+          "auto_chunking": false
+        },
+        "id": null,
+        "gate": "voyage",
+        "state": null,
+        "dataset": {
+          "corpus_version": "holo_fake_scenes_v3",
+          "combined_sha256": "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b",
+          "documents": 600,
+          "queries": 150,
+          "works": 30
+        }
+      },
+      "rank_by_mrr_at_10": 2
+    },
+    "voyage_4_large_1024_float32": {
+      "profile_id": "voyage_4_large_1024_float32",
+      "source_group": "historical_raw_none",
+      "source_path": "benchmark/embedding-v3/results/reranker/summary.json",
+      "metrics": {
+        "mrr_at_10": 0.7727936507936508,
+        "hit_rate_at_1": 0.7266666666666667,
+        "hit_rate_at_10": 0.86,
+        "ndcg_at_10": 0.7860952189468112,
+        "hit_rate_at_20": 0.98,
+        "hard_negative_error_rate": 0.16666666666666666
+      },
+      "runtime": {},
+      "metadata": {
+        "model": "voyage_4_large_1024_float32",
+        "id": "voyage_4_large_1024_float32",
+        "gate": null,
+        "state": null,
+        "dataset": {
+          "documents": 600,
+          "queries": 150
+        },
+        "historical_pipeline_id": "voyage_4_large_1024_float32__none"
+      },
+      "rank_by_mrr_at_10": 3
+    },
+    "nemotron_3_embed_1b_q4_k_m_gguf": {
+      "profile_id": "nemotron_3_embed_1b_q4_k_m_gguf",
+      "source_group": "nemotron_admission",
+      "source_path": "benchmark/embedding-v3/results/nemotron_audit_1_0_5/admission_gguf_full_20260723_attempt2.json",
+      "metrics": {
+        "mrr_at_10": 0.7695079365079365,
+        "hit_rate_at_1": 0.7266666666666667,
+        "hit_rate_at_10": 0.8533333333333334,
+        "ndcg_at_10": 0.7820185776084891,
+        "hit_rate_at_20": 0.94,
+        "hard_negative_error_rate": 0.13333333333333333
+      },
+      "runtime": {
+        "load_seconds": 1.3244759770022938,
+        "document_encode_seconds": 33.9176440730007,
+        "query_encode_seconds": 1.5268634379972355,
+        "documents_per_second": 17.68990790482453,
+        "queries_per_second": 98.24061292393826,
+        "total_seconds": 37.26975809700525,
+        "peak_vram_mib": 1288.0,
+        "peak_ram_mib": 1213.484375,
+        "device": null,
+        "backend": "llama.cpp",
+        "backend_version": "version: 9972 (c92e806d1)\nbuilt with GNU 16.1.1 for Linux x86_64"
+      },
+      "metadata": {
+        "model": {
+          "path": "/home/alpha/Playstoria/models/embed/Nemotron-3-Embed-1B-Q4_K_M/nemotron-3-embed-1b-q4_k_m.gguf",
+          "weight_file": "/home/alpha/Playstoria/models/embed/Nemotron-3-Embed-1B-Q4_K_M/nemotron-3-embed-1b-q4_k_m.gguf",
+          "bytes": 749352096,
+          "sha256": "9a74166f51dbc280073748fa199bea49283bd21f7f9280f2dec2b4d975ddfd1d",
+          "license": "OpenMDW-1.1"
+        },
+        "id": null,
+        "gate": null,
+        "state": "EXECUTED",
+        "dataset": {
+          "name": "holo_fake_scenes_v3",
+          "combined_sha256": "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b",
+          "documents": 600,
+          "queries": 150,
+          "document_prefix": "passage: ",
+          "query_prefix": "query: "
+        }
+      },
+      "rank_by_mrr_at_10": 4
+    },
+    "voyage4_nano_2048_int8": {
+      "profile_id": "voyage4_nano_2048_int8",
+      "source_group": "historical_raw_none",
+      "source_path": "benchmark/embedding-v3/results/reranker/summary.json",
+      "metrics": {
+        "mrr_at_10": 0.7681190476190476,
+        "hit_rate_at_1": 0.72,
+        "hit_rate_at_10": 0.86,
+        "ndcg_at_10": 0.7837125831615664,
+        "hit_rate_at_20": 0.9466666666666667,
+        "hard_negative_error_rate": 0.15333333333333332
+      },
+      "runtime": {},
+      "metadata": {
+        "model": "voyage4_nano_2048_int8",
+        "id": "voyage4_nano_2048_int8",
+        "gate": null,
+        "state": null,
+        "dataset": {
+          "documents": 600,
+          "queries": 150
+        },
+        "historical_pipeline_id": "voyage4_nano_2048_int8__none"
+      },
+      "rank_by_mrr_at_10": 5
+    },
+    "embeddinggemma": {
+      "profile_id": "embeddinggemma",
+      "source_group": "gate2",
+      "source_path": "benchmark/embedding-v3/results/gate2/embeddinggemma.json",
+      "metrics": {
+        "mrr_at_10": 0.7562486772486773,
+        "hit_rate_at_1": 0.7,
+        "hit_rate_at_10": 0.86,
+        "ndcg_at_10": 0.7738602311114637,
+        "hit_rate_at_20": 1.0,
+        "hard_negative_error_rate": 0.18
+      },
+      "runtime": {
+        "load_seconds": 6.7921,
+        "document_encode_seconds": 10.1985,
+        "query_encode_seconds": 0.5684,
+        "documents_per_second": 58.8322,
+        "queries_per_second": 263.8987,
+        "total_seconds": 22.4732,
+        "peak_vram_mib": 1692.322265625,
+        "peak_ram_mib": null,
+        "device": "cuda",
+        "backend": null,
+        "backend_version": null
+      },
+      "metadata": {
+        "model": {
+          "id": "embeddinggemma",
+          "repo": "google/embeddinggemma-300m",
+          "revision": "57c266a740f537b4dc058e1b0cda161fd15afa75",
+          "backend": "sentence-transformers",
+          "mode": null,
+          "required": false,
+          "configured_dimension": 768,
+          "actual_dimension": 768,
+          "trust_remote_code": false,
+          "license": "gemma",
+          "gated": "manual",
+          "file": null,
+          "weight_files": [
+            {
+              "file": "2_Dense/model.safetensors",
+              "bytes": 9437272,
+              "sha256": "c327f2acb00149676ade24a75e11eb6ebbd367f9ee050267ba56829d2979f702"
+            },
+            {
+              "file": "3_Dense/model.safetensors",
+              "bytes": 9437272,
+              "sha256": "ffb6cc5162e11e2ce6bc2367e121ee3bbbc4e82e1ee26826bd7573d4948d81b8"
+            },
+            {
+              "file": "model.safetensors",
+              "bytes": 1211486072,
+              "sha256": "cbf5a78393b6a033e0b8a63a57549964f7ed5c6fbeb4ba0694214f36123f2fd2"
+            }
+          ]
+        },
+        "id": null,
+        "gate": 2,
+        "state": null,
+        "dataset": {
+          "corpus_version": "holo_fake_scenes_v3",
+          "combined_sha256": "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b",
+          "documents": 600,
+          "queries": 150
+        }
+      },
+      "rank_by_mrr_at_10": 6
+    },
+    "pplx_embed_v1_4b_q8_0": {
+      "profile_id": "pplx_embed_v1_4b_q8_0",
+      "source_group": "gate3",
+      "source_path": "benchmark/embedding-v3/results/gate3/pplx_embed_v1_4b_q8_0.json",
+      "metrics": {
+        "mrr_at_10": 0.7562407407407408,
+        "hit_rate_at_1": 0.7,
+        "hit_rate_at_10": 0.86,
+        "ndcg_at_10": 0.7778241030502849,
+        "hit_rate_at_20": 0.9866666666666667,
+        "hard_negative_error_rate": 0.18
+      },
+      "runtime": {
+        "load_seconds": 20.674397867998778,
+        "document_encode_seconds": 70.22975888699875,
+        "query_encode_seconds": 3.3039394410006935,
+        "documents_per_second": 8.543386870591616,
+        "queries_per_second": 45.40034788124572,
+        "total_seconds": null,
+        "peak_vram_mib": 8662.0,
+        "peak_ram_mib": 1486.0,
+        "device": "cuda",
+        "backend": null,
+        "backend_version": null
+      },
+      "metadata": {
+        "model": null,
+        "id": "pplx_embed_v1_4b_q8_0",
+        "gate": 3,
+        "state": "COMPLETED",
+        "dataset": null
+      },
+      "rank_by_mrr_at_10": 7
+    },
+    "voyage4_nano_2048_float32": {
+      "profile_id": "voyage4_nano_2048_float32",
+      "source_group": "historical_raw_none",
+      "source_path": "benchmark/embedding-v3/results/reranker/summary.json",
+      "metrics": {
+        "mrr_at_10": 0.7560714285714286,
+        "hit_rate_at_1": 0.7,
+        "hit_rate_at_10": 0.86,
+        "ndcg_at_10": 0.7746393604370004,
+        "hit_rate_at_20": 0.9533333333333334,
+        "hard_negative_error_rate": 0.16
+      },
+      "runtime": {},
+      "metadata": {
+        "model": "voyage4_nano_2048_float32",
+        "id": "voyage4_nano_2048_float32",
+        "gate": null,
+        "state": null,
+        "dataset": {
+          "documents": 600,
+          "queries": 150
+        },
+        "historical_pipeline_id": "voyage4_nano_2048_float32__none"
+      },
+      "rank_by_mrr_at_10": 8
+    },
+    "voyage4_nano": {
+      "profile_id": "voyage4_nano",
+      "source_group": "gate2",
+      "source_path": "benchmark/embedding-v3/results/gate2/voyage4_nano.json",
+      "metrics": {
+        "mrr_at_10": 0.7527566137566137,
+        "hit_rate_at_1": 0.6933333333333334,
+        "hit_rate_at_10": 0.8533333333333334,
+        "ndcg_at_10": 0.7718721461591177,
+        "hit_rate_at_20": 0.96,
+        "hard_negative_error_rate": 0.15333333333333332
+      },
+      "runtime": {
+        "load_seconds": 1.4045,
+        "document_encode_seconds": 18.9637,
+        "query_encode_seconds": 0.4948,
+        "documents_per_second": 31.6394,
+        "queries_per_second": 303.1528,
+        "total_seconds": 25.6547,
+        "peak_vram_mib": 2503.17431640625,
+        "peak_ram_mib": null,
+        "device": "cuda",
+        "backend": null,
+        "backend_version": null
+      },
+      "metadata": {
+        "model": {
+          "id": "voyage4_nano",
+          "repo": "voyageai/voyage-4-nano",
+          "revision": "67fabc9bef010dabc5f6024aa1b1b6b93410426f",
+          "backend": "sentence-transformers",
+          "mode": null,
+          "required": false,
+          "configured_dimension": 1024,
+          "actual_dimension": 1024,
+          "trust_remote_code": true,
+          "license": "apache-2.0",
+          "gated": false,
+          "file": null,
+          "weight_files": [
+            {
+              "file": "model.safetensors",
+              "bytes": 692919112,
+              "sha256": "3dae0c63c81dcab79ac213af331940a1bf2b8a53ec8646be878552890291ad30"
+            }
+          ]
+        },
+        "id": null,
+        "gate": 2,
+        "state": null,
+        "dataset": {
+          "corpus_version": "holo_fake_scenes_v3",
+          "combined_sha256": "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b",
+          "documents": 600,
+          "queries": 150
+        }
+      },
+      "rank_by_mrr_at_10": 9
+    },
+    "voyage4_nano_1024_float32": {
+      "profile_id": "voyage4_nano_1024_float32",
+      "source_group": "historical_raw_none",
+      "source_path": "benchmark/embedding-v3/results/reranker/summary.json",
+      "metrics": {
+        "mrr_at_10": 0.7527566137566137,
+        "hit_rate_at_1": 0.6933333333333334,
+        "hit_rate_at_10": 0.8533333333333334,
+        "ndcg_at_10": 0.7718721461591177,
+        "hit_rate_at_20": 0.96,
+        "hard_negative_error_rate": 0.15333333333333332
+      },
+      "runtime": {},
+      "metadata": {
+        "model": "voyage4_nano_1024_float32",
+        "id": "voyage4_nano_1024_float32",
+        "gate": null,
+        "state": null,
+        "dataset": {
+          "documents": 600,
+          "queries": 150
+        },
+        "historical_pipeline_id": "voyage4_nano_1024_float32__none"
+      },
+      "rank_by_mrr_at_10": 10
+    },
+    "voyage-context-4": {
+      "profile_id": "voyage-context-4",
+      "source_group": "voyage_raw",
+      "source_path": "benchmark/embedding-v3/results/voyage/voyage-context-4.json",
+      "metrics": {
+        "mrr_at_10": 0.7433042328042329,
+        "hit_rate_at_1": 0.6666666666666666,
+        "hit_rate_at_10": 0.8733333333333333,
+        "ndcg_at_10": 0.7748319476944924,
+        "hit_rate_at_20": 1.0,
+        "hard_negative_error_rate": 0.15333333333333332
+      },
+      "runtime": {
+        "load_seconds": null,
+        "document_encode_seconds": null,
+        "query_encode_seconds": null,
+        "documents_per_second": null,
+        "queries_per_second": null,
+        "total_seconds": 2014.7348,
+        "peak_vram_mib": null,
+        "peak_ram_mib": null,
+        "device": "remote-api",
+        "backend": null,
+        "backend_version": null
+      },
+      "metadata": {
+        "model": {
+          "id": "voyage-context-4",
+          "provider": "Voyage AI",
+          "backend": "voyage-api",
+          "endpoint": "Client.contextualized_embed",
+          "sdk_version": "0.5.0",
+          "dimension": 1024,
+          "dtype": "float",
+          "auto_chunking": false
+        },
+        "id": null,
+        "gate": "voyage",
+        "state": null,
+        "dataset": {
+          "corpus_version": "holo_fake_scenes_v3",
+          "combined_sha256": "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b",
+          "documents": 600,
+          "queries": 150,
+          "works": 30
+        }
+      },
+      "rank_by_mrr_at_10": 11
+    },
+    "nomic_embed_text_v2_moe_q4": {
+      "profile_id": "nomic_embed_text_v2_moe_q4",
+      "source_group": "gate3",
+      "source_path": "benchmark/embedding-v3/results/gate3/nomic_embed_text_v2_moe_q4.json",
+      "metrics": {
+        "mrr_at_10": 0.7419761904761906,
+        "hit_rate_at_1": 0.6933333333333334,
+        "hit_rate_at_10": 0.8333333333333334,
+        "ndcg_at_10": 0.7562339480484944,
+        "hit_rate_at_20": 0.9266666666666666,
+        "hard_negative_error_rate": 0.15333333333333332
+      },
+      "runtime": {
+        "load_seconds": null,
+        "document_encode_seconds": null,
+        "query_encode_seconds": null,
+        "documents_per_second": null,
+        "queries_per_second": null,
+        "total_seconds": null,
+        "peak_vram_mib": null,
+        "peak_ram_mib": null,
+        "device": null,
+        "backend": null,
+        "backend_version": null
+      },
+      "metadata": {
+        "model": null,
+        "id": "nomic_embed_text_v2_moe_q4",
+        "gate": 3,
+        "state": "COMPLETED",
+        "dataset": null
+      },
+      "rank_by_mrr_at_10": 12
+    },
+    "embeddinggemma_768_float32": {
+      "profile_id": "embeddinggemma_768_float32",
+      "source_group": "historical_raw_none",
+      "source_path": "benchmark/embedding-v3/results/reranker/summary.json",
+      "metrics": {
+        "mrr_at_10": 0.7388518518518519,
+        "hit_rate_at_1": 0.6666666666666666,
+        "hit_rate_at_10": 0.86,
+        "ndcg_at_10": 0.7608749927791206,
+        "hit_rate_at_20": 1.0,
+        "hard_negative_error_rate": 0.19333333333333333
+      },
+      "runtime": {},
+      "metadata": {
+        "model": "embeddinggemma_768_float32",
+        "id": "embeddinggemma_768_float32",
+        "gate": null,
+        "state": null,
+        "dataset": {
+          "documents": 600,
+          "queries": 150
+        },
+        "historical_pipeline_id": "embeddinggemma_768_float32__none"
+      },
+      "rank_by_mrr_at_10": 13
+    },
+    "embeddinggemma_gguf": {
+      "profile_id": "embeddinggemma_gguf",
+      "source_group": "gate3",
+      "source_path": "benchmark/embedding-v3/results/gate3/embeddinggemma_gguf.json",
+      "metrics": {
+        "mrr_at_10": 0.7388518518518519,
+        "hit_rate_at_1": 0.6666666666666666,
+        "hit_rate_at_10": 0.86,
+        "ndcg_at_10": 0.7608749927791206,
+        "hit_rate_at_20": 1.0,
+        "hard_negative_error_rate": 0.19333333333333333
+      },
+      "runtime": {
+        "load_seconds": 3.0175,
+        "document_encode_seconds": 20.1636,
+        "query_encode_seconds": 0.7662,
+        "documents_per_second": 29.7565,
+        "queries_per_second": 195.7731,
+        "total_seconds": 24.241,
+        "peak_vram_mib": 365.0,
+        "peak_ram_mib": null,
+        "device": "cuda",
+        "backend": null,
+        "backend_version": null
+      },
+      "metadata": {
+        "model": {
+          "id": "embeddinggemma_gguf",
+          "repo": "ggml-org/embeddinggemma-300M-GGUF",
+          "revision": "0f741b5a6585bd53aeb15cd1372c56f2a0f65e12",
+          "file": "embeddinggemma-300M-Q8_0.gguf",
+          "fallback_used": false,
+          "backend": "llama.cpp",
+          "license": "gemma",
+          "gated": false,
+          "quantization": "Q8_0",
+          "pooling": "mean",
+          "native_dimension": 768,
+          "configured_dimension": 768,
+          "actual_dimension": 768,
+          "weight_files": [
+            {
+              "file": "embeddinggemma-300M-Q8_0.gguf",
+              "bytes": 333590944,
+              "sha256": "b5ce9d77a3fc4b3b39ccb5643c36777911cc4eb46a66962eadfa3f5f60490d63"
+            }
+          ]
+        },
+        "id": null,
+        "gate": 3,
+        "state": null,
+        "dataset": {
+          "corpus_version": "holo_fake_scenes_v3",
+          "combined_sha256": "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b",
+          "documents": 600,
+          "queries": 150
+        }
+      },
+      "rank_by_mrr_at_10": 14
+    },
+    "bge_m3_dense": {
+      "profile_id": "bge_m3_dense",
+      "source_group": "gate2",
+      "source_path": "benchmark/embedding-v3/results/gate2/bge_m3_dense.json",
+      "metrics": {
+        "mrr_at_10": 0.7181666666666666,
+        "hit_rate_at_1": 0.6466666666666666,
+        "hit_rate_at_10": 0.88,
+        "ndcg_at_10": 0.7490128789710545,
+        "hit_rate_at_20": 0.9533333333333334,
+        "hard_negative_error_rate": 0.18666666666666668
+      },
+      "runtime": {
+        "load_seconds": 12.732,
+        "document_encode_seconds": 18.016,
+        "query_encode_seconds": 0.4224,
+        "documents_per_second": 33.3037,
+        "queries_per_second": 355.1136,
+        "total_seconds": 40.2611,
+        "peak_vram_mib": 2493.67626953125,
+        "peak_ram_mib": null,
+        "device": "cuda",
+        "backend": null,
+        "backend_version": null
+      },
+      "metadata": {
+        "model": {
+          "id": "bge_m3_dense",
+          "repo": "BAAI/bge-m3",
+          "revision": "5617a9f61b028005a4858fdac845db406aefb181",
+          "backend": "sentence-transformers",
+          "mode": "dense_only",
+          "required": true,
+          "configured_dimension": 1024,
+          "actual_dimension": 1024,
+          "trust_remote_code": false,
+          "license": "mit",
+          "gated": false,
+          "file": null,
+          "weight_files": [
+            {
+              "file": "colbert_linear.pt",
+              "bytes": 2100674,
+              "sha256": "19bfbae397c2b7524158c919d0e9b19393c5639d098f0a66932c91ed8f5f9abb"
+            },
+            {
+              "file": "pytorch_model.bin",
+              "bytes": 2271145830,
+              "sha256": "b5e0ce3470abf5ef3831aa1bd5553b486803e83251590ab7ff35a117cf6aad38"
+            },
+            {
+              "file": "sparse_linear.pt",
+              "bytes": 3516,
+              "sha256": "45c93804d2142b8f6d7ec6914ae23a1eee9c6a1d27d83d908a20d2afb3595ad9"
+            }
+          ]
+        },
+        "id": null,
+        "gate": 2,
+        "state": null,
+        "dataset": {
+          "corpus_version": "holo_fake_scenes_v3",
+          "combined_sha256": "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b",
+          "documents": 600,
+          "queries": 150
+        }
+      },
+      "rank_by_mrr_at_10": 15
+    },
+    "snowflake_arctic_embed_l_v2_q4": {
+      "profile_id": "snowflake_arctic_embed_l_v2_q4",
+      "source_group": "gate3",
+      "source_path": "benchmark/embedding-v3/results/gate3/snowflake_arctic_embed_l_v2_q4.json",
+      "metrics": {
+        "mrr_at_10": 0.7113201058201059,
+        "hit_rate_at_1": 0.6333333333333333,
+        "hit_rate_at_10": 0.86,
+        "ndcg_at_10": 0.7393608465035213,
+        "hit_rate_at_20": 0.9466666666666667,
+        "hard_negative_error_rate": 0.15333333333333332
+      },
+      "runtime": {
+        "load_seconds": null,
+        "document_encode_seconds": null,
+        "query_encode_seconds": null,
+        "documents_per_second": null,
+        "queries_per_second": null,
+        "total_seconds": null,
+        "peak_vram_mib": null,
+        "peak_ram_mib": null,
+        "device": null,
+        "backend": null,
+        "backend_version": null
+      },
+      "metadata": {
+        "model": null,
+        "id": "snowflake_arctic_embed_l_v2_q4",
+        "gate": 3,
+        "state": "COMPLETED",
+        "dataset": null
+      },
+      "rank_by_mrr_at_10": 16
+    },
+    "qwen3_embedding_4b_q8_0": {
+      "profile_id": "qwen3_embedding_4b_q8_0",
+      "source_group": "gate3",
+      "source_path": "benchmark/embedding-v3/results/gate3/qwen3_embedding_4b_q8_0.json",
+      "metrics": {
+        "mrr_at_10": 0.7010343915343915,
+        "hit_rate_at_1": 0.6266666666666667,
+        "hit_rate_at_10": 0.84,
+        "ndcg_at_10": 0.72852922047902,
+        "hit_rate_at_20": 0.98,
+        "hard_negative_error_rate": 0.22
+      },
+      "runtime": {
+        "load_seconds": 20.100036264000664,
+        "document_encode_seconds": 70.07425684400005,
+        "query_encode_seconds": 3.2274214919998485,
+        "documents_per_second": 8.562345532050744,
+        "queries_per_second": 46.476730842817055,
+        "total_seconds": null,
+        "peak_vram_mib": 8880.0,
+        "peak_ram_mib": 230.0,
+        "device": "cuda",
+        "backend": null,
+        "backend_version": null
+      },
+      "metadata": {
+        "model": null,
+        "id": "qwen3_embedding_4b_q8_0",
+        "gate": 3,
+        "state": "COMPLETED",
+        "dataset": null
+      },
+      "rank_by_mrr_at_10": 17
+    },
+    "colibri_ptbr": {
+      "profile_id": "colibri_ptbr",
+      "source_group": "gate2",
+      "source_path": "benchmark/embedding-v3/results/gate2/colibri_ptbr.json",
+      "metrics": {
+        "mrr_at_10": 0.6966111111111111,
+        "hit_rate_at_1": 0.6066666666666667,
+        "hit_rate_at_10": 0.8466666666666667,
+        "ndcg_at_10": 0.7258090775724064,
+        "hit_rate_at_20": 0.9666666666666667,
+        "hard_negative_error_rate": 0.24666666666666667
+      },
+      "runtime": {
+        "load_seconds": 3.1677,
+        "document_encode_seconds": 13.8287,
+        "query_encode_seconds": 0.9124,
+        "documents_per_second": 43.388,
+        "queries_per_second": 164.4016,
+        "total_seconds": 26.2292,
+        "peak_vram_mib": 1101.58203125,
+        "peak_ram_mib": null,
+        "device": "cuda",
+        "backend": null,
+        "backend_version": null
+      },
+      "metadata": {
+        "model": {
+          "id": "colibri_ptbr",
+          "repo": "tardellirs/colibri-embed-ptbr",
+          "revision": "95a4d4f3a1c056ac19e0da196d0ab2b4289e3b3b",
+          "backend": "sentence-transformers",
+          "mode": null,
+          "required": true,
+          "configured_dimension": 768,
+          "actual_dimension": 768,
+          "trust_remote_code": false,
+          "license": "gemma",
+          "gated": false,
+          "file": null,
+          "weight_files": [
+            {
+              "file": "2_Dense/model.safetensors",
+              "bytes": 9437272,
+              "sha256": "94e0ed668eafb9d55a49877a5002958300398b07b2d137ed9d318939d26e39d6"
+            },
+            {
+              "file": "3_Dense/model.safetensors",
+              "bytes": 9437272,
+              "sha256": "8ea34e717149c8e263f0337eb3923dffa11c2ff408ca425e04c7239ae5fed5fc"
+            },
+            {
+              "file": "model.safetensors",
+              "bytes": 602787368,
+              "sha256": "4e24b5ee42f5cdd9fd752d95989d46c62af05fc107a42a4be78a394c791d9561"
+            }
+          ]
+        },
+        "id": null,
+        "gate": 2,
+        "state": null,
+        "dataset": {
+          "corpus_version": "holo_fake_scenes_v3",
+          "combined_sha256": "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b",
+          "documents": 600,
+          "queries": 150
+        }
+      },
+      "rank_by_mrr_at_10": 18
+    },
+    "qwen3_embedding_8b_gguf": {
+      "profile_id": "qwen3_embedding_8b_gguf",
+      "source_group": "gate3",
+      "source_path": "benchmark/embedding-v3/results/gate3/qwen3_embedding_8b_gguf.json",
+      "metrics": {
+        "mrr_at_10": 0.6920423280423281,
+        "hit_rate_at_1": 0.6133333333333333,
+        "hit_rate_at_10": 0.8466666666666667,
+        "ndcg_at_10": 0.7274982581289288,
+        "hit_rate_at_20": 0.9466666666666667,
+        "hard_negative_error_rate": 0.18
+      },
+      "runtime": {
+        "load_seconds": 54.7212,
+        "document_encode_seconds": 143.2268,
+        "query_encode_seconds": 9.6674,
+        "documents_per_second": 4.1892,
+        "queries_per_second": 15.516,
+        "total_seconds": 208.771,
+        "peak_vram_mib": 8596.0,
+        "peak_ram_mib": null,
+        "device": "cuda",
+        "backend": null,
+        "backend_version": null
+      },
+      "metadata": {
+        "model": {
+          "id": "qwen3_embedding_8b_gguf",
+          "repo": "Qwen/Qwen3-Embedding-8B-GGUF",
+          "revision": "69d0e58a13e463cd99a9b83e3f5fee7c10265fab",
+          "file": "Qwen3-Embedding-8B-Q8_0.gguf",
+          "fallback_used": false,
+          "backend": "llama.cpp",
+          "license": "apache-2.0",
+          "gated": false,
+          "quantization": "Q8_0",
+          "pooling": "last",
+          "native_dimension": 4096,
+          "configured_dimension": 1024,
+          "actual_dimension": 1024,
+          "weight_files": [
+            {
+              "file": "Qwen3-Embedding-8B-Q8_0.gguf",
+              "bytes": 8047105824,
+              "sha256": "d20ddc71e8a5c4344f2343481e242233a997dc5eaff442427a945836c97b4deb"
+            }
+          ]
+        },
+        "id": null,
+        "gate": 3,
+        "state": null,
+        "dataset": {
+          "corpus_version": "holo_fake_scenes_v3",
+          "combined_sha256": "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b",
+          "documents": 600,
+          "queries": 150
+        }
+      },
+      "rank_by_mrr_at_10": 19
+    },
+    "nemotron_8b_abiray_q4": {
+      "profile_id": "nemotron_8b_abiray_q4",
+      "source_group": "gate3",
+      "source_path": "benchmark/embedding-v3/results/gate3/nemotron_8b_abiray_q4.json",
+      "metrics": {
+        "mrr_at_10": 0.6918677248677249,
+        "hit_rate_at_1": 0.6266666666666667,
+        "hit_rate_at_10": 0.8266666666666667,
+        "ndcg_at_10": 0.7187619979708944,
+        "hit_rate_at_20": 0.9533333333333334,
+        "hard_negative_error_rate": 0.20666666666666667
+      },
+      "runtime": {
+        "load_seconds": null,
+        "document_encode_seconds": null,
+        "query_encode_seconds": null,
+        "documents_per_second": null,
+        "queries_per_second": null,
+        "total_seconds": null,
+        "peak_vram_mib": null,
+        "peak_ram_mib": null,
+        "device": null,
+        "backend": null,
+        "backend_version": null
+      },
+      "metadata": {
+        "model": null,
+        "id": "nemotron_8b_abiray_q4",
+        "gate": 3,
+        "state": "COMPLETED",
+        "dataset": null
+      },
+      "rank_by_mrr_at_10": 20
+    },
+    "nemotron_8b_aqua00_q4": {
+      "profile_id": "nemotron_8b_aqua00_q4",
+      "source_group": "gate3",
+      "source_path": "benchmark/embedding-v3/results/gate3/nemotron_8b_aqua00_q4.json",
+      "metrics": {
+        "mrr_at_10": 0.6918677248677249,
+        "hit_rate_at_1": 0.6266666666666667,
+        "hit_rate_at_10": 0.8266666666666667,
+        "ndcg_at_10": 0.7187619979708944,
+        "hit_rate_at_20": 0.9533333333333334,
+        "hard_negative_error_rate": 0.20666666666666667
+      },
+      "runtime": {
+        "load_seconds": null,
+        "document_encode_seconds": null,
+        "query_encode_seconds": null,
+        "documents_per_second": null,
+        "queries_per_second": null,
+        "total_seconds": null,
+        "peak_vram_mib": null,
+        "peak_ram_mib": null,
+        "device": null,
+        "backend": null,
+        "backend_version": null
+      },
+      "metadata": {
+        "model": null,
+        "id": "nemotron_8b_aqua00_q4",
+        "gate": 3,
+        "state": "COMPLETED",
+        "dataset": null
+      },
+      "rank_by_mrr_at_10": 21
+    },
+    "jina_embeddings_v5_text_small": {
+      "profile_id": "jina_embeddings_v5_text_small",
+      "source_group": "gate2",
+      "source_path": "benchmark/embedding-v3/results/gate2/jina_embeddings_v5_text_small.json",
+      "metrics": {
+        "mrr_at_10": 0.6742301587301588,
+        "hit_rate_at_1": 0.58,
+        "hit_rate_at_10": 0.8266666666666667,
+        "ndcg_at_10": 0.7053981641822897,
+        "hit_rate_at_20": 0.9866666666666667,
+        "hard_negative_error_rate": 0.23333333333333334
+      },
+      "runtime": {
+        "load_seconds": 6.8022,
+        "document_encode_seconds": 28.3366,
+        "query_encode_seconds": 1.3117,
+        "documents_per_second": 21.174,
+        "queries_per_second": 114.3554,
+        "total_seconds": 41.7571,
+        "peak_vram_mib": 2650.251953125,
+        "peak_ram_mib": null,
+        "device": "cuda",
+        "backend": null,
+        "backend_version": null
+      },
+      "metadata": {
+        "model": {
+          "id": "jina_embeddings_v5_text_small",
+          "repo": "jinaai/jina-embeddings-v5-text-small",
+          "revision": "dd76d535f5447ca3897a9c893fb1e612ead98192",
+          "backend": "sentence-transformers",
+          "mode": null,
+          "required": false,
+          "configured_dimension": 1024,
+          "actual_dimension": 1024,
+          "trust_remote_code": true,
+          "license": "cc-by-nc-4.0",
+          "gated": false,
+          "file": null,
+          "weight_files": [
+            {
+              "file": "adapters/classification/adapter_model.safetensors",
+              "bytes": 40420208,
+              "sha256": "4ff3d2222b6f48354bdcf51b4dee4540c0da948d06240c7e042308f79e46c2e7"
+            },
+            {
+              "file": "adapters/clustering/adapter_model.safetensors",
+              "bytes": 40420208,
+              "sha256": "276e311513d8bdf3a2a099bf6b365b28d5c8e0b64cc4ac55b526f1ae76cc2b4a"
+            },
+            {
+              "file": "adapters/retrieval/adapter_model.safetensors",
+              "bytes": 40420176,
+              "sha256": "2bc6ab71895eb04664e4d995ee29e1620603f3a3fc4dfc573bc2383dfc85bb94"
+            },
+            {
+              "file": "adapters/text-matching/adapter_model.safetensors",
+              "bytes": 40420208,
+              "sha256": "c3a3051591b1c769eb9b0f87fc762b599aedf11094b5b3d7488e8007cc5cfa4d"
+            },
+            {
+              "file": "model.safetensors",
+              "bytes": 1192133208,
+              "sha256": "045fa75ff963a528cda2589fb1ca0a9ad848b53511780ed4f08f6fe10f6167c3"
+            }
+          ]
+        },
+        "id": null,
+        "gate": 2,
+        "state": null,
+        "dataset": {
+          "corpus_version": "holo_fake_scenes_v3",
+          "combined_sha256": "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b",
+          "documents": 600,
+          "queries": 150
+        }
+      },
+      "rank_by_mrr_at_10": 22
+    },
+    "octen_embedding_8b_q8_0": {
+      "profile_id": "octen_embedding_8b_q8_0",
+      "source_group": "gate3",
+      "source_path": "benchmark/embedding-v3/results/gate3/octen_embedding_8b_q8_0.json",
+      "metrics": {
+        "mrr_at_10": 0.6738518518518519,
+        "hit_rate_at_1": 0.58,
+        "hit_rate_at_10": 0.84,
+        "ndcg_at_10": 0.7080909164735831,
+        "hit_rate_at_20": 0.9066666666666666,
+        "hard_negative_error_rate": 0.12
+      },
+      "runtime": {
+        "load_seconds": 31.444646888001444,
+        "document_encode_seconds": 109.85340182100117,
+        "query_encode_seconds": 5.380981233000057,
+        "documents_per_second": 5.461824486579489,
+        "queries_per_second": 27.87595672701697,
+        "total_seconds": null,
+        "peak_vram_mib": 12706.0,
+        "peak_ram_mib": 193.0,
+        "device": "cuda",
+        "backend": null,
+        "backend_version": null
+      },
+      "metadata": {
+        "model": null,
+        "id": "octen_embedding_8b_q8_0",
+        "gate": 3,
+        "state": "COMPLETED",
+        "dataset": null
+      },
+      "rank_by_mrr_at_10": 23
+    },
+    "granite_embedding_311m_r2": {
+      "profile_id": "granite_embedding_311m_r2",
+      "source_group": "gate2",
+      "source_path": "benchmark/embedding-v3/results/gate2/granite_embedding_311m_r2.json",
+      "metrics": {
+        "mrr_at_10": 0.6709153439153439,
+        "hit_rate_at_1": 0.5866666666666667,
+        "hit_rate_at_10": 0.84,
+        "ndcg_at_10": 0.7071692320245465,
+        "hit_rate_at_20": 0.9666666666666667,
+        "hard_negative_error_rate": 0.18
+      },
+      "runtime": {
+        "load_seconds": 3.8769,
+        "document_encode_seconds": 3.9455,
+        "query_encode_seconds": 0.2671,
+        "documents_per_second": 152.072,
+        "queries_per_second": 561.5874,
+        "total_seconds": 13.3081,
+        "peak_vram_mib": 784.33349609375,
+        "peak_ram_mib": null,
+        "device": "cuda",
+        "backend": null,
+        "backend_version": null
+      },
+      "metadata": {
+        "model": {
+          "id": "granite_embedding_311m_r2",
+          "repo": "ibm-granite/granite-embedding-311m-multilingual-r2",
+          "revision": "44399559930365213510b1ee2eb15ded83374f0e",
+          "backend": "sentence-transformers",
+          "mode": null,
+          "required": false,
+          "configured_dimension": 768,
+          "actual_dimension": 768,
+          "trust_remote_code": false,
+          "license": "apache-2.0",
+          "gated": false,
+          "file": null,
+          "weight_files": [
+            {
+              "file": "model.safetensors",
+              "bytes": 623341952,
+              "sha256": "dcb6431bfa6e817fe100a2b0521360cec3383963b03fa966b685de18ca310d31"
+            },
+            {
+              "file": "openvino/granite_embedding_int8.bin",
+              "bytes": 313662989,
+              "sha256": "7db8c57219190d8870e0d274baa87f5039cf7b3fa3c3a6014802dc31d80952d5"
+            },
+            {
+              "file": "openvino/openvino_model_qint8_quantized.bin",
+              "bytes": 312563184,
+              "sha256": "19cd99b8657e8f86529ce05384194b1bf3dbde94fd48a571a832344c119c27bc"
+            },
+            {
+              "file": "openvino_model.bin",
+              "bytes": 1246658016,
+              "sha256": "bb1ab2f8bc859e6c8d9db5cd539b95242caeb63da5dec34554549889f80680e9"
+            }
+          ]
+        },
+        "id": null,
+        "gate": 2,
+        "state": null,
+        "dataset": {
+          "corpus_version": "holo_fake_scenes_v3",
+          "combined_sha256": "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b",
+          "documents": 600,
+          "queries": 150
+        }
+      },
+      "rank_by_mrr_at_10": 24
+    },
+    "pplx_embed_v1_06b_native": {
+      "profile_id": "pplx_embed_v1_06b_native",
+      "source_group": "gate3",
+      "source_path": "benchmark/embedding-v3/results/gate3/pplx_embed_v1_06b_native.json",
+      "metrics": {
+        "mrr_at_10": 0.6632910052910053,
+        "hit_rate_at_1": 0.56,
+        "hit_rate_at_10": 0.86,
+        "ndcg_at_10": 0.7074096619273186,
+        "hit_rate_at_20": 0.9733333333333334,
+        "hard_negative_error_rate": 0.22
+      },
+      "runtime": {
+        "load_seconds": 13.365854523999587,
+        "document_encode_seconds": 34.55264998399798,
+        "query_encode_seconds": 0.8261583550010982,
+        "documents_per_second": 17.364804154757216,
+        "queries_per_second": 181.56325490383813,
+        "total_seconds": null,
+        "peak_vram_mib": 4295.0,
+        "peak_ram_mib": 1469.0,
+        "device": "cuda",
+        "backend": null,
+        "backend_version": null
+      },
+      "metadata": {
+        "model": null,
+        "id": "pplx_embed_v1_06b_native",
+        "gate": 3,
+        "state": "COMPLETED",
+        "dataset": null
+      },
+      "rank_by_mrr_at_10": 25
+    },
+    "giga_embeddings_instruct": {
+      "profile_id": "giga_embeddings_instruct",
+      "source_group": "gate2",
+      "source_path": "benchmark/embedding-v3/results/gate2/giga_embeddings_instruct.json",
+      "metrics": {
+        "mrr_at_10": 0.6466984126984127,
+        "hit_rate_at_1": 0.5666666666666667,
+        "hit_rate_at_10": 0.84,
+        "ndcg_at_10": 0.6848998922627375,
+        "hit_rate_at_20": 0.92,
+        "hard_negative_error_rate": 0.22666666666666666
+      },
+      "runtime": {
+        "load_seconds": null,
+        "document_encode_seconds": null,
+        "query_encode_seconds": null,
+        "documents_per_second": null,
+        "queries_per_second": null,
+        "total_seconds": null,
+        "peak_vram_mib": null,
+        "peak_ram_mib": null,
+        "device": null,
+        "backend": null,
+        "backend_version": null
+      },
+      "metadata": {
+        "model": null,
+        "id": "giga_embeddings_instruct",
+        "gate": null,
+        "state": null,
+        "dataset": null
+      },
+      "rank_by_mrr_at_10": 26
+    },
+    "bidirlm_17b_embedding": {
+      "profile_id": "bidirlm_17b_embedding",
+      "source_group": "gate3",
+      "source_path": "benchmark/embedding-v3/results/gate3/bidirlm_17b_embedding.json",
+      "metrics": {
+        "mrr_at_10": 0.6423333333333333,
+        "hit_rate_at_1": 0.5466666666666666,
+        "hit_rate_at_10": 0.82,
+        "ndcg_at_10": 0.6859591984946962,
+        "hit_rate_at_20": 0.96,
+        "hard_negative_error_rate": 0.24
+      },
+      "runtime": {
+        "load_seconds": 13.776106244997209,
+        "document_encode_seconds": 61.05588685700059,
+        "query_encode_seconds": 0.8803166559991951,
+        "documents_per_second": 9.827062235706512,
+        "queries_per_second": 170.3932317737916,
+        "total_seconds": null,
+        "peak_vram_mib": 10337.0,
+        "peak_ram_mib": 802.0,
+        "device": "cuda",
+        "backend": null,
+        "backend_version": null
+      },
+      "metadata": {
+        "model": null,
+        "id": "bidirlm_17b_embedding",
+        "gate": 3,
+        "state": "COMPLETED",
+        "dataset": null
+      },
+      "rank_by_mrr_at_10": 27
+    },
+    "multilingual_e5_large_instruct": {
+      "profile_id": "multilingual_e5_large_instruct",
+      "source_group": "gate2",
+      "source_path": "benchmark/embedding-v3/results/gate2/multilingual_e5_large_instruct.json",
+      "metrics": {
+        "mrr_at_10": 0.63289417989418,
+        "hit_rate_at_1": 0.5266666666666666,
+        "hit_rate_at_10": 0.8466666666666667,
+        "ndcg_at_10": 0.6787630104388015,
+        "hit_rate_at_20": 0.9333333333333333,
+        "hard_negative_error_rate": 0.25333333333333335
+      },
+      "runtime": {
+        "load_seconds": 7.0038,
+        "document_encode_seconds": 5.5216,
+        "query_encode_seconds": 0.2573,
+        "documents_per_second": 108.6642,
+        "queries_per_second": 582.9771,
+        "total_seconds": 22.6695,
+        "peak_vram_mib": 1249.333984375,
+        "peak_ram_mib": null,
+        "device": "cuda",
+        "backend": null,
+        "backend_version": null
+      },
+      "metadata": {
+        "model": {
+          "id": "multilingual_e5_large_instruct",
+          "repo": "intfloat/multilingual-e5-large-instruct",
+          "revision": "274baa43b0e13e37fafa6428dbc7938e62e5c439",
+          "backend": "sentence-transformers",
+          "mode": null,
+          "required": true,
+          "configured_dimension": 1024,
+          "actual_dimension": 1024,
+          "trust_remote_code": false,
+          "license": "mit",
+          "gated": false,
+          "file": null,
+          "weight_files": [
+            {
+              "file": "model.safetensors",
+              "bytes": 1119825680,
+              "sha256": "dd6b6e4f52db0a7aff83a13d10e6c5342ef9f6ab799bad3221f4b35ef390fa85"
+            }
+          ]
+        },
+        "id": null,
+        "gate": 2,
+        "state": null,
+        "dataset": {
+          "corpus_version": "holo_fake_scenes_v3",
+          "combined_sha256": "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b",
+          "documents": 600,
+          "queries": 150
+        }
+      },
+      "rank_by_mrr_at_10": 28
+    },
+    "qwen3_embedding_06": {
+      "profile_id": "qwen3_embedding_06",
+      "source_group": "gate2",
+      "source_path": "benchmark/embedding-v3/results/gate2/qwen3_embedding_06.json",
+      "metrics": {
+        "mrr_at_10": 0.6163492063492063,
+        "hit_rate_at_1": 0.52,
+        "hit_rate_at_10": 0.8266666666666667,
+        "ndcg_at_10": 0.6634192577497056,
+        "hit_rate_at_20": 0.96,
+        "hard_negative_error_rate": 0.25333333333333335
+      },
+      "runtime": {
+        "load_seconds": 6.5958,
+        "document_encode_seconds": 17.7018,
+        "query_encode_seconds": 0.6749,
+        "documents_per_second": 33.8949,
+        "queries_per_second": 222.2551,
+        "total_seconds": 30.392,
+        "peak_vram_mib": 2194.13671875,
+        "peak_ram_mib": null,
+        "device": "cuda",
+        "backend": null,
+        "backend_version": null
+      },
+      "metadata": {
+        "model": {
+          "id": "qwen3_embedding_06",
+          "repo": "Qwen/Qwen3-Embedding-0.6B",
+          "revision": "97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3",
+          "backend": "sentence-transformers",
+          "mode": null,
+          "required": true,
+          "configured_dimension": 1024,
+          "actual_dimension": 1024,
+          "trust_remote_code": false,
+          "license": "apache-2.0",
+          "gated": false,
+          "file": null,
+          "weight_files": [
+            {
+              "file": "model.safetensors",
+              "bytes": 1191586416,
+              "sha256": "0437e45c94563b09e13cb7a64478fc406947a93cb34a7e05870fc8dcd48e23fd"
+            }
+          ]
+        },
+        "id": null,
+        "gate": 2,
+        "state": null,
+        "dataset": {
+          "corpus_version": "holo_fake_scenes_v3",
+          "combined_sha256": "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b",
+          "documents": 600,
+          "queries": 150
+        }
+      },
+      "rank_by_mrr_at_10": 29
+    },
+    "qwen3_embedding_06_gguf": {
+      "profile_id": "qwen3_embedding_06_gguf",
+      "source_group": "gate3",
+      "source_path": "benchmark/embedding-v3/results/gate3/qwen3_embedding_06_gguf.json",
+      "metrics": {
+        "mrr_at_10": 0.6153492063492064,
+        "hit_rate_at_1": 0.52,
+        "hit_rate_at_10": 0.8266666666666667,
+        "ndcg_at_10": 0.6624913351977169,
+        "hit_rate_at_20": 0.96,
+        "hard_negative_error_rate": 0.25333333333333335
+      },
+      "runtime": {
+        "load_seconds": 2.0586,
+        "document_encode_seconds": 44.1068,
+        "query_encode_seconds": 1.9547,
+        "documents_per_second": 13.6033,
+        "queries_per_second": 76.7373,
+        "total_seconds": 48.7265,
+        "peak_vram_mib": 1380.0,
+        "peak_ram_mib": null,
+        "device": "cuda",
+        "backend": null,
+        "backend_version": null
+      },
+      "metadata": {
+        "model": {
+          "id": "qwen3_embedding_06_gguf",
+          "repo": "Qwen/Qwen3-Embedding-0.6B-GGUF",
+          "revision": "370f27d7550e0def9b39c1f16d3fbaa13aa67728",
+          "file": "Qwen3-Embedding-0.6B-Q8_0.gguf",
+          "fallback_used": false,
+          "backend": "llama.cpp",
+          "license": "apache-2.0",
+          "gated": false,
+          "quantization": "Q8_0",
+          "pooling": "last",
+          "native_dimension": 1024,
+          "configured_dimension": 1024,
+          "actual_dimension": 1024,
+          "weight_files": [
+            {
+              "file": "Qwen3-Embedding-0.6B-Q8_0.gguf",
+              "bytes": 639150592,
+              "sha256": "06507c7b42688469c4e7298b0a1e16deff06caf291cf0a5b278c308249c3e439"
+            }
+          ]
+        },
+        "id": null,
+        "gate": 3,
+        "state": null,
+        "dataset": {
+          "corpus_version": "holo_fake_scenes_v3",
+          "combined_sha256": "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b",
+          "documents": 600,
+          "queries": 150
+        }
+      },
+      "rank_by_mrr_at_10": 30
+    },
+    "gte_multilingual_base": {
+      "profile_id": "gte_multilingual_base",
+      "source_group": "gate2",
+      "source_path": "benchmark/embedding-v3/results/gate2/gte_multilingual_base.json",
+      "metrics": {
+        "mrr_at_10": 0.5675899470899473,
+        "hit_rate_at_1": 0.44666666666666666,
+        "hit_rate_at_10": 0.82,
+        "ndcg_at_10": 0.6251758534446522,
+        "hit_rate_at_20": 0.94,
+        "hard_negative_error_rate": 0.36666666666666664
+      },
+      "runtime": {
+        "load_seconds": 1.7,
+        "document_encode_seconds": 7.1,
+        "query_encode_seconds": 0.2,
+        "documents_per_second": 84.51,
+        "queries_per_second": 750.0,
+        "total_seconds": null,
+        "peak_vram_mib": 1637.458984375,
+        "peak_ram_mib": null,
+        "device": "cuda",
+        "backend": null,
+        "backend_version": null
+      },
+      "metadata": {
+        "model": {
+          "repo": "Alibaba-NLP/gte-multilingual-base",
+          "revision": "9bbca17d9273fd0d03d5725c4a7b0f6b45142062",
+          "actual_dimension": 768,
+          "trust_remote_code": true
+        },
+        "id": null,
+        "gate": null,
+        "state": null,
+        "dataset": null
+      },
+      "rank_by_mrr_at_10": 31
+    },
+    "granite_embedding_97m_r2": {
+      "profile_id": "granite_embedding_97m_r2",
+      "source_group": "gate2",
+      "source_path": "benchmark/embedding-v3/results/gate2/granite_embedding_97m_r2.json",
+      "metrics": {
+        "mrr_at_10": 0.5630793650793651,
+        "hit_rate_at_1": 0.44666666666666666,
+        "hit_rate_at_10": 0.7933333333333333,
+        "ndcg_at_10": 0.6133671225713789,
+        "hit_rate_at_20": 0.9333333333333333,
+        "hard_negative_error_rate": 0.2733333333333333
+      },
+      "runtime": {
+        "load_seconds": 2.3966,
+        "document_encode_seconds": 1.984,
+        "query_encode_seconds": 0.2217,
+        "documents_per_second": 302.4194,
+        "queries_per_second": 676.59,
+        "total_seconds": 10.0982,
+        "peak_vram_mib": 320.939453125,
+        "peak_ram_mib": null,
+        "device": "cuda",
+        "backend": null,
+        "backend_version": null
+      },
+      "metadata": {
+        "model": {
+          "id": "granite_embedding_97m_r2",
+          "repo": "ibm-granite/granite-embedding-97m-multilingual-r2",
+          "revision": "835ad14087e140460703cf0fae09f97d469d65c2",
+          "backend": "sentence-transformers",
+          "mode": null,
+          "required": false,
+          "configured_dimension": 384,
+          "actual_dimension": 384,
+          "trust_remote_code": false,
+          "license": "apache-2.0",
+          "gated": false,
+          "file": null,
+          "weight_files": [
+            {
+              "file": "model.safetensors",
+              "bytes": 194889568,
+              "sha256": "f3ea88b230492811046145513710e76b4cc8c2ad49e8708da0e7247e548903be"
+            },
+            {
+              "file": "openvino/openvino_model_qint8_quantized.bin",
+              "bytes": 97950112,
+              "sha256": "6a2d84b6c1b09d24af2a10c4cc5dd374d305f5e98bed3ca3db016797753f6d37"
+            },
+            {
+              "file": "openvino_model.bin",
+              "bytes": 389764960,
+              "sha256": "29091e79be57c55d6448eff9bc0ec1b387eb29f05a3b61a39e97cc689c1c49bf"
+            }
+          ]
+        },
+        "id": null,
+        "gate": 2,
+        "state": null,
+        "dataset": {
+          "corpus_version": "holo_fake_scenes_v3",
+          "combined_sha256": "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b",
+          "documents": 600,
+          "queries": 150
+        }
+      },
+      "rank_by_mrr_at_10": 32
+    },
+    "lfm_25_embedding_350m_q4": {
+      "profile_id": "lfm_25_embedding_350m_q4",
+      "source_group": "gate3",
+      "source_path": "benchmark/embedding-v3/results/gate3/lfm_25_embedding_350m_q4.json",
+      "metrics": {
+        "mrr_at_10": 0.49472751322751324,
+        "hit_rate_at_1": 0.4066666666666667,
+        "hit_rate_at_10": 0.6933333333333334,
+        "ndcg_at_10": 0.536500004277885,
+        "hit_rate_at_20": 0.8266666666666667,
+        "hard_negative_error_rate": 0.26666666666666666
+      },
+      "runtime": {
+        "load_seconds": null,
+        "document_encode_seconds": null,
+        "query_encode_seconds": null,
+        "documents_per_second": null,
+        "queries_per_second": null,
+        "total_seconds": null,
+        "peak_vram_mib": null,
+        "peak_ram_mib": null,
+        "device": null,
+        "backend": null,
+        "backend_version": null
+      },
+      "metadata": {
+        "model": null,
+        "id": "lfm_25_embedding_350m_q4",
+        "gate": 3,
+        "state": "COMPLETED",
+        "dataset": null
+      },
+      "rank_by_mrr_at_10": 33
+    },
+    "kalm_embedding_gemma3_12b_q4": {
+      "profile_id": "kalm_embedding_gemma3_12b_q4",
+      "source_group": "gate3",
+      "source_path": "benchmark/embedding-v3/results/gate3/kalm_embedding_gemma3_12b_q4.json",
+      "metrics": {
+        "mrr_at_10": 0.1969100529100529,
+        "hit_rate_at_1": 0.10666666666666667,
+        "hit_rate_at_10": 0.44666666666666666,
+        "ndcg_at_10": 0.25269043727839524,
+        "hit_rate_at_20": 0.6066666666666667,
+        "hard_negative_error_rate": 0.5266666666666666
+      },
+      "runtime": {
+        "load_seconds": null,
+        "document_encode_seconds": null,
+        "query_encode_seconds": null,
+        "documents_per_second": null,
+        "queries_per_second": null,
+        "total_seconds": null,
+        "peak_vram_mib": null,
+        "peak_ram_mib": null,
+        "device": null,
+        "backend": null,
+        "backend_version": null
+      },
+      "metadata": {
+        "model": null,
+        "id": "kalm_embedding_gemma3_12b_q4",
+        "gate": 3,
+        "state": "COMPLETED",
+        "dataset": null
+      },
+      "rank_by_mrr_at_10": 34
+    },
+    "kalm_embedding_gemma3_12b_i1_q4": {
+      "profile_id": "kalm_embedding_gemma3_12b_i1_q4",
+      "source_group": "gate3",
+      "source_path": "benchmark/embedding-v3/results/gate3/kalm_embedding_gemma3_12b_i1_q4.json",
+      "metrics": {
+        "mrr_at_10": 0.17661640211640212,
+        "hit_rate_at_1": 0.1,
+        "hit_rate_at_10": 0.4,
+        "ndcg_at_10": 0.22544965929592445,
+        "hit_rate_at_20": 0.54,
+        "hard_negative_error_rate": 0.5933333333333334
+      },
+      "runtime": {
+        "load_seconds": null,
+        "document_encode_seconds": null,
+        "query_encode_seconds": null,
+        "documents_per_second": null,
+        "queries_per_second": null,
+        "total_seconds": null,
+        "peak_vram_mib": null,
+        "peak_ram_mib": null,
+        "device": null,
+        "backend": null,
+        "backend_version": null
+      },
+      "metadata": {
+        "model": null,
+        "id": "kalm_embedding_gemma3_12b_i1_q4",
+        "gate": 3,
+        "state": "COMPLETED",
+        "dataset": null
+      },
+      "rank_by_mrr_at_10": 35
+    },
+    "boom_4b_v1_q8_0": {
+      "profile_id": "boom_4b_v1_q8_0",
+      "source_group": "gate3",
+      "source_path": "benchmark/embedding-v3/results/gate3/boom_4b_v1_q8_0.json",
+      "metrics": {
+        "mrr_at_10": 0.1615978835978836,
+        "hit_rate_at_1": 0.08,
+        "hit_rate_at_10": 0.43333333333333335,
+        "ndcg_at_10": 0.22351681627129746,
+        "hit_rate_at_20": 0.5866666666666667,
+        "hard_negative_error_rate": 0.37333333333333335
+      },
+      "runtime": {
+        "load_seconds": 18.736343922999367,
+        "document_encode_seconds": 70.0482844649996,
+        "query_encode_seconds": 3.34761836799953,
+        "documents_per_second": 8.565520263380563,
+        "queries_per_second": 44.807974957323765,
+        "total_seconds": null,
+        "peak_vram_mib": 11714.0,
+        "peak_ram_mib": 806.0,
+        "device": "cuda",
+        "backend": null,
+        "backend_version": null
+      },
+      "metadata": {
+        "model": null,
+        "id": "boom_4b_v1_q8_0",
+        "gate": 3,
+        "state": "COMPLETED",
+        "dataset": null
+      },
+      "rank_by_mrr_at_10": 36
+    }
+  },
+  "raw_profile_source_counts": {
+    "gate2": 11,
+    "gate3": 16,
+    "voyage_raw": 2,
+    "nemotron_admission": 2,
+    "historical_raw_none": 5
+  },
+  "leaders_raw": {
+    "best_by_mrr_at_10": {
+      "profile_id": "nemotron_3_embed_1b_nvfp4",
+      "source_group": "nemotron_admission",
+      "source_path": "benchmark/embedding-v3/results/nemotron_audit_1_0_5/admission_nvfp4_full_cached_20260723.json",
+      "metrics": {
+        "mrr_at_10": 0.7753412698412698,
+        "hit_rate_at_1": 0.74,
+        "hit_rate_at_10": 0.8466666666666667,
+        "ndcg_at_10": 0.7849820111117471,
+        "hit_rate_at_20": 0.9666666666666667,
+        "hard_negative_error_rate": 0.13333333333333333
+      },
+      "runtime": {
+        "load_seconds": 16.246896598000603,
+        "document_encode_seconds": 4.137199311997392,
+        "query_encode_seconds": 0.3621999129973119,
+        "documents_per_second": 145.02564531036018,
+        "queries_per_second": 414.13593603241213,
+        "total_seconds": 28.3923646559997,
+        "peak_vram_mib": 2072.0,
+        "peak_ram_mib": 3573.38671875,
+        "device": null,
+        "backend": "vllm",
+        "backend_version": "0.25.0"
+      },
+      "metadata": {
+        "model": {
+          "path": "/home/alpha/Playstoria/models/embed/Nemotron-3-Embed-1B-NVFP4",
+          "weight_file": "/home/alpha/Playstoria/models/embed/Nemotron-3-Embed-1B-NVFP4/model.safetensors",
+          "bytes": 1027789672,
+          "sha256": "f2753954c89055eb679a45b7dfea27a3e05c04ecbdb1f4e6c086180fe8c32bc7",
+          "license": "OpenMDW-1.1"
+        },
+        "id": null,
+        "gate": null,
+        "state": "EXECUTED",
+        "dataset": {
+          "name": "holo_fake_scenes_v3",
+          "combined_sha256": "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b",
+          "documents": 600,
+          "queries": 150,
+          "document_prefix": "passage: ",
+          "query_prefix": "query: "
+        }
+      },
+      "rank_by_mrr_at_10": 1
+    },
+    "fastest_documents_per_second": {
+      "profile_id": "granite_embedding_97m_r2",
+      "source_group": "gate2",
+      "source_path": "benchmark/embedding-v3/results/gate2/granite_embedding_97m_r2.json",
+      "metrics": {
+        "mrr_at_10": 0.5630793650793651,
+        "hit_rate_at_1": 0.44666666666666666,
+        "hit_rate_at_10": 0.7933333333333333,
+        "ndcg_at_10": 0.6133671225713789,
+        "hit_rate_at_20": 0.9333333333333333,
+        "hard_negative_error_rate": 0.2733333333333333
+      },
+      "runtime": {
+        "load_seconds": 2.3966,
+        "document_encode_seconds": 1.984,
+        "query_encode_seconds": 0.2217,
+        "documents_per_second": 302.4194,
+        "queries_per_second": 676.59,
+        "total_seconds": 10.0982,
+        "peak_vram_mib": 320.939453125,
+        "peak_ram_mib": null,
+        "device": "cuda",
+        "backend": null,
+        "backend_version": null
+      },
+      "metadata": {
+        "model": {
+          "id": "granite_embedding_97m_r2",
+          "repo": "ibm-granite/granite-embedding-97m-multilingual-r2",
+          "revision": "835ad14087e140460703cf0fae09f97d469d65c2",
+          "backend": "sentence-transformers",
+          "mode": null,
+          "required": false,
+          "configured_dimension": 384,
+          "actual_dimension": 384,
+          "trust_remote_code": false,
+          "license": "apache-2.0",
+          "gated": false,
+          "file": null,
+          "weight_files": [
+            {
+              "file": "model.safetensors",
+              "bytes": 194889568,
+              "sha256": "f3ea88b230492811046145513710e76b4cc8c2ad49e8708da0e7247e548903be"
+            },
+            {
+              "file": "openvino/openvino_model_qint8_quantized.bin",
+              "bytes": 97950112,
+              "sha256": "6a2d84b6c1b09d24af2a10c4cc5dd374d305f5e98bed3ca3db016797753f6d37"
+            },
+            {
+              "file": "openvino_model.bin",
+              "bytes": 389764960,
+              "sha256": "29091e79be57c55d6448eff9bc0ec1b387eb29f05a3b61a39e97cc689c1c49bf"
+            }
+          ]
+        },
+        "id": null,
+        "gate": 2,
+        "state": null,
+        "dataset": {
+          "corpus_version": "holo_fake_scenes_v3",
+          "combined_sha256": "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b",
+          "documents": 600,
+          "queries": 150
+        }
+      },
+      "rank_by_mrr_at_10": 32
+    },
+    "fastest_queries_per_second": {
+      "profile_id": "gte_multilingual_base",
+      "source_group": "gate2",
+      "source_path": "benchmark/embedding-v3/results/gate2/gte_multilingual_base.json",
+      "metrics": {
+        "mrr_at_10": 0.5675899470899473,
+        "hit_rate_at_1": 0.44666666666666666,
+        "hit_rate_at_10": 0.82,
+        "ndcg_at_10": 0.6251758534446522,
+        "hit_rate_at_20": 0.94,
+        "hard_negative_error_rate": 0.36666666666666664
+      },
+      "runtime": {
+        "load_seconds": 1.7,
+        "document_encode_seconds": 7.1,
+        "query_encode_seconds": 0.2,
+        "documents_per_second": 84.51,
+        "queries_per_second": 750.0,
+        "total_seconds": null,
+        "peak_vram_mib": 1637.458984375,
+        "peak_ram_mib": null,
+        "device": "cuda",
+        "backend": null,
+        "backend_version": null
+      },
+      "metadata": {
+        "model": {
+          "repo": "Alibaba-NLP/gte-multilingual-base",
+          "revision": "9bbca17d9273fd0d03d5725c4a7b0f6b45142062",
+          "actual_dimension": 768,
+          "trust_remote_code": true
+        },
+        "id": null,
+        "gate": null,
+        "state": null,
+        "dataset": null
+      },
+      "rank_by_mrr_at_10": 31
+    }
+  },
+  "nvfp4_artifact_scope": {
+    "embedding_benchmark": "nemotron_3_embed_1b_nvfp4",
+    "generation_healthcheck_not_ranked": "Ornith-9B-MTP-NVFP4:latest"
   }
 }
