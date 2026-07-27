@@ -1,0 +1,45 @@
+name: Audit benchmark documentation
+
+on:
+  push:
+    branches:
+      - agent/archive-superseded-benchmark-docs
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/archive-superseded-benchmark-docs
+          fetch-depth: 0
+      - name: List root benchmark files
+        run: |
+          echo '=== ROOT FILES ==='
+          find benchmark/embedding-v3 -maxdepth 1 -type f -printf '%f\t%s bytes\n' | sort
+          echo '=== SUMMARY CANDIDATES ==='
+          find benchmark/embedding-v3 -maxdepth 1 -type f \( \
+            -name '*RESULTS*.json' -o \
+            -name '*REPORT*.md' -o \
+            -name '*DECISION*.md' -o \
+            -name '*BRIEF*.md' \
+          \) -printf '%f\n' | sort
+      - name: Find active references
+        run: |
+          files=(
+            BENCHMARK_RESULTS.json
+            BENCHMARK_RESULTS_REGISTRY.json
+            RERANKER_PIPELINE_REPORT.md
+            RERANKER_TOP5_REPORT.md
+            OPERATIONAL_COMPARISON_REPORT.md
+            PRODUCTION_PROFILE_DECISION.md
+            PRODUCTION_PROFILE_INTEGRATION_REPORT.md
+            DIRECTOR_BRIEF.md
+          )
+          for file in "${files[@]}"; do
+            echo "=== REFERENCES: $file ==="
+            grep -RIn --exclude="$file" --exclude='ALL_BENCHMARK_RESULTS.json' --exclude-dir='.git' -- "$file" . || true
+          done
