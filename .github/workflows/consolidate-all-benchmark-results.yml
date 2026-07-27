@@ -7,6 +7,13 @@ on:
     paths:
       - benchmark/embedding-v3/tools/consolidate_all_benchmark_results.py
       - .github/workflows/consolidate-all-benchmark-results.yml
+  pull_request:
+    branches:
+      - master
+    paths:
+      - benchmark/embedding-v3/tools/consolidate_all_benchmark_results.py
+      - .github/workflows/consolidate-all-benchmark-results.yml
+      - benchmark/embedding-v3/ALL_BENCHMARK_RESULTS.json
 
 permissions:
   contents: write
