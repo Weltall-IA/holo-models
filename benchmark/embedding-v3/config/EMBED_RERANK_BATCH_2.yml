@@ -740,6 +740,20 @@ validation:
     - full diff review
 
 small_phase_stop_contract:
+  researched_scope:
+    small_models_ready_now:
+      - LFM2.5 Embedding 350M Q4_K_M
+      - BitNet Embedding 0.6B official I2_S
+      - BitNet Embedding 270M official I2_S
+      - Mixedbread mxbai-rerank-base-v2 native small-model exception
+      - NVIDIA Llama Nemotron Rerank 1B v2 native small-model exception
+    heavy_models_prepared_for_later:
+      - Qwen3 Reranker 4B NVFP4 with Q4 fallback
+      - BOOM 4B Q4_K_M
+      - Qwen3 Embedding 8B NVFP4 plus official Q4 control
+      - Nemotron Embed 8B Q4_K_M
+      - KaLM 12B Q4_K_M
+      - ICT Querit 4B blocked until NVFP4 or Q4 exists
   stop_after:
     - mandatory dry-run report completed
     - all existing missing Qwen-local pipelines attempted
