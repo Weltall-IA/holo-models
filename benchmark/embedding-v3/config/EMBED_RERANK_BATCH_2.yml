@@ -1,24 +1,24 @@
-schema_version: 2
+schema_version: 3
 
 session:
   id: EMBED-RERANK-BATCH-2
-  title: Auditoria de embeddings suspeitos e expansão controlada de rerankers
-  status: READY_LOCAL_ONLY
-  created_at: "2026-07-27"
+  title: Benchmarks pequenos primeiro e auditoria pesada posterior
+  status: READY_SMALL_PHASE
+  researched_at: "2026-07-27"
   objective: >-
-    Reutilizar todos os resultados válidos existentes, auditar somente resultados
-    suspeitos, completar pipelines Qwen ausentes e comparar novos rerankers sem
-    repetir combinações válidas. Nenhuma API paga é executada nesta fase.
+    Reutilizar resultados válidos, executar agora os embeddings e rerankers leves,
+    registrar resultados completos e parar antes dos modelos pesados. Os modelos
+    pesados já ficam pesquisados e especificados para a rodada posterior. Nenhuma
+    API paga pode ser chamada nesta sessão.
 
 repository:
   expected: Weltall-IA/holo-models
   root_expected: /home/alpha/Playstoria/models
-  base_branch_expected: agent/document-embedding-quality-registry
   required_before_execution:
-    - confirm remote is Weltall-IA/holo-models
+    - confirm remote is exactly Weltall-IA/holo-models
     - read AGENTS.md
     - read .ai/PROJECT.yml
-    - read .ai/WORKFLOW.yml
+    - read .ai/WORKFLOW.yml completely
     - read benchmark/embedding-v3/AGENTS.md
     - read benchmark/embedding-v3/README.md
     - inspect branch, status, worktrees, stashes and untracked files
@@ -29,13 +29,17 @@ hardware:
   gpu: NVIDIA RTX 5060 Ti 16 GB
   cpu: AMD Ryzen 7 2700X
   ram_gib: 31
-  rules:
+  known_runtimes:
+    llama_cpp: "9972 (c92e806d1)"
+    vllm: "0.25.0"
+  mandatory_rules:
     - execute one model at a time
+    - terminate stale servers before the next model
     - clear RAM and VRAM between models
-    - terminate stale model servers before the next model
     - never silently fall back from CUDA to CPU
     - reduce batch size before changing protocol
     - record actual driver, CUDA, runtime and build versions
+    - do not start a full benchmark until the deterministic smoke test passes
 
 protocol:
   corpus:
@@ -51,7 +55,7 @@ protocol:
     same_documents: true
     same_relevance_judgments: true
     same_rerank_instruction: true
-  required_embedding_metrics:
+  embedding_metrics_required:
     - hit_rate_at_1
     - hit_rate_at_3
     - hit_rate_at_5
@@ -62,7 +66,7 @@ protocol:
     - ndcg_at_10
     - hard_negative_error_rate
     - queries_without_relevant
-  required_runtime_metrics:
+  runtime_metrics_required:
     - load_seconds
     - document_encode_seconds
     - query_encode_seconds
@@ -71,7 +75,7 @@ protocol:
     - total_seconds
     - peak_ram_bytes
     - peak_vram_bytes
-  required_identity:
+  identity_required:
     - profile_id
     - repository
     - immutable_revision
@@ -91,41 +95,27 @@ protocol:
     - command_or_endpoint
 
 quantization_policy:
-  applies_to:
-    - embeddings
-    - rerankers
-    - repaired profiles
-    - new profiles
   mandatory_preference_order:
-    - NVFP4
+    - NVFP4 for the exact model when provenance and runtime support are trustworthy
     - Q4_K_M
-    - other_trustworthy_Q4
-  q8_or_native_high_precision_exception:
+    - another trustworthy Q4
+  q8_or_native_exception:
     allowed_only_when_all:
       - no trustworthy NVFP4 exists for the exact model and revision
       - no trustworthy Q4 exists for the exact model and revision
       - model has at most 1B parameters
-      - projected peak VRAM is at most 12 GiB
-      - runtime overhead and temporary buffers are included in the projection
-      - the batch contract explicitly lists the exception
+      - projected peak VRAM including runtime buffers is at most 12 GiB
+      - exception is explicitly listed in this contract
       - actual peak VRAM is recorded
     otherwise: BLOCKED
   architecture_native_exception:
-    description: >-
-      A model whose official efficient format is architecture-specific, such as
-      BitNet I2_S, may use that format only when NVFP4/Q4 are not applicable and
-      the exact official artifact and runtime are recorded.
+    - BitNet I2_S is allowed because it is the official architecture-native format
   prohibitions:
     - do not download or rerun a model larger than 1B in Q8
-    - do not select Q8 because it is theoretically more accurate
-    - do not substitute FP16 or BF16 for a large model when Q4 exists
-    - do not confuse NVFP4 from a different parameter scale or model revision
-    - do not use a third-party quantization without immutable revision and SHA-256
-    - do not silently change quantization after a load failure
-  historical_results:
-    rule: >-
-      Existing Q8 results remain as historical evidence, but do not define the
-      quantization selected for this batch.
+    - do not substitute FP16 or BF16 for a large model when NVFP4 or Q4 exists
+    - do not confuse NVFP4 from another model size or revision
+    - do not use third-party quantization without lineage, exact file and SHA-256
+    - do not change quantization silently after a load failure
 
 canonical_sources:
   numerical:
@@ -133,9 +123,9 @@ canonical_sources:
     - benchmark/embedding-v3/results
   human_decisions: benchmark/embedding-v3/README.md
   rules:
-    - never estimate a missing metric
+    - never estimate missing metrics
     - never reuse candidates across different weight hashes
-    - never inherit a result through an unproven alias
+    - never inherit results through unproven aliases
     - do not create another leaderboard, registry or blacklist
     - update only the two canonical README tables after real results exist
 
@@ -185,98 +175,394 @@ existing_results:
     - bitnet_06b
 
 execution_order:
-  - validate_repository_governance_hardware_and_quantization_policy
-  - validate_canonical_inventory
-  - audit_aliases_and_candidate_hashes
-  - materialize_missing_candidates_from_valid_embedding_artifacts
-  - run_missing_qwen_local_pipelines
-  - audit_qwen3_embedding_8b_in_q4
-  - repair_other_suspect_embedding_baselines
-  - gate_repaired_embeddings_for_reranking
-  - run_qwen_local_for_repaired_embeddings_that_pass
-  - install_and_smoke_test_new_local_rerankers
-  - run_new_reranker_panel
-  - regenerate_canonical_results_and_readme
-  - stop_before_voyage_and_request_explicit_cost_approval
+  run_now_small_phase:
+    - validate_repository_governance_hardware_and_inventory
+    - materialize_missing_qwen_candidates_from_existing_valid_artifacts
+    - run_missing_qwen_local_pipelines_without_new_model_downloads
+    - benchmark_lfm_350m_q4
+    - build_current_bitnet_cpp_once
+    - benchmark_bitnet_270m_i2s
+    - benchmark_bitnet_06b_i2s
+    - gate_new_small_embeddings_for_qwen_local
+    - run_qwen_local_for_small_embeddings_that_pass
+    - benchmark_mxbai_rerank_base_v2_on_fixed_panel
+    - benchmark_nvidia_nemotron_rerank_1b_v2_on_fixed_panel
+    - regenerate_canonical_results_and_readme
+    - create_commit_push_and_pr
+    - stop_and_report
+  do_not_run_now_heavy_phase:
+    - qwen3_reranker_4b_nvfp4_then_q4
+    - boom_4b_q4
+    - qwen3_embedding_8b_nvfp4_and_q4_control
+    - nemotron_8b_q4
+    - kalm_12b_q4
+    - ict_querit_embedding_v1_until_quant_exists
+    - voyage_api
 
-phase_0_preflight:
+phase_0_preflight_and_existing_work:
   assertions:
-    - repository and active worktree match Weltall-IA/holo-models
     - corpus hash and counts match the frozen protocol
     - ALL_BENCHMARK_RESULTS has 36 embedding-only profiles before execution
     - ALL_BENCHMARK_RESULTS has 89 reranked pipelines before execution
     - no blocked or audit-required profile participates in production selection
-  quantization_inventory:
-    order:
-      - inspect exact local files and hashes
-      - inspect official or designated model repository
-      - select NVFP4 when trustworthy
-      - otherwise select Q4_K_M or another trustworthy Q4
-      - use a listed small-model exception only when necessary
-    output_required:
-      - selected artifact per model
-      - rejected alternatives and reasons
-      - expected VRAM
-      - local free disk
-      - exact download required, if any
-  alias_audit:
-    - profiles: [voyage-4-large, voyage_4_large_1024_float32]
-      prove:
-        - provider model and immutable revision
-        - dimension and dtype
-        - checkpoint hashes
-        - normalized candidate ranking hash for all 150 queries
-    - profiles: [voyage4_nano, voyage4_nano_1024_float32]
-      prove:
-        - immutable weight revision
-        - dimension and dtype
-        - normalized candidate ranking hash for all 150 queries
-    - profiles: [embeddinggemma, embeddinggemma_768_float32, embeddinggemma_gguf]
-      rule: >-
-        Same family does not imply alias. Reuse only when weights, prompts,
-        dimension and all candidate rankings are proven equivalent.
+  missing_qwen_local_without_download:
+    mandatory:
+      - profile: nemotron_3_embed_1b_nvfp4
+        candidate_source: existing full-corpus admission artifact
+      - profile: nemotron_3_embed_1b_q4_k_m_gguf
+        candidate_source: existing full-corpus admission artifact
+      - profile: voyage-context-4
+        candidate_source: existing checkpoints or per-query rankings
+        prohibition: do not call the Voyage embedding API again
+    conditional:
+      - profile: voyage-4-large
+        run_only_if: alias audit does not prove equivalence to voyage_4_large_1024_float32
+    candidate_acceptance:
+      - exactly 150 ordered queries
+      - at least top 50 candidates per query
+      - frozen corpus hash matches
+      - source artifact and normalized ranking hash are recorded
 
-phase_1_missing_qwen_local:
-  reranker: qwen_local
-  underlying_existing_control: Qwen3-Reranker-0.6B
-  mandatory:
-    - profile: nemotron_3_embed_1b_nvfp4
-      candidate_source: existing full-corpus admission artifacts
-    - profile: nemotron_3_embed_1b_q4_k_m_gguf
-      candidate_source: existing full-corpus admission artifacts
-    - profile: voyage-context-4
-      candidate_source: existing checkpoints or per-query rankings
-      prohibition: do not call the Voyage embedding API again
-  conditional:
-    - profile: voyage-4-large
-      run_only_if: alias audit does not prove equivalence to voyage_4_large_1024_float32
-  acceptance:
-    - exactly 150 ordered queries
-    - at least top 50 candidates per query
-    - frozen corpus hash matches
-    - source embedding artifact and candidate ranking hash are recorded
-    - Qwen reranker weight hash and runtime are recorded
-
-phase_2_qwen3_embedding_8b_audit:
-  historical_profile:
-    id: qwen3_embedding_8b_gguf
-    weight: Qwen3-Embedding-8B-Q8_0.gguf
-    status: AUDIT_REQUIRED
-    baseline_mrr_at_10: 0.6920423280423281
-    qwen_pipeline_mrr_at_10: 0.7914047619
-    decision: >-
-      Preserve as historical evidence only. Do not reuse its candidates or
-      reranked pipeline for production decisions.
-  retest:
-    profile_id: qwen3_embedding_8b_q4_k_m_audit
-    repository: Qwen/Qwen3-Embedding-8B-GGUF
-    immutable_revision_hint: 69d0e58a13e463cd99a9b83e3f5fee7c10265fab
-    file: Qwen3-Embedding-8B-Q4_K_M.gguf
-    expected_size_approx_gb: 4.68
+small_phase_artifacts:
+  - order: 1
+    profile_id: lfm_25_embedding_350m_q4_k_m_official
+    kind: embedding
+    parameters: 350M
+    selected_quantization: Q4_K_M
+    selection_reason: official Q4 exists; preferred over Q8 and BF16
+    repository: LiquidAI/LFM2.5-Embedding-350M-GGUF
+    model_page: https://huggingface.co/LiquidAI/LFM2.5-Embedding-350M-GGUF
+    file_page: https://huggingface.co/LiquidAI/LFM2.5-Embedding-350M-GGUF/blob/main/LFM2.5-Embedding-350M-Q4_K_M.gguf
+    file: LFM2.5-Embedding-350M-Q4_K_M.gguf
+    expected_size_bytes_approx: 229000000
+    expected_sha256: 4d7aa9dc6406a10fc3dec2c11f8f06781af063bf49211b8e4132e9b876d3f32a
+    download_command: >-
+      hf download LiquidAI/LFM2.5-Embedding-350M-GGUF
+      LFM2.5-Embedding-350M-Q4_K_M.gguf
+      --local-dir embed/lfm_25_embedding_350m_q4_k_m_official
     backend: llama.cpp
-    quantization: Q4_K_M
-    native_dimension: 4096
-    evaluated_dimensions: [4096, 1024]
+    server_requirements:
+      - use --embedding or --embeddings according to the installed llama.cpp build
+      - use explicit CLS pooling; do not rely on an unverified automatic pooling value
+      - use CUDA offload and record the command
+    native_dimension: 1024
+    evaluated_dimension: 1024
+    pooling: cls
+    normalization: l2
+    query_prefix: "query: "
+    document_prefix: "document: "
+    max_tokens: 512
+    anti_error_rules:
+      - this is the embedding repository, not LiquidAI/LFM2.5-350M text generation
+      - do not use the ColBERT model
+      - apply query and document prefixes asymmetrically
+      - verify returned dimension is exactly 1024
+      - reject zero-norm or non-finite vectors
+      - never reuse candidates from lfm_25_embedding_350m_q4
+    smoke_test:
+      documents: 20
+      queries: 10
+      requirements:
+        - server starts on CUDA
+        - 1024 finite L2-normalized values per vector
+        - relevant pair scores above obvious unrelated controls
+        - no identical vector for distinct inputs
+
+  - order: 2
+    profile_id: bitnet_270m_current
+    kind: embedding
+    parameters: 270M
+    selected_quantization: official_I2_S
+    selection_reason: official architecture-native 1.58-bit format
+    repository: microsoft/bitnet-embedding-270m
+    model_page: https://huggingface.co/microsoft/bitnet-embedding-270m
+    file_page: https://huggingface.co/microsoft/bitnet-embedding-270m/blob/main/bitnet-embeddings-270m-bf16-i2_s.gguf
+    revision: b01800d7eba04db105a8ef88a8be61dbac047b0b
+    file: bitnet-embeddings-270m-bf16-i2_s.gguf
+    expected_size_bytes: 367000000
+    expected_sha256: 8ee5ae971b103cd55758934be54e5c9f7cc2b58b15890615acce8e649988c751
+    download_command: >-
+      hf download microsoft/bitnet-embedding-270m
+      bitnet-embeddings-270m-bf16-i2_s.gguf
+      --revision b01800d7eba04db105a8ef88a8be61dbac047b0b
+      --local-dir embed/bitnet_270m_current
+    backend: bitnet.cpp
+    executable: llama-embedding
+    native_dimension: 640
+    evaluated_dimension: 640
+    pooling: last_non_padding_token
+    normalization: l2
+    query_instruction: >-
+      query: Given a query, retrieve scenes that answer it by matching events,
+      dialogue, characters, emotional intention and context.
+    document_prompt: ""
+    anti_error_rules:
+      - do not use the legacy GGUF that failed with TYPE_IQ4_NL_4_4
+      - use the current Microsoft BitNet repository
+      - use llama-embedding, not llama-cli and not a generation server
+      - apply instruction only to queries
+      - verify output dimension is exactly 640
+
+  - order: 3
+    profile_id: bitnet_06b_current
+    kind: embedding
+    parameters: 0.6B
+    selected_quantization: official_I2_S
+    selection_reason: official architecture-native 1.58-bit format
+    repository: microsoft/bitnet-embedding-0.6b
+    model_page: https://huggingface.co/microsoft/bitnet-embedding-0.6b
+    file_page: https://huggingface.co/microsoft/bitnet-embedding-0.6b/blob/main/bitnet-embeddings-0.6b-bf16-i2_s.gguf
+    revision: 459a4718ed183ebbf5d7c89e4908f66322790e9b
+    file: bitnet-embeddings-0.6b-bf16-i2_s.gguf
+    expected_size_bytes: 427935008
+    expected_sha256: c89c64f05a2d3f83565250a6762640197fc624df866d4a1bd5853f811219af17
+    download_command: >-
+      hf download microsoft/bitnet-embedding-0.6b
+      bitnet-embeddings-0.6b-bf16-i2_s.gguf
+      --revision 459a4718ed183ebbf5d7c89e4908f66322790e9b
+      --local-dir embed/bitnet_06b_current
+    backend: bitnet.cpp
+    executable: llama-embedding
+    native_dimension: 1024
+    evaluated_dimension: 1024
+    pooling: last_non_padding_token
+    normalization: l2
+    query_instruction: >-
+      query: Given a query, retrieve scenes that answer it by matching events,
+      dialogue, characters, emotional intention and context.
+    document_prompt: ""
+    anti_error_rules:
+      - use the same current BitNet build as the 270M run
+      - do not use the legacy GGUF that failed with TYPE_IQ4_NL_4_4
+      - apply instruction only to queries
+      - verify output dimension is exactly 1024
+
+bitnet_build:
+  repository: https://github.com/microsoft/BitNet.git
+  build_once_before_both_models: |
+    git clone --recursive https://github.com/microsoft/BitNet.git runtimes/BitNet
+    cmake -S runtimes/BitNet -B runtimes/BitNet/build \
+      -DCMAKE_BUILD_TYPE=Release \
+      -DCMAKE_C_COMPILER=clang \
+      -DCMAKE_CXX_COMPILER=clang++ \
+      -DGGML_NATIVE=ON \
+      -DGGML_OPENMP=OFF \
+      -DLLAMA_BUILD_COMMON=ON \
+      -DLLAMA_BUILD_TOOLS=ON \
+      -DLLAMA_BUILD_EXAMPLES=ON
+    cmake --build runtimes/BitNet/build \
+      --target llama-embedding llama-bench -j"$(nproc)"
+  inference_template: >-
+    runtimes/BitNet/build/bin/llama-embedding -m MODEL.gguf
+    -p "QUERY_OR_DOCUMENT_TEXT" --embd-normalize 2
+    --embd-output-format array
+  record:
+    - BitNet git commit
+    - compiler versions
+    - CMake flags
+    - binary SHA-256
+
+small_embedding_gate_to_qwen:
+  default:
+    hit_rate_at_50_minimum: 0.9666666667
+    queries_without_relevant_maximum: 5
+    require_valid_provenance: true
+    require_unique_candidate_artifact: true
+  efficiency_exception:
+    allowed_profiles:
+      - bitnet_270m_current
+      - bitnet_06b_current
+    hit_rate_at_50_minimum: 0.94
+  fail_action:
+    - preserve baseline result
+    - update canonical blacklist or blocked reason
+    - do not execute rerankers for the failed embedding
+  pass_action:
+    - generate top 50 candidates
+    - run existing qwen_local
+    - record rescue, damage, latency, RAM, VRAM and errors
+
+small_rerankers_run_now:
+  fixed_panel_embeddings:
+    - nemotron_3_embed_1b_nvfp4
+    - nomic_embed_text_v2_moe_q4
+    - qwen3_embedding_4b_q8_0
+    - embeddinggemma
+    - colibri_ptbr
+    - granite_embedding_311m_r2
+
+  models:
+    - order: 4
+      id: mxbai_rerank_base_v2
+      parameters: 0.5B
+      quantization_selection:
+        nvfp4_found: false
+        q4_found: false
+        selected: native_safetensors
+        exception: model_at_most_1B
+      repository: mixedbread-ai/mxbai-rerank-base-v2
+      model_page: https://huggingface.co/mixedbread-ai/mxbai-rerank-base-v2
+      files_page: https://huggingface.co/mixedbread-ai/mxbai-rerank-base-v2/tree/main
+      primary_weight_file: model.safetensors
+      expected_weight_size_bytes_approx: 988000000
+      expected_weight_sha256: c01649fe56b3fe32e52da43c69e084dff7c2252cf231a38c56d5a291a674338f
+      download_command: >-
+        hf download mixedbread-ai/mxbai-rerank-base-v2
+        --local-dir rerank/mxbai_rerank_base_v2
+      backend: sentence-transformers.CrossEncoder
+      install_command: pip install -U sentence-transformers
+      scoring:
+        method: CrossEncoder.predict_or_rank
+        output: raw_score
+        sort: descending
+      anti_error_rules:
+        - load the complete repository, not only model.safetensors
+        - use query-document pairs
+        - do not use text generation
+        - record tokenizer maximum length and truncation
+        - produce exactly one finite score per pair
+        - preserve candidate order when mapping scores
+
+    - order: 5
+      id: llama_nemotron_rerank_1b_v2
+      parameters: 1B
+      quantization_selection:
+        nvfp4_found: false
+        q4_found: false
+        selected: native_BF16_safetensors
+        exception: model_at_most_1B
+      repository: nvidia/llama-nemotron-rerank-1b-v2
+      model_page: https://huggingface.co/nvidia/llama-nemotron-rerank-1b-v2
+      files_page: https://huggingface.co/nvidia/llama-nemotron-rerank-1b-v2/tree/main
+      primary_weight_file: model.safetensors
+      expected_weight_size_bytes_approx: 2470000000
+      expected_weight_sha256: 7d60ff24db62fe6a639c4c6f4aeac3a3b32ed20939ab72a0be4b019c2219e5e0
+      download_command: >-
+        hf download nvidia/llama-nemotron-rerank-1b-v2
+        --local-dir rerank/llama_nemotron_rerank_1b_v2
+      backend: vllm
+      minimum_vllm: 0.14.0
+      installed_reference_vllm: 0.25.0
+      trust_remote_code: true
+      runner: pooling
+      required_score_template_file: rerank/nemotron-rerank.jinja
+      create_template_command: |
+        python3 - <<'PY'
+        template = (
+            'question:{{ (messages | selectattr("role", "eq", "query") | first).content }}'
+            '\n\n'
+            'passage:{{ (messages | selectattr("role", "eq", "document") | first).content }}'
+        )
+        open('rerank/nemotron-rerank.jinja', 'w', encoding='utf-8').write(template)
+        PY
+      serve_command: >-
+        vllm serve rerank/llama_nemotron_rerank_1b_v2
+        --trust-remote-code --runner pooling
+        --chat-template rerank/nemotron-rerank.jinja
+      anti_error_rules:
+        - score template is mandatory; without it results are incorrect
+        - use LLM.score or the official rerank endpoint
+        - do not use text generation
+        - preserve returned document indices
+        - record raw relevance_score without sign inversion
+        - verify native precision fits with at least 3 GiB free VRAM after load
+
+  expected_new_panel_pipelines: 12
+  panel_rules:
+    - use identical candidates for comparisons against qwen_local
+    - rank by MRR@10, nDCG@10, HR@1, HR@10, damage, p95 latency and VRAM
+    - no reranker is promoted by public reputation alone
+
+heavy_phase_researched_but_do_not_run_now:
+  - order_later: 1
+    id: qwen3_reranker_4b
+    kind: reranker
+    primary_selection:
+      quantization: NVFP4
+      repository: throwerdopey0/Qwen3-Reranker-4B-seq-cls-NVFP4
+      model_page: https://huggingface.co/throwerdopey0/Qwen3-Reranker-4B-seq-cls-NVFP4
+      download_command: >-
+        hf download throwerdopey0/Qwen3-Reranker-4B-seq-cls-NVFP4
+        --local-dir rerank/qwen3_reranker_4b_nvfp4
+      backend: vllm_0.25_pooling
+      note: >-
+        Third-party NVFP4 with disclosed MS MARCO calibration and official Qwen
+        prompt layout. Must pass lineage, SHA and deterministic scoring checks.
+    fallback_selection:
+      quantization: Q4_K_M
+      repository: mradermacher/Qwen3-Reranker-4B-GGUF
+      model_page: https://huggingface.co/mradermacher/Qwen3-Reranker-4B-GGUF
+      file_page: https://huggingface.co/mradermacher/Qwen3-Reranker-4B-GGUF/blob/main/Qwen3-Reranker-4B.Q4_K_M.gguf
+      file: Qwen3-Reranker-4B.Q4_K_M.gguf
+      expected_size_bytes_approx: 2500000000
+      expected_sha256: 143cbc3a4b2ebbd0b4022931c22a257c1c501cf20eeae0e65b1131183506ce65
+      download_command: >-
+        hf download mradermacher/Qwen3-Reranker-4B-GGUF
+        Qwen3-Reranker-4B.Q4_K_M.gguf
+        --local-dir rerank/qwen3_reranker_4b_q4_k_m
+    official_scoring_reference: https://huggingface.co/Qwen/Qwen3-Reranker-4B
+    scoring_rules:
+      - use the official CrossEncoder or verified yes/no logit method
+      - use an English task instruction
+      - never rank arbitrary generated text
+      - do not invert yes/no scoring signs
+
+  - order_later: 2
+    id: boom_4b_v1_q4_k_m_retest
+    kind: embedding
+    nvfp4_search_result: no trustworthy public NVFP4 located
+    selected_quantization: Q4_K_M
+    repository: mradermacher/BOOM_4B_v1-GGUF
+    base_model: ICT-TIME-and-Querit/BOOM_4B_v1
+    model_page: https://huggingface.co/mradermacher/BOOM_4B_v1-GGUF
+    file: BOOM_4B_v1.Q4_K_M.gguf
+    expected_size_bytes_approx: 2500000000
+    download_command: >-
+      hf download mradermacher/BOOM_4B_v1-GGUF
+      BOOM_4B_v1.Q4_K_M.gguf
+      --local-dir embed/boom_4b_v1_q4_k_m_retest
+    pooling: last_non_padding_token
+    normalization: l2
+    prompt_source: model_task_prompts
+    rules:
+      - resolve and record exact file SHA-256 before execution
+      - use left padding when applicable
+      - apply the model-provided retrieval instruction only to queries
+      - never reuse the historical Q8 candidates
+
+  - order_later: 3
+    id: qwen3_embedding_8b_audit
+    kind: embedding
+    historical_q8_status: AUDIT_REQUIRED
+    primary_selection:
+      quantization: NVFP4
+      repository: alexliap/Qwen3-Embedding-8B-NVFP4
+      revision: 87db878af528bc425041f059887097d40191e05a
+      model_page: https://huggingface.co/alexliap/Qwen3-Embedding-8B-NVFP4
+      files_page: https://huggingface.co/alexliap/Qwen3-Embedding-8B-NVFP4/tree/main
+      download_command: >-
+        hf download alexliap/Qwen3-Embedding-8B-NVFP4
+        --revision 87db878af528bc425041f059887097d40191e05a
+        --local-dir embed/qwen3_embedding_8b_nvfp4_audit
+      backend: vllm_0.25_compressed_tensors
+      provenance_note: >-
+        Disclosed llmcompressor recipe, but calibration used 100 Greek Aya samples.
+        Treat as an auditable third-party quant, not an official Qwen release.
+    q4_control:
+      quantization: Q4_K_M
+      repository: Qwen/Qwen3-Embedding-8B-GGUF
+      revision: 90f57aa3f809935cd1a85cc0c391d3b23a3bc71c
+      model_page: https://huggingface.co/Qwen/Qwen3-Embedding-8B-GGUF
+      file_page: https://huggingface.co/Qwen/Qwen3-Embedding-8B-GGUF/blob/90f57aa3f809935cd1a85cc0c391d3b23a3bc71c/Qwen3-Embedding-8B-Q4_K_M.gguf
+      file: Qwen3-Embedding-8B-Q4_K_M.gguf
+      expected_size_bytes_approx: 4680000000
+      expected_sha256: 758749433c7954543f308a2bf850e4238c57aeb64834ee36ca6b3b57d33a147c
+      download_command: >-
+        hf download Qwen/Qwen3-Embedding-8B-GGUF
+        Qwen3-Embedding-8B-Q4_K_M.gguf
+        --revision 90f57aa3f809935cd1a85cc0c391d3b23a3bc71c
+        --local-dir embed/qwen3_embedding_8b_q4_k_m_audit
+    dimensions: [4096, 1024]
     pooling: last_non_padding_token
     normalization: l2
     query_instruction: >-
@@ -284,273 +570,93 @@ phase_2_qwen3_embedding_8b_audit:
       dialogue, characters, emotional intention and context.
       Query:
     document_prompt: ""
-    anti_error_rules:
-      - resolve and record the exact main-branch file SHA-256 before execution
-      - never use the historical Q8 candidate cache
-      - use a new profile ID and new candidate paths
-      - verify native output dimension is 4096
-      - derive 1024 from the first 1024 dimensions and normalize again in L2
-      - preserve the exact query instruction in the result JSON
-      - apply the instruction only to queries
-      - use the final non-padding token
-      - compare per-query rankings against Qwen3 4B and historical Qwen3 8B
-  pass_conditions:
-    - complete provenance and protocol metadata
-    - zero missing queries
-    - candidates are not byte-identical to an unrelated profile
-  after_pass:
-    - run qwen_local separately for 4096 and 1024 candidates
-    - retain both dimensions as separate profile IDs
-  after_fail:
-    - keep historical Q8 result in AUDIT_REQUIRED
-    - do not run additional rerankers
+    audit_rules:
+      - run NVFP4 first
+      - run Q4 control because the historical 8B result is implausibly below 4B
+      - use distinct profile IDs and candidate caches for every quantization and dimension
+      - derive 1024 using the first 1024 dimensions and normalize again
+      - compare per-query rankings against Qwen3 4B and historical Q8
 
-phase_3_other_embedding_repairs:
-  models:
-    - family: Nemotron-3-Embed-8B
-      replaces_suspect_ids: [nemotron_8b_abiray_q4, nemotron_8b_aqua00_q4]
-      selection:
-        first: locally available NVFP4 proven to be the exact 8B model
-        fallback: Abiray/Nemotron-3-Embed-8B-GGUF Q4_K_M
-        forbidden: [Q8_0, BF16_CPU_OFFLOAD]
-      backend:
-        NVFP4: vllm_in_isolated_environment
-        Q4_K_M: llama.cpp
-      native_dimension: 4096
-      evaluated_dimensions: [4096, 1024]
-      pooling: mean
-      normalization: l2
-      query_prefix: "query: "
-      document_prefix: "passage: "
-      anti_error_rules:
-        - the NVIDIA NVFP4 1B artifact is not an 8B artifact
-        - record exact repository, revision, file and SHA-256
-        - never reuse Abiray or Aqua00 candidates or caches
-        - derive 1024 by prefix slicing and new L2 normalization
-        - compare candidate hashes against both suspect runs
-        - if no trustworthy NVFP4 8B or Q4 exists, mark BLOCKED
+  - order_later: 4
+    id: nemotron_3_embed_8b_q4_k_m_audit
+    kind: embedding
+    nvfp4_search_result: >-
+      NVIDIA official collection lists NVFP4 for the 1B model and BF16 for the 8B;
+      no official Nemotron Embed 8B NVFP4 was located.
+    selected_quantization: Q4_K_M
+    repository: Abiray/Nemotron-3-Embed-8B-GGUF
+    base_model: nvidia/Nemotron-3-Embed-8B-BF16
+    model_page: https://huggingface.co/Abiray/Nemotron-3-Embed-8B-GGUF
+    file: Nemotron-3-Embed-8B-Q4_K_M.gguf
+    expected_size_bytes_approx: 4900000000
+    download_command: >-
+      hf download Abiray/Nemotron-3-Embed-8B-GGUF
+      Nemotron-3-Embed-8B-Q4_K_M.gguf
+      --local-dir embed/nemotron_3_embed_8b_q4_k_m_audit
+    backend: llama.cpp
+    dimensions: [4096, 1024]
+    pooling: mean
+    normalization: l2
+    query_prefix: "query: "
+    document_prefix: "passage: "
+    rules:
+      - verify exact local SHA-256 and base-model lineage before load
+      - never use or copy old Abiray/Aqua00 candidates
+      - derive 1024 by prefix slicing and new L2 normalization
+      - compare candidate hashes with both suspect historical runs
+      - do not use Q8 or BF16 CPU offload
 
-    - profile_id: lfm_25_embedding_350m_official
-      repository: LiquidAI/LFM2.5-Embedding-350M
-      size_class: small
-      quantization_selection:
-        preferred: [NVFP4, Q4]
-        small_native_exception: BF16
-      backend: sentence-transformers
-      trust_remote_code: true
-      native_dimension: 1024
-      evaluated_dimension: 1024
-      max_tokens: 512
-      pooling: cls
-      normalization: l2
-      query_prompt_name: query
-      document_prompt_name: document
-      anti_error_rules:
-        - use the official dense bi-encoder, not the ColBERT model
-        - do not omit prompt_name
-        - do not use mean or last-token pooling
-        - record why the small native exception was needed
+  - order_later: 5
+    id: kalm_embedding_gemma3_12b_q4_k_m_retest
+    kind: embedding
+    nvfp4_search_result: no trustworthy public NVFP4 located
+    selected_quantization: Q4_K_M
+    repository: mradermacher/KaLM-Embedding-Gemma3-12B-2511-GGUF
+    base_model: tencent/KaLM-Embedding-Gemma3-12B-2511
+    model_page: https://huggingface.co/mradermacher/KaLM-Embedding-Gemma3-12B-2511-GGUF
+    file_page: https://huggingface.co/mradermacher/KaLM-Embedding-Gemma3-12B-2511-GGUF/blob/main/KaLM-Embedding-Gemma3-12B-2511.Q4_K_M.gguf
+    file: KaLM-Embedding-Gemma3-12B-2511.Q4_K_M.gguf
+    expected_size_bytes_approx: 7300000000
+    expected_sha256: aefbfd0d1be76170cf700160b0ca4eb0ffeb46c0c9cb7b6d9a893ea592856f6e
+    download_command: >-
+      hf download mradermacher/KaLM-Embedding-Gemma3-12B-2511-GGUF
+      KaLM-Embedding-Gemma3-12B-2511.Q4_K_M.gguf
+      --local-dir embed/kalm_embedding_gemma3_12b_q4_k_m_retest
+    official_reference: https://huggingface.co/tencent/KaLM-Embedding-Gemma3-12B-2511
+    dimensions: [3840, 1024]
+    pooling: last_non_padding_token
+    normalization: l2
+    query_prompt: "Instruct: Given a query, retrieve documents that answer the query\nQuery: "
+    document_prompt: ""
+    rules:
+      - query prompt applies only to queries
+      - never use mean pooling
+      - derive 1024 by prefix slicing and new L2 normalization
+      - never reuse either historical KaLM candidate file
 
-    - profile_id: kalm_embedding_gemma3_12b_q4_retest
-      replaces_suspect_ids:
-        - kalm_embedding_gemma3_12b_q4
-        - kalm_embedding_gemma3_12b_i1_q4
-      quantization_selection:
-        preferred: [NVFP4, Q4_K_M, other_trustworthy_Q4]
-        forbidden: [Q8, BF16]
-      source_policy: >-
-        Run only after resolving exact repository, revision, file hash and
-        conversion provenance. Otherwise remain BLOCKED.
-      backend: llama.cpp
-      native_dimension: 3840
-      evaluated_dimensions: [3840, 1024]
-      pooling: last_non_padding_token
-      normalization: l2
-      query_prompt: "Instruct: Given a query, retrieve documents that answer the query\nQuery: "
-      document_prompt: ""
-      anti_error_rules:
-        - query prompt applies only to queries
-        - never use mean pooling
-        - derive 1024 by prefix slicing and new L2 normalization
-        - never reuse either suspect candidate file
+  - order_later: 6
+    id: ict_time_querit_embedding_v1
+    kind: embedding
+    status: BLOCKED_NO_ALLOWED_QUANT
+    repository: ICT-TIME-and-Querit/ICT-TIME-and-Querit-embedding-v1
+    model_page: https://huggingface.co/ICT-TIME-and-Querit/ICT-TIME-and-Querit-embedding-v1
+    files_page: https://huggingface.co/ICT-TIME-and-Querit/ICT-TIME-and-Querit-embedding-v1/tree/main
+    parameters: 4B
+    official_weights_size_approx_gb: 16.1
+    official_dtype: F32
+    pooling: last_non_padding_token
+    dimension: 2560
+    decision: >-
+      Do not download the 16.1 GB F32 repository for this host. No trustworthy
+      NVFP4 or Q4 artifact was located. Recheck the Hub in the heavy phase; remain
+      BLOCKED until an allowed quantization exists.
 
-    - profile_id: boom_4b_v1_retest
-      replaces_suspect_id: boom_4b_v1_q8_0
-      expected_family: ICT-TIME-and-Querit/BOOM_4B_v1
-      quantization_selection:
-        preferred: [NVFP4, Q4_K_M, other_trustworthy_Q4]
-        forbidden: [Q8]
-      pooling: last_non_padding_token
-      normalization: l2
-      query_instruction_source: model_task_prompts
-      document_prompt: ""
-      anti_error_rules:
-        - use left padding for Transformers
-        - use the model-provided retrieval instruction
-        - never reuse the old Q8 candidates
-        - remain BLOCKED if tokenizer, prompt and pooling cannot be reproduced
-
-    - profile_id: ict_querit_embedding_v1
-      type: new_successor_control
-      repository: ICT-TIME-and-Querit/ICT-TIME-and-Querit-embedding-v1
-      quantization_selection:
-        preferred: [NVFP4, Q4_K_M, other_trustworthy_Q4]
-        forbidden: [Q8, FP16]
-      native_dimension: 2560
-      pooling: last_non_padding_token
-      padding_side: left
-      normalization: l2
-      query_prompt_name: query
-      document_prompt: ""
-      rule: >-
-        This 4B-class model runs only when a trustworthy NVFP4 or Q4 artifact is
-        available. Otherwise mark BLOCKED.
-
-    - profile_id: bitnet_06b_current
-      repository: microsoft/bitnet-embedding-0.6b
-      quantization: official_I2_S
-      policy_exception: architecture_native_exception
-      backend: bitnet.cpp
-      executable: llama-embedding
-      dimension: 1024
-      pooling: last_non_padding_token
-      normalization: l2
-      query_instruction: >-
-        query: Given a query, retrieve scenes that answer it by matching events,
-        dialogue, characters, emotional intention and context.
-      document_prompt: ""
-      anti_error_rules:
-        - do not use the legacy GGUF that failed in llama.cpp 9972
-        - build current bitnet.cpp with GGML_NATIVE=ON
-        - build and use llama-embedding
-        - record BitNet commit, compiler and build flags
-
-    - profile_id: bitnet_270m_current
-      repository: microsoft/bitnet-embedding-270m
-      quantization: official_I2_S
-      policy_exception: architecture_native_exception
-      backend: bitnet.cpp
-      executable: llama-embedding
-      dimension: 640
-      pooling: last_non_padding_token
-      normalization: l2
-      query_instruction: >-
-        query: Given a query, retrieve scenes that answer it by matching events,
-        dialogue, characters, emotional intention and context.
-      document_prompt: ""
-      rules:
-        - use the same BitNet build as the 0.6B run
-        - execute after the 0.6B model
-
-embedding_to_reranker_gate:
-  default:
-    hit_rate_at_50_minimum: 0.9666666667
-    queries_without_relevant_maximum: 5
-    require_valid_provenance: true
-    require_unique_candidate_artifact: true
-  efficiency_exception:
-    allowed_profiles: [bitnet_06b_current, bitnet_270m_current]
-    hit_rate_at_50_minimum: 0.94
-  fail_action:
-    - preserve baseline artifact
-    - update the canonical blacklist or blocked reason
-    - do not execute any reranker
-
-phase_4_qwen_after_repairs:
-  reranker: qwen_local
-  control_model: Qwen3-Reranker-0.6B
-  run_for: every repaired or new embedding that passes the gate
-  rules:
-    - use the existing validated Qwen reranker artifact
-    - retain the exact Holo rerank instruction
-    - do not overwrite suspect historical pipelines
-    - use new profile IDs
-    - record rescue, damage, latency, RAM, VRAM and execution errors
-    - require zero execution errors for production eligibility
-
-phase_5_new_local_reranker_panel:
-  embeddings:
-    - nemotron_3_embed_1b_nvfp4
-    - nomic_embed_text_v2_moe_q4
-    - qwen3_embedding_4b_q8_0
-    - embeddinggemma
-    - colibri_ptbr
-    - granite_embedding_311m_r2
-  rerankers:
-    - id: qwen3_reranker_4b
-      repository: Qwen/Qwen3-Reranker-4B
-      quantization_selection:
-        preferred: [NVFP4, Q4_K_M, other_trustworthy_Q4]
-        forbidden: [Q8, FP16, BF16]
-      backend: verified_local_reranker_adapter
-      anti_error_rules:
-        - use the official reranking scoring method
-        - do not score arbitrary generated text
-        - produce exactly one score for every query-document pair
-        - preserve one task instruction across the panel
-        - remain BLOCKED if no trustworthy NVFP4 or Q4 is available
-
-    - id: llama_nemotron_rerank_1b_v2
-      repository: nvidia/llama-nemotron-rerank-1b-v2
-      size_class: small
-      quantization_selection:
-        preferred: [NVFP4, Q4]
-        small_native_exception: BF16
-      backend_preference: vllm
-      trust_remote_code: true
-      runner: pooling
-      required_score_template: >-
-        question:{{ (messages | selectattr("role", "eq", "query") | first).content }}
-
-        passage:{{ (messages | selectattr("role", "eq", "document") | first).content }}
-      anti_error_rules:
-        - the score template is mandatory
-        - use LLM.score or the official rerank endpoint
-        - do not use text generation
-        - preserve returned document indices
-        - record why a small native exception was needed
-
-    - id: mxbai_rerank_base_v2
-      repository: mixedbread-ai/mxbai-rerank-base-v2
-      size_class: small
-      quantization_selection:
-        preferred: [NVFP4, Q4]
-        small_native_exception: FP16
-      backend_preference: sentence-transformers.CrossEncoder
-      anti_error_rules:
-        - use CrossEncoder.rank or predict on query-document pairs
-        - record maximum length and tokenizer truncation
-        - do not reuse scores unless union candidate IDs are exactly identical
-        - record why a small native exception was needed
-  expected_new_pipelines: 18
-  controls:
-    - compare each new reranker with qwen_local on identical candidates
-    - rank by MRR@10, nDCG@10, HR@1, HR@10, damage, p95 latency and VRAM
-    - no reranker is promoted solely by public benchmark reputation
-
-phase_6_voyage:
+voyage:
   status: DISABLED_PENDING_EXPLICIT_COST_APPROVAL
-  reranker: voyage_rerank_2_5
-  no_embedding_api_calls: true
-  possible_finalists:
-    mandatory_if_approved:
-      - qwen3_embedding_4b_q8_0
-      - colibri_ptbr
-    conditional_if_approved:
-      - profile: nemotron_3_embed_1b_nvfp4
-        condition: qwen_local MRR >= 0.815 or top 3 local result
-      - profile: qwen3_embedding_8b_q4_k_m_audit_4096
-        condition: audited baseline and Qwen pipeline pass
-      - profile: voyage-context-4
-        condition: qwen_local MRR >= 0.815
-      - profile: embeddinggemma
-        condition: alias audit proves difference from embeddinggemma_768_float32
   rules:
-    - stop before any API call
-    - report exact profiles, token estimate and estimated cost
-    - require a new explicit human approval
-    - use resume checkpoints
-    - do not repeat equivalent existing pipelines
+    - do not call Voyage embedding or rerank APIs in this session
+    - after all local phases, report exact proposed profiles and token/cost estimate
+    - require new explicit human approval
 
 resource_and_cache_policy:
   process_per_model: true
@@ -574,14 +680,10 @@ resource_and_cache_policy:
     - fallback to another model under the same profile ID
     - copy or rename candidate files to simulate execution
     - reuse candidates across different weight hashes
-    - silently truncate dimensions without re-normalizing
+    - silently truncate dimensions without L2 renormalization
     - mix embedding-only and reranked metrics
     - execute Voyage without explicit approval
     - fabricate metrics
-  on_failure:
-    - record sanitized error and attempted command
-    - mark BLOCKED or FAILED
-    - continue with independent models
 
 outputs:
   baselines: benchmark/embedding-v3/results/<appropriate-source>/<profile-id>.json
@@ -591,14 +693,14 @@ outputs:
     - benchmark/embedding-v3/ALL_BENCHMARK_RESULTS.json
     - benchmark/embedding-v3/README.md
   final_diff_rules:
-    - include only real result artifacts, required code/config changes and canonical documentation
+    - include only real results, required code/config changes and canonical documentation
     - remove temporary scripts and inventories
     - do not create another leaderboard, registry, blacklist or duplicate report
 
 validation:
   required:
     - corpus hash unchanged
-    - all result JSON files parse
+    - all new JSON and YAML files parse
     - every new profile has complete identity and protocol metadata
     - embedding-only and reranked metrics remain separated
     - candidate query order matches the frozen 150-query order
@@ -613,29 +715,32 @@ validation:
     - git diff --check
     - full diff review
 
+small_phase_stop_contract:
+  stop_after:
+    - all existing missing Qwen-local pipelines attempted
+    - LFM2.5 350M Q4 baseline complete or explicitly blocked
+    - BitNet 270M baseline complete or explicitly blocked
+    - BitNet 0.6B baseline complete or explicitly blocked
+    - Qwen local executed only for small embeddings that pass the gate
+    - mxbai reranker panel complete or explicitly blocked
+    - NVIDIA Nemotron reranker 1B panel complete or explicitly blocked
+    - canonical files updated from real artifacts
+    - feature branch committed, pushed and PR opened
+  must_not_start:
+    - any heavy_phase_researched_but_do_not_run_now model
+    - Voyage API
+
 completion_report:
   required:
     - models reused without execution
-    - quantization selected and rejected for every executed model
-    - Qwen3 8B Q4 audit results at 4096 and 1024 dimensions
-    - repaired baselines and old-versus-new deltas
-    - models that remained blocked and exact reasons
+    - exact downloads performed with revision, file size and SHA-256
+    - quantizations selected and rejected
+    - smoke-test results
+    - small baselines and comparison with historical artifacts
+    - small embeddings that passed or failed reranker gate
     - new Qwen pipelines
-    - new reranker panel ranking
+    - mxbai and NVIDIA 1B reranker panel ranking
     - latency, throughput, RAM, VRAM, rescue and damage
+    - heavy phase still pending
     - Voyage still pending approval
     - exact changed files, commit and PR URL
-
-external_references:
-  - https://huggingface.co/Qwen/Qwen3-Embedding-8B-GGUF
-  - https://huggingface.co/nvidia/Nemotron-3-Embed-8B-BF16
-  - https://huggingface.co/Abiray/Nemotron-3-Embed-8B-GGUF
-  - https://huggingface.co/LiquidAI/LFM2.5-Embedding-350M
-  - https://huggingface.co/tencent/KaLM-Embedding-Gemma3-12B-2511
-  - https://huggingface.co/ICT-TIME-and-Querit/ICT-TIME-and-Querit-embedding-v1
-  - https://huggingface.co/microsoft/bitnet-embedding-0.6b
-  - https://huggingface.co/microsoft/bitnet-embedding-270m
-  - https://huggingface.co/Qwen/Qwen3-Reranker-4B
-  - https://huggingface.co/nvidia/llama-nemotron-rerank-1b-v2
-  - https://huggingface.co/mixedbread-ai/mxbai-rerank-base-v2
-  - https://docs.voyageai.com/reference/reranker-api
