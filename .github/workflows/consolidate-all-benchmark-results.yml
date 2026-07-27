@@ -37,7 +37,7 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          if git diff --quiet -- benchmark/embedding-v3/ALL_BENCHMARK_RESULTS.json; then
+          if [ -z "$(git status --porcelain -- benchmark/embedding-v3/ALL_BENCHMARK_RESULTS.json)" ]; then
             echo 'Generated file is already current.'
           else
             git add benchmark/embedding-v3/ALL_BENCHMARK_RESULTS.json
