@@ -31,48 +31,31 @@ jobs:
           python-version: "3.12"
 
       - name: Generate consolidated benchmark file
-        id: generate
-        continue-on-error: true
-        run: |
-          set -o pipefail
-          python benchmark/embedding-v3/tools/consolidate_all_benchmark_results.py 2>&1 | tee /tmp/consolidation.log
+        run: python benchmark/embedding-v3/tools/consolidate_all_benchmark_results.py
 
-      - name: Persist failure diagnostics
-        if: steps.generate.outcome == 'failure'
+      - name: Commit generated file
         run: |
-          cp /tmp/consolidation.log benchmark/embedding-v3/CONSOLIDATION_FAILURE.log
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add benchmark/embedding-v3/CONSOLIDATION_FAILURE.log
-          git commit -m 'test(benchmark): record consolidation failure diagnostics'
-          git push origin HEAD:agent/consolidate-all-benchmark-results-v2
-          exit 1
+          if git diff --quiet -- benchmark/embedding-v3/ALL_BENCHMARK_RESULTS.json; then
+            echo 'Generated file is already current.'
+          else
+            git add benchmark/embedding-v3/ALL_BENCHMARK_RESULTS.json
+            git commit -m 'docs(benchmark): consolidate all 89 pipeline results'
+            git push origin HEAD:agent/consolidate-all-benchmark-results-v2
+          fi
 
       - name: Validate generated JSON and counts
-        if: steps.generate.outcome == 'success'
         run: |
           python - <<'PY'
           import json
           from pathlib import Path
           path = Path('benchmark/embedding-v3/ALL_BENCHMARK_RESULTS.json')
           data = json.loads(path.read_text(encoding='utf-8'))
+          assert data['validation']['status'] == 'PASS', data['validation']
           assert data['inventory']['published_pipeline_count'] == 89
           assert data['inventory']['unique_embedding_count'] == 32
           assert len(data['published_pipelines_ranked_by_mrr_at_10']) == 89
           assert len(data['embedding_index']) == 32
           print('validated:', path)
           PY
-
-      - name: Commit generated file
-        if: steps.generate.outcome == 'success'
-        run: |
-          rm -f benchmark/embedding-v3/CONSOLIDATION_FAILURE.log
-          if git diff --quiet -- benchmark/embedding-v3/ALL_BENCHMARK_RESULTS.json benchmark/embedding-v3/CONSOLIDATION_FAILURE.log; then
-            echo 'Generated file is already current.'
-            exit 0
-          fi
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -A benchmark/embedding-v3/ALL_BENCHMARK_RESULTS.json benchmark/embedding-v3/CONSOLIDATION_FAILURE.log
-          git commit -m 'docs(benchmark): consolidate all 89 pipeline results'
-          git push origin HEAD:agent/consolidate-all-benchmark-results-v2
