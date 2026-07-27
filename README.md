@@ -32,3 +32,18 @@ antes do merge.
 Registros persistentes em `.ai/tasks/` são opcionais e existem somente quando o estado
 precisa atravessar sessões, ambientes ou pessoas. Registros concluídos são evidência
 histórica e não são reescritos para acompanhar versões posteriores do workflow.
+
+## Benchmark de embeddings
+
+A documentação canônica do benchmark, as duas tabelas de modelos reutilizáveis e
+blacklist e as regras locais de atualização ficam em:
+
+`benchmark/embedding-v3/README.md`
+
+As métricas consolidadas permanecem em:
+
+`benchmark/embedding-v3/ALL_BENCHMARK_RESULTS.json`
+
+Antes de alterar resultados ou classificações nessa pasta, leia também
+`benchmark/embedding-v3/AGENTS.md`. Não crie leaderboards, registries ou blacklists
+paralelos para embeddings; atualize os arquivos canônicos existentes.
