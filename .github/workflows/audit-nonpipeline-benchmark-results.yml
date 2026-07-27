@@ -17,21 +17,17 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: agent/fix-consolidated-reranked-metrics
-      - name: Inventory complete metric blocks outside reranker pipelines
+      - name: Inventory aggregate metric summaries outside reranker pipelines
         run: |
           python - <<'PY'
           import json
           from pathlib import Path
 
           root = Path('benchmark/embedding-v3')
-          excluded_parts = {
-              'archive',
-          }
           excluded_names = {
               'ALL_BENCHMARK_RESULTS.json',
               'TEMP_NONPIPELINE_BENCHMARK_INVENTORY.json',
           }
-
           aliases = {
               'mrr_at_10': ('MRR@10', 'mrr_at_10'),
               'hit_rate_at_1': ('HitRate@1', 'hit_rate_at_1', 'hr_at_1'),
@@ -41,8 +37,9 @@ jobs:
 
           def metric_value(node, keys):
               for key in keys:
-                  if key in node and isinstance(node[key], (int, float)):
-                      return float(node[key])
+                  value = node.get(key)
+                  if isinstance(value, (int, float)):
+                      return float(value)
               return None
 
           def complete_metrics(node):
@@ -51,16 +48,18 @@ jobs:
               out = {name: metric_value(node, keys) for name, keys in aliases.items()}
               return out if all(value is not None for value in out.values()) else None
 
-          def walk(node, path='$'):
+          def summary_blocks(node, path='$'):
               if isinstance(node, dict):
-                  metrics = complete_metrics(node)
-                  if metrics:
-                      yield path, metrics
                   for key, value in node.items():
-                      yield from walk(value, f'{path}.{key}')
+                      next_path = f'{path}.{key}'
+                      if key == 'summary':
+                          metrics = complete_metrics(value)
+                          if metrics:
+                              yield next_path, metrics
+                      yield from summary_blocks(value, next_path)
               elif isinstance(node, list):
                   for index, value in enumerate(node):
-                      yield from walk(value, f'{path}[{index}]')
+                      yield from summary_blocks(value, f'{path}[{index}]')
 
           records = []
           parse_errors = []
@@ -68,23 +67,22 @@ jobs:
               rel = path.as_posix()
               if 'results/reranker/pipelines/' in rel:
                   continue
-              if path.name in excluded_names or any(part in excluded_parts for part in path.parts):
+              if '/archive/' in rel or path.name in excluded_names:
                   continue
               try:
                   data = json.loads(path.read_text(encoding='utf-8'))
               except Exception as exc:
                   parse_errors.append({'path': rel, 'error': f'{type(exc).__name__}: {exc}'})
                   continue
-              blocks = list(walk(data))
-              if not blocks:
-                  continue
+
               dataset = data.get('dataset', {}) if isinstance(data, dict) else {}
               model = data.get('model') if isinstance(data, dict) else None
               if isinstance(model, dict):
                   model_id = model.get('repo') or model.get('id') or model.get('path')
               else:
                   model_id = model
-              for json_path, metrics in blocks:
+
+              for json_path, metrics in summary_blocks(data):
                   records.append({
                       'source_path': rel,
                       'json_path': json_path,
@@ -99,12 +97,13 @@ jobs:
                       'metrics': metrics,
                   })
 
+          records.sort(key=lambda item: (-item['metrics']['mrr_at_10'], item['source_path'], item['json_path']))
           output = {
-              'scope': 'Complete metric blocks outside results/reranker/pipelines; read-only audit',
+              'scope': 'Aggregate complete metric summaries outside results/reranker/pipelines; read-only audit',
               'record_count': len(records),
               'source_file_count': len({r['source_path'] for r in records}),
               'parse_errors': parse_errors,
-              'records': records,
+              'records_ranked_by_mrr_at_10': records,
           }
           out = root / 'TEMP_NONPIPELINE_BENCHMARK_INVENTORY.json'
           out.write_text(json.dumps(output, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
@@ -115,5 +114,5 @@ jobs:
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
           git add benchmark/embedding-v3/TEMP_NONPIPELINE_BENCHMARK_INVENTORY.json
-          git commit -m "chore: record temporary non-pipeline benchmark inventory"
+          git commit -m "chore: refine temporary non-pipeline benchmark inventory"
           git push
