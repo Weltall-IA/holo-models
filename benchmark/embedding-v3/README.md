@@ -113,3 +113,136 @@ Para inventário, ranking e comparação de embeddings e rerankers, consulte som
 
 Os artefatos individuais em `results/reranker/pipelines/` continuam sendo a fonte autoritativa das métricas. Registros e relatórios anteriores foram movidos para `archive/superseded/`; os caminhos antigos contêm apenas avisos de compatibilidade e não devem ser usados como leaderboard.
 
+## Registro canônico de qualidade dos embeddings
+
+Esta seção é o registro humano canônico para decisões de reutilização dos
+embeddings medidos. Os números continuam vindo de
+`ALL_BENCHMARK_RESULTS.json` e dos artefatos individuais; esta seção registra
+a interpretação, a confiança e a decisão operacional sem criar outro
+leaderboard ou registry paralelo.
+
+Revisão desta classificação: **2026-07-27**.
+
+As colunas não misturam protocolos:
+
+- **MRR@10 sozinho** mede somente o embedding;
+- **Melhor MRR@10 com reranker** mostra o melhor pipeline publicado para aquele perfil;
+- `—` significa que a combinação não foi executada ou não possui resultado publicado;
+- **Faixa A** identifica candidatos fortes; **B**, candidatos úteis; **C**, perfis
+  de nicho ou dependentes de reranker;
+- a faixa é específica do corpus Holo e não representa uma nota universal do modelo.
+
+A verificação externa serve apenas como teste de coerência, porque MRR@10 do
+corpus Holo, médias MTEB e nDCG de outros benchmarks não são numericamente
+intercambiáveis. Foram consultados o
+[MTEB-BR](https://mteb-br.org/) e model cards oficiais no Hugging Face.
+Artificial Analysis não foi usado como critério decisório nesta revisão,
+porque a comparação precisa cobrir o mesmo modelo, quantização, dimensão,
+pooling e protocolo do artefato local.
+
+### Tabela 1 — embeddings bons ou reutilizáveis
+
+Entrar nesta tabela significa que o perfil pode continuar sendo considerado
+em novas comparações. Não significa que ele seja o perfil de produção atual.
+
+| Perfil | MRR@10 sozinho | Melhor MRR@10 com reranker | Faixa | Confiança | Decisão |
+|---|---|---|---|---|---|
+| `nemotron_3_embed_1b_nvfp4` | 0.7753 | — | A | alta | Melhor baseline local; vLLM/NVFP4; 145,03 docs/s. |
+| `voyage-4-large` | 0.7728 | — | A | média | API; resultado completo, sem pipeline sob o mesmo ID. |
+| `voyage_4_large_1024_float32` | 0.7728 | 0.8261 | A | média | Variante histórica 1024/F32; melhor reranker Voyage 2.5. |
+| `nemotron_3_embed_1b_q4_k_m_gguf` | 0.7695 | — | A | alta | GGUF reproduzível; menor consumo e cold start. |
+| `voyage4_nano_2048_int8` | 0.7681 | 0.8200 | A | média | Variante histórica INT8; desempenho forte. |
+| `embeddinggemma` | 0.7562 | 0.8197 | A | alta | Resultado coerente com a família e com avaliação externa. |
+| `pplx_embed_v1_4b_q8_0` | 0.7562 | 0.8221 | A | média-alta | Qualidade forte; custo local alto. |
+| `voyage4_nano_2048_float32` | 0.7561 | 0.8195 | A | média | Variante histórica 2048/F32. |
+| `voyage4_nano` | 0.7528 | 0.8223 | A | alta | Bom equilíbrio entre qualidade e custo. |
+| `voyage4_nano_1024_float32` | 0.7528 | 0.8210 | A | média | Variante histórica 1024/F32. |
+| `voyage-context-4` | 0.7433 | — | A | média | API; bom baseline, sem pipeline publicado. |
+| `nomic_embed_text_v2_moe_q4` | 0.7420 | 0.8229 | A | alta | Escolha operacional validada com Qwen local. |
+| `embeddinggemma_768_float32` | 0.7389 | 0.8264 | A | média | Variante histórica; melhor pipeline absoluto com Voyage. |
+| `embeddinggemma_gguf` | 0.7389 | 0.8198 | A | alta | Baixo consumo e resultado coerente. |
+| `bge_m3_dense` | 0.7182 | 0.8067 | A | alta | Boa cobertura; modelo oficial recomenda híbrido + reranking. |
+| `snowflake_arctic_embed_l_v2_q4` | 0.7113 | 0.8158 | A | média-alta | Resultado compatível com modelo multilíngue forte. |
+| `qwen3_embedding_4b_q8_0` | 0.7010 | 0.8243 | A | alta | Melhor pipeline local por qualidade entre os testados. |
+| `colibri_ptbr` | 0.6966 | 0.8198 | B | alta | Especializado em PT-BR; forte com reranker. |
+| `qwen3_embedding_8b_gguf` | 0.6920 | 0.7914 | B | alta | Resultado reproduzível, mas ineficiente no host. |
+| `jina_embeddings_v5_text_small` | 0.6742 | 0.8216 | B | média-alta | Resultado compatível com MMTEB declarado pelo modelo. |
+| `octen_embedding_8b_q8_0` | 0.6739 | 0.8154 | B | média | Coerente com MTEB-BR; quantização local merece acompanhamento. |
+| `granite_embedding_311m_r2` | 0.6709 | 0.8092 | B | média-alta | Boa opção compacta; rápido. |
+| `pplx_embed_v1_06b_native` | 0.6633 | 0.8190 | B | média-alta | Compacto e forte com reranker. |
+| `giga_embeddings_instruct` | 0.6467 | 0.8184 | B | média | Útil com instrução; suporte oficial é sobretudo russo/inglês. |
+| `bidirlm_17b_embedding` | 0.6423 | 0.8190 | B | média-alta | Ordem relativa coerente com MTEB-BR. |
+| `multilingual_e5_large_instruct` | 0.6329 | 0.8111 | B | alta | Requer instrução de consulta; forte com reranker. |
+| `qwen3_embedding_06` | 0.6163 | 0.8066 | C | alta | Baseline modesto; útil com reranker. |
+| `qwen3_embedding_06_gguf` | 0.6153 | 0.7477 | C | alta | Controle GGUF coerente com a versão nativa. |
+| `gte_multilingual_base` | 0.5676 | 0.8109 | C | alta | Baseline fraco no corpus, mas pipeline útil e fonte oficial forte. |
+| `granite_embedding_97m_r2` | 0.5631 | 0.7890 | C | média-alta | Muito rápido; manter apenas para perfil leve/reranqueado. |
+
+### Tabela 2 — blacklist de artefatos e configurações
+
+A blacklist é aplicada ao **ID, peso, quantização e configuração testados**.
+Ela só deve ser promovida para toda a família do modelo após execuções
+independentes e reproduzíveis confirmarem o problema. Resultados suspeitos
+não devem participar de ranking, seleção de produção ou comparação histórica
+como se fossem válidos.
+
+| Perfil local | MRR@10 | Estado | Motivo | Condição para reabilitação |
+|---|---|---|---|---|
+| `nemotron_8b_abiray_q4` | 0.6919 | `BLACKLIST_PROVISÓRIA` | Candidates e métricas idênticos ao Aqua00; sem hash, runtime, pooling, dimensão ou comando. | Reexecutar do zero com pesos e cache identificados. |
+| `nemotron_8b_aqua00_q4` | 0.6919 | `BLACKLIST_PROVISÓRIA` | Candidates e métricas idênticos ao Abiray; proveniência insuficiente. | Reexecutar do zero com pesos e cache identificados. |
+| `lfm_25_embedding_350m_q4` | 0.4947 | `BLACKLIST_DO_ARTEFATO` | Resultado muito abaixo da expectativa oficial; artefato não prova prefixos `query:`/`document:` nem pooling CLS. | Novo GGUF/configuração com protocolo oficial e proveniência completa. |
+| `kalm_embedding_gemma3_12b_q4` | 0.1969 | `BLACKLIST_DO_ARTEFATO` | Resultado incompatível com o topo do MTEB-BR; metadados de execução ausentes. | Reexecução reproduzível com instruções e pooling oficiais. |
+| `kalm_embedding_gemma3_12b_i1_q4` | 0.1766 | `BLACKLIST_DO_ARTEFATO` | Mesma família forte externamente, mas execução local catastrófica e sem proveniência. | Reexecução reproduzível; não herdar o resultado do Q4. |
+| `boom_4b_v1_q8_0` | 0.1616 | `BLACKLIST_DO_ARTEFATO` | MTEB-BR coloca a família entre modelos fortes; resultado local indica configuração ou artefato inválido. | Reexecutar com last-token pooling, instrução e hash do peso. |
+| `bitnet_270m` | — | `BLOCKED` | GGUF legado usa `TYPE_IQ4_NL_4_4`, incompatível com llama.cpp 9972; nenhuma métrica válida. | Novo GGUF/runtime compatível e benchmark completo. |
+| `bitnet_06b` | — | `BLOCKED` | Mesma incompatibilidade; nenhuma métrica válida. | Novo GGUF/runtime compatível e benchmark completo. |
+
+### Leitura das inconsistências externas
+
+O MTEB-BR coloca Qwen3 8B, KaLM 12B, Octen 8B, Qwen3 4B, BidirLM,
+BOOM 4B e EmbeddingGemma entre os melhores modelos avaliados em português.
+A ordem relativa de Qwen, Octen, BidirLM, Voyage e EmbeddingGemma é
+compatível o bastante com o benchmark Holo para manter confiança nos
+resultados locais. KaLM e BOOM, porém, apresentaram resultados locais
+catastroficamente inferiores à avaliação externa; os artefatos locais foram
+bloqueados em vez de a família inteira ser declarada ruim.
+
+O model card oficial do LFM2.5 exige embedding CLS, similaridade cosseno e
+prefixos assimétricos `query: ` e `document: `. Como o artefato local não
+registra que esse protocolo foi seguido e ficou muito abaixo da expectativa
+oficial, ele permanece bloqueado até reexecução.
+
+Os dois Nemotron 8B ficam bloqueados por proveniência: os candidates, as
+métricas sem reranker e as métricas com Qwen são idênticos, enquanto os
+artefatos não registram hashes dos pesos, runtime, pooling, dimensão,
+normalização ou comando. Os Nemotron 1B não têm esse problema e permanecem
+aprovados.
+
+### Fontes externas de coerência
+
+- [MTEB-BR — benchmark nativo de português brasileiro](https://mteb-br.org/)
+- [Qwen3 Embedding](https://huggingface.co/Qwen/Qwen3-Embedding-8B)
+- [EmbeddingGemma](https://huggingface.co/google/embeddinggemma-300m)
+- [Nemotron 3 Embed 1B](https://huggingface.co/nvidia/Nemotron-3-Embed-1B-BF16)
+- [Nomic Embed Text v2 MoE](https://huggingface.co/nomic-ai/nomic-embed-text-v2-moe)
+- [BGE-M3](https://huggingface.co/BAAI/bge-m3)
+- [Snowflake Arctic Embed L v2](https://huggingface.co/Snowflake/snowflake-arctic-embed-l-v2.0)
+- [Jina Embeddings v5 Small](https://huggingface.co/jinaai/jina-embeddings-v5-text-small)
+- [PPLX Embed v1](https://huggingface.co/perplexity-ai/pplx-embed-v1-4b)
+- [Octen Embedding 8B](https://huggingface.co/Octen/Octen-Embedding-8B)
+- [LFM2.5 Embedding 350M](https://huggingface.co/LiquidAI/LFM2.5-Embedding-350M)
+- [KaLM Embedding Gemma3 12B](https://huggingface.co/tencent/KaLM-Embedding-Gemma3-12B-2511)
+- [BOOM 4B v1](https://huggingface.co/ICT-TIME-and-Querit/BOOM_4B_v1)
+
+### Regra de manutenção
+
+Não criar novos arquivos de leaderboard, tabela de bons, blacklist,
+registry ou resumo para embeddings. Atualizações futuras devem:
+
+1. gravar métricas reais nos artefatos existentes e no consolidado canônico;
+2. atualizar somente as duas tabelas desta seção;
+3. preservar baseline e reranking em colunas distintas;
+4. registrar o ID exato do perfil e a confiança da evidência;
+5. bloquear o artefato, não a família, quando a execução for suspeita;
+6. não ranquear modelos bloqueados ou sem métricas;
+7. consultar `AGENTS.md` nesta pasta antes de alterar qualquer resultado ou tabela.
