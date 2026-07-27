@@ -104,3 +104,12 @@ Gate 3:
 - diagnósticos: `results/gate3/diagnostics/`.
 
 Evidências temporárias de workers permanecem em `results/raw/` e são ignoradas pelo Git.
+
+## Fonte canônica consolidada
+
+Para inventário, ranking e comparação de embeddings e rerankers, consulte somente:
+
+`ALL_BENCHMARK_RESULTS.json`
+
+Os artefatos individuais em `results/reranker/pipelines/` continuam sendo a fonte autoritativa das métricas. Registros e relatórios anteriores foram movidos para `archive/superseded/`; os caminhos antigos contêm apenas avisos de compatibilidade e não devem ser usados como leaderboard.
+
