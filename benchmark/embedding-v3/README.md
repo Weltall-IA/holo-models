@@ -26,19 +26,19 @@ Obrigatórios para aprovação:
 3. `Qwen/Qwen3-Embedding-0.6B`;
 4. `BAAI/bge-m3` em modo denso.
 
-O Voyage Nano foi executado como opcional e reproduzido com `transformers==4.57.6`. Os BitNet 270M e 0.6B foram testados, mas os GGUF oficiais são incompatíveis com o llama.cpp 9972 por usarem o tipo removido `TYPE_IQ4_NL_4_4`.
+O Voyage Nano foi executado como opcional e reproduzido com `transformers==4.57.6`. Os BitNet 270M e 0.6B foram tentados, mas os GGUF legados são incompatíveis com o llama.cpp 9972 por usarem o tipo removido `TYPE_IQ4_NL_4_4`.
 
 O Gate 2 canônico permanece `PASS`.
 
 ## Gate 3 — embeddings GGUF no llama.cpp
 
-O Gate 3 compara três rotas GGUF executadas pelo `llama-server` estável:
+O Gate 3 mediu:
 
-1. `Qwen/Qwen3-Embedding-8B-GGUF`, preferencialmente `Q8_0`, com `Q6_K` permitido apenas como fallback registrado;
+1. `Qwen/Qwen3-Embedding-8B-GGUF` em `Q8_0`;
 2. `ggml-org/embeddinggemma-300M-GGUF` em `Q8_0`;
 3. `Qwen/Qwen3-Embedding-0.6B-GGUF` em `Q8_0`.
 
-Os três modelos são obrigatórios para `PASS`. A execução completa exige:
+A execução completa exige:
 
 - Gates 0, 1 e 2 em `PASS`;
 - corpus completo de 600 documentos e 150 consultas;
@@ -47,22 +47,17 @@ Os três modelos são obrigatórios para `PASS`. A execução completa exige:
 - modelo executado em processo e servidor isolados;
 - versão do `llama-server`, pooling, quantização, dimensão, throughput e pico de VRAM registrados.
 
-Qwen3 usa pooling `last` e instrução de consulta. O modelo 8B retorna até 4096 dimensões; o benchmark usa as primeiras 1024 dimensões Matryoshka e normaliza novamente em L2. EmbeddingGemma usa pooling `mean`, dimensão 768 e os prompts assimétricos oficiais de consulta e documento.
+Qwen3 usa pooling no último token não preenchido, instrução apenas na consulta e normalização L2. O modelo 8B retorna até 4096 dimensões e suporta Matryoshka. Qualquer redução dimensional deve usar o prefixo do vetor e nova normalização L2.
+
+O resultado atual de `qwen3_embedding_8b_gguf` está em `AUDIT_REQUIRED`: apesar de registrar peso Q8_0, hash, pooling `last`, dimensão 1024 e normalização L2, ficou abaixo do Qwen3 4B, contrariando a tendência oficial da família. A execução não preserva no artefato final a instrução exata aplicada às consultas nem um controle em 4096 dimensões. Até a auditoria, esse resultado não participa de seleção operacional.
 
 Uma seleção parcial com `--models`, execução em CPU ou recorte do corpus nunca conclui o Gate 3 como `PASS`. Diagnósticos parciais são gravados em `results/gate3/diagnostics/` sem substituir os artefatos canônicos.
 
 ## Perfis Nemotron 1B admitidos
 
-Os perfis `nvidia/Nemotron-3-Embed-1B-NVFP4` em vLLM e
-`zenmagnets/Nemotron-3-Embed-1B-Q4_K_M-GGUF` em llama.cpp permanecem separados
-no benchmark completo. A configuração canônica está em
-`config/nemotron_1b_profiles.json`; ambos usam o corpus congelado completo,
-prefixos `query: ` e `passage: `, pooling mean e normalização L2.
+Os perfis `nvidia/Nemotron-3-Embed-1B-NVFP4` em vLLM e `zenmagnets/Nemotron-3-Embed-1B-Q4_K_M-GGUF` em llama.cpp permanecem separados no benchmark completo. A configuração canônica está em `config/nemotron_1b_profiles.json`; ambos usam o corpus congelado completo, prefixos `query: ` e `passage: `, pooling mean e normalização L2.
 
-O NVFP4 deve ser executado somente com vLLM em ambiente isolado. O GGUF é o
-perfil de menor consumo e cold start; o NVFP4 é o perfil de maior throughput
-em lote no host medido. Resultados, limites e evidências da admissão estão em
-`NEMOTRON_AUDIT_1_0_5_REPORT.md`.
+O NVFP4 deve ser executado somente com vLLM em ambiente isolado. O GGUF é o perfil de menor consumo e cold start; o NVFP4 é o perfil de maior throughput em lote no host medido. Resultados, limites e evidências da admissão estão em `NEMOTRON_AUDIT_1_0_5_REPORT.md`.
 
 ## Execução
 
@@ -115,11 +110,7 @@ Os artefatos individuais em `results/reranker/pipelines/` continuam sendo a font
 
 ## Registro canônico de qualidade dos embeddings
 
-Esta seção é o registro humano canônico para decisões de reutilização dos
-embeddings medidos. Os números continuam vindo de
-`ALL_BENCHMARK_RESULTS.json` e dos artefatos individuais; esta seção registra
-a interpretação, a confiança e a decisão operacional sem criar outro
-leaderboard ou registry paralelo.
+Esta seção é o registro humano canônico para decisões de reutilização dos embeddings medidos. Os números continuam vindo de `ALL_BENCHMARK_RESULTS.json` e dos artefatos individuais; esta seção registra interpretação, confiança e decisão operacional sem criar outro leaderboard ou registry paralelo.
 
 Revisão desta classificação: **2026-07-27**.
 
@@ -128,25 +119,17 @@ As colunas não misturam protocolos:
 - **MRR@10 sozinho** mede somente o embedding;
 - **Melhor MRR@10 com reranker** mostra o melhor pipeline publicado para aquele perfil;
 - `—` significa que a combinação não foi executada ou não possui resultado publicado;
-- **Faixa A** identifica candidatos fortes; **B**, candidatos úteis; **C**, perfis
-  de nicho ou dependentes de reranker;
+- **Faixa A** identifica candidatos fortes; **B**, candidatos úteis; **C**, perfis de nicho ou dependentes de reranker;
 - a faixa é específica do corpus Holo e não representa uma nota universal do modelo.
 
-A verificação externa serve apenas como teste de coerência, porque MRR@10 do
-corpus Holo, médias MTEB e nDCG de outros benchmarks não são numericamente
-intercambiáveis. Foram consultados o
-[MTEB-BR](https://mteb-br.org/) e model cards oficiais no Hugging Face.
-Artificial Analysis não foi usado como critério decisório nesta revisão,
-porque a comparação precisa cobrir o mesmo modelo, quantização, dimensão,
-pooling e protocolo do artefato local.
+A verificação externa serve apenas como teste de coerência, porque MRR@10 do corpus Holo, médias MTEB e nDCG de outros benchmarks não são numericamente intercambiáveis. Foram consultados o [MTEB-BR](https://mteb-br.org/) e model cards oficiais no Hugging Face. Artificial Analysis não foi usado como critério decisório nesta revisão, porque a comparação precisa cobrir o mesmo modelo, quantização, dimensão, pooling e protocolo do artefato local.
 
 ### Tabela 1 — embeddings bons ou reutilizáveis
 
-Entrar nesta tabela significa que o perfil pode continuar sendo considerado
-em novas comparações. Não significa que ele seja o perfil de produção atual.
+Entrar nesta tabela significa que o perfil pode continuar sendo considerado em novas comparações. Não significa que ele seja o perfil de produção atual.
 
 | Perfil | MRR@10 sozinho | Melhor MRR@10 com reranker | Faixa | Confiança | Decisão |
-|---|---|---|---|---|---|
+|---|---:|---:|---|---|---|
 | `nemotron_3_embed_1b_nvfp4` | 0.7753 | — | A | alta | Melhor baseline local; vLLM/NVFP4; 145,03 docs/s. |
 | `voyage-4-large` | 0.7728 | — | A | média | API; resultado completo, sem pipeline sob o mesmo ID. |
 | `voyage_4_large_1024_float32` | 0.7728 | 0.8261 | A | média | Variante histórica 1024/F32; melhor reranker Voyage 2.5. |
@@ -165,7 +148,6 @@ em novas comparações. Não significa que ele seja o perfil de produção atual
 | `snowflake_arctic_embed_l_v2_q4` | 0.7113 | 0.8158 | A | média-alta | Resultado compatível com modelo multilíngue forte. |
 | `qwen3_embedding_4b_q8_0` | 0.7010 | 0.8243 | A | alta | Melhor pipeline local por qualidade entre os testados. |
 | `colibri_ptbr` | 0.6966 | 0.8198 | B | alta | Especializado em PT-BR; forte com reranker. |
-| `qwen3_embedding_8b_gguf` | 0.6920 | 0.7914 | B | alta | Resultado reproduzível, mas ineficiente no host. |
 | `jina_embeddings_v5_text_small` | 0.6742 | 0.8216 | B | média-alta | Resultado compatível com MMTEB declarado pelo modelo. |
 | `octen_embedding_8b_q8_0` | 0.6739 | 0.8154 | B | média | Coerente com MTEB-BR; quantização local merece acompanhamento. |
 | `granite_embedding_311m_r2` | 0.6709 | 0.8092 | B | média-alta | Boa opção compacta; rápido. |
@@ -180,16 +162,13 @@ em novas comparações. Não significa que ele seja o perfil de produção atual
 
 ### Tabela 2 — blacklist de artefatos e configurações
 
-A blacklist é aplicada ao **ID, peso, quantização e configuração testados**.
-Ela só deve ser promovida para toda a família do modelo após execuções
-independentes e reproduzíveis confirmarem o problema. Resultados suspeitos
-não devem participar de ranking, seleção de produção ou comparação histórica
-como se fossem válidos.
+A blacklist é aplicada ao **ID, peso, quantização e configuração testados**. Ela só deve ser promovida para toda a família do modelo após execuções independentes e reproduzíveis confirmarem o problema. Resultados suspeitos não devem participar de ranking, seleção de produção ou comparação histórica como se fossem válidos.
 
 | Perfil local | MRR@10 | Estado | Motivo | Condição para reabilitação |
-|---|---|---|---|---|
-| `nemotron_8b_abiray_q4` | 0.6919 | `BLACKLIST_PROVISÓRIA` | Candidates e métricas idênticos ao Aqua00; sem hash, runtime, pooling, dimensão ou comando. | Reexecutar do zero com pesos e cache identificados. |
-| `nemotron_8b_aqua00_q4` | 0.6919 | `BLACKLIST_PROVISÓRIA` | Candidates e métricas idênticos ao Abiray; proveniência insuficiente. | Reexecutar do zero com pesos e cache identificados. |
+|---|---:|---|---|---|
+| `qwen3_embedding_8b_gguf` | 0.6920 | `AUDIT_REQUIRED` | O 8B ficou abaixo do 4B, ao contrário dos benchmarks oficiais; o artefato não registra a instrução exata da consulta nem controle em 4096 dimensões. | Reexecutar o mesmo peso com instrução oficial registrada, 4096 e 1024 dimensões, cache novo e comparação por consulta. |
+| `nemotron_8b_abiray_q4` | 0.6919 | `BLACKLIST_PROVISÓRIA` | Candidates e métricas idênticos ao Aqua00; sem hash, runtime, pooling, dimensão ou comando. | Reexecutar do zero em NVFP4 8B verificado ou Q4_K_M; Q8_0 é proibido para esta auditoria. |
+| `nemotron_8b_aqua00_q4` | 0.6919 | `BLACKLIST_PROVISÓRIA` | Candidates e métricas idênticos ao Abiray; proveniência insuficiente. | Reexecutar do zero em NVFP4 8B verificado ou Q4_K_M; Q8_0 é proibido para esta auditoria. |
 | `lfm_25_embedding_350m_q4` | 0.4947 | `BLACKLIST_DO_ARTEFATO` | Resultado muito abaixo da expectativa oficial; artefato não prova prefixos `query:`/`document:` nem pooling CLS. | Novo GGUF/configuração com protocolo oficial e proveniência completa. |
 | `kalm_embedding_gemma3_12b_q4` | 0.1969 | `BLACKLIST_DO_ARTEFATO` | Resultado incompatível com o topo do MTEB-BR; metadados de execução ausentes. | Reexecução reproduzível com instruções e pooling oficiais. |
 | `kalm_embedding_gemma3_12b_i1_q4` | 0.1766 | `BLACKLIST_DO_ARTEFATO` | Mesma família forte externamente, mas execução local catastrófica e sem proveniência. | Reexecução reproduzível; não herdar o resultado do Q4. |
@@ -199,31 +178,22 @@ como se fossem válidos.
 
 ### Leitura das inconsistências externas
 
-O MTEB-BR coloca Qwen3 8B, KaLM 12B, Octen 8B, Qwen3 4B, BidirLM,
-BOOM 4B e EmbeddingGemma entre os melhores modelos avaliados em português.
-A ordem relativa de Qwen, Octen, BidirLM, Voyage e EmbeddingGemma é
-compatível o bastante com o benchmark Holo para manter confiança nos
-resultados locais. KaLM e BOOM, porém, apresentaram resultados locais
-catastroficamente inferiores à avaliação externa; os artefatos locais foram
-bloqueados em vez de a família inteira ser declarada ruim.
+A Qwen publica o 8B acima do 4B em MTEB multilíngue, inglês e chinês. O resultado local inverteu essa ordem e, portanto, passou a exigir auditoria. O teste atual confirma Q8_0, pooling `last`, saída 1024 e normalização após truncamento, mas não preserva a instrução exata da consulta nem compara 4096 contra 1024 dimensões.
 
-O model card oficial do LFM2.5 exige embedding CLS, similaridade cosseno e
-prefixos assimétricos `query: ` e `document: `. Como o artefato local não
-registra que esse protocolo foi seguido e ficou muito abaixo da expectativa
-oficial, ele permanece bloqueado até reexecução.
+O MTEB-BR coloca KaLM 12B, Octen 8B, Qwen3 4B, BidirLM, BOOM 4B e EmbeddingGemma entre modelos competitivos em português. A ordem relativa de Qwen3 4B, Octen, BidirLM, Voyage e EmbeddingGemma é compatível o bastante com o benchmark Holo. KaLM e BOOM, porém, apresentaram resultados locais catastroficamente inferiores à avaliação externa; os artefatos locais foram bloqueados em vez de a família inteira ser declarada ruim.
 
-Os dois Nemotron 8B ficam bloqueados por proveniência: os candidates, as
-métricas sem reranker e as métricas com Qwen são idênticos, enquanto os
-artefatos não registram hashes dos pesos, runtime, pooling, dimensão,
-normalização ou comando. Os Nemotron 1B não têm esse problema e permanecem
-aprovados.
+O model card oficial do LFM2.5 exige embedding CLS, similaridade cosseno e prefixos assimétricos `query: ` e `document: `. Como o artefato local não registra que esse protocolo foi seguido e ficou muito abaixo da expectativa oficial, ele permanece bloqueado até reexecução.
+
+Os dois Nemotron 8B ficam bloqueados por proveniência: candidates, métricas sem reranker e métricas com Qwen são idênticos, enquanto os artefatos não registram hashes dos pesos, runtime, pooling, dimensão, normalização ou comando. A auditoria não deve usar Q8_0. Deve preferir um NVFP4 que seja comprovadamente 8B e compatível; na ausência dele, usar Q4_K_M. O NVFP4 oficial publicado pela NVIDIA é de 1B e não pode ser confundido com um artefato 8B.
 
 ### Fontes externas de coerência
 
 - [MTEB-BR — benchmark nativo de português brasileiro](https://mteb-br.org/)
-- [Qwen3 Embedding](https://huggingface.co/Qwen/Qwen3-Embedding-8B)
+- [Qwen3 Embedding 8B](https://huggingface.co/Qwen/Qwen3-Embedding-8B)
 - [EmbeddingGemma](https://huggingface.co/google/embeddinggemma-300m)
+- [Nemotron 3 Embed — coleção oficial](https://huggingface.co/collections/nvidia/nemotron-3-embed)
 - [Nemotron 3 Embed 1B](https://huggingface.co/nvidia/Nemotron-3-Embed-1B-BF16)
+- [Nemotron 3 Embed 8B BF16](https://huggingface.co/nvidia/Nemotron-3-Embed-8B-BF16)
 - [Nomic Embed Text v2 MoE](https://huggingface.co/nomic-ai/nomic-embed-text-v2-moe)
 - [BGE-M3](https://huggingface.co/BAAI/bge-m3)
 - [Snowflake Arctic Embed L v2](https://huggingface.co/Snowflake/snowflake-arctic-embed-l-v2.0)
@@ -236,8 +206,7 @@ aprovados.
 
 ### Regra de manutenção
 
-Não criar novos arquivos de leaderboard, tabela de bons, blacklist,
-registry ou resumo para embeddings. Atualizações futuras devem:
+Não criar novos arquivos de leaderboard, tabela de bons, blacklist, registry ou resumo para embeddings. Atualizações futuras devem:
 
 1. gravar métricas reais nos artefatos existentes e no consolidado canônico;
 2. atualizar somente as duas tabelas desta seção;
