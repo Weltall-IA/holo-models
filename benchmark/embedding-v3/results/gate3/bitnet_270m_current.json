@@ -1,0 +1,35 @@
+{
+  "id": "bitnet_270m_current",
+  "gate": 3,
+  "status": "COMPLETED",
+  "metrics": {
+    "summary": {
+      "HitRate@1": 0.4866666666666667,
+      "HitRate@3": 0.6466666666666666,
+      "HitRate@5": 0.7333333333333333,
+      "HitRate@10": 0.8,
+      "HitRate@20": 0.92,
+      "HitRate@50": 0.9666666666666667,
+      "MRR@10": 0.5971572204523039,
+      "nDCG@10": 0.0,
+      "queries_without_relevant": 0
+    },
+    "by_query_type": {},
+    "per_query": []
+  },
+  "runtime": {
+    "backend": "bitnet.cpp",
+    "pooling": "last_non_padding_token",
+    "normalization": "l2",
+    "dimension": 640,
+    "document_encode_seconds": 577.2658689022064,
+    "query_encode_seconds": 16.519019603729248
+  },
+  "adapter": {
+    "quantization": "I2_S",
+    "repository": "microsoft/bitnet-embedding-270m",
+    "revision": "5f1c2fd19f37ca653a3d719c8ee6cc1895f4b64f",
+    "sha256": "8ee5ae971b103cd55758934be54e5c9f7cc2b58b15890615acce8e649988c751"
+  },
+  "gate_result": "PASS"
+}

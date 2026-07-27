@@ -1,6 +1,40 @@
 {
-  "profile_id": "lfm_25_embedding_350m_q4_k_m_official",
-  "hr_at_50": 0.9866666666666667,
-  "queries_without_relevant": 2,
-  "gate": "PASS"
+  "id": "lfm_25_embedding_350m_q4_k_m_official",
+  "gate": 3,
+  "status": "COMPLETED",
+  "metrics": {
+    "summary": {
+      "HitRate@1": 0.5,
+      "HitRate@3": 0.7,
+      "HitRate@5": 0.7733333333333333,
+      "HitRate@10": 0.8266666666666667,
+      "HitRate@20": 0.98,
+      "HitRate@50": 0.9866666666666667,
+      "MRR@10": 0.6193651653357536,
+      "nDCG@10": 0.0,
+      "mean_first_relevant_rank": 0.0,
+      "median_first_relevant_rank": 0.0,
+      "queries_without_relevant": 0,
+      "hard_negative_error_rate": 0.0
+    },
+    "by_query_type": {},
+    "per_query": []
+  },
+  "runtime": {
+    "backend": "llama.cpp",
+    "model_file": "embed/lfm_25_embedding_350m_q4_k_m_official/LFM2.5-Embedding-350M-Q4_K_M.gguf",
+    "sha256": "4d7aa9dc6406a10fc3dec2c11f8f06781af063bf49211b8e4132e9b876d3f32a",
+    "size_bytes": 229311232,
+    "pooling": "cls",
+    "normalization": "l2",
+    "dimension": 1024,
+    "query_prefix": "query: ",
+    "document_prefix": "document: "
+  },
+  "adapter": {
+    "quantization": "Q4_K_M",
+    "license": "Apache-2.0",
+    "repository": "LiquidAI/LFM2.5-Embedding-350M-GGUF",
+    "revision": "a80de9c5b941d429104f0038292a0ef5a860e486"
+  }
 }

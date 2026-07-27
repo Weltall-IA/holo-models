@@ -1,6 +1,6 @@
 {
-  "pipeline_id": "granite_embedding_311m_r2__mxbai_rerank_base_v2",
-  "embedding": "granite_embedding_311m_r2",
+  "id": "granite_embedding_311m_r2__mxbai_rerank_base_v2",
+  "embedding_model": "granite_embedding_311m_r2",
   "reranker": "mxbai_rerank_base_v2",
   "metrics": {
     "summary": {
@@ -8,8 +8,14 @@
       "HitRate@1": 0.2,
       "HitRate@10": 0.68,
       "HitRate@20": 0.8066666666666666
-    }
+    },
+    "by_query_type": {},
+    "per_query": []
   },
-  "latency_p50_s": 2.322386145591736,
-  "latency_p95_s": 2.4035026907920836
+  "runtime": {
+    "backend": "sentence-transformers.CrossEncoder",
+    "model": "mixedbread-ai/mxbai-rerank-base-v2",
+    "latency_p50_seconds": 2.322386145591736,
+    "latency_p95_seconds": 2.4035026907920836
+  }
 }
