@@ -181,8 +181,8 @@ execution_order:
     - run_missing_qwen_local_pipelines_without_new_model_downloads
     - benchmark_lfm_350m_q4
     - build_current_bitnet_cpp_once
-    - benchmark_bitnet_270m_i2s
     - benchmark_bitnet_06b_i2s
+    - benchmark_bitnet_270m_i2s
     - gate_new_small_embeddings_for_qwen_local
     - run_qwen_local_for_small_embeddings_that_pass
     - benchmark_mxbai_rerank_base_v2_on_fixed_panel
@@ -269,46 +269,11 @@ small_phase_artifacts:
         - no identical vector for distinct inputs
 
   - order: 2
-    profile_id: bitnet_270m_current
-    kind: embedding
-    parameters: 270M
-    selected_quantization: official_I2_S
-    selection_reason: official architecture-native 1.58-bit format
-    repository: microsoft/bitnet-embedding-270m
-    model_page: https://huggingface.co/microsoft/bitnet-embedding-270m
-    file_page: https://huggingface.co/microsoft/bitnet-embedding-270m/blob/main/bitnet-embeddings-270m-bf16-i2_s.gguf
-    revision: b01800d7eba04db105a8ef88a8be61dbac047b0b
-    file: bitnet-embeddings-270m-bf16-i2_s.gguf
-    expected_size_bytes: 367000000
-    expected_sha256: 8ee5ae971b103cd55758934be54e5c9f7cc2b58b15890615acce8e649988c751
-    download_command: >-
-      hf download microsoft/bitnet-embedding-270m
-      bitnet-embeddings-270m-bf16-i2_s.gguf
-      --revision b01800d7eba04db105a8ef88a8be61dbac047b0b
-      --local-dir embed/bitnet_270m_current
-    backend: bitnet.cpp
-    executable: llama-embedding
-    native_dimension: 640
-    evaluated_dimension: 640
-    pooling: last_non_padding_token
-    normalization: l2
-    query_instruction: >-
-      query: Given a query, retrieve scenes that answer it by matching events,
-      dialogue, characters, emotional intention and context.
-    document_prompt: ""
-    anti_error_rules:
-      - do not use the legacy GGUF that failed with TYPE_IQ4_NL_4_4
-      - use the current Microsoft BitNet repository
-      - use llama-embedding, not llama-cli and not a generation server
-      - apply instruction only to queries
-      - verify output dimension is exactly 640
-
-  - order: 3
     profile_id: bitnet_06b_current
     kind: embedding
     parameters: 0.6B
     selected_quantization: official_I2_S
-    selection_reason: official architecture-native 1.58-bit format
+    selection_reason: official architecture-native 1.58-bit format; run first because it is the stronger BitNet candidate
     repository: microsoft/bitnet-embedding-0.6b
     model_page: https://huggingface.co/microsoft/bitnet-embedding-0.6b
     file_page: https://huggingface.co/microsoft/bitnet-embedding-0.6b/blob/main/bitnet-embeddings-0.6b-bf16-i2_s.gguf
@@ -332,10 +297,44 @@ small_phase_artifacts:
       dialogue, characters, emotional intention and context.
     document_prompt: ""
     anti_error_rules:
-      - use the same current BitNet build as the 270M run
       - do not use the legacy GGUF that failed with TYPE_IQ4_NL_4_4
+      - use current Microsoft BitNet repository and current llama-embedding
       - apply instruction only to queries
       - verify output dimension is exactly 1024
+
+  - order: 3
+    profile_id: bitnet_270m_current
+    kind: embedding
+    parameters: 270M
+    selected_quantization: official_I2_S
+    selection_reason: official architecture-native 1.58-bit format; run after the 0.6B control
+    repository: microsoft/bitnet-embedding-270m
+    model_page: https://huggingface.co/microsoft/bitnet-embedding-270m
+    file_page: https://huggingface.co/microsoft/bitnet-embedding-270m/blob/main/bitnet-embeddings-270m-bf16-i2_s.gguf
+    revision: b01800d7eba04db105a8ef88a8be61dbac047b0b
+    file: bitnet-embeddings-270m-bf16-i2_s.gguf
+    expected_size_bytes: 367000000
+    expected_sha256: 8ee5ae971b103cd55758934be54e5c9f7cc2b58b15890615acce8e649988c751
+    download_command: >-
+      hf download microsoft/bitnet-embedding-270m
+      bitnet-embeddings-270m-bf16-i2_s.gguf
+      --revision b01800d7eba04db105a8ef88a8be61dbac047b0b
+      --local-dir embed/bitnet_270m_current
+    backend: bitnet.cpp
+    executable: llama-embedding
+    native_dimension: 640
+    evaluated_dimension: 640
+    pooling: last_non_padding_token
+    normalization: l2
+    query_instruction: >-
+      query: Given a query, retrieve scenes that answer it by matching events,
+      dialogue, characters, emotional intention and context.
+    document_prompt: ""
+    anti_error_rules:
+      - use the same current BitNet build as the 0.6B run
+      - do not use the legacy GGUF that failed with TYPE_IQ4_NL_4_4
+      - apply instruction only to queries
+      - verify output dimension is exactly 640
 
 bitnet_build:
   repository: https://github.com/microsoft/BitNet.git
@@ -719,8 +718,8 @@ small_phase_stop_contract:
   stop_after:
     - all existing missing Qwen-local pipelines attempted
     - LFM2.5 350M Q4 baseline complete or explicitly blocked
-    - BitNet 270M baseline complete or explicitly blocked
     - BitNet 0.6B baseline complete or explicitly blocked
+    - BitNet 270M baseline complete or explicitly blocked
     - Qwen local executed only for small embeddings that pass the gate
     - mxbai reranker panel complete or explicitly blocked
     - NVIDIA Nemotron reranker 1B panel complete or explicitly blocked
