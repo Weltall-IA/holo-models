@@ -1,0 +1,119 @@
+name: Audit non-pipeline benchmark results
+
+on:
+  push:
+    branches:
+      - agent/fix-consolidated-reranked-metrics
+    paths:
+      - .github/workflows/audit-nonpipeline-benchmark-results.yml
+
+permissions:
+  contents: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/fix-consolidated-reranked-metrics
+      - name: Inventory complete metric blocks outside reranker pipelines
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          root = Path('benchmark/embedding-v3')
+          excluded_parts = {
+              'archive',
+          }
+          excluded_names = {
+              'ALL_BENCHMARK_RESULTS.json',
+              'TEMP_NONPIPELINE_BENCHMARK_INVENTORY.json',
+          }
+
+          aliases = {
+              'mrr_at_10': ('MRR@10', 'mrr_at_10'),
+              'hit_rate_at_1': ('HitRate@1', 'hit_rate_at_1', 'hr_at_1'),
+              'hit_rate_at_10': ('HitRate@10', 'hit_rate_at_10', 'hr_at_10'),
+              'ndcg_at_10': ('nDCG@10', 'ndcg_at_10'),
+          }
+
+          def metric_value(node, keys):
+              for key in keys:
+                  if key in node and isinstance(node[key], (int, float)):
+                      return float(node[key])
+              return None
+
+          def complete_metrics(node):
+              if not isinstance(node, dict):
+                  return None
+              out = {name: metric_value(node, keys) for name, keys in aliases.items()}
+              return out if all(value is not None for value in out.values()) else None
+
+          def walk(node, path='$'):
+              if isinstance(node, dict):
+                  metrics = complete_metrics(node)
+                  if metrics:
+                      yield path, metrics
+                  for key, value in node.items():
+                      yield from walk(value, f'{path}.{key}')
+              elif isinstance(node, list):
+                  for index, value in enumerate(node):
+                      yield from walk(value, f'{path}[{index}]')
+
+          records = []
+          parse_errors = []
+          for path in sorted(root.rglob('*.json')):
+              rel = path.as_posix()
+              if 'results/reranker/pipelines/' in rel:
+                  continue
+              if path.name in excluded_names or any(part in excluded_parts for part in path.parts):
+                  continue
+              try:
+                  data = json.loads(path.read_text(encoding='utf-8'))
+              except Exception as exc:
+                  parse_errors.append({'path': rel, 'error': f'{type(exc).__name__}: {exc}'})
+                  continue
+              blocks = list(walk(data))
+              if not blocks:
+                  continue
+              dataset = data.get('dataset', {}) if isinstance(data, dict) else {}
+              model = data.get('model') if isinstance(data, dict) else None
+              if isinstance(model, dict):
+                  model_id = model.get('repo') or model.get('id') or model.get('path')
+              else:
+                  model_id = model
+              for json_path, metrics in blocks:
+                  records.append({
+                      'source_path': rel,
+                      'json_path': json_path,
+                      'state': data.get('state') if isinstance(data, dict) else None,
+                      'purpose': data.get('purpose') if isinstance(data, dict) else None,
+                      'pipeline_id': data.get('pipeline_id') if isinstance(data, dict) else None,
+                      'id': data.get('id') if isinstance(data, dict) else None,
+                      'backend': data.get('backend') if isinstance(data, dict) else None,
+                      'model': model_id,
+                      'documents': dataset.get('documents') if isinstance(dataset, dict) else None,
+                      'queries': dataset.get('queries') if isinstance(dataset, dict) else None,
+                      'metrics': metrics,
+                  })
+
+          output = {
+              'scope': 'Complete metric blocks outside results/reranker/pipelines; read-only audit',
+              'record_count': len(records),
+              'source_file_count': len({r['source_path'] for r in records}),
+              'parse_errors': parse_errors,
+              'records': records,
+          }
+          out = root / 'TEMP_NONPIPELINE_BENCHMARK_INVENTORY.json'
+          out.write_text(json.dumps(output, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+          print(json.dumps({'record_count': len(records), 'source_file_count': output['source_file_count'], 'parse_errors': len(parse_errors)}))
+          PY
+      - name: Commit temporary inventory
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add benchmark/embedding-v3/TEMP_NONPIPELINE_BENCHMARK_INVENTORY.json
+          git commit -m "chore: record temporary non-pipeline benchmark inventory"
+          git push
