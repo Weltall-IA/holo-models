@@ -94,6 +94,22 @@ protocol:
     - document_prefix_or_prompt
     - command_or_endpoint
 
+remote_artifact_verification:
+  required_before_each_download:
+    - open the declared model and file pages
+    - confirm the repository and file still exist
+    - resolve the current immutable revision for the selected artifact
+    - compare current remote size and SHA-256 with the expected values in this contract
+    - abort and report mismatch instead of downloading a changed or missing artifact
+  required_after_each_download:
+    - compute local SHA-256 independently
+    - compare local bytes and hash with resolved remote metadata
+    - record the final immutable revision, local path, bytes and SHA-256 in the result
+  rule: >-
+    Values recorded in this contract are researched expectations and safety pins,
+    not permission to ignore current remote metadata. Any mismatch requires human
+    review or a documented contract correction before benchmark execution.
+
 quantization_policy:
   mandatory_preference_order:
     - NVFP4 for the exact model when provenance and runtime support are trustworthy
