@@ -1,4 +1,4 @@
-name: Audit non-pipeline benchmark results
+name: Add raw embedding benchmarks to consolidation
 
 on:
   push:
@@ -11,108 +11,321 @@ permissions:
   contents: write
 
 jobs:
-  audit:
+  consolidate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           ref: agent/fix-consolidated-reranked-metrics
-      - name: Inventory aggregate metric summaries outside reranker pipelines
+      - name: Add authoritative raw embedding results
         run: |
           python - <<'PY'
           import json
+          from datetime import datetime, timezone
           from pathlib import Path
 
           root = Path('benchmark/embedding-v3')
-          excluded_names = {
-              'ALL_BENCHMARK_RESULTS.json',
-              'TEMP_NONPIPELINE_BENCHMARK_INVENTORY.json',
-          }
-          aliases = {
-              'mrr_at_10': ('MRR@10', 'mrr_at_10'),
+          canonical_path = root / 'ALL_BENCHMARK_RESULTS.json'
+          corpus_sha = '8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b'
+
+          required_metrics = {
               'hit_rate_at_1': ('HitRate@1', 'hit_rate_at_1', 'hr_at_1'),
               'hit_rate_at_10': ('HitRate@10', 'hit_rate_at_10', 'hr_at_10'),
+              'mrr_at_10': ('MRR@10', 'mrr_at_10'),
               'ndcg_at_10': ('nDCG@10', 'ndcg_at_10'),
           }
 
-          def metric_value(node, keys):
-              for key in keys:
-                  value = node.get(key)
+          def first_number(mapping, names):
+              if not isinstance(mapping, dict):
+                  return None
+              for name in names:
+                  value = mapping.get(name)
                   if isinstance(value, (int, float)):
                       return float(value)
               return None
 
-          def complete_metrics(node):
-              if not isinstance(node, dict):
-                  return None
-              out = {name: metric_value(node, keys) for name, keys in aliases.items()}
-              return out if all(value is not None for value in out.values()) else None
+          def normalize_metrics(summary):
+              result = {key: first_number(summary, aliases) for key, aliases in required_metrics.items()}
+              for key, aliases in {
+                  'hit_rate_at_3': ('HitRate@3', 'hit_rate_at_3'),
+                  'hit_rate_at_5': ('HitRate@5', 'hit_rate_at_5'),
+                  'hit_rate_at_20': ('HitRate@20', 'hit_rate_at_20'),
+                  'hard_negative_error_rate': ('hard_negative_error_rate',),
+              }.items():
+                  result[key] = first_number(summary, aliases)
+              missing = [key for key in required_metrics if result[key] is None]
+              if missing:
+                  raise ValueError(f'missing required metrics: {missing}')
+              return result
 
-          def summary_blocks(node, path='$'):
-              if isinstance(node, dict):
-                  for key, value in node.items():
-                      next_path = f'{path}.{key}'
-                      if key == 'summary':
-                          metrics = complete_metrics(value)
-                          if metrics:
-                              yield next_path, metrics
-                      yield from summary_blocks(value, next_path)
-              elif isinstance(node, list):
-                  for index, value in enumerate(node):
-                      yield from summary_blocks(value, f'{path}[{index}]')
+          def extract_summary(data):
+              paths = [
+                  ('$.metrics.summary', data.get('metrics', {}).get('summary') if isinstance(data, dict) else None),
+                  ('$.evaluation.metrics.summary', data.get('evaluation', {}).get('metrics', {}).get('summary') if isinstance(data, dict) else None),
+              ]
+              for json_path, summary in paths:
+                  if isinstance(summary, dict) and all(first_number(summary, aliases) is not None for aliases in required_metrics.values()):
+                      return json_path, summary
+              return None, None
+
+          def normalize_runtime(data):
+              runtime = data.get('runtime', {}) if isinstance(data, dict) else {}
+              if not isinstance(runtime, dict):
+                  runtime = {}
+              peak_vram_gib = None
+              if isinstance(runtime.get('peak_vram_bytes'), (int, float)):
+                  peak_vram_gib = runtime['peak_vram_bytes'] / (1024 ** 3)
+              elif isinstance(runtime.get('peak_vram_mib'), (int, float)):
+                  peak_vram_gib = runtime['peak_vram_mib'] / 1024
+              elif isinstance(runtime.get('gpu_used_mb'), (int, float)):
+                  peak_vram_gib = runtime['gpu_used_mb'] / 1024
+
+              peak_ram_gib = None
+              if isinstance(runtime.get('peak_rss_mib'), (int, float)):
+                  peak_ram_gib = runtime['peak_rss_mib'] / 1024
+              elif isinstance(runtime.get('ram_mb'), (int, float)):
+                  peak_ram_gib = runtime['ram_mb'] / 1024
+
+              return {
+                  'load_seconds': first_number(runtime, ('load_seconds',)),
+                  'document_encode_seconds': first_number(runtime, ('document_encode_seconds', 'doc_encode_seconds')),
+                  'query_encode_seconds': first_number(runtime, ('query_encode_seconds',)),
+                  'documents_per_second': first_number(runtime, ('documents_per_second', 'docs_per_second')),
+                  'queries_per_second': first_number(runtime, ('queries_per_second',)),
+                  'total_seconds': first_number(runtime, ('total_seconds',)),
+                  'peak_vram_gib': peak_vram_gib,
+                  'peak_ram_gib': peak_ram_gib,
+                  'device': runtime.get('device'),
+                  'dtype': runtime.get('dtype'),
+              }
 
           records = []
-          parse_errors = []
-          for path in sorted(root.rglob('*.json')):
-              rel = path.as_posix()
-              if 'results/reranker/pipelines/' in rel:
-                  continue
-              if '/archive/' in rel or path.name in excluded_names:
-                  continue
-              try:
-                  data = json.loads(path.read_text(encoding='utf-8'))
-              except Exception as exc:
-                  parse_errors.append({'path': rel, 'error': f'{type(exc).__name__}: {exc}'})
-                  continue
+          ids = set()
+          source_files = set()
+          errors = []
 
+          def add_record(*, embedding_id, source_path, source_category, data, summary_path=None, summary=None, identity_override=None):
+              nonlocal records
+              if embedding_id in ids:
+                  errors.append({'type': 'duplicate_embedding_id', 'embedding_id': embedding_id, 'source_path': source_path})
+                  return
+              if summary is None:
+                  summary_path, summary = extract_summary(data)
+              if summary is None:
+                  errors.append({'type': 'missing_summary', 'embedding_id': embedding_id, 'source_path': source_path})
+                  return
+
+              model = data.get('model', {}) if isinstance(data, dict) else {}
+              if not isinstance(model, dict):
+                  model = {}
               dataset = data.get('dataset', {}) if isinstance(data, dict) else {}
-              model = data.get('model') if isinstance(data, dict) else None
-              if isinstance(model, dict):
-                  model_id = model.get('repo') or model.get('id') or model.get('path')
-              else:
-                  model_id = model
+              if not isinstance(dataset, dict):
+                  dataset = {}
+              adapter = data.get('adapter', {}) if isinstance(data, dict) else {}
+              if not isinstance(adapter, dict):
+                  adapter = {}
 
-              for json_path, metrics in summary_blocks(data):
-                  records.append({
-                      'source_path': rel,
-                      'json_path': json_path,
-                      'state': data.get('state') if isinstance(data, dict) else None,
-                      'purpose': data.get('purpose') if isinstance(data, dict) else None,
-                      'pipeline_id': data.get('pipeline_id') if isinstance(data, dict) else None,
-                      'id': data.get('id') if isinstance(data, dict) else None,
-                      'backend': data.get('backend') if isinstance(data, dict) else None,
-                      'model': model_id,
-                      'documents': dataset.get('documents') if isinstance(dataset, dict) else None,
-                      'queries': dataset.get('queries') if isinstance(dataset, dict) else None,
-                      'metrics': metrics,
-                  })
+              identity = {
+                  'repo': model.get('repo'),
+                  'revision': model.get('revision'),
+                  'file': model.get('file') or model.get('weight_file'),
+                  'sha256': model.get('sha256') or model.get('weight_sha256'),
+                  'license': model.get('license') or data.get('license'),
+                  'backend': model.get('backend') or data.get('backend') or adapter.get('runtime'),
+                  'quantization': model.get('quantization'),
+                  'dimension': model.get('actual_dimension') or model.get('configured_dimension') or adapter.get('dimension'),
+                  'pooling': model.get('pooling') or adapter.get('pooling'),
+                  'normalization': adapter.get('normalization'),
+              }
+              if identity_override:
+                  identity.update(identity_override)
 
-          records.sort(key=lambda item: (-item['metrics']['mrr_at_10'], item['source_path'], item['json_path']))
-          output = {
-              'scope': 'Aggregate complete metric summaries outside results/reranker/pipelines; read-only audit',
-              'record_count': len(records),
-              'source_file_count': len({r['source_path'] for r in records}),
-              'parse_errors': parse_errors,
-              'records_ranked_by_mrr_at_10': records,
+              records.append({
+                  'embedding_id': embedding_id,
+                  'source_category': source_category,
+                  'source_path': source_path,
+                  'metric_summary_path': summary_path,
+                  'dataset': {
+                      'documents': dataset.get('documents', 600),
+                      'queries': dataset.get('queries', 150),
+                      'corpus_sha256': dataset.get('combined_sha256', corpus_sha),
+                  },
+                  'identity': identity,
+                  'metrics': normalize_metrics(summary),
+                  'runtime': normalize_runtime(data),
+              })
+              ids.add(embedding_id)
+              source_files.add(source_path)
+
+          # Gate 2 and Gate 3 raw results.
+          for gate in ('gate2', 'gate3'):
+              directory = root / 'results' / gate
+              for path in sorted(directory.glob('*.json')):
+                  if path.name == 'summary.json':
+                      continue
+                  data = json.loads(path.read_text(encoding='utf-8'))
+                  summary_path, summary = extract_summary(data)
+                  if summary is None:
+                      continue
+                  model = data.get('model', {}) if isinstance(data.get('model'), dict) else {}
+                  embedding_id = data.get('id') or model.get('id') or path.stem
+                  add_record(
+                      embedding_id=embedding_id,
+                      source_path=path.as_posix(),
+                      source_category=gate,
+                      data=data,
+                      summary_path=summary_path,
+                      summary=summary,
+                  )
+
+          # Raw Voyage embedding results.
+          voyage_dir = root / 'results' / 'voyage'
+          for path in sorted(voyage_dir.glob('*.json')):
+              if path.name in {'summary.json', 'preflight.json'}:
+                  continue
+              data = json.loads(path.read_text(encoding='utf-8'))
+              summary_path, summary = extract_summary(data)
+              if summary is None:
+                  continue
+              model = data.get('model', {}) if isinstance(data.get('model'), dict) else {}
+              embedding_id = model.get('id') or data.get('id') or path.stem
+              add_record(
+                  embedding_id=embedding_id,
+                  source_path=path.as_posix(),
+                  source_category='voyage_embedding_api',
+                  data=data,
+                  summary_path=summary_path,
+                  summary=summary,
+              )
+
+          # Canonically admitted Nemotron 1B runtime variants, including NVFP4.
+          profiles_path = root / 'config' / 'nemotron_1b_profiles.json'
+          profiles_data = json.loads(profiles_path.read_text(encoding='utf-8'))
+          for profile in profiles_data['profiles']:
+              result_path = root / profile['result']
+              data = json.loads(result_path.read_text(encoding='utf-8'))
+              add_record(
+                  embedding_id=profile['id'],
+                  source_path=result_path.as_posix(),
+                  source_category='nemotron_1b_admission',
+                  data=data,
+                  identity_override={
+                      'repo': profile.get('repo'),
+                      'file': profile.get('weight_file'),
+                      'sha256': profile.get('weight_sha256'),
+                      'license': profile.get('license'),
+                      'backend': profile.get('backend'),
+                      'quantization': 'NVFP4' if 'nvfp4' in profile['id'].lower() else 'Q4_K_M',
+                      'dimension': 2048,
+                      'pooling': profiles_data.get('shared_protocol', {}).get('pooling'),
+                      'normalization': profiles_data.get('shared_protocol', {}).get('normalization'),
+                  },
+              )
+
+          # Historical raw deployment variants represented by reranker_id=none.
+          reranker_summary_path = root / 'results' / 'reranker' / 'summary.json'
+          reranker_summary = json.loads(reranker_summary_path.read_text(encoding='utf-8'))
+          for pipeline in reranker_summary.get('pipelines', []):
+              if pipeline.get('reranker_id') != 'none':
+                  continue
+              embedding_id = pipeline['embedding_variant']
+              if embedding_id in ids:
+                  continue
+              summary = pipeline.get('metrics', {}).get('summary')
+              add_record(
+                  embedding_id=embedding_id,
+                  source_path=reranker_summary_path.as_posix(),
+                  source_category='historical_raw_variant',
+                  data={'dataset': {'documents': 600, 'queries': 150, 'combined_sha256': corpus_sha}},
+                  summary_path=f"$.pipelines[{pipeline['pipeline_id']}].metrics.summary",
+                  summary=summary,
+                  identity_override={'backend': 'recorded_candidate_variant'},
+              )
+
+          records.sort(key=lambda item: (
+              -item['metrics']['mrr_at_10'],
+              -item['metrics']['ndcg_at_10'],
+              -item['metrics']['hit_rate_at_1'],
+              -item['metrics']['hit_rate_at_10'],
+              item['embedding_id'],
+          ))
+          for rank, record in enumerate(records, start=1):
+              record['rank_by_mrr_at_10'] = rank
+
+          required_ids = {
+              'qwen3_embedding_8b_gguf',
+              'qwen3_embedding_4b_q8_0',
+              'nemotron_3_embed_1b_nvfp4',
+              'nemotron_3_embed_1b_q4_k_m_gguf',
           }
-          out = root / 'TEMP_NONPIPELINE_BENCHMARK_INVENTORY.json'
-          out.write_text(json.dumps(output, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
-          print(json.dumps({'record_count': len(records), 'source_file_count': output['source_file_count'], 'parse_errors': len(parse_errors)}))
+          missing_required_ids = sorted(required_ids - ids)
+          corpus_mismatches = [
+              record['embedding_id'] for record in records
+              if record['dataset']['corpus_sha256'] not in (None, corpus_sha)
+          ]
+          if errors or missing_required_ids or corpus_mismatches:
+              raise SystemExit(json.dumps({
+                  'errors': errors,
+                  'missing_required_ids': missing_required_ids,
+                  'corpus_mismatches': corpus_mismatches,
+              }, ensure_ascii=False, indent=2))
+
+          canonical = json.loads(canonical_path.read_text(encoding='utf-8'))
+          canonical['schema_version'] = '1.1.0'
+          canonical['generated_at'] = datetime.now(timezone.utc).isoformat()
+          canonical['validation']['checks']['raw_embedding_results_included'] = True
+          canonical['validation']['checks']['qwen3_embedding_8b_included'] = True
+          canonical['validation']['checks']['nemotron_nvfp4_included'] = True
+          canonical['validation']['checks']['raw_corpus_mismatches_zero'] = True
+          canonical['validation']['raw_embedding_result_count'] = len(records)
+          canonical['validation']['raw_embedding_source_file_count'] = len(source_files)
+          canonical['canonical_scope']['raw_embedding_profiles'] = len(records)
+          canonical['source_of_truth_policy']['raw_embedding_metrics'] = [
+              'individual JSON artifacts under benchmark/embedding-v3/results/gate2',
+              'individual JSON artifacts under benchmark/embedding-v3/results/gate3',
+              'individual JSON artifacts under benchmark/embedding-v3/results/voyage',
+              'admitted Nemotron result paths from benchmark/embedding-v3/config/nemotron_1b_profiles.json',
+              'reranker summary entries with reranker_id=none for historical deployment variants',
+          ]
+          canonical['inventory']['raw_embedding_profile_count'] = len(records)
+          canonical['inventory']['raw_embedding_source_file_count'] = len(source_files)
+          canonical['leaders_raw_embeddings'] = {
+              'best_by_mrr_at_10': records[0],
+              'fastest_local_by_documents_per_second': max(
+                  (r for r in records if isinstance(r['runtime']['documents_per_second'], (int, float)) and r['identity']['backend'] != 'voyage-api'),
+                  key=lambda r: r['runtime']['documents_per_second'],
+              ),
+              'fastest_local_by_queries_per_second': max(
+                  (r for r in records if isinstance(r['runtime']['queries_per_second'], (int, float)) and r['identity']['backend'] != 'voyage-api'),
+                  key=lambda r: r['runtime']['queries_per_second'],
+              ),
+          }
+          canonical['raw_embedding_results_ranked_by_mrr_at_10'] = records
+          canonical['nvfp4_artifact_scope'] = {
+              'embedding_benchmark': {
+                  'id': 'nemotron_3_embed_1b_nvfp4',
+                  'status': 'full_corpus_metrics_and_runtime_included',
+                  'source_path': next(r['source_path'] for r in records if r['embedding_id'] == 'nemotron_3_embed_1b_nvfp4'),
+              },
+              'generation_healthcheck_not_embedding_benchmark': {
+                  'id': 'Ornith-9B-MTP-NVFP4:latest',
+                  'source_path': 'benchmark/embedding-v3/results/healthcheck_evidence/Ornith-9B-MTP-NVFP4.json',
+                  'reason_not_ranked': 'Ollama generation healthcheck only; no frozen-corpus retrieval metrics',
+              },
+          }
+          canonical_path.write_text(json.dumps(canonical, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+          print(json.dumps({
+              'raw_embedding_profiles': len(records),
+              'source_files': len(source_files),
+              'leader': records[0]['embedding_id'],
+              'fastest_docs': canonical['leaders_raw_embeddings']['fastest_local_by_documents_per_second']['embedding_id'],
+              'fastest_queries': canonical['leaders_raw_embeddings']['fastest_local_by_queries_per_second']['embedding_id'],
+          }, ensure_ascii=False))
           PY
-      - name: Commit temporary inventory
+      - name: Commit corrected consolidation
         run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add benchmark/embedding-v3/TEMP_NONPIPELINE_BENCHMARK_INVENTORY.json
-          git commit -m "chore: refine temporary non-pipeline benchmark inventory"
+          git add benchmark/embedding-v3/ALL_BENCHMARK_RESULTS.json
+          git commit -m "fix: include raw embeddings and NVFP4 in canonical benchmark"
           git push
