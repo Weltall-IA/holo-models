@@ -6,7 +6,7 @@ on:
       - master
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   audit:
@@ -14,31 +14,45 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          ref: agent/archive-superseded-benchmark-docs
           fetch-depth: 0
-      - name: List root benchmark files
+      - name: Build audit report
         run: |
-          echo '=== ROOT FILES ==='
-          find benchmark/embedding-v3 -maxdepth 1 -type f -printf '%f\t%s bytes\n' | sort
-          echo '=== SUMMARY CANDIDATES ==='
-          find benchmark/embedding-v3 -maxdepth 1 -type f \( \
-            -name '*RESULTS*.json' -o \
-            -name '*REPORT*.md' -o \
-            -name '*DECISION*.md' -o \
-            -name '*BRIEF*.md' \
-          \) -printf '%f\n' | sort
-      - name: Find active references
+          report='benchmark/embedding-v3/AUDIT_BENCHMARK_DOCS.txt'
+          {
+            echo '=== ROOT FILES ==='
+            find benchmark/embedding-v3 -maxdepth 1 -type f -printf '%f\t%s bytes\n' | sort
+            echo
+            echo '=== SUMMARY CANDIDATES ==='
+            find benchmark/embedding-v3 -maxdepth 1 -type f \( \
+              -name '*RESULTS*.json' -o \
+              -name '*REPORT*.md' -o \
+              -name '*DECISION*.md' -o \
+              -name '*BRIEF*.md' \
+            \) -printf '%f\n' | sort
+            files=(
+              BENCHMARK_RESULTS.json
+              BENCHMARK_RESULTS_REGISTRY.json
+              RERANKER_PIPELINE_REPORT.md
+              RERANKER_TOP5_REPORT.md
+              OPERATIONAL_COMPARISON_REPORT.md
+              PRODUCTION_PROFILE_DECISION.md
+              PRODUCTION_PROFILE_INTEGRATION_REPORT.md
+              DIRECTOR_BRIEF.md
+            )
+            for file in "${files[@]}"; do
+              echo
+              echo "=== REFERENCES: $file ==="
+              grep -RIn --exclude="$file" --exclude='ALL_BENCHMARK_RESULTS.json' --exclude='AUDIT_BENCHMARK_DOCS.txt' --exclude-dir='.git' -- "$file" . || true
+            done
+          } > "$report"
+      - name: Commit audit report
         run: |
-          files=(
-            BENCHMARK_RESULTS.json
-            BENCHMARK_RESULTS_REGISTRY.json
-            RERANKER_PIPELINE_REPORT.md
-            RERANKER_TOP5_REPORT.md
-            OPERATIONAL_COMPARISON_REPORT.md
-            PRODUCTION_PROFILE_DECISION.md
-            PRODUCTION_PROFILE_INTEGRATION_REPORT.md
-            DIRECTOR_BRIEF.md
-          )
-          for file in "${files[@]}"; do
-            echo "=== REFERENCES: $file ==="
-            grep -RIn --exclude="$file" --exclude='ALL_BENCHMARK_RESULTS.json' --exclude-dir='.git' -- "$file" . || true
-          done
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add benchmark/embedding-v3/AUDIT_BENCHMARK_DOCS.txt
+          if git diff --cached --quiet; then
+            exit 0
+          fi
+          git commit -m 'chore(audit): record benchmark documentation inventory'
+          git push origin HEAD:agent/archive-superseded-benchmark-docs
