@@ -1,0 +1,6 @@
+{
+  "profile_id": "lfm_25_embedding_350m_q4_k_m_official",
+  "hr_at_50": 0.9866666666666667,
+  "queries_without_relevant": 2,
+  "gate": "PASS"
+}

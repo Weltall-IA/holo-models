@@ -1,0 +1,15 @@
+{
+  "pipeline_id": "nomic_embed_text_v2_moe_q4__mxbai_rerank_base_v2",
+  "embedding": "nomic_embed_text_v2_moe_q4",
+  "reranker": "mxbai_rerank_base_v2",
+  "metrics": {
+    "summary": {
+      "MRR@10": 0.2743015873015874,
+      "HitRate@1": 0.14666666666666667,
+      "HitRate@10": 0.64,
+      "HitRate@20": 0.7933333333333333
+    }
+  },
+  "latency_p50_s": 2.28903591632843,
+  "latency_p95_s": 2.380357360839844
+}

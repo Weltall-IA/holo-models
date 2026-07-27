@@ -1,0 +1,15 @@
+{
+  "pipeline_id": "colibri_ptbr__mxbai_rerank_base_v2",
+  "embedding": "colibri_ptbr",
+  "reranker": "mxbai_rerank_base_v2",
+  "metrics": {
+    "summary": {
+      "MRR@10": 0.2824470899470901,
+      "HitRate@1": 0.16666666666666666,
+      "HitRate@10": 0.6266666666666667,
+      "HitRate@20": 0.8
+    }
+  },
+  "latency_p50_s": 2.3455275297164917,
+  "latency_p95_s": 2.424181342124939
+}

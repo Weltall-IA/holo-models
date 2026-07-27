@@ -1,0 +1,15 @@
+{
+  "pipeline_id": "granite_embedding_311m_r2__mxbai_rerank_base_v2",
+  "embedding": "granite_embedding_311m_r2",
+  "reranker": "mxbai_rerank_base_v2",
+  "metrics": {
+    "summary": {
+      "MRR@10": 0.3139074074074076,
+      "HitRate@1": 0.2,
+      "HitRate@10": 0.68,
+      "HitRate@20": 0.8066666666666666
+    }
+  },
+  "latency_p50_s": 2.322386145591736,
+  "latency_p95_s": 2.4035026907920836
+}

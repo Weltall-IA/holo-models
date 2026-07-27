@@ -1,0 +1,77 @@
+{
+  "nomic_embed_text_v2_moe_q4": {
+    "pipeline_id": "nomic_embed_text_v2_moe_q4__mxbai_rerank_base_v2",
+    "embedding": "nomic_embed_text_v2_moe_q4",
+    "reranker": "mxbai_rerank_base_v2",
+    "metrics": {
+      "summary": {
+        "MRR@10": 0.2743015873015874,
+        "HitRate@1": 0.14666666666666667,
+        "HitRate@10": 0.64,
+        "HitRate@20": 0.7933333333333333
+      }
+    },
+    "latency_p50_s": 2.28903591632843,
+    "latency_p95_s": 2.380357360839844
+  },
+  "qwen3_embedding_4b_q8_0": {
+    "pipeline_id": "qwen3_embedding_4b_q8_0__mxbai_rerank_base_v2",
+    "embedding": "qwen3_embedding_4b_q8_0",
+    "reranker": "mxbai_rerank_base_v2",
+    "metrics": {
+      "summary": {
+        "MRR@10": 0.28779629629629633,
+        "HitRate@1": 0.16666666666666666,
+        "HitRate@10": 0.6533333333333333,
+        "HitRate@20": 0.8133333333333334
+      }
+    },
+    "latency_p50_s": 2.3190178871154785,
+    "latency_p95_s": 2.4685187578201293
+  },
+  "embeddinggemma": {
+    "pipeline_id": "embeddinggemma__mxbai_rerank_base_v2",
+    "embedding": "embeddinggemma",
+    "reranker": "mxbai_rerank_base_v2",
+    "metrics": {
+      "summary": {
+        "MRR@10": 0.2872407407407408,
+        "HitRate@1": 0.16,
+        "HitRate@10": 0.64,
+        "HitRate@20": 0.8133333333333334
+      }
+    },
+    "latency_p50_s": 2.4012919664382935,
+    "latency_p95_s": 2.5062203407287598
+  },
+  "colibri_ptbr": {
+    "pipeline_id": "colibri_ptbr__mxbai_rerank_base_v2",
+    "embedding": "colibri_ptbr",
+    "reranker": "mxbai_rerank_base_v2",
+    "metrics": {
+      "summary": {
+        "MRR@10": 0.2824470899470901,
+        "HitRate@1": 0.16666666666666666,
+        "HitRate@10": 0.6266666666666667,
+        "HitRate@20": 0.8
+      }
+    },
+    "latency_p50_s": 2.3455275297164917,
+    "latency_p95_s": 2.424181342124939
+  },
+  "granite_embedding_311m_r2": {
+    "pipeline_id": "granite_embedding_311m_r2__mxbai_rerank_base_v2",
+    "embedding": "granite_embedding_311m_r2",
+    "reranker": "mxbai_rerank_base_v2",
+    "metrics": {
+      "summary": {
+        "MRR@10": 0.3139074074074076,
+        "HitRate@1": 0.2,
+        "HitRate@10": 0.68,
+        "HitRate@20": 0.8066666666666666
+      }
+    },
+    "latency_p50_s": 2.322386145591736,
+    "latency_p95_s": 2.4035026907920836
+  }
+}
