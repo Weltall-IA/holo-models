@@ -20,6 +20,35 @@ resumos ou relatórios de decisão para embeddings. Atualize as duas tabelas
 canônicas do `README.md`. Um novo arquivo desse tipo exige autorização humana
 explícita e justificativa de por que o arquivo existente não pode ser usado.
 
+## Política de quantização para 16 GB de VRAM
+
+A seleção de pesos para qualquer embedding ou reranker local deve seguir esta
+ordem obrigatória:
+
+1. `NVFP4`, quando existir um artefato confiável, compatível com o runtime e
+   identificado para o modelo exato;
+2. `Q4` — preferencialmente `Q4_K_M` — quando não houver NVFP4 confiável;
+3. `Q8` somente quando **todas** as condições abaixo forem satisfeitas:
+   - não existir NVFP4 nem Q4 confiável para o modelo;
+   - o modelo for pequeno o bastante para caber com folga na RTX 5060 Ti de
+     16 GB, incluindo pesos, KV/cache, buffers e overhead do runtime;
+   - o preflight registrar memória prevista e justificar por que Q8 é necessário;
+   - houver aprovação explícita no contrato da rodada.
+
+Regras adicionais:
+
+- modelos grandes não devem ser baixados ou retestados em Q8 apenas por maior
+  precisão teórica;
+- nunca confundir um NVFP4 de outra escala, revisão ou família com o modelo
+  pretendido; por exemplo, um NVFP4 oficial de 1B não prova a existência de um
+  NVFP4 de 8B;
+- na ausência de NVFP4/Q4 confiável, marcar `BLOCKED` em vez de escolher Q8
+  silenciosamente;
+- resultados históricos Q8 permanecem registrados, mas não obrigam futuras
+  rodadas a repetir a mesma quantização;
+- qualquer exceção precisa registrar modelo, tamanho, VRAM estimada, motivo,
+  aprovação humana e novo `profile_id`.
+
 ## Registro de resultados
 
 1. Registre somente métricas realmente obtidas no corpus e protocolo declarados.
