@@ -191,6 +191,15 @@ existing_results:
     - bitnet_06b
 
 execution_order:
+  mandatory_dry_run_before_any_download_or_benchmark:
+    - validate repository and active branch
+    - validate all required governance files were read
+    - validate corpus counts and SHA-256
+    - enumerate existing local model files and calculate hashes
+    - enumerate exact downloads still required for the small phase
+    - resolve remote revisions, sizes and SHA-256
+    - estimate disk, RAM and VRAM per small model
+    - report blockers and stop when any artifact metadata diverges
   run_now_small_phase:
     - validate_repository_governance_hardware_and_inventory
     - materialize_missing_qwen_candidates_from_existing_valid_artifacts
@@ -732,6 +741,7 @@ validation:
 
 small_phase_stop_contract:
   stop_after:
+    - mandatory dry-run report completed
     - all existing missing Qwen-local pipelines attempted
     - LFM2.5 350M Q4 baseline complete or explicitly blocked
     - BitNet 0.6B baseline complete or explicitly blocked
@@ -747,6 +757,7 @@ small_phase_stop_contract:
 
 completion_report:
   required:
+    - mandatory dry-run inventory and blockers
     - models reused without execution
     - exact downloads performed with revision, file size and SHA-256
     - quantizations selected and rejected
