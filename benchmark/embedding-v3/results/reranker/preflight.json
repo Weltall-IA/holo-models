@@ -1,8 +1,13 @@
 {
   "schema_version": "1.0",
   "stage": "1.5.1",
-  "status": "READY",
-  "blockers": [],
+  "status": "BLOCKED",
+  "blockers": [
+    "missing path: embeddinggemma",
+    "missing path: voyage4_nano",
+    "missing path: voyage_large_documents_checkpoint",
+    "missing path: voyage_large_queries_checkpoint"
+  ],
   "corpus_sha256": "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b",
   "documents": 600,
   "queries": 150,
@@ -11,36 +16,36 @@
   "rerank_instruction": "Classifique as cenas pela correspondência com a consulta, considerando acontecimento, diálogo, personagens, intenção emocional e contexto. Não favoreça apenas sobreposição literal de palavras.",
   "paths": {
     "embeddinggemma": {
-      "path": "/home/alpha/Playstoria/models/embed/embeddinggemma_gguf/embeddinggemma-300M-Q8_0.gguf",
-      "exists": true
+      "path": "/home/alpha/Playstoria/models-embed-batch2-light/embed/embeddinggemma_gguf/embeddinggemma-300M-Q8_0.gguf",
+      "exists": false
     },
     "voyage4_nano": {
-      "path": "/home/alpha/Playstoria/models/embed/voyage4_nano",
-      "exists": true
+      "path": "/home/alpha/Playstoria/models-embed-batch2-light/embed/voyage4_nano",
+      "exists": false
     },
     "voyage_large_documents_checkpoint": {
-      "path": "/home/alpha/Playstoria/models/benchmark/embedding-v3/results/raw/voyage/voyage-4-large/documents.json",
-      "exists": true
+      "path": "/home/alpha/Playstoria/models-embed-batch2-light/benchmark/embedding-v3/results/raw/voyage/voyage-4-large/documents.json",
+      "exists": false
     },
     "voyage_large_queries_checkpoint": {
-      "path": "/home/alpha/Playstoria/models/benchmark/embedding-v3/results/raw/voyage/voyage-4-large/queries.json",
-      "exists": true
+      "path": "/home/alpha/Playstoria/models-embed-batch2-light/benchmark/embedding-v3/results/raw/voyage/voyage-4-large/queries.json",
+      "exists": false
     }
   },
   "qwen_candidates": [
     {
-      "path": "/home/alpha/.cache/huggingface/hub/models--Qwen--Qwen3-Reranker-0.6B/snapshots/e61197ed45024b0ed8a2d74b80b4d909f1255473",
+      "path": "/home/alpha/Playstoria/models-embed-batch2-light/rerank/mxbai_rerank_base_v2",
       "backend": "cross-encoder",
-      "name": "e61197ed45024b0ed8a2d74b80b4d909f1255473",
-      "bytes": 1207486774,
+      "name": "mxbai_rerank_base_v2",
       "strength": 0.0,
+      "bytes": 999525832,
       "weight_files": [
         "model.safetensors"
       ]
     }
   ],
-  "qwen_model_path_requested": "/home/alpha/.cache/huggingface/hub/models--Qwen--Qwen3-Reranker-0.6B/snapshots/e61197ed45024b0ed8a2d74b80b4d909f1255473",
+  "qwen_model_path_requested": "auto",
   "voyage_rerank_api_enabled": false,
-  "voyage_key_path_configured": true,
-  "created_at": "2026-07-20T19:56:31.477400+00:00"
+  "voyage_key_path_configured": false,
+  "created_at": "2026-07-28T03:59:17.377999+00:00"
 }
