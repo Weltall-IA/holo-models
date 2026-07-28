@@ -2,8 +2,8 @@ from __future__ import annotations
 
 import argparse
 from datetime import datetime, timezone
-from pathlib import Path
-from typing import Any
+from pathlib import Path, PureWindowsPath
+from typing import Any, Mapping
 
 from holo_benchmark.reranker_runtime import (
     CORPUS_SHA256,
@@ -16,6 +16,42 @@ from holo_benchmark.reranker_runtime import (
 PROJECT_ROOT = Path(__file__).resolve().parent
 REPO_ROOT = PROJECT_ROOT.parents[1]
 RESULTS_DIR = PROJECT_ROOT / "results" / "reranker"
+
+
+def _path_basename(path: Path | str) -> str:
+    raw = str(path)
+    if "\\" in raw:
+        return PureWindowsPath(raw).name
+    return Path(raw).name
+
+
+def _portable_path(path: Path | str) -> str:
+    raw = str(path)
+    if "\\" in raw and PureWindowsPath(raw).is_absolute():
+        basename = _path_basename(path)
+        return f"<external>/{basename}" if basename else "<external>"
+    candidate = Path(path).expanduser()
+    try:
+        relative = candidate.resolve().relative_to(REPO_ROOT.resolve())
+    except (OSError, RuntimeError, ValueError):
+        basename = _path_basename(path)
+        return f"<external>/{basename}" if basename else "<external>"
+    return relative.as_posix() or "."
+
+
+def _portable_requested_model(value: str) -> str:
+    if value == "auto":
+        return value
+    if Path(value).is_absolute() or "/" in value or "\\" in value:
+        return _portable_path(value)
+    return value
+
+
+def _portable_qwen_candidate(candidate: Mapping[str, Any]) -> dict[str, Any]:
+    portable = dict(candidate)
+    if portable.get("path"):
+        portable["path"] = _portable_path(str(portable["path"]))
+    return portable
 
 
 def preflight(args: argparse.Namespace) -> dict[str, Any]:
@@ -80,11 +116,15 @@ def preflight(args: argparse.Namespace) -> dict[str, Any]:
         "rerank_top_k": args.rerank_top_k,
         "rerank_instruction": args.instruction,
         "paths": {
-            name: {"path": str(path), "exists": path.exists()}
+            name: {"path": _portable_path(path), "exists": path.exists()}
             for name, path in paths.items()
         },
-        "qwen_candidates": qwen_candidates,
-        "qwen_model_path_requested": args.qwen_model_path,
+        "qwen_candidates": [
+            _portable_qwen_candidate(candidate) for candidate in qwen_candidates
+        ],
+        "qwen_model_path_requested": _portable_requested_model(
+            args.qwen_model_path
+        ),
         "voyage_rerank_api_enabled": bool(args.allow_voyage_rerank_api),
         "voyage_key_path_configured": args.api_key_path.expanduser().exists(),
         "created_at": datetime.now(timezone.utc).isoformat(),
