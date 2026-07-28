@@ -75,6 +75,7 @@ def _child_peak_ram_bytes() -> int:
 
 
 def _vram_residual_bytes() -> int | None:
+    """Return best-effort residual VRAM without affecting benchmark success."""
     binary = shutil.which("nvidia-smi")
     if binary is None:
         return None
@@ -90,7 +91,9 @@ def _vram_residual_bytes() -> int | None:
             check=False,
             timeout=5,
         )
-    except (OSError, subprocess.TimeoutExpired):
+    except Exception:
+        # Telemetry is optional. A missing, mocked or incompatible nvidia-smi
+        # must not invalidate otherwise valid CPU embeddings.
         return None
     if result.returncode != 0:
         return None
@@ -195,9 +198,9 @@ def bitnet_embed_texts(
             inputs=encoded_texts,
         )
         sanitized_command = [
-            str(binary),
+            "<bitnet-embedding-binary>",
             "-m",
-            str(model),
+            "<gguf-model>",
             "-f",
             "<temporary-input-file>",
             "--embd-normalize",
