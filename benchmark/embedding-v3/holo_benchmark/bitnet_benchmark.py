@@ -177,6 +177,50 @@ def _load_hardware(path: Path | None) -> dict[str, Any]:
     return payload
 
 
+def _candidate_profile_ids(payload: Mapping[str, Any]) -> set[str]:
+    identities: set[str] = set()
+    for key in ("variant", "id"):
+        value = payload.get(key)
+        if isinstance(value, str) and value:
+            identities.add(value)
+    embedding = payload.get("embedding")
+    if isinstance(embedding, str) and embedding:
+        identities.add(embedding)
+    elif isinstance(embedding, Mapping):
+        for key in ("profile_id", "id"):
+            value = embedding.get(key)
+            if isinstance(value, str) and value:
+                identities.add(value)
+    return identities
+
+
+def remove_stale_candidate(path: Path, profile_id: str) -> bool:
+    """Remove a candidate for a profile that no longer passes its embedding gate.
+
+    Refuse to delete an unreadable file or an artifact that belongs to another
+    profile. This prevents a failed rerun from leaving a stale candidate that can
+    be consumed by a later reranker invocation.
+    """
+    if not path.exists():
+        return False
+    if not path.is_file():
+        raise RuntimeError(f"candidate path is not a regular file: {path}")
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise RuntimeError(f"cannot validate stale candidate before removal: {path}") from exc
+    if not isinstance(payload, dict):
+        raise RuntimeError(f"stale candidate payload is not an object: {path}")
+    identities = _candidate_profile_ids(payload)
+    if profile_id not in identities:
+        raise RuntimeError(
+            f"refusing to remove candidate with mismatched identity: {path}; "
+            f"expected {profile_id}, found {sorted(identities)}"
+        )
+    path.unlink()
+    return True
+
+
 def benchmark_profile(args: argparse.Namespace) -> dict[str, Any]:
     config = PROFILE_CONFIG[args.profile_id]
     chunks, queries = load_frozen_dataset(PROJECT_ROOT)
@@ -239,7 +283,11 @@ def benchmark_profile(args: argparse.Namespace) -> dict[str, Any]:
     result_path = args.result_output or RESULT_DIR / f"{args.profile_id}.json"
     atomic_json(result_path, result_payload)
 
+    candidate_target = (
+        args.candidate_output or CANDIDATE_DIR / f"{args.profile_id}.json"
+    )
     candidate_path: Path | None = None
+    stale_candidate_removed = False
     if gate_pass:
         candidate_payload = build_candidate_payload(
             profile_id=args.profile_id,
@@ -257,23 +305,32 @@ def benchmark_profile(args: argparse.Namespace) -> dict[str, Any]:
             expected_query_ids=query_ids,
             expected_top_k=args.candidate_top_k,
         )
-        candidate_path = (
-            args.candidate_output
-            or CANDIDATE_DIR / f"{args.profile_id}.json"
-        )
+        candidate_path = candidate_target
         atomic_json(candidate_path, candidate_payload)
         if args.validate_canonical_loader:
-            from reranker_execution import load_candidate_payloads
+            import reranker_execution
 
-            loaded = load_candidate_payloads([args.profile_id], args.candidate_top_k)
+            original_candidate_dir = reranker_execution.CANDIDATE_DIR
+            try:
+                reranker_execution.CANDIDATE_DIR = candidate_path.parent
+                loaded = reranker_execution.load_candidate_payloads(
+                    [args.profile_id], args.candidate_top_k
+                )
+            finally:
+                reranker_execution.CANDIDATE_DIR = original_candidate_dir
             if args.profile_id not in loaded:
                 raise RuntimeError("canonical candidate loader did not return profile")
+    else:
+        stale_candidate_removed = remove_stale_candidate(
+            candidate_target, args.profile_id
+        )
 
     return {
         "status": "PASS" if gate_pass else "FAIL",
         "profile_id": args.profile_id,
         "result_path": str(result_path),
         "candidate_path": str(candidate_path) if candidate_path else None,
+        "stale_candidate_removed": stale_candidate_removed,
         "metrics": summary,
     }
 
