@@ -1,114 +1,147 @@
-"""BitNet embedding output parser.
+"""BitNet embedding output parser — strict full-consumption implementation.
 
-Parses the text array output format produced by llama-embedding (BitNet runtime):
-    [[float,float,...],[float,float,...],...]
+Parses the exact output format of `llama-embedding --embd-output-format array`:
+a single line containing [[f1,f2,...,fD],[f1,f2,...,fD],...].
 
-Validates dimension, finiteness, norm, count and determinism.
+The parser consumes the ENTIRE stdout. Any residual bytes, ambiguous text,
+truncation, duplicate vectors for distinct inputs, NaN, infinity, or zero
+norm causes an immediate ValueError.
 """
 from __future__ import annotations
 
-import re
-from pathlib import Path
+import math
 from typing import Sequence
 
 import numpy as np
 
-# Regex for a single float: optional sign, digits, optional decimal, optional exponent
-_FLOAT_RE = r"-?[\d]+(?:\.[\d]+)?(?:[eE][+-]?[\d]+)?"
 
-# Match outer array: [[...],[...],...]  — each inner array is one vector
-_VECTOR_RE = re.compile(r"\[(" + _FLOAT_RE + r"(?:\s*,\s*" + _FLOAT_RE + r")*)\]")
+def parse_bitnet_array_output(
+    text: str,
+    expected_count: int,
+    expected_dim: int,
+    *,
+    allow_identical: bool = False,
+) -> np.ndarray:
+    """Parse the exact `[[...],[...]]` output of llama-embedding --embd-output-format array.
 
-# Precompiled pattern for a single float value inside a vector
-_SINGLE_FLOAT_RE = re.compile(r"-?[\d]+(?:\.[\d]+)?(?:[eE][+-]?[\d]+)?")
-
-
-def parse_bitnet_array_output(text: str, expected_count: int, expected_dim: int) -> np.ndarray:
-    """Parse BitNet llama-embedding --embd-output-format array text output.
-
-    Parameters
-    ----------
-    text : str
-        Raw stdout from llama-embedding.
-    expected_count : int
-        Number of input texts (must match number of vectors).
-    expected_dim : int
-        Expected embedding dimension (1024 for 0.6B, 640 for 270M).
-
-    Returns
-    -------
-    np.ndarray
-        Shape (expected_count, expected_dim), float32, L2-normalized rows.
-
-    Raises
-    ------
-    ValueError
-        If parsing fails any validation check.
+    Strict rules:
+      - All non-whitespace content must be a single valid [[...],[...],...] block.
+      - Exactly `expected_count` vectors, each of length `expected_dim`.
+      - No NaN, no infinity, no zero-norm vectors.
+      - L2-normalized within tolerance (0.05).
+      - No duplicate vectors for distinct inputs (unless allow_identical=True).
     """
-    if not text or not text.strip():
+    if not text:
         raise ValueError("BitNet output is empty")
 
-    vector_matches = _VECTOR_RE.findall(text)
-    if not vector_matches:
+    # Strip only leading/trailing whitespace; everything else must be structure
+    stripped = text.strip()
+    if not stripped:
+        raise ValueError("BitNet output is whitespace-only")
+
+    # The canonical format is: [[f,f,...],[f,f,...]]
+    # No other content is permitted outside the outer brackets.
+    if not stripped.startswith("[[") or not stripped.endswith("]]"):
         raise ValueError(
-            f"No vector arrays found in BitNet output. "
-            f"First 200 chars: {text[:200]!r}"
+            f"BitNet output does not match expected [[...],[...]] format. "
+            f"First 100 chars: {stripped[:100]!r}  Last 100 chars: {stripped[-100:]!r}"
         )
 
-    vectors: list[list[float]] = []
-    for match_str in vector_matches:
-        float_matches = _SINGLE_FLOAT_RE.findall(match_str)
-        vals = [float(v) for v in float_matches]
+    # Split into individual vector strings: "[f,f,...]"
+    # The outer [[...]] must decompose cleanly into inner [f,f,...] blocks.
+    inner = stripped[1:-1]  # strip outer [[ and ]]
+    if not inner.startswith("[") or not inner.endswith("]"):
+        raise ValueError(
+            f"Inner content does not start with [ or end with ]. "
+            f"First 80: {inner[:80]!r}  Last 80: {inner[-80:]!r}"
+        )
+
+    # Split on "],[" to get individual vectors
+    parts = inner.split("],[")
+
+    vectors = []
+    for i, part in enumerate(parts):
+        # Clean brackets
+        vstr = part.strip()
+        if i == 0:
+            vstr = vstr[1:]  # remove leading [
+        if i == len(parts) - 1:
+            vstr = vstr[:-1]  # remove trailing ]
+        vstr = vstr.strip()
+
+        if not vstr:
+            raise ValueError(f"Empty vector string at position {i}")
+
+        # Parse comma-separated floats, allowing whitespace
+        vals = []
+        for tok in vstr.split(","):
+            tok = tok.strip()
+            if not tok:
+                continue
+            try:
+                v = float(tok)
+            except ValueError:
+                raise ValueError(
+                    f"Cannot parse float at vector {i}: {tok!r}"
+                )
+            if not math.isfinite(v):
+                raise ValueError(
+                    f"Non-finite value at vector {i}: {tok!r}"
+                )
+            vals.append(v)
+
+        if len(vals) != expected_dim:
+            raise ValueError(
+                f"Vector {i} has {len(vals)} dimensions, expected {expected_dim}"
+            )
         vectors.append(vals)
 
     n_vectors = len(vectors)
     if n_vectors != expected_count:
         raise ValueError(
-            f"Vector count mismatch: got {n_vectors}, expected {expected_count}"
+            f"Got {n_vectors} vectors, expected {expected_count}"
         )
-
-    for i, vec in enumerate(vectors):
-        if len(vec) != expected_dim:
-            raise ValueError(
-                f"Vector {i} dimension mismatch: got {len(vec)}, expected {expected_dim}"
-            )
-        for j, v in enumerate(vec):
-            if not np.isfinite(v):
-                raise ValueError(
-                    f"Vector {i} element {j} is not finite: {v}"
-                )
 
     arr = np.array(vectors, dtype=np.float32)
 
+    # Zero-norm check
     norms = np.linalg.norm(arr, axis=1)
-    zero_norm_mask = norms < 1e-12
-    if np.any(zero_norm_mask):
-        bad_idx = np.where(zero_norm_mask)[0][0]
+    zero_mask = norms < 1e-12
+    if np.any(zero_mask):
+        bad = int(np.argmax(zero_mask))
+        raise ValueError(f"Vector {bad} has zero norm")
+
+    # L2-normalization check (within tolerance)
+    max_dev = float(np.max(np.abs(norms - 1.0)))
+    if max_dev > 0.05:
         raise ValueError(
-            f"Vector {bad_idx} has zero norm (possible zero vector input)"
+            f"Vectors not L2-normalized: max norm deviation = {max_dev:.4f}"
         )
 
-    # Verify L2 normalized (norms should be ~1.0 after --embd-normalize 2)
-    max_deviation = float(np.max(np.abs(norms - 1.0)))
-    if max_deviation > 0.05:
-        raise ValueError(
-            f"Vectors not L2-normalized: max norm deviation = {max_deviation:.4f}"
-        )
+    # Duplicate detection for distinct inputs (warn if any pair is identical)
+    if not allow_identical:
+        seen = {}
+        for i, vec in enumerate(vectors):
+            key = tuple(vec)
+            if key in seen:
+                raise ValueError(
+                    f"Vector {i} is identical to vector {seen[key]} "
+                    f"(possible duplication for distinct inputs)"
+                )
+            seen[key] = i
 
     return arr
 
 
-def detect_bitnet_dim(gguf_path: Path) -> int:
-    """Detect expected dimension from GGUF filename heuristic.
-
-    0.6B models output 1024 dimensions; 270M models output 640 dimensions.
-    """
-    name = gguf_path.name.lower()
-    if "270m" in name:
-        return 640
-    if "0.6b" in name or "06b" in name:
-        return 1024
+def detect_bitnet_dim(profile_id: str) -> int:
+    """Return expected dimension for a BitNet profile, configured explicitly."""
+    dim_map = {
+        "bitnet_06b_current": 1024,
+        "bitnet_270m_current": 640,
+    }
+    if profile_id in dim_map:
+        return dim_map[profile_id]
     raise ValueError(
-        f"Cannot detect BitNet dimension from filename: {gguf_path.name}. "
-        f"Expected '0.6b' (1024) or '270m' (640)."
+        f"Unknown BitNet profile: {profile_id}. "
+        f"Known profiles: {list(dim_map.keys())}"
     )

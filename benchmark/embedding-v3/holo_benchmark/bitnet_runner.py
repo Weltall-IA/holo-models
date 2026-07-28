@@ -1,41 +1,17 @@
-"""BitNet embedding runner.
-
-Runs llama-embedding from the Microsoft BitNet runtime and parses its output
-using bitnet_parser.  Designed for I2_S architecture-native GGUF files on CPU.
-"""
+"""BitNet embedding runner — canonical integration for the benchmark."""
 from __future__ import annotations
 
 import hashlib
-import json
-import logging
 import os
-import re
 import subprocess
 import tempfile
 import time
 from pathlib import Path
-from typing import Any, Sequence
+from typing import Sequence
 
 import numpy as np
 
 from .bitnet_parser import detect_bitnet_dim, parse_bitnet_array_output
-
-logger = logging.getLogger(__name__)
-
-
-def _find_bitnet_binary() -> Path:
-    """Locate the llama-embedding binary from the BitNet runtime build."""
-    candidates = [
-        Path(__file__).resolve().parents[2] / "runtimes/BitNet/build/bin/llama-embedding",
-        Path.home() / "Playstoria/models-embed-batch2-light/runtimes/BitNet/build/bin/llama-embedding",
-    ]
-    for c in candidates:
-        if c.is_file():
-            return c
-    raise FileNotFoundError(
-        "BitNet llama-embedding binary not found. "
-        "Expected at runtimes/BitNet/build/bin/llama-embedding"
-    )
 
 
 def _sha256(path: Path) -> str:
@@ -46,36 +22,46 @@ def _sha256(path: Path) -> str:
     return h.hexdigest()
 
 
-def bitnet_embed(
+def bitnet_embed_texts(
     texts: Sequence[str],
+    *,
     gguf_path: Path,
-    bitnet_bin: Path | None = None,
+    bitnet_bin: Path,
+    expected_dim: int,
     normalize: bool = True,
     instruction_prefix: str = "",
+    doc_indices: Sequence[int] | None = None,
+    query_indices: Sequence[int] | None = None,
 ) -> tuple[np.ndarray, dict[str, Any]]:
     """Encode texts using BitNet llama-embedding.
 
-    Returns
-    -------
-    embeddings : np.ndarray
-        Shape (len(texts), expected_dim), float32, L2-normalized.
-    info : dict
-        Runtime metadata: timing, dim, binary SHA-256, backend='bitnet.cpp'.
+    Parameters
+    ----------
+    texts : list[str]
+        Texts to encode.
+    gguf_path, bitnet_bin : Path
+        Paths to GGUF model and llama-embedding binary.
+    expected_dim : int
+        1024 for 0.6B, 640 for 270M.
+    normalize : bool
+        Whether to use --embd-normalize 2.
+    instruction_prefix : str
+        Prefix to prepend to query texts only.
+    doc_indices, query_indices : list[int]
+        Indices into `texts` for docs vs queries. If None, no instruction
+        prefix is applied to any text.
     """
-    if bitnet_bin is None:
-        bitnet_bin = _find_bitnet_binary()
-    expected_dim = detect_bitnet_dim(gguf_path)
+    # Build texts with instruction applied ONLY to query indices
+    encoded_texts = list(texts)
+    if instruction_prefix and query_indices is not None:
+        for idx in query_indices:
+            encoded_texts[idx] = instruction_prefix + encoded_texts[idx]
 
-    texts_to_encode = []
-    for t in texts:
-        if instruction_prefix and texts.index(t) >= 0:
-            texts_to_encode.append(instruction_prefix + t)
-        else:
-            texts_to_encode.append(t)
-
-    infile = tempfile.NamedTemporaryFile(mode="w", suffix=".txt", delete=False, encoding="utf-8")
+    infile = tempfile.NamedTemporaryFile(
+        mode="w", suffix=".txt", delete=False, encoding="utf-8"
+    )
     try:
-        for t in texts_to_encode:
+        for t in encoded_texts:
             infile.write(t + "\n")
         infile.close()
 
@@ -89,17 +75,15 @@ def bitnet_embed(
 
         t0 = time.monotonic()
         result = subprocess.run(
-            cmd,
-            capture_output=True,
-            text=True,
-            timeout=3600,
+            cmd, capture_output=True, text=True, timeout=3600
         )
         elapsed = time.monotonic() - t0
 
         if result.returncode != 0:
             stderr_tail = (result.stderr or "")[-500:]
             raise RuntimeError(
-                f"BitNet llama-embedding failed (exit={result.returncode}): {stderr_tail}"
+                f"BitNet llama-embedding failed (exit={result.returncode}): "
+                f"{stderr_tail}"
             )
 
         embeddings = parse_bitnet_array_output(
@@ -108,20 +92,24 @@ def bitnet_embed(
             expected_dim=expected_dim,
         )
 
-        info = {
+        info: dict[str, Any] = {
             "backend": "bitnet.cpp",
-            "backend_version": "microsoft/BitNet commit-0b341e5",
+            "device": "CPU",
+            "dimension": expected_dim,
+            "normalize": normalize,
+            "instruction_prefix": instruction_prefix if query_indices else "",
+            "n_texts": len(texts),
+            "n_queries": len(query_indices) if query_indices else 0,
+            "n_documents": len(doc_indices) if doc_indices else 0,
+            "encode_seconds": round(elapsed, 3),
+            "throughput_texts_per_sec": (
+                round(len(texts) / elapsed, 2) if elapsed > 0 else 0
+            ),
             "binary_path": str(bitnet_bin),
             "binary_sha256": _sha256(bitnet_bin),
             "gguf_path": str(gguf_path),
             "gguf_sha256": _sha256(gguf_path),
             "gguf_size_bytes": gguf_path.stat().st_size,
-            "device": "CPU",
-            "dimension": expected_dim,
-            "normalize": normalize,
-            "n_texts": len(texts),
-            "encode_seconds": round(elapsed, 3),
-            "throughput_texts_per_sec": round(len(texts) / elapsed, 2) if elapsed > 0 else 0,
         }
         return embeddings, info
 
@@ -135,24 +123,37 @@ def bitnet_embed(
 def bitnet_embed_queries_and_docs(
     queries: Sequence[str],
     documents: Sequence[str],
+    *,
     gguf_path: Path,
-    bitnet_bin: Path | None = None,
+    bitnet_bin: Path,
+    expected_dim: int,
     query_instruction: str = "",
+    normalize: bool = True,
 ) -> tuple[np.ndarray, np.ndarray, dict[str, Any]]:
-    """Encode queries and documents separately (instruction only on queries).
+    """Encode queries (with instruction) and documents (without) separately.
 
-    Returns (query_embs, doc_embs, info).
+    Returns (query_embs, doc_embs, merged_info).
     """
-    doc_embs, info = bitnet_embed(
-        documents, gguf_path, bitnet_bin, normalize=True, instruction_prefix=""
+    n_doc = len(documents)
+    n_q = len(queries)
+    combined = list(documents) + list(queries)
+    doc_indices = list(range(n_doc))
+    query_indices = list(range(n_doc, n_doc + n_q))
+
+    all_embs, info = bitnet_embed_texts(
+        combined,
+        gguf_path=gguf_path,
+        bitnet_bin=bitnet_bin,
+        expected_dim=expected_dim,
+        normalize=normalize,
+        instruction_prefix=query_instruction,
+        doc_indices=doc_indices,
+        query_indices=query_indices,
     )
 
-    q_texts = [query_instruction + q for q in queries] if query_instruction else list(queries)
-    q_embs, q_info = bitnet_embed(
-        q_texts, gguf_path, bitnet_bin, normalize=True, instruction_prefix=""
-    )
+    doc_embs = all_embs[:n_doc]
+    query_embs = all_embs[n_doc:]
 
-    info["query_encode_seconds"] = q_info["encode_seconds"]
     info["doc_encode_seconds"] = info["encode_seconds"]
-    info["total_encode_seconds"] = round(q_info["encode_seconds"] + info["encode_seconds"], 3)
-    return q_embs, doc_embs, info
+    info["query_encode_seconds"] = info["encode_seconds"]  # batched together
+    return query_embs, doc_embs, info
