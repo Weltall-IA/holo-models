@@ -73,8 +73,9 @@ LFM_RESULT='benchmark/embedding-v3/results/gate3/lfm_25_embedding_350m_q4_k_m_of
 LFM_CANDIDATE='benchmark/embedding-v3/results/reranker/candidates/lfm_25_embedding_350m_q4_k_m_official.json'
 LFM_PIPELINE='benchmark/embedding-v3/results/reranker/pipelines/qwen_local/lfm_25_embedding_350m_q4_k_m_official.json'
 LFM_SCORE='benchmark/embedding-v3/results/reranker/scores/qwen_local/lfm_25_embedding_350m_q4_k_m_official.json'
+GLOBAL_QWEN_SCORE='benchmark/embedding-v3/results/reranker/scores/qwen_local.json'
 
-for path in "$LFM_RESULT" "$LFM_CANDIDATE" "$LFM_PIPELINE"; do
+for path in "$LFM_RESULT" "$LFM_CANDIDATE" "$LFM_PIPELINE" "$GLOBAL_QWEN_SCORE"; do
   test -f "$path"
 done
 
@@ -83,9 +84,10 @@ test ! -e "$LFM_SCORE"
 RESULT_SHA_BEFORE="$(sha256sum "$LFM_RESULT" | awk '{print $1}')"
 CANDIDATE_SHA_BEFORE="$(sha256sum "$LFM_CANDIDATE" | awk '{print $1}')"
 PIPELINE_SHA_BEFORE="$(sha256sum "$LFM_PIPELINE" | awk '{print $1}')"
+GLOBAL_SCORE_SHA_BEFORE="$(sha256sum "$GLOBAL_QWEN_SCORE" | awk '{print $1}')"
 
-export LFM_RESULT LFM_CANDIDATE LFM_PIPELINE LFM_SCORE
-export RESULT_SHA_BEFORE CANDIDATE_SHA_BEFORE PIPELINE_SHA_BEFORE
+export LFM_RESULT LFM_CANDIDATE LFM_PIPELINE LFM_SCORE GLOBAL_QWEN_SCORE
+export RESULT_SHA_BEFORE CANDIDATE_SHA_BEFORE PIPELINE_SHA_BEFORE GLOBAL_SCORE_SHA_BEFORE
 ```
 
 O candidate deve registrar exatamente:
@@ -246,8 +248,7 @@ Confirme ainda:
 
 ```bash
 test "$(sha256sum "$LFM_CANDIDATE" | awk '{print $1}')" = "$CANDIDATE_SHA_BEFORE"
-test "$(sha256sum benchmark/embedding-v3/results/reranker/scores/qwen_local.json | awk '{print $1}')" = \
-     "$(git show HEAD:benchmark/embedding-v3/results/reranker/scores/qwen_local.json | sha256sum | awk '{print $1}')"
+test "$(sha256sum "$GLOBAL_QWEN_SCORE" | awk '{print $1}')" = "$GLOBAL_SCORE_SHA_BEFORE"
 test "$(sha256sum "$LFM_PIPELINE" | awk '{print $1}')" != "$PIPELINE_SHA_BEFORE"
 ```
 
