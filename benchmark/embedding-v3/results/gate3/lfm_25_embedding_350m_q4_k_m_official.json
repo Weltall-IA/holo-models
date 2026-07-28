@@ -55,7 +55,7 @@
       "available_bytes": 18144714752
     },
     "filesystem_project": {
-      "path": "/home/alpha/Playstoria/models/benchmark/embedding-v3",
+      "path": "<path>",
       "total_bytes": 2780252246016,
       "used_bytes": 885956022272,
       "free_bytes": 1865153204224,
@@ -65,16 +65,16 @@
           "-no",
           "FSTYPE,SOURCE,TARGET",
           "--target",
-          "/home/alpha/Playstoria/models/benchmark/embedding-v3"
+          "<path>"
         ],
         "returncode": 0,
         "duration_seconds": 0.0035,
-        "stdout": "bcachefs /dev/disk/by-uuid/af4831e9-8c08-48c1-bbd5-d96f2bee591a[/home] /home",
+        "stdout": "bcachefs <path> <path>",
         "stderr": ""
       }
     },
     "filesystem_repo": {
-      "path": "/home/alpha/Playstoria/models",
+      "path": "<path>",
       "total_bytes": 2780252246016,
       "used_bytes": 885956022272,
       "free_bytes": 1865153204224,
@@ -84,11 +84,11 @@
           "-no",
           "FSTYPE,SOURCE,TARGET",
           "--target",
-          "/home/alpha/Playstoria/models"
+          "<path>"
         ],
         "returncode": 0,
         "duration_seconds": 0.0034,
-        "stdout": "bcachefs /dev/disk/by-uuid/af4831e9-8c08-48c1-bbd5-d96f2bee591a[/home] /home",
+        "stdout": "bcachefs <path> <path>",
         "stderr": ""
       }
     },
@@ -127,7 +127,7 @@
     },
     "python": {
       "version": "3.12.13 (main, Jun 23 2026, 15:18:55) [Clang 22.1.3 ]",
-      "executable": "/home/alpha/Playstoria/models/benchmarks/holo-embedding-benchmark-v3/.venv/bin/python",
+      "executable": "<path>",
       "implementation": "CPython"
     },
     "torch_cuda": {
