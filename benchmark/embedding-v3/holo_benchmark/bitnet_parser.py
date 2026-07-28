@@ -1,18 +1,30 @@
-"""BitNet embedding output parser — strict full-consumption implementation.
-
-Parses the exact output format of `llama-embedding --embd-output-format array`:
-a single line containing [[f1,f2,...,fD],[f1,f2,...,fD],...].
-
-The parser consumes the ENTIRE stdout. Any residual bytes, ambiguous text,
-truncation, duplicate vectors for distinct inputs, NaN, infinity, or zero
-norm causes an immediate ValueError.
-"""
+"""Strict parser for Microsoft BitNet ``llama-embedding`` array output."""
 from __future__ import annotations
 
+import json
 import math
 from typing import Sequence
 
 import numpy as np
+
+
+PROFILE_DIMENSIONS: dict[str, int] = {
+    "bitnet_06b_current": 1024,
+    "bitnet_270m_current": 640,
+}
+
+
+def detect_bitnet_dim(profile_id: str) -> int:
+    """Return the configured embedding dimension for a supported BitNet profile."""
+    try:
+        return PROFILE_DIMENSIONS[profile_id]
+    except KeyError as exc:
+        known = ", ".join(sorted(PROFILE_DIMENSIONS))
+        raise ValueError(f"Unknown BitNet profile: {profile_id}. Known profiles: {known}") from exc
+
+
+def _reject_non_finite(token: str) -> float:
+    raise ValueError(f"Non-finite JSON number is not allowed: {token}")
 
 
 def parse_bitnet_array_output(
@@ -20,128 +32,99 @@ def parse_bitnet_array_output(
     expected_count: int,
     expected_dim: int,
     *,
-    allow_identical: bool = False,
+    inputs: Sequence[str] | None = None,
+    allow_identical: bool | None = None,
+    normalization_tolerance: float = 0.05,
 ) -> np.ndarray:
-    """Parse the exact `[[...],[...]]` output of llama-embedding --embd-output-format array.
+    """Parse one complete JSON array of embedding vectors.
 
-    Strict rules:
-      - All non-whitespace content must be a single valid [[...],[...],...] block.
-      - Exactly `expected_count` vectors, each of length `expected_dim`.
-      - No NaN, no infinity, no zero-norm vectors.
-      - L2-normalized within tolerance (0.05).
-      - No duplicate vectors for distinct inputs (unless allow_identical=True).
+    The parser consumes the entire non-whitespace output through ``json.loads``.
+    Empty tokens, duplicate/trailing commas, malformed brackets, residual text,
+    truncation, NaN and infinity are rejected by the JSON grammar or explicit
+    validation.
+
+    Duplicate vectors are accepted only when the corresponding input texts are
+    identical. ``allow_identical`` remains as a compatibility fallback for old
+    isolated callers that cannot provide ``inputs``; production callers should
+    always pass ``inputs``.
     """
-    if not text:
-        raise ValueError("BitNet output is empty")
+    if expected_count <= 0:
+        raise ValueError("expected_count must be positive")
+    if expected_dim <= 0:
+        raise ValueError("expected_dim must be positive")
+    if normalization_tolerance < 0:
+        raise ValueError("normalization_tolerance must be non-negative")
+    if not isinstance(text, str) or not text.strip():
+        raise ValueError("BitNet output is empty or whitespace-only")
 
-    # Strip only leading/trailing whitespace; everything else must be structure
-    stripped = text.strip()
-    if not stripped:
-        raise ValueError("BitNet output is whitespace-only")
+    try:
+        payload = json.loads(text, parse_constant=_reject_non_finite)
+    except (json.JSONDecodeError, ValueError) as exc:
+        raise ValueError(f"Invalid BitNet array output: {exc}") from exc
 
-    # The canonical format is: [[f,f,...],[f,f,...]]
-    # No other content is permitted outside the outer brackets.
-    if not stripped.startswith("[[") or not stripped.endswith("]]"):
+    if not isinstance(payload, list):
+        raise ValueError("BitNet output must be an outer JSON array")
+    if len(payload) != expected_count:
         raise ValueError(
-            f"BitNet output does not match expected [[...],[...]] format. "
-            f"First 100 chars: {stripped[:100]!r}  Last 100 chars: {stripped[-100:]!r}"
+            f"Vector count mismatch: got {len(payload)}, expected {expected_count}"
+        )
+    if inputs is not None and len(inputs) != expected_count:
+        raise ValueError(
+            f"Input count mismatch: got {len(inputs)}, expected {expected_count}"
         )
 
-    # Split into individual vector strings: "[f,f,...]"
-    # The outer [[...]] must decompose cleanly into inner [f,f,...] blocks.
-    inner = stripped[1:-1]  # strip outer [[ and ]]
-    if not inner.startswith("[") or not inner.endswith("]"):
-        raise ValueError(
-            f"Inner content does not start with [ or end with ]. "
-            f"First 80: {inner[:80]!r}  Last 80: {inner[-80:]!r}"
-        )
-
-    # Split on "],[" to get individual vectors
-    parts = inner.split("],[")
-
-    vectors = []
-    for i, part in enumerate(parts):
-        # Clean brackets
-        vstr = part.strip()
-        if i == 0:
-            vstr = vstr[1:]  # remove leading [
-        if i == len(parts) - 1:
-            vstr = vstr[:-1]  # remove trailing ]
-        vstr = vstr.strip()
-
-        if not vstr:
-            raise ValueError(f"Empty vector string at position {i}")
-
-        # Parse comma-separated floats, allowing whitespace
-        vals = []
-        for tok in vstr.split(","):
-            tok = tok.strip()
-            if not tok:
-                continue
-            try:
-                v = float(tok)
-            except ValueError:
-                raise ValueError(
-                    f"Cannot parse float at vector {i}: {tok!r}"
-                )
-            if not math.isfinite(v):
-                raise ValueError(
-                    f"Non-finite value at vector {i}: {tok!r}"
-                )
-            vals.append(v)
-
-        if len(vals) != expected_dim:
+    vectors: list[list[float]] = []
+    for vector_index, raw_vector in enumerate(payload):
+        if not isinstance(raw_vector, list):
+            raise ValueError(f"Vector {vector_index} must be a JSON array")
+        if len(raw_vector) != expected_dim:
             raise ValueError(
-                f"Vector {i} has {len(vals)} dimensions, expected {expected_dim}"
+                f"Vector {vector_index} dimension mismatch: "
+                f"got {len(raw_vector)}, expected {expected_dim}"
             )
-        vectors.append(vals)
-
-    n_vectors = len(vectors)
-    if n_vectors != expected_count:
-        raise ValueError(
-            f"Got {n_vectors} vectors, expected {expected_count}"
-        )
-
-    arr = np.array(vectors, dtype=np.float32)
-
-    # Zero-norm check
-    norms = np.linalg.norm(arr, axis=1)
-    zero_mask = norms < 1e-12
-    if np.any(zero_mask):
-        bad = int(np.argmax(zero_mask))
-        raise ValueError(f"Vector {bad} has zero norm")
-
-    # L2-normalization check (within tolerance)
-    max_dev = float(np.max(np.abs(norms - 1.0)))
-    if max_dev > 0.05:
-        raise ValueError(
-            f"Vectors not L2-normalized: max norm deviation = {max_dev:.4f}"
-        )
-
-    # Duplicate detection for distinct inputs (warn if any pair is identical)
-    if not allow_identical:
-        seen = {}
-        for i, vec in enumerate(vectors):
-            key = tuple(vec)
-            if key in seen:
+        vector: list[float] = []
+        for value_index, raw_value in enumerate(raw_vector):
+            if isinstance(raw_value, bool) or not isinstance(raw_value, (int, float)):
                 raise ValueError(
-                    f"Vector {i} is identical to vector {seen[key]} "
-                    f"(possible duplication for distinct inputs)"
+                    f"Vector {vector_index} element {value_index} is not numeric"
                 )
-            seen[key] = i
+            value = float(raw_value)
+            if not math.isfinite(value):
+                raise ValueError(
+                    f"Vector {vector_index} element {value_index} is not finite"
+                )
+            vector.append(value)
+        vectors.append(vector)
 
-    return arr
+    array = np.asarray(vectors, dtype=np.float32)
+    norms = np.linalg.norm(array, axis=1)
+    zero_indices = np.flatnonzero(norms < 1e-12)
+    if zero_indices.size:
+        raise ValueError(f"Vector {int(zero_indices[0])} has zero norm")
 
+    max_deviation = float(np.max(np.abs(norms - 1.0)))
+    if max_deviation > normalization_tolerance:
+        raise ValueError(
+            "Vectors are not L2-normalized: "
+            f"max norm deviation={max_deviation:.6f}, "
+            f"tolerance={normalization_tolerance:.6f}"
+        )
 
-def detect_bitnet_dim(profile_id: str) -> int:
-    """Return expected dimension for a BitNet profile, configured explicitly."""
-    dim_map = {
-        "bitnet_06b_current": 1024,
-        "bitnet_270m_current": 640,
-    }
-    if profile_id in dim_map:
-        return dim_map[profile_id]
-    raise ValueError(
-        f"Unknown BitNet profile: {profile_id}. "
-        f"Known profiles: {list(dim_map.keys())}"
-    )
+    first_index_by_vector: dict[bytes, int] = {}
+    for index, row in enumerate(array):
+        key = row.tobytes()
+        previous = first_index_by_vector.get(key)
+        if previous is None:
+            first_index_by_vector[key] = index
+            continue
+        if inputs is not None:
+            if str(inputs[previous]) != str(inputs[index]):
+                raise ValueError(
+                    f"Vector {index} duplicates vector {previous} for distinct inputs"
+                )
+        elif allow_identical is not True:
+            raise ValueError(
+                f"Vector {index} duplicates vector {previous}; input identity is unknown"
+            )
+
+    return array
