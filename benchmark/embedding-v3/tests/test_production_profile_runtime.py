@@ -171,11 +171,35 @@ class GuardianTests(unittest.TestCase):
         with self.assertRaises(RuntimeError):
             self.ppr._check_profile_allowed(p, evaluation_mode=False, allow_external_api=False)
 
-    def test_sanitize_removes_repo_path(self):
-        raw = f"/home/alpha/Playstoria/models/some/secret.key"
+    def test_sanitize_removes_home_path(self):
+        raw = "failed at /home/alpha/Playstoria/models/some/secret.key"
+        with patch.dict(
+            os.environ,
+            {"HOME": "/home/alpha", "USER": "alpha"},
+            clear=False,
+        ):
+            cleaned = self.ppr._sanitize(raw)
+        self.assertEqual(cleaned, "failed at <redacted>")
+
+    def test_sanitize_removes_current_repo_path(self):
+        raw = f"failed at {self.ppr.REPO}/some/secret.key"
         cleaned = self.ppr._sanitize(raw)
-        self.assertNotIn("alpha", cleaned)
-        self.assertNotIn("Playstoria", cleaned)
+        self.assertEqual(cleaned, "failed at <redacted>")
+
+    def test_sanitize_removes_windows_home_path(self):
+        raw = r"failed at C:\Users\alpha\Playstoria\models\secret.key"
+        with patch.dict(
+            os.environ,
+            {"USERPROFILE": r"C:\Users\alpha", "USER": "alpha"},
+            clear=False,
+        ):
+            cleaned = self.ppr._sanitize(raw)
+        self.assertEqual(cleaned, "failed at <redacted>")
+
+    def test_sanitize_preserves_username_substrings(self):
+        with patch.dict(os.environ, {"USER": "alpha"}, clear=False):
+            cleaned = self.ppr._sanitize("alphabet alpha alpha-1")
+        self.assertEqual(cleaned, "alphabet <redacted> alpha-1")
 
     def test_nemotron_gguf_evaluation_rejected_without_flag(self):
         p = self.ppr._find_profile(self.profiles, "nemotron_gguf_evaluation")
