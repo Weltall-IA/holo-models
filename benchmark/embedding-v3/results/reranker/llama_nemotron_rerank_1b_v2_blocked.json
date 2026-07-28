@@ -1,0 +1,29 @@
+{
+  "reranker_id": "llama_nemotron_rerank_1b_v2",
+  "status": "BLOCKED_RUNTIME_INCOMPATIBLE",
+  "repository": "nvidia/llama-nemotron-rerank-1b-v2",
+  "revision": "d896ceda696c5c6fe0abf65f63a77c691bbf4548",
+  "expected_weight_sha256": "7d60ff24db62fe6a639c4c6f4aeac3a3b32ed20939ab72a0be4b019c2219e5e0",
+  "weight_file": "model.safetensors",
+  "weight_size_bytes": 2471649792,
+  "backend_required": "vllm==0.25.0",
+  "installation_attempted": true,
+  "installation_error": "ResolutionImpossible: vllm==0.25.0 requires cuda-toolkit<13.4 and >=13.2, conflicting with system CUDA 12.8.",
+  "python_version": "3.14",
+  "system_cuda": "12.8",
+  "pytorch_version": "2.8.0+cu128",
+  "evidence": [
+    "pip install vllm==0.25.0 -> ResolutionImpossible",
+    "cuda-tile requires cuda-toolkit<13.4 and >=13.2",
+    "No matching distributions for system CUDA toolkit"
+  ],
+  "panel_embeddings_affected": [
+    "nemotron_3_embed_1b_nvfp4",
+    "nomic_embed_text_v2_moe_q4",
+    "qwen3_embedding_4b_q8_0",
+    "embeddinggemma",
+    "colibri_ptbr",
+    "granite_embedding_311m_r2"
+  ],
+  "note": "Model weights downloaded and SHA-256 verified. Runtime requires CUDA toolkit upgrade prohibited by contract."
+}
