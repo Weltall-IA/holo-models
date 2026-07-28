@@ -1,9 +1,8 @@
-"""Tests for BitNet embedding output parser and runner — comprehensive suite."""
 from __future__ import annotations
 
+import json
 import os
 import subprocess
-import os
 import tempfile
 import unittest
 from pathlib import Path
@@ -11,278 +10,358 @@ from unittest import mock
 
 import numpy as np
 
+from holo_benchmark.bitnet_benchmark import (
+    build_candidate_payload,
+    validate_candidate_payload,
+)
 from holo_benchmark.bitnet_parser import detect_bitnet_dim, parse_bitnet_array_output
 from holo_benchmark.bitnet_runner import bitnet_embed_texts
+from holo_benchmark.reranker_runtime import CORPUS_SHA256, atomic_json
 
 
-def _make_vector(dim: int, seed: int = 0) -> str:
-    """Create a single L2-normalized vector string."""
+def _vector(dim: int, seed: int = 0) -> list[float]:
     rng = np.random.RandomState(seed)
-    raw = rng.randn(dim).astype(np.float64)
-    raw /= np.linalg.norm(raw)
-    return ",".join(f"{v:.7f}" for v in raw)
+    values = rng.randn(dim).astype(np.float64)
+    values /= np.linalg.norm(values)
+    return [float(f"{value:.7f}") for value in values]
 
 
-def _make_matrix(n: int, dim: int, start_seed: int = 0) -> str:
-    """Create n distinct L2-normalized vectors in [[...],[...]] format."""
-    parts = []
-    for i in range(n):
-        parts.append("[" + _make_vector(dim, start_seed + i * 1337) + "]")
-    return "[" + ",".join(parts) + "]"
+def _payload(vectors: list[list[float]]) -> str:
+    return json.dumps(vectors, separators=(",", ":"))
 
 
-def _single_matrix(dim: int, seed: int = 0) -> str:
-    """Single vector in [[...]] format (as BitNet outputs for 1 input)."""
-    return "[[" + _make_vector(dim, seed) + "]]"
+class ParserTests(unittest.TestCase):
+    def test_valid_1024(self):
+        result = parse_bitnet_array_output(_payload([_vector(1024, 1)]), 1, 1024)
+        self.assertEqual(result.shape, (1, 1024))
 
-
-class TestParserValidVectors(unittest.TestCase):
-    def test_single_1024(self):
-        text = _single_matrix(1024, 1)
-        arr = parse_bitnet_array_output(text, 1, 1024)
-        self.assertEqual(arr.shape, (1, 1024))
-        self.assertAlmostEqual(float(np.linalg.norm(arr[0])), 1.0, places=5)
-
-    def test_single_640(self):
-        text = _single_matrix(640, 2)
-        arr = parse_bitnet_array_output(text, 1, 640)
-        self.assertEqual(arr.shape, (1, 640))
+    def test_valid_640(self):
+        result = parse_bitnet_array_output(_payload([_vector(640, 2)]), 1, 640)
+        self.assertEqual(result.shape, (1, 640))
 
     def test_multiple_distinct(self):
-        text = _make_matrix(5, 1024, 10)
-        arr = parse_bitnet_array_output(text, 5, 1024)
-        self.assertEqual(arr.shape, (5, 1024))
+        result = parse_bitnet_array_output(
+            _payload([_vector(640, 3), _vector(640, 4)]),
+            2,
+            640,
+            inputs=["a", "b"],
+        )
+        self.assertEqual(result.shape, (2, 640))
 
-
-class TestParserDimensionCountErrors(unittest.TestCase):
     def test_wrong_dimension(self):
-        text = "[[" + _make_vector(512) + "]]"
         with self.assertRaises(ValueError):
-            parse_bitnet_array_output(text, 1, 1024)
+            parse_bitnet_array_output(_payload([_vector(12)]), 1, 640)
 
     def test_wrong_count(self):
-        text = _make_matrix(3, 1024)
         with self.assertRaises(ValueError):
-            parse_bitnet_array_output(text, 5, 1024)
+            parse_bitnet_array_output(_payload([_vector(640)]), 2, 640)
 
-    def test_empty_output(self):
+    def test_empty(self):
         with self.assertRaises(ValueError):
-            parse_bitnet_array_output("", 1, 1024)
+            parse_bitnet_array_output("", 1, 640)
 
-    def test_whitespace_only(self):
+    def test_whitespace(self):
         with self.assertRaises(ValueError):
-            parse_bitnet_array_output("   \n  \t  ", 1, 1024)
+            parse_bitnet_array_output(" \n\t", 1, 640)
 
-
-class TestParserNaNInfZero(unittest.TestCase):
-    def _make_with_bad_value(self, dim, bad_val, seed=50):
-        vec = _make_vector(dim, seed)
-        parts = vec.split(",")
-        parts[-1] = bad_val
-        return "[[" + ",".join(parts) + "]]"
-
-    def test_nan_rejected(self):
-        with self.assertRaises(ValueError, msg="NaN must be rejected"):
-            parse_bitnet_array_output(self._make_with_bad_value(1024, "NaN"), 1, 1024)
-
-    def test_inf_rejected(self):
-        with self.assertRaises(ValueError, msg="inf must be rejected"):
-            parse_bitnet_array_output(self._make_with_bad_value(1024, "inf"), 1, 1024)
-
-    def test_neg_inf_rejected(self):
-        with self.assertRaises(ValueError, msg="-inf must be rejected"):
-            parse_bitnet_array_output(self._make_with_bad_value(1024, "-inf"), 1, 1024)
-
-    def test_zero_norm_rejected(self):
-        text = "[[" + ",".join(["0.0"] * 1024) + "]]"
-        with self.assertRaises(ValueError, msg="zero norm must be rejected"):
-            parse_bitnet_array_output(text, 1, 1024)
-
-
-class TestParserTruncationResidual(unittest.TestCase):
-    def test_truncated_vector_rejected(self):
-        full = _make_vector(1024, 60)
-        parts = full.split(",")
-        truncated = ",".join(parts[:500])
-        text = "[[" + truncated + "]]"
-        with self.assertRaises(ValueError, msg="truncated output must be rejected"):
-            parse_bitnet_array_output(text, 1, 1024)
-
-    def test_residual_text_before_rejected(self):
-        vec = _make_vector(1024, 70)
-        text = "some residual text [[" + vec + "]]"
-        with self.assertRaises(ValueError, msg="residual text before vectors must be rejected"):
-            parse_bitnet_array_output(text, 1, 1024)
-
-    def test_residual_text_after_rejected(self):
-        vec = _make_vector(1024, 71)
-        text = "[[" + vec + "]] some residual text after"
-        with self.assertRaises(ValueError, msg="residual text after vectors must be rejected"):
-            parse_bitnet_array_output(text, 1, 1024)
-
-
-class TestParserDuplicateDetection(unittest.TestCase):
-    def test_identical_vectors_distinct_inputs_rejected(self):
-        vec = _make_vector(1024, 80)
-        text = "[[" + vec + "],[" + vec + "]]"
-        with self.assertRaises(ValueError, msg="identical vectors for distinct inputs must be rejected"):
-            parse_bitnet_array_output(text, 2, 1024, allow_identical=False)
-
-    def test_identical_vectors_allowed_when_permitted(self):
-        vec = _make_vector(1024, 81)
-        text = "[[" + vec + "],[" + vec + "]]"
-        arr = parse_bitnet_array_output(text, 2, 1024, allow_identical=True)
-        self.assertEqual(arr.shape, (2, 1024))
-        np.testing.assert_array_equal(arr[0], arr[1])
-
-
-class TestParserFormatEdgeCases(unittest.TestCase):
-    def test_missing_outer_brackets(self):
-        vec = _make_vector(1024, 90)
-        text = vec
+    def test_nan(self):
         with self.assertRaises(ValueError):
-            parse_bitnet_array_output(text, 1, 1024)
+            parse_bitnet_array_output("[[NaN]]", 1, 1)
 
-    def test_single_bracket_level(self):
-        vec = _make_vector(1024, 91)
-        text = "[" + vec + "]"
+    def test_infinity(self):
         with self.assertRaises(ValueError):
-            parse_bitnet_array_output(text, 1, 1024)
+            parse_bitnet_array_output("[[Infinity]]", 1, 1)
 
-
-class TestDetectBitnetDim(unittest.TestCase):
-    def test_06b(self):
-        self.assertEqual(detect_bitnet_dim("bitnet_06b_current"), 1024)
-
-    def test_270m(self):
-        self.assertEqual(detect_bitnet_dim("bitnet_270m_current"), 640)
-
-    def test_unknown_raises(self):
+    def test_negative_infinity(self):
         with self.assertRaises(ValueError):
-            detect_bitnet_dim("unknown_model")
+            parse_bitnet_array_output("[[-Infinity]]", 1, 1)
 
+    def test_zero_norm(self):
+        with self.assertRaises(ValueError):
+            parse_bitnet_array_output(json.dumps([[0.0] * 640]), 1, 640)
 
-class TestRunner(unittest.TestCase):
-    def test_runner_applies_instruction_to_queries_only(self):
-        """Verify instruction prefix is applied only to query indices."""
-        from holo_benchmark.bitnet_runner import bitnet_embed_texts
+    def test_residual_before(self):
+        with self.assertRaises(ValueError):
+            parse_bitnet_array_output("log:" + _payload([_vector(640)]), 1, 640)
 
-        dim = 1024
-        vec1 = _make_vector(dim, 200)
-        vec2 = _make_vector(dim, 201)
-        vec3 = _make_vector(dim, 202)
-        mock_stdout = f"[[{vec1}],[{vec2}],[{vec3}]]"
+    def test_residual_after(self):
+        with self.assertRaises(ValueError):
+            parse_bitnet_array_output(_payload([_vector(640)]) + "log", 1, 640)
 
-        # Capture the file path and content before the runner's finally block deletes it
-        captured_content = {}
+    def test_truncated(self):
+        with self.assertRaises(ValueError):
+            parse_bitnet_array_output(_payload([_vector(640)])[:-2], 1, 640)
 
-        def fake_run(*args, **kwargs):
-            cmd = args[0] if args else kwargs.get("args", [])
-            for a in cmd:
-                if isinstance(a, str) and a.endswith(".txt"):
-                    with open(a) as f:
-                        captured_content["text"] = f.read()
-            return mock.Mock(returncode=0, stdout=mock_stdout, stderr="")
+    def test_double_comma(self):
+        with self.assertRaises(ValueError):
+            parse_bitnet_array_output("[[1.0,,2.0]]", 1, 2)
 
-        with mock.patch("subprocess.run", side_effect=fake_run), \
-             tempfile.NamedTemporaryFile(delete=False, suffix=".bin") as fake_bin, \
-             tempfile.NamedTemporaryFile(delete=False, suffix=".gguf") as fake_gguf:
-            fake_bin.write(b"fake"); fake_bin.close()
-            fake_gguf.write(b"fake"); fake_gguf.close()
-            embs, info = bitnet_embed_texts(
-                ["doc text 0", "doc text 1", "query text"],
-                gguf_path=Path(fake_gguf.name),
-                bitnet_bin=Path(fake_bin.name),
-                expected_dim=dim,
-                instruction_prefix="Instruct: retrieve\nQuery: ",
-                doc_indices=[0, 1],
-                query_indices=[2],
+    def test_trailing_comma(self):
+        with self.assertRaises(ValueError):
+            parse_bitnet_array_output("[[1.0,]]", 1, 1)
+
+    def test_invalid_separator(self):
+        with self.assertRaises(ValueError):
+            parse_bitnet_array_output("[[1.0][2.0]]", 2, 1)
+
+    def test_boolean_is_rejected(self):
+        with self.assertRaises(ValueError):
+            parse_bitnet_array_output("[[true]]", 1, 1)
+
+    def test_duplicate_distinct_inputs_rejected(self):
+        vector = _vector(640, 7)
+        with self.assertRaises(ValueError):
+            parse_bitnet_array_output(
+                _payload([vector, vector]), 2, 640, inputs=["a", "b"]
             )
-            self.assertEqual(embs.shape, (3, dim))
-            self.assertEqual(info["n_documents"], 2)
-            self.assertEqual(info["n_queries"], 1)
-            lines = captured_content["text"].strip().split("\n")
-            self.assertEqual(lines[0], "doc text 0")
-            self.assertEqual(lines[1], "doc text 1")
-            # Instruction spans multiple lines; join all remaining and verify
-            query_content = "\n".join(lines[2:])
-            self.assertTrue(query_content.startswith("Instruct: retrieve"))
-            self.assertTrue(query_content.endswith("query text"))
-            os.unlink(fake_bin.name)
-            os.unlink(fake_gguf.name)
 
-    def test_runner_nonzero_exit_raises(self):
-        from holo_benchmark.bitnet_runner import bitnet_embed_texts
+    def test_duplicate_identical_inputs_allowed(self):
+        vector = _vector(640, 8)
+        result = parse_bitnet_array_output(
+            _payload([vector, vector]), 2, 640, inputs=["same", "same"]
+        )
+        self.assertEqual(result.shape, (2, 640))
 
-        with mock.patch("subprocess.run") as mock_run:
-            mock_run.return_value = mock.Mock(returncode=1, stdout="", stderr="error msg")
+    def test_duplicate_without_identity_rejected(self):
+        vector = _vector(640, 9)
+        with self.assertRaises(ValueError):
+            parse_bitnet_array_output(_payload([vector, vector]), 2, 640)
+
+    def test_input_count_mismatch(self):
+        with self.assertRaises(ValueError):
+            parse_bitnet_array_output(
+                _payload([_vector(640)]), 1, 640, inputs=["a", "b"]
+            )
+
+    def test_detect_dimensions(self):
+        self.assertEqual(detect_bitnet_dim("bitnet_06b_current"), 1024)
+        self.assertEqual(detect_bitnet_dim("bitnet_270m_current"), 640)
+        with self.assertRaises(ValueError):
+            detect_bitnet_dim("unknown")
+
+
+class RunnerTests(unittest.TestCase):
+    def _files(self):
+        binary = tempfile.NamedTemporaryFile(delete=False)
+        binary.write(b"binary")
+        binary.close()
+        os.chmod(binary.name, 0o755)
+        model = tempfile.NamedTemporaryFile(delete=False, suffix=".gguf")
+        model.write(b"model")
+        model.close()
+        self.addCleanup(lambda: os.path.exists(binary.name) and os.unlink(binary.name))
+        self.addCleanup(lambda: os.path.exists(model.name) and os.unlink(model.name))
+        return Path(binary.name), Path(model.name)
+
+    def test_instruction_only_on_queries_and_metadata(self):
+        binary, model = self._files()
+        stdout = _payload([_vector(1024, 10), _vector(1024, 11)])
+        captured = {}
+
+        def fake_run(command, **kwargs):
+            input_path = Path(command[command.index("-f") + 1])
+            captured["lines"] = input_path.read_text(encoding="utf-8").splitlines()
+            return mock.Mock(returncode=0, stdout=stdout, stderr="")
+
+        with mock.patch(
+            "holo_benchmark.bitnet_runner.subprocess.run", side_effect=fake_run
+        ):
+            embeddings, info = bitnet_embed_texts(
+                ["document", "query"],
+                profile_id="bitnet_06b_current",
+                gguf_path=model,
+                bitnet_bin=binary,
+                bitnet_commit="abc123",
+                instruction_prefix="query: ",
+                doc_indices=[0],
+                query_indices=[1],
+            )
+        self.assertEqual(embeddings.shape, (2, 1024))
+        self.assertEqual(captured["lines"], ["document", "query: query"])
+        self.assertEqual(info["bitnet_commit"], "abc123")
+        self.assertEqual(info["exit_code"], 0)
+        self.assertIn("combined_encode_seconds", info)
+        self.assertNotIn("doc_encode_seconds", info)
+        input_arg = info["command"][info["command"].index("-f") + 1]
+        self.assertEqual(input_arg, "<temporary-input-file>")
+
+    def test_nonzero_exit(self):
+        binary, model = self._files()
+        with mock.patch(
+            "holo_benchmark.bitnet_runner.subprocess.run",
+            return_value=mock.Mock(returncode=3, stdout="", stderr="bad"),
+        ):
             with self.assertRaises(RuntimeError):
                 bitnet_embed_texts(
-                    ["test"],
-                    gguf_path=Path("/tmp/fake.gguf"),
-                    bitnet_bin=Path("/tmp/fake-embedding"),
-                    expected_dim=1024,
+                    ["x"],
+                    profile_id="bitnet_06b_current",
+                    gguf_path=model,
+                    bitnet_bin=binary,
+                    bitnet_commit="abc",
+                    doc_indices=[0],
+                    query_indices=[],
                 )
 
-    def test_runner_metadata(self):
-        from holo_benchmark.bitnet_runner import bitnet_embed_texts
+    def test_timeout(self):
+        binary, model = self._files()
+        with mock.patch(
+            "holo_benchmark.bitnet_runner.subprocess.run",
+            side_effect=subprocess.TimeoutExpired(["bin"], 1),
+        ):
+            with self.assertRaisesRegex(RuntimeError, "timed out"):
+                bitnet_embed_texts(
+                    ["x"],
+                    profile_id="bitnet_06b_current",
+                    gguf_path=model,
+                    bitnet_bin=binary,
+                    bitnet_commit="abc",
+                    doc_indices=[0],
+                    query_indices=[],
+                    timeout_seconds=1,
+                )
 
-        dim = 1024
-        vec = _make_vector(dim, 300)
-        mock_stdout = f"[[{vec}]]"
-
-        with mock.patch("subprocess.run") as mock_run, \
-             tempfile.NamedTemporaryFile(delete=False, suffix=".bin") as fake_bin, \
-             tempfile.NamedTemporaryFile(delete=False, suffix=".gguf") as fake_gguf:
-            fake_bin.write(b"fake"); fake_bin.close()
-            fake_gguf.write(b"fake"); fake_gguf.close()
-            mock_run.return_value = mock.Mock(returncode=0, stdout=mock_stdout, stderr="")
-            embs, info = bitnet_embed_texts(
-                ["hello"],
-                gguf_path=Path(fake_gguf.name),
-                bitnet_bin=Path(fake_bin.name),
-                expected_dim=dim,
+    def test_missing_binary(self):
+        _, model = self._files()
+        with self.assertRaises(FileNotFoundError):
+            bitnet_embed_texts(
+                ["x"],
+                profile_id="bitnet_06b_current",
+                gguf_path=model,
+                bitnet_bin=Path("/missing"),
+                bitnet_commit="abc",
+                doc_indices=[0],
+                query_indices=[],
             )
-            self.assertEqual(info["backend"], "bitnet.cpp")
-            self.assertEqual(info["dimension"], 1024)
-            self.assertEqual(info["n_texts"], 1)
-            self.assertIn("binary_sha256", info)
-            self.assertIn("gguf_sha256", info)
-            # encode_seconds is 0 for mock runs (no actual processing)
-            self.assertGreaterEqual(info["encode_seconds"], 0)
-            os.unlink(fake_bin.name)
-            os.unlink(fake_gguf.name)
+
+    def test_index_overlap(self):
+        binary, model = self._files()
+        with self.assertRaises(ValueError):
+            bitnet_embed_texts(
+                ["a", "b"],
+                profile_id="bitnet_06b_current",
+                gguf_path=model,
+                bitnet_bin=binary,
+                bitnet_commit="abc",
+                doc_indices=[0, 1],
+                query_indices=[1],
+            )
+
+    def test_index_out_of_range(self):
+        binary, model = self._files()
+        with self.assertRaises(ValueError):
+            bitnet_embed_texts(
+                ["a"],
+                profile_id="bitnet_06b_current",
+                gguf_path=model,
+                bitnet_bin=binary,
+                bitnet_commit="abc",
+                doc_indices=[2],
+                query_indices=[],
+            )
+
+    def test_index_missing_coverage(self):
+        binary, model = self._files()
+        with self.assertRaises(ValueError):
+            bitnet_embed_texts(
+                ["a", "b"],
+                profile_id="bitnet_06b_current",
+                gguf_path=model,
+                bitnet_bin=binary,
+                bitnet_commit="abc",
+                doc_indices=[0],
+                query_indices=[],
+            )
+
+    def test_duplicate_index(self):
+        binary, model = self._files()
+        with self.assertRaises(ValueError):
+            bitnet_embed_texts(
+                ["a", "b"],
+                profile_id="bitnet_06b_current",
+                gguf_path=model,
+                bitnet_bin=binary,
+                bitnet_commit="abc",
+                doc_indices=[0, 0],
+                query_indices=[1],
+            )
+
+    def test_profile_dimension_mismatch(self):
+        binary, model = self._files()
+        with self.assertRaises(ValueError):
+            bitnet_embed_texts(
+                ["a"],
+                profile_id="bitnet_270m_current",
+                gguf_path=model,
+                bitnet_bin=binary,
+                bitnet_commit="abc",
+                expected_dim=1024,
+                doc_indices=[0],
+                query_indices=[],
+            )
 
 
-class TestCandidateSchemaIntegration(unittest.TestCase):
-    """Test that BitNet candidates can be loaded by the canonical loader."""
+class CandidateTests(unittest.TestCase):
+    def _candidate(self):
+        queries = [{"query_id": f"query-{i:04d}"} for i in range(1, 151)]
+        rankings = [
+            [f"chunk-{i:04d}-{j:03d}" for j in range(600)]
+            for i in range(1, 151)
+        ]
+        scores = [[1.0 - j / 1000 for j in range(600)] for _ in range(150)]
+        return queries, build_candidate_payload(
+            profile_id="bitnet_270m_current",
+            queries=queries,
+            rankings=rankings,
+            ranked_scores=scores,
+            candidate_top_k=50,
+            model_identity={"sha256": "a" * 64},
+            runtime={"backend": "bitnet.cpp", "gguf_sha256": "a" * 64},
+        )
 
-    def test_candidate_format_compatible(self):
-        """Verify our candidates JSON matches what load_candidate_payloads expects."""
-        # Simulate the canonical candidate format
-        candidate = {
-            "id": "bitnet_270m_current",
-            "variant": "bitnet_270m_current",
-            "dataset": {
-                "corpus_sha256": "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b",
-            },
-            "candidate_top_k": 50,
-            "queries": [
-                {
-                    "query_id": f"query-{i:04d}",
-                    "candidates": [{"chunk_id": f"chunk-{i:04d}"} for i in range(50)],
-                }
-                for i in range(150)
-            ],
-        }
-        # Verify structure matches loader expectations
-        self.assertEqual(candidate["variant"], "bitnet_270m_current")
-        self.assertIn("dataset", candidate)
-        self.assertEqual(candidate["dataset"]["corpus_sha256"],
-                         "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b")
-        self.assertEqual(len(candidate["queries"]), 150)
-        for q in candidate["queries"]:
-            self.assertEqual(len(q["candidates"]), 50)
+    def test_candidate_schema(self):
+        queries, payload = self._candidate()
+        validate_candidate_payload(
+            payload,
+            expected_profile_id="bitnet_270m_current",
+            expected_query_ids=[row["query_id"] for row in queries],
+            expected_top_k=50,
+        )
+        self.assertEqual(payload["dataset"]["corpus_sha256"], CORPUS_SHA256)
+        self.assertEqual(len(payload["queries"]), 150)
+        self.assertEqual(len(payload["queries"][0]["candidates"]), 50)
+        self.assertEqual(len(payload["ranking_sha256"]), 64)
+
+    def test_candidate_duplicate_chunk_rejected(self):
+        queries, payload = self._candidate()
+        payload["queries"][0]["candidates"][1]["chunk_id"] = payload[
+            "queries"
+        ][0]["candidates"][0]["chunk_id"]
+        with self.assertRaises(ValueError):
+            validate_candidate_payload(
+                payload,
+                expected_profile_id="bitnet_270m_current",
+                expected_query_ids=[row["query_id"] for row in queries],
+                expected_top_k=50,
+            )
+
+    def test_real_canonical_loader(self):
+        import reranker_execution
+
+        queries, payload = self._candidate()
+        with tempfile.TemporaryDirectory() as tmp:
+            candidate_dir = Path(tmp)
+            atomic_json(candidate_dir / "bitnet_270m_current.json", payload)
+            with mock.patch.object(
+                reranker_execution, "CANDIDATE_DIR", candidate_dir
+            ), mock.patch.object(
+                reranker_execution,
+                "load_frozen_dataset",
+                return_value=([], queries),
+            ):
+                loaded = reranker_execution.load_candidate_payloads(
+                    ["bitnet_270m_current"], 50
+                )
+        self.assertIn("bitnet_270m_current", loaded)
 
 
 if __name__ == "__main__":
