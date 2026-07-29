@@ -8,6 +8,7 @@ from pathlib import Path
 from unittest import mock
 
 from holo_benchmark import nemotron_panel_benchmark as module
+from holo_benchmark.artifact_portability import assert_portable_payload
 
 
 class NemotronPanelBenchmarkTests(unittest.TestCase):
@@ -131,6 +132,8 @@ class NemotronPanelBenchmarkTests(unittest.TestCase):
         self.assertEqual(rows[0], {"a": 0.1, "b": 0.2})
         self.assertEqual(runtime["pairs"], 4)
         self.assertEqual(runtime["peak_vram_bytes"], 1024)
+        self.assertEqual(runtime["endpoint"], "/rerank")
+        assert_portable_payload({"runtime": runtime})
 
 
 if __name__ == "__main__":
