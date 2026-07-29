@@ -72,6 +72,8 @@ class ArtifactPortabilityTests(unittest.TestCase):
             host_specific_strings(payload),
             [{"path": "$.runtime.endpoint", "value": "/v1/../rerank"}],
         )
+        with self.assertRaisesRegex(ValueError, r"\$\.runtime\.endpoint"):
+            assert_portable_payload(payload)
 
 
 if __name__ == "__main__":
