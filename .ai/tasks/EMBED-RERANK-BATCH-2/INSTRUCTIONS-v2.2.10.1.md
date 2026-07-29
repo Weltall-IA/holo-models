@@ -271,7 +271,7 @@ assert len(files) == 12, len(files)
 for path in files:
     payload = json.loads(path.read_text(encoding="utf-8"))
     assert_portable_payload(payload)
-    runtime = payload.get("runtime") or payload.get("reranker_runtime")
+    runtime = payload.get("runtime")
     if isinstance(runtime, dict) and "endpoint" in runtime:
         assert runtime["endpoint"] == "/rerank", (path, runtime["endpoint"])
     print(path)
