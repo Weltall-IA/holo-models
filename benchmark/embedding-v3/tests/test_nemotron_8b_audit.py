@@ -153,10 +153,10 @@ class Nemotron8BAuditTests(unittest.TestCase):
         score_rows = [
             {f"chunk-{index:02d}": float(index) for index in range(module.RERANK_TOP_K)}
         ]
-        with tempfile.TemporaryDirectory() as temporary, mock.patch.object(
+        with mock.patch.object(
             module, "AUDIT_VARIANTS", ("audit",)
         ), mock.patch.object(
-            module, "PIPELINE_DIR", Path(temporary)
+            module, "PIPELINE_DIR", module.PROJECT_ROOT / "tmp-audit-pipelines"
         ), mock.patch.object(
             module, "atomic_json"
         ) as write:
