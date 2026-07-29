@@ -46,6 +46,33 @@ class ArtifactPortabilityTests(unittest.TestCase):
         self.assertEqual(cleaned["nested"][0], "<path>")
         self.assertEqual(cleaned["nested"][1], "https://example.com/")
 
+    def test_preserves_relative_api_routes_in_endpoint_fields(self):
+        payload = {
+            "runtime": {
+                "endpoint": "/rerank",
+                "endpoint_path": "/v1/rerank",
+                "api_endpoint": "/api/v2/score",
+            }
+        }
+        self.assertEqual(host_specific_strings(payload), [])
+        self.assertEqual(sanitize_host_payload(payload), payload)
+        assert_portable_payload(payload)
+
+    def test_relative_route_outside_endpoint_field_remains_blocked(self):
+        payload = {"path": "/rerank"}
+        findings = host_specific_strings(payload)
+        self.assertEqual(findings, [{"path": "$.path", "value": "/rerank"}])
+        self.assertEqual(sanitize_host_payload(payload), {"path": "<path>"})
+        with self.assertRaisesRegex(ValueError, r"\$\.path"):
+            assert_portable_payload(payload)
+
+    def test_endpoint_traversal_is_not_exempted(self):
+        payload = {"runtime": {"endpoint": "/v1/../rerank"}}
+        self.assertEqual(
+            host_specific_strings(payload),
+            [{"path": "$.runtime.endpoint", "value": "/v1/../rerank"}],
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
