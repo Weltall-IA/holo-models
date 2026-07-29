@@ -153,9 +153,9 @@ TEMPLATE=benchmark/embedding-v3/templates/nemotron-rerank.jinja
 VLLM_ENV=runtimes/vllm-nemotron-0.25.1
 VLLM_BIN="$VLLM_ENV/bin/vllm"
 
- test -x "$VLLM_BIN"
- test "$($VLLM_BIN --version | tail -n1 | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | tail -n1)" = "0.25.1"
- sha256sum "$MODEL_WEIGHT"
+test -x "$VLLM_BIN"
+test "$($VLLM_BIN --version | tail -n1 | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | tail -n1)" = "0.25.1"
+sha256sum "$MODEL_WEIGHT"
 ```
 
 Valide novamente o snapshot, o peso e o template pelos módulos versionados. O peso deve permanecer com `2471649792` bytes e SHA-256 `7d60ff24db62fe6a639c4c6f4aeac3a3b32ed20939ab72a0be4b019c2219e5e0`.
@@ -190,7 +190,7 @@ Registre o PID como `SERVER_PID`. Não mate nem reutilize processo de identidade
 
 Se o servidor anterior não estiver ativo, estiver encerrado ou não puder ser comprovado, inicie novamente usando exatamente o comando da seção 7 da v2.2.9, substituindo `VLLM_BIN` pelo ambiente isolado fixado acima.
 
-Somente processos comprovadamente iniciados nas v2.2.10/v2.2.10.1 podem ser encerrados. Instale trap de cleanup para servidor iniciado nesta retomada.
+Somente processos comprovadamente iniciados nas v2.2.10/v2.2.10.1 podem ser encerrados. Instale trap de cleanup para servidor iniciado nesta retomada. Quando o servidor for herdado da v2.2.10, registre explicitamente que ele também pertence a esta sequência NVIDIA e encerre-o ao final, inclusive em novo bloqueio.
 
 Aguarde `SERVER_READY` com `wait_for_server`. Registre versão vLLM, PID, comando, CUDA e VRAM positiva.
 
@@ -280,7 +280,7 @@ PY
 
 Confirme:
 
-- `219+` testes anteriores mais os três novos testes, total mínimo `222`;
+- total mínimo `222` testes;
 - 12 artefatos portáteis;
 - 45.000 pares totais;
 - seis summaries base e reranked;
@@ -295,7 +295,7 @@ Confirme:
 
 ## 9. Commit e push
 
-O diff rastreado deve conter exatamente os 12 outputs autorizados. A IA local não pode incluir os três arquivos de código/teste/instrução já recebidos pelo pull, pois eles já fazem parte do HEAD inicial.
+O diff rastreado deve conter exatamente os 12 outputs autorizados. A IA local não pode incluir os arquivos de código, testes e instrução já recebidos pelo pull, pois eles fazem parte do HEAD inicial.
 
 ```bash
 git status --short
