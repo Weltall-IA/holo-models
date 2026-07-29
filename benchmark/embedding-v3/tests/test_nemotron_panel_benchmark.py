@@ -115,7 +115,7 @@ class NemotronPanelBenchmarkTests(unittest.TestCase):
             with self.assertRaisesRegex(RuntimeError, "smoke failed"):
                 module.official_semantic_smoke("http://localhost")
 
-    def test_score_panel_records_scores_and_positive_vram(self):
+    def test_score_panel_records_scores_and_portable_runtime(self):
         queries = [{"query": "q1"}, {"query": "q2"}]
         ids = [["a", "b"], ["b", "c"]]
         texts = {"a": "A", "b": "B", "c": "C"}
