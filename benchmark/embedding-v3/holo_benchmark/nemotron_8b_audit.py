@@ -2,7 +2,6 @@
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
 import os
 import re
@@ -575,6 +574,11 @@ def run_qwen(
     queries, union_ids, text_by_id = _union_context(payloads, rerank_top_k)
     selection = select_qwen_reranker(REPO_ROOT, qwen_model_path)
     path = Path(str(selection["path"]))
+    qwen_identity = f"{selection.get('name', '')} {path.name}".lower()
+    if not any(marker in qwen_identity for marker in ("0.6b", "06b", "600m")):
+        raise ValueError(
+            "canonical comparison requires the Qwen3-Reranker-0.6B artifact"
+        )
     if selection["backend"] == "llama.cpp":
         score_rows, runtime = score_qwen_llama_cpp(
             path,
