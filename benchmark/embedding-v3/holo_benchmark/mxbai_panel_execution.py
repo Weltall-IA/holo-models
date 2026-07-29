@@ -6,7 +6,7 @@ import re
 from pathlib import Path
 
 from . import mxbai_panel_benchmark as benchmark
-from .reranker_runtime import DEFAULT_RERANK_INSTRUCTION
+from .mxbai_panel_protocol import install_protocol
 
 _REVISION = re.compile(r"^[0-9a-f]{40}$")
 
@@ -32,12 +32,18 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--score-output", type=Path, required=True)
     parser.add_argument("--pipeline-output", type=Path, required=True)
     parser.add_argument("--batch-size", type=int, default=8)
-    parser.add_argument("--instruction", default=DEFAULT_RERANK_INSTRUCTION)
+    parser.add_argument(
+        "--instruction",
+        default="",
+        help="Must remain empty: Mixedbread uses its upstream raw query-document pair.",
+    )
     return parser
 
 
 def execute(args: argparse.Namespace):
-    benchmark.MODEL_REVISION = validate_revision(args.model_revision)
+    revision = validate_revision(args.model_revision)
+    benchmark.MODEL_REVISION = revision
+    install_protocol(benchmark, revision)
     return benchmark.benchmark_profile(args)
 
 
