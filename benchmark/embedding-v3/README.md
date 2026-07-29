@@ -124,7 +124,7 @@ Os artefatos individuais em `results/reranker/pipelines/` continuam sendo a font
 
 Esta seção é o registro humano canônico para decisões de reutilização dos embeddings medidos. Os números continuam vindo de `ALL_BENCHMARK_RESULTS.json` e dos artefatos individuais; esta seção registra interpretação, confiança e decisão operacional sem criar outro leaderboard ou registry paralelo.
 
-Revisão desta classificação: **2026-07-27**.
+Revisão desta classificação: **2026-07-29**.
 
 As colunas não misturam protocolos:
 
@@ -142,33 +142,34 @@ Entrar nesta tabela significa que o perfil pode continuar sendo considerado em n
 
 | Perfil | MRR@10 sozinho | Melhor MRR@10 com reranker | Faixa | Confiança | Decisão |
 |---|---:|---:|---|---|---|
-| `nemotron_3_embed_1b_nvfp4` | 0.7753 | — | A | alta | Melhor baseline local; vLLM/NVFP4; 145,03 docs/s. |
+| `nemotron_3_embed_1b_nvfp4` | 0.7753 | 0.8318 | A | alta | Melhor baseline local; vLLM/NVFP4; melhor pipeline atual usa NVIDIA Nemotron Rerank. |
 | `voyage-4-large` | 0.7728 | — | A | média | API; resultado completo, sem pipeline sob o mesmo ID. |
 | `voyage_4_large_1024_float32` | 0.7728 | 0.8261 | A | média | Variante histórica 1024/F32; melhor reranker Voyage 2.5. |
-| `nemotron_3_embed_1b_q4_k_m_gguf` | 0.7695 | — | A | alta | GGUF reproduzível; menor consumo e cold start. |
+| `nemotron_3_embed_1b_q4_k_m_gguf` | 0.7695 | 0.7890 | A | alta | GGUF reproduzível; menor consumo e cold start; pipeline Qwen publicado. |
 | `voyage4_nano_2048_int8` | 0.7681 | 0.8200 | A | média | Variante histórica INT8; desempenho forte. |
-| `embeddinggemma` | 0.7562 | 0.8197 | A | alta | Resultado coerente com a família e com avaliação externa. |
+| `embeddinggemma` | 0.7562 | 0.8299 | A | alta | Resultado coerente com a família; melhor pipeline usa NVIDIA Nemotron Rerank. |
 | `pplx_embed_v1_4b_q8_0` | 0.7562 | 0.8221 | A | média-alta | Resultado histórico válido; novas variantes seguem NVFP4/Q4 antes de Q8. |
 | `voyage4_nano_2048_float32` | 0.7561 | 0.8195 | A | média | Variante histórica 2048/F32. |
 | `voyage4_nano` | 0.7528 | 0.8223 | A | alta | Bom equilíbrio entre qualidade e custo. |
 | `voyage4_nano_1024_float32` | 0.7528 | 0.8210 | A | média | Variante histórica 1024/F32. |
-| `voyage-context-4` | 0.7433 | — | A | média | API; bom baseline, sem pipeline publicado. |
-| `nomic_embed_text_v2_moe_q4` | 0.7420 | 0.8229 | A | alta | Escolha operacional validada com Qwen local. |
-| `embeddinggemma_768_float32` | 0.7389 | 0.8264 | A | média | Variante histórica; melhor pipeline absoluto com Voyage. |
+| `voyage-context-4` | 0.7433 | 0.7887 | A | média | API; baseline completo e pipeline Qwen recomposto offline. |
+| `nomic_embed_text_v2_moe_q4` | 0.7420 | 0.8320 | A | alta | Escolha operacional validada; melhor pipeline usa NVIDIA Nemotron Rerank. |
+| `embeddinggemma_768_float32` | 0.7389 | 0.8264 | A | média | Variante histórica; melhor pipeline histórico usa Voyage 2.5. |
 | `embeddinggemma_gguf` | 0.7389 | 0.8198 | A | alta | Baixo consumo e resultado coerente. |
-| `bge_m3_dense` | 0.7182 | 0.8067 | A | alta | Boa cobertura; modelo oficial recomenda híbrido + reranking. |
+| `bge_m3_dense` | 0.7182 | 0.8067 | A | alta | Boa cobertura; modelo oficial recomenda híbrido com reranking. |
 | `snowflake_arctic_embed_l_v2_q4` | 0.7113 | 0.8158 | A | média-alta | Resultado compatível com modelo multilíngue forte. |
-| `qwen3_embedding_4b_q8_0` | 0.7010 | 0.8243 | A | alta | Resultado histórico válido; nova seleção de peso deve preferir NVFP4/Q4. |
-| `colibri_ptbr` | 0.6966 | 0.8198 | B | alta | Especializado em PT-BR; forte com reranker. |
+| `qwen3_embedding_4b_q8_0` | 0.7010 | 0.8326 | A | alta | Melhor MRR@10 reranqueado publicado; novas seleções devem preferir NVFP4/Q4. |
+| `colibri_ptbr` | 0.6966 | 0.8305 | B | alta | Especializado em PT-BR; forte com NVIDIA Nemotron Rerank. |
 | `jina_embeddings_v5_text_small` | 0.6742 | 0.8216 | B | média-alta | Resultado compatível com MMTEB declarado pelo modelo. |
-| `octen_embedding_8b_q8_0` | 0.6739 | 0.8154 | B | média | Resultado histórico; Q8 não deve ser repetido para esse 8B se houver Q4/NVFP4. |
-| `granite_embedding_311m_r2` | 0.6709 | 0.8092 | B | média-alta | Boa opção compacta; rápido. |
+| `octen_embedding_8b_q8_0` | 0.6739 | 0.8154 | B | média | Resultado histórico; Q8 não deve ser repetido se houver Q4/NVFP4. |
+| `granite_embedding_311m_r2` | 0.6709 | 0.8185 | B | média-alta | Opção compacta; ganho grande com NVIDIA Nemotron Rerank. |
 | `pplx_embed_v1_06b_native` | 0.6633 | 0.8190 | B | média-alta | Compacto e forte com reranker. |
 | `giga_embeddings_instruct` | 0.6467 | 0.8184 | B | média | Útil com instrução; suporte oficial é sobretudo russo/inglês. |
 | `bidirlm_17b_embedding` | 0.6423 | 0.8190 | B | média-alta | Ordem relativa coerente com MTEB-BR. |
 | `multilingual_e5_large_instruct` | 0.6329 | 0.8111 | B | alta | Requer instrução de consulta; forte com reranker. |
 | `qwen3_embedding_06` | 0.6163 | 0.8066 | C | alta | Baseline modesto; útil com reranker. |
 | `qwen3_embedding_06_gguf` | 0.6153 | 0.7477 | C | alta | Q8 histórico aceitável pelo tamanho pequeno; controle GGUF coerente. |
+| `lfm_25_embedding_350m_q4_k_m_official` | 0.6085 | 0.7768 | C | alta | Reexecução oficial com CLS e prefixos corretos; reutilizável com Qwen. |
 | `gte_multilingual_base` | 0.5676 | 0.8109 | C | alta | Baseline fraco no corpus, mas pipeline útil e fonte oficial forte. |
 | `granite_embedding_97m_r2` | 0.5631 | 0.7890 | C | média-alta | Muito rápido; manter apenas para perfil leve/reranqueado. |
 
@@ -178,15 +179,15 @@ A blacklist é aplicada ao **ID, peso, quantização e configuração testados**
 
 | Perfil local | MRR@10 | Estado | Motivo | Condição para reabilitação |
 |---|---:|---|---|---|
-| `qwen3_embedding_8b_gguf` | 0.6920 | `AUDIT_REQUIRED` | O Q8_0 8B ficou abaixo do 4B, ao contrário dos benchmarks oficiais; falta controle dimensional e instrução exata no artefato. | Reexecutar em `Q4_K_M`, com instrução oficial registrada, 4096 e 1024 dimensões, cache novo e comparação por consulta. Não repetir Q8_0. |
-| `nemotron_8b_abiray_q4` | 0.6919 | `BLACKLIST_PROVISÓRIA` | Candidates e métricas idênticos ao Aqua00; sem hash, runtime, pooling, dimensão ou comando. | Reexecutar do zero em NVFP4 comprovadamente 8B; na ausência, `Q4_K_M`. Q8 é proibido. |
-| `nemotron_8b_aqua00_q4` | 0.6919 | `BLACKLIST_PROVISÓRIA` | Candidates e métricas idênticos ao Abiray; proveniência insuficiente. | Reexecutar do zero em NVFP4 comprovadamente 8B; na ausência, `Q4_K_M`. Q8 é proibido. |
-| `lfm_25_embedding_350m_q4` | 0.4947 | `BLACKLIST_DO_ARTEFATO` | Resultado muito abaixo da expectativa oficial; artefato não prova prefixos `query:`/`document:` nem pooling CLS. | Reexecutar no artefato oficial; quantização futura segue NVFP4, depois Q4. |
+| `qwen3_embedding_8b_gguf` | 0.6920 | `AUDIT_REQUIRED` | O Q8_0 8B ficou abaixo do 4B; faltam controle dimensional e instrução exata no artefato. | Reexecutar em Q4_K_M, com instrução oficial registrada, 4096 e 1024 dimensões e cache novo. Não repetir Q8_0. |
+| `nemotron_8b_abiray_q4` | 0.6919 | `BLACKLIST_PROVISÓRIA` | Candidates e métricas idênticos ao Aqua00; sem hash, runtime, pooling, dimensão ou comando. | Reexecutar do zero em NVFP4 comprovadamente 8B; na ausência, Q4_K_M. Q8 é proibido. |
+| `nemotron_8b_aqua00_q4` | 0.6919 | `BLACKLIST_PROVISÓRIA` | Candidates e métricas idênticos ao Abiray; proveniência insuficiente. | Reexecutar do zero em NVFP4 comprovadamente 8B; na ausência, Q4_K_M. Q8 é proibido. |
+| `lfm_25_embedding_350m_q4` | 0.4947 | `BLACKLIST_DO_ARTEFATO` | Artefato antigo não prova prefixos nem pooling CLS; a execução oficial corrigida usa outro ID e permanece na Tabela 1. | Não reabilitar este artefato. Reutilizar somente lfm_25_embedding_350m_q4_k_m_official ou uma nova execução equivalente. |
 | `kalm_embedding_gemma3_12b_q4` | 0.1969 | `BLACKLIST_DO_ARTEFATO` | Resultado incompatível com o topo do MTEB-BR; metadados de execução ausentes. | Reexecução reproduzível em NVFP4 confiável ou Q4 com instruções e pooling oficiais. |
-| `kalm_embedding_gemma3_12b_i1_q4` | 0.1766 | `BLACKLIST_DO_ARTEFATO` | Mesma família forte externamente, mas execução local catastrófica e sem proveniência. | Reexecução reproduzível; não herdar o resultado do outro Q4. |
-| `boom_4b_v1_q8_0` | 0.1616 | `BLACKLIST_DO_ARTEFATO` | MTEB-BR coloca a família entre modelos fortes; Q8 local indica configuração ou artefato inválido. | Reexecutar em NVFP4 ou Q4, com last-token pooling, instrução e hash do peso. Não repetir Q8. |
-| `bitnet_270m` | — | `BLOCKED` | GGUF legado usa `TYPE_IQ4_NL_4_4`, incompatível com llama.cpp 9972; nenhuma métrica válida. | Novo GGUF/runtime compatível e benchmark completo. |
-| `bitnet_06b` | — | `BLOCKED` | Mesma incompatibilidade; nenhuma métrica válida. | Novo GGUF/runtime compatível e benchmark completo. |
+| `kalm_embedding_gemma3_12b_i1_q4` | 0.1766 | `BLACKLIST_DO_ARTEFATO` | Execução local catastrófica e sem proveniência suficiente. | Reexecução reproduzível; não herdar o resultado do outro Q4. |
+| `boom_4b_v1_q8_0` | 0.1616 | `BLACKLIST_DO_ARTEFATO` | Q8 local indica configuração ou artefato inválido para uma família externamente forte. | Reexecutar em NVFP4 ou Q4, com last-token pooling, instrução e hash do peso. Não repetir Q8. |
+| `bitnet_270m_current` | 0.3015 | `GATE_FAIL` | Execução completa e reproduzível, mas qualidade insuficiente: HR@50 0,8467 e alta taxa de erro em hard negatives. | Novo peso, runtime ou protocolo precisa superar o gate completo; não promover este artefato. |
+| `bitnet_06b_current` | 0.2089 | `GATE_FAIL` | Execução completa e reproduzível, mas qualidade insuficiente: HR@50 0,7667. | Novo peso, runtime ou protocolo precisa superar o gate completo; não promover este artefato. |
 
 ### Leitura das inconsistências externas
 
