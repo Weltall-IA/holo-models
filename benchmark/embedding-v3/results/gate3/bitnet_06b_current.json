@@ -55,7 +55,7 @@
       "available_bytes": 18144714752
     },
     "filesystem_project": {
-      "path": "/home/alpha/Playstoria/models/benchmark/embedding-v3",
+      "path": "<path>",
       "total_bytes": 2780252246016,
       "used_bytes": 885956022272,
       "free_bytes": 1865153204224,
@@ -65,16 +65,16 @@
           "-no",
           "FSTYPE,SOURCE,TARGET",
           "--target",
-          "/home/alpha/Playstoria/models/benchmark/embedding-v3"
+          "<path>"
         ],
         "returncode": 0,
         "duration_seconds": 0.0035,
-        "stdout": "bcachefs /dev/disk/by-uuid/af4831e9-8c08-48c1-bbd5-d96f2bee591a[/home] /home",
+        "stdout": "bcachefs <path> <path>",
         "stderr": ""
       }
     },
     "filesystem_repo": {
-      "path": "/home/alpha/Playstoria/models",
+      "path": "<path>",
       "total_bytes": 2780252246016,
       "used_bytes": 885956022272,
       "free_bytes": 1865153204224,
@@ -84,11 +84,11 @@
           "-no",
           "FSTYPE,SOURCE,TARGET",
           "--target",
-          "/home/alpha/Playstoria/models"
+          "<path>"
         ],
         "returncode": 0,
         "duration_seconds": 0.0034,
-        "stdout": "bcachefs /dev/disk/by-uuid/af4831e9-8c08-48c1-bbd5-d96f2bee591a[/home] /home",
+        "stdout": "bcachefs <path> <path>",
         "stderr": ""
       }
     },
@@ -127,7 +127,7 @@
     },
     "python": {
       "version": "3.12.13 (main, Jun 23 2026, 15:18:55) [Clang 22.1.3 ]",
-      "executable": "/home/alpha/Playstoria/models/benchmarks/holo-embedding-benchmark-v3/.venv/bin/python",
+      "executable": "<path>",
       "implementation": "CPython"
     },
     "torch_cuda": {
@@ -170,9 +170,9 @@
     "peak_vram_bytes": 0,
     "vram_residual_bytes": 816840704,
     "command": [
-      "/home/alpha/Playstoria/models-embed-batch2-light/runtimes/BitNet/build/bin/llama-embedding",
+      "<path>",
       "-m",
-      "/home/alpha/Playstoria/models-embed-batch2-light/embed/bitnet_06b_current/bitnet-embeddings-0.6b-bf16-i2_s.gguf",
+      "<path>",
       "-f",
       "<temporary-input-file>",
       "--embd-normalize",
@@ -181,9 +181,9 @@
       "array"
     ],
     "exit_code": 0,
-    "binary_path": "/home/alpha/Playstoria/models-embed-batch2-light/runtimes/BitNet/build/bin/llama-embedding",
+    "binary_path": "<path>",
     "binary_sha256": "f2971f0a8269b7a04db59b5b2da0abcd8c2505b3dd25138eb7cdc3665b5ba788",
-    "gguf_path": "/home/alpha/Playstoria/models-embed-batch2-light/embed/bitnet_06b_current/bitnet-embeddings-0.6b-bf16-i2_s.gguf",
+    "gguf_path": "<path>",
     "gguf_sha256": "c89c64f05a2d3f83565250a6762640197fc624df866d4a1bd5853f811219af17",
     "gguf_size_bytes": 427935008
   },
