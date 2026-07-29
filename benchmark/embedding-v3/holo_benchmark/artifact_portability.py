@@ -22,7 +22,8 @@ def _is_relative_api_endpoint(value: str, path: str) -> bool:
     Relative API routes such as ``/rerank`` and ``/v1/rerank`` are portable
     protocol identifiers, not host filesystem paths. The exemption is
     deliberately contextual so the same string under ``path`` or another
-    filesystem-oriented field remains subject to path redaction.
+    filesystem-oriented field remains subject to path redaction. Scheme-
+    relative URLs, backslashes, and traversal segments are never exempted.
     """
     field = path.rsplit(".", 1)[-1]
     if field not in _API_ENDPOINT_FIELDS:
