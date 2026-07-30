@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.0",
+  "status": "IDENTICAL_ALL_TENSOR_CONTENT_METADATA_ONLY_CONTAINER_DIFFERENCE",
+  "conclusion": "Full tensor content comparison of all 308 tensors (4.89 GB processed). Every tensor's SHA-256 content hash is identical between Abiray and Aqua00. The 55-byte file size difference is exclusively in container/padding/trailing bytes.",
+  "abiray": {
+    "repository": "Abiray/Nemotron-3-Embed-8B-GGUF",
+    "revision": "1ffb81e403311c4dc6879b9c3cbb6ebfa18b86df",
+    "file": "Nemotron-3-Embed-8B-Q4_K_M.gguf",
+    "bytes": 4896390039,
+    "sha256": "a2aa29c618da6eed10d9474e72e33188c61e5fd700aed2fe9a1d98abdc90c6fc"
+  },
+  "aqua00": {
+    "repository": "Aqua00/Nemotron-3-Embed-8B-GGUF",
+    "revision": "fa8f1317579eee6ecfa0a5623f4df0c0d19f5a87",
+    "file": "Nemotron-3-Embed-8B-Q4_K_M.gguf",
+    "bytes": 4896389984,
+    "sha256": "1352d929879c61fccf76ff855c6250c7fdc924479932918febcc6fe384cb70a7"
+  },
+  "structural_comparison": {
+    "metadata_fields": 54,
+    "metadata_diffs": 0,
+    "tensor_count": 308,
+    "tensor_manifest_hash_same": true,
+    "tensor_manifest_hash": "a5da683efb88817c56da...",
+    "shape_diffs": 0,
+    "type_diffs": 0,
+    "size_diffs": 0,
+    "tensor_content_sample_diffs": 0,
+    "file_size_diff_bytes": 55,
+    "tensor_content_hashes_compared": 308,
+    "tensor_content_diff_count": 0,
+    "tensor_total_bytes": 4888510464,
+    "canonical_tensor_hash": "9ae17e596d854905476c32681c8fa850895458d2da6efc8a83425ccf4ba429d8"
+  },
+  "candidate_comparison": {
+    "4096": {
+      "canonical_hash_same": true,
+      "rank_divergences": 0,
+      "queries": 150,
+      "top_k": 50
+    },
+    "1024": {
+      "canonical_hash_same": true,
+      "rank_divergences": 0,
+      "queries": 150,
+      "top_k": 50
+    }
+  },
+  "pipeline_comparison": {
+    "4096": {
+      "abiray_mrr": 0.789407,
+      "aqua00_mrr": 0.789407,
+      "identical": true
+    },
+    "1024": {
+      "abiray_mrr": 0.790741,
+      "aqua00_mrr": 0.790741,
+      "identical": true
+    }
+  },
+  "tools_used": [
+    "gguf.GGUFReader",
+    "sha256sum",
+    "huggingface_hub.HfApi"
+  ]
+}
