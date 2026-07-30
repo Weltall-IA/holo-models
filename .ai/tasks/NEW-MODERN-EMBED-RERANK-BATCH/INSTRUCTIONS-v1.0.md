@@ -8,7 +8,6 @@ Executar os candidatos modernos preservados na fila canônica, primeiro em bench
 
 - Repositório: `Weltall-IA/holo-models`
 - Branch de execução: `bench/modern-embeddings-all-rerankers`
-- Base exata: commit que contém esta instrução e `CANONICAL_BENCHMARK_CANDIDATES.json`
 - PR final: draft contra `bench/complete-embedding-reranker-matrix`
 - Não fazer merge.
 
@@ -63,7 +62,7 @@ Usar o corpus congelado vigente:
 - mesmas métricas e preparação de textos;
 - normalização oficial de cada modelo;
 - candidates top 50 persistidos por perfil;
-- identidade, revisão, dimensão, dtype, runtime, parâmetros, duração, RAM e VRAM registrados.
+- identidade, revisão, dimensão, dtype, runtime e parâmetros completos.
 
 Para Gemini:
 
@@ -101,6 +100,62 @@ Para cada embedding com raw e candidates válidos, executar todos os rerankers l
 11. `ettin_reranker_68m_v1`.
 
 Não executar `google_vertex_ranking_api` sem autorização explícita de custo e billing. Não usar Gemini gerativo como reranker no ranking de cross-encoders.
+
+## Medição obrigatória de recursos e desempenho
+
+A medição não é opcional nem limitada aos rerankers novos. Deve ser registrada para cada benchmark raw local e cada pipeline de reranking local.
+
+Antes de cada execução local:
+
+- encerrar processos antigos do modelo ou reranker;
+- registrar RAM e VRAM de baseline;
+- registrar GPU, driver, CUDA, runtime, versão do runner e comando exato;
+- executar o modelo isoladamente sempre que a arquitetura permitir.
+
+Para cada embedding raw local, registrar obrigatoriamente:
+
+- tamanho do peso em bytes e MiB;
+- SHA-256 e quantização/dtype;
+- tempo de carregamento;
+- RAM baseline, pico e delta;
+- VRAM baseline, pico e delta;
+- duração total da indexação de 600 documentos;
+- throughput em documentos por segundo;
+- duração total das 150 consultas;
+- latência por consulta p50, p95, p99 e máxima;
+- throughput em consultas por segundo;
+- quantidade de erros, retries e timeouts;
+- duração total do benchmark.
+
+Para cada reranker local isolado, registrar obrigatoriamente:
+
+- tamanho do peso, SHA-256, dtype/quantização e revisão;
+- tempo de carregamento;
+- RAM baseline, pico e delta;
+- VRAM baseline, pico e delta;
+- duração do smoke test;
+- throughput de pares por segundo.
+
+Para cada pipeline embedding + reranker local, registrar obrigatoriamente:
+
+- RAM e VRAM com os componentes efetivamente residentes;
+- pico combinado de RAM e VRAM;
+- tempo de reranking das 150 consultas;
+- latência p50, p95, p99 e máxima por consulta;
+- throughput de consultas e pares por segundo;
+- número total de pares avaliados;
+- erros, retries, OOMs e timeouts;
+- duração total do pipeline.
+
+Para APIs externas, RAM e VRAM local devem ser `NOT_APPLICABLE_REMOTE_API`, nunca zero inventado. Registrar obrigatoriamente:
+
+- duração total;
+- latência p50, p95, p99 e máxima;
+- requisições, tokens e retries;
+- throughput;
+- cota usada e confirmação de ausência de cobrança.
+
+Se uma métrica não puder ser coletada, registrar `MEASUREMENT_BLOCKED` com ferramenta, comando, erro e tentativa. Não usar `null` sem justificativa.
 
 ## Estados finais permitidos
 
@@ -148,9 +203,9 @@ O consolidado deve receber:
 - novos perfis raw;
 - candidates e proveniência;
 - todas as células de reranking;
-- métricas completas;
+- métricas completas de qualidade;
+- todas as medições obrigatórias de RAM, VRAM, carga, duração, latência e throughput;
 - bloqueios e motivos;
-- memória e throughput quando disponíveis;
 - rankings raw e reranqueado regenerados;
 - reconciliação da fila de candidatos.
 
@@ -186,6 +241,8 @@ Adicionar testes para:
 - matriz retangular dos embeddings bem-sucedidos × 11 rerankers;
 - nenhuma célula final `MISSING`, `NO_RUNNER` ou `NO_CANDIDATES`;
 - coerência entre artefatos individuais e consolidado;
+- presença das métricas obrigatórias de recursos em toda execução local válida;
+- APIs remotas usam `NOT_APPLICABLE_REMOTE_API` para RAM/VRAM;
 - modelos não comerciais não promovidos para produção;
 - ausência de arquivos paralelos de ranking, matriz ou fila.
 
@@ -205,7 +262,7 @@ Retornar:
 5. lista final de rerankers;
 6. matriz completa;
 7. pipelines executados;
-8. memória, duração e erros;
+8. tabela completa de peso, carga, RAM, VRAM, duração, latência e throughput por raw, reranker e pipeline;
 9. rankings atualizados;
 10. alterações no top 15;
 11. arquivos alterados;
@@ -216,4 +273,4 @@ Retornar:
 
 Frase final obrigatória:
 
-`Candidatos modernos preservados na fila canônica e benchmarkados em raw e contra todos os rerankers locais ou gratuitos elegíveis, sem apagar pendências e sem criar resultados paralelos.`
+`Candidatos modernos preservados na fila canônica e benchmarkados em raw e contra todos os rerankers locais ou gratuitos elegíveis, com recursos e desempenho medidos, sem apagar pendências e sem criar resultados paralelos.`
