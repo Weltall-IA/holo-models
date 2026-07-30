@@ -3,6 +3,7 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import re
 import shutil
 import stat
 import subprocess
@@ -27,11 +28,32 @@ MAX_TOTAL_CHARS = 512 * 1024
 
 
 def _sanitize(msg: str) -> str:
-    for pat in (REPO.as_posix(), REPO.as_posix().replace("/", "\\"),
-                os.environ.get("HOME", ""), os.environ.get("USER", "")):
-        if pat:
-            msg = msg.replace(pat, "<redacted>")
-    return msg
+    """Remove local repository, home-directory and username details from text."""
+    cleaned = str(msg)
+    roots = [
+        REPO.as_posix(),
+        str(Path.home()),
+        os.environ.get("HOME", ""),
+        os.environ.get("USERPROFILE", ""),
+    ]
+    variants = {root.rstrip("/\\") for root in roots if root}
+    variants.update(root.replace("/", "\\") for root in tuple(variants))
+
+    # Replace the complete path rooted at a sensitive prefix, not only the
+    # prefix itself. Replacing only HOME would expose the remaining workspace
+    # path (for example, "Playstoria/models") in logs and evidence artifacts.
+    for root in sorted(variants, key=len, reverse=True):
+        pattern = re.compile(rf"{re.escape(root)}(?:[\\/][^\s\"'<>|]*)?")
+        cleaned = pattern.sub("<redacted>", cleaned)
+
+    username = os.environ.get("USER", "").strip()
+    if username:
+        cleaned = re.sub(
+            rf"(?<![\w.-]){re.escape(username)}(?![\w.-])",
+            "<redacted>",
+            cleaned,
+        )
+    return cleaned
 
 
 def _sha256(path: Path) -> str:
