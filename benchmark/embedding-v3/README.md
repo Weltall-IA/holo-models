@@ -143,7 +143,7 @@ Entrar nesta tabela significa que o perfil pode continuar sendo considerado em n
 | Perfil | MRR@10 sozinho | Melhor MRR@10 com reranker | Faixa | Confiança | Decisão |
 |---|---:|---:|---|---|---|
 | `nemotron_8b_abiray_q4_audit_4096` | 0.7970 | 0.8307 | A | alta | Nemotron 8B Q4_K_M canônico; Abiray escolhido por maior adoção no Hugging Face; melhor configuração raw usa 4096 dimensões. |
-| `nemotron_8b_abiray_q4_audit_1024` | 0.7459 | 0.8307 | A | alta | Variante truncada para 1024 dimensões; comparar Qwen e Voyage para decidir economia de armazenamento. |
+| `nemotron_8b_abiray_q4_audit_1024` | 0.7459 | 0.8307 | A | alta | Variante truncada para 1024 dimensões; Qwen e Voyage empataram em MRR@10 arredondado (~0.7907) nesta configuração. |
 | `nemotron_3_embed_1b_nvfp4` | 0.7753 | 0.8318 | A | alta | Melhor baseline local; vLLM/NVFP4; melhor pipeline atual usa NVIDIA Nemotron Rerank. |
 | `voyage-4-large` | 0.7728 | — | A | média | API; resultado completo, sem pipeline sob o mesmo ID. |
 | `voyage_4_large_1024_float32` | 0.7728 | 0.8261 | A | média | Variante histórica 1024/F32; melhor reranker Voyage 2.5. |

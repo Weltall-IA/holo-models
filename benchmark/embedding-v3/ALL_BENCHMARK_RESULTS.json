@@ -3085,15 +3085,25 @@
     "reason": "tensor-identical mirrors; Abiray retained by higher HF adoption"
   },
   "voyage_nemotron_8b_status": {
-    "status": "BLOCKED_RATE_LIMIT",
-    "artifact": "results/reranker/voyage_rerank_2_5_nemotron_8b_abiray_blocked.json",
-    "published_pipeline_count": 0
+    "status": "COMPLETED_BATCH",
+    "backend": "voyage_batch_api",
+    "model": "rerank-2.5",
+    "published_pipeline_count": 2,
+    "variants": [
+      "nemotron_8b_abiray_q4_audit_1024",
+      "nemotron_8b_abiray_q4_audit_4096"
+    ],
+    "score_artifact": "results/reranker/scores/voyage_rerank_2_5_nemotron_8b_abiray.json",
+    "checkpoint": "results/raw/reranker/voyage_rerank_2_5_nemotron_8b_abiray_batch.json",
+    "partial_union_scoring": true,
+    "top_k": 20,
+    "unscored_policy": "append in stable base-embedding order"
   },
   "schema_version": "2.0.0",
   "title": "Holo — Complete Consolidated Embedding and Reranker Benchmark Results",
   "repository": "Weltall-IA/holo-models",
-  "generated_at": "2026-07-30T07:15:09.885294+00:00",
-  "source_commit": "797fd9bb61e560e9249e1c8516feefc5f5f09dc5",
+  "generated_at": "2026-07-30T07:52:37.454572+00:00",
+  "source_commit": "9eaccd6e0280f65532a5f42f59690cf58340cf3b",
   "validation": {
     "status": "PASS",
     "checks": {

@@ -203,6 +203,39 @@ def finalize(args: argparse.Namespace) -> dict[str, Any]:
     )
     consolidate.write_json(canonical_path, document)
 
+    # ---- Fix Voyage status block ----
+    # The document may still carry a stale BLOCKED_RATE_LIMIT block from the
+    # optional finalizer.  Replace it with the actual completed state once we
+    # have confirmed both Voyage pipelines exist.
+    voyage_score = RESULTS / "reranker" / "scores" / "voyage_rerank_2_5_nemotron_8b_abiray.json"
+    voyage_checkpoint = RESULTS / "raw" / "reranker" / "voyage_rerank_2_5_nemotron_8b_abiray_batch.json"
+    voyage_variants = [
+        v.name.replace(".json", "")
+        for v in sorted((PIPELINES / "voyage_rerank_2_5").glob("nemotron_8b_abiray_*.json"))
+    ]
+    if voyage_variants:
+        voyage_block = {
+            "status": "COMPLETED_BATCH",
+            "backend": "voyage_batch_api",
+            "model": "rerank-2.5",
+            "published_pipeline_count": len(voyage_variants),
+            "variants": voyage_variants,
+            "score_artifact": str(voyage_score.relative_to(PROJECT_ROOT)) if voyage_score.is_file() else None,
+            "checkpoint": str(voyage_checkpoint.relative_to(PROJECT_ROOT)) if voyage_checkpoint.is_file() else None,
+            "partial_union_scoring": True,
+            "top_k": 20,
+            "unscored_policy": "append in stable base-embedding order",
+        }
+    else:
+        voyage_block = {
+            "status": "BLOCKED_RATE_LIMIT",
+            "published_pipeline_count": 0,
+        }
+    document["voyage_nemotron_8b_status"] = voyage_block
+
+    # Rewrite consolidated with updated Voyage status
+    consolidate.write_json(canonical_path, document)
+
     updater = _load_tool(
         "update_canonical_readme_tables",
         PROJECT_ROOT / "tools" / "update_canonical_readme_tables.py",
@@ -222,7 +255,7 @@ def finalize(args: argparse.Namespace) -> dict[str, Any]:
             "nemotron_8b_abiray_q4_audit_1024",
             "A",
             "alta",
-            "Variante truncada para 1024 dimensões; comparar Qwen e Voyage para decidir economia de armazenamento.",
+            "Variante truncada para 1024 dimensões; Qwen e Voyage empataram em MRR@10 arredondado (~0.7907) nesta configuração.",
         ),
     ) + retained_table1
     updater.TABLE2_SPECS = tuple(
