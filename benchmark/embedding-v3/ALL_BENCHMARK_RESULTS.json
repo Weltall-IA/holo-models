@@ -3078,15 +3078,26 @@
     "embedding_benchmark": "nemotron_3_embed_1b_nvfp4",
     "generation_healthcheck_not_ranked": "Ornith-9B-MTP-NVFP4:latest"
   },
+  "nemotron_8b_mirror_selection": {
+    "selected": "Abiray/Nemotron-3-Embed-8B-GGUF",
+    "removed_equivalent_mirror": "Aqua00/Nemotron-3-Embed-8B-GGUF",
+    "identity_audit": "results/reranker/nemotron_8b_abiray_aqua00_identity_audit.json",
+    "reason": "tensor-identical mirrors; Abiray retained by higher HF adoption"
+  },
+  "voyage_nemotron_8b_status": {
+    "status": "BLOCKED_RATE_LIMIT",
+    "artifact": "results/reranker/voyage_rerank_2_5_nemotron_8b_abiray_blocked.json",
+    "published_pipeline_count": 0
+  },
   "schema_version": "2.0.0",
   "title": "Holo — Complete Consolidated Embedding and Reranker Benchmark Results",
   "repository": "Weltall-IA/holo-models",
-  "generated_at": "2026-07-30T05:52:16.005806+00:00",
-  "source_commit": "fe35b6fbe8bdbb2120c5301fdba1d11a02504500",
+  "generated_at": "2026-07-30T07:15:09.885294+00:00",
+  "source_commit": "797fd9bb61e560e9249e1c8516feefc5f5f09dc5",
   "validation": {
     "status": "PASS",
     "checks": {
-      "pipeline_count_105": true,
+      "pipeline_count_107": true,
       "embedding_count_36": true,
       "reranker_counts_match": true,
       "parse_errors_zero": true,
@@ -3108,7 +3119,7 @@
       "mxbai_rerank_base_v2": 6,
       "querit_reranker_4b": 12,
       "qwen_local": 36,
-      "voyage_rerank_2_5": 9
+      "voyage_rerank_2_5": 11
     },
     "actual_reranker_counts": {
       "jina_reranker_v3_noncommercial": 12,
@@ -3118,9 +3129,9 @@
       "mxbai_rerank_base_v2": 6,
       "querit_reranker_4b": 12,
       "qwen_local": 36,
-      "voyage_rerank_2_5": 9
+      "voyage_rerank_2_5": 11
     },
-    "reranked_metric_paths": 32,
+    "reranked_metric_paths": 34,
     "raw_profile_count": 39,
     "raw_profile_source_counts": {
       "gate2": 11,
@@ -3131,7 +3142,7 @@
     }
   },
   "canonical_scope": {
-    "published_pipeline_artifacts": 105,
+    "published_pipeline_artifacts": 107,
     "unique_embeddings": 36,
     "rerankers": 8,
     "corpus_documents": 600,
@@ -3139,9 +3150,9 @@
     "corpus_sha256": "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b",
     "candidate_top_k": 50,
     "rerank_top_k": 20,
-    "published_reranked_pipeline_artifacts": 105,
+    "published_reranked_pipeline_artifacts": 107,
     "raw_embedding_profiles": 39,
-    "benchmark_records_total": 144
+    "benchmark_records_total": 146
   },
   "source_of_truth_policy": {
     "published_pipeline_metrics": "individual JSON artifacts under benchmark/embedding-v3/results/reranker/pipelines",
@@ -3159,7 +3170,7 @@
     "raw_and_reranked_are_ranked_separately": true
   },
   "inventory": {
-    "published_pipeline_count": 105,
+    "published_pipeline_count": 107,
     "unique_embedding_count": 36,
     "published_pipeline_count_by_reranker": {
       "jina_reranker_v3_noncommercial": 12,
@@ -3169,7 +3180,7 @@
       "mxbai_rerank_base_v2": 6,
       "querit_reranker_4b": 12,
       "qwen_local": 36,
-      "voyage_rerank_2_5": 9
+      "voyage_rerank_2_5": 11
     },
     "score_artifact_count": 16,
     "candidate_artifact_count": 35
@@ -4617,6 +4628,538 @@
       "rank_by_mrr_at_10": 3
     },
     {
+      "pipeline_id": "nemotron_8b_abiray_q4_audit_1024__voyage_rerank_2_5",
+      "embedding": "nemotron_8b_abiray_q4_audit_1024",
+      "reranker": "voyage_rerank_2_5",
+      "source_path": "benchmark/embedding-v3/results/reranker/pipelines/voyage_rerank_2_5/nemotron_8b_abiray_q4_audit_1024.json",
+      "metric_summary_path": "$.evaluation.reranked_metrics.summary",
+      "metrics": {
+        "hit_rate_at_1": 0.82,
+        "hit_rate_at_3": 0.8333333333333334,
+        "hit_rate_at_5": 0.84,
+        "hit_rate_at_10": 0.8666666666666667,
+        "hit_rate_at_20": 0.9266666666666666,
+        "mrr_at_10": 0.8306931216931216,
+        "ndcg_at_10": 0.8312045548824296,
+        "hard_negative_error_rate": 0.06666666666666667
+      },
+      "metrics_summary_original": {
+        "HitRate@1": 0.82,
+        "Recall@1": 0.81,
+        "HitRate@3": 0.8333333333333334,
+        "Recall@3": 0.8233333333333334,
+        "HitRate@5": 0.84,
+        "Recall@5": 0.83,
+        "HitRate@10": 0.8666666666666667,
+        "Recall@10": 0.8566666666666667,
+        "HitRate@20": 0.9266666666666666,
+        "Recall@20": 0.9166666666666666,
+        "HitRate@50": 0.9266666666666666,
+        "Recall@50": 0.9166666666666666,
+        "MRR@10": 0.8306931216931216,
+        "nDCG@10": 0.8312045548824296,
+        "mean_first_relevant_rank": 2.035971223021583,
+        "median_first_relevant_rank": 1.0,
+        "queries_without_relevant": 11,
+        "hard_negative_error_rate": 0.06666666666666667
+      },
+      "metrics_by_query_type": {
+        "character_name": {
+          "count": 15,
+          "HitRate@10": 0.4666666666666667,
+          "MRR@10": 0.10693121693121693,
+          "nDCG@10": 0.18941611027120503,
+          "hard_negative_error_rate": 0.6
+        },
+        "context_dependency": {
+          "count": 30,
+          "HitRate@10": 0.6,
+          "MRR@10": 0.6,
+          "nDCG@10": 0.5613147192765457,
+          "hard_negative_error_rate": 0.03333333333333333
+        },
+        "emotion_intention": {
+          "count": 25,
+          "HitRate@10": 1.0,
+          "MRR@10": 1.0,
+          "nDCG@10": 1.0,
+          "hard_negative_error_rate": 0.0
+        },
+        "exact_phrase": {
+          "count": 10,
+          "HitRate@10": 1.0,
+          "MRR@10": 1.0,
+          "nDCG@10": 1.0,
+          "hard_negative_error_rate": 0.0
+        },
+        "indirect_dialogue": {
+          "count": 20,
+          "HitRate@10": 1.0,
+          "MRR@10": 1.0,
+          "nDCG@10": 1.0,
+          "hard_negative_error_rate": 0.0
+        },
+        "semantic_event": {
+          "count": 40,
+          "HitRate@10": 1.0,
+          "MRR@10": 1.0,
+          "nDCG@10": 1.0,
+          "hard_negative_error_rate": 0.0
+        },
+        "similar_scene": {
+          "count": 10,
+          "HitRate@10": 1.0,
+          "MRR@10": 1.0,
+          "nDCG@10": 1.0,
+          "hard_negative_error_rate": 0.0
+        }
+      },
+      "missing_required_metrics": [],
+      "metadata": {
+        "schema_version": "1.1",
+        "pipeline_id": "nemotron_8b_abiray_q4_audit_1024__voyage_rerank_2_5",
+        "embedding_variant": "nemotron_8b_abiray_q4_audit_1024",
+        "reranker_id": "voyage_rerank_2_5",
+        "candidate_top_k": 50,
+        "rerank_top_k": 20,
+        "score_artifact": "results/reranker/scores/voyage_rerank_2_5_nemotron_8b_abiray.json",
+        "partial_union_scoring": true,
+        "unscored_policy": "append in stable base-embedding order",
+        "evaluation": {
+          "base_metrics": {
+            "summary": {
+              "HitRate@1": 0.6733333333333333,
+              "Recall@1": 0.6633333333333333,
+              "HitRate@3": 0.82,
+              "Recall@3": 0.81,
+              "HitRate@5": 0.8333333333333334,
+              "Recall@5": 0.8233333333333334,
+              "HitRate@10": 0.8733333333333333,
+              "Recall@10": 0.8633333333333333,
+              "HitRate@20": 0.9266666666666666,
+              "Recall@20": 0.9166666666666666,
+              "HitRate@50": 0.9266666666666666,
+              "Recall@50": 0.9166666666666666,
+              "MRR@10": 0.7459338624338624,
+              "nDCG@10": 0.7693962421228595,
+              "mean_first_relevant_rank": 2.446043165467626,
+              "median_first_relevant_rank": 1.0,
+              "queries_without_relevant": 11,
+              "hard_negative_error_rate": 0.06
+            },
+            "by_query_type": {
+              "character_name": {
+                "count": 15,
+                "HitRate@10": 0.6,
+                "MRR@10": 0.17989417989417988,
+                "nDCG@10": 0.2789593181655794,
+                "hard_negative_error_rate": 0.4666666666666667
+              },
+              "context_dependency": {
+                "count": 30,
+                "HitRate@10": 0.6,
+                "MRR@10": 0.5566666666666666,
+                "nDCG@10": 0.5285741379700791,
+                "hard_negative_error_rate": 0.03333333333333333
+              },
+              "emotion_intention": {
+                "count": 25,
+                "HitRate@10": 1.0,
+                "MRR@10": 0.94,
+                "nDCG@10": 0.9557115704285749,
+                "hard_negative_error_rate": 0.0
+              },
+              "exact_phrase": {
+                "count": 10,
+                "HitRate@10": 0.9,
+                "MRR@10": 0.62,
+                "nDCG@10": 0.6873989747914021,
+                "hard_negative_error_rate": 0.0
+              },
+              "indirect_dialogue": {
+                "count": 20,
+                "HitRate@10": 1.0,
+                "MRR@10": 0.8395833333333333,
+                "nDCG@10": 0.8788662191964323,
+                "hard_negative_error_rate": 0.0
+              },
+              "semantic_event": {
+                "count": 40,
+                "HitRate@10": 1.0,
+                "MRR@10": 0.9416666666666667,
+                "nDCG@10": 0.9565464876785729,
+                "hard_negative_error_rate": 0.0
+              },
+              "similar_scene": {
+                "count": 10,
+                "HitRate@10": 1.0,
+                "MRR@10": 0.8333333333333334,
+                "nDCG@10": 0.8761859507142915,
+                "hard_negative_error_rate": 0.1
+              }
+            },
+            "per_query_omitted": 150
+          },
+          "reranked_metrics": {
+            "summary": {
+              "HitRate@1": 0.82,
+              "Recall@1": 0.81,
+              "HitRate@3": 0.8333333333333334,
+              "Recall@3": 0.8233333333333334,
+              "HitRate@5": 0.84,
+              "Recall@5": 0.83,
+              "HitRate@10": 0.8666666666666667,
+              "Recall@10": 0.8566666666666667,
+              "HitRate@20": 0.9266666666666666,
+              "Recall@20": 0.9166666666666666,
+              "HitRate@50": 0.9266666666666666,
+              "Recall@50": 0.9166666666666666,
+              "MRR@10": 0.8306931216931216,
+              "nDCG@10": 0.8312045548824296,
+              "mean_first_relevant_rank": 2.035971223021583,
+              "median_first_relevant_rank": 1.0,
+              "queries_without_relevant": 11,
+              "hard_negative_error_rate": 0.06666666666666667
+            },
+            "by_query_type": {
+              "character_name": {
+                "count": 15,
+                "HitRate@10": 0.4666666666666667,
+                "MRR@10": 0.10693121693121693,
+                "nDCG@10": 0.18941611027120503,
+                "hard_negative_error_rate": 0.6
+              },
+              "context_dependency": {
+                "count": 30,
+                "HitRate@10": 0.6,
+                "MRR@10": 0.6,
+                "nDCG@10": 0.5613147192765457,
+                "hard_negative_error_rate": 0.03333333333333333
+              },
+              "emotion_intention": {
+                "count": 25,
+                "HitRate@10": 1.0,
+                "MRR@10": 1.0,
+                "nDCG@10": 1.0,
+                "hard_negative_error_rate": 0.0
+              },
+              "exact_phrase": {
+                "count": 10,
+                "HitRate@10": 1.0,
+                "MRR@10": 1.0,
+                "nDCG@10": 1.0,
+                "hard_negative_error_rate": 0.0
+              },
+              "indirect_dialogue": {
+                "count": 20,
+                "HitRate@10": 1.0,
+                "MRR@10": 1.0,
+                "nDCG@10": 1.0,
+                "hard_negative_error_rate": 0.0
+              },
+              "semantic_event": {
+                "count": 40,
+                "HitRate@10": 1.0,
+                "MRR@10": 1.0,
+                "nDCG@10": 1.0,
+                "hard_negative_error_rate": 0.0
+              },
+              "similar_scene": {
+                "count": 10,
+                "HitRate@10": 1.0,
+                "MRR@10": 1.0,
+                "nDCG@10": 1.0,
+                "hard_negative_error_rate": 0.0
+              }
+            },
+            "per_query_omitted": 150
+          },
+          "effect": {
+            "candidate_cutoff": 20,
+            "candidate_coverage": 0.9266666666666666,
+            "conditional_HitRate@1": 0.8848920863309353,
+            "rescue_count": 22,
+            "rescue_eligible": 38,
+            "rescue_rate": 0.5789473684210527,
+            "damage_count": 0,
+            "damage_eligible": 101,
+            "damage_rate": 0.0,
+            "mean_rank_improvement": 0.41007194244604317,
+            "median_rank_improvement": 0.0
+          },
+          "per_query_effect_omitted": 150
+        },
+        "completed_at": "2026-07-30T07:14:59.465086+00:00"
+      },
+      "rank_by_mrr_at_10": 4
+    },
+    {
+      "pipeline_id": "nemotron_8b_abiray_q4_audit_4096__voyage_rerank_2_5",
+      "embedding": "nemotron_8b_abiray_q4_audit_4096",
+      "reranker": "voyage_rerank_2_5",
+      "source_path": "benchmark/embedding-v3/results/reranker/pipelines/voyage_rerank_2_5/nemotron_8b_abiray_q4_audit_4096.json",
+      "metric_summary_path": "$.evaluation.reranked_metrics.summary",
+      "metrics": {
+        "hit_rate_at_1": 0.82,
+        "hit_rate_at_3": 0.8333333333333334,
+        "hit_rate_at_5": 0.84,
+        "hit_rate_at_10": 0.8666666666666667,
+        "hit_rate_at_20": 0.9666666666666667,
+        "mrr_at_10": 0.8306931216931216,
+        "ndcg_at_10": 0.8312045548824296,
+        "hard_negative_error_rate": 0.1
+      },
+      "metrics_summary_original": {
+        "HitRate@1": 0.82,
+        "Recall@1": 0.81,
+        "HitRate@3": 0.8333333333333334,
+        "Recall@3": 0.8233333333333334,
+        "HitRate@5": 0.84,
+        "Recall@5": 0.83,
+        "HitRate@10": 0.8666666666666667,
+        "Recall@10": 0.8566666666666667,
+        "HitRate@20": 0.9666666666666667,
+        "Recall@20": 0.9566666666666667,
+        "HitRate@50": 0.9666666666666667,
+        "Recall@50": 0.9566666666666667,
+        "MRR@10": 0.8306931216931216,
+        "nDCG@10": 0.8312045548824296,
+        "mean_first_relevant_rank": 2.56551724137931,
+        "median_first_relevant_rank": 1.0,
+        "queries_without_relevant": 5,
+        "hard_negative_error_rate": 0.1
+      },
+      "metrics_by_query_type": {
+        "character_name": {
+          "count": 15,
+          "HitRate@10": 0.4666666666666667,
+          "MRR@10": 0.10693121693121693,
+          "nDCG@10": 0.18941611027120503,
+          "hard_negative_error_rate": 0.6
+        },
+        "context_dependency": {
+          "count": 30,
+          "HitRate@10": 0.6,
+          "MRR@10": 0.6,
+          "nDCG@10": 0.5613147192765457,
+          "hard_negative_error_rate": 0.2
+        },
+        "emotion_intention": {
+          "count": 25,
+          "HitRate@10": 1.0,
+          "MRR@10": 1.0,
+          "nDCG@10": 1.0,
+          "hard_negative_error_rate": 0.0
+        },
+        "exact_phrase": {
+          "count": 10,
+          "HitRate@10": 1.0,
+          "MRR@10": 1.0,
+          "nDCG@10": 1.0,
+          "hard_negative_error_rate": 0.0
+        },
+        "indirect_dialogue": {
+          "count": 20,
+          "HitRate@10": 1.0,
+          "MRR@10": 1.0,
+          "nDCG@10": 1.0,
+          "hard_negative_error_rate": 0.0
+        },
+        "semantic_event": {
+          "count": 40,
+          "HitRate@10": 1.0,
+          "MRR@10": 1.0,
+          "nDCG@10": 1.0,
+          "hard_negative_error_rate": 0.0
+        },
+        "similar_scene": {
+          "count": 10,
+          "HitRate@10": 1.0,
+          "MRR@10": 1.0,
+          "nDCG@10": 1.0,
+          "hard_negative_error_rate": 0.0
+        }
+      },
+      "missing_required_metrics": [],
+      "metadata": {
+        "schema_version": "1.1",
+        "pipeline_id": "nemotron_8b_abiray_q4_audit_4096__voyage_rerank_2_5",
+        "embedding_variant": "nemotron_8b_abiray_q4_audit_4096",
+        "reranker_id": "voyage_rerank_2_5",
+        "candidate_top_k": 50,
+        "rerank_top_k": 20,
+        "score_artifact": "results/reranker/scores/voyage_rerank_2_5_nemotron_8b_abiray.json",
+        "partial_union_scoring": true,
+        "unscored_policy": "append in stable base-embedding order",
+        "evaluation": {
+          "base_metrics": {
+            "summary": {
+              "HitRate@1": 0.7466666666666667,
+              "Recall@1": 0.7366666666666667,
+              "HitRate@3": 0.8466666666666667,
+              "Recall@3": 0.8366666666666667,
+              "HitRate@5": 0.86,
+              "Recall@5": 0.85,
+              "HitRate@10": 0.8666666666666667,
+              "Recall@10": 0.8566666666666667,
+              "HitRate@20": 0.9666666666666667,
+              "Recall@20": 0.9566666666666667,
+              "HitRate@50": 0.9666666666666667,
+              "Recall@50": 0.9566666666666667,
+              "MRR@10": 0.796952380952381,
+              "nDCG@10": 0.8067842504597086,
+              "mean_first_relevant_rank": 2.7379310344827585,
+              "median_first_relevant_rank": 1.0,
+              "queries_without_relevant": 5,
+              "hard_negative_error_rate": 0.08666666666666667
+            },
+            "by_query_type": {
+              "character_name": {
+                "count": 15,
+                "HitRate@10": 0.4666666666666667,
+                "MRR@10": 0.14730158730158732,
+                "nDCG@10": 0.22459323032968878,
+                "hard_negative_error_rate": 0.3333333333333333
+              },
+              "context_dependency": {
+                "count": 30,
+                "HitRate@10": 0.6,
+                "MRR@10": 0.6,
+                "nDCG@10": 0.5613147192765457,
+                "hard_negative_error_rate": 0.23333333333333334
+              },
+              "emotion_intention": {
+                "count": 25,
+                "HitRate@10": 1.0,
+                "MRR@10": 0.96,
+                "nDCG@10": 0.9704743802857166,
+                "hard_negative_error_rate": 0.0
+              },
+              "exact_phrase": {
+                "count": 10,
+                "HitRate@10": 1.0,
+                "MRR@10": 0.75,
+                "nDCG@10": 0.8154648767857287,
+                "hard_negative_error_rate": 0.0
+              },
+              "indirect_dialogue": {
+                "count": 20,
+                "HitRate@10": 1.0,
+                "MRR@10": 1.0,
+                "nDCG@10": 1.0,
+                "hard_negative_error_rate": 0.0
+              },
+              "semantic_event": {
+                "count": 40,
+                "HitRate@10": 1.0,
+                "MRR@10": 0.9875,
+                "nDCG@10": 0.9907732438392864,
+                "hard_negative_error_rate": 0.0
+              },
+              "similar_scene": {
+                "count": 10,
+                "HitRate@10": 1.0,
+                "MRR@10": 0.8333333333333334,
+                "nDCG@10": 0.8761859507142915,
+                "hard_negative_error_rate": 0.1
+              }
+            },
+            "per_query_omitted": 150
+          },
+          "reranked_metrics": {
+            "summary": {
+              "HitRate@1": 0.82,
+              "Recall@1": 0.81,
+              "HitRate@3": 0.8333333333333334,
+              "Recall@3": 0.8233333333333334,
+              "HitRate@5": 0.84,
+              "Recall@5": 0.83,
+              "HitRate@10": 0.8666666666666667,
+              "Recall@10": 0.8566666666666667,
+              "HitRate@20": 0.9666666666666667,
+              "Recall@20": 0.9566666666666667,
+              "HitRate@50": 0.9666666666666667,
+              "Recall@50": 0.9566666666666667,
+              "MRR@10": 0.8306931216931216,
+              "nDCG@10": 0.8312045548824296,
+              "mean_first_relevant_rank": 2.56551724137931,
+              "median_first_relevant_rank": 1.0,
+              "queries_without_relevant": 5,
+              "hard_negative_error_rate": 0.1
+            },
+            "by_query_type": {
+              "character_name": {
+                "count": 15,
+                "HitRate@10": 0.4666666666666667,
+                "MRR@10": 0.10693121693121693,
+                "nDCG@10": 0.18941611027120503,
+                "hard_negative_error_rate": 0.6
+              },
+              "context_dependency": {
+                "count": 30,
+                "HitRate@10": 0.6,
+                "MRR@10": 0.6,
+                "nDCG@10": 0.5613147192765457,
+                "hard_negative_error_rate": 0.2
+              },
+              "emotion_intention": {
+                "count": 25,
+                "HitRate@10": 1.0,
+                "MRR@10": 1.0,
+                "nDCG@10": 1.0,
+                "hard_negative_error_rate": 0.0
+              },
+              "exact_phrase": {
+                "count": 10,
+                "HitRate@10": 1.0,
+                "MRR@10": 1.0,
+                "nDCG@10": 1.0,
+                "hard_negative_error_rate": 0.0
+              },
+              "indirect_dialogue": {
+                "count": 20,
+                "HitRate@10": 1.0,
+                "MRR@10": 1.0,
+                "nDCG@10": 1.0,
+                "hard_negative_error_rate": 0.0
+              },
+              "semantic_event": {
+                "count": 40,
+                "HitRate@10": 1.0,
+                "MRR@10": 1.0,
+                "nDCG@10": 1.0,
+                "hard_negative_error_rate": 0.0
+              },
+              "similar_scene": {
+                "count": 10,
+                "HitRate@10": 1.0,
+                "MRR@10": 1.0,
+                "nDCG@10": 1.0,
+                "hard_negative_error_rate": 0.0
+              }
+            },
+            "per_query_omitted": 150
+          },
+          "effect": {
+            "candidate_cutoff": 20,
+            "candidate_coverage": 0.9666666666666667,
+            "conditional_HitRate@1": 0.8482758620689655,
+            "rescue_count": 11,
+            "rescue_eligible": 33,
+            "rescue_rate": 0.3333333333333333,
+            "damage_count": 0,
+            "damage_eligible": 112,
+            "damage_rate": 0.0,
+            "mean_rank_improvement": 0.1724137931034483,
+            "median_rank_improvement": 0.0
+          },
+          "per_query_effect_omitted": 150
+        },
+        "completed_at": "2026-07-30T07:14:59.424961+00:00"
+      },
+      "rank_by_mrr_at_10": 5
+    },
+    {
       "pipeline_id": "colibri_ptbr__llama_nemotron_rerank_1b_v2",
       "embedding": "colibri_ptbr",
       "reranker": "llama_nemotron_rerank_1b_v2",
@@ -4999,7 +5542,7 @@
         },
         "completed_at": "2026-07-29T19:21:25.154637+00:00"
       },
-      "rank_by_mrr_at_10": 4
+      "rank_by_mrr_at_10": 6
     },
     {
       "pipeline_id": "embeddinggemma__llama_nemotron_rerank_1b_v2",
@@ -5384,7 +5927,7 @@
         },
         "completed_at": "2026-07-29T19:17:57.130079+00:00"
       },
-      "rank_by_mrr_at_10": 5
+      "rank_by_mrr_at_10": 7
     },
     {
       "pipeline_id": "embeddinggemma_768_float32__voyage_rerank_2_5",
@@ -5648,7 +6191,7 @@
         },
         "completed_at": "2026-07-20T23:30:06.317101+00:00"
       },
-      "rank_by_mrr_at_10": 6
+      "rank_by_mrr_at_10": 8
     },
     {
       "pipeline_id": "voyage_4_large_1024_float32__voyage_rerank_2_5",
@@ -5912,7 +6455,7 @@
         },
         "completed_at": "2026-07-20T23:30:06.379557+00:00"
       },
-      "rank_by_mrr_at_10": 7
+      "rank_by_mrr_at_10": 9
     },
     {
       "pipeline_id": "qwen3_embedding_4b_q8_0__qwen_local",
@@ -6081,7 +6624,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 8
+      "rank_by_mrr_at_10": 10
     },
     {
       "pipeline_id": "nomic_embed_text_v2_moe_q4__qwen_local",
@@ -6250,7 +6793,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 9
+      "rank_by_mrr_at_10": 11
     },
     {
       "pipeline_id": "voyage4_nano__qwen_local",
@@ -6420,7 +6963,7 @@
         },
         "candidate_variant": "voyage4_nano_1024_float32"
       },
-      "rank_by_mrr_at_10": 10
+      "rank_by_mrr_at_10": 12
     },
     {
       "pipeline_id": "pplx_embed_v1_4b_q8_0__qwen_local",
@@ -6589,7 +7132,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 11
+      "rank_by_mrr_at_10": 13
     },
     {
       "pipeline_id": "jina_embeddings_v5_text_small__qwen_local",
@@ -6758,7 +7301,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 12
+      "rank_by_mrr_at_10": 14
     },
     {
       "pipeline_id": "voyage4_nano_1024_float32__voyage_rerank_2_5",
@@ -7022,7 +7565,7 @@
         },
         "completed_at": "2026-07-20T23:30:06.336809+00:00"
       },
-      "rank_by_mrr_at_10": 13
+      "rank_by_mrr_at_10": 15
     },
     {
       "pipeline_id": "nomic_embed_text_v2_moe_q4__voyage_rerank_2_5",
@@ -7286,7 +7829,7 @@
         },
         "completed_at": "2026-07-25T21:58:22.199405+00:00"
       },
-      "rank_by_mrr_at_10": 14
+      "rank_by_mrr_at_10": 16
     },
     {
       "pipeline_id": "pplx_embed_v1_4b_q8_0__voyage_rerank_2_5",
@@ -7550,7 +8093,7 @@
         },
         "completed_at": "2026-07-25T21:58:22.167125+00:00"
       },
-      "rank_by_mrr_at_10": 15
+      "rank_by_mrr_at_10": 17
     },
     {
       "pipeline_id": "voyage4_nano_2048_int8__voyage_rerank_2_5",
@@ -7814,7 +8357,7 @@
         },
         "completed_at": "2026-07-20T23:30:06.364859+00:00"
       },
-      "rank_by_mrr_at_10": 16
+      "rank_by_mrr_at_10": 18
     },
     {
       "pipeline_id": "colibri_ptbr__qwen_local",
@@ -7983,7 +8526,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 17
+      "rank_by_mrr_at_10": 19
     },
     {
       "pipeline_id": "embeddinggemma_gguf__qwen_local",
@@ -8152,7 +8695,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 18
+      "rank_by_mrr_at_10": 20
     },
     {
       "pipeline_id": "embeddinggemma__qwen_local",
@@ -8321,7 +8864,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 19
+      "rank_by_mrr_at_10": 21
     },
     {
       "pipeline_id": "voyage4_nano_2048_float32__voyage_rerank_2_5",
@@ -8585,7 +9128,7 @@
         },
         "completed_at": "2026-07-20T23:30:06.350710+00:00"
       },
-      "rank_by_mrr_at_10": 20
+      "rank_by_mrr_at_10": 22
     },
     {
       "pipeline_id": "bidirlm_17b_embedding__qwen_local",
@@ -8754,7 +9297,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 21
+      "rank_by_mrr_at_10": 23
     },
     {
       "pipeline_id": "pplx_embed_v1_06b_native__qwen_local",
@@ -8923,7 +9466,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 22
+      "rank_by_mrr_at_10": 24
     },
     {
       "pipeline_id": "granite_embedding_311m_r2__llama_nemotron_rerank_1b_v2",
@@ -9313,7 +9856,7 @@
         },
         "completed_at": "2026-07-29T19:25:05.706753+00:00"
       },
-      "rank_by_mrr_at_10": 23
+      "rank_by_mrr_at_10": 25
     },
     {
       "pipeline_id": "giga_embeddings_instruct__qwen_local",
@@ -9482,7 +10025,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 24
+      "rank_by_mrr_at_10": 26
     },
     {
       "pipeline_id": "snowflake_arctic_embed_l_v2_q4__qwen_local",
@@ -9651,7 +10194,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 25
+      "rank_by_mrr_at_10": 27
     },
     {
       "pipeline_id": "octen_embedding_8b_q8_0__qwen_local",
@@ -9820,7 +10363,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 26
+      "rank_by_mrr_at_10": 28
     },
     {
       "pipeline_id": "pplx_embed_v1_4b_q8_0__kalm_reranker_v1_small",
@@ -9989,7 +10532,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 27
+      "rank_by_mrr_at_10": 29
     },
     {
       "pipeline_id": "bidirlm_17b_embedding__kalm_reranker_v1_small",
@@ -10158,7 +10701,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 28
+      "rank_by_mrr_at_10": 30
     },
     {
       "pipeline_id": "nomic_embed_text_v2_moe_q4__jina_reranker_v3_noncommercial",
@@ -10327,7 +10870,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 29
+      "rank_by_mrr_at_10": 31
     },
     {
       "pipeline_id": "colibri_ptbr__kalm_reranker_v1_small",
@@ -10496,7 +11039,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 30
+      "rank_by_mrr_at_10": 32
     },
     {
       "pipeline_id": "pplx_embed_v1_06b_native__kalm_reranker_v1_small",
@@ -10665,7 +11208,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 31
+      "rank_by_mrr_at_10": 33
     },
     {
       "pipeline_id": "embeddinggemma__kalm_reranker_v1_small",
@@ -10834,7 +11377,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 32
+      "rank_by_mrr_at_10": 34
     },
     {
       "pipeline_id": "embeddinggemma_gguf__kalm_reranker_v1_small",
@@ -11003,7 +11546,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 33
+      "rank_by_mrr_at_10": 35
     },
     {
       "pipeline_id": "multilingual_e5_large_instruct__qwen_local",
@@ -11172,7 +11715,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 34
+      "rank_by_mrr_at_10": 36
     },
     {
       "pipeline_id": "gte_multilingual_base__qwen_local",
@@ -11341,7 +11884,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 35
+      "rank_by_mrr_at_10": 37
     },
     {
       "pipeline_id": "jina_embeddings_v5_text_small__kalm_reranker_v1_small",
@@ -11510,7 +12053,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 36
+      "rank_by_mrr_at_10": 38
     },
     {
       "pipeline_id": "qwen3_embedding_4b_q8_0__kalm_reranker_v1_small",
@@ -11679,7 +12222,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 37
+      "rank_by_mrr_at_10": 39
     },
     {
       "pipeline_id": "nomic_embed_text_v2_moe_q4__kalm_reranker_v1_small",
@@ -11848,7 +12391,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 38
+      "rank_by_mrr_at_10": 40
     },
     {
       "pipeline_id": "granite_embedding_311m_r2__qwen_local",
@@ -12017,7 +12560,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 39
+      "rank_by_mrr_at_10": 41
     },
     {
       "pipeline_id": "bge_m3_dense__qwen_local",
@@ -12186,7 +12729,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 40
+      "rank_by_mrr_at_10": 42
     },
     {
       "pipeline_id": "qwen3_embedding_06__qwen_local",
@@ -12355,7 +12898,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 41
+      "rank_by_mrr_at_10": 43
     },
     {
       "pipeline_id": "pplx_embed_v1_4b_q8_0__jina_reranker_v3_noncommercial",
@@ -12524,7 +13067,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 42
+      "rank_by_mrr_at_10": 44
     },
     {
       "pipeline_id": "qwen3_embedding_4b_q8_0__mxbai_rerank_base_v2",
@@ -12874,7 +13417,7 @@
         },
         "completed_at": "2026-07-29T07:21:34.905376+00:00"
       },
-      "rank_by_mrr_at_10": 43
+      "rank_by_mrr_at_10": 45
     },
     {
       "pipeline_id": "nomic_embed_text_v2_moe_q4__mxbai_rerank_base_v2",
@@ -13224,7 +13767,7 @@
         },
         "completed_at": "2026-07-29T07:14:25.413226+00:00"
       },
-      "rank_by_mrr_at_10": 44
+      "rank_by_mrr_at_10": 46
     },
     {
       "pipeline_id": "bge_m3_dense__voyage_rerank_2_5",
@@ -13488,7 +14031,7 @@
         },
         "completed_at": "2026-07-25T21:58:22.218604+00:00"
       },
-      "rank_by_mrr_at_10": 45
+      "rank_by_mrr_at_10": 47
     },
     {
       "pipeline_id": "snowflake_arctic_embed_l_v2_q4__voyage_rerank_2_5",
@@ -13752,7 +14295,7 @@
         },
         "completed_at": "2026-07-25T21:58:22.237551+00:00"
       },
-      "rank_by_mrr_at_10": 46
+      "rank_by_mrr_at_10": 48
     },
     {
       "pipeline_id": "snowflake_arctic_embed_l_v2_q4__kalm_reranker_v1_small",
@@ -13921,7 +14464,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 47
+      "rank_by_mrr_at_10": 49
     },
     {
       "pipeline_id": "embeddinggemma__mxbai_rerank_base_v2",
@@ -14301,7 +14844,7 @@
         },
         "completed_at": "2026-07-29T07:28:44.819304+00:00"
       },
-      "rank_by_mrr_at_10": 48
+      "rank_by_mrr_at_10": 50
     },
     {
       "pipeline_id": "colibri_ptbr__mxbai_rerank_base_v2",
@@ -14681,7 +15224,7 @@
         },
         "completed_at": "2026-07-29T07:35:48.004961+00:00"
       },
-      "rank_by_mrr_at_10": 49
+      "rank_by_mrr_at_10": 51
     },
     {
       "pipeline_id": "bge_m3_dense__kalm_reranker_v1_small",
@@ -14850,7 +15393,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 50
+      "rank_by_mrr_at_10": 52
     },
     {
       "pipeline_id": "nemotron_3_embed_1b_nvfp4__mxbai_rerank_base_v2",
@@ -15202,7 +15745,7 @@
         },
         "completed_at": "2026-07-29T07:07:18.606167+00:00"
       },
-      "rank_by_mrr_at_10": 51
+      "rank_by_mrr_at_10": 53
     },
     {
       "pipeline_id": "qwen3_embedding_4b_q8_0__jina_reranker_v3_noncommercial",
@@ -15371,7 +15914,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 52
+      "rank_by_mrr_at_10": 54
     },
     {
       "pipeline_id": "pplx_embed_v1_06b_native__jina_reranker_v3_noncommercial",
@@ -15540,7 +16083,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 53
+      "rank_by_mrr_at_10": 55
     },
     {
       "pipeline_id": "voyage4_nano__jina_reranker_v3_noncommercial",
@@ -15710,7 +16253,7 @@
         },
         "candidate_variant": "voyage4_nano_1024_float32"
       },
-      "rank_by_mrr_at_10": 54
+      "rank_by_mrr_at_10": 56
     },
     {
       "pipeline_id": "embeddinggemma_gguf__jina_reranker_v3_noncommercial",
@@ -15879,7 +16422,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 55
+      "rank_by_mrr_at_10": 57
     },
     {
       "pipeline_id": "colibri_ptbr__jina_reranker_v3_noncommercial",
@@ -16048,7 +16591,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 56
+      "rank_by_mrr_at_10": 58
     },
     {
       "pipeline_id": "embeddinggemma__jina_reranker_v3_noncommercial",
@@ -16217,7 +16760,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 57
+      "rank_by_mrr_at_10": 59
     },
     {
       "pipeline_id": "qwen3_embedding_8b_gguf__qwen_local",
@@ -16386,7 +16929,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 58
+      "rank_by_mrr_at_10": 60
     },
     {
       "pipeline_id": "granite_embedding_311m_r2__mxbai_rerank_base_v2",
@@ -16771,7 +17314,7 @@
         },
         "completed_at": "2026-07-29T07:41:54.913955+00:00"
       },
-      "rank_by_mrr_at_10": 59
+      "rank_by_mrr_at_10": 61
     },
     {
       "pipeline_id": "embeddinggemma_768_float32__qwen_local",
@@ -17035,7 +17578,7 @@
         },
         "completed_at": "2026-07-20T20:04:20.952826+00:00"
       },
-      "rank_by_mrr_at_10": 60
+      "rank_by_mrr_at_10": 62
     },
     {
       "pipeline_id": "nemotron_8b_abiray_q4_audit_1024__qwen_local",
@@ -17299,7 +17842,7 @@
         },
         "completed_at": "2026-07-29T23:36:02.398161+00:00"
       },
-      "rank_by_mrr_at_10": 61
+      "rank_by_mrr_at_10": 63
     },
     {
       "pipeline_id": "voyage_4_large_1024_float32__qwen_local",
@@ -17563,7 +18106,7 @@
         },
         "completed_at": "2026-07-20T20:04:21.019726+00:00"
       },
-      "rank_by_mrr_at_10": 62
+      "rank_by_mrr_at_10": 64
     },
     {
       "pipeline_id": "bge_m3_dense__jina_reranker_v3_noncommercial",
@@ -17732,7 +18275,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 63
+      "rank_by_mrr_at_10": 65
     },
     {
       "pipeline_id": "nemotron_8b_abiray_q4_audit_4096__qwen_local",
@@ -17996,7 +18539,7 @@
         },
         "completed_at": "2026-07-29T23:36:02.346993+00:00"
       },
-      "rank_by_mrr_at_10": 64
+      "rank_by_mrr_at_10": 66
     },
     {
       "pipeline_id": "nemotron_3_embed_1b_nvfp4__qwen_local",
@@ -18289,7 +18832,7 @@
         },
         "completed_at": "2026-07-29T03:33:54.808828+00:00"
       },
-      "rank_by_mrr_at_10": 65
+      "rank_by_mrr_at_10": 67
     },
     {
       "pipeline_id": "nemotron_3_embed_1b_q4_k_m_gguf__qwen_local",
@@ -18582,7 +19125,7 @@
         },
         "completed_at": "2026-07-29T03:46:03.384469+00:00"
       },
-      "rank_by_mrr_at_10": 66
+      "rank_by_mrr_at_10": 68
     },
     {
       "pipeline_id": "granite_embedding_97m_r2__qwen_local",
@@ -18751,7 +19294,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 67
+      "rank_by_mrr_at_10": 69
     },
     {
       "pipeline_id": "voyage-context-4__qwen_local",
@@ -19046,7 +19589,7 @@
         },
         "completed_at": "2026-07-29T04:52:52.549646+00:00"
       },
-      "rank_by_mrr_at_10": 68
+      "rank_by_mrr_at_10": 70
     },
     {
       "pipeline_id": "snowflake_arctic_embed_l_v2_q4__jina_reranker_v3_noncommercial",
@@ -19215,7 +19758,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 69
+      "rank_by_mrr_at_10": 71
     },
     {
       "pipeline_id": "bidirlm_17b_embedding__jina_reranker_v3_noncommercial",
@@ -19384,7 +19927,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 70
+      "rank_by_mrr_at_10": 72
     },
     {
       "pipeline_id": "voyage4_nano_2048_float32__qwen_local",
@@ -19648,7 +20191,7 @@
         },
         "completed_at": "2026-07-20T20:04:20.985243+00:00"
       },
-      "rank_by_mrr_at_10": 71
+      "rank_by_mrr_at_10": 73
     },
     {
       "pipeline_id": "voyage4_nano_2048_int8__qwen_local",
@@ -19912,7 +20455,7 @@
         },
         "completed_at": "2026-07-20T20:04:21.002521+00:00"
       },
-      "rank_by_mrr_at_10": 72
+      "rank_by_mrr_at_10": 74
     },
     {
       "pipeline_id": "voyage4_nano_1024_float32__qwen_local",
@@ -20176,7 +20719,7 @@
         },
         "completed_at": "2026-07-20T20:04:20.968545+00:00"
       },
-      "rank_by_mrr_at_10": 73
+      "rank_by_mrr_at_10": 75
     },
     {
       "pipeline_id": "lfm_25_embedding_350m_q4__qwen_local",
@@ -20345,7 +20888,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 74
+      "rank_by_mrr_at_10": 76
     },
     {
       "pipeline_id": "jina_embeddings_v5_text_small__jina_reranker_v3_noncommercial",
@@ -20514,7 +21057,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 75
+      "rank_by_mrr_at_10": 77
     },
     {
       "pipeline_id": "lfm_25_embedding_350m_q4_k_m_official__qwen_local",
@@ -20808,7 +21351,7 @@
         },
         "completed_at": "2026-07-28T12:17:35.959899+00:00"
       },
-      "rank_by_mrr_at_10": 76
+      "rank_by_mrr_at_10": 78
     },
     {
       "pipeline_id": "bidirlm_17b_embedding__kalm_reranker_v1_nano",
@@ -20977,7 +21520,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 77
+      "rank_by_mrr_at_10": 79
     },
     {
       "pipeline_id": "qwen3_embedding_4b_q8_0__kalm_reranker_v1_nano",
@@ -21146,7 +21689,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 78
+      "rank_by_mrr_at_10": 80
     },
     {
       "pipeline_id": "nomic_embed_text_v2_moe_q4__kalm_reranker_v1_nano",
@@ -21315,7 +21858,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 79
+      "rank_by_mrr_at_10": 81
     },
     {
       "pipeline_id": "jina_embeddings_v5_text_small__kalm_reranker_v1_nano",
@@ -21484,7 +22027,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 80
+      "rank_by_mrr_at_10": 82
     },
     {
       "pipeline_id": "pplx_embed_v1_06b_native__kalm_reranker_v1_nano",
@@ -21653,7 +22196,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 81
+      "rank_by_mrr_at_10": 83
     },
     {
       "pipeline_id": "embeddinggemma__kalm_reranker_v1_nano",
@@ -21822,7 +22365,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 82
+      "rank_by_mrr_at_10": 84
     },
     {
       "pipeline_id": "colibri_ptbr__kalm_reranker_v1_nano",
@@ -21991,7 +22534,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 83
+      "rank_by_mrr_at_10": 85
     },
     {
       "pipeline_id": "embeddinggemma_gguf__kalm_reranker_v1_nano",
@@ -22160,7 +22703,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 84
+      "rank_by_mrr_at_10": 86
     },
     {
       "pipeline_id": "pplx_embed_v1_4b_q8_0__kalm_reranker_v1_nano",
@@ -22329,7 +22872,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 85
+      "rank_by_mrr_at_10": 87
     },
     {
       "pipeline_id": "snowflake_arctic_embed_l_v2_q4__kalm_reranker_v1_nano",
@@ -22498,7 +23041,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 86
+      "rank_by_mrr_at_10": 88
     },
     {
       "pipeline_id": "qwen3_embedding_06_gguf__qwen_local",
@@ -22667,7 +23210,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 87
+      "rank_by_mrr_at_10": 89
     },
     {
       "pipeline_id": "bge_m3_dense__kalm_reranker_v1_nano",
@@ -22836,7 +23379,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 88
+      "rank_by_mrr_at_10": 90
     },
     {
       "pipeline_id": "kalm_embedding_gemma3_12b_q4__qwen_local",
@@ -23005,7 +23548,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 89
+      "rank_by_mrr_at_10": 91
     },
     {
       "pipeline_id": "boom_4b_v1_q8_0__qwen_local",
@@ -23174,7 +23717,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 90
+      "rank_by_mrr_at_10": 92
     },
     {
       "pipeline_id": "kalm_embedding_gemma3_12b_i1_q4__qwen_local",
@@ -23343,7 +23886,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 91
+      "rank_by_mrr_at_10": 93
     },
     {
       "pipeline_id": "bidirlm_17b_embedding__querit_reranker_4b",
@@ -23513,7 +24056,7 @@
         },
         "scoring_note": "descending: score=probs[1]-probs[0], higher=more relevant"
       },
-      "rank_by_mrr_at_10": 92
+      "rank_by_mrr_at_10": 94
     },
     {
       "pipeline_id": "pplx_embed_v1_06b_native__querit_reranker_4b",
@@ -23683,7 +24226,7 @@
         },
         "scoring_note": "descending: score=probs[1]-probs[0], higher=more relevant"
       },
-      "rank_by_mrr_at_10": 93
+      "rank_by_mrr_at_10": 95
     },
     {
       "pipeline_id": "snowflake_arctic_embed_l_v2_q4__querit_reranker_4b",
@@ -23852,7 +24395,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 94
+      "rank_by_mrr_at_10": 96
     },
     {
       "pipeline_id": "bge_m3_dense__querit_reranker_4b",
@@ -24022,7 +24565,7 @@
         },
         "scoring_note": "descending: score=probs[1]-probs[0], higher=more relevant"
       },
-      "rank_by_mrr_at_10": 95
+      "rank_by_mrr_at_10": 97
     },
     {
       "pipeline_id": "colibri_ptbr__querit_reranker_4b",
@@ -24192,7 +24735,7 @@
         },
         "scoring_note": "descending: score=probs[1]-probs[0], higher=more relevant"
       },
-      "rank_by_mrr_at_10": 96
+      "rank_by_mrr_at_10": 98
     },
     {
       "pipeline_id": "pplx_embed_v1_4b_q8_0__querit_reranker_4b",
@@ -24362,7 +24905,7 @@
         },
         "scoring_note": "descending: score=probs[1]-probs[0], higher=more relevant"
       },
-      "rank_by_mrr_at_10": 97
+      "rank_by_mrr_at_10": 99
     },
     {
       "pipeline_id": "qwen3_embedding_4b_q8_0__querit_reranker_4b",
@@ -24532,7 +25075,7 @@
         },
         "scoring_note": "descending: score=probs[1]-probs[0], higher=more relevant"
       },
-      "rank_by_mrr_at_10": 98
+      "rank_by_mrr_at_10": 100
     },
     {
       "pipeline_id": "nomic_embed_text_v2_moe_q4__querit_reranker_4b",
@@ -24702,7 +25245,7 @@
         },
         "scoring_note": "descending: score=probs[1]-probs[0], higher=more relevant"
       },
-      "rank_by_mrr_at_10": 99
+      "rank_by_mrr_at_10": 101
     },
     {
       "pipeline_id": "jina_embeddings_v5_text_small__querit_reranker_4b",
@@ -24872,7 +25415,7 @@
         },
         "scoring_note": "descending: score=probs[1]-probs[0], higher=more relevant"
       },
-      "rank_by_mrr_at_10": 100
+      "rank_by_mrr_at_10": 102
     },
     {
       "pipeline_id": "embeddinggemma_gguf__querit_reranker_4b",
@@ -25042,7 +25585,7 @@
         },
         "scoring_note": "descending: score=probs[1]-probs[0], higher=more relevant"
       },
-      "rank_by_mrr_at_10": 101
+      "rank_by_mrr_at_10": 103
     },
     {
       "pipeline_id": "embeddinggemma__querit_reranker_4b",
@@ -25212,7 +25755,7 @@
         },
         "scoring_note": "descending: score=probs[1]-probs[0], higher=more relevant"
       },
-      "rank_by_mrr_at_10": 102
+      "rank_by_mrr_at_10": 104
     },
     {
       "pipeline_id": "voyage4_nano__querit_reranker_4b",
@@ -25382,7 +25925,7 @@
         },
         "scoring_note": "descending: score=probs[1]-probs[0], higher=more relevant"
       },
-      "rank_by_mrr_at_10": 103
+      "rank_by_mrr_at_10": 105
     },
     {
       "pipeline_id": "voyage4_nano__kalm_reranker_v1_nano",
@@ -25552,7 +26095,7 @@
         },
         "candidate_variant": "voyage4_nano_1024_float32"
       },
-      "rank_by_mrr_at_10": 104
+      "rank_by_mrr_at_10": 106
     },
     {
       "pipeline_id": "voyage4_nano__kalm_reranker_v1_small",
@@ -25722,7 +26265,7 @@
         },
         "candidate_variant": "voyage4_nano_1024_float32"
       },
-      "rank_by_mrr_at_10": 105
+      "rank_by_mrr_at_10": 107
     }
   ],
   "embedding_index": [
@@ -25739,7 +26282,7 @@
       ],
       "best_published_pipeline": {
         "pipeline_id": "bge_m3_dense__qwen_local",
-        "rank_by_mrr_at_10": 40,
+        "rank_by_mrr_at_10": 42,
         "metrics": {
           "hit_rate_at_1": 0.7733333333333333,
           "hit_rate_at_3": 0.82,
@@ -25764,7 +26307,7 @@
       ],
       "best_published_pipeline": {
         "pipeline_id": "bidirlm_17b_embedding__qwen_local",
-        "rank_by_mrr_at_10": 21,
+        "rank_by_mrr_at_10": 23,
         "metrics": {
           "hit_rate_at_1": 0.78,
           "hit_rate_at_3": 0.8466666666666667,
@@ -25785,7 +26328,7 @@
       ],
       "best_published_pipeline": {
         "pipeline_id": "boom_4b_v1_q8_0__qwen_local",
-        "rank_by_mrr_at_10": 90,
+        "rank_by_mrr_at_10": 92,
         "metrics": {
           "hit_rate_at_1": 0.58,
           "hit_rate_at_3": 0.6066666666666667,
@@ -25812,7 +26355,7 @@
       ],
       "best_published_pipeline": {
         "pipeline_id": "colibri_ptbr__llama_nemotron_rerank_1b_v2",
-        "rank_by_mrr_at_10": 4,
+        "rank_by_mrr_at_10": 6,
         "metrics": {
           "hit_rate_at_1": 0.8133333333333334,
           "hit_rate_at_3": 0.84,
@@ -25839,7 +26382,7 @@
       ],
       "best_published_pipeline": {
         "pipeline_id": "embeddinggemma__llama_nemotron_rerank_1b_v2",
-        "rank_by_mrr_at_10": 5,
+        "rank_by_mrr_at_10": 7,
         "metrics": {
           "hit_rate_at_1": 0.8133333333333334,
           "hit_rate_at_3": 0.8333333333333334,
@@ -25861,7 +26404,7 @@
       ],
       "best_published_pipeline": {
         "pipeline_id": "embeddinggemma_768_float32__voyage_rerank_2_5",
-        "rank_by_mrr_at_10": 6,
+        "rank_by_mrr_at_10": 8,
         "metrics": {
           "hit_rate_at_1": 0.8133333333333334,
           "hit_rate_at_3": 0.8333333333333334,
@@ -25886,7 +26429,7 @@
       ],
       "best_published_pipeline": {
         "pipeline_id": "embeddinggemma_gguf__qwen_local",
-        "rank_by_mrr_at_10": 18,
+        "rank_by_mrr_at_10": 20,
         "metrics": {
           "hit_rate_at_1": 0.7866666666666666,
           "hit_rate_at_3": 0.8333333333333334,
@@ -25907,7 +26450,7 @@
       ],
       "best_published_pipeline": {
         "pipeline_id": "giga_embeddings_instruct__qwen_local",
-        "rank_by_mrr_at_10": 24,
+        "rank_by_mrr_at_10": 26,
         "metrics": {
           "hit_rate_at_1": 0.78,
           "hit_rate_at_3": 0.84,
@@ -25930,7 +26473,7 @@
       ],
       "best_published_pipeline": {
         "pipeline_id": "granite_embedding_311m_r2__llama_nemotron_rerank_1b_v2",
-        "rank_by_mrr_at_10": 23,
+        "rank_by_mrr_at_10": 25,
         "metrics": {
           "hit_rate_at_1": 0.8,
           "hit_rate_at_3": 0.8266666666666667,
@@ -25951,7 +26494,7 @@
       ],
       "best_published_pipeline": {
         "pipeline_id": "granite_embedding_97m_r2__qwen_local",
-        "rank_by_mrr_at_10": 67,
+        "rank_by_mrr_at_10": 69,
         "metrics": {
           "hit_rate_at_1": 0.76,
           "hit_rate_at_3": 0.8,
@@ -25972,7 +26515,7 @@
       ],
       "best_published_pipeline": {
         "pipeline_id": "gte_multilingual_base__qwen_local",
-        "rank_by_mrr_at_10": 35,
+        "rank_by_mrr_at_10": 37,
         "metrics": {
           "hit_rate_at_1": 0.7733333333333333,
           "hit_rate_at_3": 0.8266666666666667,
@@ -25997,7 +26540,7 @@
       ],
       "best_published_pipeline": {
         "pipeline_id": "jina_embeddings_v5_text_small__qwen_local",
-        "rank_by_mrr_at_10": 12,
+        "rank_by_mrr_at_10": 14,
         "metrics": {
           "hit_rate_at_1": 0.7933333333333333,
           "hit_rate_at_3": 0.84,
@@ -26018,7 +26561,7 @@
       ],
       "best_published_pipeline": {
         "pipeline_id": "kalm_embedding_gemma3_12b_i1_q4__qwen_local",
-        "rank_by_mrr_at_10": 91,
+        "rank_by_mrr_at_10": 93,
         "metrics": {
           "hit_rate_at_1": 0.5333333333333333,
           "hit_rate_at_3": 0.56,
@@ -26039,7 +26582,7 @@
       ],
       "best_published_pipeline": {
         "pipeline_id": "kalm_embedding_gemma3_12b_q4__qwen_local",
-        "rank_by_mrr_at_10": 89,
+        "rank_by_mrr_at_10": 91,
         "metrics": {
           "hit_rate_at_1": 0.6133333333333333,
           "hit_rate_at_3": 0.6533333333333333,
@@ -26060,7 +26603,7 @@
       ],
       "best_published_pipeline": {
         "pipeline_id": "lfm_25_embedding_350m_q4__qwen_local",
-        "rank_by_mrr_at_10": 74,
+        "rank_by_mrr_at_10": 76,
         "metrics": {
           "hit_rate_at_1": 0.7533333333333333,
           "hit_rate_at_3": 0.7933333333333333,
@@ -26081,7 +26624,7 @@
       ],
       "best_published_pipeline": {
         "pipeline_id": "lfm_25_embedding_350m_q4_k_m_official__qwen_local",
-        "rank_by_mrr_at_10": 76,
+        "rank_by_mrr_at_10": 78,
         "metrics": {
           "hit_rate_at_1": 0.7466666666666667,
           "hit_rate_at_3": 0.7933333333333333,
@@ -26102,7 +26645,7 @@
       ],
       "best_published_pipeline": {
         "pipeline_id": "multilingual_e5_large_instruct__qwen_local",
-        "rank_by_mrr_at_10": 34,
+        "rank_by_mrr_at_10": 36,
         "metrics": {
           "hit_rate_at_1": 0.78,
           "hit_rate_at_3": 0.8266666666666667,
@@ -26146,7 +26689,7 @@
       ],
       "best_published_pipeline": {
         "pipeline_id": "nemotron_3_embed_1b_q4_k_m_gguf__qwen_local",
-        "rank_by_mrr_at_10": 66,
+        "rank_by_mrr_at_10": 68,
         "metrics": {
           "hit_rate_at_1": 0.76,
           "hit_rate_at_3": 0.8066666666666666,
@@ -26161,43 +26704,45 @@
     },
     {
       "embedding": "nemotron_8b_abiray_q4_audit_1024",
-      "pipeline_count": 1,
+      "pipeline_count": 2,
       "rerankers": [
-        "qwen_local"
+        "qwen_local",
+        "voyage_rerank_2_5"
       ],
       "best_published_pipeline": {
-        "pipeline_id": "nemotron_8b_abiray_q4_audit_1024__qwen_local",
-        "rank_by_mrr_at_10": 61,
+        "pipeline_id": "nemotron_8b_abiray_q4_audit_1024__voyage_rerank_2_5",
+        "rank_by_mrr_at_10": 4,
         "metrics": {
-          "hit_rate_at_1": 0.76,
-          "hit_rate_at_3": 0.8133333333333334,
+          "hit_rate_at_1": 0.82,
+          "hit_rate_at_3": 0.8333333333333334,
           "hit_rate_at_5": 0.84,
-          "hit_rate_at_10": 0.86,
+          "hit_rate_at_10": 0.8666666666666667,
           "hit_rate_at_20": 0.9266666666666666,
-          "mrr_at_10": 0.7907407407407407,
-          "ndcg_at_10": 0.7996301422152531,
+          "mrr_at_10": 0.8306931216931216,
+          "ndcg_at_10": 0.8312045548824296,
           "hard_negative_error_rate": 0.06666666666666667
         }
       }
     },
     {
       "embedding": "nemotron_8b_abiray_q4_audit_4096",
-      "pipeline_count": 1,
+      "pipeline_count": 2,
       "rerankers": [
-        "qwen_local"
+        "qwen_local",
+        "voyage_rerank_2_5"
       ],
       "best_published_pipeline": {
-        "pipeline_id": "nemotron_8b_abiray_q4_audit_4096__qwen_local",
-        "rank_by_mrr_at_10": 64,
+        "pipeline_id": "nemotron_8b_abiray_q4_audit_4096__voyage_rerank_2_5",
+        "rank_by_mrr_at_10": 5,
         "metrics": {
-          "hit_rate_at_1": 0.76,
-          "hit_rate_at_3": 0.8066666666666666,
+          "hit_rate_at_1": 0.82,
+          "hit_rate_at_3": 0.8333333333333334,
           "hit_rate_at_5": 0.84,
           "hit_rate_at_10": 0.8666666666666667,
           "hit_rate_at_20": 0.9666666666666667,
-          "mrr_at_10": 0.7894074074074074,
-          "ndcg_at_10": 0.7999300614151262,
-          "hard_negative_error_rate": 0.09333333333333334
+          "mrr_at_10": 0.8306931216931216,
+          "ndcg_at_10": 0.8312045548824296,
+          "hard_negative_error_rate": 0.1
         }
       }
     },
@@ -26237,7 +26782,7 @@
       ],
       "best_published_pipeline": {
         "pipeline_id": "octen_embedding_8b_q8_0__qwen_local",
-        "rank_by_mrr_at_10": 26,
+        "rank_by_mrr_at_10": 28,
         "metrics": {
           "hit_rate_at_1": 0.78,
           "hit_rate_at_3": 0.8333333333333334,
@@ -26262,7 +26807,7 @@
       ],
       "best_published_pipeline": {
         "pipeline_id": "pplx_embed_v1_06b_native__qwen_local",
-        "rank_by_mrr_at_10": 22,
+        "rank_by_mrr_at_10": 24,
         "metrics": {
           "hit_rate_at_1": 0.7866666666666666,
           "hit_rate_at_3": 0.8333333333333334,
@@ -26288,7 +26833,7 @@
       ],
       "best_published_pipeline": {
         "pipeline_id": "pplx_embed_v1_4b_q8_0__qwen_local",
-        "rank_by_mrr_at_10": 11,
+        "rank_by_mrr_at_10": 13,
         "metrics": {
           "hit_rate_at_1": 0.7933333333333333,
           "hit_rate_at_3": 0.84,
@@ -26309,7 +26854,7 @@
       ],
       "best_published_pipeline": {
         "pipeline_id": "qwen3_embedding_06__qwen_local",
-        "rank_by_mrr_at_10": 41,
+        "rank_by_mrr_at_10": 43,
         "metrics": {
           "hit_rate_at_1": 0.7733333333333333,
           "hit_rate_at_3": 0.8266666666666667,
@@ -26330,7 +26875,7 @@
       ],
       "best_published_pipeline": {
         "pipeline_id": "qwen3_embedding_06_gguf__qwen_local",
-        "rank_by_mrr_at_10": 87,
+        "rank_by_mrr_at_10": 89,
         "metrics": {
           "hit_rate_at_1": 0.72,
           "hit_rate_at_3": 0.7666666666666667,
@@ -26378,7 +26923,7 @@
       ],
       "best_published_pipeline": {
         "pipeline_id": "qwen3_embedding_8b_gguf__qwen_local",
-        "rank_by_mrr_at_10": 58,
+        "rank_by_mrr_at_10": 60,
         "metrics": {
           "hit_rate_at_1": 0.7666666666666667,
           "hit_rate_at_3": 0.8,
@@ -26404,7 +26949,7 @@
       ],
       "best_published_pipeline": {
         "pipeline_id": "snowflake_arctic_embed_l_v2_q4__qwen_local",
-        "rank_by_mrr_at_10": 25,
+        "rank_by_mrr_at_10": 27,
         "metrics": {
           "hit_rate_at_1": 0.7866666666666666,
           "hit_rate_at_3": 0.8333333333333334,
@@ -26425,7 +26970,7 @@
       ],
       "best_published_pipeline": {
         "pipeline_id": "voyage-context-4__qwen_local",
-        "rank_by_mrr_at_10": 68,
+        "rank_by_mrr_at_10": 70,
         "metrics": {
           "hit_rate_at_1": 0.76,
           "hit_rate_at_3": 0.8066666666666666,
@@ -26450,7 +26995,7 @@
       ],
       "best_published_pipeline": {
         "pipeline_id": "voyage4_nano__qwen_local",
-        "rank_by_mrr_at_10": 10,
+        "rank_by_mrr_at_10": 12,
         "metrics": {
           "hit_rate_at_1": 0.7866666666666666,
           "hit_rate_at_3": 0.8466666666666667,
@@ -26472,7 +27017,7 @@
       ],
       "best_published_pipeline": {
         "pipeline_id": "voyage4_nano_1024_float32__voyage_rerank_2_5",
-        "rank_by_mrr_at_10": 13,
+        "rank_by_mrr_at_10": 15,
         "metrics": {
           "hit_rate_at_1": 0.8066666666666666,
           "hit_rate_at_3": 0.8266666666666667,
@@ -26494,7 +27039,7 @@
       ],
       "best_published_pipeline": {
         "pipeline_id": "voyage4_nano_2048_float32__voyage_rerank_2_5",
-        "rank_by_mrr_at_10": 20,
+        "rank_by_mrr_at_10": 22,
         "metrics": {
           "hit_rate_at_1": 0.8066666666666666,
           "hit_rate_at_3": 0.82,
@@ -26516,7 +27061,7 @@
       ],
       "best_published_pipeline": {
         "pipeline_id": "voyage4_nano_2048_int8__voyage_rerank_2_5",
-        "rank_by_mrr_at_10": 16,
+        "rank_by_mrr_at_10": 18,
         "metrics": {
           "hit_rate_at_1": 0.8066666666666666,
           "hit_rate_at_3": 0.8266666666666667,
@@ -26538,7 +27083,7 @@
       ],
       "best_published_pipeline": {
         "pipeline_id": "voyage_4_large_1024_float32__voyage_rerank_2_5",
-        "rank_by_mrr_at_10": 7,
+        "rank_by_mrr_at_10": 9,
         "metrics": {
           "hit_rate_at_1": 0.8133333333333334,
           "hit_rate_at_3": 0.8266666666666667,
@@ -26558,7 +27103,7 @@
       "pipeline_count": 12,
       "best_published_pipeline": {
         "pipeline_id": "nomic_embed_text_v2_moe_q4__jina_reranker_v3_noncommercial",
-        "rank_by_mrr_at_10": 29,
+        "rank_by_mrr_at_10": 31,
         "metrics": {
           "hit_rate_at_1": 0.7866666666666666,
           "hit_rate_at_3": 0.8333333333333334,
@@ -26576,7 +27121,7 @@
       "pipeline_count": 12,
       "best_published_pipeline": {
         "pipeline_id": "bidirlm_17b_embedding__kalm_reranker_v1_nano",
-        "rank_by_mrr_at_10": 77,
+        "rank_by_mrr_at_10": 79,
         "metrics": {
           "hit_rate_at_1": 0.7266666666666667,
           "hit_rate_at_3": 0.7933333333333333,
@@ -26594,7 +27139,7 @@
       "pipeline_count": 12,
       "best_published_pipeline": {
         "pipeline_id": "pplx_embed_v1_4b_q8_0__kalm_reranker_v1_small",
-        "rank_by_mrr_at_10": 27,
+        "rank_by_mrr_at_10": 29,
         "metrics": {
           "hit_rate_at_1": 0.7866666666666666,
           "hit_rate_at_3": 0.8333333333333334,
@@ -26630,7 +27175,7 @@
       "pipeline_count": 6,
       "best_published_pipeline": {
         "pipeline_id": "qwen3_embedding_4b_q8_0__mxbai_rerank_base_v2",
-        "rank_by_mrr_at_10": 43,
+        "rank_by_mrr_at_10": 45,
         "metrics": {
           "hit_rate_at_1": 0.7733333333333333,
           "hit_rate_at_3": 0.8266666666666667,
@@ -26648,7 +27193,7 @@
       "pipeline_count": 12,
       "best_published_pipeline": {
         "pipeline_id": "bidirlm_17b_embedding__querit_reranker_4b",
-        "rank_by_mrr_at_10": 92,
+        "rank_by_mrr_at_10": 94,
         "metrics": {
           "hit_rate_at_1": 0.13333333333333333,
           "hit_rate_at_3": 0.3,
@@ -26666,7 +27211,7 @@
       "pipeline_count": 36,
       "best_published_pipeline": {
         "pipeline_id": "qwen3_embedding_4b_q8_0__qwen_local",
-        "rank_by_mrr_at_10": 8,
+        "rank_by_mrr_at_10": 10,
         "metrics": {
           "hit_rate_at_1": 0.7933333333333333,
           "hit_rate_at_3": 0.84,
@@ -26681,19 +27226,19 @@
     },
     {
       "reranker": "voyage_rerank_2_5",
-      "pipeline_count": 9,
+      "pipeline_count": 11,
       "best_published_pipeline": {
-        "pipeline_id": "embeddinggemma_768_float32__voyage_rerank_2_5",
-        "rank_by_mrr_at_10": 6,
+        "pipeline_id": "nemotron_8b_abiray_q4_audit_1024__voyage_rerank_2_5",
+        "rank_by_mrr_at_10": 4,
         "metrics": {
-          "hit_rate_at_1": 0.8133333333333334,
+          "hit_rate_at_1": 0.82,
           "hit_rate_at_3": 0.8333333333333334,
           "hit_rate_at_5": 0.84,
-          "hit_rate_at_10": 0.8733333333333333,
-          "hit_rate_at_20": 1.0,
-          "mrr_at_10": 0.8264444444444444,
-          "ndcg_at_10": 0.8346309019686248,
-          "hard_negative_error_rate": 0.14666666666666667
+          "hit_rate_at_10": 0.8666666666666667,
+          "hit_rate_at_20": 0.9266666666666666,
+          "mrr_at_10": 0.8306931216931216,
+          "ndcg_at_10": 0.8312045548824296,
+          "hard_negative_error_rate": 0.06666666666666667
         }
       }
     }
@@ -30841,16 +31386,5 @@
       },
       "rank_by_mrr_at_10": 39
     }
-  },
-  "nemotron_8b_mirror_selection": {
-    "selected": "Abiray/Nemotron-3-Embed-8B-GGUF",
-    "removed_equivalent_mirror": "Aqua00/Nemotron-3-Embed-8B-GGUF",
-    "identity_audit": "results/reranker/nemotron_8b_abiray_aqua00_identity_audit.json",
-    "reason": "tensor-identical mirrors; Abiray retained by higher HF adoption"
-  },
-  "voyage_nemotron_8b_status": {
-    "status": "BLOCKED_RATE_LIMIT",
-    "artifact": "results/reranker/voyage_rerank_2_5_nemotron_8b_abiray_blocked.json",
-    "published_pipeline_count": 0
   }
 }
