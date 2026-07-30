@@ -14,7 +14,8 @@
       "vram_peak_mb": 3067,
       "gpu_temp_c": 57,
       "smoke_ok": true,
-      "status": "RAW_COMPLETE"
+      "status": "RAW_COMPLETE",
+      "pipeline_qwen_local": "RAW_BENCHMARK_COMPLETE"
     },
     {
       "profile_id": "jina_embeddings_v5_text_small_1024",
@@ -26,7 +27,8 @@
       "vram_peak_mb": 3168,
       "gpu_temp_c": 58,
       "smoke_ok": true,
-      "status": "RAW_COMPLETE"
+      "status": "RAW_COMPLETE",
+      "pipeline_qwen_local": "RAW_BENCHMARK_COMPLETE"
     },
     {
       "profile_id": "jina_embeddings_v5_text_nano_768",
@@ -38,20 +40,23 @@
       "vram_peak_mb": 2354,
       "gpu_temp_c": 58,
       "smoke_ok": true,
-      "status": "RAW_COMPLETE"
+      "status": "RAW_COMPLETE",
+      "pipeline_qwen_local": "RAW_BENCHMARK_COMPLETE"
     },
     {
       "profile_id": "gemini_embedding_2_768_float32",
-      "status": "BLOCKED_FREE_TIER_UNAVAILABLE",
-      "note": "No GOOGLE_API_KEY configured"
+      "status": "BLOCKED_CREDENTIAL_FILE_UNAVAILABLE",
+      "note": "No GOOGLE_API_KEY configured in .hermes/.env (entries commented out)"
     },
     {
       "profile_id": "gemini_embedding_2_1536_float32",
-      "status": "BLOCKED_FREE_TIER_UNAVAILABLE"
+      "status": "BLOCKED_CREDENTIAL_FILE_UNAVAILABLE",
+      "note": "No GOOGLE_API_KEY configured in .hermes/.env (entries commented out)"
     },
     {
       "profile_id": "gemini_embedding_001_768_float32",
-      "status": "BLOCKED_FREE_TIER_UNAVAILABLE"
+      "status": "BLOCKED_CREDENTIAL_FILE_UNAVAILABLE",
+      "note": "No GOOGLE_API_KEY configured in .hermes/.env (entries commented out)"
     },
     {
       "profile_id": "jina_embeddings_v4_q4",
@@ -68,19 +73,22 @@
       "id": "lamar_600m",
       "quant": "Q4_K_M",
       "size_mb": 438.4,
-      "status": "RAW_COMPLETE"
+      "status": "LOAD_TEST_COMPLETE",
+      "note": "GGUF load test only; GGUF format incompatible with sentence_transformers CrossEncoder"
     },
     {
       "id": "ettin_reranker_150m_v1",
       "quant": "Q8_0",
       "size_mb": 160.2,
-      "status": "RAW_COMPLETE"
+      "status": "LOAD_TEST_COMPLETE",
+      "note": "GGUF load test only; GGUF format incompatible with sentence_transformers CrossEncoder"
     },
     {
       "id": "ettin_reranker_68m_v1",
       "quant": "Q8_0",
       "size_mb": 74.2,
-      "status": "RAW_COMPLETE"
+      "status": "LOAD_TEST_COMPLETE",
+      "note": "GGUF load test only; GGUF format incompatible with sentence_transformers CrossEncoder"
     },
     {
       "id": "google_vertex_ranking_api",
@@ -110,5 +118,11 @@
     }
   ],
   "total_raw_complete": 3,
-  "total_blocked": 4
+  "total_blocked": 4,
+  "classification_notes": {
+    "lamar_600m": "LOAD_TEST_COMPLETE (not RAW_COMPLETE) - GGUF CrossEncoder not supported",
+    "ettin_reranker_150m_v1": "LOAD_TEST_COMPLETE - GGUF CrossEncoder not supported",
+    "ettin_reranker_68m_v1": "LOAD_TEST_COMPLETE - GGUF CrossEncoder not supported",
+    "gemini_all": "BLOCKED_CREDENTIAL_FILE_UNAVAILABLE (not FREE_TIER_UNAVAILABLE)"
+  }
 }
