@@ -1,0 +1,30 @@
+{
+  "pipeline_id": "qwen3_embedding_0_6b_1024__qwen_local",
+  "embedding_variant": "qwen3_embedding_0_6b_1024",
+  "reranker_id": "qwen_local",
+  "metrics": {
+    "summary": {
+      "MRR@10": 0.6952777777777777,
+      "HitRate@1": 0.6666666666666666,
+      "HitRate@10": 0.7666666666666667,
+      "HitRate@20": 0.8266666666666667
+    },
+    "base_metrics": {
+      "summary": {}
+    },
+    "reranked_metrics": {
+      "summary": {
+        "MRR@10": 0.6952777777777777,
+        "HitRate@1": 0.6666666666666666,
+        "HitRate@10": 0.7666666666666667,
+        "HitRate@20": 0.8266666666666667
+      }
+    },
+    "per_query_effect": []
+  },
+  "reranker_runtime": {
+    "p50_ms": 4304.8471212387085,
+    "p95_ms": 4457.648980617523,
+    "total_s": 647.0853290557861
+  }
+}

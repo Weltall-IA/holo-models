@@ -1,0 +1,30 @@
+{
+  "pipeline_id": "jina_embeddings_v5_text_nano_768__qwen_local",
+  "embedding_variant": "jina_embeddings_v5_text_nano_768",
+  "reranker_id": "qwen_local",
+  "metrics": {
+    "summary": {
+      "MRR@10": 0.6963888888888888,
+      "HitRate@1": 0.6666666666666666,
+      "HitRate@10": 0.76,
+      "HitRate@20": 0.82
+    },
+    "base_metrics": {
+      "summary": {}
+    },
+    "reranked_metrics": {
+      "summary": {
+        "MRR@10": 0.6963888888888888,
+        "HitRate@1": 0.6666666666666666,
+        "HitRate@10": 0.76,
+        "HitRate@20": 0.82
+      }
+    },
+    "per_query_effect": []
+  },
+  "reranker_runtime": {
+    "p50_ms": 4283.744335174561,
+    "p95_ms": 4440.826952457428,
+    "total_s": 643.3856065273285
+  }
+}
