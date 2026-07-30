@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
-  "status": "IDENTICAL_TENSORS_METADATA_ONLY_DIFFERENCE",
-  "conclusion": "Both GGUF files share identical tensor manifest (308 tensors, same shapes/types/sizes), identical metadata fields (54/54, 0 diffs), manifest hash identical, tensor content samples identical. 55-byte file difference is trailing alignment. Candidates rank-identical (0 divergences in 4096 and 1024). Qwen pipeline metrics numerically identical. Both converted from same NVIDIA BF16 source via Q4_K_M by distinct authors.",
+  "status": "IDENTICAL_ALL_TENSOR_CONTENT_METADATA_ONLY_CONTAINER_DIFFERENCE",
+  "conclusion": "Full tensor content comparison of all 308 tensors (4.89 GB processed). Every tensor's SHA-256 content hash is identical between Abiray and Aqua00. The 55-byte file size difference is exclusively in container/padding/trailing bytes.",
   "abiray": {
     "repository": "Abiray/Nemotron-3-Embed-8B-GGUF",
     "revision": "1ffb81e403311c4dc6879b9c3cbb6ebfa18b86df",
@@ -26,7 +26,11 @@
     "type_diffs": 0,
     "size_diffs": 0,
     "tensor_content_sample_diffs": 0,
-    "file_size_diff_bytes": 55
+    "file_size_diff_bytes": 55,
+    "tensor_content_hashes_compared": 308,
+    "tensor_content_diff_count": 0,
+    "tensor_total_bytes": 4888510464,
+    "canonical_tensor_hash": "9ae17e596d854905476c32681c8fa850895458d2da6efc8a83425ccf4ba429d8"
   },
   "candidate_comparison": {
     "4096": {
