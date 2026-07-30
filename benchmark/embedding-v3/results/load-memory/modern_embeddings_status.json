@@ -46,17 +46,17 @@
     {
       "profile_id": "gemini_embedding_2_768_float32",
       "status": "BLOCKED_CREDENTIAL_FILE_UNAVAILABLE",
-      "note": "No GOOGLE_API_KEY configured in .hermes/.env (entries commented out)"
+      "note": "No GOOGLE_API_KEY configured in .hermes/.env"
     },
     {
       "profile_id": "gemini_embedding_2_1536_float32",
       "status": "BLOCKED_CREDENTIAL_FILE_UNAVAILABLE",
-      "note": "No GOOGLE_API_KEY configured in .hermes/.env (entries commented out)"
+      "note": "No GOOGLE_API_KEY configured in .hermes/.env"
     },
     {
       "profile_id": "gemini_embedding_001_768_float32",
       "status": "BLOCKED_CREDENTIAL_FILE_UNAVAILABLE",
-      "note": "No GOOGLE_API_KEY configured in .hermes/.env (entries commented out)"
+      "note": "No GOOGLE_API_KEY configured in .hermes/.env"
     },
     {
       "profile_id": "jina_embeddings_v4_q4",
