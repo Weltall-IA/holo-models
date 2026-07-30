@@ -1,7 +1,23 @@
 {
-  "schema_version": "1.1.0",
+  "schema_version": "1.2.0",
   "purpose": "Canonical queue of benchmark candidates that must not disappear before measured results or reproducible blocks are ingested into ALL_BENCHMARK_RESULTS.json.",
   "canonical_results_file": "benchmark/embedding-v3/ALL_BENCHMARK_RESULTS.json",
+  "huggingface_download_policy": {
+    "applies_to": "all Hugging Face metadata resolution and artifact downloads performed by the local AI",
+    "token_file": "hf_tokens",
+    "token_file_required": true,
+    "use_token_file_for_every_huggingface_download": true,
+    "interactive_login_forbidden": true,
+    "manual_token_paste_forbidden": true,
+    "environment_token_fallback_forbidden_unless_user_authorizes": true,
+    "never_print_token": true,
+    "never_log_token": true,
+    "never_commit_token_file": true,
+    "never_copy_token_into_versioned_files": true,
+    "validate_file_exists_and_is_readable_before_download": true,
+    "missing_file_status": "BLOCKED_HF_TOKEN_FILE_UNAVAILABLE",
+    "notes": "The local AI must read the Hugging Face access token from the local secret file named hf_tokens for every Hugging Face request requiring authentication. Only the file path, existence, permissions and sanitized success/failure may be reported; its contents must never be displayed."
+  },
   "quantization_policy": {
     "applies_to": "all locally downloaded embedding and reranker weights",
     "priority_order": [
