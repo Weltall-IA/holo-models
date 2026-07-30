@@ -1,0 +1,142 @@
+{
+  "schema_version": "1.0.0",
+  "purpose": "Canonical queue of benchmark candidates that must not disappear before measured results are ingested into ALL_BENCHMARK_RESULTS.json.",
+  "canonical_results_file": "benchmark/embedding-v3/ALL_BENCHMARK_RESULTS.json",
+  "rules": {
+    "not_a_leaderboard": true,
+    "no_estimated_metrics": true,
+    "remove_candidate_only_after_result_or_reproducible_block_is_ingested": true,
+    "raw_first": true,
+    "rerank_all_eligible_after_raw": true,
+    "same_corpus_and_protocol": true
+  },
+  "embeddings": [
+    {
+      "profile_id": "gemini_embedding_2_768_float32",
+      "model_id": "gemini-embedding-2",
+      "provider": "google_gemini_api",
+      "dimension": 768,
+      "dtype": "float32",
+      "status": "PENDING_RAW_AND_RERANK",
+      "priority": 1,
+      "reason": "Current stable Google embedding model; explicitly requested and previously omitted.",
+      "requires_api_key": true,
+      "free_tier_expected": true
+    },
+    {
+      "profile_id": "gemini_embedding_2_1536_float32",
+      "model_id": "gemini-embedding-2",
+      "provider": "google_gemini_api",
+      "dimension": 1536,
+      "dtype": "float32",
+      "status": "PENDING_RAW_AND_RERANK",
+      "priority": 2,
+      "reason": "Recommended higher-dimensional control for the current stable Google embedding model.",
+      "requires_api_key": true,
+      "free_tier_expected": true
+    },
+    {
+      "profile_id": "gemini_embedding_001_768_float32",
+      "model_id": "gemini-embedding-001",
+      "provider": "google_gemini_api",
+      "dimension": 768,
+      "dtype": "float32",
+      "status": "PENDING_RAW_AND_RERANK",
+      "priority": 3,
+      "reason": "Explicitly requested by the user and previously lost from the benchmark scope.",
+      "requires_api_key": true,
+      "free_tier_expected": true
+    },
+    {
+      "profile_id": "qwen3_embedding_0_6b_1024",
+      "model_id": "Qwen/Qwen3-Embedding-0.6B",
+      "provider": "local",
+      "dimension": 1024,
+      "status": "PENDING_RAW_AND_RERANK",
+      "priority": 4,
+      "reason": "Previously called through the wrong endpoint and dropped instead of remaining pending.",
+      "license": "Apache-2.0"
+    },
+    {
+      "profile_id": "jina_embeddings_v5_text_small_1024",
+      "model_id": "jinaai/jina-embeddings-v5-text-small",
+      "provider": "local",
+      "dimension": 1024,
+      "status": "PENDING_RAW_AND_RERANK_BENCHMARK_ONLY",
+      "priority": 5,
+      "reason": "Modern multilingual 2026 candidate omitted from the catalog review.",
+      "license": "CC-BY-NC-4.0",
+      "production_eligible": false
+    },
+    {
+      "profile_id": "jina_embeddings_v5_text_nano_768",
+      "model_id": "jinaai/jina-embeddings-v5-text-nano",
+      "provider": "local",
+      "dimension": 768,
+      "status": "PENDING_RAW_AND_RERANK_BENCHMARK_ONLY",
+      "priority": 6,
+      "reason": "Modern lightweight multilingual 2026 candidate omitted from the catalog review.",
+      "license": "CC-BY-NC-4.0",
+      "production_eligible": false
+    },
+    {
+      "profile_id": "jina_embeddings_v4_q4",
+      "model_id": "jinaai/jina-embeddings-v4",
+      "provider": "local",
+      "quantization_preference": "Q4_K_M",
+      "status": "PENDING_PREFLIGHT_RAW_AND_RERANK_BENCHMARK_ONLY",
+      "priority": 7,
+      "reason": "Modern multilingual candidate; test only after 16 GB VRAM preflight.",
+      "production_eligible": false
+    },
+    {
+      "profile_id": "cohere_embed_v4_0",
+      "model_id": "embed-v4.0",
+      "provider": "cohere_api",
+      "status": "BLOCKED_API_QUOTA_OR_AUTH_REQUIRED",
+      "priority": 8,
+      "reason": "Modern external embedding candidate; retain until free quota or explicit cost authorization is verified.",
+      "requires_api_key": true
+    }
+  ],
+  "rerankers": [
+    {
+      "reranker_id": "lamar_600m",
+      "model_id": "nlpai-lab/LAMAR-600m",
+      "provider": "local",
+      "status": "PENDING_PREFLIGHT_AND_FULL_MATRIX",
+      "priority": 1,
+      "reason": "Modern July 2026 multilingual reranker, MIT licensed.",
+      "license": "MIT"
+    },
+    {
+      "reranker_id": "ettin_reranker_150m_v1",
+      "model_id": "cross-encoder/ettin-reranker-150m-v1",
+      "provider": "local",
+      "status": "PENDING_FULL_MATRIX",
+      "priority": 2,
+      "reason": "Modern May 2026 Apache-2.0 reranker; selected as the primary Ettin quality/cost point.",
+      "license": "Apache-2.0",
+      "language_note": "English-trained; must be judged on the frozen Portuguese corpus."
+    },
+    {
+      "reranker_id": "ettin_reranker_68m_v1",
+      "model_id": "cross-encoder/ettin-reranker-68m-v1",
+      "provider": "local",
+      "status": "PENDING_FULL_MATRIX",
+      "priority": 3,
+      "reason": "Modern lightweight Apache-2.0 control for latency and memory.",
+      "license": "Apache-2.0",
+      "language_note": "English-trained; must be judged on the frozen Portuguese corpus."
+    },
+    {
+      "reranker_id": "google_vertex_ranking_api",
+      "model_id": "Vertex AI Ranking API",
+      "provider": "google_vertex_ai",
+      "status": "BLOCKED_PAID_API_AUTH_REQUIRED",
+      "priority": 99,
+      "reason": "Google has a standalone ranking API, but no permanent free tier was verified; new-account credits are not a free model tier.",
+      "requires_billing": true
+    }
+  ]
+}
