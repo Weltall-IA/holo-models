@@ -124,7 +124,7 @@ Os artefatos individuais em `results/reranker/pipelines/` continuam sendo a font
 
 Esta seção é o registro humano canônico para decisões de reutilização dos embeddings medidos. Os números continuam vindo de `ALL_BENCHMARK_RESULTS.json` e dos artefatos individuais; esta seção registra interpretação, confiança e decisão operacional sem criar outro leaderboard ou registry paralelo.
 
-Revisão desta classificação: **2026-07-29**.
+Revisão desta classificação: **2026-07-30**.
 
 As colunas não misturam protocolos:
 
@@ -142,6 +142,8 @@ Entrar nesta tabela significa que o perfil pode continuar sendo considerado em n
 
 | Perfil | MRR@10 sozinho | Melhor MRR@10 com reranker | Faixa | Confiança | Decisão |
 |---|---:|---:|---|---|---|
+| `nemotron_8b_abiray_q4_audit_4096` | 0.7970 | 0.7894 | A | alta | Nemotron 8B Q4_K_M canônico; Abiray selecionado; melhor configuração raw. Voyage 2.5 bloqueado por rate limit da conta gratuita; raw e Qwen permanecem válidos. |
+| `nemotron_8b_abiray_q4_audit_1024` | 0.7459 | 0.7907 | A | alta | Variante 1024; Qwen recupera parte da perda dimensional. Voyage 2.5 bloqueado por rate limit da conta gratuita; raw e Qwen permanecem válidos. |
 | `nemotron_3_embed_1b_nvfp4` | 0.7753 | 0.8318 | A | alta | Melhor baseline local; vLLM/NVFP4; melhor pipeline atual usa NVIDIA Nemotron Rerank. |
 | `voyage-4-large` | 0.7728 | — | A | média | API; resultado completo, sem pipeline sob o mesmo ID. |
 | `voyage_4_large_1024_float32` | 0.7728 | 0.8261 | A | média | Variante histórica 1024/F32; melhor reranker Voyage 2.5. |
@@ -180,8 +182,6 @@ A blacklist é aplicada ao **ID, peso, quantização e configuração testados**
 | Perfil local | MRR@10 | Estado | Motivo | Condição para reabilitação |
 |---|---:|---|---|---|
 | `qwen3_embedding_8b_gguf` | 0.6920 | `AUDIT_REQUIRED` | O Q8_0 8B ficou abaixo do 4B; faltam controle dimensional e instrução exata no artefato. | Reexecutar em Q4_K_M, com instrução oficial registrada, 4096 e 1024 dimensões e cache novo. Não repetir Q8_0. |
-| `nemotron_8b_abiray_q4` | 0.6919 | `BLACKLIST_PROVISÓRIA` | Candidates e métricas idênticos ao Aqua00; sem hash, runtime, pooling, dimensão ou comando. | Reexecutar do zero em NVFP4 comprovadamente 8B; na ausência, Q4_K_M. Q8 é proibido. |
-| `nemotron_8b_aqua00_q4` | 0.6919 | `BLACKLIST_PROVISÓRIA` | Candidates e métricas idênticos ao Abiray; proveniência insuficiente. | Reexecutar do zero em NVFP4 comprovadamente 8B; na ausência, Q4_K_M. Q8 é proibido. |
 | `lfm_25_embedding_350m_q4` | 0.4947 | `BLACKLIST_DO_ARTEFATO` | Artefato antigo não prova prefixos nem pooling CLS; a execução oficial corrigida usa outro ID e permanece na Tabela 1. | Não reabilitar este artefato. Reutilizar somente lfm_25_embedding_350m_q4_k_m_official ou uma nova execução equivalente. |
 | `kalm_embedding_gemma3_12b_q4` | 0.1969 | `BLACKLIST_DO_ARTEFATO` | Resultado incompatível com o topo do MTEB-BR; metadados de execução ausentes. | Reexecução reproduzível em NVFP4 confiável ou Q4 com instruções e pooling oficiais. |
 | `kalm_embedding_gemma3_12b_i1_q4` | 0.1766 | `BLACKLIST_DO_ARTEFATO` | Execução local catastrófica e sem proveniência suficiente. | Reexecução reproduzível; não herdar o resultado do outro Q4. |

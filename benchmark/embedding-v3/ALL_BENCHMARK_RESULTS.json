@@ -3081,8 +3081,8 @@
   "schema_version": "2.0.0",
   "title": "Holo — Complete Consolidated Embedding and Reranker Benchmark Results",
   "repository": "Weltall-IA/holo-models",
-  "generated_at": "2026-07-29T20:22:08.059683+00:00",
-  "source_commit": "13cdb1dfbb008044dc0d70516b5a3bb46ae5f5f2",
+  "generated_at": "2026-07-30T05:52:16.005806+00:00",
+  "source_commit": "fe35b6fbe8bdbb2120c5301fdba1d11a02504500",
   "validation": {
     "status": "PASS",
     "checks": {
@@ -3120,7 +3120,7 @@
       "qwen_local": 36,
       "voyage_rerank_2_5": 9
     },
-    "reranked_metric_paths": 30,
+    "reranked_metric_paths": 32,
     "raw_profile_count": 39,
     "raw_profile_source_counts": {
       "gate2": 11,
@@ -8926,344 +8926,6 @@
       "rank_by_mrr_at_10": 22
     },
     {
-      "pipeline_id": "nemotron_8b_abiray_q4__qwen_local",
-      "embedding": "nemotron_8b_abiray_q4",
-      "reranker": "qwen_local",
-      "source_path": "benchmark/embedding-v3/results/reranker/pipelines/qwen_local/nemotron_8b_abiray_q4.json",
-      "metric_summary_path": "$.metrics.summary",
-      "metrics": {
-        "hit_rate_at_1": 0.7866666666666666,
-        "hit_rate_at_3": 0.8333333333333334,
-        "hit_rate_at_5": 0.86,
-        "hit_rate_at_10": 0.8866666666666667,
-        "hit_rate_at_20": 0.9866666666666667,
-        "mrr_at_10": 0.8188968253968254,
-        "ndcg_at_10": 0.8274752760978407,
-        "hard_negative_error_rate": 0.11333333333333333
-      },
-      "metrics_summary_original": {
-        "HitRate@1": 0.7866666666666666,
-        "Recall@1": 0.7766666666666666,
-        "HitRate@3": 0.8333333333333334,
-        "Recall@3": 0.8233333333333334,
-        "HitRate@5": 0.86,
-        "Recall@5": 0.85,
-        "HitRate@10": 0.8866666666666667,
-        "Recall@10": 0.8766666666666667,
-        "HitRate@20": 0.9866666666666667,
-        "Recall@20": 0.9766666666666667,
-        "HitRate@50": 0.9866666666666667,
-        "Recall@50": 0.9766666666666667,
-        "MRR@10": 0.8188968253968254,
-        "nDCG@10": 0.8274752760978407,
-        "mean_first_relevant_rank": 2.858108108108108,
-        "median_first_relevant_rank": 1.0,
-        "queries_without_relevant": 2,
-        "hard_negative_error_rate": 0.11333333333333333
-      },
-      "metrics_by_query_type": {
-        "character_name": {
-          "count": 15,
-          "HitRate@10": 0.7333333333333333,
-          "MRR@10": 0.2756349206349206,
-          "nDCG@10": 0.38268988408585947,
-          "hard_negative_error_rate": 0.3333333333333333
-        },
-        "context_dependency": {
-          "count": 30,
-          "HitRate@10": 0.6,
-          "MRR@10": 0.6,
-          "nDCG@10": 0.5613147192765457,
-          "hard_negative_error_rate": 0.3
-        },
-        "emotion_intention": {
-          "count": 25,
-          "HitRate@10": 1.0,
-          "MRR@10": 1.0,
-          "nDCG@10": 1.0,
-          "hard_negative_error_rate": 0.0
-        },
-        "exact_phrase": {
-          "count": 10,
-          "HitRate@10": 1.0,
-          "MRR@10": 1.0,
-          "nDCG@10": 1.0,
-          "hard_negative_error_rate": 0.0
-        },
-        "indirect_dialogue": {
-          "count": 20,
-          "HitRate@10": 1.0,
-          "MRR@10": 1.0,
-          "nDCG@10": 1.0,
-          "hard_negative_error_rate": 0.0
-        },
-        "semantic_event": {
-          "count": 40,
-          "HitRate@10": 1.0,
-          "MRR@10": 0.9675,
-          "nDCG@10": 0.9754445640201499,
-          "hard_negative_error_rate": 0.0
-        },
-        "similar_scene": {
-          "count": 10,
-          "HitRate@10": 0.9,
-          "MRR@10": 0.7,
-          "nDCG@10": 0.752371901428583,
-          "hard_negative_error_rate": 0.3
-        }
-      },
-      "missing_required_metrics": [],
-      "metadata": {
-        "id": "nemotron_8b_abiray_q4__qwen_local",
-        "embedding_model": "nemotron_8b_abiray_q4",
-        "reranker": "qwen3_reranker_06",
-        "metrics": {
-          "summary": {
-            "HitRate@1": 0.7866666666666666,
-            "Recall@1": 0.7766666666666666,
-            "HitRate@3": 0.8333333333333334,
-            "Recall@3": 0.8233333333333334,
-            "HitRate@5": 0.86,
-            "Recall@5": 0.85,
-            "HitRate@10": 0.8866666666666667,
-            "Recall@10": 0.8766666666666667,
-            "HitRate@20": 0.9866666666666667,
-            "Recall@20": 0.9766666666666667,
-            "HitRate@50": 0.9866666666666667,
-            "Recall@50": 0.9766666666666667,
-            "MRR@10": 0.8188968253968254,
-            "nDCG@10": 0.8274752760978407,
-            "mean_first_relevant_rank": 2.858108108108108,
-            "median_first_relevant_rank": 1.0,
-            "queries_without_relevant": 2,
-            "hard_negative_error_rate": 0.11333333333333333
-          },
-          "by_query_type": {
-            "character_name": {
-              "count": 15,
-              "HitRate@10": 0.7333333333333333,
-              "MRR@10": 0.2756349206349206,
-              "nDCG@10": 0.38268988408585947,
-              "hard_negative_error_rate": 0.3333333333333333
-            },
-            "context_dependency": {
-              "count": 30,
-              "HitRate@10": 0.6,
-              "MRR@10": 0.6,
-              "nDCG@10": 0.5613147192765457,
-              "hard_negative_error_rate": 0.3
-            },
-            "emotion_intention": {
-              "count": 25,
-              "HitRate@10": 1.0,
-              "MRR@10": 1.0,
-              "nDCG@10": 1.0,
-              "hard_negative_error_rate": 0.0
-            },
-            "exact_phrase": {
-              "count": 10,
-              "HitRate@10": 1.0,
-              "MRR@10": 1.0,
-              "nDCG@10": 1.0,
-              "hard_negative_error_rate": 0.0
-            },
-            "indirect_dialogue": {
-              "count": 20,
-              "HitRate@10": 1.0,
-              "MRR@10": 1.0,
-              "nDCG@10": 1.0,
-              "hard_negative_error_rate": 0.0
-            },
-            "semantic_event": {
-              "count": 40,
-              "HitRate@10": 1.0,
-              "MRR@10": 0.9675,
-              "nDCG@10": 0.9754445640201499,
-              "hard_negative_error_rate": 0.0
-            },
-            "similar_scene": {
-              "count": 10,
-              "HitRate@10": 0.9,
-              "MRR@10": 0.7,
-              "nDCG@10": 0.752371901428583,
-              "hard_negative_error_rate": 0.3
-            }
-          },
-          "per_query_omitted": 150
-        }
-      },
-      "rank_by_mrr_at_10": 23
-    },
-    {
-      "pipeline_id": "nemotron_8b_aqua00_q4__qwen_local",
-      "embedding": "nemotron_8b_aqua00_q4",
-      "reranker": "qwen_local",
-      "source_path": "benchmark/embedding-v3/results/reranker/pipelines/qwen_local/nemotron_8b_aqua00_q4.json",
-      "metric_summary_path": "$.metrics.summary",
-      "metrics": {
-        "hit_rate_at_1": 0.7866666666666666,
-        "hit_rate_at_3": 0.8333333333333334,
-        "hit_rate_at_5": 0.86,
-        "hit_rate_at_10": 0.8866666666666667,
-        "hit_rate_at_20": 0.9866666666666667,
-        "mrr_at_10": 0.8188968253968254,
-        "ndcg_at_10": 0.8274752760978407,
-        "hard_negative_error_rate": 0.11333333333333333
-      },
-      "metrics_summary_original": {
-        "HitRate@1": 0.7866666666666666,
-        "Recall@1": 0.7766666666666666,
-        "HitRate@3": 0.8333333333333334,
-        "Recall@3": 0.8233333333333334,
-        "HitRate@5": 0.86,
-        "Recall@5": 0.85,
-        "HitRate@10": 0.8866666666666667,
-        "Recall@10": 0.8766666666666667,
-        "HitRate@20": 0.9866666666666667,
-        "Recall@20": 0.9766666666666667,
-        "HitRate@50": 0.9866666666666667,
-        "Recall@50": 0.9766666666666667,
-        "MRR@10": 0.8188968253968254,
-        "nDCG@10": 0.8274752760978407,
-        "mean_first_relevant_rank": 2.858108108108108,
-        "median_first_relevant_rank": 1.0,
-        "queries_without_relevant": 2,
-        "hard_negative_error_rate": 0.11333333333333333
-      },
-      "metrics_by_query_type": {
-        "character_name": {
-          "count": 15,
-          "HitRate@10": 0.7333333333333333,
-          "MRR@10": 0.2756349206349206,
-          "nDCG@10": 0.38268988408585947,
-          "hard_negative_error_rate": 0.3333333333333333
-        },
-        "context_dependency": {
-          "count": 30,
-          "HitRate@10": 0.6,
-          "MRR@10": 0.6,
-          "nDCG@10": 0.5613147192765457,
-          "hard_negative_error_rate": 0.3
-        },
-        "emotion_intention": {
-          "count": 25,
-          "HitRate@10": 1.0,
-          "MRR@10": 1.0,
-          "nDCG@10": 1.0,
-          "hard_negative_error_rate": 0.0
-        },
-        "exact_phrase": {
-          "count": 10,
-          "HitRate@10": 1.0,
-          "MRR@10": 1.0,
-          "nDCG@10": 1.0,
-          "hard_negative_error_rate": 0.0
-        },
-        "indirect_dialogue": {
-          "count": 20,
-          "HitRate@10": 1.0,
-          "MRR@10": 1.0,
-          "nDCG@10": 1.0,
-          "hard_negative_error_rate": 0.0
-        },
-        "semantic_event": {
-          "count": 40,
-          "HitRate@10": 1.0,
-          "MRR@10": 0.9675,
-          "nDCG@10": 0.9754445640201499,
-          "hard_negative_error_rate": 0.0
-        },
-        "similar_scene": {
-          "count": 10,
-          "HitRate@10": 0.9,
-          "MRR@10": 0.7,
-          "nDCG@10": 0.752371901428583,
-          "hard_negative_error_rate": 0.3
-        }
-      },
-      "missing_required_metrics": [],
-      "metadata": {
-        "id": "nemotron_8b_aqua00_q4__qwen_local",
-        "embedding_model": "nemotron_8b_aqua00_q4",
-        "reranker": "qwen3_reranker_06",
-        "metrics": {
-          "summary": {
-            "HitRate@1": 0.7866666666666666,
-            "Recall@1": 0.7766666666666666,
-            "HitRate@3": 0.8333333333333334,
-            "Recall@3": 0.8233333333333334,
-            "HitRate@5": 0.86,
-            "Recall@5": 0.85,
-            "HitRate@10": 0.8866666666666667,
-            "Recall@10": 0.8766666666666667,
-            "HitRate@20": 0.9866666666666667,
-            "Recall@20": 0.9766666666666667,
-            "HitRate@50": 0.9866666666666667,
-            "Recall@50": 0.9766666666666667,
-            "MRR@10": 0.8188968253968254,
-            "nDCG@10": 0.8274752760978407,
-            "mean_first_relevant_rank": 2.858108108108108,
-            "median_first_relevant_rank": 1.0,
-            "queries_without_relevant": 2,
-            "hard_negative_error_rate": 0.11333333333333333
-          },
-          "by_query_type": {
-            "character_name": {
-              "count": 15,
-              "HitRate@10": 0.7333333333333333,
-              "MRR@10": 0.2756349206349206,
-              "nDCG@10": 0.38268988408585947,
-              "hard_negative_error_rate": 0.3333333333333333
-            },
-            "context_dependency": {
-              "count": 30,
-              "HitRate@10": 0.6,
-              "MRR@10": 0.6,
-              "nDCG@10": 0.5613147192765457,
-              "hard_negative_error_rate": 0.3
-            },
-            "emotion_intention": {
-              "count": 25,
-              "HitRate@10": 1.0,
-              "MRR@10": 1.0,
-              "nDCG@10": 1.0,
-              "hard_negative_error_rate": 0.0
-            },
-            "exact_phrase": {
-              "count": 10,
-              "HitRate@10": 1.0,
-              "MRR@10": 1.0,
-              "nDCG@10": 1.0,
-              "hard_negative_error_rate": 0.0
-            },
-            "indirect_dialogue": {
-              "count": 20,
-              "HitRate@10": 1.0,
-              "MRR@10": 1.0,
-              "nDCG@10": 1.0,
-              "hard_negative_error_rate": 0.0
-            },
-            "semantic_event": {
-              "count": 40,
-              "HitRate@10": 1.0,
-              "MRR@10": 0.9675,
-              "nDCG@10": 0.9754445640201499,
-              "hard_negative_error_rate": 0.0
-            },
-            "similar_scene": {
-              "count": 10,
-              "HitRate@10": 0.9,
-              "MRR@10": 0.7,
-              "nDCG@10": 0.752371901428583,
-              "hard_negative_error_rate": 0.3
-            }
-          },
-          "per_query_omitted": 150
-        }
-      },
-      "rank_by_mrr_at_10": 24
-    },
-    {
       "pipeline_id": "granite_embedding_311m_r2__llama_nemotron_rerank_1b_v2",
       "embedding": "granite_embedding_311m_r2",
       "reranker": "llama_nemotron_rerank_1b_v2",
@@ -9651,7 +9313,7 @@
         },
         "completed_at": "2026-07-29T19:25:05.706753+00:00"
       },
-      "rank_by_mrr_at_10": 25
+      "rank_by_mrr_at_10": 23
     },
     {
       "pipeline_id": "giga_embeddings_instruct__qwen_local",
@@ -9820,7 +9482,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 26
+      "rank_by_mrr_at_10": 24
     },
     {
       "pipeline_id": "snowflake_arctic_embed_l_v2_q4__qwen_local",
@@ -9989,7 +9651,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 27
+      "rank_by_mrr_at_10": 25
     },
     {
       "pipeline_id": "octen_embedding_8b_q8_0__qwen_local",
@@ -10158,7 +9820,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 28
+      "rank_by_mrr_at_10": 26
     },
     {
       "pipeline_id": "pplx_embed_v1_4b_q8_0__kalm_reranker_v1_small",
@@ -10327,7 +9989,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 29
+      "rank_by_mrr_at_10": 27
     },
     {
       "pipeline_id": "bidirlm_17b_embedding__kalm_reranker_v1_small",
@@ -10496,7 +10158,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 30
+      "rank_by_mrr_at_10": 28
     },
     {
       "pipeline_id": "nomic_embed_text_v2_moe_q4__jina_reranker_v3_noncommercial",
@@ -10665,7 +10327,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 31
+      "rank_by_mrr_at_10": 29
     },
     {
       "pipeline_id": "colibri_ptbr__kalm_reranker_v1_small",
@@ -10834,7 +10496,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 32
+      "rank_by_mrr_at_10": 30
     },
     {
       "pipeline_id": "pplx_embed_v1_06b_native__kalm_reranker_v1_small",
@@ -11003,7 +10665,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 33
+      "rank_by_mrr_at_10": 31
     },
     {
       "pipeline_id": "embeddinggemma__kalm_reranker_v1_small",
@@ -11172,7 +10834,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 34
+      "rank_by_mrr_at_10": 32
     },
     {
       "pipeline_id": "embeddinggemma_gguf__kalm_reranker_v1_small",
@@ -11341,7 +11003,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 35
+      "rank_by_mrr_at_10": 33
     },
     {
       "pipeline_id": "multilingual_e5_large_instruct__qwen_local",
@@ -11510,7 +11172,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 36
+      "rank_by_mrr_at_10": 34
     },
     {
       "pipeline_id": "gte_multilingual_base__qwen_local",
@@ -11679,7 +11341,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 37
+      "rank_by_mrr_at_10": 35
     },
     {
       "pipeline_id": "jina_embeddings_v5_text_small__kalm_reranker_v1_small",
@@ -11848,7 +11510,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 38
+      "rank_by_mrr_at_10": 36
     },
     {
       "pipeline_id": "qwen3_embedding_4b_q8_0__kalm_reranker_v1_small",
@@ -12017,7 +11679,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 39
+      "rank_by_mrr_at_10": 37
     },
     {
       "pipeline_id": "nomic_embed_text_v2_moe_q4__kalm_reranker_v1_small",
@@ -12186,7 +11848,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 40
+      "rank_by_mrr_at_10": 38
     },
     {
       "pipeline_id": "granite_embedding_311m_r2__qwen_local",
@@ -12355,7 +12017,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 41
+      "rank_by_mrr_at_10": 39
     },
     {
       "pipeline_id": "bge_m3_dense__qwen_local",
@@ -12524,7 +12186,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 42
+      "rank_by_mrr_at_10": 40
     },
     {
       "pipeline_id": "qwen3_embedding_06__qwen_local",
@@ -12693,7 +12355,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 43
+      "rank_by_mrr_at_10": 41
     },
     {
       "pipeline_id": "pplx_embed_v1_4b_q8_0__jina_reranker_v3_noncommercial",
@@ -12862,7 +12524,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 44
+      "rank_by_mrr_at_10": 42
     },
     {
       "pipeline_id": "qwen3_embedding_4b_q8_0__mxbai_rerank_base_v2",
@@ -13212,7 +12874,7 @@
         },
         "completed_at": "2026-07-29T07:21:34.905376+00:00"
       },
-      "rank_by_mrr_at_10": 45
+      "rank_by_mrr_at_10": 43
     },
     {
       "pipeline_id": "nomic_embed_text_v2_moe_q4__mxbai_rerank_base_v2",
@@ -13562,7 +13224,7 @@
         },
         "completed_at": "2026-07-29T07:14:25.413226+00:00"
       },
-      "rank_by_mrr_at_10": 46
+      "rank_by_mrr_at_10": 44
     },
     {
       "pipeline_id": "bge_m3_dense__voyage_rerank_2_5",
@@ -13826,7 +13488,7 @@
         },
         "completed_at": "2026-07-25T21:58:22.218604+00:00"
       },
-      "rank_by_mrr_at_10": 47
+      "rank_by_mrr_at_10": 45
     },
     {
       "pipeline_id": "snowflake_arctic_embed_l_v2_q4__voyage_rerank_2_5",
@@ -14090,7 +13752,7 @@
         },
         "completed_at": "2026-07-25T21:58:22.237551+00:00"
       },
-      "rank_by_mrr_at_10": 48
+      "rank_by_mrr_at_10": 46
     },
     {
       "pipeline_id": "snowflake_arctic_embed_l_v2_q4__kalm_reranker_v1_small",
@@ -14259,7 +13921,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 49
+      "rank_by_mrr_at_10": 47
     },
     {
       "pipeline_id": "embeddinggemma__mxbai_rerank_base_v2",
@@ -14639,7 +14301,7 @@
         },
         "completed_at": "2026-07-29T07:28:44.819304+00:00"
       },
-      "rank_by_mrr_at_10": 50
+      "rank_by_mrr_at_10": 48
     },
     {
       "pipeline_id": "colibri_ptbr__mxbai_rerank_base_v2",
@@ -15019,7 +14681,7 @@
         },
         "completed_at": "2026-07-29T07:35:48.004961+00:00"
       },
-      "rank_by_mrr_at_10": 51
+      "rank_by_mrr_at_10": 49
     },
     {
       "pipeline_id": "bge_m3_dense__kalm_reranker_v1_small",
@@ -15188,7 +14850,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 52
+      "rank_by_mrr_at_10": 50
     },
     {
       "pipeline_id": "nemotron_3_embed_1b_nvfp4__mxbai_rerank_base_v2",
@@ -15540,7 +15202,7 @@
         },
         "completed_at": "2026-07-29T07:07:18.606167+00:00"
       },
-      "rank_by_mrr_at_10": 53
+      "rank_by_mrr_at_10": 51
     },
     {
       "pipeline_id": "qwen3_embedding_4b_q8_0__jina_reranker_v3_noncommercial",
@@ -15709,7 +15371,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 54
+      "rank_by_mrr_at_10": 52
     },
     {
       "pipeline_id": "pplx_embed_v1_06b_native__jina_reranker_v3_noncommercial",
@@ -15878,7 +15540,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 55
+      "rank_by_mrr_at_10": 53
     },
     {
       "pipeline_id": "voyage4_nano__jina_reranker_v3_noncommercial",
@@ -16048,7 +15710,7 @@
         },
         "candidate_variant": "voyage4_nano_1024_float32"
       },
-      "rank_by_mrr_at_10": 56
+      "rank_by_mrr_at_10": 54
     },
     {
       "pipeline_id": "embeddinggemma_gguf__jina_reranker_v3_noncommercial",
@@ -16217,7 +15879,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 57
+      "rank_by_mrr_at_10": 55
     },
     {
       "pipeline_id": "colibri_ptbr__jina_reranker_v3_noncommercial",
@@ -16386,7 +16048,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 58
+      "rank_by_mrr_at_10": 56
     },
     {
       "pipeline_id": "embeddinggemma__jina_reranker_v3_noncommercial",
@@ -16555,7 +16217,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 59
+      "rank_by_mrr_at_10": 57
     },
     {
       "pipeline_id": "qwen3_embedding_8b_gguf__qwen_local",
@@ -16724,7 +16386,7 @@
           "per_query_omitted": 150
         }
       },
-      "rank_by_mrr_at_10": 60
+      "rank_by_mrr_at_10": 58
     },
     {
       "pipeline_id": "granite_embedding_311m_r2__mxbai_rerank_base_v2",
@@ -17109,7 +16771,7 @@
         },
         "completed_at": "2026-07-29T07:41:54.913955+00:00"
       },
-      "rank_by_mrr_at_10": 61
+      "rank_by_mrr_at_10": 59
     },
     {
       "pipeline_id": "embeddinggemma_768_float32__qwen_local",
@@ -17373,7 +17035,271 @@
         },
         "completed_at": "2026-07-20T20:04:20.952826+00:00"
       },
-      "rank_by_mrr_at_10": 62
+      "rank_by_mrr_at_10": 60
+    },
+    {
+      "pipeline_id": "nemotron_8b_abiray_q4_audit_1024__qwen_local",
+      "embedding": "nemotron_8b_abiray_q4_audit_1024",
+      "reranker": "qwen_local",
+      "source_path": "benchmark/embedding-v3/results/reranker/pipelines/qwen_local/nemotron_8b_abiray_q4_audit_1024.json",
+      "metric_summary_path": "$.evaluation.reranked_metrics.summary",
+      "metrics": {
+        "hit_rate_at_1": 0.76,
+        "hit_rate_at_3": 0.8133333333333334,
+        "hit_rate_at_5": 0.84,
+        "hit_rate_at_10": 0.86,
+        "hit_rate_at_20": 0.9266666666666666,
+        "mrr_at_10": 0.7907407407407407,
+        "ndcg_at_10": 0.7996301422152531,
+        "hard_negative_error_rate": 0.06666666666666667
+      },
+      "metrics_summary_original": {
+        "HitRate@1": 0.76,
+        "Recall@1": 0.75,
+        "HitRate@3": 0.8133333333333334,
+        "Recall@3": 0.8033333333333333,
+        "HitRate@5": 0.84,
+        "Recall@5": 0.83,
+        "HitRate@10": 0.86,
+        "Recall@10": 0.85,
+        "HitRate@20": 0.9266666666666666,
+        "Recall@20": 0.9166666666666666,
+        "HitRate@50": 0.9266666666666666,
+        "Recall@50": 0.9166666666666666,
+        "MRR@10": 0.7907407407407407,
+        "nDCG@10": 0.7996301422152531,
+        "mean_first_relevant_rank": 2.381294964028777,
+        "median_first_relevant_rank": 1.0,
+        "queries_without_relevant": 11,
+        "hard_negative_error_rate": 0.06666666666666667
+      },
+      "metrics_by_query_type": {
+        "character_name": {
+          "count": 15,
+          "HitRate@10": 0.4666666666666667,
+          "MRR@10": 0.14407407407407408,
+          "nDCG@10": 0.21758875829318838,
+          "hard_negative_error_rate": 0.5333333333333333
+        },
+        "context_dependency": {
+          "count": 30,
+          "HitRate@10": 0.6,
+          "MRR@10": 0.6,
+          "nDCG@10": 0.5613147192765457,
+          "hard_negative_error_rate": 0.0
+        },
+        "emotion_intention": {
+          "count": 25,
+          "HitRate@10": 1.0,
+          "MRR@10": 1.0,
+          "nDCG@10": 1.0,
+          "hard_negative_error_rate": 0.0
+        },
+        "exact_phrase": {
+          "count": 10,
+          "HitRate@10": 0.9,
+          "MRR@10": 0.9,
+          "nDCG@10": 0.9,
+          "hard_negative_error_rate": 0.0
+        },
+        "indirect_dialogue": {
+          "count": 20,
+          "HitRate@10": 1.0,
+          "MRR@10": 1.0,
+          "nDCG@10": 1.0,
+          "hard_negative_error_rate": 0.0
+        },
+        "semantic_event": {
+          "count": 40,
+          "HitRate@10": 1.0,
+          "MRR@10": 0.905,
+          "nDCG@10": 0.9287178078594364,
+          "hard_negative_error_rate": 0.0
+        },
+        "similar_scene": {
+          "count": 10,
+          "HitRate@10": 1.0,
+          "MRR@10": 0.825,
+          "nDCG@10": 0.8692536065216308,
+          "hard_negative_error_rate": 0.2
+        }
+      },
+      "missing_required_metrics": [],
+      "metadata": {
+        "schema_version": "1.0",
+        "pipeline_id": "nemotron_8b_abiray_q4_audit_1024__qwen_local",
+        "embedding_variant": "nemotron_8b_abiray_q4_audit_1024",
+        "reranker_id": "qwen_local",
+        "candidate_top_k": 50,
+        "rerank_top_k": 20,
+        "score_artifact": "results/reranker/scores/qwen_local_nemotron_8b_audit.json",
+        "evaluation": {
+          "base_metrics": {
+            "summary": {
+              "HitRate@1": 0.6733333333333333,
+              "Recall@1": 0.6633333333333333,
+              "HitRate@3": 0.82,
+              "Recall@3": 0.81,
+              "HitRate@5": 0.8333333333333334,
+              "Recall@5": 0.8233333333333334,
+              "HitRate@10": 0.8733333333333333,
+              "Recall@10": 0.8633333333333333,
+              "HitRate@20": 0.9266666666666666,
+              "Recall@20": 0.9166666666666666,
+              "HitRate@50": 0.9266666666666666,
+              "Recall@50": 0.9166666666666666,
+              "MRR@10": 0.7459338624338624,
+              "nDCG@10": 0.7693962421228595,
+              "mean_first_relevant_rank": 2.446043165467626,
+              "median_first_relevant_rank": 1.0,
+              "queries_without_relevant": 11,
+              "hard_negative_error_rate": 0.06
+            },
+            "by_query_type": {
+              "character_name": {
+                "count": 15,
+                "HitRate@10": 0.6,
+                "MRR@10": 0.17989417989417988,
+                "nDCG@10": 0.2789593181655794,
+                "hard_negative_error_rate": 0.4666666666666667
+              },
+              "context_dependency": {
+                "count": 30,
+                "HitRate@10": 0.6,
+                "MRR@10": 0.5566666666666666,
+                "nDCG@10": 0.5285741379700791,
+                "hard_negative_error_rate": 0.03333333333333333
+              },
+              "emotion_intention": {
+                "count": 25,
+                "HitRate@10": 1.0,
+                "MRR@10": 0.94,
+                "nDCG@10": 0.9557115704285749,
+                "hard_negative_error_rate": 0.0
+              },
+              "exact_phrase": {
+                "count": 10,
+                "HitRate@10": 0.9,
+                "MRR@10": 0.62,
+                "nDCG@10": 0.6873989747914021,
+                "hard_negative_error_rate": 0.0
+              },
+              "indirect_dialogue": {
+                "count": 20,
+                "HitRate@10": 1.0,
+                "MRR@10": 0.8395833333333333,
+                "nDCG@10": 0.8788662191964323,
+                "hard_negative_error_rate": 0.0
+              },
+              "semantic_event": {
+                "count": 40,
+                "HitRate@10": 1.0,
+                "MRR@10": 0.9416666666666667,
+                "nDCG@10": 0.9565464876785729,
+                "hard_negative_error_rate": 0.0
+              },
+              "similar_scene": {
+                "count": 10,
+                "HitRate@10": 1.0,
+                "MRR@10": 0.8333333333333334,
+                "nDCG@10": 0.8761859507142915,
+                "hard_negative_error_rate": 0.1
+              }
+            },
+            "per_query_omitted": 150
+          },
+          "reranked_metrics": {
+            "summary": {
+              "HitRate@1": 0.76,
+              "Recall@1": 0.75,
+              "HitRate@3": 0.8133333333333334,
+              "Recall@3": 0.8033333333333333,
+              "HitRate@5": 0.84,
+              "Recall@5": 0.83,
+              "HitRate@10": 0.86,
+              "Recall@10": 0.85,
+              "HitRate@20": 0.9266666666666666,
+              "Recall@20": 0.9166666666666666,
+              "HitRate@50": 0.9266666666666666,
+              "Recall@50": 0.9166666666666666,
+              "MRR@10": 0.7907407407407407,
+              "nDCG@10": 0.7996301422152531,
+              "mean_first_relevant_rank": 2.381294964028777,
+              "median_first_relevant_rank": 1.0,
+              "queries_without_relevant": 11,
+              "hard_negative_error_rate": 0.06666666666666667
+            },
+            "by_query_type": {
+              "character_name": {
+                "count": 15,
+                "HitRate@10": 0.4666666666666667,
+                "MRR@10": 0.14407407407407408,
+                "nDCG@10": 0.21758875829318838,
+                "hard_negative_error_rate": 0.5333333333333333
+              },
+              "context_dependency": {
+                "count": 30,
+                "HitRate@10": 0.6,
+                "MRR@10": 0.6,
+                "nDCG@10": 0.5613147192765457,
+                "hard_negative_error_rate": 0.0
+              },
+              "emotion_intention": {
+                "count": 25,
+                "HitRate@10": 1.0,
+                "MRR@10": 1.0,
+                "nDCG@10": 1.0,
+                "hard_negative_error_rate": 0.0
+              },
+              "exact_phrase": {
+                "count": 10,
+                "HitRate@10": 0.9,
+                "MRR@10": 0.9,
+                "nDCG@10": 0.9,
+                "hard_negative_error_rate": 0.0
+              },
+              "indirect_dialogue": {
+                "count": 20,
+                "HitRate@10": 1.0,
+                "MRR@10": 1.0,
+                "nDCG@10": 1.0,
+                "hard_negative_error_rate": 0.0
+              },
+              "semantic_event": {
+                "count": 40,
+                "HitRate@10": 1.0,
+                "MRR@10": 0.905,
+                "nDCG@10": 0.9287178078594364,
+                "hard_negative_error_rate": 0.0
+              },
+              "similar_scene": {
+                "count": 10,
+                "HitRate@10": 1.0,
+                "MRR@10": 0.825,
+                "nDCG@10": 0.8692536065216308,
+                "hard_negative_error_rate": 0.2
+              }
+            },
+            "per_query_omitted": 150
+          },
+          "effect": {
+            "candidate_cutoff": 20,
+            "candidate_coverage": 0.9266666666666666,
+            "conditional_HitRate@1": 0.8201438848920863,
+            "rescue_count": 20,
+            "rescue_eligible": 38,
+            "rescue_rate": 0.5263157894736842,
+            "damage_count": 7,
+            "damage_eligible": 101,
+            "damage_rate": 0.06930693069306931,
+            "mean_rank_improvement": 0.06474820143884892,
+            "median_rank_improvement": 0.0
+          },
+          "per_query_effect_omitted": 150
+        },
+        "completed_at": "2026-07-29T23:36:02.398161+00:00"
+      },
+      "rank_by_mrr_at_10": 61
     },
     {
       "pipeline_id": "voyage_4_large_1024_float32__qwen_local",
@@ -17637,7 +17563,7 @@
         },
         "completed_at": "2026-07-20T20:04:21.019726+00:00"
       },
-      "rank_by_mrr_at_10": 63
+      "rank_by_mrr_at_10": 62
     },
     {
       "pipeline_id": "bge_m3_dense__jina_reranker_v3_noncommercial",
@@ -17805,6 +17731,270 @@
           },
           "per_query_omitted": 150
         }
+      },
+      "rank_by_mrr_at_10": 63
+    },
+    {
+      "pipeline_id": "nemotron_8b_abiray_q4_audit_4096__qwen_local",
+      "embedding": "nemotron_8b_abiray_q4_audit_4096",
+      "reranker": "qwen_local",
+      "source_path": "benchmark/embedding-v3/results/reranker/pipelines/qwen_local/nemotron_8b_abiray_q4_audit_4096.json",
+      "metric_summary_path": "$.evaluation.reranked_metrics.summary",
+      "metrics": {
+        "hit_rate_at_1": 0.76,
+        "hit_rate_at_3": 0.8066666666666666,
+        "hit_rate_at_5": 0.84,
+        "hit_rate_at_10": 0.8666666666666667,
+        "hit_rate_at_20": 0.9666666666666667,
+        "mrr_at_10": 0.7894074074074074,
+        "ndcg_at_10": 0.7999300614151262,
+        "hard_negative_error_rate": 0.09333333333333334
+      },
+      "metrics_summary_original": {
+        "HitRate@1": 0.76,
+        "Recall@1": 0.75,
+        "HitRate@3": 0.8066666666666666,
+        "Recall@3": 0.7966666666666666,
+        "HitRate@5": 0.84,
+        "Recall@5": 0.83,
+        "HitRate@10": 0.8666666666666667,
+        "Recall@10": 0.8566666666666667,
+        "HitRate@20": 0.9666666666666667,
+        "Recall@20": 0.9566666666666667,
+        "HitRate@50": 0.9666666666666667,
+        "Recall@50": 0.9566666666666667,
+        "MRR@10": 0.7894074074074074,
+        "nDCG@10": 0.7999300614151262,
+        "mean_first_relevant_rank": 2.8551724137931034,
+        "median_first_relevant_rank": 1.0,
+        "queries_without_relevant": 5,
+        "hard_negative_error_rate": 0.09333333333333334
+      },
+      "metrics_by_query_type": {
+        "character_name": {
+          "count": 15,
+          "HitRate@10": 0.4666666666666667,
+          "MRR@10": 0.14407407407407408,
+          "nDCG@10": 0.21758875829318838,
+          "hard_negative_error_rate": 0.5333333333333333
+        },
+        "context_dependency": {
+          "count": 30,
+          "HitRate@10": 0.6333333333333333,
+          "MRR@10": 0.6033333333333334,
+          "nDCG@10": 0.5709502134871421,
+          "hard_negative_error_rate": 0.13333333333333333
+        },
+        "emotion_intention": {
+          "count": 25,
+          "HitRate@10": 1.0,
+          "MRR@10": 1.0,
+          "nDCG@10": 1.0,
+          "hard_negative_error_rate": 0.0
+        },
+        "exact_phrase": {
+          "count": 10,
+          "HitRate@10": 0.9,
+          "MRR@10": 0.9,
+          "nDCG@10": 0.9,
+          "hard_negative_error_rate": 0.0
+        },
+        "indirect_dialogue": {
+          "count": 20,
+          "HitRate@10": 1.0,
+          "MRR@10": 1.0,
+          "nDCG@10": 1.0,
+          "hard_negative_error_rate": 0.0
+        },
+        "semantic_event": {
+          "count": 40,
+          "HitRate@10": 1.0,
+          "MRR@10": 0.89875,
+          "nDCG@10": 0.9237114779719848,
+          "hard_negative_error_rate": 0.0
+        },
+        "similar_scene": {
+          "count": 10,
+          "HitRate@10": 1.0,
+          "MRR@10": 0.82,
+          "nDCG@10": 0.8648712314377457,
+          "hard_negative_error_rate": 0.2
+        }
+      },
+      "missing_required_metrics": [],
+      "metadata": {
+        "schema_version": "1.0",
+        "pipeline_id": "nemotron_8b_abiray_q4_audit_4096__qwen_local",
+        "embedding_variant": "nemotron_8b_abiray_q4_audit_4096",
+        "reranker_id": "qwen_local",
+        "candidate_top_k": 50,
+        "rerank_top_k": 20,
+        "score_artifact": "results/reranker/scores/qwen_local_nemotron_8b_audit.json",
+        "evaluation": {
+          "base_metrics": {
+            "summary": {
+              "HitRate@1": 0.7466666666666667,
+              "Recall@1": 0.7366666666666667,
+              "HitRate@3": 0.8466666666666667,
+              "Recall@3": 0.8366666666666667,
+              "HitRate@5": 0.86,
+              "Recall@5": 0.85,
+              "HitRate@10": 0.8666666666666667,
+              "Recall@10": 0.8566666666666667,
+              "HitRate@20": 0.9666666666666667,
+              "Recall@20": 0.9566666666666667,
+              "HitRate@50": 0.9666666666666667,
+              "Recall@50": 0.9566666666666667,
+              "MRR@10": 0.796952380952381,
+              "nDCG@10": 0.8067842504597086,
+              "mean_first_relevant_rank": 2.7379310344827585,
+              "median_first_relevant_rank": 1.0,
+              "queries_without_relevant": 5,
+              "hard_negative_error_rate": 0.08666666666666667
+            },
+            "by_query_type": {
+              "character_name": {
+                "count": 15,
+                "HitRate@10": 0.4666666666666667,
+                "MRR@10": 0.14730158730158732,
+                "nDCG@10": 0.22459323032968878,
+                "hard_negative_error_rate": 0.3333333333333333
+              },
+              "context_dependency": {
+                "count": 30,
+                "HitRate@10": 0.6,
+                "MRR@10": 0.6,
+                "nDCG@10": 0.5613147192765457,
+                "hard_negative_error_rate": 0.23333333333333334
+              },
+              "emotion_intention": {
+                "count": 25,
+                "HitRate@10": 1.0,
+                "MRR@10": 0.96,
+                "nDCG@10": 0.9704743802857166,
+                "hard_negative_error_rate": 0.0
+              },
+              "exact_phrase": {
+                "count": 10,
+                "HitRate@10": 1.0,
+                "MRR@10": 0.75,
+                "nDCG@10": 0.8154648767857287,
+                "hard_negative_error_rate": 0.0
+              },
+              "indirect_dialogue": {
+                "count": 20,
+                "HitRate@10": 1.0,
+                "MRR@10": 1.0,
+                "nDCG@10": 1.0,
+                "hard_negative_error_rate": 0.0
+              },
+              "semantic_event": {
+                "count": 40,
+                "HitRate@10": 1.0,
+                "MRR@10": 0.9875,
+                "nDCG@10": 0.9907732438392864,
+                "hard_negative_error_rate": 0.0
+              },
+              "similar_scene": {
+                "count": 10,
+                "HitRate@10": 1.0,
+                "MRR@10": 0.8333333333333334,
+                "nDCG@10": 0.8761859507142915,
+                "hard_negative_error_rate": 0.1
+              }
+            },
+            "per_query_omitted": 150
+          },
+          "reranked_metrics": {
+            "summary": {
+              "HitRate@1": 0.76,
+              "Recall@1": 0.75,
+              "HitRate@3": 0.8066666666666666,
+              "Recall@3": 0.7966666666666666,
+              "HitRate@5": 0.84,
+              "Recall@5": 0.83,
+              "HitRate@10": 0.8666666666666667,
+              "Recall@10": 0.8566666666666667,
+              "HitRate@20": 0.9666666666666667,
+              "Recall@20": 0.9566666666666667,
+              "HitRate@50": 0.9666666666666667,
+              "Recall@50": 0.9566666666666667,
+              "MRR@10": 0.7894074074074074,
+              "nDCG@10": 0.7999300614151262,
+              "mean_first_relevant_rank": 2.8551724137931034,
+              "median_first_relevant_rank": 1.0,
+              "queries_without_relevant": 5,
+              "hard_negative_error_rate": 0.09333333333333334
+            },
+            "by_query_type": {
+              "character_name": {
+                "count": 15,
+                "HitRate@10": 0.4666666666666667,
+                "MRR@10": 0.14407407407407408,
+                "nDCG@10": 0.21758875829318838,
+                "hard_negative_error_rate": 0.5333333333333333
+              },
+              "context_dependency": {
+                "count": 30,
+                "HitRate@10": 0.6333333333333333,
+                "MRR@10": 0.6033333333333334,
+                "nDCG@10": 0.5709502134871421,
+                "hard_negative_error_rate": 0.13333333333333333
+              },
+              "emotion_intention": {
+                "count": 25,
+                "HitRate@10": 1.0,
+                "MRR@10": 1.0,
+                "nDCG@10": 1.0,
+                "hard_negative_error_rate": 0.0
+              },
+              "exact_phrase": {
+                "count": 10,
+                "HitRate@10": 0.9,
+                "MRR@10": 0.9,
+                "nDCG@10": 0.9,
+                "hard_negative_error_rate": 0.0
+              },
+              "indirect_dialogue": {
+                "count": 20,
+                "HitRate@10": 1.0,
+                "MRR@10": 1.0,
+                "nDCG@10": 1.0,
+                "hard_negative_error_rate": 0.0
+              },
+              "semantic_event": {
+                "count": 40,
+                "HitRate@10": 1.0,
+                "MRR@10": 0.89875,
+                "nDCG@10": 0.9237114779719848,
+                "hard_negative_error_rate": 0.0
+              },
+              "similar_scene": {
+                "count": 10,
+                "HitRate@10": 1.0,
+                "MRR@10": 0.82,
+                "nDCG@10": 0.8648712314377457,
+                "hard_negative_error_rate": 0.2
+              }
+            },
+            "per_query_omitted": 150
+          },
+          "effect": {
+            "candidate_cutoff": 20,
+            "candidate_coverage": 0.9666666666666667,
+            "conditional_HitRate@1": 0.7862068965517242,
+            "rescue_count": 11,
+            "rescue_eligible": 33,
+            "rescue_rate": 0.3333333333333333,
+            "damage_count": 9,
+            "damage_eligible": 112,
+            "damage_rate": 0.08035714285714286,
+            "mean_rank_improvement": -0.11724137931034483,
+            "median_rank_improvement": 0.0
+          },
+          "per_query_effect_omitted": 150
+        },
+        "completed_at": "2026-07-29T23:36:02.346993+00:00"
       },
       "rank_by_mrr_at_10": 64
     },
@@ -25549,7 +25739,7 @@
       ],
       "best_published_pipeline": {
         "pipeline_id": "bge_m3_dense__qwen_local",
-        "rank_by_mrr_at_10": 42,
+        "rank_by_mrr_at_10": 40,
         "metrics": {
           "hit_rate_at_1": 0.7733333333333333,
           "hit_rate_at_3": 0.82,
@@ -25717,7 +25907,7 @@
       ],
       "best_published_pipeline": {
         "pipeline_id": "giga_embeddings_instruct__qwen_local",
-        "rank_by_mrr_at_10": 26,
+        "rank_by_mrr_at_10": 24,
         "metrics": {
           "hit_rate_at_1": 0.78,
           "hit_rate_at_3": 0.84,
@@ -25740,7 +25930,7 @@
       ],
       "best_published_pipeline": {
         "pipeline_id": "granite_embedding_311m_r2__llama_nemotron_rerank_1b_v2",
-        "rank_by_mrr_at_10": 25,
+        "rank_by_mrr_at_10": 23,
         "metrics": {
           "hit_rate_at_1": 0.8,
           "hit_rate_at_3": 0.8266666666666667,
@@ -25782,7 +25972,7 @@
       ],
       "best_published_pipeline": {
         "pipeline_id": "gte_multilingual_base__qwen_local",
-        "rank_by_mrr_at_10": 37,
+        "rank_by_mrr_at_10": 35,
         "metrics": {
           "hit_rate_at_1": 0.7733333333333333,
           "hit_rate_at_3": 0.8266666666666667,
@@ -25912,7 +26102,7 @@
       ],
       "best_published_pipeline": {
         "pipeline_id": "multilingual_e5_large_instruct__qwen_local",
-        "rank_by_mrr_at_10": 36,
+        "rank_by_mrr_at_10": 34,
         "metrics": {
           "hit_rate_at_1": 0.78,
           "hit_rate_at_3": 0.8266666666666667,
@@ -25970,44 +26160,44 @@
       }
     },
     {
-      "embedding": "nemotron_8b_abiray_q4",
+      "embedding": "nemotron_8b_abiray_q4_audit_1024",
       "pipeline_count": 1,
       "rerankers": [
         "qwen_local"
       ],
       "best_published_pipeline": {
-        "pipeline_id": "nemotron_8b_abiray_q4__qwen_local",
-        "rank_by_mrr_at_10": 23,
+        "pipeline_id": "nemotron_8b_abiray_q4_audit_1024__qwen_local",
+        "rank_by_mrr_at_10": 61,
         "metrics": {
-          "hit_rate_at_1": 0.7866666666666666,
-          "hit_rate_at_3": 0.8333333333333334,
-          "hit_rate_at_5": 0.86,
-          "hit_rate_at_10": 0.8866666666666667,
-          "hit_rate_at_20": 0.9866666666666667,
-          "mrr_at_10": 0.8188968253968254,
-          "ndcg_at_10": 0.8274752760978407,
-          "hard_negative_error_rate": 0.11333333333333333
+          "hit_rate_at_1": 0.76,
+          "hit_rate_at_3": 0.8133333333333334,
+          "hit_rate_at_5": 0.84,
+          "hit_rate_at_10": 0.86,
+          "hit_rate_at_20": 0.9266666666666666,
+          "mrr_at_10": 0.7907407407407407,
+          "ndcg_at_10": 0.7996301422152531,
+          "hard_negative_error_rate": 0.06666666666666667
         }
       }
     },
     {
-      "embedding": "nemotron_8b_aqua00_q4",
+      "embedding": "nemotron_8b_abiray_q4_audit_4096",
       "pipeline_count": 1,
       "rerankers": [
         "qwen_local"
       ],
       "best_published_pipeline": {
-        "pipeline_id": "nemotron_8b_aqua00_q4__qwen_local",
-        "rank_by_mrr_at_10": 24,
+        "pipeline_id": "nemotron_8b_abiray_q4_audit_4096__qwen_local",
+        "rank_by_mrr_at_10": 64,
         "metrics": {
-          "hit_rate_at_1": 0.7866666666666666,
-          "hit_rate_at_3": 0.8333333333333334,
-          "hit_rate_at_5": 0.86,
-          "hit_rate_at_10": 0.8866666666666667,
-          "hit_rate_at_20": 0.9866666666666667,
-          "mrr_at_10": 0.8188968253968254,
-          "ndcg_at_10": 0.8274752760978407,
-          "hard_negative_error_rate": 0.11333333333333333
+          "hit_rate_at_1": 0.76,
+          "hit_rate_at_3": 0.8066666666666666,
+          "hit_rate_at_5": 0.84,
+          "hit_rate_at_10": 0.8666666666666667,
+          "hit_rate_at_20": 0.9666666666666667,
+          "mrr_at_10": 0.7894074074074074,
+          "ndcg_at_10": 0.7999300614151262,
+          "hard_negative_error_rate": 0.09333333333333334
         }
       }
     },
@@ -26047,7 +26237,7 @@
       ],
       "best_published_pipeline": {
         "pipeline_id": "octen_embedding_8b_q8_0__qwen_local",
-        "rank_by_mrr_at_10": 28,
+        "rank_by_mrr_at_10": 26,
         "metrics": {
           "hit_rate_at_1": 0.78,
           "hit_rate_at_3": 0.8333333333333334,
@@ -26119,7 +26309,7 @@
       ],
       "best_published_pipeline": {
         "pipeline_id": "qwen3_embedding_06__qwen_local",
-        "rank_by_mrr_at_10": 43,
+        "rank_by_mrr_at_10": 41,
         "metrics": {
           "hit_rate_at_1": 0.7733333333333333,
           "hit_rate_at_3": 0.8266666666666667,
@@ -26188,7 +26378,7 @@
       ],
       "best_published_pipeline": {
         "pipeline_id": "qwen3_embedding_8b_gguf__qwen_local",
-        "rank_by_mrr_at_10": 60,
+        "rank_by_mrr_at_10": 58,
         "metrics": {
           "hit_rate_at_1": 0.7666666666666667,
           "hit_rate_at_3": 0.8,
@@ -26214,7 +26404,7 @@
       ],
       "best_published_pipeline": {
         "pipeline_id": "snowflake_arctic_embed_l_v2_q4__qwen_local",
-        "rank_by_mrr_at_10": 27,
+        "rank_by_mrr_at_10": 25,
         "metrics": {
           "hit_rate_at_1": 0.7866666666666666,
           "hit_rate_at_3": 0.8333333333333334,
@@ -26368,7 +26558,7 @@
       "pipeline_count": 12,
       "best_published_pipeline": {
         "pipeline_id": "nomic_embed_text_v2_moe_q4__jina_reranker_v3_noncommercial",
-        "rank_by_mrr_at_10": 31,
+        "rank_by_mrr_at_10": 29,
         "metrics": {
           "hit_rate_at_1": 0.7866666666666666,
           "hit_rate_at_3": 0.8333333333333334,
@@ -26404,7 +26594,7 @@
       "pipeline_count": 12,
       "best_published_pipeline": {
         "pipeline_id": "pplx_embed_v1_4b_q8_0__kalm_reranker_v1_small",
-        "rank_by_mrr_at_10": 29,
+        "rank_by_mrr_at_10": 27,
         "metrics": {
           "hit_rate_at_1": 0.7866666666666666,
           "hit_rate_at_3": 0.8333333333333334,
@@ -26440,7 +26630,7 @@
       "pipeline_count": 6,
       "best_published_pipeline": {
         "pipeline_id": "qwen3_embedding_4b_q8_0__mxbai_rerank_base_v2",
-        "rank_by_mrr_at_10": 45,
+        "rank_by_mrr_at_10": 43,
         "metrics": {
           "hit_rate_at_1": 0.7733333333333333,
           "hit_rate_at_3": 0.8266666666666667,
@@ -26522,6 +26712,98 @@
   },
   "raw_embedding_profiles_ranked_by_mrr_at_10": [
     {
+      "profile_id": "nemotron_8b_abiray_q4_audit_4096",
+      "source_group": "gate3",
+      "source_path": "benchmark/embedding-v3/results/gate3/nemotron_8b_abiray_q4_audit_4096.json",
+      "metrics": {
+        "hit_rate_at_1": 0.7466666666666667,
+        "hit_rate_at_3": 0.8466666666666667,
+        "hit_rate_at_5": 0.86,
+        "hit_rate_at_10": 0.8666666666666667,
+        "hit_rate_at_20": 0.9666666666666667,
+        "mrr_at_10": 0.796952380952381,
+        "ndcg_at_10": 0.8067842504597086,
+        "hard_negative_error_rate": 0.11333333333333333
+      },
+      "runtime": {
+        "backend": "llama.cpp",
+        "backend_version": "version: 9972 (c92e806d1)\nbuilt with GNU 16.1.1 for Linux x86_64",
+        "device": "cuda",
+        "dtype": "gguf",
+        "pooling": "mean",
+        "normalization": "l2-client-after-truncation",
+        "embedding_batch_size": 8,
+        "context_size": 4096,
+        "server_batch_size": 512,
+        "server_ubatch_size": 512,
+        "gpu_layers": 99,
+        "load_seconds": 18.946846,
+        "document_encode_seconds": 114.156514,
+        "query_encode_seconds": 4.912795,
+        "documents_per_second": 5.255942,
+        "queries_per_second": 30.532517,
+        "total_seconds": 140.054605,
+        "peak_vram_bytes": 6020923392,
+        "command": [
+          "<path>",
+          "-m",
+          "<path>",
+          "--embedding",
+          "--pooling",
+          "mean",
+          "--embd-normalize",
+          "2",
+          "--host",
+          "127.0.0.1",
+          "--port",
+          "46891",
+          "-np",
+          "1",
+          "-ngl",
+          "99",
+          "-c",
+          "4096",
+          "-b",
+          "512",
+          "-ub",
+          "512"
+        ],
+        "configured_dimension": 4096,
+        "shared_native_encoding": true
+      },
+      "metadata": {
+        "model": {
+          "id": "nemotron_8b_abiray_q4_audit",
+          "repository": "Abiray/Nemotron-3-Embed-8B-GGUF",
+          "revision": "1ffb81e403311c4dc6879b9c3cbb6ebfa18b86df",
+          "file": "Nemotron-3-Embed-8B-Q4_K_M.gguf",
+          "bytes": 4896390039,
+          "sha256": "a2aa29c618da6eed10d9474e72e33188c61e5fd700aed2fe9a1d98abdc90c6fc",
+          "quantization": "Q4_K_M",
+          "pooling": "mean",
+          "native_dimension": 4096,
+          "document_prefix": "passage: ",
+          "query_prefix": "query: ",
+          "normalization": "l2-after-truncation",
+          "identity_validation": "local bytes and SHA-256 matched explicit immutable identity",
+          "configured_dimension": 4096,
+          "actual_dimension": 4096,
+          "vector_dtype": "float32",
+          "bytes_per_vector": 16384
+        },
+        "id": "nemotron_8b_abiray_q4_audit_4096",
+        "gate": 3,
+        "status": "COMPLETED",
+        "gate_result": null,
+        "dataset": {
+          "corpus_version": "holo_fake_scenes_v3",
+          "combined_sha256": "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b"
+        },
+        "metric_summary_path": "$.metrics.summary"
+      },
+      "rank_by_mrr_at_10": 1
+    },
+    {
       "profile_id": "nemotron_3_embed_1b_nvfp4",
       "source_group": "nemotron_admission",
       "source_path": "benchmark/embedding-v3/results/nemotron_audit_1_0_5/admission_nvfp4_full_cached_20260723.json",
@@ -26566,7 +26848,7 @@
           "query_prefix": "query: "
         }
       },
-      "rank_by_mrr_at_10": 1
+      "rank_by_mrr_at_10": 2
     },
     {
       "profile_id": "voyage-4-large",
@@ -26615,7 +26897,7 @@
           "works": 30
         }
       },
-      "rank_by_mrr_at_10": 2
+      "rank_by_mrr_at_10": 3
     },
     {
       "profile_id": "voyage_4_large_1024_float32",
@@ -26641,7 +26923,7 @@
         },
         "historical_pipeline_id": "voyage_4_large_1024_float32__none"
       },
-      "rank_by_mrr_at_10": 3
+      "rank_by_mrr_at_10": 4
     },
     {
       "profile_id": "nemotron_3_embed_1b_q4_k_m_gguf",
@@ -26688,7 +26970,7 @@
           "query_prefix": "query: "
         }
       },
-      "rank_by_mrr_at_10": 4
+      "rank_by_mrr_at_10": 5
     },
     {
       "profile_id": "voyage4_nano_2048_int8",
@@ -26714,7 +26996,7 @@
         },
         "historical_pipeline_id": "voyage4_nano_2048_int8__none"
       },
-      "rank_by_mrr_at_10": 5
+      "rank_by_mrr_at_10": 6
     },
     {
       "profile_id": "embeddinggemma",
@@ -26785,7 +27067,7 @@
         },
         "metric_summary_path": "$.metrics.summary"
       },
-      "rank_by_mrr_at_10": 6
+      "rank_by_mrr_at_10": 7
     },
     {
       "profile_id": "pplx_embed_v1_4b_q8_0",
@@ -26821,7 +27103,7 @@
         "dataset": null,
         "metric_summary_path": "$.metrics.summary"
       },
-      "rank_by_mrr_at_10": 7
+      "rank_by_mrr_at_10": 8
     },
     {
       "profile_id": "voyage4_nano_2048_float32",
@@ -26847,7 +27129,7 @@
         },
         "historical_pipeline_id": "voyage4_nano_2048_float32__none"
       },
-      "rank_by_mrr_at_10": 8
+      "rank_by_mrr_at_10": 9
     },
     {
       "profile_id": "voyage4_nano",
@@ -26908,7 +27190,7 @@
         },
         "metric_summary_path": "$.metrics.summary"
       },
-      "rank_by_mrr_at_10": 9
+      "rank_by_mrr_at_10": 10
     },
     {
       "profile_id": "voyage4_nano_1024_float32",
@@ -26934,7 +27216,99 @@
         },
         "historical_pipeline_id": "voyage4_nano_1024_float32__none"
       },
-      "rank_by_mrr_at_10": 10
+      "rank_by_mrr_at_10": 11
+    },
+    {
+      "profile_id": "nemotron_8b_abiray_q4_audit_1024",
+      "source_group": "gate3",
+      "source_path": "benchmark/embedding-v3/results/gate3/nemotron_8b_abiray_q4_audit_1024.json",
+      "metrics": {
+        "hit_rate_at_1": 0.6733333333333333,
+        "hit_rate_at_3": 0.82,
+        "hit_rate_at_5": 0.8333333333333334,
+        "hit_rate_at_10": 0.8733333333333333,
+        "hit_rate_at_20": 0.9266666666666666,
+        "mrr_at_10": 0.7459338624338624,
+        "ndcg_at_10": 0.7693962421228595,
+        "hard_negative_error_rate": 0.08666666666666667
+      },
+      "runtime": {
+        "backend": "llama.cpp",
+        "backend_version": "version: 9972 (c92e806d1)\nbuilt with GNU 16.1.1 for Linux x86_64",
+        "device": "cuda",
+        "dtype": "gguf",
+        "pooling": "mean",
+        "normalization": "l2-client-after-truncation",
+        "embedding_batch_size": 8,
+        "context_size": 4096,
+        "server_batch_size": 512,
+        "server_ubatch_size": 512,
+        "gpu_layers": 99,
+        "load_seconds": 18.946846,
+        "document_encode_seconds": 114.156514,
+        "query_encode_seconds": 4.912795,
+        "documents_per_second": 5.255942,
+        "queries_per_second": 30.532517,
+        "total_seconds": 140.054605,
+        "peak_vram_bytes": 6020923392,
+        "command": [
+          "<path>",
+          "-m",
+          "<path>",
+          "--embedding",
+          "--pooling",
+          "mean",
+          "--embd-normalize",
+          "2",
+          "--host",
+          "127.0.0.1",
+          "--port",
+          "46891",
+          "-np",
+          "1",
+          "-ngl",
+          "99",
+          "-c",
+          "4096",
+          "-b",
+          "512",
+          "-ub",
+          "512"
+        ],
+        "configured_dimension": 1024,
+        "shared_native_encoding": true
+      },
+      "metadata": {
+        "model": {
+          "id": "nemotron_8b_abiray_q4_audit",
+          "repository": "Abiray/Nemotron-3-Embed-8B-GGUF",
+          "revision": "1ffb81e403311c4dc6879b9c3cbb6ebfa18b86df",
+          "file": "Nemotron-3-Embed-8B-Q4_K_M.gguf",
+          "bytes": 4896390039,
+          "sha256": "a2aa29c618da6eed10d9474e72e33188c61e5fd700aed2fe9a1d98abdc90c6fc",
+          "quantization": "Q4_K_M",
+          "pooling": "mean",
+          "native_dimension": 4096,
+          "document_prefix": "passage: ",
+          "query_prefix": "query: ",
+          "normalization": "l2-after-truncation",
+          "identity_validation": "local bytes and SHA-256 matched explicit immutable identity",
+          "configured_dimension": 1024,
+          "actual_dimension": 1024,
+          "vector_dtype": "float32",
+          "bytes_per_vector": 4096
+        },
+        "id": "nemotron_8b_abiray_q4_audit_1024",
+        "gate": 3,
+        "status": "COMPLETED",
+        "gate_result": null,
+        "dataset": {
+          "corpus_version": "holo_fake_scenes_v3",
+          "combined_sha256": "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b"
+        },
+        "metric_summary_path": "$.metrics.summary"
+      },
+      "rank_by_mrr_at_10": 12
     },
     {
       "profile_id": "voyage-context-4",
@@ -26983,7 +27357,7 @@
           "works": 30
         }
       },
-      "rank_by_mrr_at_10": 11
+      "rank_by_mrr_at_10": 13
     },
     {
       "profile_id": "nomic_embed_text_v2_moe_q4",
@@ -27009,7 +27383,7 @@
         "dataset": null,
         "metric_summary_path": "$.metrics.summary"
       },
-      "rank_by_mrr_at_10": 12
+      "rank_by_mrr_at_10": 14
     },
     {
       "profile_id": "embeddinggemma_768_float32",
@@ -27035,7 +27409,7 @@
         },
         "historical_pipeline_id": "embeddinggemma_768_float32__none"
       },
-      "rank_by_mrr_at_10": 13
+      "rank_by_mrr_at_10": 15
     },
     {
       "profile_id": "embeddinggemma_gguf",
@@ -27126,7 +27500,7 @@
         },
         "metric_summary_path": "$.metrics.summary"
       },
-      "rank_by_mrr_at_10": 14
+      "rank_by_mrr_at_10": 16
     },
     {
       "profile_id": "bge_m3_dense",
@@ -27197,7 +27571,7 @@
         },
         "metric_summary_path": "$.metrics.summary"
       },
-      "rank_by_mrr_at_10": 15
+      "rank_by_mrr_at_10": 17
     },
     {
       "profile_id": "snowflake_arctic_embed_l_v2_q4",
@@ -27223,7 +27597,7 @@
         "dataset": null,
         "metric_summary_path": "$.metrics.summary"
       },
-      "rank_by_mrr_at_10": 16
+      "rank_by_mrr_at_10": 18
     },
     {
       "profile_id": "qwen3_embedding_4b_q8_0",
@@ -27259,7 +27633,7 @@
         "dataset": null,
         "metric_summary_path": "$.metrics.summary"
       },
-      "rank_by_mrr_at_10": 17
+      "rank_by_mrr_at_10": 19
     },
     {
       "profile_id": "colibri_ptbr",
@@ -27330,7 +27704,7 @@
         },
         "metric_summary_path": "$.metrics.summary"
       },
-      "rank_by_mrr_at_10": 18
+      "rank_by_mrr_at_10": 20
     },
     {
       "profile_id": "qwen3_embedding_8b_gguf",
@@ -27419,58 +27793,6 @@
           "corpus_version": "holo_fake_scenes_v3",
           "combined_sha256": "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b"
         },
-        "metric_summary_path": "$.metrics.summary"
-      },
-      "rank_by_mrr_at_10": 19
-    },
-    {
-      "profile_id": "nemotron_8b_abiray_q4",
-      "source_group": "gate3",
-      "source_path": "benchmark/embedding-v3/results/gate3/nemotron_8b_abiray_q4.json",
-      "metrics": {
-        "hit_rate_at_1": 0.6266666666666667,
-        "hit_rate_at_3": 0.7333333333333333,
-        "hit_rate_at_5": 0.7666666666666667,
-        "hit_rate_at_10": 0.8266666666666667,
-        "hit_rate_at_20": 0.9533333333333334,
-        "mrr_at_10": 0.6918677248677249,
-        "ndcg_at_10": 0.7187619979708944,
-        "hard_negative_error_rate": 0.20666666666666667
-      },
-      "runtime": {},
-      "metadata": {
-        "model": null,
-        "id": "nemotron_8b_abiray_q4",
-        "gate": 3,
-        "status": "COMPLETED",
-        "gate_result": null,
-        "dataset": null,
-        "metric_summary_path": "$.metrics.summary"
-      },
-      "rank_by_mrr_at_10": 20
-    },
-    {
-      "profile_id": "nemotron_8b_aqua00_q4",
-      "source_group": "gate3",
-      "source_path": "benchmark/embedding-v3/results/gate3/nemotron_8b_aqua00_q4.json",
-      "metrics": {
-        "hit_rate_at_1": 0.6266666666666667,
-        "hit_rate_at_3": 0.7333333333333333,
-        "hit_rate_at_5": 0.7666666666666667,
-        "hit_rate_at_10": 0.8266666666666667,
-        "hit_rate_at_20": 0.9533333333333334,
-        "mrr_at_10": 0.6918677248677249,
-        "ndcg_at_10": 0.7187619979708944,
-        "hard_negative_error_rate": 0.20666666666666667
-      },
-      "runtime": {},
-      "metadata": {
-        "model": null,
-        "id": "nemotron_8b_aqua00_q4",
-        "gate": 3,
-        "status": "COMPLETED",
-        "gate_result": null,
-        "dataset": null,
         "metric_summary_path": "$.metrics.summary"
       },
       "rank_by_mrr_at_10": 21
@@ -28455,6 +28777,98 @@
     }
   ],
   "raw_embedding_profiles_by_id": {
+    "nemotron_8b_abiray_q4_audit_4096": {
+      "profile_id": "nemotron_8b_abiray_q4_audit_4096",
+      "source_group": "gate3",
+      "source_path": "benchmark/embedding-v3/results/gate3/nemotron_8b_abiray_q4_audit_4096.json",
+      "metrics": {
+        "hit_rate_at_1": 0.7466666666666667,
+        "hit_rate_at_3": 0.8466666666666667,
+        "hit_rate_at_5": 0.86,
+        "hit_rate_at_10": 0.8666666666666667,
+        "hit_rate_at_20": 0.9666666666666667,
+        "mrr_at_10": 0.796952380952381,
+        "ndcg_at_10": 0.8067842504597086,
+        "hard_negative_error_rate": 0.11333333333333333
+      },
+      "runtime": {
+        "backend": "llama.cpp",
+        "backend_version": "version: 9972 (c92e806d1)\nbuilt with GNU 16.1.1 for Linux x86_64",
+        "device": "cuda",
+        "dtype": "gguf",
+        "pooling": "mean",
+        "normalization": "l2-client-after-truncation",
+        "embedding_batch_size": 8,
+        "context_size": 4096,
+        "server_batch_size": 512,
+        "server_ubatch_size": 512,
+        "gpu_layers": 99,
+        "load_seconds": 18.946846,
+        "document_encode_seconds": 114.156514,
+        "query_encode_seconds": 4.912795,
+        "documents_per_second": 5.255942,
+        "queries_per_second": 30.532517,
+        "total_seconds": 140.054605,
+        "peak_vram_bytes": 6020923392,
+        "command": [
+          "<path>",
+          "-m",
+          "<path>",
+          "--embedding",
+          "--pooling",
+          "mean",
+          "--embd-normalize",
+          "2",
+          "--host",
+          "127.0.0.1",
+          "--port",
+          "46891",
+          "-np",
+          "1",
+          "-ngl",
+          "99",
+          "-c",
+          "4096",
+          "-b",
+          "512",
+          "-ub",
+          "512"
+        ],
+        "configured_dimension": 4096,
+        "shared_native_encoding": true
+      },
+      "metadata": {
+        "model": {
+          "id": "nemotron_8b_abiray_q4_audit",
+          "repository": "Abiray/Nemotron-3-Embed-8B-GGUF",
+          "revision": "1ffb81e403311c4dc6879b9c3cbb6ebfa18b86df",
+          "file": "Nemotron-3-Embed-8B-Q4_K_M.gguf",
+          "bytes": 4896390039,
+          "sha256": "a2aa29c618da6eed10d9474e72e33188c61e5fd700aed2fe9a1d98abdc90c6fc",
+          "quantization": "Q4_K_M",
+          "pooling": "mean",
+          "native_dimension": 4096,
+          "document_prefix": "passage: ",
+          "query_prefix": "query: ",
+          "normalization": "l2-after-truncation",
+          "identity_validation": "local bytes and SHA-256 matched explicit immutable identity",
+          "configured_dimension": 4096,
+          "actual_dimension": 4096,
+          "vector_dtype": "float32",
+          "bytes_per_vector": 16384
+        },
+        "id": "nemotron_8b_abiray_q4_audit_4096",
+        "gate": 3,
+        "status": "COMPLETED",
+        "gate_result": null,
+        "dataset": {
+          "corpus_version": "holo_fake_scenes_v3",
+          "combined_sha256": "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b"
+        },
+        "metric_summary_path": "$.metrics.summary"
+      },
+      "rank_by_mrr_at_10": 1
+    },
     "nemotron_3_embed_1b_nvfp4": {
       "profile_id": "nemotron_3_embed_1b_nvfp4",
       "source_group": "nemotron_admission",
@@ -28500,7 +28914,7 @@
           "query_prefix": "query: "
         }
       },
-      "rank_by_mrr_at_10": 1
+      "rank_by_mrr_at_10": 2
     },
     "voyage-4-large": {
       "profile_id": "voyage-4-large",
@@ -28549,7 +28963,7 @@
           "works": 30
         }
       },
-      "rank_by_mrr_at_10": 2
+      "rank_by_mrr_at_10": 3
     },
     "voyage_4_large_1024_float32": {
       "profile_id": "voyage_4_large_1024_float32",
@@ -28575,7 +28989,7 @@
         },
         "historical_pipeline_id": "voyage_4_large_1024_float32__none"
       },
-      "rank_by_mrr_at_10": 3
+      "rank_by_mrr_at_10": 4
     },
     "nemotron_3_embed_1b_q4_k_m_gguf": {
       "profile_id": "nemotron_3_embed_1b_q4_k_m_gguf",
@@ -28622,7 +29036,7 @@
           "query_prefix": "query: "
         }
       },
-      "rank_by_mrr_at_10": 4
+      "rank_by_mrr_at_10": 5
     },
     "voyage4_nano_2048_int8": {
       "profile_id": "voyage4_nano_2048_int8",
@@ -28648,7 +29062,7 @@
         },
         "historical_pipeline_id": "voyage4_nano_2048_int8__none"
       },
-      "rank_by_mrr_at_10": 5
+      "rank_by_mrr_at_10": 6
     },
     "embeddinggemma": {
       "profile_id": "embeddinggemma",
@@ -28719,7 +29133,7 @@
         },
         "metric_summary_path": "$.metrics.summary"
       },
-      "rank_by_mrr_at_10": 6
+      "rank_by_mrr_at_10": 7
     },
     "pplx_embed_v1_4b_q8_0": {
       "profile_id": "pplx_embed_v1_4b_q8_0",
@@ -28755,7 +29169,7 @@
         "dataset": null,
         "metric_summary_path": "$.metrics.summary"
       },
-      "rank_by_mrr_at_10": 7
+      "rank_by_mrr_at_10": 8
     },
     "voyage4_nano_2048_float32": {
       "profile_id": "voyage4_nano_2048_float32",
@@ -28781,7 +29195,7 @@
         },
         "historical_pipeline_id": "voyage4_nano_2048_float32__none"
       },
-      "rank_by_mrr_at_10": 8
+      "rank_by_mrr_at_10": 9
     },
     "voyage4_nano": {
       "profile_id": "voyage4_nano",
@@ -28842,7 +29256,7 @@
         },
         "metric_summary_path": "$.metrics.summary"
       },
-      "rank_by_mrr_at_10": 9
+      "rank_by_mrr_at_10": 10
     },
     "voyage4_nano_1024_float32": {
       "profile_id": "voyage4_nano_1024_float32",
@@ -28868,7 +29282,99 @@
         },
         "historical_pipeline_id": "voyage4_nano_1024_float32__none"
       },
-      "rank_by_mrr_at_10": 10
+      "rank_by_mrr_at_10": 11
+    },
+    "nemotron_8b_abiray_q4_audit_1024": {
+      "profile_id": "nemotron_8b_abiray_q4_audit_1024",
+      "source_group": "gate3",
+      "source_path": "benchmark/embedding-v3/results/gate3/nemotron_8b_abiray_q4_audit_1024.json",
+      "metrics": {
+        "hit_rate_at_1": 0.6733333333333333,
+        "hit_rate_at_3": 0.82,
+        "hit_rate_at_5": 0.8333333333333334,
+        "hit_rate_at_10": 0.8733333333333333,
+        "hit_rate_at_20": 0.9266666666666666,
+        "mrr_at_10": 0.7459338624338624,
+        "ndcg_at_10": 0.7693962421228595,
+        "hard_negative_error_rate": 0.08666666666666667
+      },
+      "runtime": {
+        "backend": "llama.cpp",
+        "backend_version": "version: 9972 (c92e806d1)\nbuilt with GNU 16.1.1 for Linux x86_64",
+        "device": "cuda",
+        "dtype": "gguf",
+        "pooling": "mean",
+        "normalization": "l2-client-after-truncation",
+        "embedding_batch_size": 8,
+        "context_size": 4096,
+        "server_batch_size": 512,
+        "server_ubatch_size": 512,
+        "gpu_layers": 99,
+        "load_seconds": 18.946846,
+        "document_encode_seconds": 114.156514,
+        "query_encode_seconds": 4.912795,
+        "documents_per_second": 5.255942,
+        "queries_per_second": 30.532517,
+        "total_seconds": 140.054605,
+        "peak_vram_bytes": 6020923392,
+        "command": [
+          "<path>",
+          "-m",
+          "<path>",
+          "--embedding",
+          "--pooling",
+          "mean",
+          "--embd-normalize",
+          "2",
+          "--host",
+          "127.0.0.1",
+          "--port",
+          "46891",
+          "-np",
+          "1",
+          "-ngl",
+          "99",
+          "-c",
+          "4096",
+          "-b",
+          "512",
+          "-ub",
+          "512"
+        ],
+        "configured_dimension": 1024,
+        "shared_native_encoding": true
+      },
+      "metadata": {
+        "model": {
+          "id": "nemotron_8b_abiray_q4_audit",
+          "repository": "Abiray/Nemotron-3-Embed-8B-GGUF",
+          "revision": "1ffb81e403311c4dc6879b9c3cbb6ebfa18b86df",
+          "file": "Nemotron-3-Embed-8B-Q4_K_M.gguf",
+          "bytes": 4896390039,
+          "sha256": "a2aa29c618da6eed10d9474e72e33188c61e5fd700aed2fe9a1d98abdc90c6fc",
+          "quantization": "Q4_K_M",
+          "pooling": "mean",
+          "native_dimension": 4096,
+          "document_prefix": "passage: ",
+          "query_prefix": "query: ",
+          "normalization": "l2-after-truncation",
+          "identity_validation": "local bytes and SHA-256 matched explicit immutable identity",
+          "configured_dimension": 1024,
+          "actual_dimension": 1024,
+          "vector_dtype": "float32",
+          "bytes_per_vector": 4096
+        },
+        "id": "nemotron_8b_abiray_q4_audit_1024",
+        "gate": 3,
+        "status": "COMPLETED",
+        "gate_result": null,
+        "dataset": {
+          "corpus_version": "holo_fake_scenes_v3",
+          "combined_sha256": "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b"
+        },
+        "metric_summary_path": "$.metrics.summary"
+      },
+      "rank_by_mrr_at_10": 12
     },
     "voyage-context-4": {
       "profile_id": "voyage-context-4",
@@ -28917,7 +29423,7 @@
           "works": 30
         }
       },
-      "rank_by_mrr_at_10": 11
+      "rank_by_mrr_at_10": 13
     },
     "nomic_embed_text_v2_moe_q4": {
       "profile_id": "nomic_embed_text_v2_moe_q4",
@@ -28943,7 +29449,7 @@
         "dataset": null,
         "metric_summary_path": "$.metrics.summary"
       },
-      "rank_by_mrr_at_10": 12
+      "rank_by_mrr_at_10": 14
     },
     "embeddinggemma_768_float32": {
       "profile_id": "embeddinggemma_768_float32",
@@ -28969,7 +29475,7 @@
         },
         "historical_pipeline_id": "embeddinggemma_768_float32__none"
       },
-      "rank_by_mrr_at_10": 13
+      "rank_by_mrr_at_10": 15
     },
     "embeddinggemma_gguf": {
       "profile_id": "embeddinggemma_gguf",
@@ -29060,7 +29566,7 @@
         },
         "metric_summary_path": "$.metrics.summary"
       },
-      "rank_by_mrr_at_10": 14
+      "rank_by_mrr_at_10": 16
     },
     "bge_m3_dense": {
       "profile_id": "bge_m3_dense",
@@ -29131,7 +29637,7 @@
         },
         "metric_summary_path": "$.metrics.summary"
       },
-      "rank_by_mrr_at_10": 15
+      "rank_by_mrr_at_10": 17
     },
     "snowflake_arctic_embed_l_v2_q4": {
       "profile_id": "snowflake_arctic_embed_l_v2_q4",
@@ -29157,7 +29663,7 @@
         "dataset": null,
         "metric_summary_path": "$.metrics.summary"
       },
-      "rank_by_mrr_at_10": 16
+      "rank_by_mrr_at_10": 18
     },
     "qwen3_embedding_4b_q8_0": {
       "profile_id": "qwen3_embedding_4b_q8_0",
@@ -29193,7 +29699,7 @@
         "dataset": null,
         "metric_summary_path": "$.metrics.summary"
       },
-      "rank_by_mrr_at_10": 17
+      "rank_by_mrr_at_10": 19
     },
     "colibri_ptbr": {
       "profile_id": "colibri_ptbr",
@@ -29264,7 +29770,7 @@
         },
         "metric_summary_path": "$.metrics.summary"
       },
-      "rank_by_mrr_at_10": 18
+      "rank_by_mrr_at_10": 20
     },
     "qwen3_embedding_8b_gguf": {
       "profile_id": "qwen3_embedding_8b_gguf",
@@ -29353,58 +29859,6 @@
           "corpus_version": "holo_fake_scenes_v3",
           "combined_sha256": "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b"
         },
-        "metric_summary_path": "$.metrics.summary"
-      },
-      "rank_by_mrr_at_10": 19
-    },
-    "nemotron_8b_abiray_q4": {
-      "profile_id": "nemotron_8b_abiray_q4",
-      "source_group": "gate3",
-      "source_path": "benchmark/embedding-v3/results/gate3/nemotron_8b_abiray_q4.json",
-      "metrics": {
-        "hit_rate_at_1": 0.6266666666666667,
-        "hit_rate_at_3": 0.7333333333333333,
-        "hit_rate_at_5": 0.7666666666666667,
-        "hit_rate_at_10": 0.8266666666666667,
-        "hit_rate_at_20": 0.9533333333333334,
-        "mrr_at_10": 0.6918677248677249,
-        "ndcg_at_10": 0.7187619979708944,
-        "hard_negative_error_rate": 0.20666666666666667
-      },
-      "runtime": {},
-      "metadata": {
-        "model": null,
-        "id": "nemotron_8b_abiray_q4",
-        "gate": 3,
-        "status": "COMPLETED",
-        "gate_result": null,
-        "dataset": null,
-        "metric_summary_path": "$.metrics.summary"
-      },
-      "rank_by_mrr_at_10": 20
-    },
-    "nemotron_8b_aqua00_q4": {
-      "profile_id": "nemotron_8b_aqua00_q4",
-      "source_group": "gate3",
-      "source_path": "benchmark/embedding-v3/results/gate3/nemotron_8b_aqua00_q4.json",
-      "metrics": {
-        "hit_rate_at_1": 0.6266666666666667,
-        "hit_rate_at_3": 0.7333333333333333,
-        "hit_rate_at_5": 0.7666666666666667,
-        "hit_rate_at_10": 0.8266666666666667,
-        "hit_rate_at_20": 0.9533333333333334,
-        "mrr_at_10": 0.6918677248677249,
-        "ndcg_at_10": 0.7187619979708944,
-        "hard_negative_error_rate": 0.20666666666666667
-      },
-      "runtime": {},
-      "metadata": {
-        "model": null,
-        "id": "nemotron_8b_aqua00_q4",
-        "gate": 3,
-        "status": "COMPLETED",
-        "gate_result": null,
-        "dataset": null,
         "metric_summary_path": "$.metrics.summary"
       },
       "rank_by_mrr_at_10": 21
@@ -30387,5 +30841,16 @@
       },
       "rank_by_mrr_at_10": 39
     }
+  },
+  "nemotron_8b_mirror_selection": {
+    "selected": "Abiray/Nemotron-3-Embed-8B-GGUF",
+    "removed_equivalent_mirror": "Aqua00/Nemotron-3-Embed-8B-GGUF",
+    "identity_audit": "results/reranker/nemotron_8b_abiray_aqua00_identity_audit.json",
+    "reason": "tensor-identical mirrors; Abiray retained by higher HF adoption"
+  },
+  "voyage_nemotron_8b_status": {
+    "status": "BLOCKED_RATE_LIMIT",
+    "artifact": "results/reranker/voyage_rerank_2_5_nemotron_8b_abiray_blocked.json",
+    "published_pipeline_count": 0
   }
 }
