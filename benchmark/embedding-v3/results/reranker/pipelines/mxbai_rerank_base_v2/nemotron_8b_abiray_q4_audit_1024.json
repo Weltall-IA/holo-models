@@ -1,0 +1,32 @@
+{
+  "pipeline_id": "nemotron_8b_abiray_q4_audit_1024__mxbai_rerank_base_v2",
+  "embedding": "nemotron_8b_abiray_q4_audit_1024",
+  "reranker_id": "mxbai_rerank_base_v2",
+  "metrics": {
+    "summary": {
+      "MRR@10": 0.8005634920634921,
+      "HitRate@1": 0.7666666666666667,
+      "HitRate@10": 0.8666666666666667,
+      "HitRate@20": 0.9533333333333334
+    },
+    "reranked_metrics": {
+      "summary": {
+        "MRR@10": 0.8005634920634921,
+        "HitRate@1": 0.7666666666666667,
+        "HitRate@10": 0.8666666666666667,
+        "HitRate@20": 0.9533333333333334
+      }
+    },
+    "per_query_effect": []
+  },
+  "reranker_runtime": {
+    "model": "mxbai-rerank-base-v2",
+    "device": "cuda",
+    "batch_size": 32,
+    "pairs_per_second": 4.7,
+    "latency_p50_ms": 2733.23917388916,
+    "latency_p95_ms": 4297.844171524013,
+    "total_seconds": 1595.29,
+    "skipped_queries": 0
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "pipeline_id": "voyage-context-4__mxbai_rerank_base_v2",
+  "embedding": "voyage-context-4",
+  "reranker_id": "mxbai_rerank_base_v2",
+  "metrics": {
+    "summary": {
+      "MRR@10": 0.8042857142857143,
+      "HitRate@1": 0.7733333333333333,
+      "HitRate@10": 0.8733333333333333,
+      "HitRate@20": 0.9866666666666667
+    },
+    "reranked_metrics": {
+      "summary": {
+        "MRR@10": 0.8042857142857143,
+        "HitRate@1": 0.7733333333333333,
+        "HitRate@10": 0.8733333333333333,
+        "HitRate@20": 0.9866666666666667
+      }
+    },
+    "per_query_effect": []
+  },
+  "reranker_runtime": {
+    "model": "mxbai-rerank-base-v2",
+    "device": "cuda",
+    "batch_size": 32,
+    "pairs_per_second": 18.2,
+    "latency_p50_ms": 2734.13348197937,
+    "latency_p95_ms": 2858.0124497413635,
+    "total_seconds": 411.83,
+    "skipped_queries": 0
+  }
+}

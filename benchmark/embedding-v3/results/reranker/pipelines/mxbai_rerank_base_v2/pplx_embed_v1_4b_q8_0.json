@@ -1,0 +1,32 @@
+{
+  "pipeline_id": "pplx_embed_v1_4b_q8_0__mxbai_rerank_base_v2",
+  "embedding": "pplx_embed_v1_4b_q8_0",
+  "reranker_id": "mxbai_rerank_base_v2",
+  "metrics": {
+    "summary": {
+      "MRR@10": 0.8008597883597883,
+      "HitRate@1": 0.7666666666666667,
+      "HitRate@10": 0.8733333333333333,
+      "HitRate@20": 0.9533333333333334
+    },
+    "reranked_metrics": {
+      "summary": {
+        "MRR@10": 0.8008597883597883,
+        "HitRate@1": 0.7666666666666667,
+        "HitRate@10": 0.8733333333333333,
+        "HitRate@20": 0.9533333333333334
+      }
+    },
+    "per_query_effect": []
+  },
+  "reranker_runtime": {
+    "model": "mxbai-rerank-base-v2",
+    "device": "cuda",
+    "batch_size": 32,
+    "pairs_per_second": 19.2,
+    "latency_p50_ms": 2609.912872314453,
+    "latency_p95_ms": 2690.028691291809,
+    "total_seconds": 391.46,
+    "skipped_queries": 0
+  }
+}

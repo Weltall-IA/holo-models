@@ -1,0 +1,32 @@
+{
+  "pipeline_id": "nomic_embed_text_v2_moe_q4__mxbai_rerank_base_v2",
+  "embedding": "nomic_embed_text_v2_moe_q4",
+  "reranker_id": "mxbai_rerank_base_v2",
+  "metrics": {
+    "summary": {
+      "MRR@10": 0.8046904761904762,
+      "HitRate@1": 0.7733333333333333,
+      "HitRate@10": 0.8733333333333333,
+      "HitRate@20": 0.9533333333333334
+    },
+    "reranked_metrics": {
+      "summary": {
+        "MRR@10": 0.8046904761904762,
+        "HitRate@1": 0.7733333333333333,
+        "HitRate@10": 0.8733333333333333,
+        "HitRate@20": 0.9533333333333334
+      }
+    },
+    "per_query_effect": []
+  },
+  "reranker_runtime": {
+    "model": "mxbai-rerank-base-v2",
+    "device": "cuda",
+    "batch_size": 32,
+    "pairs_per_second": 17.8,
+    "latency_p50_ms": 2790.5317544937134,
+    "latency_p95_ms": 2938.9768362045284,
+    "total_seconds": 422.12,
+    "skipped_queries": 0
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "pipeline_id": "nemotron_3_embed_1b_nvfp4__mxbai_rerank_base_v2",
+  "embedding": "nemotron_3_embed_1b_nvfp4",
+  "reranker_id": "mxbai_rerank_base_v2",
+  "metrics": {
+    "summary": {
+      "MRR@10": 0.8002857142857143,
+      "HitRate@1": 0.7666666666666667,
+      "HitRate@10": 0.8666666666666667,
+      "HitRate@20": 0.96
+    },
+    "reranked_metrics": {
+      "summary": {
+        "MRR@10": 0.8002857142857143,
+        "HitRate@1": 0.7666666666666667,
+        "HitRate@10": 0.8666666666666667,
+        "HitRate@20": 0.96
+      }
+    },
+    "per_query_effect": []
+  },
+  "reranker_runtime": {
+    "model": "mxbai-rerank-base-v2",
+    "device": "cuda",
+    "batch_size": 32,
+    "pairs_per_second": 18.0,
+    "latency_p50_ms": 2736.2293004989624,
+    "latency_p95_ms": 2878.826928138733,
+    "total_seconds": 416.54,
+    "skipped_queries": 0
+  }
+}
