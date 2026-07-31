@@ -1,1 +1,3739 @@
-{"id": "nomic_embed_text_v2_moe_q4__qwen_local", "embedding_model": "nomic_embed_text_v2_moe_q4", "reranker": "qwen3_reranker_06", "metrics": {"summary": {"HitRate@1": 0.7933333333333333, "Recall@1": 0.7833333333333333, "HitRate@3": 0.84, "Recall@3": 0.83, "HitRate@5": 0.8533333333333334, "Recall@5": 0.8433333333333334, "HitRate@10": 0.88, "Recall@10": 0.87, "HitRate@20": 0.9733333333333334, "Recall@20": 0.9633333333333334, "HitRate@50": 0.9733333333333334, "Recall@50": 0.9633333333333334, "MRR@10": 0.8228571428571428, "nDCG@10": 0.8289505360198662, "mean_first_relevant_rank": 2.6780821917808217, "median_first_relevant_rank": 1.0, "queries_without_relevant": 4, "hard_negative_error_rate": 0.08666666666666667}, "by_query_type": {"character_name": {"count": 15, "HitRate@10": 0.6, "MRR@10": 0.2785714285714286, "nDCG@10": 0.35245891634542764, "hard_negative_error_rate": 0.26666666666666666}, "context_dependency": {"count": 30, "HitRate@10": 0.6, "MRR@10": 0.6, "nDCG@10": 0.5613147192765457, "hard_negative_error_rate": 0.2}, "emotion_intention": {"count": 25, "HitRate@10": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "hard_negative_error_rate": 0.0}, "exact_phrase": {"count": 10, "HitRate@10": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "hard_negative_error_rate": 0.0}, "indirect_dialogue": {"count": 20, "HitRate@10": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "hard_negative_error_rate": 0.0}, "semantic_event": {"count": 40, "HitRate@10": 1.0, "MRR@10": 0.95625, "nDCG@10": 0.9673134016304077, "hard_negative_error_rate": 0.0}, "similar_scene": {"count": 10, "HitRate@10": 1.0, "MRR@10": 0.8, "nDCG@10": 0.8523719014285831, "hard_negative_error_rate": 0.3}}, "per_query": [{"query_id": "query-0001", "query_type": "semantic_event", "difficulty": "medium", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 2, "hard_negative_error": 0.0}, {"query_id": "query-0002", "query_type": "semantic_event", "difficulty": "medium", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 12, "hard_negative_error": 0.0}, {"query_id": "query-0003", "query_type": "semantic_event", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 6, "hard_negative_error": 0.0}, {"query_id": "query-0004", "query_type": "semantic_event", "difficulty": "medium", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 2, "hard_negative_error": 0.0}, {"query_id": "query-0005", "query_type": "semantic_event", "difficulty": "medium", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 3, "hard_negative_error": 0.0}, {"query_id": "query-0006", "query_type": "semantic_event", "difficulty": "hard", "first_relevant_rank": 4, "relevant_ranks": [4], "HitRate@1": 0.0, "Recall@1": 0.0, "HitRate@3": 0.0, "Recall@3": 0.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 0.25, "nDCG@10": 0.43067655807339306, "best_hard_negative_rank": 11, "hard_negative_error": 0.0}, {"query_id": "query-0007", "query_type": "semantic_event", "difficulty": "medium", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 7, "hard_negative_error": 0.0}, {"query_id": "query-0008", "query_type": "semantic_event", "difficulty": "medium", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 3, "hard_negative_error": 0.0}, {"query_id": "query-0009", "query_type": "semantic_event", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 15, "hard_negative_error": 0.0}, {"query_id": "query-0010", "query_type": "semantic_event", "difficulty": "medium", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 8, "hard_negative_error": 0.0}, {"query_id": "query-0011", "query_type": "semantic_event", "difficulty": "medium", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 3, "hard_negative_error": 0.0}, {"query_id": "query-0012", "query_type": "semantic_event", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 6, "hard_negative_error": 0.0}, {"query_id": "query-0013", "query_type": "semantic_event", "difficulty": "medium", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 17, "hard_negative_error": 0.0}, {"query_id": "query-0014", "query_type": "semantic_event", "difficulty": "medium", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 2, "hard_negative_error": 0.0}, {"query_id": "query-0015", "query_type": "semantic_event", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 3, "hard_negative_error": 0.0}, {"query_id": "query-0016", "query_type": "semantic_event", "difficulty": "medium", "first_relevant_rank": 2, "relevant_ranks": [2], "HitRate@1": 0.0, "Recall@1": 0.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 0.5, "nDCG@10": 0.6309297535714575, "best_hard_negative_rank": 5, "hard_negative_error": 0.0}, {"query_id": "query-0017", "query_type": "semantic_event", "difficulty": "medium", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 3, "hard_negative_error": 0.0}, {"query_id": "query-0018", "query_type": "semantic_event", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 2, "hard_negative_error": 0.0}, {"query_id": "query-0019", "query_type": "semantic_event", "difficulty": "medium", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 2, "hard_negative_error": 0.0}, {"query_id": "query-0020", "query_type": "semantic_event", "difficulty": "medium", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 3, "hard_negative_error": 0.0}, {"query_id": "query-0021", "query_type": "semantic_event", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 2, "hard_negative_error": 0.0}, {"query_id": "query-0022", "query_type": "semantic_event", "difficulty": "medium", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 10, "hard_negative_error": 0.0}, {"query_id": "query-0023", "query_type": "semantic_event", "difficulty": "medium", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": null, "hard_negative_error": 0.0}, {"query_id": "query-0024", "query_type": "semantic_event", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 2, "hard_negative_error": 0.0}, {"query_id": "query-0025", "query_type": "semantic_event", "difficulty": "medium", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 3, "hard_negative_error": 0.0}, {"query_id": "query-0026", "query_type": "semantic_event", "difficulty": "medium", "first_relevant_rank": 2, "relevant_ranks": [2], "HitRate@1": 0.0, "Recall@1": 0.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 0.5, "nDCG@10": 0.6309297535714575, "best_hard_negative_rank": 5, "hard_negative_error": 0.0}, {"query_id": "query-0027", "query_type": "semantic_event", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 3, "hard_negative_error": 0.0}, {"query_id": "query-0028", "query_type": "semantic_event", "difficulty": "medium", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 4, "hard_negative_error": 0.0}, {"query_id": "query-0029", "query_type": "semantic_event", "difficulty": "medium", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 3, "hard_negative_error": 0.0}, {"query_id": "query-0030", "query_type": "semantic_event", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 11, "hard_negative_error": 0.0}, {"query_id": "query-0031", "query_type": "semantic_event", "difficulty": "medium", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 3, "hard_negative_error": 0.0}, {"query_id": "query-0032", "query_type": "semantic_event", "difficulty": "medium", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": null, "hard_negative_error": 0.0}, {"query_id": "query-0033", "query_type": "semantic_event", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 4, "hard_negative_error": 0.0}, {"query_id": "query-0034", "query_type": "semantic_event", "difficulty": "medium", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 2, "hard_negative_error": 0.0}, {"query_id": "query-0035", "query_type": "semantic_event", "difficulty": "medium", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 12, "hard_negative_error": 0.0}, {"query_id": "query-0036", "query_type": "semantic_event", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": null, "hard_negative_error": 0.0}, {"query_id": "query-0037", "query_type": "semantic_event", "difficulty": "medium", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 4, "hard_negative_error": 0.0}, {"query_id": "query-0038", "query_type": "semantic_event", "difficulty": "medium", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 6, "hard_negative_error": 0.0}, {"query_id": "query-0039", "query_type": "semantic_event", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 7, "hard_negative_error": 0.0}, {"query_id": "query-0040", "query_type": "semantic_event", "difficulty": "medium", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 3, "hard_negative_error": 0.0}, {"query_id": "query-0041", "query_type": "context_dependency", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": null, "hard_negative_error": 0.0}, {"query_id": "query-0042", "query_type": "context_dependency", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 0.5, "HitRate@3": 1.0, "Recall@3": 0.5, "HitRate@5": 1.0, "Recall@5": 0.5, "HitRate@10": 1.0, "Recall@10": 0.5, "HitRate@20": 1.0, "Recall@20": 0.5, "HitRate@50": 1.0, "Recall@50": 0.5, "MRR@10": 1.0, "nDCG@10": 0.6131471927654584, "best_hard_negative_rank": null, "hard_negative_error": 0.0}, {"query_id": "query-0043", "query_type": "context_dependency", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 16, "hard_negative_error": 0.0}, {"query_id": "query-0044", "query_type": "context_dependency", "difficulty": "hard", "first_relevant_rank": null, "relevant_ranks": [], "HitRate@1": 0.0, "Recall@1": 0.0, "HitRate@3": 0.0, "Recall@3": 0.0, "HitRate@5": 0.0, "Recall@5": 0.0, "HitRate@10": 0.0, "Recall@10": 0.0, "HitRate@20": 0.0, "Recall@20": 0.0, "HitRate@50": 0.0, "Recall@50": 0.0, "MRR@10": 0.0, "nDCG@10": 0.0, "best_hard_negative_rank": 6, "hard_negative_error": 0.0}, {"query_id": "query-0045", "query_type": "context_dependency", "difficulty": "hard", "first_relevant_rank": 13, "relevant_ranks": [13], "HitRate@1": 0.0, "Recall@1": 0.0, "HitRate@3": 0.0, "Recall@3": 0.0, "HitRate@5": 0.0, "Recall@5": 0.0, "HitRate@10": 0.0, "Recall@10": 0.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 0.0, "nDCG@10": 0.0, "best_hard_negative_rank": 16, "hard_negative_error": 0.0}, {"query_id": "query-0046", "query_type": "context_dependency", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": null, "hard_negative_error": 0.0}, {"query_id": "query-0047", "query_type": "context_dependency", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 6, "hard_negative_error": 0.0}, {"query_id": "query-0048", "query_type": "context_dependency", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 8, "hard_negative_error": 0.0}, {"query_id": "query-0049", "query_type": "context_dependency", "difficulty": "hard", "first_relevant_rank": 18, "relevant_ranks": [18], "HitRate@1": 0.0, "Recall@1": 0.0, "HitRate@3": 0.0, "Recall@3": 0.0, "HitRate@5": 0.0, "Recall@5": 0.0, "HitRate@10": 0.0, "Recall@10": 0.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 0.0, "nDCG@10": 0.0, "best_hard_negative_rank": 8, "hard_negative_error": 1.0}, {"query_id": "query-0050", "query_type": "context_dependency", "difficulty": "hard", "first_relevant_rank": null, "relevant_ranks": [], "HitRate@1": 0.0, "Recall@1": 0.0, "HitRate@3": 0.0, "Recall@3": 0.0, "HitRate@5": 0.0, "Recall@5": 0.0, "HitRate@10": 0.0, "Recall@10": 0.0, "HitRate@20": 0.0, "Recall@20": 0.0, "HitRate@50": 0.0, "Recall@50": 0.0, "MRR@10": 0.0, "nDCG@10": 0.0, "best_hard_negative_rank": 10, "hard_negative_error": 0.0}, {"query_id": "query-0051", "query_type": "context_dependency", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": null, "hard_negative_error": 0.0}, {"query_id": "query-0052", "query_type": "context_dependency", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 0.5, "HitRate@3": 1.0, "Recall@3": 0.5, "HitRate@5": 1.0, "Recall@5": 0.5, "HitRate@10": 1.0, "Recall@10": 0.5, "HitRate@20": 1.0, "Recall@20": 0.5, "HitRate@50": 1.0, "Recall@50": 0.5, "MRR@10": 1.0, "nDCG@10": 0.6131471927654584, "best_hard_negative_rank": null, "hard_negative_error": 0.0}, {"query_id": "query-0053", "query_type": "context_dependency", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 4, "hard_negative_error": 0.0}, {"query_id": "query-0054", "query_type": "context_dependency", "difficulty": "hard", "first_relevant_rank": 15, "relevant_ranks": [15], "HitRate@1": 0.0, "Recall@1": 0.0, "HitRate@3": 0.0, "Recall@3": 0.0, "HitRate@5": 0.0, "Recall@5": 0.0, "HitRate@10": 0.0, "Recall@10": 0.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 0.0, "nDCG@10": 0.0, "best_hard_negative_rank": 12, "hard_negative_error": 1.0}, {"query_id": "query-0055", "query_type": "context_dependency", "difficulty": "hard", "first_relevant_rank": 18, "relevant_ranks": [18], "HitRate@1": 0.0, "Recall@1": 0.0, "HitRate@3": 0.0, "Recall@3": 0.0, "HitRate@5": 0.0, "Recall@5": 0.0, "HitRate@10": 0.0, "Recall@10": 0.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 0.0, "nDCG@10": 0.0, "best_hard_negative_rank": 15, "hard_negative_error": 1.0}, {"query_id": "query-0056", "query_type": "context_dependency", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": null, "hard_negative_error": 0.0}, {"query_id": "query-0057", "query_type": "context_dependency", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": null, "hard_negative_error": 0.0}, {"query_id": "query-0058", "query_type": "context_dependency", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 7, "hard_negative_error": 0.0}, {"query_id": "query-0059", "query_type": "context_dependency", "difficulty": "hard", "first_relevant_rank": 19, "relevant_ranks": [19], "HitRate@1": 0.0, "Recall@1": 0.0, "HitRate@3": 0.0, "Recall@3": 0.0, "HitRate@5": 0.0, "Recall@5": 0.0, "HitRate@10": 0.0, "Recall@10": 0.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 0.0, "nDCG@10": 0.0, "best_hard_negative_rank": 9, "hard_negative_error": 1.0}, {"query_id": "query-0060", "query_type": "context_dependency", "difficulty": "hard", "first_relevant_rank": null, "relevant_ranks": [], "HitRate@1": 0.0, "Recall@1": 0.0, "HitRate@3": 0.0, "Recall@3": 0.0, "HitRate@5": 0.0, "Recall@5": 0.0, "HitRate@10": 0.0, "Recall@10": 0.0, "HitRate@20": 0.0, "Recall@20": 0.0, "HitRate@50": 0.0, "Recall@50": 0.0, "MRR@10": 0.0, "nDCG@10": 0.0, "best_hard_negative_rank": 7, "hard_negative_error": 0.0}, {"query_id": "query-0061", "query_type": "context_dependency", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": null, "hard_negative_error": 0.0}, {"query_id": "query-0062", "query_type": "context_dependency", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 0.5, "HitRate@3": 1.0, "Recall@3": 0.5, "HitRate@5": 1.0, "Recall@5": 0.5, "HitRate@10": 1.0, "Recall@10": 0.5, "HitRate@20": 1.0, "Recall@20": 0.5, "HitRate@50": 1.0, "Recall@50": 0.5, "MRR@10": 1.0, "nDCG@10": 0.6131471927654584, "best_hard_negative_rank": null, "hard_negative_error": 0.0}, {"query_id": "query-0063", "query_type": "context_dependency", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": null, "hard_negative_error": 0.0}, {"query_id": "query-0064", "query_type": "context_dependency", "difficulty": "hard", "first_relevant_rank": null, "relevant_ranks": [], "HitRate@1": 0.0, "Recall@1": 0.0, "HitRate@3": 0.0, "Recall@3": 0.0, "HitRate@5": 0.0, "Recall@5": 0.0, "HitRate@10": 0.0, "Recall@10": 0.0, "HitRate@20": 0.0, "Recall@20": 0.0, "HitRate@50": 0.0, "Recall@50": 0.0, "MRR@10": 0.0, "nDCG@10": 0.0, "best_hard_negative_rank": 5, "hard_negative_error": 0.0}, {"query_id": "query-0065", "query_type": "context_dependency", "difficulty": "hard", "first_relevant_rank": 14, "relevant_ranks": [14], "HitRate@1": 0.0, "Recall@1": 0.0, "HitRate@3": 0.0, "Recall@3": 0.0, "HitRate@5": 0.0, "Recall@5": 0.0, "HitRate@10": 0.0, "Recall@10": 0.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 0.0, "nDCG@10": 0.0, "best_hard_negative_rank": 16, "hard_negative_error": 0.0}, {"query_id": "query-0066", "query_type": "context_dependency", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": null, "hard_negative_error": 0.0}, {"query_id": "query-0067", "query_type": "context_dependency", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": null, "hard_negative_error": 0.0}, {"query_id": "query-0068", "query_type": "context_dependency", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": null, "hard_negative_error": 0.0}, {"query_id": "query-0069", "query_type": "context_dependency", "difficulty": "hard", "first_relevant_rank": 19, "relevant_ranks": [19], "HitRate@1": 0.0, "Recall@1": 0.0, "HitRate@3": 0.0, "Recall@3": 0.0, "HitRate@5": 0.0, "Recall@5": 0.0, "HitRate@10": 0.0, "Recall@10": 0.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 0.0, "nDCG@10": 0.0, "best_hard_negative_rank": 13, "hard_negative_error": 1.0}, {"query_id": "query-0070", "query_type": "context_dependency", "difficulty": "hard", "first_relevant_rank": 17, "relevant_ranks": [17], "HitRate@1": 0.0, "Recall@1": 0.0, "HitRate@3": 0.0, "Recall@3": 0.0, "HitRate@5": 0.0, "Recall@5": 0.0, "HitRate@10": 0.0, "Recall@10": 0.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 0.0, "nDCG@10": 0.0, "best_hard_negative_rank": 9, "hard_negative_error": 1.0}, {"query_id": "query-0071", "query_type": "emotion_intention", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 2, "hard_negative_error": 0.0}, {"query_id": "query-0072", "query_type": "emotion_intention", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 4, "hard_negative_error": 0.0}, {"query_id": "query-0073", "query_type": "emotion_intention", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 5, "hard_negative_error": 0.0}, {"query_id": "query-0074", "query_type": "emotion_intention", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 4, "hard_negative_error": 0.0}, {"query_id": "query-0075", "query_type": "emotion_intention", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 3, "hard_negative_error": 0.0}, {"query_id": "query-0076", "query_type": "emotion_intention", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 2, "hard_negative_error": 0.0}, {"query_id": "query-0077", "query_type": "emotion_intention", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 9, "hard_negative_error": 0.0}, {"query_id": "query-0078", "query_type": "emotion_intention", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 6, "hard_negative_error": 0.0}, {"query_id": "query-0079", "query_type": "emotion_intention", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 5, "hard_negative_error": 0.0}, {"query_id": "query-0080", "query_type": "emotion_intention", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 3, "hard_negative_error": 0.0}, {"query_id": "query-0081", "query_type": "emotion_intention", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 2, "hard_negative_error": 0.0}, {"query_id": "query-0082", "query_type": "emotion_intention", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 8, "hard_negative_error": 0.0}, {"query_id": "query-0083", "query_type": "emotion_intention", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 4, "hard_negative_error": 0.0}, {"query_id": "query-0084", "query_type": "emotion_intention", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 5, "hard_negative_error": 0.0}, {"query_id": "query-0085", "query_type": "emotion_intention", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 4, "hard_negative_error": 0.0}, {"query_id": "query-0086", "query_type": "emotion_intention", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 2, "hard_negative_error": 0.0}, {"query_id": "query-0087", "query_type": "emotion_intention", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 7, "hard_negative_error": 0.0}, {"query_id": "query-0088", "query_type": "emotion_intention", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 15, "hard_negative_error": 0.0}, {"query_id": "query-0089", "query_type": "emotion_intention", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 3, "hard_negative_error": 0.0}, {"query_id": "query-0090", "query_type": "emotion_intention", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 3, "hard_negative_error": 0.0}, {"query_id": "query-0091", "query_type": "emotion_intention", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 2, "hard_negative_error": 0.0}, {"query_id": "query-0092", "query_type": "emotion_intention", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 4, "hard_negative_error": 0.0}, {"query_id": "query-0093", "query_type": "emotion_intention", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 7, "hard_negative_error": 0.0}, {"query_id": "query-0094", "query_type": "emotion_intention", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 3, "hard_negative_error": 0.0}, {"query_id": "query-0095", "query_type": "emotion_intention", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 3, "hard_negative_error": 0.0}, {"query_id": "query-0096", "query_type": "indirect_dialogue", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 2, "hard_negative_error": 0.0}, {"query_id": "query-0097", "query_type": "indirect_dialogue", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": null, "hard_negative_error": 0.0}, {"query_id": "query-0098", "query_type": "indirect_dialogue", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 20, "hard_negative_error": 0.0}, {"query_id": "query-0099", "query_type": "indirect_dialogue", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 5, "hard_negative_error": 0.0}, {"query_id": "query-0100", "query_type": "indirect_dialogue", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 2, "hard_negative_error": 0.0}, {"query_id": "query-0101", "query_type": "indirect_dialogue", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": null, "hard_negative_error": 0.0}, {"query_id": "query-0102", "query_type": "indirect_dialogue", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": null, "hard_negative_error": 0.0}, {"query_id": "query-0103", "query_type": "indirect_dialogue", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 5, "hard_negative_error": 0.0}, {"query_id": "query-0104", "query_type": "indirect_dialogue", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 3, "hard_negative_error": 0.0}, {"query_id": "query-0105", "query_type": "indirect_dialogue", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": null, "hard_negative_error": 0.0}, {"query_id": "query-0106", "query_type": "indirect_dialogue", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": null, "hard_negative_error": 0.0}, {"query_id": "query-0107", "query_type": "indirect_dialogue", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 3, "hard_negative_error": 0.0}, {"query_id": "query-0108", "query_type": "indirect_dialogue", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 2, "hard_negative_error": 0.0}, {"query_id": "query-0109", "query_type": "indirect_dialogue", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 19, "hard_negative_error": 0.0}, {"query_id": "query-0110", "query_type": "indirect_dialogue", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 10, "hard_negative_error": 0.0}, {"query_id": "query-0111", "query_type": "indirect_dialogue", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 3, "hard_negative_error": 0.0}, {"query_id": "query-0112", "query_type": "indirect_dialogue", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 2, "hard_negative_error": 0.0}, {"query_id": "query-0113", "query_type": "indirect_dialogue", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 8, "hard_negative_error": 0.0}, {"query_id": "query-0114", "query_type": "indirect_dialogue", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 19, "hard_negative_error": 0.0}, {"query_id": "query-0115", "query_type": "indirect_dialogue", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 3, "hard_negative_error": 0.0}, {"query_id": "query-0116", "query_type": "character_name", "difficulty": "medium", "first_relevant_rank": 3, "relevant_ranks": [3], "HitRate@1": 0.0, "Recall@1": 0.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 0.3333333333333333, "nDCG@10": 0.5, "best_hard_negative_rank": 7, "hard_negative_error": 0.0}, {"query_id": "query-0117", "query_type": "character_name", "difficulty": "medium", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 5, "hard_negative_error": 0.0}, {"query_id": "query-0118", "query_type": "character_name", "difficulty": "medium", "first_relevant_rank": 19, "relevant_ranks": [19], "HitRate@1": 0.0, "Recall@1": 0.0, "HitRate@3": 0.0, "Recall@3": 0.0, "HitRate@5": 0.0, "Recall@5": 0.0, "HitRate@10": 0.0, "Recall@10": 0.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 0.0, "nDCG@10": 0.0, "best_hard_negative_rank": 12, "hard_negative_error": 1.0}, {"query_id": "query-0119", "query_type": "character_name", "difficulty": "medium", "first_relevant_rank": 15, "relevant_ranks": [15], "HitRate@1": 0.0, "Recall@1": 0.0, "HitRate@3": 0.0, "Recall@3": 0.0, "HitRate@5": 0.0, "Recall@5": 0.0, "HitRate@10": 0.0, "Recall@10": 0.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 0.0, "nDCG@10": 0.0, "best_hard_negative_rank": 18, "hard_negative_error": 0.0}, {"query_id": "query-0120", "query_type": "character_name", "difficulty": "medium", "first_relevant_rank": 7, "relevant_ranks": [7], "HitRate@1": 0.0, "Recall@1": 0.0, "HitRate@3": 0.0, "Recall@3": 0.0, "HitRate@5": 0.0, "Recall@5": 0.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 0.14285714285714285, "nDCG@10": 0.3333333333333333, "best_hard_negative_rank": 8, "hard_negative_error": 0.0}, {"query_id": "query-0121", "query_type": "character_name", "difficulty": "medium", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 2, "hard_negative_error": 0.0}, {"query_id": "query-0122", "query_type": "character_name", "difficulty": "medium", "first_relevant_rank": 6, "relevant_ranks": [6], "HitRate@1": 0.0, "Recall@1": 0.0, "HitRate@3": 0.0, "Recall@3": 0.0, "HitRate@5": 0.0, "Recall@5": 0.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 0.16666666666666666, "nDCG@10": 0.3562071871080222, "best_hard_negative_rank": 14, "hard_negative_error": 0.0}, {"query_id": "query-0123", "query_type": "character_name", "difficulty": "medium", "first_relevant_rank": 11, "relevant_ranks": [11], "HitRate@1": 0.0, "Recall@1": 0.0, "HitRate@3": 0.0, "Recall@3": 0.0, "HitRate@5": 0.0, "Recall@5": 0.0, "HitRate@10": 0.0, "Recall@10": 0.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 0.0, "nDCG@10": 0.0, "best_hard_negative_rank": 9, "hard_negative_error": 1.0}, {"query_id": "query-0124", "query_type": "character_name", "difficulty": "medium", "first_relevant_rank": 7, "relevant_ranks": [7], "HitRate@1": 0.0, "Recall@1": 0.0, "HitRate@3": 0.0, "Recall@3": 0.0, "HitRate@5": 0.0, "Recall@5": 0.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 0.14285714285714285, "nDCG@10": 0.3333333333333333, "best_hard_negative_rank": 12, "hard_negative_error": 0.0}, {"query_id": "query-0125", "query_type": "character_name", "difficulty": "medium", "first_relevant_rank": 15, "relevant_ranks": [15], "HitRate@1": 0.0, "Recall@1": 0.0, "HitRate@3": 0.0, "Recall@3": 0.0, "HitRate@5": 0.0, "Recall@5": 0.0, "HitRate@10": 0.0, "Recall@10": 0.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 0.0, "nDCG@10": 0.0, "best_hard_negative_rank": 4, "hard_negative_error": 1.0}, {"query_id": "query-0126", "query_type": "character_name", "difficulty": "medium", "first_relevant_rank": 4, "relevant_ranks": [4], "HitRate@1": 0.0, "Recall@1": 0.0, "HitRate@3": 0.0, "Recall@3": 0.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 0.25, "nDCG@10": 0.43067655807339306, "best_hard_negative_rank": 6, "hard_negative_error": 0.0}, {"query_id": "query-0127", "query_type": "character_name", "difficulty": "medium", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 11, "hard_negative_error": 0.0}, {"query_id": "query-0128", "query_type": "character_name", "difficulty": "medium", "first_relevant_rank": 18, "relevant_ranks": [18], "HitRate@1": 0.0, "Recall@1": 0.0, "HitRate@3": 0.0, "Recall@3": 0.0, "HitRate@5": 0.0, "Recall@5": 0.0, "HitRate@10": 0.0, "Recall@10": 0.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 0.0, "nDCG@10": 0.0, "best_hard_negative_rank": 8, "hard_negative_error": 1.0}, {"query_id": "query-0129", "query_type": "character_name", "difficulty": "medium", "first_relevant_rank": 11, "relevant_ranks": [11], "HitRate@1": 0.0, "Recall@1": 0.0, "HitRate@3": 0.0, "Recall@3": 0.0, "HitRate@5": 0.0, "Recall@5": 0.0, "HitRate@10": 0.0, "Recall@10": 0.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 0.0, "nDCG@10": 0.0, "best_hard_negative_rank": 16, "hard_negative_error": 0.0}, {"query_id": "query-0130", "query_type": "character_name", "difficulty": "medium", "first_relevant_rank": 7, "relevant_ranks": [7], "HitRate@1": 0.0, "Recall@1": 0.0, "HitRate@3": 0.0, "Recall@3": 0.0, "HitRate@5": 0.0, "Recall@5": 0.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 0.14285714285714285, "nDCG@10": 0.3333333333333333, "best_hard_negative_rank": 16, "hard_negative_error": 0.0}, {"query_id": "query-0131", "query_type": "exact_phrase", "difficulty": "easy", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": null, "hard_negative_error": 0.0}, {"query_id": "query-0132", "query_type": "exact_phrase", "difficulty": "easy", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": null, "hard_negative_error": 0.0}, {"query_id": "query-0133", "query_type": "exact_phrase", "difficulty": "easy", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": null, "hard_negative_error": 0.0}, {"query_id": "query-0134", "query_type": "exact_phrase", "difficulty": "easy", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": null, "hard_negative_error": 0.0}, {"query_id": "query-0135", "query_type": "exact_phrase", "difficulty": "easy", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": null, "hard_negative_error": 0.0}, {"query_id": "query-0136", "query_type": "exact_phrase", "difficulty": "easy", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": null, "hard_negative_error": 0.0}, {"query_id": "query-0137", "query_type": "exact_phrase", "difficulty": "easy", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": null, "hard_negative_error": 0.0}, {"query_id": "query-0138", "query_type": "exact_phrase", "difficulty": "easy", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": null, "hard_negative_error": 0.0}, {"query_id": "query-0139", "query_type": "exact_phrase", "difficulty": "easy", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": null, "hard_negative_error": 0.0}, {"query_id": "query-0140", "query_type": "exact_phrase", "difficulty": "easy", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": null, "hard_negative_error": 0.0}, {"query_id": "query-0141", "query_type": "similar_scene", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 2, "hard_negative_error": 0.0}, {"query_id": "query-0142", "query_type": "similar_scene", "difficulty": "hard", "first_relevant_rank": 2, "relevant_ranks": [2], "HitRate@1": 0.0, "Recall@1": 0.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 0.5, "nDCG@10": 0.6309297535714575, "best_hard_negative_rank": 1, "hard_negative_error": 1.0}, {"query_id": "query-0143", "query_type": "similar_scene", "difficulty": "hard", "first_relevant_rank": 2, "relevant_ranks": [2], "HitRate@1": 0.0, "Recall@1": 0.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 0.5, "nDCG@10": 0.6309297535714575, "best_hard_negative_rank": 1, "hard_negative_error": 1.0}, {"query_id": "query-0144", "query_type": "similar_scene", "difficulty": "hard", "first_relevant_rank": 2, "relevant_ranks": [2], "HitRate@1": 0.0, "Recall@1": 0.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 0.5, "nDCG@10": 0.6309297535714575, "best_hard_negative_rank": 14, "hard_negative_error": 0.0}, {"query_id": "query-0145", "query_type": "similar_scene", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": null, "hard_negative_error": 0.0}, {"query_id": "query-0146", "query_type": "similar_scene", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 9, "hard_negative_error": 0.0}, {"query_id": "query-0147", "query_type": "similar_scene", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": null, "hard_negative_error": 0.0}, {"query_id": "query-0148", "query_type": "similar_scene", "difficulty": "hard", "first_relevant_rank": 2, "relevant_ranks": [2], "HitRate@1": 0.0, "Recall@1": 0.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 0.5, "nDCG@10": 0.6309297535714575, "best_hard_negative_rank": 1, "hard_negative_error": 1.0}, {"query_id": "query-0149", "query_type": "similar_scene", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": 2, "hard_negative_error": 0.0}, {"query_id": "query-0150", "query_type": "similar_scene", "difficulty": "hard", "first_relevant_rank": 1, "relevant_ranks": [1], "HitRate@1": 1.0, "Recall@1": 1.0, "HitRate@3": 1.0, "Recall@3": 1.0, "HitRate@5": 1.0, "Recall@5": 1.0, "HitRate@10": 1.0, "Recall@10": 1.0, "HitRate@20": 1.0, "Recall@20": 1.0, "HitRate@50": 1.0, "Recall@50": 1.0, "MRR@10": 1.0, "nDCG@10": 1.0, "best_hard_negative_rank": null, "hard_negative_error": 0.0}]}}
+{
+  "id": "nomic_embed_text_v2_moe_q4__qwen_local",
+  "embedding_model": "nomic_embed_text_v2_moe_q4",
+  "reranker": "qwen3_reranker_06",
+  "candidate_top_k": 50,
+  "rerank_top_k": 20,
+  "metrics": {
+    "summary": {
+      "MRR@10": 0.7883597883597883,
+      "HitRate@1": 0.76,
+      "HitRate@10": 0.86,
+      "HitRate@20": 0.9733333333333334
+    },
+    "base_metrics": {
+      "summary": {
+        "HitRate@1": 0.6933333333333334,
+        "Recall@1": 0.6833333333333333,
+        "HitRate@3": 0.7733333333333333,
+        "Recall@3": 0.7633333333333333,
+        "HitRate@5": 0.7866666666666666,
+        "Recall@5": 0.7766666666666666,
+        "HitRate@10": 0.8333333333333334,
+        "Recall@10": 0.8233333333333334,
+        "HitRate@20": 0.9266666666666666,
+        "Recall@20": 0.9166666666666666,
+        "HitRate@50": 0.9733333333333334,
+        "Recall@50": 0.97,
+        "MRR@10": 0.7419761904761906,
+        "nDCG@10": 0.7562339480484944,
+        "mean_first_relevant_rank": 7.72,
+        "median_first_relevant_rank": 1.0,
+        "queries_without_relevant": 0,
+        "hard_negative_error_rate": 0.15333333333333332
+      },
+      "per_query": [
+        {
+          "query_id": "query-0001",
+          "query_type": "semantic_event",
+          "difficulty": "medium",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0002",
+          "query_type": "semantic_event",
+          "difficulty": "medium",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0003",
+          "query_type": "semantic_event",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0004",
+          "query_type": "semantic_event",
+          "difficulty": "medium",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0005",
+          "query_type": "semantic_event",
+          "difficulty": "medium",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0006",
+          "query_type": "semantic_event",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0007",
+          "query_type": "semantic_event",
+          "difficulty": "medium",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0008",
+          "query_type": "semantic_event",
+          "difficulty": "medium",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0009",
+          "query_type": "semantic_event",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0010",
+          "query_type": "semantic_event",
+          "difficulty": "medium",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0011",
+          "query_type": "semantic_event",
+          "difficulty": "medium",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0012",
+          "query_type": "semantic_event",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0013",
+          "query_type": "semantic_event",
+          "difficulty": "medium",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0014",
+          "query_type": "semantic_event",
+          "difficulty": "medium",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0015",
+          "query_type": "semantic_event",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0016",
+          "query_type": "semantic_event",
+          "difficulty": "medium",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0017",
+          "query_type": "semantic_event",
+          "difficulty": "medium",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0018",
+          "query_type": "semantic_event",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0019",
+          "query_type": "semantic_event",
+          "difficulty": "medium",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0020",
+          "query_type": "semantic_event",
+          "difficulty": "medium",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0021",
+          "query_type": "semantic_event",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0022",
+          "query_type": "semantic_event",
+          "difficulty": "medium",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0023",
+          "query_type": "semantic_event",
+          "difficulty": "medium",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0024",
+          "query_type": "semantic_event",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0025",
+          "query_type": "semantic_event",
+          "difficulty": "medium",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0026",
+          "query_type": "semantic_event",
+          "difficulty": "medium",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0027",
+          "query_type": "semantic_event",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0028",
+          "query_type": "semantic_event",
+          "difficulty": "medium",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0029",
+          "query_type": "semantic_event",
+          "difficulty": "medium",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0030",
+          "query_type": "semantic_event",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0031",
+          "query_type": "semantic_event",
+          "difficulty": "medium",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0032",
+          "query_type": "semantic_event",
+          "difficulty": "medium",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0033",
+          "query_type": "semantic_event",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0034",
+          "query_type": "semantic_event",
+          "difficulty": "medium",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0035",
+          "query_type": "semantic_event",
+          "difficulty": "medium",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0036",
+          "query_type": "semantic_event",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0037",
+          "query_type": "semantic_event",
+          "difficulty": "medium",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0038",
+          "query_type": "semantic_event",
+          "difficulty": "medium",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0039",
+          "query_type": "semantic_event",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0040",
+          "query_type": "semantic_event",
+          "difficulty": "medium",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0041",
+          "query_type": "context_dependency",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0042",
+          "query_type": "context_dependency",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0043",
+          "query_type": "context_dependency",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0044",
+          "query_type": "context_dependency",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0045",
+          "query_type": "context_dependency",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0046",
+          "query_type": "context_dependency",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0047",
+          "query_type": "context_dependency",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0048",
+          "query_type": "context_dependency",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0049",
+          "query_type": "context_dependency",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0050",
+          "query_type": "context_dependency",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0051",
+          "query_type": "context_dependency",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0052",
+          "query_type": "context_dependency",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0053",
+          "query_type": "context_dependency",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0054",
+          "query_type": "context_dependency",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0055",
+          "query_type": "context_dependency",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0056",
+          "query_type": "context_dependency",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0057",
+          "query_type": "context_dependency",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0058",
+          "query_type": "context_dependency",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0059",
+          "query_type": "context_dependency",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0060",
+          "query_type": "context_dependency",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0061",
+          "query_type": "context_dependency",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0062",
+          "query_type": "context_dependency",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0063",
+          "query_type": "context_dependency",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0064",
+          "query_type": "context_dependency",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0065",
+          "query_type": "context_dependency",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0066",
+          "query_type": "context_dependency",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0067",
+          "query_type": "context_dependency",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0068",
+          "query_type": "context_dependency",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0069",
+          "query_type": "context_dependency",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0070",
+          "query_type": "context_dependency",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0071",
+          "query_type": "emotion_intention",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0072",
+          "query_type": "emotion_intention",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0073",
+          "query_type": "emotion_intention",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0074",
+          "query_type": "emotion_intention",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0075",
+          "query_type": "emotion_intention",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0076",
+          "query_type": "emotion_intention",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0077",
+          "query_type": "emotion_intention",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0078",
+          "query_type": "emotion_intention",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0079",
+          "query_type": "emotion_intention",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0080",
+          "query_type": "emotion_intention",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0081",
+          "query_type": "emotion_intention",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0082",
+          "query_type": "emotion_intention",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0083",
+          "query_type": "emotion_intention",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0084",
+          "query_type": "emotion_intention",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0085",
+          "query_type": "emotion_intention",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0086",
+          "query_type": "emotion_intention",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0087",
+          "query_type": "emotion_intention",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0088",
+          "query_type": "emotion_intention",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0089",
+          "query_type": "emotion_intention",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0090",
+          "query_type": "emotion_intention",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0091",
+          "query_type": "emotion_intention",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0092",
+          "query_type": "emotion_intention",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0093",
+          "query_type": "emotion_intention",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0094",
+          "query_type": "emotion_intention",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0095",
+          "query_type": "emotion_intention",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0096",
+          "query_type": "indirect_dialogue",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0097",
+          "query_type": "indirect_dialogue",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0098",
+          "query_type": "indirect_dialogue",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0099",
+          "query_type": "indirect_dialogue",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0100",
+          "query_type": "indirect_dialogue",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0101",
+          "query_type": "indirect_dialogue",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0102",
+          "query_type": "indirect_dialogue",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0103",
+          "query_type": "indirect_dialogue",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0104",
+          "query_type": "indirect_dialogue",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0105",
+          "query_type": "indirect_dialogue",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0106",
+          "query_type": "indirect_dialogue",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0107",
+          "query_type": "indirect_dialogue",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0108",
+          "query_type": "indirect_dialogue",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0109",
+          "query_type": "indirect_dialogue",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0110",
+          "query_type": "indirect_dialogue",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0111",
+          "query_type": "indirect_dialogue",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0112",
+          "query_type": "indirect_dialogue",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0113",
+          "query_type": "indirect_dialogue",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0114",
+          "query_type": "indirect_dialogue",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0115",
+          "query_type": "indirect_dialogue",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0116",
+          "query_type": "character_name",
+          "difficulty": "medium",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0117",
+          "query_type": "character_name",
+          "difficulty": "medium",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0118",
+          "query_type": "character_name",
+          "difficulty": "medium",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0119",
+          "query_type": "character_name",
+          "difficulty": "medium",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0120",
+          "query_type": "character_name",
+          "difficulty": "medium",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0121",
+          "query_type": "character_name",
+          "difficulty": "medium",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0122",
+          "query_type": "character_name",
+          "difficulty": "medium",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0123",
+          "query_type": "character_name",
+          "difficulty": "medium",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0124",
+          "query_type": "character_name",
+          "difficulty": "medium",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0125",
+          "query_type": "character_name",
+          "difficulty": "medium",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0126",
+          "query_type": "character_name",
+          "difficulty": "medium",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0127",
+          "query_type": "character_name",
+          "difficulty": "medium",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0128",
+          "query_type": "character_name",
+          "difficulty": "medium",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0129",
+          "query_type": "character_name",
+          "difficulty": "medium",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0130",
+          "query_type": "character_name",
+          "difficulty": "medium",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0131",
+          "query_type": "exact_phrase",
+          "difficulty": "easy",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0132",
+          "query_type": "exact_phrase",
+          "difficulty": "easy",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0133",
+          "query_type": "exact_phrase",
+          "difficulty": "easy",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0134",
+          "query_type": "exact_phrase",
+          "difficulty": "easy",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0135",
+          "query_type": "exact_phrase",
+          "difficulty": "easy",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0136",
+          "query_type": "exact_phrase",
+          "difficulty": "easy",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0137",
+          "query_type": "exact_phrase",
+          "difficulty": "easy",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0138",
+          "query_type": "exact_phrase",
+          "difficulty": "easy",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0139",
+          "query_type": "exact_phrase",
+          "difficulty": "easy",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0140",
+          "query_type": "exact_phrase",
+          "difficulty": "easy",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0141",
+          "query_type": "similar_scene",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0142",
+          "query_type": "similar_scene",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0143",
+          "query_type": "similar_scene",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0144",
+          "query_type": "similar_scene",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0145",
+          "query_type": "similar_scene",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0146",
+          "query_type": "similar_scene",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0147",
+          "query_type": "similar_scene",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0148",
+          "query_type": "similar_scene",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0149",
+          "query_type": "similar_scene",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        {
+          "query_id": "query-0150",
+          "query_type": "similar_scene",
+          "difficulty": "hard",
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        }
+      ],
+      "by_query_type": {
+        "character_name": {
+          "count": 15,
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        "context_dependency": {
+          "count": 30,
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        "emotion_intention": {
+          "count": 25,
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        "exact_phrase": {
+          "count": 10,
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        },
+        "indirect_dialogue": {
+          "count": 20,
+          "MRR@10": 0,
+          "HitRate@1": 0,
+          "HitRate@10": 0,
+          "HitRate@20": 0
+        }
+      }
+    },
+    "reranked_metrics": {
+      "summary": {
+        "MRR@10": 0.7883597883597883,
+        "HitRate@1": 0.76,
+        "HitRate@10": 0.86,
+        "HitRate@20": 0.9733333333333334
+      },
+      "per_query": [
+        {
+          "query_id": "query-0001",
+          "query_type": "semantic_event",
+          "difficulty": "medium",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0002",
+          "query_type": "semantic_event",
+          "difficulty": "medium",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0003",
+          "query_type": "semantic_event",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0004",
+          "query_type": "semantic_event",
+          "difficulty": "medium",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0005",
+          "query_type": "semantic_event",
+          "difficulty": "medium",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0006",
+          "query_type": "semantic_event",
+          "difficulty": "hard",
+          "MRR@10": 0.2,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0007",
+          "query_type": "semantic_event",
+          "difficulty": "medium",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0008",
+          "query_type": "semantic_event",
+          "difficulty": "medium",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0009",
+          "query_type": "semantic_event",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0010",
+          "query_type": "semantic_event",
+          "difficulty": "medium",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0011",
+          "query_type": "semantic_event",
+          "difficulty": "medium",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0012",
+          "query_type": "semantic_event",
+          "difficulty": "hard",
+          "MRR@10": 0.5,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0013",
+          "query_type": "semantic_event",
+          "difficulty": "medium",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0014",
+          "query_type": "semantic_event",
+          "difficulty": "medium",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0015",
+          "query_type": "semantic_event",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0016",
+          "query_type": "semantic_event",
+          "difficulty": "medium",
+          "MRR@10": 0.3333333333333333,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0017",
+          "query_type": "semantic_event",
+          "difficulty": "medium",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0018",
+          "query_type": "semantic_event",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0019",
+          "query_type": "semantic_event",
+          "difficulty": "medium",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0020",
+          "query_type": "semantic_event",
+          "difficulty": "medium",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0021",
+          "query_type": "semantic_event",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0022",
+          "query_type": "semantic_event",
+          "difficulty": "medium",
+          "MRR@10": 0.3333333333333333,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0023",
+          "query_type": "semantic_event",
+          "difficulty": "medium",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0024",
+          "query_type": "semantic_event",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0025",
+          "query_type": "semantic_event",
+          "difficulty": "medium",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0026",
+          "query_type": "semantic_event",
+          "difficulty": "medium",
+          "MRR@10": 0.25,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0027",
+          "query_type": "semantic_event",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0028",
+          "query_type": "semantic_event",
+          "difficulty": "medium",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0029",
+          "query_type": "semantic_event",
+          "difficulty": "medium",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0030",
+          "query_type": "semantic_event",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0031",
+          "query_type": "semantic_event",
+          "difficulty": "medium",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0032",
+          "query_type": "semantic_event",
+          "difficulty": "medium",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0033",
+          "query_type": "semantic_event",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0034",
+          "query_type": "semantic_event",
+          "difficulty": "medium",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0035",
+          "query_type": "semantic_event",
+          "difficulty": "medium",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0036",
+          "query_type": "semantic_event",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0037",
+          "query_type": "semantic_event",
+          "difficulty": "medium",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0038",
+          "query_type": "semantic_event",
+          "difficulty": "medium",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0039",
+          "query_type": "semantic_event",
+          "difficulty": "hard",
+          "MRR@10": 0.3333333333333333,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0040",
+          "query_type": "semantic_event",
+          "difficulty": "medium",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0041",
+          "query_type": "context_dependency",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0042",
+          "query_type": "context_dependency",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0043",
+          "query_type": "context_dependency",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0044",
+          "query_type": "context_dependency",
+          "difficulty": "hard",
+          "MRR@10": 0.0,
+          "HitRate@1": 0.0,
+          "HitRate@10": 0.0,
+          "HitRate@20": 0.0
+        },
+        {
+          "query_id": "query-0045",
+          "query_type": "context_dependency",
+          "difficulty": "hard",
+          "MRR@10": 0.0,
+          "HitRate@1": 0.0,
+          "HitRate@10": 0.0,
+          "HitRate@20": 0.0
+        },
+        {
+          "query_id": "query-0046",
+          "query_type": "context_dependency",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0047",
+          "query_type": "context_dependency",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0048",
+          "query_type": "context_dependency",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0049",
+          "query_type": "context_dependency",
+          "difficulty": "hard",
+          "MRR@10": 0.0,
+          "HitRate@1": 0.0,
+          "HitRate@10": 0.0,
+          "HitRate@20": 0.0
+        },
+        {
+          "query_id": "query-0050",
+          "query_type": "context_dependency",
+          "difficulty": "hard",
+          "MRR@10": 0.0,
+          "HitRate@1": 0.0,
+          "HitRate@10": 0.0,
+          "HitRate@20": 0.0
+        },
+        {
+          "query_id": "query-0051",
+          "query_type": "context_dependency",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0052",
+          "query_type": "context_dependency",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0053",
+          "query_type": "context_dependency",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0054",
+          "query_type": "context_dependency",
+          "difficulty": "hard",
+          "MRR@10": 0.0,
+          "HitRate@1": 0.0,
+          "HitRate@10": 0.0,
+          "HitRate@20": 0.0
+        },
+        {
+          "query_id": "query-0055",
+          "query_type": "context_dependency",
+          "difficulty": "hard",
+          "MRR@10": 0.0,
+          "HitRate@1": 0.0,
+          "HitRate@10": 0.0,
+          "HitRate@20": 0.0
+        },
+        {
+          "query_id": "query-0056",
+          "query_type": "context_dependency",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0057",
+          "query_type": "context_dependency",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0058",
+          "query_type": "context_dependency",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0059",
+          "query_type": "context_dependency",
+          "difficulty": "hard",
+          "MRR@10": 0.0,
+          "HitRate@1": 0.0,
+          "HitRate@10": 0.0,
+          "HitRate@20": 0.0
+        },
+        {
+          "query_id": "query-0060",
+          "query_type": "context_dependency",
+          "difficulty": "hard",
+          "MRR@10": 0.0,
+          "HitRate@1": 0.0,
+          "HitRate@10": 0.0,
+          "HitRate@20": 0.0
+        },
+        {
+          "query_id": "query-0061",
+          "query_type": "context_dependency",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0062",
+          "query_type": "context_dependency",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0063",
+          "query_type": "context_dependency",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0064",
+          "query_type": "context_dependency",
+          "difficulty": "hard",
+          "MRR@10": 0.0,
+          "HitRate@1": 0.0,
+          "HitRate@10": 0.0,
+          "HitRate@20": 0.0
+        },
+        {
+          "query_id": "query-0065",
+          "query_type": "context_dependency",
+          "difficulty": "hard",
+          "MRR@10": 0.0,
+          "HitRate@1": 0.0,
+          "HitRate@10": 0.0,
+          "HitRate@20": 0.0
+        },
+        {
+          "query_id": "query-0066",
+          "query_type": "context_dependency",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0067",
+          "query_type": "context_dependency",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0068",
+          "query_type": "context_dependency",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0069",
+          "query_type": "context_dependency",
+          "difficulty": "hard",
+          "MRR@10": 0.0,
+          "HitRate@1": 0.0,
+          "HitRate@10": 0.0,
+          "HitRate@20": 0.0
+        },
+        {
+          "query_id": "query-0070",
+          "query_type": "context_dependency",
+          "difficulty": "hard",
+          "MRR@10": 0.0,
+          "HitRate@1": 0.0,
+          "HitRate@10": 0.0,
+          "HitRate@20": 0.0
+        },
+        {
+          "query_id": "query-0071",
+          "query_type": "emotion_intention",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0072",
+          "query_type": "emotion_intention",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0073",
+          "query_type": "emotion_intention",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0074",
+          "query_type": "emotion_intention",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0075",
+          "query_type": "emotion_intention",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0076",
+          "query_type": "emotion_intention",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0077",
+          "query_type": "emotion_intention",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0078",
+          "query_type": "emotion_intention",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0079",
+          "query_type": "emotion_intention",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0080",
+          "query_type": "emotion_intention",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0081",
+          "query_type": "emotion_intention",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0082",
+          "query_type": "emotion_intention",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0083",
+          "query_type": "emotion_intention",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0084",
+          "query_type": "emotion_intention",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0085",
+          "query_type": "emotion_intention",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0086",
+          "query_type": "emotion_intention",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0087",
+          "query_type": "emotion_intention",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0088",
+          "query_type": "emotion_intention",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0089",
+          "query_type": "emotion_intention",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0090",
+          "query_type": "emotion_intention",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0091",
+          "query_type": "emotion_intention",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0092",
+          "query_type": "emotion_intention",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0093",
+          "query_type": "emotion_intention",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0094",
+          "query_type": "emotion_intention",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0095",
+          "query_type": "emotion_intention",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0096",
+          "query_type": "indirect_dialogue",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0097",
+          "query_type": "indirect_dialogue",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0098",
+          "query_type": "indirect_dialogue",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0099",
+          "query_type": "indirect_dialogue",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0100",
+          "query_type": "indirect_dialogue",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0101",
+          "query_type": "indirect_dialogue",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0102",
+          "query_type": "indirect_dialogue",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0103",
+          "query_type": "indirect_dialogue",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0104",
+          "query_type": "indirect_dialogue",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0105",
+          "query_type": "indirect_dialogue",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0106",
+          "query_type": "indirect_dialogue",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0107",
+          "query_type": "indirect_dialogue",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0108",
+          "query_type": "indirect_dialogue",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0109",
+          "query_type": "indirect_dialogue",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0110",
+          "query_type": "indirect_dialogue",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0111",
+          "query_type": "indirect_dialogue",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0112",
+          "query_type": "indirect_dialogue",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0113",
+          "query_type": "indirect_dialogue",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0114",
+          "query_type": "indirect_dialogue",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0115",
+          "query_type": "indirect_dialogue",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0116",
+          "query_type": "character_name",
+          "difficulty": "medium",
+          "MRR@10": 0.0,
+          "HitRate@1": 0.0,
+          "HitRate@10": 0.0,
+          "HitRate@20": 0.0
+        },
+        {
+          "query_id": "query-0117",
+          "query_type": "character_name",
+          "difficulty": "medium",
+          "MRR@10": 0.16666666666666666,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0118",
+          "query_type": "character_name",
+          "difficulty": "medium",
+          "MRR@10": 0.0,
+          "HitRate@1": 0.0,
+          "HitRate@10": 0.0,
+          "HitRate@20": 0.0
+        },
+        {
+          "query_id": "query-0119",
+          "query_type": "character_name",
+          "difficulty": "medium",
+          "MRR@10": 0.0,
+          "HitRate@1": 0.0,
+          "HitRate@10": 0.0,
+          "HitRate@20": 0.0
+        },
+        {
+          "query_id": "query-0120",
+          "query_type": "character_name",
+          "difficulty": "medium",
+          "MRR@10": 0.25,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0121",
+          "query_type": "character_name",
+          "difficulty": "medium",
+          "MRR@10": 0.3333333333333333,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0122",
+          "query_type": "character_name",
+          "difficulty": "medium",
+          "MRR@10": 0.1,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0123",
+          "query_type": "character_name",
+          "difficulty": "medium",
+          "MRR@10": 0.0,
+          "HitRate@1": 0.0,
+          "HitRate@10": 0.0,
+          "HitRate@20": 0.0
+        },
+        {
+          "query_id": "query-0124",
+          "query_type": "character_name",
+          "difficulty": "medium",
+          "MRR@10": 0.0,
+          "HitRate@1": 0.0,
+          "HitRate@10": 0.0,
+          "HitRate@20": 0.0
+        },
+        {
+          "query_id": "query-0125",
+          "query_type": "character_name",
+          "difficulty": "medium",
+          "MRR@10": 0.2,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0126",
+          "query_type": "character_name",
+          "difficulty": "medium",
+          "MRR@10": 0.1111111111111111,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0127",
+          "query_type": "character_name",
+          "difficulty": "medium",
+          "MRR@10": 0.0,
+          "HitRate@1": 0.0,
+          "HitRate@10": 0.0,
+          "HitRate@20": 0.0
+        },
+        {
+          "query_id": "query-0128",
+          "query_type": "character_name",
+          "difficulty": "medium",
+          "MRR@10": 0.0,
+          "HitRate@1": 0.0,
+          "HitRate@10": 0.0,
+          "HitRate@20": 0.0
+        },
+        {
+          "query_id": "query-0129",
+          "query_type": "character_name",
+          "difficulty": "medium",
+          "MRR@10": 0.0,
+          "HitRate@1": 0.0,
+          "HitRate@10": 0.0,
+          "HitRate@20": 0.0
+        },
+        {
+          "query_id": "query-0130",
+          "query_type": "character_name",
+          "difficulty": "medium",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0131",
+          "query_type": "exact_phrase",
+          "difficulty": "easy",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0132",
+          "query_type": "exact_phrase",
+          "difficulty": "easy",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0133",
+          "query_type": "exact_phrase",
+          "difficulty": "easy",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0134",
+          "query_type": "exact_phrase",
+          "difficulty": "easy",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0135",
+          "query_type": "exact_phrase",
+          "difficulty": "easy",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0136",
+          "query_type": "exact_phrase",
+          "difficulty": "easy",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0137",
+          "query_type": "exact_phrase",
+          "difficulty": "easy",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0138",
+          "query_type": "exact_phrase",
+          "difficulty": "easy",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0139",
+          "query_type": "exact_phrase",
+          "difficulty": "easy",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0140",
+          "query_type": "exact_phrase",
+          "difficulty": "easy",
+          "MRR@10": 0.0,
+          "HitRate@1": 0.0,
+          "HitRate@10": 0.0,
+          "HitRate@20": 0.0
+        },
+        {
+          "query_id": "query-0141",
+          "query_type": "similar_scene",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0142",
+          "query_type": "similar_scene",
+          "difficulty": "hard",
+          "MRR@10": 0.5,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0143",
+          "query_type": "similar_scene",
+          "difficulty": "hard",
+          "MRR@10": 0.5,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0144",
+          "query_type": "similar_scene",
+          "difficulty": "hard",
+          "MRR@10": 0.14285714285714285,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0145",
+          "query_type": "similar_scene",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0146",
+          "query_type": "similar_scene",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0147",
+          "query_type": "similar_scene",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0148",
+          "query_type": "similar_scene",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0149",
+          "query_type": "similar_scene",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        {
+          "query_id": "query-0150",
+          "query_type": "similar_scene",
+          "difficulty": "hard",
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        }
+      ],
+      "by_query_type": {
+        "character_name": {
+          "count": 15,
+          "MRR@10": 0.1440740740740741,
+          "HitRate@1": 0.4666666666666667,
+          "HitRate@10": 0.4666666666666667,
+          "HitRate@20": 0.4666666666666667
+        },
+        "context_dependency": {
+          "count": 30,
+          "MRR@10": 0.6,
+          "HitRate@1": 0.6,
+          "HitRate@10": 0.6,
+          "HitRate@20": 0.6
+        },
+        "emotion_intention": {
+          "count": 25,
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        },
+        "exact_phrase": {
+          "count": 10,
+          "MRR@10": 0.9,
+          "HitRate@1": 0.9,
+          "HitRate@10": 0.9,
+          "HitRate@20": 0.9
+        },
+        "indirect_dialogue": {
+          "count": 20,
+          "MRR@10": 1.0,
+          "HitRate@1": 1.0,
+          "HitRate@10": 1.0,
+          "HitRate@20": 1.0
+        }
+      }
+    },
+    "per_query_effect": [
+      {
+        "query_id": "query-0001",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0002",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0003",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0004",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0005",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0006",
+        "base_mrr": 0,
+        "reranked_mrr": 0.2,
+        "effect": 0.2
+      },
+      {
+        "query_id": "query-0007",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0008",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0009",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0010",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0011",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0012",
+        "base_mrr": 0,
+        "reranked_mrr": 0.5,
+        "effect": 0.5
+      },
+      {
+        "query_id": "query-0013",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0014",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0015",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0016",
+        "base_mrr": 0,
+        "reranked_mrr": 0.3333333333333333,
+        "effect": 0.3333333333333333
+      },
+      {
+        "query_id": "query-0017",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0018",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0019",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0020",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0021",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0022",
+        "base_mrr": 0,
+        "reranked_mrr": 0.3333333333333333,
+        "effect": 0.3333333333333333
+      },
+      {
+        "query_id": "query-0023",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0024",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0025",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0026",
+        "base_mrr": 0,
+        "reranked_mrr": 0.25,
+        "effect": 0.25
+      },
+      {
+        "query_id": "query-0027",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0028",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0029",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0030",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0031",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0032",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0033",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0034",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0035",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0036",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0037",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0038",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0039",
+        "base_mrr": 0,
+        "reranked_mrr": 0.3333333333333333,
+        "effect": 0.3333333333333333
+      },
+      {
+        "query_id": "query-0040",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0041",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0042",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0043",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0044",
+        "base_mrr": 0,
+        "reranked_mrr": 0.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0045",
+        "base_mrr": 0,
+        "reranked_mrr": 0.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0046",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0047",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0048",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0049",
+        "base_mrr": 0,
+        "reranked_mrr": 0.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0050",
+        "base_mrr": 0,
+        "reranked_mrr": 0.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0051",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0052",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0053",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0054",
+        "base_mrr": 0,
+        "reranked_mrr": 0.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0055",
+        "base_mrr": 0,
+        "reranked_mrr": 0.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0056",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0057",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0058",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0059",
+        "base_mrr": 0,
+        "reranked_mrr": 0.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0060",
+        "base_mrr": 0,
+        "reranked_mrr": 0.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0061",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0062",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0063",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0064",
+        "base_mrr": 0,
+        "reranked_mrr": 0.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0065",
+        "base_mrr": 0,
+        "reranked_mrr": 0.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0066",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0067",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0068",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0069",
+        "base_mrr": 0,
+        "reranked_mrr": 0.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0070",
+        "base_mrr": 0,
+        "reranked_mrr": 0.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0071",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0072",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0073",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0074",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0075",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0076",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0077",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0078",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0079",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0080",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0081",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0082",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0083",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0084",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0085",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0086",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0087",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0088",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0089",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0090",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0091",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0092",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0093",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0094",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0095",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0096",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0097",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0098",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0099",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0100",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0101",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0102",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0103",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0104",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0105",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0106",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0107",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0108",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0109",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0110",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0111",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0112",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0113",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0114",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0115",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0116",
+        "base_mrr": 0,
+        "reranked_mrr": 0.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0117",
+        "base_mrr": 0,
+        "reranked_mrr": 0.16666666666666666,
+        "effect": 0.16666666666666666
+      },
+      {
+        "query_id": "query-0118",
+        "base_mrr": 0,
+        "reranked_mrr": 0.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0119",
+        "base_mrr": 0,
+        "reranked_mrr": 0.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0120",
+        "base_mrr": 0,
+        "reranked_mrr": 0.25,
+        "effect": 0.25
+      },
+      {
+        "query_id": "query-0121",
+        "base_mrr": 0,
+        "reranked_mrr": 0.3333333333333333,
+        "effect": 0.3333333333333333
+      },
+      {
+        "query_id": "query-0122",
+        "base_mrr": 0,
+        "reranked_mrr": 0.1,
+        "effect": 0.1
+      },
+      {
+        "query_id": "query-0123",
+        "base_mrr": 0,
+        "reranked_mrr": 0.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0124",
+        "base_mrr": 0,
+        "reranked_mrr": 0.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0125",
+        "base_mrr": 0,
+        "reranked_mrr": 0.2,
+        "effect": 0.2
+      },
+      {
+        "query_id": "query-0126",
+        "base_mrr": 0,
+        "reranked_mrr": 0.1111111111111111,
+        "effect": 0.1111111111111111
+      },
+      {
+        "query_id": "query-0127",
+        "base_mrr": 0,
+        "reranked_mrr": 0.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0128",
+        "base_mrr": 0,
+        "reranked_mrr": 0.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0129",
+        "base_mrr": 0,
+        "reranked_mrr": 0.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0130",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0131",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0132",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0133",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0134",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0135",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0136",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0137",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0138",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0139",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0140",
+        "base_mrr": 0,
+        "reranked_mrr": 0.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0141",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0142",
+        "base_mrr": 0,
+        "reranked_mrr": 0.5,
+        "effect": 0.5
+      },
+      {
+        "query_id": "query-0143",
+        "base_mrr": 0,
+        "reranked_mrr": 0.5,
+        "effect": 0.5
+      },
+      {
+        "query_id": "query-0144",
+        "base_mrr": 0,
+        "reranked_mrr": 0.14285714285714285,
+        "effect": 0.14285714285714285
+      },
+      {
+        "query_id": "query-0145",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0146",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0147",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0148",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0149",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0150",
+        "base_mrr": 0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      }
+    ]
+  },
+  "reranker_runtime": {
+    "model": "Qwen/Qwen3-Reranker-0.6B",
+    "device": "cuda",
+    "batch_size": 32,
+    "total_pairs": 7500,
+    "pairs_per_second": 3.3,
+    "latency_p50_ms": 3905.1038026809692,
+    "latency_p95_ms": 70609.44004058826,
+    "latency_p99_ms": 293246.8197727192,
+    "latency_max_ms": 417637.6340389252,
+    "total_seconds": 2249.49,
+    "reranker_load_seconds": 5.0
+  },
+  "raw_profile_id": "nomic_embed_text_v2_moe_q4"
+}
