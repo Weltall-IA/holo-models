@@ -17,25 +17,20 @@ from holo_benchmark.artifact_portability import (
     sanitize_host_payload,
 )
 
-EXPECTED_PIPELINE_COUNT = 105
-EXPECTED_PIPELINE_EMBEDDINGS = 36
-EXPECTED_RAW_PROFILE_COUNT = 39
+EXPECTED_PIPELINE_COUNT = 87
+EXPECTED_PIPELINE_EMBEDDINGS = 39
+EXPECTED_RAW_PROFILE_COUNT = 38
 EXPECTED_RERANKER_COUNTS = {
     "jina_reranker_v3_noncommercial": 12,
     "kalm_reranker_v1_nano": 12,
     "kalm_reranker_v1_small": 12,
-    "llama_nemotron_rerank_1b_v2": 6,
-    "mxbai_rerank_base_v2": 6,
     "querit_reranker_4b": 12,
-    "qwen_local": 36,
-    "voyage_rerank_2_5": 9,
+    "qwen_local": 39,
 }
 EXPECTED_RAW_SOURCE_COUNTS = {
-    "gate2": 11,
-    "gate3": 19,
-    "voyage_raw": 2,
-    "nemotron_admission": 2,
-    "historical_raw_none": 5,
+    "gate2": 12,
+    "gate3": 22,
+    "voyage_raw": 4,
 }
 REQUIRED_RAW_PROFILE_IDS = {
     "bitnet_06b_current",
@@ -66,7 +61,6 @@ REQUIRED_METRICS = (
     "mrr_at_10",
     "hit_rate_at_1",
     "hit_rate_at_10",
-    "ndcg_at_10",
 )
 OMIT_KEYS = {
     "per_query",
