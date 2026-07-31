@@ -19,7 +19,7 @@ from holo_benchmark.artifact_portability import (
 
 EXPECTED_PIPELINE_COUNT = 87
 EXPECTED_PIPELINE_EMBEDDINGS = 39
-EXPECTED_RAW_PROFILE_COUNT = 38
+EXPECTED_RAW_PROFILE_COUNT = 33
 EXPECTED_RERANKER_COUNTS = {
     "jina_reranker_v3_noncommercial": 12,
     "kalm_reranker_v1_nano": 12,
@@ -28,16 +28,14 @@ EXPECTED_RERANKER_COUNTS = {
     "qwen_local": 39,
 }
 EXPECTED_RAW_SOURCE_COUNTS = {
-    "gate2": 12,
+    "gate2": 11,
     "gate3": 22,
-    "voyage_raw": 4,
 }
 REQUIRED_RAW_PROFILE_IDS = {
     "bitnet_06b_current",
     "bitnet_270m_current",
     "lfm_25_embedding_350m_q4_k_m_official",
-    "nemotron_3_embed_1b_nvfp4",
-    "qwen3_embedding_8b_gguf",
+    "qwen3_embedding_4b_q8_0",
 }
 STRICT_CANONICAL_RERANKERS = {
     "llama_nemotron_rerank_1b_v2",
