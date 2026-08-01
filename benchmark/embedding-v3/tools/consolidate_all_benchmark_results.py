@@ -17,7 +17,7 @@ from holo_benchmark.artifact_portability import (
     sanitize_host_payload,
 )
 
-EXPECTED_PIPELINE_COUNT = 126
+EXPECTED_PIPELINE_COUNT = 139
 EXPECTED_PIPELINE_EMBEDDINGS = 39
 EXPECTED_RAW_PROFILE_COUNT = 42
 EXPECTED_RERANKER_COUNTS = {
@@ -26,7 +26,7 @@ EXPECTED_RERANKER_COUNTS = {
     "jina_reranker_v3_noncommercial": 12,
     "kalm_reranker_v1_nano": 12,
     "kalm_reranker_v1_small": 12,
-    "lamar_600m": 1,
+    "lamar_600m": 14,
     "llama_nemotron_rerank_1b_v2": 1,
     "mxbai_rerank_base_v2": 9,
     "querit_reranker_4b": 12,
