@@ -1,17 +1,47 @@
 {
   "schema_version": "1.0",
-  "pipeline_id": "nomic_embed_text_v2_moe_q4__mxbai_rerank_base_v2",
-  "embedding_variant": "nomic_embed_text_v2_moe_q4",
+  "pipeline_id": "colibri_ptbr__mxbai_rerank_base_v2",
+  "embedding_variant": "colibri_ptbr",
   "embedding": {
-    "profile_id": "nomic_embed_text_v2_moe_q4",
-    "source_group": "gate3",
-    "source_path": "benchmark/embedding-v3/results/gate3/nomic_embed_text_v2_moe_q4.json",
-    "evidence_sha256": "7e86d5df08b71ed2c47b134876542016602c85161f1e50b0a760d1a4391d5cce",
-    "model": null,
+    "profile_id": "colibri_ptbr",
+    "source_group": "gate2",
+    "source_path": "benchmark/embedding-v3/results/gate2/colibri_ptbr.json",
+    "evidence_sha256": "bee300e9bf982b9dc9b85590f1fc4949f5dc72cb9162915a581e518da469bdc2",
+    "model": {
+      "id": "colibri_ptbr",
+      "repo": "tardellirs/colibri-embed-ptbr",
+      "revision": "95a4d4f3a1c056ac19e0da196d0ab2b4289e3b3b",
+      "backend": "sentence-transformers",
+      "mode": null,
+      "required": true,
+      "configured_dimension": 768,
+      "actual_dimension": 768,
+      "trust_remote_code": false,
+      "license": "gemma",
+      "gated": false,
+      "file": null,
+      "weight_files": [
+        {
+          "file": "2_Dense/model.safetensors",
+          "bytes": 9437272,
+          "sha256": "94e0ed668eafb9d55a49877a5002958300398b07b2d137ed9d318939d26e39d6"
+        },
+        {
+          "file": "3_Dense/model.safetensors",
+          "bytes": 9437272,
+          "sha256": "8ea34e717149c8e263f0337eb3923dffa11c2ff408ca425e04c7239ae5fed5fc"
+        },
+        {
+          "file": "model.safetensors",
+          "bytes": 602787368,
+          "sha256": "4e24b5ee42f5cdd9fd752d95989d46c62af05fc107a42a4be78a394c791d9561"
+        }
+      ]
+    },
     "backend": null,
     "backend_version": null
   },
-  "candidate_ranking_sha256": "1e8215ac8b2bc6571369e53384adae8f6680f0573d110e8090a6ceec2edc2bb1",
+  "candidate_ranking_sha256": "337df486dfa1cdf6524557b7351706b8ed4d8d70702c7d727de56ea30b9549b0",
   "reranker_id": "mxbai_rerank_base_v2",
   "reranker": {
     "id": "mxbai_rerank_base_v2",
@@ -93,83 +123,108 @@
   },
   "candidate_top_k": 50,
   "rerank_top_k": 20,
-  "score_artifact": "results/reranker/scores/mxbai_rerank_base_v2/nomic_embed_text_v2_moe_q4.json",
+  "score_artifact": "results/reranker/scores/mxbai_rerank_base_v2/colibri_ptbr.json",
   "evaluation": {
     "base_metrics": {
       "summary": {
-        "HitRate@1": 0.6933333333333334,
-        "Recall@1": 0.6833333333333333,
-        "HitRate@3": 0.7733333333333333,
-        "Recall@3": 0.7633333333333333,
-        "HitRate@5": 0.7866666666666666,
-        "Recall@5": 0.7766666666666666,
-        "HitRate@10": 0.8333333333333334,
-        "Recall@10": 0.8233333333333334,
-        "HitRate@20": 0.9266666666666666,
-        "Recall@20": 0.9166666666666666,
+        "HitRate@1": 0.62,
+        "Recall@1": 0.61,
+        "HitRate@3": 0.78,
+        "Recall@3": 0.77,
+        "HitRate@5": 0.8133333333333334,
+        "Recall@5": 0.8033333333333333,
+        "HitRate@10": 0.84,
+        "Recall@10": 0.83,
+        "HitRate@20": 0.9666666666666667,
+        "Recall@20": 0.9566666666666667,
         "HitRate@50": 0.9733333333333334,
-        "Recall@50": 0.97,
-        "MRR@10": 0.7419761904761906,
-        "nDCG@10": 0.7562339480484944,
-        "mean_first_relevant_rank": 4.321917808219178,
+        "Recall@50": 0.9733333333333334,
+        "MRR@10": 0.7035978835978837,
+        "nDCG@10": 0.7295431411627953,
+        "mean_first_relevant_rank": 3.719178082191781,
         "median_first_relevant_rank": 1.0,
         "queries_without_relevant": 4,
-        "hard_negative_error_rate": 0.12666666666666668
+        "hard_negative_error_rate": 0.16
       },
       "by_query_type": {
         "character_name": {
           "count": 15,
-          "HitRate@10": 0.5333333333333333,
-          "MRR@10": 0.1464285714285714,
-          "nDCG@10": 0.23366702648180562,
-          "hard_negative_error_rate": 0.4666666666666667
+          "HitRate@10": 0.3333333333333333,
+          "MRR@10": 0.12507936507936507,
+          "nDCG@10": 0.1738025965201611,
+          "hard_negative_error_rate": 0.5333333333333333
         },
         "context_dependency": {
           "count": 30,
           "HitRate@10": 0.6,
-          "MRR@10": 0.5583333333333333,
-          "nDCG@10": 0.5300349296647074,
-          "hard_negative_error_rate": 0.23333333333333334
+          "MRR@10": 0.6,
+          "nDCG@10": 0.5613147192765457,
+          "hard_negative_error_rate": 0.16666666666666666
         },
         "emotion_intention": {
           "count": 25,
           "HitRate@10": 1.0,
-          "MRR@10": 0.96,
-          "nDCG@10": 0.9704743802857166,
-          "hard_negative_error_rate": 0.0
+          "MRR@10": 0.8133333333333332,
+          "nDCG@10": 0.8618975211428664,
+          "hard_negative_error_rate": 0.16
         },
         "exact_phrase": {
           "count": 10,
-          "HitRate@10": 1.0,
-          "MRR@10": 0.9,
-          "nDCG@10": 0.9261859507142916,
-          "hard_negative_error_rate": 0.0
+          "HitRate@10": 0.9,
+          "MRR@10": 0.75,
+          "nDCG@10": 0.7892789260714372,
+          "hard_negative_error_rate": 0.1
         },
         "indirect_dialogue": {
           "count": 20,
           "HitRate@10": 1.0,
-          "MRR@10": 0.9625,
-          "nDCG@10": 0.9715338279036697,
+          "MRR@10": 0.975,
+          "nDCG@10": 0.9815464876785729,
           "hard_negative_error_rate": 0.05
         },
         "semantic_event": {
           "count": 40,
-          "HitRate@10": 0.925,
-          "MRR@10": 0.865,
-          "nDCG@10": 0.8795463521758066,
+          "HitRate@10": 1.0,
+          "MRR@10": 0.8213095238095238,
+          "nDCG@10": 0.864875526224826,
           "hard_negative_error_rate": 0.1
         },
         "similar_scene": {
           "count": 10,
-          "HitRate@10": 0.7,
-          "MRR@10": 0.55,
-          "nDCG@10": 0.5892789260714373,
-          "hard_negative_error_rate": 0.0
+          "HitRate@10": 0.9,
+          "MRR@10": 0.5477777777777778,
+          "nDCG@10": 0.631881255646998,
+          "hard_negative_error_rate": 0.1
         }
       },
       "per_query": [
         {
           "query_id": "query-0001",
+          "query_type": "semantic_event",
+          "difficulty": "medium",
+          "first_relevant_rank": 5,
+          "relevant_ranks": [
+            5
+          ],
+          "HitRate@1": 0.0,
+          "Recall@1": 0.0,
+          "HitRate@3": 0.0,
+          "Recall@3": 0.0,
+          "HitRate@5": 1.0,
+          "Recall@5": 1.0,
+          "HitRate@10": 1.0,
+          "Recall@10": 1.0,
+          "HitRate@20": 1.0,
+          "Recall@20": 1.0,
+          "HitRate@50": 1.0,
+          "Recall@50": 1.0,
+          "MRR@10": 0.2,
+          "nDCG@10": 0.38685280723454163,
+          "best_hard_negative_rank": 6,
+          "hard_negative_error": 0.0
+        },
+        {
+          "query_id": "query-0002",
           "query_type": "semantic_event",
           "difficulty": "medium",
           "first_relevant_rank": 1,
@@ -190,32 +245,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 2,
-          "hard_negative_error": 0.0
-        },
-        {
-          "query_id": "query-0002",
-          "query_type": "semantic_event",
-          "difficulty": "medium",
-          "first_relevant_rank": 2,
-          "relevant_ranks": [
-            2
-          ],
-          "HitRate@1": 0.0,
-          "Recall@1": 0.0,
-          "HitRate@3": 1.0,
-          "Recall@3": 1.0,
-          "HitRate@5": 1.0,
-          "Recall@5": 1.0,
-          "HitRate@10": 1.0,
-          "Recall@10": 1.0,
-          "HitRate@20": 1.0,
-          "Recall@20": 1.0,
-          "HitRate@50": 1.0,
-          "Recall@50": 1.0,
-          "MRR@10": 0.5,
-          "nDCG@10": 0.6309297535714575,
-          "best_hard_negative_rank": 7,
+          "best_hard_negative_rank": 6,
           "hard_negative_error": 0.0
         },
         {
@@ -240,33 +270,33 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 6,
+          "best_hard_negative_rank": 19,
           "hard_negative_error": 0.0
         },
         {
           "query_id": "query-0004",
           "query_type": "semantic_event",
           "difficulty": "medium",
-          "first_relevant_rank": 15,
+          "first_relevant_rank": 2,
           "relevant_ranks": [
-            15
+            2
           ],
           "HitRate@1": 0.0,
           "Recall@1": 0.0,
-          "HitRate@3": 0.0,
-          "Recall@3": 0.0,
-          "HitRate@5": 0.0,
-          "Recall@5": 0.0,
-          "HitRate@10": 0.0,
-          "Recall@10": 0.0,
+          "HitRate@3": 1.0,
+          "Recall@3": 1.0,
+          "HitRate@5": 1.0,
+          "Recall@5": 1.0,
+          "HitRate@10": 1.0,
+          "Recall@10": 1.0,
           "HitRate@20": 1.0,
           "Recall@20": 1.0,
           "HitRate@50": 1.0,
           "Recall@50": 1.0,
-          "MRR@10": 0.0,
-          "nDCG@10": 0.0,
-          "best_hard_negative_rank": 1,
-          "hard_negative_error": 1.0
+          "MRR@10": 0.5,
+          "nDCG@10": 0.6309297535714575,
+          "best_hard_negative_rank": 3,
+          "hard_negative_error": 0.0
         },
         {
           "query_id": "query-0005",
@@ -315,7 +345,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 16,
+          "best_hard_negative_rank": 15,
           "hard_negative_error": 0.0
         },
         {
@@ -372,12 +402,12 @@
           "query_id": "query-0009",
           "query_type": "semantic_event",
           "difficulty": "hard",
-          "first_relevant_rank": 1,
+          "first_relevant_rank": 3,
           "relevant_ranks": [
-            1
+            3
           ],
-          "HitRate@1": 1.0,
-          "Recall@1": 1.0,
+          "HitRate@1": 0.0,
+          "Recall@1": 0.0,
           "HitRate@3": 1.0,
           "Recall@3": 1.0,
           "HitRate@5": 1.0,
@@ -388,10 +418,10 @@
           "Recall@20": 1.0,
           "HitRate@50": 1.0,
           "Recall@50": 1.0,
-          "MRR@10": 1.0,
-          "nDCG@10": 1.0,
-          "best_hard_negative_rank": 5,
-          "hard_negative_error": 0.0
+          "MRR@10": 0.3333333333333333,
+          "nDCG@10": 0.5,
+          "best_hard_negative_rank": 2,
+          "hard_negative_error": 1.0
         },
         {
           "query_id": "query-0010",
@@ -415,19 +445,19 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 3,
+          "best_hard_negative_rank": 2,
           "hard_negative_error": 0.0
         },
         {
           "query_id": "query-0011",
           "query_type": "semantic_event",
           "difficulty": "medium",
-          "first_relevant_rank": 1,
+          "first_relevant_rank": 2,
           "relevant_ranks": [
-            1
+            2
           ],
-          "HitRate@1": 1.0,
-          "Recall@1": 1.0,
+          "HitRate@1": 0.0,
+          "Recall@1": 0.0,
           "HitRate@3": 1.0,
           "Recall@3": 1.0,
           "HitRate@5": 1.0,
@@ -438,9 +468,9 @@
           "Recall@20": 1.0,
           "HitRate@50": 1.0,
           "Recall@50": 1.0,
-          "MRR@10": 1.0,
-          "nDCG@10": 1.0,
-          "best_hard_negative_rank": 2,
+          "MRR@10": 0.5,
+          "nDCG@10": 0.6309297535714575,
+          "best_hard_negative_rank": 8,
           "hard_negative_error": 0.0
         },
         {
@@ -465,7 +495,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 7,
+          "best_hard_negative_rank": 10,
           "hard_negative_error": 0.0
         },
         {
@@ -490,16 +520,16 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 4,
+          "best_hard_negative_rank": 5,
           "hard_negative_error": 0.0
         },
         {
           "query_id": "query-0014",
           "query_type": "semantic_event",
           "difficulty": "medium",
-          "first_relevant_rank": 12,
+          "first_relevant_rank": 7,
           "relevant_ranks": [
-            12
+            7
           ],
           "HitRate@1": 0.0,
           "Recall@1": 0.0,
@@ -507,27 +537,27 @@
           "Recall@3": 0.0,
           "HitRate@5": 0.0,
           "Recall@5": 0.0,
-          "HitRate@10": 0.0,
-          "Recall@10": 0.0,
+          "HitRate@10": 1.0,
+          "Recall@10": 1.0,
           "HitRate@20": 1.0,
           "Recall@20": 1.0,
           "HitRate@50": 1.0,
           "Recall@50": 1.0,
-          "MRR@10": 0.0,
-          "nDCG@10": 0.0,
-          "best_hard_negative_rank": 4,
+          "MRR@10": 0.14285714285714285,
+          "nDCG@10": 0.3333333333333333,
+          "best_hard_negative_rank": 2,
           "hard_negative_error": 1.0
         },
         {
           "query_id": "query-0015",
           "query_type": "semantic_event",
           "difficulty": "hard",
-          "first_relevant_rank": 1,
+          "first_relevant_rank": 3,
           "relevant_ranks": [
-            1
+            3
           ],
-          "HitRate@1": 1.0,
-          "Recall@1": 1.0,
+          "HitRate@1": 0.0,
+          "Recall@1": 0.0,
           "HitRate@3": 1.0,
           "Recall@3": 1.0,
           "HitRate@5": 1.0,
@@ -538,10 +568,10 @@
           "Recall@20": 1.0,
           "HitRate@50": 1.0,
           "Recall@50": 1.0,
-          "MRR@10": 1.0,
-          "nDCG@10": 1.0,
-          "best_hard_negative_rank": 2,
-          "hard_negative_error": 0.0
+          "MRR@10": 0.3333333333333333,
+          "nDCG@10": 0.5,
+          "best_hard_negative_rank": 1,
+          "hard_negative_error": 1.0
         },
         {
           "query_id": "query-0016",
@@ -565,7 +595,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 9,
+          "best_hard_negative_rank": 8,
           "hard_negative_error": 0.0
         },
         {
@@ -615,7 +645,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 4,
+          "best_hard_negative_rank": 2,
           "hard_negative_error": 0.0
         },
         {
@@ -665,13 +695,38 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 4,
+          "best_hard_negative_rank": 2,
           "hard_negative_error": 0.0
         },
         {
           "query_id": "query-0021",
           "query_type": "semantic_event",
           "difficulty": "hard",
+          "first_relevant_rank": 7,
+          "relevant_ranks": [
+            7
+          ],
+          "HitRate@1": 0.0,
+          "Recall@1": 0.0,
+          "HitRate@3": 0.0,
+          "Recall@3": 0.0,
+          "HitRate@5": 0.0,
+          "Recall@5": 0.0,
+          "HitRate@10": 1.0,
+          "Recall@10": 1.0,
+          "HitRate@20": 1.0,
+          "Recall@20": 1.0,
+          "HitRate@50": 1.0,
+          "Recall@50": 1.0,
+          "MRR@10": 0.14285714285714285,
+          "nDCG@10": 0.3333333333333333,
+          "best_hard_negative_rank": 8,
+          "hard_negative_error": 0.0
+        },
+        {
+          "query_id": "query-0022",
+          "query_type": "semantic_event",
+          "difficulty": "medium",
           "first_relevant_rank": 1,
           "relevant_ranks": [
             1
@@ -690,32 +745,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 2,
-          "hard_negative_error": 0.0
-        },
-        {
-          "query_id": "query-0022",
-          "query_type": "semantic_event",
-          "difficulty": "medium",
-          "first_relevant_rank": 2,
-          "relevant_ranks": [
-            2
-          ],
-          "HitRate@1": 0.0,
-          "Recall@1": 0.0,
-          "HitRate@3": 1.0,
-          "Recall@3": 1.0,
-          "HitRate@5": 1.0,
-          "Recall@5": 1.0,
-          "HitRate@10": 1.0,
-          "Recall@10": 1.0,
-          "HitRate@20": 1.0,
-          "Recall@20": 1.0,
-          "HitRate@50": 1.0,
-          "Recall@50": 1.0,
-          "MRR@10": 0.5,
-          "nDCG@10": 0.6309297535714575,
-          "best_hard_negative_rank": 7,
+          "best_hard_negative_rank": 6,
           "hard_negative_error": 0.0
         },
         {
@@ -740,33 +770,33 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 4,
+          "best_hard_negative_rank": 23,
           "hard_negative_error": 0.0
         },
         {
           "query_id": "query-0024",
           "query_type": "semantic_event",
           "difficulty": "hard",
-          "first_relevant_rank": 11,
+          "first_relevant_rank": 2,
           "relevant_ranks": [
-            11
+            2
           ],
           "HitRate@1": 0.0,
           "Recall@1": 0.0,
-          "HitRate@3": 0.0,
-          "Recall@3": 0.0,
-          "HitRate@5": 0.0,
-          "Recall@5": 0.0,
-          "HitRate@10": 0.0,
-          "Recall@10": 0.0,
+          "HitRate@3": 1.0,
+          "Recall@3": 1.0,
+          "HitRate@5": 1.0,
+          "Recall@5": 1.0,
+          "HitRate@10": 1.0,
+          "Recall@10": 1.0,
           "HitRate@20": 1.0,
           "Recall@20": 1.0,
           "HitRate@50": 1.0,
           "Recall@50": 1.0,
-          "MRR@10": 0.0,
-          "nDCG@10": 0.0,
-          "best_hard_negative_rank": 2,
-          "hard_negative_error": 1.0
+          "MRR@10": 0.5,
+          "nDCG@10": 0.6309297535714575,
+          "best_hard_negative_rank": 3,
+          "hard_negative_error": 0.0
         },
         {
           "query_id": "query-0025",
@@ -815,7 +845,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 13,
+          "best_hard_negative_rank": 8,
           "hard_negative_error": 0.0
         },
         {
@@ -865,19 +895,19 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 3,
+          "best_hard_negative_rank": 2,
           "hard_negative_error": 0.0
         },
         {
           "query_id": "query-0029",
           "query_type": "semantic_event",
           "difficulty": "medium",
-          "first_relevant_rank": 1,
+          "first_relevant_rank": 2,
           "relevant_ranks": [
-            1
+            2
           ],
-          "HitRate@1": 1.0,
-          "Recall@1": 1.0,
+          "HitRate@1": 0.0,
+          "Recall@1": 0.0,
           "HitRate@3": 1.0,
           "Recall@3": 1.0,
           "HitRate@5": 1.0,
@@ -888,9 +918,9 @@
           "Recall@20": 1.0,
           "HitRate@50": 1.0,
           "Recall@50": 1.0,
-          "MRR@10": 1.0,
-          "nDCG@10": 1.0,
-          "best_hard_negative_rank": 4,
+          "MRR@10": 0.5,
+          "nDCG@10": 0.6309297535714575,
+          "best_hard_negative_rank": 3,
           "hard_negative_error": 0.0
         },
         {
@@ -940,7 +970,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 3,
+          "best_hard_negative_rank": 2,
           "hard_negative_error": 0.0
         },
         {
@@ -965,7 +995,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 3,
+          "best_hard_negative_rank": 4,
           "hard_negative_error": 0.0
         },
         {
@@ -990,19 +1020,19 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 4,
+          "best_hard_negative_rank": 2,
           "hard_negative_error": 0.0
         },
         {
           "query_id": "query-0034",
           "query_type": "semantic_event",
           "difficulty": "medium",
-          "first_relevant_rank": 1,
+          "first_relevant_rank": 2,
           "relevant_ranks": [
-            1
+            2
           ],
-          "HitRate@1": 1.0,
-          "Recall@1": 1.0,
+          "HitRate@1": 0.0,
+          "Recall@1": 0.0,
           "HitRate@3": 1.0,
           "Recall@3": 1.0,
           "HitRate@5": 1.0,
@@ -1013,9 +1043,9 @@
           "Recall@20": 1.0,
           "HitRate@50": 1.0,
           "Recall@50": 1.0,
-          "MRR@10": 1.0,
-          "nDCG@10": 1.0,
-          "best_hard_negative_rank": 3,
+          "MRR@10": 0.5,
+          "nDCG@10": 0.6309297535714575,
+          "best_hard_negative_rank": 7,
           "hard_negative_error": 0.0
         },
         {
@@ -1040,7 +1070,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 9,
+          "best_hard_negative_rank": 22,
           "hard_negative_error": 0.0
         },
         {
@@ -1065,86 +1095,11 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 3,
+          "best_hard_negative_rank": 6,
           "hard_negative_error": 0.0
         },
         {
           "query_id": "query-0037",
-          "query_type": "semantic_event",
-          "difficulty": "medium",
-          "first_relevant_rank": 10,
-          "relevant_ranks": [
-            10
-          ],
-          "HitRate@1": 0.0,
-          "Recall@1": 0.0,
-          "HitRate@3": 0.0,
-          "Recall@3": 0.0,
-          "HitRate@5": 0.0,
-          "Recall@5": 0.0,
-          "HitRate@10": 1.0,
-          "Recall@10": 1.0,
-          "HitRate@20": 1.0,
-          "Recall@20": 1.0,
-          "HitRate@50": 1.0,
-          "Recall@50": 1.0,
-          "MRR@10": 0.1,
-          "nDCG@10": 0.2890648263178879,
-          "best_hard_negative_rank": 1,
-          "hard_negative_error": 1.0
-        },
-        {
-          "query_id": "query-0038",
-          "query_type": "semantic_event",
-          "difficulty": "medium",
-          "first_relevant_rank": 2,
-          "relevant_ranks": [
-            2
-          ],
-          "HitRate@1": 0.0,
-          "Recall@1": 0.0,
-          "HitRate@3": 1.0,
-          "Recall@3": 1.0,
-          "HitRate@5": 1.0,
-          "Recall@5": 1.0,
-          "HitRate@10": 1.0,
-          "Recall@10": 1.0,
-          "HitRate@20": 1.0,
-          "Recall@20": 1.0,
-          "HitRate@50": 1.0,
-          "Recall@50": 1.0,
-          "MRR@10": 0.5,
-          "nDCG@10": 0.6309297535714575,
-          "best_hard_negative_rank": 4,
-          "hard_negative_error": 0.0
-        },
-        {
-          "query_id": "query-0039",
-          "query_type": "semantic_event",
-          "difficulty": "hard",
-          "first_relevant_rank": 1,
-          "relevant_ranks": [
-            1
-          ],
-          "HitRate@1": 1.0,
-          "Recall@1": 1.0,
-          "HitRate@3": 1.0,
-          "Recall@3": 1.0,
-          "HitRate@5": 1.0,
-          "Recall@5": 1.0,
-          "HitRate@10": 1.0,
-          "Recall@10": 1.0,
-          "HitRate@20": 1.0,
-          "Recall@20": 1.0,
-          "HitRate@50": 1.0,
-          "Recall@50": 1.0,
-          "MRR@10": 1.0,
-          "nDCG@10": 1.0,
-          "best_hard_negative_rank": 4,
-          "hard_negative_error": 0.0
-        },
-        {
-          "query_id": "query-0040",
           "query_type": "semantic_event",
           "difficulty": "medium",
           "first_relevant_rank": 1,
@@ -1169,6 +1124,81 @@
           "hard_negative_error": 0.0
         },
         {
+          "query_id": "query-0038",
+          "query_type": "semantic_event",
+          "difficulty": "medium",
+          "first_relevant_rank": 5,
+          "relevant_ranks": [
+            5
+          ],
+          "HitRate@1": 0.0,
+          "Recall@1": 0.0,
+          "HitRate@3": 0.0,
+          "Recall@3": 0.0,
+          "HitRate@5": 1.0,
+          "Recall@5": 1.0,
+          "HitRate@10": 1.0,
+          "Recall@10": 1.0,
+          "HitRate@20": 1.0,
+          "Recall@20": 1.0,
+          "HitRate@50": 1.0,
+          "Recall@50": 1.0,
+          "MRR@10": 0.2,
+          "nDCG@10": 0.38685280723454163,
+          "best_hard_negative_rank": 4,
+          "hard_negative_error": 1.0
+        },
+        {
+          "query_id": "query-0039",
+          "query_type": "semantic_event",
+          "difficulty": "hard",
+          "first_relevant_rank": 1,
+          "relevant_ranks": [
+            1
+          ],
+          "HitRate@1": 1.0,
+          "Recall@1": 1.0,
+          "HitRate@3": 1.0,
+          "Recall@3": 1.0,
+          "HitRate@5": 1.0,
+          "Recall@5": 1.0,
+          "HitRate@10": 1.0,
+          "Recall@10": 1.0,
+          "HitRate@20": 1.0,
+          "Recall@20": 1.0,
+          "HitRate@50": 1.0,
+          "Recall@50": 1.0,
+          "MRR@10": 1.0,
+          "nDCG@10": 1.0,
+          "best_hard_negative_rank": 6,
+          "hard_negative_error": 0.0
+        },
+        {
+          "query_id": "query-0040",
+          "query_type": "semantic_event",
+          "difficulty": "medium",
+          "first_relevant_rank": 1,
+          "relevant_ranks": [
+            1
+          ],
+          "HitRate@1": 1.0,
+          "Recall@1": 1.0,
+          "HitRate@3": 1.0,
+          "Recall@3": 1.0,
+          "HitRate@5": 1.0,
+          "Recall@5": 1.0,
+          "HitRate@10": 1.0,
+          "Recall@10": 1.0,
+          "HitRate@20": 1.0,
+          "Recall@20": 1.0,
+          "HitRate@50": 1.0,
+          "Recall@50": 1.0,
+          "MRR@10": 1.0,
+          "nDCG@10": 1.0,
+          "best_hard_negative_rank": 4,
+          "hard_negative_error": 0.0
+        },
+        {
           "query_id": "query-0041",
           "query_type": "context_dependency",
           "difficulty": "hard",
@@ -1190,7 +1220,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 8,
+          "best_hard_negative_rank": 3,
           "hard_negative_error": 0.0
         },
         {
@@ -1199,7 +1229,8 @@
           "difficulty": "hard",
           "first_relevant_rank": 1,
           "relevant_ranks": [
-            1
+            1,
+            43
           ],
           "HitRate@1": 1.0,
           "Recall@1": 0.5,
@@ -1212,7 +1243,7 @@
           "HitRate@20": 1.0,
           "Recall@20": 0.5,
           "HitRate@50": 1.0,
-          "Recall@50": 0.5,
+          "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 0.6131471927654584,
           "best_hard_negative_rank": null,
@@ -1240,7 +1271,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 31,
+          "best_hard_negative_rank": 3,
           "hard_negative_error": 0.0
         },
         {
@@ -1263,16 +1294,16 @@
           "Recall@50": 0.0,
           "MRR@10": 0.0,
           "nDCG@10": 0.0,
-          "best_hard_negative_rank": 19,
+          "best_hard_negative_rank": 13,
           "hard_negative_error": 0.0
         },
         {
           "query_id": "query-0045",
           "query_type": "context_dependency",
           "difficulty": "hard",
-          "first_relevant_rank": 36,
+          "first_relevant_rank": 18,
           "relevant_ranks": [
-            36
+            18
           ],
           "HitRate@1": 0.0,
           "Recall@1": 0.0,
@@ -1282,13 +1313,13 @@
           "Recall@5": 0.0,
           "HitRate@10": 0.0,
           "Recall@10": 0.0,
-          "HitRate@20": 0.0,
-          "Recall@20": 0.0,
+          "HitRate@20": 1.0,
+          "Recall@20": 1.0,
           "HitRate@50": 1.0,
           "Recall@50": 1.0,
           "MRR@10": 0.0,
           "nDCG@10": 0.0,
-          "best_hard_negative_rank": 16,
+          "best_hard_negative_rank": 6,
           "hard_negative_error": 1.0
         },
         {
@@ -1313,19 +1344,19 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 4,
+          "best_hard_negative_rank": 2,
           "hard_negative_error": 0.0
         },
         {
           "query_id": "query-0047",
           "query_type": "context_dependency",
           "difficulty": "hard",
-          "first_relevant_rank": 2,
+          "first_relevant_rank": 1,
           "relevant_ranks": [
-            2
+            1
           ],
-          "HitRate@1": 0.0,
-          "Recall@1": 0.0,
+          "HitRate@1": 1.0,
+          "Recall@1": 1.0,
           "HitRate@3": 1.0,
           "Recall@3": 1.0,
           "HitRate@5": 1.0,
@@ -1336,9 +1367,9 @@
           "Recall@20": 1.0,
           "HitRate@50": 1.0,
           "Recall@50": 1.0,
-          "MRR@10": 0.5,
-          "nDCG@10": 0.6309297535714575,
-          "best_hard_negative_rank": 38,
+          "MRR@10": 1.0,
+          "nDCG@10": 1.0,
+          "best_hard_negative_rank": 24,
           "hard_negative_error": 0.0
         },
         {
@@ -1363,16 +1394,16 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 31,
+          "best_hard_negative_rank": 2,
           "hard_negative_error": 0.0
         },
         {
           "query_id": "query-0049",
           "query_type": "context_dependency",
           "difficulty": "hard",
-          "first_relevant_rank": 29,
+          "first_relevant_rank": 20,
           "relevant_ranks": [
-            29
+            20
           ],
           "HitRate@1": 0.0,
           "Recall@1": 0.0,
@@ -1382,14 +1413,14 @@
           "Recall@5": 0.0,
           "HitRate@10": 0.0,
           "Recall@10": 0.0,
-          "HitRate@20": 0.0,
-          "Recall@20": 0.0,
+          "HitRate@20": 1.0,
+          "Recall@20": 1.0,
           "HitRate@50": 1.0,
           "Recall@50": 1.0,
           "MRR@10": 0.0,
           "nDCG@10": 0.0,
-          "best_hard_negative_rank": 17,
-          "hard_negative_error": 1.0
+          "best_hard_negative_rank": 24,
+          "hard_negative_error": 0.0
         },
         {
           "query_id": "query-0050",
@@ -1411,7 +1442,7 @@
           "Recall@50": 0.0,
           "MRR@10": 0.0,
           "nDCG@10": 0.0,
-          "best_hard_negative_rank": 13,
+          "best_hard_negative_rank": 3,
           "hard_negative_error": 0.0
         },
         {
@@ -1436,7 +1467,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 4,
+          "best_hard_negative_rank": 2,
           "hard_negative_error": 0.0
         },
         {
@@ -1446,7 +1477,7 @@
           "first_relevant_rank": 1,
           "relevant_ranks": [
             1,
-            43
+            42
           ],
           "HitRate@1": 1.0,
           "Recall@1": 0.5,
@@ -1462,7 +1493,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 0.6131471927654584,
-          "best_hard_negative_rank": 36,
+          "best_hard_negative_rank": 44,
           "hard_negative_error": 0.0
         },
         {
@@ -1487,16 +1518,16 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 31,
+          "best_hard_negative_rank": 3,
           "hard_negative_error": 0.0
         },
         {
           "query_id": "query-0054",
           "query_type": "context_dependency",
           "difficulty": "hard",
-          "first_relevant_rank": 15,
+          "first_relevant_rank": 14,
           "relevant_ranks": [
-            15
+            14
           ],
           "HitRate@1": 0.0,
           "Recall@1": 0.0,
@@ -1519,9 +1550,9 @@
           "query_id": "query-0055",
           "query_type": "context_dependency",
           "difficulty": "hard",
-          "first_relevant_rank": 18,
+          "first_relevant_rank": 17,
           "relevant_ranks": [
-            18
+            17
           ],
           "HitRate@1": 0.0,
           "Recall@1": 0.0,
@@ -1537,7 +1568,7 @@
           "Recall@50": 1.0,
           "MRR@10": 0.0,
           "nDCG@10": 0.0,
-          "best_hard_negative_rank": 11,
+          "best_hard_negative_rank": 4,
           "hard_negative_error": 1.0
         },
         {
@@ -1562,7 +1593,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 9,
+          "best_hard_negative_rank": 5,
           "hard_negative_error": 0.0
         },
         {
@@ -1587,7 +1618,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 37,
+          "best_hard_negative_rank": 36,
           "hard_negative_error": 0.0
         },
         {
@@ -1612,16 +1643,16 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 29,
+          "best_hard_negative_rank": 2,
           "hard_negative_error": 0.0
         },
         {
           "query_id": "query-0059",
           "query_type": "context_dependency",
           "difficulty": "hard",
-          "first_relevant_rank": 31,
+          "first_relevant_rank": 16,
           "relevant_ranks": [
-            31
+            16
           ],
           "HitRate@1": 0.0,
           "Recall@1": 0.0,
@@ -1631,13 +1662,13 @@
           "Recall@5": 0.0,
           "HitRate@10": 0.0,
           "Recall@10": 0.0,
-          "HitRate@20": 0.0,
-          "Recall@20": 0.0,
+          "HitRate@20": 1.0,
+          "Recall@20": 1.0,
           "HitRate@50": 1.0,
           "Recall@50": 1.0,
           "MRR@10": 0.0,
           "nDCG@10": 0.0,
-          "best_hard_negative_rank": 19,
+          "best_hard_negative_rank": 15,
           "hard_negative_error": 1.0
         },
         {
@@ -1660,7 +1691,7 @@
           "Recall@50": 0.0,
           "MRR@10": 0.0,
           "nDCG@10": 0.0,
-          "best_hard_negative_rank": 11,
+          "best_hard_negative_rank": 7,
           "hard_negative_error": 0.0
         },
         {
@@ -1695,7 +1726,7 @@
           "first_relevant_rank": 1,
           "relevant_ranks": [
             1,
-            44
+            33
           ],
           "HitRate@1": 1.0,
           "Recall@1": 0.5,
@@ -1711,7 +1742,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 0.6131471927654584,
-          "best_hard_negative_rank": 41,
+          "best_hard_negative_rank": null,
           "hard_negative_error": 0.0
         },
         {
@@ -1736,39 +1767,16 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 19,
+          "best_hard_negative_rank": 2,
           "hard_negative_error": 0.0
         },
         {
           "query_id": "query-0064",
           "query_type": "context_dependency",
           "difficulty": "hard",
-          "first_relevant_rank": null,
-          "relevant_ranks": [],
-          "HitRate@1": 0.0,
-          "Recall@1": 0.0,
-          "HitRate@3": 0.0,
-          "Recall@3": 0.0,
-          "HitRate@5": 0.0,
-          "Recall@5": 0.0,
-          "HitRate@10": 0.0,
-          "Recall@10": 0.0,
-          "HitRate@20": 0.0,
-          "Recall@20": 0.0,
-          "HitRate@50": 0.0,
-          "Recall@50": 0.0,
-          "MRR@10": 0.0,
-          "nDCG@10": 0.0,
-          "best_hard_negative_rank": 12,
-          "hard_negative_error": 0.0
-        },
-        {
-          "query_id": "query-0065",
-          "query_type": "context_dependency",
-          "difficulty": "hard",
-          "first_relevant_rank": 49,
+          "first_relevant_rank": 18,
           "relevant_ranks": [
-            49
+            18
           ],
           "HitRate@1": 0.0,
           "Recall@1": 0.0,
@@ -1778,13 +1786,38 @@
           "Recall@5": 0.0,
           "HitRate@10": 0.0,
           "Recall@10": 0.0,
-          "HitRate@20": 0.0,
-          "Recall@20": 0.0,
+          "HitRate@20": 1.0,
+          "Recall@20": 1.0,
           "HitRate@50": 1.0,
           "Recall@50": 1.0,
           "MRR@10": 0.0,
           "nDCG@10": 0.0,
-          "best_hard_negative_rank": 21,
+          "best_hard_negative_rank": 16,
+          "hard_negative_error": 1.0
+        },
+        {
+          "query_id": "query-0065",
+          "query_type": "context_dependency",
+          "difficulty": "hard",
+          "first_relevant_rank": 18,
+          "relevant_ranks": [
+            18
+          ],
+          "HitRate@1": 0.0,
+          "Recall@1": 0.0,
+          "HitRate@3": 0.0,
+          "Recall@3": 0.0,
+          "HitRate@5": 0.0,
+          "Recall@5": 0.0,
+          "HitRate@10": 0.0,
+          "Recall@10": 0.0,
+          "HitRate@20": 1.0,
+          "Recall@20": 1.0,
+          "HitRate@50": 1.0,
+          "Recall@50": 1.0,
+          "MRR@10": 0.0,
+          "nDCG@10": 0.0,
+          "best_hard_negative_rank": 7,
           "hard_negative_error": 1.0
         },
         {
@@ -1809,21 +1842,21 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 4,
+          "best_hard_negative_rank": 2,
           "hard_negative_error": 0.0
         },
         {
           "query_id": "query-0067",
           "query_type": "context_dependency",
           "difficulty": "hard",
-          "first_relevant_rank": 4,
+          "first_relevant_rank": 1,
           "relevant_ranks": [
-            4
+            1
           ],
-          "HitRate@1": 0.0,
-          "Recall@1": 0.0,
-          "HitRate@3": 0.0,
-          "Recall@3": 0.0,
+          "HitRate@1": 1.0,
+          "Recall@1": 1.0,
+          "HitRate@3": 1.0,
+          "Recall@3": 1.0,
           "HitRate@5": 1.0,
           "Recall@5": 1.0,
           "HitRate@10": 1.0,
@@ -1832,9 +1865,9 @@
           "Recall@20": 1.0,
           "HitRate@50": 1.0,
           "Recall@50": 1.0,
-          "MRR@10": 0.25,
-          "nDCG@10": 0.43067655807339306,
-          "best_hard_negative_rank": 49,
+          "MRR@10": 1.0,
+          "nDCG@10": 1.0,
+          "best_hard_negative_rank": 40,
           "hard_negative_error": 0.0
         },
         {
@@ -1859,16 +1892,16 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 33,
+          "best_hard_negative_rank": 2,
           "hard_negative_error": 0.0
         },
         {
           "query_id": "query-0069",
           "query_type": "context_dependency",
           "difficulty": "hard",
-          "first_relevant_rank": 23,
+          "first_relevant_rank": 18,
           "relevant_ranks": [
-            23
+            18
           ],
           "HitRate@1": 0.0,
           "Recall@1": 0.0,
@@ -1878,23 +1911,21 @@
           "Recall@5": 0.0,
           "HitRate@10": 0.0,
           "Recall@10": 0.0,
-          "HitRate@20": 0.0,
-          "Recall@20": 0.0,
+          "HitRate@20": 1.0,
+          "Recall@20": 1.0,
           "HitRate@50": 1.0,
           "Recall@50": 1.0,
           "MRR@10": 0.0,
           "nDCG@10": 0.0,
-          "best_hard_negative_rank": 13,
-          "hard_negative_error": 1.0
+          "best_hard_negative_rank": 20,
+          "hard_negative_error": 0.0
         },
         {
           "query_id": "query-0070",
           "query_type": "context_dependency",
           "difficulty": "hard",
-          "first_relevant_rank": 21,
-          "relevant_ranks": [
-            21
-          ],
+          "first_relevant_rank": null,
+          "relevant_ranks": [],
           "HitRate@1": 0.0,
           "Recall@1": 0.0,
           "HitRate@3": 0.0,
@@ -1905,12 +1936,12 @@
           "Recall@10": 0.0,
           "HitRate@20": 0.0,
           "Recall@20": 0.0,
-          "HitRate@50": 1.0,
-          "Recall@50": 1.0,
+          "HitRate@50": 0.0,
+          "Recall@50": 0.0,
           "MRR@10": 0.0,
           "nDCG@10": 0.0,
-          "best_hard_negative_rank": 7,
-          "hard_negative_error": 1.0
+          "best_hard_negative_rank": 5,
+          "hard_negative_error": 0.0
         },
         {
           "query_id": "query-0071",
@@ -1934,7 +1965,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 3,
+          "best_hard_negative_rank": 2,
           "hard_negative_error": 0.0
         },
         {
@@ -1984,7 +2015,7 @@
           "Recall@50": 1.0,
           "MRR@10": 0.5,
           "nDCG@10": 0.6309297535714575,
-          "best_hard_negative_rank": 3,
+          "best_hard_negative_rank": 8,
           "hard_negative_error": 0.0
         },
         {
@@ -2009,19 +2040,19 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 5,
+          "best_hard_negative_rank": 2,
           "hard_negative_error": 0.0
         },
         {
           "query_id": "query-0075",
           "query_type": "emotion_intention",
           "difficulty": "hard",
-          "first_relevant_rank": 1,
+          "first_relevant_rank": 2,
           "relevant_ranks": [
-            1
+            2
           ],
-          "HitRate@1": 1.0,
-          "Recall@1": 1.0,
+          "HitRate@1": 0.0,
+          "Recall@1": 0.0,
           "HitRate@3": 1.0,
           "Recall@3": 1.0,
           "HitRate@5": 1.0,
@@ -2032,10 +2063,10 @@
           "Recall@20": 1.0,
           "HitRate@50": 1.0,
           "Recall@50": 1.0,
-          "MRR@10": 1.0,
-          "nDCG@10": 1.0,
-          "best_hard_negative_rank": 3,
-          "hard_negative_error": 0.0
+          "MRR@10": 0.5,
+          "nDCG@10": 0.6309297535714575,
+          "best_hard_negative_rank": 1,
+          "hard_negative_error": 1.0
         },
         {
           "query_id": "query-0076",
@@ -2084,7 +2115,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 5,
+          "best_hard_negative_rank": 7,
           "hard_negative_error": 0.0
         },
         {
@@ -2109,7 +2140,7 @@
           "Recall@50": 1.0,
           "MRR@10": 0.5,
           "nDCG@10": 0.6309297535714575,
-          "best_hard_negative_rank": 4,
+          "best_hard_negative_rank": 3,
           "hard_negative_error": 0.0
         },
         {
@@ -2184,7 +2215,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 2,
+          "best_hard_negative_rank": 3,
           "hard_negative_error": 0.0
         },
         {
@@ -2216,12 +2247,12 @@
           "query_id": "query-0083",
           "query_type": "emotion_intention",
           "difficulty": "hard",
-          "first_relevant_rank": 1,
+          "first_relevant_rank": 2,
           "relevant_ranks": [
-            1
+            2
           ],
-          "HitRate@1": 1.0,
-          "Recall@1": 1.0,
+          "HitRate@1": 0.0,
+          "Recall@1": 0.0,
           "HitRate@3": 1.0,
           "Recall@3": 1.0,
           "HitRate@5": 1.0,
@@ -2232,8 +2263,8 @@
           "Recall@20": 1.0,
           "HitRate@50": 1.0,
           "Recall@50": 1.0,
-          "MRR@10": 1.0,
-          "nDCG@10": 1.0,
+          "MRR@10": 0.5,
+          "nDCG@10": 0.6309297535714575,
           "best_hard_negative_rank": 3,
           "hard_negative_error": 0.0
         },
@@ -2266,12 +2297,12 @@
           "query_id": "query-0085",
           "query_type": "emotion_intention",
           "difficulty": "hard",
-          "first_relevant_rank": 1,
+          "first_relevant_rank": 2,
           "relevant_ranks": [
-            1
+            2
           ],
-          "HitRate@1": 1.0,
-          "Recall@1": 1.0,
+          "HitRate@1": 0.0,
+          "Recall@1": 0.0,
           "HitRate@3": 1.0,
           "Recall@3": 1.0,
           "HitRate@5": 1.0,
@@ -2282,10 +2313,10 @@
           "Recall@20": 1.0,
           "HitRate@50": 1.0,
           "Recall@50": 1.0,
-          "MRR@10": 1.0,
-          "nDCG@10": 1.0,
-          "best_hard_negative_rank": 2,
-          "hard_negative_error": 0.0
+          "MRR@10": 0.5,
+          "nDCG@10": 0.6309297535714575,
+          "best_hard_negative_rank": 1,
+          "hard_negative_error": 1.0
         },
         {
           "query_id": "query-0086",
@@ -2309,19 +2340,19 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 3,
+          "best_hard_negative_rank": 4,
           "hard_negative_error": 0.0
         },
         {
           "query_id": "query-0087",
           "query_type": "emotion_intention",
           "difficulty": "hard",
-          "first_relevant_rank": 1,
+          "first_relevant_rank": 3,
           "relevant_ranks": [
-            1
+            3
           ],
-          "HitRate@1": 1.0,
-          "Recall@1": 1.0,
+          "HitRate@1": 0.0,
+          "Recall@1": 0.0,
           "HitRate@3": 1.0,
           "Recall@3": 1.0,
           "HitRate@5": 1.0,
@@ -2332,21 +2363,21 @@
           "Recall@20": 1.0,
           "HitRate@50": 1.0,
           "Recall@50": 1.0,
-          "MRR@10": 1.0,
-          "nDCG@10": 1.0,
-          "best_hard_negative_rank": 5,
-          "hard_negative_error": 0.0
+          "MRR@10": 0.3333333333333333,
+          "nDCG@10": 0.5,
+          "best_hard_negative_rank": 1,
+          "hard_negative_error": 1.0
         },
         {
           "query_id": "query-0088",
           "query_type": "emotion_intention",
           "difficulty": "hard",
-          "first_relevant_rank": 1,
+          "first_relevant_rank": 2,
           "relevant_ranks": [
-            1
+            2
           ],
-          "HitRate@1": 1.0,
-          "Recall@1": 1.0,
+          "HitRate@1": 0.0,
+          "Recall@1": 0.0,
           "HitRate@3": 1.0,
           "Recall@3": 1.0,
           "HitRate@5": 1.0,
@@ -2357,9 +2388,9 @@
           "Recall@20": 1.0,
           "HitRate@50": 1.0,
           "Recall@50": 1.0,
-          "MRR@10": 1.0,
-          "nDCG@10": 1.0,
-          "best_hard_negative_rank": 3,
+          "MRR@10": 0.5,
+          "nDCG@10": 0.6309297535714575,
+          "best_hard_negative_rank": 6,
           "hard_negative_error": 0.0
         },
         {
@@ -2459,19 +2490,19 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 3,
+          "best_hard_negative_rank": 2,
           "hard_negative_error": 0.0
         },
         {
           "query_id": "query-0093",
           "query_type": "emotion_intention",
           "difficulty": "hard",
-          "first_relevant_rank": 1,
+          "first_relevant_rank": 2,
           "relevant_ranks": [
-            1
+            2
           ],
-          "HitRate@1": 1.0,
-          "Recall@1": 1.0,
+          "HitRate@1": 0.0,
+          "Recall@1": 0.0,
           "HitRate@3": 1.0,
           "Recall@3": 1.0,
           "HitRate@5": 1.0,
@@ -2482,9 +2513,9 @@
           "Recall@20": 1.0,
           "HitRate@50": 1.0,
           "Recall@50": 1.0,
-          "MRR@10": 1.0,
-          "nDCG@10": 1.0,
-          "best_hard_negative_rank": 4,
+          "MRR@10": 0.5,
+          "nDCG@10": 0.6309297535714575,
+          "best_hard_negative_rank": 3,
           "hard_negative_error": 0.0
         },
         {
@@ -2516,12 +2547,12 @@
           "query_id": "query-0095",
           "query_type": "emotion_intention",
           "difficulty": "hard",
-          "first_relevant_rank": 1,
+          "first_relevant_rank": 2,
           "relevant_ranks": [
-            1
+            2
           ],
-          "HitRate@1": 1.0,
-          "Recall@1": 1.0,
+          "HitRate@1": 0.0,
+          "Recall@1": 0.0,
           "HitRate@3": 1.0,
           "Recall@3": 1.0,
           "HitRate@5": 1.0,
@@ -2532,10 +2563,10 @@
           "Recall@20": 1.0,
           "HitRate@50": 1.0,
           "Recall@50": 1.0,
-          "MRR@10": 1.0,
-          "nDCG@10": 1.0,
-          "best_hard_negative_rank": 3,
-          "hard_negative_error": 0.0
+          "MRR@10": 0.5,
+          "nDCG@10": 0.6309297535714575,
+          "best_hard_negative_rank": 1,
+          "hard_negative_error": 1.0
         },
         {
           "query_id": "query-0096",
@@ -2559,7 +2590,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 8,
+          "best_hard_negative_rank": 2,
           "hard_negative_error": 0.0
         },
         {
@@ -2584,7 +2615,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 10,
+          "best_hard_negative_rank": 4,
           "hard_negative_error": 0.0
         },
         {
@@ -2609,7 +2640,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 11,
+          "best_hard_negative_rank": 5,
           "hard_negative_error": 0.0
         },
         {
@@ -2659,7 +2690,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 3,
+          "best_hard_negative_rank": 2,
           "hard_negative_error": 0.0
         },
         {
@@ -2684,7 +2715,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 2,
+          "best_hard_negative_rank": 3,
           "hard_negative_error": 0.0
         },
         {
@@ -2709,7 +2740,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 24,
+          "best_hard_negative_rank": 6,
           "hard_negative_error": 0.0
         },
         {
@@ -2734,7 +2765,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 6,
+          "best_hard_negative_rank": 2,
           "hard_negative_error": 0.0
         },
         {
@@ -2759,7 +2790,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 5,
+          "best_hard_negative_rank": 2,
           "hard_negative_error": 0.0
         },
         {
@@ -2791,14 +2822,14 @@
           "query_id": "query-0106",
           "query_type": "indirect_dialogue",
           "difficulty": "hard",
-          "first_relevant_rank": 4,
+          "first_relevant_rank": 2,
           "relevant_ranks": [
-            4
+            2
           ],
           "HitRate@1": 0.0,
           "Recall@1": 0.0,
-          "HitRate@3": 0.0,
-          "Recall@3": 0.0,
+          "HitRate@3": 1.0,
+          "Recall@3": 1.0,
           "HitRate@5": 1.0,
           "Recall@5": 1.0,
           "HitRate@10": 1.0,
@@ -2807,8 +2838,8 @@
           "Recall@20": 1.0,
           "HitRate@50": 1.0,
           "Recall@50": 1.0,
-          "MRR@10": 0.25,
-          "nDCG@10": 0.43067655807339306,
+          "MRR@10": 0.5,
+          "nDCG@10": 0.6309297535714575,
           "best_hard_negative_rank": 1,
           "hard_negative_error": 1.0
         },
@@ -2859,7 +2890,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 8,
+          "best_hard_negative_rank": 2,
           "hard_negative_error": 0.0
         },
         {
@@ -2909,7 +2940,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 6,
+          "best_hard_negative_rank": 5,
           "hard_negative_error": 0.0
         },
         {
@@ -2934,7 +2965,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 2,
+          "best_hard_negative_rank": 3,
           "hard_negative_error": 0.0
         },
         {
@@ -2959,7 +2990,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 2,
+          "best_hard_negative_rank": 3,
           "hard_negative_error": 0.0
         },
         {
@@ -3009,7 +3040,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 8,
+          "best_hard_negative_rank": 6,
           "hard_negative_error": 0.0
         },
         {
@@ -3034,32 +3065,32 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 3,
+          "best_hard_negative_rank": 7,
           "hard_negative_error": 0.0
         },
         {
           "query_id": "query-0116",
           "query_type": "character_name",
           "difficulty": "medium",
-          "first_relevant_rank": 6,
+          "first_relevant_rank": 5,
           "relevant_ranks": [
-            6
+            5
           ],
           "HitRate@1": 0.0,
           "Recall@1": 0.0,
           "HitRate@3": 0.0,
           "Recall@3": 0.0,
-          "HitRate@5": 0.0,
-          "Recall@5": 0.0,
+          "HitRate@5": 1.0,
+          "Recall@5": 1.0,
           "HitRate@10": 1.0,
           "Recall@10": 1.0,
           "HitRate@20": 1.0,
           "Recall@20": 1.0,
           "HitRate@50": 1.0,
           "Recall@50": 1.0,
-          "MRR@10": 0.16666666666666666,
-          "nDCG@10": 0.3562071871080222,
-          "best_hard_negative_rank": 7,
+          "MRR@10": 0.2,
+          "nDCG@10": 0.38685280723454163,
+          "best_hard_negative_rank": 13,
           "hard_negative_error": 0.0
         },
         {
@@ -3084,16 +3115,16 @@
           "Recall@50": 1.0,
           "MRR@10": 0.3333333333333333,
           "nDCG@10": 0.5,
-          "best_hard_negative_rank": 7,
+          "best_hard_negative_rank": 13,
           "hard_negative_error": 0.0
         },
         {
           "query_id": "query-0118",
           "query_type": "character_name",
           "difficulty": "medium",
-          "first_relevant_rank": 13,
+          "first_relevant_rank": 18,
           "relevant_ranks": [
-            13
+            18
           ],
           "HitRate@1": 0.0,
           "Recall@1": 0.0,
@@ -3109,41 +3140,16 @@
           "Recall@50": 1.0,
           "MRR@10": 0.0,
           "nDCG@10": 0.0,
-          "best_hard_negative_rank": 6,
+          "best_hard_negative_rank": 4,
           "hard_negative_error": 1.0
         },
         {
           "query_id": "query-0119",
           "query_type": "character_name",
           "difficulty": "medium",
-          "first_relevant_rank": 7,
+          "first_relevant_rank": 16,
           "relevant_ranks": [
-            7
-          ],
-          "HitRate@1": 0.0,
-          "Recall@1": 0.0,
-          "HitRate@3": 0.0,
-          "Recall@3": 0.0,
-          "HitRate@5": 0.0,
-          "Recall@5": 0.0,
-          "HitRate@10": 1.0,
-          "Recall@10": 1.0,
-          "HitRate@20": 1.0,
-          "Recall@20": 1.0,
-          "HitRate@50": 1.0,
-          "Recall@50": 1.0,
-          "MRR@10": 0.14285714285714285,
-          "nDCG@10": 0.3333333333333333,
-          "best_hard_negative_rank": 18,
-          "hard_negative_error": 0.0
-        },
-        {
-          "query_id": "query-0120",
-          "query_type": "character_name",
-          "difficulty": "medium",
-          "first_relevant_rank": 15,
-          "relevant_ranks": [
-            15
+            16
           ],
           "HitRate@1": 0.0,
           "Recall@1": 0.0,
@@ -3159,7 +3165,32 @@
           "Recall@50": 1.0,
           "MRR@10": 0.0,
           "nDCG@10": 0.0,
-          "best_hard_negative_rank": 17,
+          "best_hard_negative_rank": 11,
+          "hard_negative_error": 1.0
+        },
+        {
+          "query_id": "query-0120",
+          "query_type": "character_name",
+          "difficulty": "medium",
+          "first_relevant_rank": 11,
+          "relevant_ranks": [
+            11
+          ],
+          "HitRate@1": 0.0,
+          "Recall@1": 0.0,
+          "HitRate@3": 0.0,
+          "Recall@3": 0.0,
+          "HitRate@5": 0.0,
+          "Recall@5": 0.0,
+          "HitRate@10": 0.0,
+          "Recall@10": 0.0,
+          "HitRate@20": 1.0,
+          "Recall@20": 1.0,
+          "HitRate@50": 1.0,
+          "Recall@50": 1.0,
+          "MRR@10": 0.0,
+          "nDCG@10": 0.0,
+          "best_hard_negative_rank": 13,
           "hard_negative_error": 0.0
         },
         {
@@ -3184,11 +3215,36 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 4,
+          "best_hard_negative_rank": 10,
           "hard_negative_error": 0.0
         },
         {
           "query_id": "query-0122",
+          "query_type": "character_name",
+          "difficulty": "medium",
+          "first_relevant_rank": 12,
+          "relevant_ranks": [
+            12
+          ],
+          "HitRate@1": 0.0,
+          "Recall@1": 0.0,
+          "HitRate@3": 0.0,
+          "Recall@3": 0.0,
+          "HitRate@5": 0.0,
+          "Recall@5": 0.0,
+          "HitRate@10": 0.0,
+          "Recall@10": 0.0,
+          "HitRate@20": 1.0,
+          "Recall@20": 1.0,
+          "HitRate@50": 1.0,
+          "Recall@50": 1.0,
+          "MRR@10": 0.0,
+          "nDCG@10": 0.0,
+          "best_hard_negative_rank": 8,
+          "hard_negative_error": 1.0
+        },
+        {
+          "query_id": "query-0123",
           "query_type": "character_name",
           "difficulty": "medium",
           "first_relevant_rank": 14,
@@ -3209,41 +3265,16 @@
           "Recall@50": 1.0,
           "MRR@10": 0.0,
           "nDCG@10": 0.0,
-          "best_hard_negative_rank": 1,
-          "hard_negative_error": 1.0
-        },
-        {
-          "query_id": "query-0123",
-          "query_type": "character_name",
-          "difficulty": "medium",
-          "first_relevant_rank": 19,
-          "relevant_ranks": [
-            19
-          ],
-          "HitRate@1": 0.0,
-          "Recall@1": 0.0,
-          "HitRate@3": 0.0,
-          "Recall@3": 0.0,
-          "HitRate@5": 0.0,
-          "Recall@5": 0.0,
-          "HitRate@10": 0.0,
-          "Recall@10": 0.0,
-          "HitRate@20": 1.0,
-          "Recall@20": 1.0,
-          "HitRate@50": 1.0,
-          "Recall@50": 1.0,
-          "MRR@10": 0.0,
-          "nDCG@10": 0.0,
-          "best_hard_negative_rank": 9,
+          "best_hard_negative_rank": 11,
           "hard_negative_error": 1.0
         },
         {
           "query_id": "query-0124",
           "query_type": "character_name",
           "difficulty": "medium",
-          "first_relevant_rank": 18,
+          "first_relevant_rank": 19,
           "relevant_ranks": [
-            18
+            19
           ],
           "HitRate@1": 0.0,
           "Recall@1": 0.0,
@@ -3266,9 +3297,134 @@
           "query_id": "query-0125",
           "query_type": "character_name",
           "difficulty": "medium",
-          "first_relevant_rank": 13,
+          "first_relevant_rank": 14,
           "relevant_ranks": [
-            13
+            14
+          ],
+          "HitRate@1": 0.0,
+          "Recall@1": 0.0,
+          "HitRate@3": 0.0,
+          "Recall@3": 0.0,
+          "HitRate@5": 0.0,
+          "Recall@5": 0.0,
+          "HitRate@10": 0.0,
+          "Recall@10": 0.0,
+          "HitRate@20": 1.0,
+          "Recall@20": 1.0,
+          "HitRate@50": 1.0,
+          "Recall@50": 1.0,
+          "MRR@10": 0.0,
+          "nDCG@10": 0.0,
+          "best_hard_negative_rank": 17,
+          "hard_negative_error": 0.0
+        },
+        {
+          "query_id": "query-0126",
+          "query_type": "character_name",
+          "difficulty": "medium",
+          "first_relevant_rank": 7,
+          "relevant_ranks": [
+            7
+          ],
+          "HitRate@1": 0.0,
+          "Recall@1": 0.0,
+          "HitRate@3": 0.0,
+          "Recall@3": 0.0,
+          "HitRate@5": 0.0,
+          "Recall@5": 0.0,
+          "HitRate@10": 1.0,
+          "Recall@10": 1.0,
+          "HitRate@20": 1.0,
+          "Recall@20": 1.0,
+          "HitRate@50": 1.0,
+          "Recall@50": 1.0,
+          "MRR@10": 0.14285714285714285,
+          "nDCG@10": 0.3333333333333333,
+          "best_hard_negative_rank": 12,
+          "hard_negative_error": 0.0
+        },
+        {
+          "query_id": "query-0127",
+          "query_type": "character_name",
+          "difficulty": "medium",
+          "first_relevant_rank": 5,
+          "relevant_ranks": [
+            5
+          ],
+          "HitRate@1": 0.0,
+          "Recall@1": 0.0,
+          "HitRate@3": 0.0,
+          "Recall@3": 0.0,
+          "HitRate@5": 1.0,
+          "Recall@5": 1.0,
+          "HitRate@10": 1.0,
+          "Recall@10": 1.0,
+          "HitRate@20": 1.0,
+          "Recall@20": 1.0,
+          "HitRate@50": 1.0,
+          "Recall@50": 1.0,
+          "MRR@10": 0.2,
+          "nDCG@10": 0.38685280723454163,
+          "best_hard_negative_rank": 12,
+          "hard_negative_error": 0.0
+        },
+        {
+          "query_id": "query-0128",
+          "query_type": "character_name",
+          "difficulty": "medium",
+          "first_relevant_rank": 17,
+          "relevant_ranks": [
+            17
+          ],
+          "HitRate@1": 0.0,
+          "Recall@1": 0.0,
+          "HitRate@3": 0.0,
+          "Recall@3": 0.0,
+          "HitRate@5": 0.0,
+          "Recall@5": 0.0,
+          "HitRate@10": 0.0,
+          "Recall@10": 0.0,
+          "HitRate@20": 1.0,
+          "Recall@20": 1.0,
+          "HitRate@50": 1.0,
+          "Recall@50": 1.0,
+          "MRR@10": 0.0,
+          "nDCG@10": 0.0,
+          "best_hard_negative_rank": 7,
+          "hard_negative_error": 1.0
+        },
+        {
+          "query_id": "query-0129",
+          "query_type": "character_name",
+          "difficulty": "medium",
+          "first_relevant_rank": 20,
+          "relevant_ranks": [
+            20
+          ],
+          "HitRate@1": 0.0,
+          "Recall@1": 0.0,
+          "HitRate@3": 0.0,
+          "Recall@3": 0.0,
+          "HitRate@5": 0.0,
+          "Recall@5": 0.0,
+          "HitRate@10": 0.0,
+          "Recall@10": 0.0,
+          "HitRate@20": 1.0,
+          "Recall@20": 1.0,
+          "HitRate@50": 1.0,
+          "Recall@50": 1.0,
+          "MRR@10": 0.0,
+          "nDCG@10": 0.0,
+          "best_hard_negative_rank": 10,
+          "hard_negative_error": 1.0
+        },
+        {
+          "query_id": "query-0130",
+          "query_type": "character_name",
+          "difficulty": "medium",
+          "first_relevant_rank": 17,
+          "relevant_ranks": [
+            17
           ],
           "HitRate@1": 0.0,
           "Recall@1": 0.0,
@@ -3288,157 +3444,7 @@
           "hard_negative_error": 1.0
         },
         {
-          "query_id": "query-0126",
-          "query_type": "character_name",
-          "difficulty": "medium",
-          "first_relevant_rank": 8,
-          "relevant_ranks": [
-            8
-          ],
-          "HitRate@1": 0.0,
-          "Recall@1": 0.0,
-          "HitRate@3": 0.0,
-          "Recall@3": 0.0,
-          "HitRate@5": 0.0,
-          "Recall@5": 0.0,
-          "HitRate@10": 1.0,
-          "Recall@10": 1.0,
-          "HitRate@20": 1.0,
-          "Recall@20": 1.0,
-          "HitRate@50": 1.0,
-          "Recall@50": 1.0,
-          "MRR@10": 0.125,
-          "nDCG@10": 0.31546487678572877,
-          "best_hard_negative_rank": 3,
-          "hard_negative_error": 1.0
-        },
-        {
-          "query_id": "query-0127",
-          "query_type": "character_name",
-          "difficulty": "medium",
-          "first_relevant_rank": 7,
-          "relevant_ranks": [
-            7
-          ],
-          "HitRate@1": 0.0,
-          "Recall@1": 0.0,
-          "HitRate@3": 0.0,
-          "Recall@3": 0.0,
-          "HitRate@5": 0.0,
-          "Recall@5": 0.0,
-          "HitRate@10": 1.0,
-          "Recall@10": 1.0,
-          "HitRate@20": 1.0,
-          "Recall@20": 1.0,
-          "HitRate@50": 1.0,
-          "Recall@50": 1.0,
-          "MRR@10": 0.14285714285714285,
-          "nDCG@10": 0.3333333333333333,
-          "best_hard_negative_rank": 11,
-          "hard_negative_error": 0.0
-        },
-        {
-          "query_id": "query-0128",
-          "query_type": "character_name",
-          "difficulty": "medium",
-          "first_relevant_rank": 7,
-          "relevant_ranks": [
-            7
-          ],
-          "HitRate@1": 0.0,
-          "Recall@1": 0.0,
-          "HitRate@3": 0.0,
-          "Recall@3": 0.0,
-          "HitRate@5": 0.0,
-          "Recall@5": 0.0,
-          "HitRate@10": 1.0,
-          "Recall@10": 1.0,
-          "HitRate@20": 1.0,
-          "Recall@20": 1.0,
-          "HitRate@50": 1.0,
-          "Recall@50": 1.0,
-          "MRR@10": 0.14285714285714285,
-          "nDCG@10": 0.3333333333333333,
-          "best_hard_negative_rank": 9,
-          "hard_negative_error": 0.0
-        },
-        {
-          "query_id": "query-0129",
-          "query_type": "character_name",
-          "difficulty": "medium",
-          "first_relevant_rank": 7,
-          "relevant_ranks": [
-            7
-          ],
-          "HitRate@1": 0.0,
-          "Recall@1": 0.0,
-          "HitRate@3": 0.0,
-          "Recall@3": 0.0,
-          "HitRate@5": 0.0,
-          "Recall@5": 0.0,
-          "HitRate@10": 1.0,
-          "Recall@10": 1.0,
-          "HitRate@20": 1.0,
-          "Recall@20": 1.0,
-          "HitRate@50": 1.0,
-          "Recall@50": 1.0,
-          "MRR@10": 0.14285714285714285,
-          "nDCG@10": 0.3333333333333333,
-          "best_hard_negative_rank": 18,
-          "hard_negative_error": 0.0
-        },
-        {
-          "query_id": "query-0130",
-          "query_type": "character_name",
-          "difficulty": "medium",
-          "first_relevant_rank": 18,
-          "relevant_ranks": [
-            18
-          ],
-          "HitRate@1": 0.0,
-          "Recall@1": 0.0,
-          "HitRate@3": 0.0,
-          "Recall@3": 0.0,
-          "HitRate@5": 0.0,
-          "Recall@5": 0.0,
-          "HitRate@10": 0.0,
-          "Recall@10": 0.0,
-          "HitRate@20": 1.0,
-          "Recall@20": 1.0,
-          "HitRate@50": 1.0,
-          "Recall@50": 1.0,
-          "MRR@10": 0.0,
-          "nDCG@10": 0.0,
-          "best_hard_negative_rank": 14,
-          "hard_negative_error": 1.0
-        },
-        {
           "query_id": "query-0131",
-          "query_type": "exact_phrase",
-          "difficulty": "easy",
-          "first_relevant_rank": 1,
-          "relevant_ranks": [
-            1
-          ],
-          "HitRate@1": 1.0,
-          "Recall@1": 1.0,
-          "HitRate@3": 1.0,
-          "Recall@3": 1.0,
-          "HitRate@5": 1.0,
-          "Recall@5": 1.0,
-          "HitRate@10": 1.0,
-          "Recall@10": 1.0,
-          "HitRate@20": 1.0,
-          "Recall@20": 1.0,
-          "HitRate@50": 1.0,
-          "Recall@50": 1.0,
-          "MRR@10": 1.0,
-          "nDCG@10": 1.0,
-          "best_hard_negative_rank": null,
-          "hard_negative_error": 0.0
-        },
-        {
-          "query_id": "query-0132",
           "query_type": "exact_phrase",
           "difficulty": "easy",
           "first_relevant_rank": 2,
@@ -3459,11 +3465,11 @@
           "Recall@50": 1.0,
           "MRR@10": 0.5,
           "nDCG@10": 0.6309297535714575,
-          "best_hard_negative_rank": 19,
+          "best_hard_negative_rank": 30,
           "hard_negative_error": 0.0
         },
         {
-          "query_id": "query-0133",
+          "query_id": "query-0132",
           "query_type": "exact_phrase",
           "difficulty": "easy",
           "first_relevant_rank": 1,
@@ -3484,7 +3490,32 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": null,
+          "best_hard_negative_rank": 20,
+          "hard_negative_error": 0.0
+        },
+        {
+          "query_id": "query-0133",
+          "query_type": "exact_phrase",
+          "difficulty": "easy",
+          "first_relevant_rank": 2,
+          "relevant_ranks": [
+            2
+          ],
+          "HitRate@1": 0.0,
+          "Recall@1": 0.0,
+          "HitRate@3": 1.0,
+          "Recall@3": 1.0,
+          "HitRate@5": 1.0,
+          "Recall@5": 1.0,
+          "HitRate@10": 1.0,
+          "Recall@10": 1.0,
+          "HitRate@20": 1.0,
+          "Recall@20": 1.0,
+          "HitRate@50": 1.0,
+          "Recall@50": 1.0,
+          "MRR@10": 0.5,
+          "nDCG@10": 0.6309297535714575,
+          "best_hard_negative_rank": 3,
           "hard_negative_error": 0.0
         },
         {
@@ -3509,7 +3540,7 @@
           "Recall@50": 1.0,
           "MRR@10": 0.5,
           "nDCG@10": 0.6309297535714575,
-          "best_hard_negative_rank": 3,
+          "best_hard_negative_rank": 9,
           "hard_negative_error": 0.0
         },
         {
@@ -3534,7 +3565,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 8,
+          "best_hard_negative_rank": 4,
           "hard_negative_error": 0.0
         },
         {
@@ -3559,7 +3590,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": null,
+          "best_hard_negative_rank": 25,
           "hard_negative_error": 0.0
         },
         {
@@ -3584,7 +3615,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 12,
+          "best_hard_negative_rank": 4,
           "hard_negative_error": 0.0
         },
         {
@@ -3609,7 +3640,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 47,
+          "best_hard_negative_rank": 17,
           "hard_negative_error": 0.0
         },
         {
@@ -3634,41 +3665,41 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 42,
+          "best_hard_negative_rank": 9,
           "hard_negative_error": 0.0
         },
         {
           "query_id": "query-0140",
           "query_type": "exact_phrase",
           "difficulty": "easy",
-          "first_relevant_rank": 1,
+          "first_relevant_rank": 15,
           "relevant_ranks": [
-            1
+            15
           ],
-          "HitRate@1": 1.0,
-          "Recall@1": 1.0,
-          "HitRate@3": 1.0,
-          "Recall@3": 1.0,
-          "HitRate@5": 1.0,
-          "Recall@5": 1.0,
-          "HitRate@10": 1.0,
-          "Recall@10": 1.0,
+          "HitRate@1": 0.0,
+          "Recall@1": 0.0,
+          "HitRate@3": 0.0,
+          "Recall@3": 0.0,
+          "HitRate@5": 0.0,
+          "Recall@5": 0.0,
+          "HitRate@10": 0.0,
+          "Recall@10": 0.0,
           "HitRate@20": 1.0,
           "Recall@20": 1.0,
           "HitRate@50": 1.0,
           "Recall@50": 1.0,
-          "MRR@10": 1.0,
-          "nDCG@10": 1.0,
-          "best_hard_negative_rank": 7,
-          "hard_negative_error": 0.0
+          "MRR@10": 0.0,
+          "nDCG@10": 0.0,
+          "best_hard_negative_rank": 6,
+          "hard_negative_error": 1.0
         },
         {
           "query_id": "query-0141",
           "query_type": "similar_scene",
           "difficulty": "hard",
-          "first_relevant_rank": 2,
+          "first_relevant_rank": 3,
           "relevant_ranks": [
-            2
+            3
           ],
           "HitRate@1": 0.0,
           "Recall@1": 0.0,
@@ -3682,9 +3713,9 @@
           "Recall@20": 1.0,
           "HitRate@50": 1.0,
           "Recall@50": 1.0,
-          "MRR@10": 0.5,
-          "nDCG@10": 0.6309297535714575,
-          "best_hard_negative_rank": 3,
+          "MRR@10": 0.3333333333333333,
+          "nDCG@10": 0.5,
+          "best_hard_negative_rank": 7,
           "hard_negative_error": 0.0
         },
         {
@@ -3716,31 +3747,6 @@
           "query_id": "query-0143",
           "query_type": "similar_scene",
           "difficulty": "hard",
-          "first_relevant_rank": 1,
-          "relevant_ranks": [
-            1
-          ],
-          "HitRate@1": 1.0,
-          "Recall@1": 1.0,
-          "HitRate@3": 1.0,
-          "Recall@3": 1.0,
-          "HitRate@5": 1.0,
-          "Recall@5": 1.0,
-          "HitRate@10": 1.0,
-          "Recall@10": 1.0,
-          "HitRate@20": 1.0,
-          "Recall@20": 1.0,
-          "HitRate@50": 1.0,
-          "Recall@50": 1.0,
-          "MRR@10": 1.0,
-          "nDCG@10": 1.0,
-          "best_hard_negative_rank": 2,
-          "hard_negative_error": 0.0
-        },
-        {
-          "query_id": "query-0144",
-          "query_type": "similar_scene",
-          "difficulty": "hard",
           "first_relevant_rank": 2,
           "relevant_ranks": [
             2
@@ -3759,36 +3765,36 @@
           "Recall@50": 1.0,
           "MRR@10": 0.5,
           "nDCG@10": 0.6309297535714575,
-          "best_hard_negative_rank": 40,
-          "hard_negative_error": 0.0
+          "best_hard_negative_rank": 1,
+          "hard_negative_error": 1.0
         },
         {
-          "query_id": "query-0145",
+          "query_id": "query-0144",
           "query_type": "similar_scene",
           "difficulty": "hard",
-          "first_relevant_rank": 14,
+          "first_relevant_rank": 3,
           "relevant_ranks": [
-            14
+            3
           ],
           "HitRate@1": 0.0,
           "Recall@1": 0.0,
-          "HitRate@3": 0.0,
-          "Recall@3": 0.0,
-          "HitRate@5": 0.0,
-          "Recall@5": 0.0,
-          "HitRate@10": 0.0,
-          "Recall@10": 0.0,
+          "HitRate@3": 1.0,
+          "Recall@3": 1.0,
+          "HitRate@5": 1.0,
+          "Recall@5": 1.0,
+          "HitRate@10": 1.0,
+          "Recall@10": 1.0,
           "HitRate@20": 1.0,
           "Recall@20": 1.0,
           "HitRate@50": 1.0,
           "Recall@50": 1.0,
-          "MRR@10": 0.0,
-          "nDCG@10": 0.0,
+          "MRR@10": 0.3333333333333333,
+          "nDCG@10": 0.5,
           "best_hard_negative_rank": null,
           "hard_negative_error": 0.0
         },
         {
-          "query_id": "query-0146",
+          "query_id": "query-0145",
           "query_type": "similar_scene",
           "difficulty": "hard",
           "first_relevant_rank": 1,
@@ -3809,16 +3815,41 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 15,
+          "best_hard_negative_rank": 43,
+          "hard_negative_error": 0.0
+        },
+        {
+          "query_id": "query-0146",
+          "query_type": "similar_scene",
+          "difficulty": "hard",
+          "first_relevant_rank": 5,
+          "relevant_ranks": [
+            5
+          ],
+          "HitRate@1": 0.0,
+          "Recall@1": 0.0,
+          "HitRate@3": 0.0,
+          "Recall@3": 0.0,
+          "HitRate@5": 1.0,
+          "Recall@5": 1.0,
+          "HitRate@10": 1.0,
+          "Recall@10": 1.0,
+          "HitRate@20": 1.0,
+          "Recall@20": 1.0,
+          "HitRate@50": 1.0,
+          "Recall@50": 1.0,
+          "MRR@10": 0.2,
+          "nDCG@10": 0.38685280723454163,
+          "best_hard_negative_rank": 19,
           "hard_negative_error": 0.0
         },
         {
           "query_id": "query-0147",
           "query_type": "similar_scene",
           "difficulty": "hard",
-          "first_relevant_rank": 39,
+          "first_relevant_rank": 9,
           "relevant_ranks": [
-            39
+            9
           ],
           "HitRate@1": 0.0,
           "Recall@1": 0.0,
@@ -3826,14 +3857,14 @@
           "Recall@3": 0.0,
           "HitRate@5": 0.0,
           "Recall@5": 0.0,
-          "HitRate@10": 0.0,
-          "Recall@10": 0.0,
-          "HitRate@20": 0.0,
-          "Recall@20": 0.0,
+          "HitRate@10": 1.0,
+          "Recall@10": 1.0,
+          "HitRate@20": 1.0,
+          "Recall@20": 1.0,
           "HitRate@50": 1.0,
           "Recall@50": 1.0,
-          "MRR@10": 0.0,
-          "nDCG@10": 0.0,
+          "MRR@10": 0.1111111111111111,
+          "nDCG@10": 0.3010299956639812,
           "best_hard_negative_rank": null,
           "hard_negative_error": 0.0
         },
@@ -3841,12 +3872,12 @@
           "query_id": "query-0148",
           "query_type": "similar_scene",
           "difficulty": "hard",
-          "first_relevant_rank": 2,
+          "first_relevant_rank": 1,
           "relevant_ranks": [
-            2
+            1
           ],
-          "HitRate@1": 0.0,
-          "Recall@1": 0.0,
+          "HitRate@1": 1.0,
+          "Recall@1": 1.0,
           "HitRate@3": 1.0,
           "Recall@3": 1.0,
           "HitRate@5": 1.0,
@@ -3857,9 +3888,9 @@
           "Recall@20": 1.0,
           "HitRate@50": 1.0,
           "Recall@50": 1.0,
-          "MRR@10": 0.5,
-          "nDCG@10": 0.6309297535714575,
-          "best_hard_negative_rank": 5,
+          "MRR@10": 1.0,
+          "nDCG@10": 1.0,
+          "best_hard_negative_rank": 12,
           "hard_negative_error": 0.0
         },
         {
@@ -3884,16 +3915,16 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 3,
+          "best_hard_negative_rank": 2,
           "hard_negative_error": 0.0
         },
         {
           "query_id": "query-0150",
           "query_type": "similar_scene",
           "difficulty": "hard",
-          "first_relevant_rank": 19,
+          "first_relevant_rank": 29,
           "relevant_ranks": [
-            19
+            29
           ],
           "HitRate@1": 0.0,
           "Recall@1": 0.0,
@@ -3903,8 +3934,8 @@
           "Recall@5": 0.0,
           "HitRate@10": 0.0,
           "Recall@10": 0.0,
-          "HitRate@20": 1.0,
-          "Recall@20": 1.0,
+          "HitRate@20": 0.0,
+          "Recall@20": 0.0,
           "HitRate@50": 1.0,
           "Recall@50": 1.0,
           "MRR@10": 0.0,
@@ -3916,24 +3947,24 @@
     },
     "reranked_metrics": {
       "summary": {
-        "HitRate@1": 0.7733333333333333,
-        "Recall@1": 0.7633333333333333,
+        "HitRate@1": 0.7666666666666667,
+        "Recall@1": 0.7566666666666667,
         "HitRate@3": 0.82,
         "Recall@3": 0.81,
         "HitRate@5": 0.84,
         "Recall@5": 0.8333333333333334,
         "HitRate@10": 0.8733333333333333,
         "Recall@10": 0.8666666666666667,
-        "HitRate@20": 0.9533333333333334,
-        "Recall@20": 0.95,
-        "HitRate@50": 0.9533333333333334,
-        "Recall@50": 0.95,
-        "MRR@10": 0.8046904761904762,
-        "nDCG@10": 0.8149218136595376,
-        "mean_first_relevant_rank": 2.6503496503496504,
+        "HitRate@20": 0.9466666666666667,
+        "Recall@20": 0.9433333333333334,
+        "HitRate@50": 0.9466666666666667,
+        "Recall@50": 0.9433333333333334,
+        "MRR@10": 0.8012301587301587,
+        "nDCG@10": 0.812318714328409,
+        "mean_first_relevant_rank": 2.5492957746478875,
         "median_first_relevant_rank": 1.0,
-        "queries_without_relevant": 7,
-        "hard_negative_error_rate": 0.09333333333333334
+        "queries_without_relevant": 8,
+        "hard_negative_error_rate": 0.08666666666666667
       },
       "by_query_type": {
         "character_name": {
@@ -3948,7 +3979,7 @@
           "HitRate@10": 0.6,
           "MRR@10": 0.6,
           "nDCG@10": 0.5692213097021891,
-          "hard_negative_error_rate": 0.13333333333333333
+          "hard_negative_error_rate": 0.1
         },
         "emotion_intention": {
           "count": 25,
@@ -3981,8 +4012,8 @@
         "similar_scene": {
           "count": 10,
           "HitRate@10": 1.0,
-          "MRR@10": 0.7285714285714285,
-          "nDCG@10": 0.7928526173809581,
+          "MRR@10": 0.6766666666666666,
+          "nDCG@10": 0.7538061274140283,
           "hard_negative_error_rate": 0.2
         }
       },
@@ -4284,7 +4315,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 8,
+          "best_hard_negative_rank": 7,
           "hard_negative_error": 0.0
         },
         {
@@ -5089,9 +5120,9 @@
           "query_id": "query-0045",
           "query_type": "context_dependency",
           "difficulty": "hard",
-          "first_relevant_rank": 15,
+          "first_relevant_rank": 14,
           "relevant_ranks": [
-            15
+            14
           ],
           "HitRate@1": 0.0,
           "Recall@1": 0.0,
@@ -5189,10 +5220,8 @@
           "query_id": "query-0049",
           "query_type": "context_dependency",
           "difficulty": "hard",
-          "first_relevant_rank": 20,
-          "relevant_ranks": [
-            20
-          ],
+          "first_relevant_rank": null,
+          "relevant_ranks": [],
           "HitRate@1": 0.0,
           "Recall@1": 0.0,
           "HitRate@3": 0.0,
@@ -5201,14 +5230,14 @@
           "Recall@5": 0.0,
           "HitRate@10": 0.0,
           "Recall@10": 0.0,
-          "HitRate@20": 1.0,
-          "Recall@20": 1.0,
-          "HitRate@50": 1.0,
-          "Recall@50": 1.0,
+          "HitRate@20": 0.0,
+          "Recall@20": 0.0,
+          "HitRate@50": 0.0,
+          "Recall@50": 0.0,
           "MRR@10": 0.0,
           "nDCG@10": 0.0,
           "best_hard_negative_rank": 6,
-          "hard_negative_error": 1.0
+          "hard_negative_error": 0.0
         },
         {
           "query_id": "query-0050",
@@ -5313,9 +5342,9 @@
           "query_id": "query-0054",
           "query_type": "context_dependency",
           "difficulty": "hard",
-          "first_relevant_rank": 18,
+          "first_relevant_rank": 17,
           "relevant_ranks": [
-            18
+            17
           ],
           "HitRate@1": 0.0,
           "Recall@1": 0.0,
@@ -5354,7 +5383,7 @@
           "Recall@50": 0.0,
           "MRR@10": 0.0,
           "nDCG@10": 0.0,
-          "best_hard_negative_rank": 20,
+          "best_hard_negative_rank": 18,
           "hard_negative_error": 0.0
         },
         {
@@ -5510,7 +5539,7 @@
           "first_relevant_rank": 1,
           "relevant_ranks": [
             1,
-            16
+            15
           ],
           "HitRate@1": 1.0,
           "Recall@1": 0.5,
@@ -5581,8 +5610,10 @@
           "query_id": "query-0065",
           "query_type": "context_dependency",
           "difficulty": "hard",
-          "first_relevant_rank": null,
-          "relevant_ranks": [],
+          "first_relevant_rank": 20,
+          "relevant_ranks": [
+            20
+          ],
           "HitRate@1": 0.0,
           "Recall@1": 0.0,
           "HitRate@3": 0.0,
@@ -5591,14 +5622,14 @@
           "Recall@5": 0.0,
           "HitRate@10": 0.0,
           "Recall@10": 0.0,
-          "HitRate@20": 0.0,
-          "Recall@20": 0.0,
-          "HitRate@50": 0.0,
-          "Recall@50": 0.0,
+          "HitRate@20": 1.0,
+          "Recall@20": 1.0,
+          "HitRate@50": 1.0,
+          "Recall@50": 1.0,
           "MRR@10": 0.0,
           "nDCG@10": 0.0,
-          "best_hard_negative_rank": null,
-          "hard_negative_error": 0.0
+          "best_hard_negative_rank": 17,
+          "hard_negative_error": 1.0
         },
         {
           "query_id": "query-0066",
@@ -5622,7 +5653,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 13,
+          "best_hard_negative_rank": 11,
           "hard_negative_error": 0.0
         },
         {
@@ -5679,9 +5710,9 @@
           "query_id": "query-0069",
           "query_type": "context_dependency",
           "difficulty": "hard",
-          "first_relevant_rank": 20,
+          "first_relevant_rank": 19,
           "relevant_ranks": [
-            20
+            19
           ],
           "HitRate@1": 0.0,
           "Recall@1": 0.0,
@@ -5704,10 +5735,8 @@
           "query_id": "query-0070",
           "query_type": "context_dependency",
           "difficulty": "hard",
-          "first_relevant_rank": 17,
-          "relevant_ranks": [
-            17
-          ],
+          "first_relevant_rank": null,
+          "relevant_ranks": [],
           "HitRate@1": 0.0,
           "Recall@1": 0.0,
           "HitRate@3": 0.0,
@@ -5716,14 +5745,14 @@
           "Recall@5": 0.0,
           "HitRate@10": 0.0,
           "Recall@10": 0.0,
-          "HitRate@20": 1.0,
-          "Recall@20": 1.0,
-          "HitRate@50": 1.0,
-          "Recall@50": 1.0,
+          "HitRate@20": 0.0,
+          "Recall@20": 0.0,
+          "HitRate@50": 0.0,
+          "Recall@50": 0.0,
           "MRR@10": 0.0,
           "nDCG@10": 0.0,
           "best_hard_negative_rank": 11,
-          "hard_negative_error": 1.0
+          "hard_negative_error": 0.0
         },
         {
           "query_id": "query-0071",
@@ -6172,7 +6201,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 8,
+          "best_hard_negative_rank": 7,
           "hard_negative_error": 0.0
         },
         {
@@ -6222,7 +6251,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 6,
+          "best_hard_negative_rank": 5,
           "hard_negative_error": 0.0
         },
         {
@@ -6422,7 +6451,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 18,
+          "best_hard_negative_rank": null,
           "hard_negative_error": 0.0
         },
         {
@@ -6447,7 +6476,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 6,
+          "best_hard_negative_rank": 5,
           "hard_negative_error": 0.0
         },
         {
@@ -6622,7 +6651,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 17,
+          "best_hard_negative_rank": 16,
           "hard_negative_error": 0.0
         },
         {
@@ -6722,7 +6751,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 20,
+          "best_hard_negative_rank": null,
           "hard_negative_error": 0.0
         },
         {
@@ -6847,7 +6876,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 3,
+          "best_hard_negative_rank": 5,
           "hard_negative_error": 0.0
         },
         {
@@ -7247,7 +7276,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": null,
+          "best_hard_negative_rank": 17,
           "hard_negative_error": 0.0
         },
         {
@@ -7297,7 +7326,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": null,
+          "best_hard_negative_rank": 16,
           "hard_negative_error": 0.0
         },
         {
@@ -7554,9 +7583,9 @@
           "query_id": "query-0144",
           "query_type": "similar_scene",
           "difficulty": "hard",
-          "first_relevant_rank": 7,
+          "first_relevant_rank": 6,
           "relevant_ranks": [
-            7
+            6
           ],
           "HitRate@1": 0.0,
           "Recall@1": 0.0,
@@ -7570,9 +7599,9 @@
           "Recall@20": 1.0,
           "HitRate@50": 1.0,
           "Recall@50": 1.0,
-          "MRR@10": 0.14285714285714285,
-          "nDCG@10": 0.3333333333333333,
-          "best_hard_negative_rank": 15,
+          "MRR@10": 0.16666666666666666,
+          "nDCG@10": 0.3562071871080222,
+          "best_hard_negative_rank": null,
           "hard_negative_error": 0.0
         },
         {
@@ -7629,12 +7658,12 @@
           "query_id": "query-0147",
           "query_type": "similar_scene",
           "difficulty": "hard",
-          "first_relevant_rank": 1,
+          "first_relevant_rank": 2,
           "relevant_ranks": [
-            1
+            2
           ],
-          "HitRate@1": 1.0,
-          "Recall@1": 1.0,
+          "HitRate@1": 0.0,
+          "Recall@1": 0.0,
           "HitRate@3": 1.0,
           "Recall@3": 1.0,
           "HitRate@5": 1.0,
@@ -7645,8 +7674,8 @@
           "Recall@20": 1.0,
           "HitRate@50": 1.0,
           "Recall@50": 1.0,
-          "MRR@10": 1.0,
-          "nDCG@10": 1.0,
+          "MRR@10": 0.5,
+          "nDCG@10": 0.6309297535714575,
           "best_hard_negative_rank": null,
           "hard_negative_error": 0.0
         },
@@ -7672,7 +7701,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 5,
+          "best_hard_negative_rank": 6,
           "hard_negative_error": 0.0
         },
         {
@@ -7704,9 +7733,9 @@
           "query_id": "query-0150",
           "query_type": "similar_scene",
           "difficulty": "hard",
-          "first_relevant_rank": 7,
+          "first_relevant_rank": 10,
           "relevant_ranks": [
-            7
+            10
           ],
           "HitRate@1": 0.0,
           "Recall@1": 0.0,
@@ -7720,8 +7749,8 @@
           "Recall@20": 1.0,
           "HitRate@50": 1.0,
           "Recall@50": 1.0,
-          "MRR@10": 0.14285714285714285,
-          "nDCG@10": 0.3333333333333333,
+          "MRR@10": 0.1,
+          "nDCG@10": 0.2890648263178879,
           "best_hard_negative_rank": null,
           "hard_negative_error": 0.0
         }
@@ -7730,14 +7759,14 @@
     "effect": {
       "candidate_cutoff": 50,
       "candidate_coverage": 0.9733333333333334,
-      "conditional_HitRate@1": 0.7945205479452054,
-      "rescue_count": 17,
-      "rescue_eligible": 42,
-      "rescue_rate": 0.40476190476190477,
+      "conditional_HitRate@1": 0.7876712328767124,
+      "rescue_count": 27,
+      "rescue_eligible": 53,
+      "rescue_rate": 0.5094339622641509,
       "damage_count": 5,
-      "damage_eligible": 104,
-      "damage_rate": 0.04807692307692308,
-      "mean_rank_improvement": 1.0769230769230769,
+      "damage_eligible": 93,
+      "damage_rate": 0.053763440860215055,
+      "mean_rank_improvement": 0.7746478873239436,
       "median_rank_improvement": 0.0
     },
     "per_query_effect": [
@@ -7745,22 +7774,22 @@
         "query_id": "query-0001",
         "query_type": "semantic_event",
         "candidate_contains_relevant": true,
-        "base_first_relevant_rank": 1,
+        "base_first_relevant_rank": 5,
         "reranked_first_relevant_rank": 1,
-        "base_top1_correct": true,
+        "base_top1_correct": false,
         "reranked_top1_correct": true,
-        "rescued": false,
+        "rescued": true,
         "damaged": false
       },
       {
         "query_id": "query-0002",
         "query_type": "semantic_event",
         "candidate_contains_relevant": true,
-        "base_first_relevant_rank": 2,
+        "base_first_relevant_rank": 1,
         "reranked_first_relevant_rank": 1,
-        "base_top1_correct": false,
+        "base_top1_correct": true,
         "reranked_top1_correct": true,
-        "rescued": true,
+        "rescued": false,
         "damaged": false
       },
       {
@@ -7778,7 +7807,7 @@
         "query_id": "query-0004",
         "query_type": "semantic_event",
         "candidate_contains_relevant": true,
-        "base_first_relevant_rank": 15,
+        "base_first_relevant_rank": 2,
         "reranked_first_relevant_rank": 1,
         "base_top1_correct": false,
         "reranked_top1_correct": true,
@@ -7833,11 +7862,11 @@
         "query_id": "query-0009",
         "query_type": "semantic_event",
         "candidate_contains_relevant": true,
-        "base_first_relevant_rank": 1,
+        "base_first_relevant_rank": 3,
         "reranked_first_relevant_rank": 1,
-        "base_top1_correct": true,
+        "base_top1_correct": false,
         "reranked_top1_correct": true,
-        "rescued": false,
+        "rescued": true,
         "damaged": false
       },
       {
@@ -7855,11 +7884,11 @@
         "query_id": "query-0011",
         "query_type": "semantic_event",
         "candidate_contains_relevant": true,
-        "base_first_relevant_rank": 1,
+        "base_first_relevant_rank": 2,
         "reranked_first_relevant_rank": 1,
-        "base_top1_correct": true,
+        "base_top1_correct": false,
         "reranked_top1_correct": true,
-        "rescued": false,
+        "rescued": true,
         "damaged": false
       },
       {
@@ -7888,7 +7917,7 @@
         "query_id": "query-0014",
         "query_type": "semantic_event",
         "candidate_contains_relevant": true,
-        "base_first_relevant_rank": 12,
+        "base_first_relevant_rank": 7,
         "reranked_first_relevant_rank": 1,
         "base_top1_correct": false,
         "reranked_top1_correct": true,
@@ -7899,11 +7928,11 @@
         "query_id": "query-0015",
         "query_type": "semantic_event",
         "candidate_contains_relevant": true,
-        "base_first_relevant_rank": 1,
+        "base_first_relevant_rank": 3,
         "reranked_first_relevant_rank": 1,
-        "base_top1_correct": true,
+        "base_top1_correct": false,
         "reranked_top1_correct": true,
-        "rescued": false,
+        "rescued": true,
         "damaged": false
       },
       {
@@ -7965,23 +7994,23 @@
         "query_id": "query-0021",
         "query_type": "semantic_event",
         "candidate_contains_relevant": true,
-        "base_first_relevant_rank": 1,
+        "base_first_relevant_rank": 7,
         "reranked_first_relevant_rank": 1,
-        "base_top1_correct": true,
+        "base_top1_correct": false,
         "reranked_top1_correct": true,
-        "rescued": false,
+        "rescued": true,
         "damaged": false
       },
       {
         "query_id": "query-0022",
         "query_type": "semantic_event",
         "candidate_contains_relevant": true,
-        "base_first_relevant_rank": 2,
+        "base_first_relevant_rank": 1,
         "reranked_first_relevant_rank": 2,
-        "base_top1_correct": false,
+        "base_top1_correct": true,
         "reranked_top1_correct": false,
         "rescued": false,
-        "damaged": false
+        "damaged": true
       },
       {
         "query_id": "query-0023",
@@ -7998,7 +8027,7 @@
         "query_id": "query-0024",
         "query_type": "semantic_event",
         "candidate_contains_relevant": true,
-        "base_first_relevant_rank": 11,
+        "base_first_relevant_rank": 2,
         "reranked_first_relevant_rank": 1,
         "base_top1_correct": false,
         "reranked_top1_correct": true,
@@ -8053,11 +8082,11 @@
         "query_id": "query-0029",
         "query_type": "semantic_event",
         "candidate_contains_relevant": true,
-        "base_first_relevant_rank": 1,
+        "base_first_relevant_rank": 2,
         "reranked_first_relevant_rank": 1,
-        "base_top1_correct": true,
+        "base_top1_correct": false,
         "reranked_top1_correct": true,
-        "rescued": false,
+        "rescued": true,
         "damaged": false
       },
       {
@@ -8108,11 +8137,11 @@
         "query_id": "query-0034",
         "query_type": "semantic_event",
         "candidate_contains_relevant": true,
-        "base_first_relevant_rank": 1,
+        "base_first_relevant_rank": 2,
         "reranked_first_relevant_rank": 1,
-        "base_top1_correct": true,
+        "base_top1_correct": false,
         "reranked_top1_correct": true,
-        "rescued": false,
+        "rescued": true,
         "damaged": false
       },
       {
@@ -8141,18 +8170,18 @@
         "query_id": "query-0037",
         "query_type": "semantic_event",
         "candidate_contains_relevant": true,
-        "base_first_relevant_rank": 10,
+        "base_first_relevant_rank": 1,
         "reranked_first_relevant_rank": 1,
-        "base_top1_correct": false,
+        "base_top1_correct": true,
         "reranked_top1_correct": true,
-        "rescued": true,
+        "rescued": false,
         "damaged": false
       },
       {
         "query_id": "query-0038",
         "query_type": "semantic_event",
         "candidate_contains_relevant": true,
-        "base_first_relevant_rank": 2,
+        "base_first_relevant_rank": 5,
         "reranked_first_relevant_rank": 1,
         "base_top1_correct": false,
         "reranked_top1_correct": true,
@@ -8229,8 +8258,8 @@
         "query_id": "query-0045",
         "query_type": "context_dependency",
         "candidate_contains_relevant": true,
-        "base_first_relevant_rank": 36,
-        "reranked_first_relevant_rank": 15,
+        "base_first_relevant_rank": 18,
+        "reranked_first_relevant_rank": 14,
         "base_top1_correct": false,
         "reranked_top1_correct": false,
         "rescued": false,
@@ -8251,11 +8280,11 @@
         "query_id": "query-0047",
         "query_type": "context_dependency",
         "candidate_contains_relevant": true,
-        "base_first_relevant_rank": 2,
+        "base_first_relevant_rank": 1,
         "reranked_first_relevant_rank": 1,
-        "base_top1_correct": false,
+        "base_top1_correct": true,
         "reranked_top1_correct": true,
-        "rescued": true,
+        "rescued": false,
         "damaged": false
       },
       {
@@ -8273,8 +8302,8 @@
         "query_id": "query-0049",
         "query_type": "context_dependency",
         "candidate_contains_relevant": true,
-        "base_first_relevant_rank": 29,
-        "reranked_first_relevant_rank": 20,
+        "base_first_relevant_rank": 20,
+        "reranked_first_relevant_rank": null,
         "base_top1_correct": false,
         "reranked_top1_correct": false,
         "rescued": false,
@@ -8328,8 +8357,8 @@
         "query_id": "query-0054",
         "query_type": "context_dependency",
         "candidate_contains_relevant": true,
-        "base_first_relevant_rank": 15,
-        "reranked_first_relevant_rank": 18,
+        "base_first_relevant_rank": 14,
+        "reranked_first_relevant_rank": 17,
         "base_top1_correct": false,
         "reranked_top1_correct": false,
         "rescued": false,
@@ -8339,7 +8368,7 @@
         "query_id": "query-0055",
         "query_type": "context_dependency",
         "candidate_contains_relevant": true,
-        "base_first_relevant_rank": 18,
+        "base_first_relevant_rank": 17,
         "reranked_first_relevant_rank": null,
         "base_top1_correct": false,
         "reranked_top1_correct": false,
@@ -8383,7 +8412,7 @@
         "query_id": "query-0059",
         "query_type": "context_dependency",
         "candidate_contains_relevant": true,
-        "base_first_relevant_rank": 31,
+        "base_first_relevant_rank": 16,
         "reranked_first_relevant_rank": null,
         "base_top1_correct": false,
         "reranked_top1_correct": false,
@@ -8437,8 +8466,8 @@
       {
         "query_id": "query-0064",
         "query_type": "context_dependency",
-        "candidate_contains_relevant": false,
-        "base_first_relevant_rank": null,
+        "candidate_contains_relevant": true,
+        "base_first_relevant_rank": 18,
         "reranked_first_relevant_rank": null,
         "base_top1_correct": false,
         "reranked_top1_correct": false,
@@ -8449,8 +8478,8 @@
         "query_id": "query-0065",
         "query_type": "context_dependency",
         "candidate_contains_relevant": true,
-        "base_first_relevant_rank": 49,
-        "reranked_first_relevant_rank": null,
+        "base_first_relevant_rank": 18,
+        "reranked_first_relevant_rank": 20,
         "base_top1_correct": false,
         "reranked_top1_correct": false,
         "rescued": false,
@@ -8471,11 +8500,11 @@
         "query_id": "query-0067",
         "query_type": "context_dependency",
         "candidate_contains_relevant": true,
-        "base_first_relevant_rank": 4,
+        "base_first_relevant_rank": 1,
         "reranked_first_relevant_rank": 1,
-        "base_top1_correct": false,
+        "base_top1_correct": true,
         "reranked_top1_correct": true,
-        "rescued": true,
+        "rescued": false,
         "damaged": false
       },
       {
@@ -8493,8 +8522,8 @@
         "query_id": "query-0069",
         "query_type": "context_dependency",
         "candidate_contains_relevant": true,
-        "base_first_relevant_rank": 23,
-        "reranked_first_relevant_rank": 20,
+        "base_first_relevant_rank": 18,
+        "reranked_first_relevant_rank": 19,
         "base_top1_correct": false,
         "reranked_top1_correct": false,
         "rescued": false,
@@ -8503,9 +8532,9 @@
       {
         "query_id": "query-0070",
         "query_type": "context_dependency",
-        "candidate_contains_relevant": true,
-        "base_first_relevant_rank": 21,
-        "reranked_first_relevant_rank": 17,
+        "candidate_contains_relevant": false,
+        "base_first_relevant_rank": null,
+        "reranked_first_relevant_rank": null,
         "base_top1_correct": false,
         "reranked_top1_correct": false,
         "rescued": false,
@@ -8559,11 +8588,11 @@
         "query_id": "query-0075",
         "query_type": "emotion_intention",
         "candidate_contains_relevant": true,
-        "base_first_relevant_rank": 1,
+        "base_first_relevant_rank": 2,
         "reranked_first_relevant_rank": 1,
-        "base_top1_correct": true,
+        "base_top1_correct": false,
         "reranked_top1_correct": true,
-        "rescued": false,
+        "rescued": true,
         "damaged": false
       },
       {
@@ -8647,11 +8676,11 @@
         "query_id": "query-0083",
         "query_type": "emotion_intention",
         "candidate_contains_relevant": true,
-        "base_first_relevant_rank": 1,
+        "base_first_relevant_rank": 2,
         "reranked_first_relevant_rank": 1,
-        "base_top1_correct": true,
+        "base_top1_correct": false,
         "reranked_top1_correct": true,
-        "rescued": false,
+        "rescued": true,
         "damaged": false
       },
       {
@@ -8669,11 +8698,11 @@
         "query_id": "query-0085",
         "query_type": "emotion_intention",
         "candidate_contains_relevant": true,
-        "base_first_relevant_rank": 1,
+        "base_first_relevant_rank": 2,
         "reranked_first_relevant_rank": 1,
-        "base_top1_correct": true,
+        "base_top1_correct": false,
         "reranked_top1_correct": true,
-        "rescued": false,
+        "rescued": true,
         "damaged": false
       },
       {
@@ -8691,22 +8720,22 @@
         "query_id": "query-0087",
         "query_type": "emotion_intention",
         "candidate_contains_relevant": true,
-        "base_first_relevant_rank": 1,
+        "base_first_relevant_rank": 3,
         "reranked_first_relevant_rank": 1,
-        "base_top1_correct": true,
+        "base_top1_correct": false,
         "reranked_top1_correct": true,
-        "rescued": false,
+        "rescued": true,
         "damaged": false
       },
       {
         "query_id": "query-0088",
         "query_type": "emotion_intention",
         "candidate_contains_relevant": true,
-        "base_first_relevant_rank": 1,
+        "base_first_relevant_rank": 2,
         "reranked_first_relevant_rank": 1,
-        "base_top1_correct": true,
+        "base_top1_correct": false,
         "reranked_top1_correct": true,
-        "rescued": false,
+        "rescued": true,
         "damaged": false
       },
       {
@@ -8757,11 +8786,11 @@
         "query_id": "query-0093",
         "query_type": "emotion_intention",
         "candidate_contains_relevant": true,
-        "base_first_relevant_rank": 1,
+        "base_first_relevant_rank": 2,
         "reranked_first_relevant_rank": 1,
-        "base_top1_correct": true,
+        "base_top1_correct": false,
         "reranked_top1_correct": true,
-        "rescued": false,
+        "rescued": true,
         "damaged": false
       },
       {
@@ -8779,11 +8808,11 @@
         "query_id": "query-0095",
         "query_type": "emotion_intention",
         "candidate_contains_relevant": true,
-        "base_first_relevant_rank": 1,
+        "base_first_relevant_rank": 2,
         "reranked_first_relevant_rank": 1,
-        "base_top1_correct": true,
+        "base_top1_correct": false,
         "reranked_top1_correct": true,
-        "rescued": false,
+        "rescued": true,
         "damaged": false
       },
       {
@@ -8900,7 +8929,7 @@
         "query_id": "query-0106",
         "query_type": "indirect_dialogue",
         "candidate_contains_relevant": true,
-        "base_first_relevant_rank": 4,
+        "base_first_relevant_rank": 2,
         "reranked_first_relevant_rank": 1,
         "base_top1_correct": false,
         "reranked_top1_correct": true,
@@ -9010,7 +9039,7 @@
         "query_id": "query-0116",
         "query_type": "character_name",
         "candidate_contains_relevant": true,
-        "base_first_relevant_rank": 6,
+        "base_first_relevant_rank": 5,
         "reranked_first_relevant_rank": 4,
         "base_top1_correct": false,
         "reranked_top1_correct": false,
@@ -9032,7 +9061,7 @@
         "query_id": "query-0118",
         "query_type": "character_name",
         "candidate_contains_relevant": true,
-        "base_first_relevant_rank": 13,
+        "base_first_relevant_rank": 18,
         "reranked_first_relevant_rank": 19,
         "base_top1_correct": false,
         "reranked_top1_correct": false,
@@ -9043,7 +9072,7 @@
         "query_id": "query-0119",
         "query_type": "character_name",
         "candidate_contains_relevant": true,
-        "base_first_relevant_rank": 7,
+        "base_first_relevant_rank": 16,
         "reranked_first_relevant_rank": 13,
         "base_top1_correct": false,
         "reranked_top1_correct": false,
@@ -9054,7 +9083,7 @@
         "query_id": "query-0120",
         "query_type": "character_name",
         "candidate_contains_relevant": true,
-        "base_first_relevant_rank": 15,
+        "base_first_relevant_rank": 11,
         "reranked_first_relevant_rank": 11,
         "base_top1_correct": false,
         "reranked_top1_correct": false,
@@ -9076,7 +9105,7 @@
         "query_id": "query-0122",
         "query_type": "character_name",
         "candidate_contains_relevant": true,
-        "base_first_relevant_rank": 14,
+        "base_first_relevant_rank": 12,
         "reranked_first_relevant_rank": 5,
         "base_top1_correct": false,
         "reranked_top1_correct": false,
@@ -9087,7 +9116,7 @@
         "query_id": "query-0123",
         "query_type": "character_name",
         "candidate_contains_relevant": true,
-        "base_first_relevant_rank": 19,
+        "base_first_relevant_rank": 14,
         "reranked_first_relevant_rank": 17,
         "base_top1_correct": false,
         "reranked_top1_correct": false,
@@ -9098,7 +9127,7 @@
         "query_id": "query-0124",
         "query_type": "character_name",
         "candidate_contains_relevant": true,
-        "base_first_relevant_rank": 18,
+        "base_first_relevant_rank": 19,
         "reranked_first_relevant_rank": 19,
         "base_top1_correct": false,
         "reranked_top1_correct": false,
@@ -9109,7 +9138,7 @@
         "query_id": "query-0125",
         "query_type": "character_name",
         "candidate_contains_relevant": true,
-        "base_first_relevant_rank": 13,
+        "base_first_relevant_rank": 14,
         "reranked_first_relevant_rank": 5,
         "base_top1_correct": false,
         "reranked_top1_correct": false,
@@ -9120,7 +9149,7 @@
         "query_id": "query-0126",
         "query_type": "character_name",
         "candidate_contains_relevant": true,
-        "base_first_relevant_rank": 8,
+        "base_first_relevant_rank": 7,
         "reranked_first_relevant_rank": 3,
         "base_top1_correct": false,
         "reranked_top1_correct": false,
@@ -9131,7 +9160,7 @@
         "query_id": "query-0127",
         "query_type": "character_name",
         "candidate_contains_relevant": true,
-        "base_first_relevant_rank": 7,
+        "base_first_relevant_rank": 5,
         "reranked_first_relevant_rank": 7,
         "base_top1_correct": false,
         "reranked_top1_correct": false,
@@ -9142,7 +9171,7 @@
         "query_id": "query-0128",
         "query_type": "character_name",
         "candidate_contains_relevant": true,
-        "base_first_relevant_rank": 7,
+        "base_first_relevant_rank": 17,
         "reranked_first_relevant_rank": 17,
         "base_top1_correct": false,
         "reranked_top1_correct": false,
@@ -9153,7 +9182,7 @@
         "query_id": "query-0129",
         "query_type": "character_name",
         "candidate_contains_relevant": true,
-        "base_first_relevant_rank": 7,
+        "base_first_relevant_rank": 20,
         "reranked_first_relevant_rank": 13,
         "base_top1_correct": false,
         "reranked_top1_correct": false,
@@ -9164,7 +9193,7 @@
         "query_id": "query-0130",
         "query_type": "character_name",
         "candidate_contains_relevant": true,
-        "base_first_relevant_rank": 18,
+        "base_first_relevant_rank": 17,
         "reranked_first_relevant_rank": 8,
         "base_top1_correct": false,
         "reranked_top1_correct": false,
@@ -9175,17 +9204,6 @@
         "query_id": "query-0131",
         "query_type": "exact_phrase",
         "candidate_contains_relevant": true,
-        "base_first_relevant_rank": 1,
-        "reranked_first_relevant_rank": 1,
-        "base_top1_correct": true,
-        "reranked_top1_correct": true,
-        "rescued": false,
-        "damaged": false
-      },
-      {
-        "query_id": "query-0132",
-        "query_type": "exact_phrase",
-        "candidate_contains_relevant": true,
         "base_first_relevant_rank": 2,
         "reranked_first_relevant_rank": 1,
         "base_top1_correct": false,
@@ -9194,7 +9212,7 @@
         "damaged": false
       },
       {
-        "query_id": "query-0133",
+        "query_id": "query-0132",
         "query_type": "exact_phrase",
         "candidate_contains_relevant": true,
         "base_first_relevant_rank": 1,
@@ -9202,6 +9220,17 @@
         "base_top1_correct": true,
         "reranked_top1_correct": true,
         "rescued": false,
+        "damaged": false
+      },
+      {
+        "query_id": "query-0133",
+        "query_type": "exact_phrase",
+        "candidate_contains_relevant": true,
+        "base_first_relevant_rank": 2,
+        "reranked_first_relevant_rank": 1,
+        "base_top1_correct": false,
+        "reranked_top1_correct": true,
+        "rescued": true,
         "damaged": false
       },
       {
@@ -9274,18 +9303,18 @@
         "query_id": "query-0140",
         "query_type": "exact_phrase",
         "candidate_contains_relevant": true,
-        "base_first_relevant_rank": 1,
+        "base_first_relevant_rank": 15,
         "reranked_first_relevant_rank": 1,
-        "base_top1_correct": true,
+        "base_top1_correct": false,
         "reranked_top1_correct": true,
-        "rescued": false,
+        "rescued": true,
         "damaged": false
       },
       {
         "query_id": "query-0141",
         "query_type": "similar_scene",
         "candidate_contains_relevant": true,
-        "base_first_relevant_rank": 2,
+        "base_first_relevant_rank": 3,
         "reranked_first_relevant_rank": 1,
         "base_top1_correct": false,
         "reranked_top1_correct": true,
@@ -9307,19 +9336,19 @@
         "query_id": "query-0143",
         "query_type": "similar_scene",
         "candidate_contains_relevant": true,
-        "base_first_relevant_rank": 1,
+        "base_first_relevant_rank": 2,
         "reranked_first_relevant_rank": 2,
-        "base_top1_correct": true,
+        "base_top1_correct": false,
         "reranked_top1_correct": false,
         "rescued": false,
-        "damaged": true
+        "damaged": false
       },
       {
         "query_id": "query-0144",
         "query_type": "similar_scene",
         "candidate_contains_relevant": true,
-        "base_first_relevant_rank": 2,
-        "reranked_first_relevant_rank": 7,
+        "base_first_relevant_rank": 3,
+        "reranked_first_relevant_rank": 6,
         "base_top1_correct": false,
         "reranked_top1_correct": false,
         "rescued": false,
@@ -9329,17 +9358,6 @@
         "query_id": "query-0145",
         "query_type": "similar_scene",
         "candidate_contains_relevant": true,
-        "base_first_relevant_rank": 14,
-        "reranked_first_relevant_rank": 1,
-        "base_top1_correct": false,
-        "reranked_top1_correct": true,
-        "rescued": true,
-        "damaged": false
-      },
-      {
-        "query_id": "query-0146",
-        "query_type": "similar_scene",
-        "candidate_contains_relevant": true,
         "base_first_relevant_rank": 1,
         "reranked_first_relevant_rank": 1,
         "base_top1_correct": true,
@@ -9348,10 +9366,10 @@
         "damaged": false
       },
       {
-        "query_id": "query-0147",
+        "query_id": "query-0146",
         "query_type": "similar_scene",
         "candidate_contains_relevant": true,
-        "base_first_relevant_rank": 39,
+        "base_first_relevant_rank": 5,
         "reranked_first_relevant_rank": 1,
         "base_top1_correct": false,
         "reranked_top1_correct": true,
@@ -9359,14 +9377,25 @@
         "damaged": false
       },
       {
+        "query_id": "query-0147",
+        "query_type": "similar_scene",
+        "candidate_contains_relevant": true,
+        "base_first_relevant_rank": 9,
+        "reranked_first_relevant_rank": 2,
+        "base_top1_correct": false,
+        "reranked_top1_correct": false,
+        "rescued": false,
+        "damaged": false
+      },
+      {
         "query_id": "query-0148",
         "query_type": "similar_scene",
         "candidate_contains_relevant": true,
-        "base_first_relevant_rank": 2,
+        "base_first_relevant_rank": 1,
         "reranked_first_relevant_rank": 1,
-        "base_top1_correct": false,
+        "base_top1_correct": true,
         "reranked_top1_correct": true,
-        "rescued": true,
+        "rescued": false,
         "damaged": false
       },
       {
@@ -9384,8 +9413,8 @@
         "query_id": "query-0150",
         "query_type": "similar_scene",
         "candidate_contains_relevant": true,
-        "base_first_relevant_rank": 19,
-        "reranked_first_relevant_rank": 7,
+        "base_first_relevant_rank": 29,
+        "reranked_first_relevant_rank": 10,
         "base_top1_correct": false,
         "reranked_top1_correct": false,
         "rescued": false,
@@ -9393,5 +9422,5 @@
       }
     ]
   },
-  "completed_at": "2026-08-01T00:25:30.236503+00:00"
+  "completed_at": "2026-08-01T00:33:54.440926+00:00"
 }
