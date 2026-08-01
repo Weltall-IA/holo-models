@@ -3106,8 +3106,8 @@
   "schema_version": "2.0.0",
   "title": "Holo — Complete Consolidated Embedding and Reranker Benchmark Results",
   "repository": "Weltall-IA/holo-models",
-  "generated_at": "2026-08-01T09:28:52.589136+00:00",
-  "source_commit": "e2fa49922e4fa7b86b390aa6b158a60ff7a55f26",
+  "generated_at": "2026-08-01T10:06:06.171819+00:00",
+  "source_commit": "9aafacdc720b22985076dc88fd3266fc64b4f19b",
   "validation": {
     "status": "PASS",
     "checks": {
@@ -3375,6 +3375,7 @@
       },
       "rank_by_mrr_at_10": 1
     },
+    "leader_ranking_scope": "general: all published canonical pipelines with evaluation.reranked_metrics.summary or metrics.summary, ranked by mrr_at_10 descending; leader is pipelines[0]",
     "best_fully_local_recorded_reference": {
       "pipeline_id": "qwen3_embedding_4b_q8_0__qwen_local",
       "metrics": {
@@ -44330,7 +44331,8 @@
     "No benchmark was rerun by the consolidation step.",
     "All published pipeline summaries are read from individual source JSON files.",
     "Raw embedding metrics and reranked pipeline metrics remain separate.",
-    "The canonical document was regenerated only after the individual artifacts were closed."
+    "The canonical document was regenerated only after the individual artifacts were closed.",
+    "Historical pipelines removed in commit 91a39f5 (voyage_rerank_2_5 and vLLM llama_nemotron_rerank_1b_v2) do not participate: their artifacts are absent from the checkout; their score files remain under results/reranker/scores/ and the archived values are documented in README Tabela 1a."
   ],
   "correction": {
     "reason": "Historical pipeline artifacts contain both base_metrics and reranked_metrics; ranking uses reranked_metrics.",

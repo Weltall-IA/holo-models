@@ -559,6 +559,11 @@ def build_document(
             },
             "leaders_published": {
                 "best_by_mrr_at_10": pipelines[0] if pipelines else None,
+                "leader_ranking_scope": (
+                    "general: all published canonical pipelines with "
+                    "evaluation.reranked_metrics.summary or metrics.summary, "
+                    "ranked by mrr_at_10 descending; leader is pipelines[0]"
+                ),
                 "best_fully_local_recorded_reference": (
                     {
                         "pipeline_id": local_pipelines[0]["pipeline_id"],
@@ -582,6 +587,13 @@ def build_document(
                 "All published pipeline summaries are read from individual source JSON files.",
                 "Raw embedding metrics and reranked pipeline metrics remain separate.",
                 "The canonical document was regenerated only after the individual artifacts were closed.",
+                (
+                    "Historical pipelines removed in commit 91a39f5 "
+                    "(voyage_rerank_2_5 and vLLM llama_nemotron_rerank_1b_v2) do not "
+                    "participate: their artifacts are absent from the checkout; their "
+                    "score files remain under results/reranker/scores/ and the archived "
+                    "values are documented in README Tabela 1a."
+                ),
             ],
             "correction": {
                 "reason": "Historical pipeline artifacts contain both base_metrics and reranked_metrics; ranking uses reranked_metrics.",
