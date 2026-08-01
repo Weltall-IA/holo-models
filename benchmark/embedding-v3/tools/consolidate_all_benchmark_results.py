@@ -17,14 +17,18 @@ from holo_benchmark.artifact_portability import (
     sanitize_host_payload,
 )
 
-EXPECTED_PIPELINE_COUNT = 95
+EXPECTED_PIPELINE_COUNT = 100
 EXPECTED_PIPELINE_EMBEDDINGS = 39
 EXPECTED_RAW_PROFILE_COUNT = 42
 EXPECTED_RERANKER_COUNTS = {
+    "ettin_reranker_150m_v1": 1,
+    "ettin_reranker_68m_v1": 1,
     "jina_reranker_v3_noncommercial": 12,
     "kalm_reranker_v1_nano": 12,
     "kalm_reranker_v1_small": 12,
-    "mxbai_rerank_base_v2": 8,
+    "lamar_600m": 1,
+    "llama_nemotron_rerank_1b_v2": 1,
+    "mxbai_rerank_base_v2": 9,
     "querit_reranker_4b": 12,
     "qwen_local": 39,
 }
@@ -590,12 +594,58 @@ def build_document(
             },
         }
     )
+    document = _reconcile_voyage_status(document, bench)
     document = sanitize_host_payload(document)
     assert_portable_payload(document)
     if document["validation"]["status"] != "PASS":
         failed = [name for name, passed in checks.items() if not passed]
         raise ValueError(f"canonical validation failed: {failed}")
     return document
+
+
+def _reconcile_voyage_status(
+    document: Mapping[str, Any],
+    bench: Path,
+) -> dict[str, Any]:
+    """Make the Voyage Nemotron status block reference only existing files.
+
+    The checkpoint is a transient git-ignored artifact under ``results/raw/``
+    that is not part of the checkout.  Instead of leaving a broken reference,
+    record the absence explicitly with a verifiable flag so tests can assert
+    either existence or explicit handling of the missing checkpoint.
+    """
+    result = deepcopy(dict(document))
+    block = result.get("voyage_nemotron_8b_status")
+    if not isinstance(block, Mapping):
+        return result
+    status = str(block.get("status") or "")
+    checkpoint = block.get("checkpoint")
+    checkpoint_available = bool(checkpoint) and (bench / str(checkpoint)).is_file()
+    score_artifact = block.get("score_artifact")
+    score_available = bool(score_artifact) and (
+        bench / str(score_artifact)
+    ).is_file()
+    reconciled = deepcopy(dict(block))
+    if not checkpoint_available:
+        reconciled["checkpoint"] = (
+            str(checkpoint) if checkpoint and (bench / str(checkpoint)).is_file() else None
+        )
+        reconciled["checkpoint_available"] = False
+        reconciled["checkpoint_missing_reason"] = (
+            "transient git-ignored batch checkpoint absent from checkout"
+        )
+    else:
+        reconciled["checkpoint_available"] = True
+        reconciled.pop("checkpoint_missing_reason", None)
+    if not score_available:
+        reconciled["score_artifact"] = None
+        reconciled["score_artifact_available"] = False
+    else:
+        reconciled["score_artifact_available"] = True
+    if status == "COMPLETED_BATCH":
+        reconciled["status_evidence_verified"] = score_available
+    result["voyage_nemotron_8b_status"] = reconciled
+    return result
 
 
 def parse_args() -> argparse.Namespace:
