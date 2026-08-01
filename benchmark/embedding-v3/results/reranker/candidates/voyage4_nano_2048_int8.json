@@ -38300,5 +38300,27 @@
       ]
     }
   ],
-  "completed_at": "2026-07-20T19:57:33.689467+00:00"
+  "completed_at": "2026-07-20T19:57:33.689467+00:00",
+  "ranking_sha256": "108d9dc17adb1afb261a0bd143e24220d7ba06da5b4c8f5889034849751d5575",
+  "embedding": {
+    "profile_id": "voyage4_nano_2048_int8",
+    "backend": "sentence-transformers",
+    "weight_file": null,
+    "bytes": null,
+    "sha256": "3dae0c63c81dcab79ac213af331940a1bf2b8a53ec8646be878552890291ad30",
+    "quantization": {
+      "method": "per-dimension scalar int8",
+      "calibration_documents": 600,
+      "stored_dtype": "int8",
+      "stored_dimension": 2048,
+      "stored_bytes_per_vector": 2048,
+      "zero_range_dimensions": 0,
+      "document_values_clipped": 362,
+      "query_values_clipped": 28294,
+      "quality_scoring": "dequantized cosine using corpus-calibrated ranges",
+      "native_vector_database_latency_measured": false
+    },
+    "native_dimension": 2048,
+    "evaluated_dimension": 2048
+  }
 }

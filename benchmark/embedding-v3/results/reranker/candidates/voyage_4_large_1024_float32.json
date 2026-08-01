@@ -38277,5 +38277,16 @@
       ]
     }
   ],
-  "completed_at": "2026-07-20T19:57:34.828719+00:00"
+  "completed_at": "2026-07-20T19:57:34.828719+00:00",
+  "ranking_sha256": "57b92f87d67a5ac7a3eb530a336402ea7ed8b9eec60668e5a33b16a2c6a9f84a",
+  "embedding": {
+    "profile_id": "voyage_4_large_1024_float32",
+    "backend": "sentence-transformers",
+    "weight_file": null,
+    "bytes": null,
+    "sha256": null,
+    "quantization": null,
+    "native_dimension": 1024,
+    "evaluated_dimension": 1024
+  }
 }
