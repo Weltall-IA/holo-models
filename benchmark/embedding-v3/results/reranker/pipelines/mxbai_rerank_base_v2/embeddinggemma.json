@@ -6,7 +6,7 @@
     "profile_id": "embeddinggemma",
     "source_group": "gate2",
     "source_path": "benchmark/embedding-v3/results/gate2/embeddinggemma.json",
-    "evidence_sha256": "65af7e401f34f5b83404e8620242c9798a2f515fe136bbe312690e671194187a",
+    "evidence_sha256": "fd3a0b21c4272d1740e190dcc4bc70b5c4fa6d4b80083d1b9f66f60edd3ea54f",
     "model": {
       "id": "embeddinggemma",
       "repo": "google/embeddinggemma-300m",
@@ -9432,5 +9432,5 @@
       }
     ]
   },
-  "completed_at": "2026-07-29T07:28:44.819304+00:00"
+  "completed_at": "2026-08-01T00:01:36.278722+00:00"
 }

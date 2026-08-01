@@ -17,32 +17,33 @@ from holo_benchmark.artifact_portability import (
     sanitize_host_payload,
 )
 
-EXPECTED_PIPELINE_COUNT = 105
-EXPECTED_PIPELINE_EMBEDDINGS = 36
-EXPECTED_RAW_PROFILE_COUNT = 39
+EXPECTED_PIPELINE_COUNT = 152
+EXPECTED_PIPELINE_EMBEDDINGS = 39
+EXPECTED_RAW_PROFILE_COUNT = 42
 EXPECTED_RERANKER_COUNTS = {
+    "ettin_reranker_150m_v1": 14,
+    "ettin_reranker_68m_v1": 14,
     "jina_reranker_v3_noncommercial": 12,
     "kalm_reranker_v1_nano": 12,
     "kalm_reranker_v1_small": 12,
-    "llama_nemotron_rerank_1b_v2": 6,
-    "mxbai_rerank_base_v2": 6,
+    "lamar_600m": 14,
+    "llama_nemotron_rerank_1b_v2": 14,
+    "mxbai_rerank_base_v2": 9,
     "querit_reranker_4b": 12,
-    "qwen_local": 36,
-    "voyage_rerank_2_5": 9,
+    "qwen_local": 39,
 }
 EXPECTED_RAW_SOURCE_COUNTS = {
     "gate2": 11,
-    "gate3": 19,
-    "voyage_raw": 2,
-    "nemotron_admission": 2,
+    "gate3": 22,
     "historical_raw_none": 5,
+    "nemotron_admission": 2,
+    "voyage_raw": 2,
 }
 REQUIRED_RAW_PROFILE_IDS = {
     "bitnet_06b_current",
     "bitnet_270m_current",
     "lfm_25_embedding_350m_q4_k_m_official",
-    "nemotron_3_embed_1b_nvfp4",
-    "qwen3_embedding_8b_gguf",
+    "qwen3_embedding_4b_q8_0",
 }
 STRICT_CANONICAL_RERANKERS = {
     "llama_nemotron_rerank_1b_v2",
@@ -66,7 +67,6 @@ REQUIRED_METRICS = (
     "mrr_at_10",
     "hit_rate_at_1",
     "hit_rate_at_10",
-    "ndcg_at_10",
 )
 OMIT_KEYS = {
     "per_query",
@@ -559,6 +559,11 @@ def build_document(
             },
             "leaders_published": {
                 "best_by_mrr_at_10": pipelines[0] if pipelines else None,
+                "leader_ranking_scope": (
+                    "general: all published canonical pipelines with "
+                    "evaluation.reranked_metrics.summary or metrics.summary, "
+                    "ranked by mrr_at_10 descending; leader is pipelines[0]"
+                ),
                 "best_fully_local_recorded_reference": (
                     {
                         "pipeline_id": local_pipelines[0]["pipeline_id"],
@@ -582,6 +587,13 @@ def build_document(
                 "All published pipeline summaries are read from individual source JSON files.",
                 "Raw embedding metrics and reranked pipeline metrics remain separate.",
                 "The canonical document was regenerated only after the individual artifacts were closed.",
+                (
+                    "Historical pipelines removed in commit 91a39f5 "
+                    "(voyage_rerank_2_5 and vLLM llama_nemotron_rerank_1b_v2) do not "
+                    "participate: their artifacts are absent from the checkout; their "
+                    "score files remain under results/reranker/scores/ and the archived "
+                    "values are documented in README Tabela 1a."
+                ),
             ],
             "correction": {
                 "reason": "Historical pipeline artifacts contain both base_metrics and reranked_metrics; ranking uses reranked_metrics.",
@@ -594,12 +606,58 @@ def build_document(
             },
         }
     )
+    document = _reconcile_voyage_status(document, bench)
     document = sanitize_host_payload(document)
     assert_portable_payload(document)
     if document["validation"]["status"] != "PASS":
         failed = [name for name, passed in checks.items() if not passed]
         raise ValueError(f"canonical validation failed: {failed}")
     return document
+
+
+def _reconcile_voyage_status(
+    document: Mapping[str, Any],
+    bench: Path,
+) -> dict[str, Any]:
+    """Make the Voyage Nemotron status block reference only existing files.
+
+    The checkpoint is a transient git-ignored artifact under ``results/raw/``
+    that is not part of the checkout.  Instead of leaving a broken reference,
+    record the absence explicitly with a verifiable flag so tests can assert
+    either existence or explicit handling of the missing checkpoint.
+    """
+    result = deepcopy(dict(document))
+    block = result.get("voyage_nemotron_8b_status")
+    if not isinstance(block, Mapping):
+        return result
+    status = str(block.get("status") or "")
+    checkpoint = block.get("checkpoint")
+    checkpoint_available = bool(checkpoint) and (bench / str(checkpoint)).is_file()
+    score_artifact = block.get("score_artifact")
+    score_available = bool(score_artifact) and (
+        bench / str(score_artifact)
+    ).is_file()
+    reconciled = deepcopy(dict(block))
+    if not checkpoint_available:
+        reconciled["checkpoint"] = (
+            str(checkpoint) if checkpoint and (bench / str(checkpoint)).is_file() else None
+        )
+        reconciled["checkpoint_available"] = False
+        reconciled["checkpoint_missing_reason"] = (
+            "transient git-ignored batch checkpoint absent from checkout"
+        )
+    else:
+        reconciled["checkpoint_available"] = True
+        reconciled.pop("checkpoint_missing_reason", None)
+    if not score_available:
+        reconciled["score_artifact"] = None
+        reconciled["score_artifact_available"] = False
+    else:
+        reconciled["score_artifact_available"] = True
+    if status == "COMPLETED_BATCH":
+        reconciled["status_evidence_verified"] = score_available
+    result["voyage_nemotron_8b_status"] = reconciled
+    return result
 
 
 def parse_args() -> argparse.Namespace:

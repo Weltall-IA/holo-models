@@ -6,7 +6,7 @@
     "profile_id": "colibri_ptbr",
     "source_group": "gate2",
     "source_path": "benchmark/embedding-v3/results/gate2/colibri_ptbr.json",
-    "evidence_sha256": "a8ba4352367f203f5a8ef3b0db898c8d7858df3520e1c52890f77dfa0e8148ea",
+    "evidence_sha256": "bee300e9bf982b9dc9b85590f1fc4949f5dc72cb9162915a581e518da469bdc2",
     "model": {
       "id": "colibri_ptbr",
       "repo": "tardellirs/colibri-embed-ptbr",
@@ -9422,5 +9422,5 @@
       }
     ]
   },
-  "completed_at": "2026-07-29T07:35:48.004961+00:00"
+  "completed_at": "2026-08-01T00:33:54.440926+00:00"
 }

@@ -6,7 +6,7 @@
     "profile_id": "qwen3_embedding_4b_q8_0",
     "source_group": "gate3",
     "source_path": "benchmark/embedding-v3/results/gate3/qwen3_embedding_4b_q8_0.json",
-    "evidence_sha256": "c58f4a71f63a30de5206388e6fb476d7d30650ab80702afa343e0ecd6a067fa0",
+    "evidence_sha256": "8282be25a88ded0bf7e9f9c199061bd15bec3bedbb29192fd36f86c7ab57ad93",
     "model": null,
     "backend": null,
     "backend_version": null
@@ -9404,5 +9404,5 @@
       }
     ]
   },
-  "completed_at": "2026-07-29T07:21:34.905376+00:00"
+  "completed_at": "2026-08-01T00:09:44.730295+00:00"
 }

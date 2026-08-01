@@ -6,7 +6,7 @@
     "profile_id": "embeddinggemma",
     "source_group": "gate2",
     "source_path": "benchmark/embedding-v3/results/gate2/embeddinggemma.json",
-    "evidence_sha256": "65af7e401f34f5b83404e8620242c9798a2f515fe136bbe312690e671194187a",
+    "evidence_sha256": "fd3a0b21c4272d1740e190dcc4bc70b5c4fa6d4b80083d1b9f66f60edd3ea54f",
     "model": {
       "id": "embeddinggemma",
       "repo": "google/embeddinggemma-300m",
@@ -45,51 +45,14 @@
   "reranker_id": "llama_nemotron_rerank_1b_v2",
   "reranker": {
     "id": "llama_nemotron_rerank_1b_v2",
-    "repository": "nvidia/llama-nemotron-rerank-1b-v2",
+    "repository": "nvidia/llama-3.2-nv-rerankqa-1b-v2",
     "revision": "d896ceda696c5c6fe0abf65f63a77c691bbf4548",
-    "backend": "vllm",
-    "license": "NVIDIA Open Model License",
-    "weight_files": [
-      {
-        "file": "model.safetensors",
-        "bytes": 2471649792,
-        "sha256": "7d60ff24db62fe6a639c4c6f4aeac3a3b32ed20939ab72a0be4b019c2219e5e0",
-        "revision": "d896ceda696c5c6fe0abf65f63a77c691bbf4548"
-      }
-    ],
-    "critical_snapshot_files": [
-      {
-        "file": "model.safetensors",
-        "bytes": 2471649792,
-        "sha256": "7d60ff24db62fe6a639c4c6f4aeac3a3b32ed20939ab72a0be4b019c2219e5e0",
-        "revision": "d896ceda696c5c6fe0abf65f63a77c691bbf4548"
-      },
-      {
-        "file": "config.json",
-        "bytes": 1311,
-        "sha256": "34d45f095f896f950db008c19e2bb4c935fc2866f71212c0cd26022eb1167d7b",
-        "revision": "d896ceda696c5c6fe0abf65f63a77c691bbf4548"
-      },
-      {
-        "file": "tokenizer.json",
-        "bytes": 9085657,
-        "sha256": "79e3e522635f3171300913bb421464a87de6222182a0570b9b2ccba2a964b2b4",
-        "revision": "d896ceda696c5c6fe0abf65f63a77c691bbf4548"
-      },
-      {
-        "file": "tokenizer_config.json",
-        "bytes": 50532,
-        "sha256": "c201a1b5b69f8692cb614d087de6b5f40f691d06a2033f9ee78dc58e6f391080",
-        "revision": "d896ceda696c5c6fe0abf65f63a77c691bbf4548"
-      },
-      {
-        "file": "llama_bidirectional_model.py",
-        "bytes": 14409,
-        "sha256": "9abf16f6049354a4c849aad9ffe376124ffe38f8dc27098de54d2cc955400bca",
-        "revision": "d896ceda696c5c6fe0abf65f63a77c691bbf4548"
-      }
-    ],
-    "snapshot_validation": "all critical files share one immutable revision"
+    "backend": "transformers.LlamaBidirectionalForSequenceClassification",
+    "license": "custom NVIDIA",
+    "quantization": "native_bf16",
+    "weight_file": "model.safetensors",
+    "weight_bytes": 2471649792,
+    "weight_sha256": "7d60ff24db62fe6a639c4c6f4aeac3a3b32ed20939ab72a0be4b019c2219e5e0"
   },
   "dataset": {
     "corpus_version": "holo_fake_scenes_v3",
@@ -3927,39 +3890,39 @@
     },
     "reranked_metrics": {
       "summary": {
-        "HitRate@1": 0.8133333333333334,
-        "Recall@1": 0.8033333333333333,
-        "HitRate@3": 0.8333333333333334,
-        "Recall@3": 0.8233333333333334,
-        "HitRate@5": 0.86,
-        "Recall@5": 0.85,
-        "HitRate@10": 0.88,
-        "Recall@10": 0.87,
-        "HitRate@20": 0.9666666666666667,
-        "Recall@20": 0.9566666666666667,
-        "HitRate@50": 0.9666666666666667,
-        "Recall@50": 0.9566666666666667,
-        "MRR@10": 0.8298888888888889,
-        "nDCG@10": 0.8338906043537757,
-        "mean_first_relevant_rank": 2.8758620689655174,
+        "HitRate@1": 0.8,
+        "Recall@1": 0.79,
+        "HitRate@3": 0.84,
+        "Recall@3": 0.83,
+        "HitRate@5": 0.8666666666666667,
+        "Recall@5": 0.8566666666666667,
+        "HitRate@10": 0.8666666666666667,
+        "Recall@10": 0.8566666666666667,
+        "HitRate@20": 0.9533333333333334,
+        "Recall@20": 0.9466666666666667,
+        "HitRate@50": 0.9533333333333334,
+        "Recall@50": 0.9466666666666667,
+        "MRR@10": 0.8226666666666667,
+        "nDCG@10": 0.8257819304641775,
+        "mean_first_relevant_rank": 2.6363636363636362,
         "median_first_relevant_rank": 1.0,
-        "queries_without_relevant": 5,
-        "hard_negative_error_rate": 0.09333333333333334
+        "queries_without_relevant": 7,
+        "hard_negative_error_rate": 0.08
       },
       "by_query_type": {
         "character_name": {
           "count": 15,
-          "HitRate@10": 0.6,
-          "MRR@10": 0.24222222222222223,
-          "nDCG@10": 0.32623186245381586,
-          "hard_negative_error_rate": 0.4
+          "HitRate@10": 0.5333333333333333,
+          "MRR@10": 0.20444444444444443,
+          "nDCG@10": 0.28439923227915515,
+          "hard_negative_error_rate": 0.4666666666666667
         },
         "context_dependency": {
           "count": 30,
           "HitRate@10": 0.6,
           "MRR@10": 0.6,
           "nDCG@10": 0.5613147192765457,
-          "hard_negative_error_rate": 0.23333333333333334
+          "hard_negative_error_rate": 0.16666666666666666
         },
         "emotion_intention": {
           "count": 25,
@@ -3985,16 +3948,16 @@
         "semantic_event": {
           "count": 40,
           "HitRate@10": 1.0,
-          "MRR@10": 1.0,
-          "nDCG@10": 1.0,
+          "MRR@10": 0.975,
+          "nDCG@10": 0.9815464876785729,
           "hard_negative_error_rate": 0.0
         },
         "similar_scene": {
           "count": 10,
-          "HitRate@10": 1.0,
-          "MRR@10": 0.7849999999999999,
-          "nDCG@10": 0.8350671137962739,
-          "hard_negative_error_rate": 0.1
+          "HitRate@10": 0.9,
+          "MRR@10": 0.8333333333333334,
+          "nDCG@10": 0.85,
+          "hard_negative_error_rate": 0.0
         }
       },
       "per_query": [
@@ -4002,12 +3965,12 @@
           "query_id": "query-0001",
           "query_type": "semantic_event",
           "difficulty": "medium",
-          "first_relevant_rank": 1,
+          "first_relevant_rank": 2,
           "relevant_ranks": [
-            1
+            2
           ],
-          "HitRate@1": 1.0,
-          "Recall@1": 1.0,
+          "HitRate@1": 0.0,
+          "Recall@1": 0.0,
           "HitRate@3": 1.0,
           "Recall@3": 1.0,
           "HitRate@5": 1.0,
@@ -4018,8 +3981,8 @@
           "Recall@20": 1.0,
           "HitRate@50": 1.0,
           "Recall@50": 1.0,
-          "MRR@10": 1.0,
-          "nDCG@10": 1.0,
+          "MRR@10": 0.5,
+          "nDCG@10": 0.6309297535714575,
           "best_hard_negative_rank": 3,
           "hard_negative_error": 0.0
         },
@@ -4045,7 +4008,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 4,
+          "best_hard_negative_rank": 5,
           "hard_negative_error": 0.0
         },
         {
@@ -4220,7 +4183,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 5,
+          "best_hard_negative_rank": 4,
           "hard_negative_error": 0.0
         },
         {
@@ -4295,7 +4258,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 7,
+          "best_hard_negative_rank": 8,
           "hard_negative_error": 0.0
         },
         {
@@ -4395,7 +4358,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 10,
+          "best_hard_negative_rank": 8,
           "hard_negative_error": 0.0
         },
         {
@@ -4502,12 +4465,12 @@
           "query_id": "query-0021",
           "query_type": "semantic_event",
           "difficulty": "hard",
-          "first_relevant_rank": 1,
+          "first_relevant_rank": 2,
           "relevant_ranks": [
-            1
+            2
           ],
-          "HitRate@1": 1.0,
-          "Recall@1": 1.0,
+          "HitRate@1": 0.0,
+          "Recall@1": 0.0,
           "HitRate@3": 1.0,
           "Recall@3": 1.0,
           "HitRate@5": 1.0,
@@ -4518,8 +4481,8 @@
           "Recall@20": 1.0,
           "HitRate@50": 1.0,
           "Recall@50": 1.0,
-          "MRR@10": 1.0,
-          "nDCG@10": 1.0,
+          "MRR@10": 0.5,
+          "nDCG@10": 0.6309297535714575,
           "best_hard_negative_rank": 3,
           "hard_negative_error": 0.0
         },
@@ -4545,7 +4508,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 6,
+          "best_hard_negative_rank": 8,
           "hard_negative_error": 0.0
         },
         {
@@ -4645,7 +4608,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 10,
+          "best_hard_negative_rank": 9,
           "hard_negative_error": 0.0
         },
         {
@@ -4695,7 +4658,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 6,
+          "best_hard_negative_rank": 3,
           "hard_negative_error": 0.0
         },
         {
@@ -4720,7 +4683,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 6,
+          "best_hard_negative_rank": 4,
           "hard_negative_error": 0.0
         },
         {
@@ -4795,7 +4758,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 6,
+          "best_hard_negative_rank": 7,
           "hard_negative_error": 0.0
         },
         {
@@ -4870,7 +4833,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 7,
+          "best_hard_negative_rank": 10,
           "hard_negative_error": 0.0
         },
         {
@@ -4920,7 +4883,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 4,
+          "best_hard_negative_rank": 11,
           "hard_negative_error": 0.0
         },
         {
@@ -5020,7 +4983,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 18,
+          "best_hard_negative_rank": null,
           "hard_negative_error": 0.0
         },
         {
@@ -5070,7 +5033,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 17,
+          "best_hard_negative_rank": null,
           "hard_negative_error": 0.0
         },
         {
@@ -5093,16 +5056,16 @@
           "Recall@50": 0.0,
           "MRR@10": 0.0,
           "nDCG@10": 0.0,
-          "best_hard_negative_rank": 3,
+          "best_hard_negative_rank": 7,
           "hard_negative_error": 0.0
         },
         {
           "query_id": "query-0045",
           "query_type": "context_dependency",
           "difficulty": "hard",
-          "first_relevant_rank": 19,
+          "first_relevant_rank": 17,
           "relevant_ranks": [
-            19
+            17
           ],
           "HitRate@1": 0.0,
           "Recall@1": 0.0,
@@ -5118,7 +5081,7 @@
           "Recall@50": 1.0,
           "MRR@10": 0.0,
           "nDCG@10": 0.0,
-          "best_hard_negative_rank": 8,
+          "best_hard_negative_rank": 9,
           "hard_negative_error": 1.0
         },
         {
@@ -5168,7 +5131,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 19,
+          "best_hard_negative_rank": 9,
           "hard_negative_error": 0.0
         },
         {
@@ -5193,17 +5156,15 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 20,
+          "best_hard_negative_rank": 8,
           "hard_negative_error": 0.0
         },
         {
           "query_id": "query-0049",
           "query_type": "context_dependency",
           "difficulty": "hard",
-          "first_relevant_rank": 20,
-          "relevant_ranks": [
-            20
-          ],
+          "first_relevant_rank": null,
+          "relevant_ranks": [],
           "HitRate@1": 0.0,
           "Recall@1": 0.0,
           "HitRate@3": 0.0,
@@ -5212,14 +5173,14 @@
           "Recall@5": 0.0,
           "HitRate@10": 0.0,
           "Recall@10": 0.0,
-          "HitRate@20": 1.0,
-          "Recall@20": 1.0,
-          "HitRate@50": 1.0,
-          "Recall@50": 1.0,
+          "HitRate@20": 0.0,
+          "Recall@20": 0.0,
+          "HitRate@50": 0.0,
+          "Recall@50": 0.0,
           "MRR@10": 0.0,
           "nDCG@10": 0.0,
-          "best_hard_negative_rank": 9,
-          "hard_negative_error": 1.0
+          "best_hard_negative_rank": 12,
+          "hard_negative_error": 0.0
         },
         {
           "query_id": "query-0050",
@@ -5241,7 +5202,7 @@
           "Recall@50": 0.0,
           "MRR@10": 0.0,
           "nDCG@10": 0.0,
-          "best_hard_negative_rank": 7,
+          "best_hard_negative_rank": 6,
           "hard_negative_error": 0.0
         },
         {
@@ -5266,7 +5227,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 18,
+          "best_hard_negative_rank": null,
           "hard_negative_error": 0.0
         },
         {
@@ -5323,9 +5284,9 @@
           "query_id": "query-0054",
           "query_type": "context_dependency",
           "difficulty": "hard",
-          "first_relevant_rank": 17,
+          "first_relevant_rank": 18,
           "relevant_ranks": [
-            17
+            18
           ],
           "HitRate@1": 0.0,
           "Recall@1": 0.0,
@@ -5341,7 +5302,7 @@
           "Recall@50": 1.0,
           "MRR@10": 0.0,
           "nDCG@10": 0.0,
-          "best_hard_negative_rank": 11,
+          "best_hard_negative_rank": 10,
           "hard_negative_error": 1.0
         },
         {
@@ -5364,7 +5325,7 @@
           "Recall@50": 0.0,
           "MRR@10": 0.0,
           "nDCG@10": 0.0,
-          "best_hard_negative_rank": 9,
+          "best_hard_negative_rank": 7,
           "hard_negative_error": 0.0
         },
         {
@@ -5389,7 +5350,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 16,
+          "best_hard_negative_rank": null,
           "hard_negative_error": 0.0
         },
         {
@@ -5439,16 +5400,16 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 19,
+          "best_hard_negative_rank": null,
           "hard_negative_error": 0.0
         },
         {
           "query_id": "query-0059",
           "query_type": "context_dependency",
           "difficulty": "hard",
-          "first_relevant_rank": 20,
+          "first_relevant_rank": 15,
           "relevant_ranks": [
-            20
+            15
           ],
           "HitRate@1": 0.0,
           "Recall@1": 0.0,
@@ -5464,7 +5425,7 @@
           "Recall@50": 1.0,
           "MRR@10": 0.0,
           "nDCG@10": 0.0,
-          "best_hard_negative_rank": 7,
+          "best_hard_negative_rank": 12,
           "hard_negative_error": 1.0
         },
         {
@@ -5521,7 +5482,8 @@
           "difficulty": "hard",
           "first_relevant_rank": 1,
           "relevant_ranks": [
-            1
+            1,
+            19
           ],
           "HitRate@1": 1.0,
           "Recall@1": 0.5,
@@ -5532,9 +5494,9 @@
           "HitRate@10": 1.0,
           "Recall@10": 0.5,
           "HitRate@20": 1.0,
-          "Recall@20": 0.5,
+          "Recall@20": 1.0,
           "HitRate@50": 1.0,
-          "Recall@50": 0.5,
+          "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 0.6131471927654584,
           "best_hard_negative_rank": null,
@@ -5562,7 +5524,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 17,
+          "best_hard_negative_rank": null,
           "hard_negative_error": 0.0
         },
         {
@@ -5585,7 +5547,7 @@
           "Recall@50": 0.0,
           "MRR@10": 0.0,
           "nDCG@10": 0.0,
-          "best_hard_negative_rank": 7,
+          "best_hard_negative_rank": 8,
           "hard_negative_error": 0.0
         },
         {
@@ -5635,7 +5597,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 20,
+          "best_hard_negative_rank": null,
           "hard_negative_error": 0.0
         },
         {
@@ -5685,17 +5647,15 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 3,
+          "best_hard_negative_rank": 19,
           "hard_negative_error": 0.0
         },
         {
           "query_id": "query-0069",
           "query_type": "context_dependency",
           "difficulty": "hard",
-          "first_relevant_rank": 20,
-          "relevant_ranks": [
-            20
-          ],
+          "first_relevant_rank": null,
+          "relevant_ranks": [],
           "HitRate@1": 0.0,
           "Recall@1": 0.0,
           "HitRate@3": 0.0,
@@ -5704,22 +5664,22 @@
           "Recall@5": 0.0,
           "HitRate@10": 0.0,
           "Recall@10": 0.0,
-          "HitRate@20": 1.0,
-          "Recall@20": 1.0,
-          "HitRate@50": 1.0,
-          "Recall@50": 1.0,
+          "HitRate@20": 0.0,
+          "Recall@20": 0.0,
+          "HitRate@50": 0.0,
+          "Recall@50": 0.0,
           "MRR@10": 0.0,
           "nDCG@10": 0.0,
-          "best_hard_negative_rank": 9,
-          "hard_negative_error": 1.0
+          "best_hard_negative_rank": 12,
+          "hard_negative_error": 0.0
         },
         {
           "query_id": "query-0070",
           "query_type": "context_dependency",
           "difficulty": "hard",
-          "first_relevant_rank": 17,
+          "first_relevant_rank": 15,
           "relevant_ranks": [
-            17
+            15
           ],
           "HitRate@1": 0.0,
           "Recall@1": 0.0,
@@ -5735,7 +5695,7 @@
           "Recall@50": 1.0,
           "MRR@10": 0.0,
           "nDCG@10": 0.0,
-          "best_hard_negative_rank": 7,
+          "best_hard_negative_rank": 6,
           "hard_negative_error": 1.0
         },
         {
@@ -5835,7 +5795,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 3,
+          "best_hard_negative_rank": 4,
           "hard_negative_error": 0.0
         },
         {
@@ -5910,7 +5870,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 9,
+          "best_hard_negative_rank": 4,
           "hard_negative_error": 0.0
         },
         {
@@ -6035,7 +5995,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 8,
+          "best_hard_negative_rank": 3,
           "hard_negative_error": 0.0
         },
         {
@@ -6060,7 +6020,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 3,
+          "best_hard_negative_rank": 5,
           "hard_negative_error": 0.0
         },
         {
@@ -6110,7 +6070,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 4,
+          "best_hard_negative_rank": 3,
           "hard_negative_error": 0.0
         },
         {
@@ -6160,7 +6120,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 3,
+          "best_hard_negative_rank": 2,
           "hard_negative_error": 0.0
         },
         {
@@ -6210,7 +6170,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 4,
+          "best_hard_negative_rank": 3,
           "hard_negative_error": 0.0
         },
         {
@@ -6310,7 +6270,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 3,
+          "best_hard_negative_rank": 4,
           "hard_negative_error": 0.0
         },
         {
@@ -6410,7 +6370,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 4,
+          "best_hard_negative_rank": 8,
           "hard_negative_error": 0.0
         },
         {
@@ -6435,7 +6395,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 16,
+          "best_hard_negative_rank": 17,
           "hard_negative_error": 0.0
         },
         {
@@ -6460,7 +6420,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 16,
+          "best_hard_negative_rank": 11,
           "hard_negative_error": 0.0
         },
         {
@@ -6510,7 +6470,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 5,
+          "best_hard_negative_rank": 9,
           "hard_negative_error": 0.0
         },
         {
@@ -6535,7 +6495,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 5,
+          "best_hard_negative_rank": 16,
           "hard_negative_error": 0.0
         },
         {
@@ -6560,7 +6520,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 9,
+          "best_hard_negative_rank": 12,
           "hard_negative_error": 0.0
         },
         {
@@ -6610,7 +6570,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 7,
+          "best_hard_negative_rank": null,
           "hard_negative_error": 0.0
         },
         {
@@ -6635,7 +6595,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 15,
+          "best_hard_negative_rank": 18,
           "hard_negative_error": 0.0
         },
         {
@@ -6660,7 +6620,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 10,
+          "best_hard_negative_rank": 11,
           "hard_negative_error": 0.0
         },
         {
@@ -6710,7 +6670,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 4,
+          "best_hard_negative_rank": 9,
           "hard_negative_error": 0.0
         },
         {
@@ -6735,7 +6695,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 7,
+          "best_hard_negative_rank": 14,
           "hard_negative_error": 0.0
         },
         {
@@ -6760,7 +6720,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 3,
+          "best_hard_negative_rank": 4,
           "hard_negative_error": 0.0
         },
         {
@@ -6810,7 +6770,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 9,
+          "best_hard_negative_rank": 6,
           "hard_negative_error": 0.0
         },
         {
@@ -6860,19 +6820,19 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 11,
+          "best_hard_negative_rank": 10,
           "hard_negative_error": 0.0
         },
         {
           "query_id": "query-0116",
           "query_type": "character_name",
           "difficulty": "medium",
-          "first_relevant_rank": 1,
+          "first_relevant_rank": 2,
           "relevant_ranks": [
-            1
+            2
           ],
-          "HitRate@1": 1.0,
-          "Recall@1": 1.0,
+          "HitRate@1": 0.0,
+          "Recall@1": 0.0,
           "HitRate@3": 1.0,
           "Recall@3": 1.0,
           "HitRate@5": 1.0,
@@ -6883,9 +6843,9 @@
           "Recall@20": 1.0,
           "HitRate@50": 1.0,
           "Recall@50": 1.0,
-          "MRR@10": 1.0,
-          "nDCG@10": 1.0,
-          "best_hard_negative_rank": 17,
+          "MRR@10": 0.5,
+          "nDCG@10": 0.6309297535714575,
+          "best_hard_negative_rank": 14,
           "hard_negative_error": 0.0
         },
         {
@@ -6935,16 +6895,16 @@
           "Recall@50": 1.0,
           "MRR@10": 0.0,
           "nDCG@10": 0.0,
-          "best_hard_negative_rank": 15,
+          "best_hard_negative_rank": 14,
           "hard_negative_error": 1.0
         },
         {
           "query_id": "query-0119",
           "query_type": "character_name",
           "difficulty": "medium",
-          "first_relevant_rank": 17,
+          "first_relevant_rank": 19,
           "relevant_ranks": [
-            17
+            19
           ],
           "HitRate@1": 0.0,
           "Recall@1": 0.0,
@@ -6960,16 +6920,16 @@
           "Recall@50": 1.0,
           "MRR@10": 0.0,
           "nDCG@10": 0.0,
-          "best_hard_negative_rank": 18,
-          "hard_negative_error": 0.0
+          "best_hard_negative_rank": 17,
+          "hard_negative_error": 1.0
         },
         {
           "query_id": "query-0120",
           "query_type": "character_name",
           "difficulty": "medium",
-          "first_relevant_rank": 5,
+          "first_relevant_rank": 4,
           "relevant_ranks": [
-            5
+            4
           ],
           "HitRate@1": 0.0,
           "Recall@1": 0.0,
@@ -6983,9 +6943,9 @@
           "Recall@20": 1.0,
           "HitRate@50": 1.0,
           "Recall@50": 1.0,
-          "MRR@10": 0.2,
-          "nDCG@10": 0.38685280723454163,
-          "best_hard_negative_rank": 10,
+          "MRR@10": 0.25,
+          "nDCG@10": 0.43067655807339306,
+          "best_hard_negative_rank": 14,
           "hard_negative_error": 0.0
         },
         {
@@ -7010,16 +6970,16 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 16,
+          "best_hard_negative_rank": 15,
           "hard_negative_error": 0.0
         },
         {
           "query_id": "query-0122",
           "query_type": "character_name",
           "difficulty": "medium",
-          "first_relevant_rank": 10,
+          "first_relevant_rank": 11,
           "relevant_ranks": [
-            10
+            11
           ],
           "HitRate@1": 0.0,
           "Recall@1": 0.0,
@@ -7027,24 +6987,24 @@
           "Recall@3": 0.0,
           "HitRate@5": 0.0,
           "Recall@5": 0.0,
-          "HitRate@10": 1.0,
-          "Recall@10": 1.0,
+          "HitRate@10": 0.0,
+          "Recall@10": 0.0,
           "HitRate@20": 1.0,
           "Recall@20": 1.0,
           "HitRate@50": 1.0,
           "Recall@50": 1.0,
-          "MRR@10": 0.1,
-          "nDCG@10": 0.2890648263178879,
-          "best_hard_negative_rank": 4,
+          "MRR@10": 0.0,
+          "nDCG@10": 0.0,
+          "best_hard_negative_rank": 3,
           "hard_negative_error": 1.0
         },
         {
           "query_id": "query-0123",
           "query_type": "character_name",
           "difficulty": "medium",
-          "first_relevant_rank": 17,
+          "first_relevant_rank": 18,
           "relevant_ranks": [
-            17
+            18
           ],
           "HitRate@1": 0.0,
           "Recall@1": 0.0,
@@ -7085,16 +7045,16 @@
           "Recall@50": 1.0,
           "MRR@10": 0.0,
           "nDCG@10": 0.0,
-          "best_hard_negative_rank": 8,
+          "best_hard_negative_rank": 13,
           "hard_negative_error": 1.0
         },
         {
           "query_id": "query-0125",
           "query_type": "character_name",
           "difficulty": "medium",
-          "first_relevant_rank": 4,
+          "first_relevant_rank": 5,
           "relevant_ranks": [
-            4
+            5
           ],
           "HitRate@1": 0.0,
           "Recall@1": 0.0,
@@ -7108,9 +7068,9 @@
           "Recall@20": 1.0,
           "HitRate@50": 1.0,
           "Recall@50": 1.0,
-          "MRR@10": 0.25,
-          "nDCG@10": 0.43067655807339306,
-          "best_hard_negative_rank": 5,
+          "MRR@10": 0.2,
+          "nDCG@10": 0.38685280723454163,
+          "best_hard_negative_rank": 6,
           "hard_negative_error": 0.0
         },
         {
@@ -7135,7 +7095,7 @@
           "Recall@50": 1.0,
           "MRR@10": 0.3333333333333333,
           "nDCG@10": 0.5,
-          "best_hard_negative_rank": 17,
+          "best_hard_negative_rank": 14,
           "hard_negative_error": 0.0
         },
         {
@@ -7167,9 +7127,9 @@
           "query_id": "query-0128",
           "query_type": "character_name",
           "difficulty": "medium",
-          "first_relevant_rank": 19,
+          "first_relevant_rank": 18,
           "relevant_ranks": [
-            19
+            18
           ],
           "HitRate@1": 0.0,
           "Recall@1": 0.0,
@@ -7217,25 +7177,25 @@
           "query_id": "query-0130",
           "query_type": "character_name",
           "difficulty": "medium",
-          "first_relevant_rank": 6,
+          "first_relevant_rank": 5,
           "relevant_ranks": [
-            6
+            5
           ],
           "HitRate@1": 0.0,
           "Recall@1": 0.0,
           "HitRate@3": 0.0,
           "Recall@3": 0.0,
-          "HitRate@5": 0.0,
-          "Recall@5": 0.0,
+          "HitRate@5": 1.0,
+          "Recall@5": 1.0,
           "HitRate@10": 1.0,
           "Recall@10": 1.0,
           "HitRate@20": 1.0,
           "Recall@20": 1.0,
           "HitRate@50": 1.0,
           "Recall@50": 1.0,
-          "MRR@10": 0.16666666666666666,
-          "nDCG@10": 0.3562071871080222,
-          "best_hard_negative_rank": 7,
+          "MRR@10": 0.2,
+          "nDCG@10": 0.38685280723454163,
+          "best_hard_negative_rank": 10,
           "hard_negative_error": 0.0
         },
         {
@@ -7260,7 +7220,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 16,
+          "best_hard_negative_rank": 6,
           "hard_negative_error": 0.0
         },
         {
@@ -7285,7 +7245,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": null,
+          "best_hard_negative_rank": 3,
           "hard_negative_error": 0.0
         },
         {
@@ -7310,7 +7270,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": null,
+          "best_hard_negative_rank": 10,
           "hard_negative_error": 0.0
         },
         {
@@ -7335,7 +7295,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 11,
+          "best_hard_negative_rank": 9,
           "hard_negative_error": 0.0
         },
         {
@@ -7360,7 +7320,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 14,
+          "best_hard_negative_rank": 5,
           "hard_negative_error": 0.0
         },
         {
@@ -7385,7 +7345,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": null,
+          "best_hard_negative_rank": 4,
           "hard_negative_error": 0.0
         },
         {
@@ -7435,7 +7395,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": null,
+          "best_hard_negative_rank": 5,
           "hard_negative_error": 0.0
         },
         {
@@ -7460,7 +7420,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": null,
+          "best_hard_negative_rank": 17,
           "hard_negative_error": 0.0
         },
         {
@@ -7510,7 +7470,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 5,
+          "best_hard_negative_rank": 7,
           "hard_negative_error": 0.0
         },
         {
@@ -7542,9 +7502,34 @@
           "query_id": "query-0143",
           "query_type": "similar_scene",
           "difficulty": "hard",
-          "first_relevant_rank": 2,
+          "first_relevant_rank": 1,
           "relevant_ranks": [
-            2
+            1
+          ],
+          "HitRate@1": 1.0,
+          "Recall@1": 1.0,
+          "HitRate@3": 1.0,
+          "Recall@3": 1.0,
+          "HitRate@5": 1.0,
+          "Recall@5": 1.0,
+          "HitRate@10": 1.0,
+          "Recall@10": 1.0,
+          "HitRate@20": 1.0,
+          "Recall@20": 1.0,
+          "HitRate@50": 1.0,
+          "Recall@50": 1.0,
+          "MRR@10": 1.0,
+          "nDCG@10": 1.0,
+          "best_hard_negative_rank": 2,
+          "hard_negative_error": 0.0
+        },
+        {
+          "query_id": "query-0144",
+          "query_type": "similar_scene",
+          "difficulty": "hard",
+          "first_relevant_rank": 3,
+          "relevant_ranks": [
+            3
           ],
           "HitRate@1": 0.0,
           "Recall@1": 0.0,
@@ -7558,33 +7543,8 @@
           "Recall@20": 1.0,
           "HitRate@50": 1.0,
           "Recall@50": 1.0,
-          "MRR@10": 0.5,
-          "nDCG@10": 0.6309297535714575,
-          "best_hard_negative_rank": 1,
-          "hard_negative_error": 1.0
-        },
-        {
-          "query_id": "query-0144",
-          "query_type": "similar_scene",
-          "difficulty": "hard",
-          "first_relevant_rank": 4,
-          "relevant_ranks": [
-            4
-          ],
-          "HitRate@1": 0.0,
-          "Recall@1": 0.0,
-          "HitRate@3": 0.0,
-          "Recall@3": 0.0,
-          "HitRate@5": 1.0,
-          "Recall@5": 1.0,
-          "HitRate@10": 1.0,
-          "Recall@10": 1.0,
-          "HitRate@20": 1.0,
-          "Recall@20": 1.0,
-          "HitRate@50": 1.0,
-          "Recall@50": 1.0,
-          "MRR@10": 0.25,
-          "nDCG@10": 0.43067655807339306,
+          "MRR@10": 0.3333333333333333,
+          "nDCG@10": 0.5,
           "best_hard_negative_rank": 5,
           "hard_negative_error": 0.0
         },
@@ -7610,7 +7570,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 14,
+          "best_hard_negative_rank": 11,
           "hard_negative_error": 0.0
         },
         {
@@ -7635,7 +7595,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 10,
+          "best_hard_negative_rank": 3,
           "hard_negative_error": 0.0
         },
         {
@@ -7685,7 +7645,7 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 2,
+          "best_hard_negative_rank": 6,
           "hard_negative_error": 0.0
         },
         {
@@ -7710,16 +7670,16 @@
           "Recall@50": 1.0,
           "MRR@10": 1.0,
           "nDCG@10": 1.0,
-          "best_hard_negative_rank": 4,
+          "best_hard_negative_rank": 2,
           "hard_negative_error": 0.0
         },
         {
           "query_id": "query-0150",
           "query_type": "similar_scene",
           "difficulty": "hard",
-          "first_relevant_rank": 10,
+          "first_relevant_rank": 15,
           "relevant_ranks": [
-            10
+            15
           ],
           "HitRate@1": 0.0,
           "Recall@1": 0.0,
@@ -7727,14 +7687,14 @@
           "Recall@3": 0.0,
           "HitRate@5": 0.0,
           "Recall@5": 0.0,
-          "HitRate@10": 1.0,
-          "Recall@10": 1.0,
+          "HitRate@10": 0.0,
+          "Recall@10": 0.0,
           "HitRate@20": 1.0,
           "Recall@20": 1.0,
           "HitRate@50": 1.0,
           "Recall@50": 1.0,
-          "MRR@10": 0.1,
-          "nDCG@10": 0.2890648263178879,
+          "MRR@10": 0.0,
+          "nDCG@10": 0.0,
           "best_hard_negative_rank": null,
           "hard_negative_error": 0.0
         }
@@ -7743,14 +7703,14 @@
     "effect": {
       "candidate_cutoff": 50,
       "candidate_coverage": 0.9866666666666667,
-      "conditional_HitRate@1": 0.8243243243243243,
-      "rescue_count": 30,
+      "conditional_HitRate@1": 0.8108108108108109,
+      "rescue_count": 27,
       "rescue_eligible": 55,
-      "rescue_rate": 0.5454545454545454,
-      "damage_count": 1,
+      "rescue_rate": 0.4909090909090909,
+      "damage_count": 0,
       "damage_eligible": 93,
-      "damage_rate": 0.010752688172043012,
-      "mean_rank_improvement": 0.993103448275862,
+      "damage_rate": 0.0,
+      "mean_rank_improvement": 0.951048951048951,
       "median_rank_improvement": 0.0
     },
     "per_query_effect": [
@@ -7759,10 +7719,10 @@
         "query_type": "semantic_event",
         "candidate_contains_relevant": true,
         "base_first_relevant_rank": 5,
-        "reranked_first_relevant_rank": 1,
+        "reranked_first_relevant_rank": 2,
         "base_top1_correct": false,
-        "reranked_top1_correct": true,
-        "rescued": true,
+        "reranked_top1_correct": false,
+        "rescued": false,
         "damaged": false
       },
       {
@@ -7979,10 +7939,10 @@
         "query_type": "semantic_event",
         "candidate_contains_relevant": true,
         "base_first_relevant_rank": 9,
-        "reranked_first_relevant_rank": 1,
+        "reranked_first_relevant_rank": 2,
         "base_top1_correct": false,
-        "reranked_top1_correct": true,
-        "rescued": true,
+        "reranked_top1_correct": false,
+        "rescued": false,
         "damaged": false
       },
       {
@@ -8243,7 +8203,7 @@
         "query_type": "context_dependency",
         "candidate_contains_relevant": true,
         "base_first_relevant_rank": 20,
-        "reranked_first_relevant_rank": 19,
+        "reranked_first_relevant_rank": 17,
         "base_top1_correct": false,
         "reranked_top1_correct": false,
         "rescued": false,
@@ -8287,7 +8247,7 @@
         "query_type": "context_dependency",
         "candidate_contains_relevant": true,
         "base_first_relevant_rank": 26,
-        "reranked_first_relevant_rank": 20,
+        "reranked_first_relevant_rank": null,
         "base_top1_correct": false,
         "reranked_top1_correct": false,
         "rescued": false,
@@ -8342,7 +8302,7 @@
         "query_type": "context_dependency",
         "candidate_contains_relevant": true,
         "base_first_relevant_rank": 17,
-        "reranked_first_relevant_rank": 17,
+        "reranked_first_relevant_rank": 18,
         "base_top1_correct": false,
         "reranked_top1_correct": false,
         "rescued": false,
@@ -8397,7 +8357,7 @@
         "query_type": "context_dependency",
         "candidate_contains_relevant": true,
         "base_first_relevant_rank": 20,
-        "reranked_first_relevant_rank": 20,
+        "reranked_first_relevant_rank": 15,
         "base_top1_correct": false,
         "reranked_top1_correct": false,
         "rescued": false,
@@ -8507,7 +8467,7 @@
         "query_type": "context_dependency",
         "candidate_contains_relevant": true,
         "base_first_relevant_rank": 22,
-        "reranked_first_relevant_rank": 20,
+        "reranked_first_relevant_rank": null,
         "base_top1_correct": false,
         "reranked_top1_correct": false,
         "rescued": false,
@@ -8518,7 +8478,7 @@
         "query_type": "context_dependency",
         "candidate_contains_relevant": true,
         "base_first_relevant_rank": 35,
-        "reranked_first_relevant_rank": 17,
+        "reranked_first_relevant_rank": 15,
         "base_top1_correct": false,
         "reranked_top1_correct": false,
         "rescued": false,
@@ -9024,10 +8984,10 @@
         "query_type": "character_name",
         "candidate_contains_relevant": true,
         "base_first_relevant_rank": 5,
-        "reranked_first_relevant_rank": 1,
+        "reranked_first_relevant_rank": 2,
         "base_top1_correct": false,
-        "reranked_top1_correct": true,
-        "rescued": true,
+        "reranked_top1_correct": false,
+        "rescued": false,
         "damaged": false
       },
       {
@@ -9057,7 +9017,7 @@
         "query_type": "character_name",
         "candidate_contains_relevant": true,
         "base_first_relevant_rank": 16,
-        "reranked_first_relevant_rank": 17,
+        "reranked_first_relevant_rank": 19,
         "base_top1_correct": false,
         "reranked_top1_correct": false,
         "rescued": false,
@@ -9068,7 +9028,7 @@
         "query_type": "character_name",
         "candidate_contains_relevant": true,
         "base_first_relevant_rank": 12,
-        "reranked_first_relevant_rank": 5,
+        "reranked_first_relevant_rank": 4,
         "base_top1_correct": false,
         "reranked_top1_correct": false,
         "rescued": false,
@@ -9090,7 +9050,7 @@
         "query_type": "character_name",
         "candidate_contains_relevant": true,
         "base_first_relevant_rank": 16,
-        "reranked_first_relevant_rank": 10,
+        "reranked_first_relevant_rank": 11,
         "base_top1_correct": false,
         "reranked_top1_correct": false,
         "rescued": false,
@@ -9101,7 +9061,7 @@
         "query_type": "character_name",
         "candidate_contains_relevant": true,
         "base_first_relevant_rank": 16,
-        "reranked_first_relevant_rank": 17,
+        "reranked_first_relevant_rank": 18,
         "base_top1_correct": false,
         "reranked_top1_correct": false,
         "rescued": false,
@@ -9123,7 +9083,7 @@
         "query_type": "character_name",
         "candidate_contains_relevant": true,
         "base_first_relevant_rank": 6,
-        "reranked_first_relevant_rank": 4,
+        "reranked_first_relevant_rank": 5,
         "base_top1_correct": false,
         "reranked_top1_correct": false,
         "rescued": false,
@@ -9156,7 +9116,7 @@
         "query_type": "character_name",
         "candidate_contains_relevant": true,
         "base_first_relevant_rank": 18,
-        "reranked_first_relevant_rank": 19,
+        "reranked_first_relevant_rank": 18,
         "base_top1_correct": false,
         "reranked_top1_correct": false,
         "rescued": false,
@@ -9178,7 +9138,7 @@
         "query_type": "character_name",
         "candidate_contains_relevant": true,
         "base_first_relevant_rank": 14,
-        "reranked_first_relevant_rank": 6,
+        "reranked_first_relevant_rank": 5,
         "base_top1_correct": false,
         "reranked_top1_correct": false,
         "rescued": false,
@@ -9321,18 +9281,18 @@
         "query_type": "similar_scene",
         "candidate_contains_relevant": true,
         "base_first_relevant_rank": 1,
-        "reranked_first_relevant_rank": 2,
+        "reranked_first_relevant_rank": 1,
         "base_top1_correct": true,
-        "reranked_top1_correct": false,
+        "reranked_top1_correct": true,
         "rescued": false,
-        "damaged": true
+        "damaged": false
       },
       {
         "query_id": "query-0144",
         "query_type": "similar_scene",
         "candidate_contains_relevant": true,
         "base_first_relevant_rank": 14,
-        "reranked_first_relevant_rank": 4,
+        "reranked_first_relevant_rank": 3,
         "base_top1_correct": false,
         "reranked_top1_correct": false,
         "rescued": false,
@@ -9398,7 +9358,7 @@
         "query_type": "similar_scene",
         "candidate_contains_relevant": true,
         "base_first_relevant_rank": 31,
-        "reranked_first_relevant_rank": 10,
+        "reranked_first_relevant_rank": 15,
         "base_top1_correct": false,
         "reranked_top1_correct": false,
         "rescued": false,
@@ -9406,41 +9366,5 @@
       }
     ]
   },
-  "runtime": {
-    "backend": "vllm",
-    "device": "cuda",
-    "runner": "pooling",
-    "endpoint": "/rerank",
-    "query_format": "question_passage_score_template",
-    "queries": 150,
-    "pairs": 7500,
-    "score_seconds": 201.043,
-    "total_seconds": 207.6441,
-    "latency_p50_seconds": 1.3411,
-    "latency_p95_seconds": 1.4054,
-    "latency_max_seconds": 1.4335,
-    "peak_vram_bytes": 4299161600,
-    "backend_version": "0.25.1",
-    "score_template": {
-      "format": "question_passage_score_template",
-      "path": "templates/nemotron-rerank.jinja",
-      "sha256": "c9feea3a36c77811f686c02a25676736c4c1a3615a52d3ca26293d64c8e08a9b"
-    },
-    "semantic_smoke": {
-      "status": "PASS",
-      "query": "What is machine learning?",
-      "documents": [
-        "Bananas are a good source of potassium.",
-        "Machine learning is a branch of AI that learns patterns from data."
-      ],
-      "scores": [
-        7.021856873734578e-08,
-        0.9999998807907104
-      ],
-      "top_index": 1,
-      "margin": 0.9999998105721417,
-      "latency_seconds": 0.034
-    }
-  },
-  "completed_at": "2026-07-29T19:17:57.130079+00:00"
+  "completed_at": "2026-08-01T08:46:00.243036+00:00"
 }

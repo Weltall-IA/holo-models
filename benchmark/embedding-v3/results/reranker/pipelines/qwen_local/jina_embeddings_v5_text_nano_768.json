@@ -1,0 +1,959 @@
+{
+  "pipeline_id": "jina_embeddings_v5_text_nano_768__qwen_local",
+  "embedding_variant": "jina_embeddings_v5_text_nano_768",
+  "reranker_id": "qwen_local",
+  "metrics": {
+    "summary": {
+      "MRR@10": 0.6963888888888888,
+      "HitRate@1": 0.6666666666666666,
+      "HitRate@10": 0.76,
+      "HitRate@20": 0.82
+    },
+    "base_metrics": {
+      "summary": {
+        "HitRate@1": 0.38,
+        "Recall@1": 0.37333333333333335,
+        "HitRate@3": 0.5533333333333333,
+        "Recall@3": 0.5433333333333333,
+        "HitRate@5": 0.5933333333333334,
+        "Recall@5": 0.5833333333333334,
+        "HitRate@10": 0.66,
+        "Recall@10": 0.65,
+        "HitRate@20": 0.74,
+        "Recall@20": 0.73,
+        "HitRate@50": 0.82,
+        "Recall@50": 0.82,
+        "MRR@10": 0.47330423280423284,
+        "nDCG@10": 0.5117182150968038,
+        "mean_first_relevant_rank": 37.193333333333335,
+        "median_first_relevant_rank": 3.0,
+        "queries_without_relevant": 0,
+        "hard_negative_error_rate": 0.28
+      }
+    },
+    "reranked_metrics": {
+      "summary": {
+        "MRR@10": 0.6963888888888888,
+        "HitRate@1": 0.6666666666666666,
+        "HitRate@10": 0.76,
+        "HitRate@20": 0.82
+      }
+    },
+    "per_query_effect": [
+      {
+        "query_id": "query-0001",
+        "base_mrr": 1.0,
+        "reranked_mrr": 1.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0002",
+        "base_mrr": 1.0,
+        "reranked_mrr": 1.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0003",
+        "base_mrr": 1.0,
+        "reranked_mrr": 1.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0004",
+        "base_mrr": 0.0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0005",
+        "base_mrr": 0.0,
+        "reranked_mrr": 0.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0006",
+        "base_mrr": 1.0,
+        "reranked_mrr": 0.2,
+        "effect": -0.8
+      },
+      {
+        "query_id": "query-0007",
+        "base_mrr": 0.1111111111111111,
+        "reranked_mrr": 1.0,
+        "effect": 0.8888888888888888
+      },
+      {
+        "query_id": "query-0008",
+        "base_mrr": 1.0,
+        "reranked_mrr": 1.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0009",
+        "base_mrr": 0.25,
+        "reranked_mrr": 1.0,
+        "effect": 0.75
+      },
+      {
+        "query_id": "query-0010",
+        "base_mrr": 1.0,
+        "reranked_mrr": 1.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0011",
+        "base_mrr": 1.0,
+        "reranked_mrr": 1.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0012",
+        "base_mrr": 1.0,
+        "reranked_mrr": 0.5,
+        "effect": -0.5
+      },
+      {
+        "query_id": "query-0013",
+        "base_mrr": 1.0,
+        "reranked_mrr": 1.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0014",
+        "base_mrr": 0.16666666666666666,
+        "reranked_mrr": 1.0,
+        "effect": 0.8333333333333334
+      },
+      {
+        "query_id": "query-0015",
+        "base_mrr": 0.0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0016",
+        "base_mrr": 1.0,
+        "reranked_mrr": 0.5,
+        "effect": -0.5
+      },
+      {
+        "query_id": "query-0017",
+        "base_mrr": 0.14285714285714285,
+        "reranked_mrr": 1.0,
+        "effect": 0.8571428571428572
+      },
+      {
+        "query_id": "query-0018",
+        "base_mrr": 1.0,
+        "reranked_mrr": 1.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0019",
+        "base_mrr": 1.0,
+        "reranked_mrr": 1.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0020",
+        "base_mrr": 1.0,
+        "reranked_mrr": 1.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0021",
+        "base_mrr": 1.0,
+        "reranked_mrr": 1.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0022",
+        "base_mrr": 1.0,
+        "reranked_mrr": 0.3333333333333333,
+        "effect": -0.6666666666666667
+      },
+      {
+        "query_id": "query-0023",
+        "base_mrr": 0.0,
+        "reranked_mrr": 0.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0024",
+        "base_mrr": 0.0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0025",
+        "base_mrr": 0.0,
+        "reranked_mrr": 0.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0026",
+        "base_mrr": 1.0,
+        "reranked_mrr": 0.25,
+        "effect": -0.75
+      },
+      {
+        "query_id": "query-0027",
+        "base_mrr": 0.5,
+        "reranked_mrr": 1.0,
+        "effect": 0.5
+      },
+      {
+        "query_id": "query-0028",
+        "base_mrr": 1.0,
+        "reranked_mrr": 1.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0029",
+        "base_mrr": 1.0,
+        "reranked_mrr": 1.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0030",
+        "base_mrr": 1.0,
+        "reranked_mrr": 1.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0031",
+        "base_mrr": 0.5,
+        "reranked_mrr": 1.0,
+        "effect": 0.5
+      },
+      {
+        "query_id": "query-0032",
+        "base_mrr": 0.16666666666666666,
+        "reranked_mrr": 1.0,
+        "effect": 0.8333333333333334
+      },
+      {
+        "query_id": "query-0033",
+        "base_mrr": 1.0,
+        "reranked_mrr": 1.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0034",
+        "base_mrr": 1.0,
+        "reranked_mrr": 1.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0035",
+        "base_mrr": 1.0,
+        "reranked_mrr": 1.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0036",
+        "base_mrr": 0.0,
+        "reranked_mrr": 0.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0037",
+        "base_mrr": 0.0,
+        "reranked_mrr": 0.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0038",
+        "base_mrr": 0.0,
+        "reranked_mrr": 0.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0039",
+        "base_mrr": 1.0,
+        "reranked_mrr": 0.5,
+        "effect": -0.5
+      },
+      {
+        "query_id": "query-0040",
+        "base_mrr": 1.0,
+        "reranked_mrr": 1.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0041",
+        "base_mrr": 0.0,
+        "reranked_mrr": 0.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0042",
+        "base_mrr": 1.0,
+        "reranked_mrr": 1.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0043",
+        "base_mrr": 0.3333333333333333,
+        "reranked_mrr": 1.0,
+        "effect": 0.6666666666666667
+      },
+      {
+        "query_id": "query-0044",
+        "base_mrr": 0.0,
+        "reranked_mrr": 0.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0045",
+        "base_mrr": 0.0,
+        "reranked_mrr": 0.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0046",
+        "base_mrr": 0.0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0047",
+        "base_mrr": 1.0,
+        "reranked_mrr": 1.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0048",
+        "base_mrr": 0.25,
+        "reranked_mrr": 1.0,
+        "effect": 0.75
+      },
+      {
+        "query_id": "query-0049",
+        "base_mrr": 0.0,
+        "reranked_mrr": 0.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0050",
+        "base_mrr": 0.0,
+        "reranked_mrr": 0.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0051",
+        "base_mrr": 0.3333333333333333,
+        "reranked_mrr": 1.0,
+        "effect": 0.6666666666666667
+      },
+      {
+        "query_id": "query-0052",
+        "base_mrr": 1.0,
+        "reranked_mrr": 1.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0053",
+        "base_mrr": 1.0,
+        "reranked_mrr": 1.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0054",
+        "base_mrr": 0.0,
+        "reranked_mrr": 0.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0055",
+        "base_mrr": 0.0,
+        "reranked_mrr": 0.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0056",
+        "base_mrr": 0.0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0057",
+        "base_mrr": 1.0,
+        "reranked_mrr": 1.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0058",
+        "base_mrr": 0.3333333333333333,
+        "reranked_mrr": 1.0,
+        "effect": 0.6666666666666667
+      },
+      {
+        "query_id": "query-0059",
+        "base_mrr": 0.0,
+        "reranked_mrr": 0.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0060",
+        "base_mrr": 0.0,
+        "reranked_mrr": 0.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0061",
+        "base_mrr": 0.0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0062",
+        "base_mrr": 0.5,
+        "reranked_mrr": 1.0,
+        "effect": 0.5
+      },
+      {
+        "query_id": "query-0063",
+        "base_mrr": 1.0,
+        "reranked_mrr": 1.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0064",
+        "base_mrr": 0.0,
+        "reranked_mrr": 0.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0065",
+        "base_mrr": 0.0,
+        "reranked_mrr": 0.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0066",
+        "base_mrr": 0.3333333333333333,
+        "reranked_mrr": 1.0,
+        "effect": 0.6666666666666667
+      },
+      {
+        "query_id": "query-0067",
+        "base_mrr": 1.0,
+        "reranked_mrr": 1.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0068",
+        "base_mrr": 1.0,
+        "reranked_mrr": 1.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0069",
+        "base_mrr": 0.0,
+        "reranked_mrr": 0.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0070",
+        "base_mrr": 0.0,
+        "reranked_mrr": 0.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0071",
+        "base_mrr": 1.0,
+        "reranked_mrr": 1.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0072",
+        "base_mrr": 1.0,
+        "reranked_mrr": 1.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0073",
+        "base_mrr": 0.5,
+        "reranked_mrr": 1.0,
+        "effect": 0.5
+      },
+      {
+        "query_id": "query-0074",
+        "base_mrr": 1.0,
+        "reranked_mrr": 1.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0075",
+        "base_mrr": 1.0,
+        "reranked_mrr": 1.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0076",
+        "base_mrr": 0.5,
+        "reranked_mrr": 1.0,
+        "effect": 0.5
+      },
+      {
+        "query_id": "query-0077",
+        "base_mrr": 0.5,
+        "reranked_mrr": 1.0,
+        "effect": 0.5
+      },
+      {
+        "query_id": "query-0078",
+        "base_mrr": 0.25,
+        "reranked_mrr": 1.0,
+        "effect": 0.75
+      },
+      {
+        "query_id": "query-0079",
+        "base_mrr": 0.3333333333333333,
+        "reranked_mrr": 1.0,
+        "effect": 0.6666666666666667
+      },
+      {
+        "query_id": "query-0080",
+        "base_mrr": 1.0,
+        "reranked_mrr": 1.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0081",
+        "base_mrr": 1.0,
+        "reranked_mrr": 1.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0082",
+        "base_mrr": 0.5,
+        "reranked_mrr": 1.0,
+        "effect": 0.5
+      },
+      {
+        "query_id": "query-0083",
+        "base_mrr": 0.5,
+        "reranked_mrr": 1.0,
+        "effect": 0.5
+      },
+      {
+        "query_id": "query-0084",
+        "base_mrr": 0.25,
+        "reranked_mrr": 1.0,
+        "effect": 0.75
+      },
+      {
+        "query_id": "query-0085",
+        "base_mrr": 0.3333333333333333,
+        "reranked_mrr": 1.0,
+        "effect": 0.6666666666666667
+      },
+      {
+        "query_id": "query-0086",
+        "base_mrr": 0.3333333333333333,
+        "reranked_mrr": 1.0,
+        "effect": 0.6666666666666667
+      },
+      {
+        "query_id": "query-0087",
+        "base_mrr": 1.0,
+        "reranked_mrr": 1.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0088",
+        "base_mrr": 0.3333333333333333,
+        "reranked_mrr": 1.0,
+        "effect": 0.6666666666666667
+      },
+      {
+        "query_id": "query-0089",
+        "base_mrr": 1.0,
+        "reranked_mrr": 1.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0090",
+        "base_mrr": 1.0,
+        "reranked_mrr": 1.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0091",
+        "base_mrr": 1.0,
+        "reranked_mrr": 1.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0092",
+        "base_mrr": 1.0,
+        "reranked_mrr": 1.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0093",
+        "base_mrr": 1.0,
+        "reranked_mrr": 1.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0094",
+        "base_mrr": 1.0,
+        "reranked_mrr": 1.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0095",
+        "base_mrr": 0.5,
+        "reranked_mrr": 1.0,
+        "effect": 0.5
+      },
+      {
+        "query_id": "query-0096",
+        "base_mrr": 1.0,
+        "reranked_mrr": 1.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0097",
+        "base_mrr": 0.5,
+        "reranked_mrr": 1.0,
+        "effect": 0.5
+      },
+      {
+        "query_id": "query-0098",
+        "base_mrr": 1.0,
+        "reranked_mrr": 1.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0099",
+        "base_mrr": 0.0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0100",
+        "base_mrr": 1.0,
+        "reranked_mrr": 1.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0101",
+        "base_mrr": 0.3333333333333333,
+        "reranked_mrr": 1.0,
+        "effect": 0.6666666666666667
+      },
+      {
+        "query_id": "query-0102",
+        "base_mrr": 0.5,
+        "reranked_mrr": 1.0,
+        "effect": 0.5
+      },
+      {
+        "query_id": "query-0103",
+        "base_mrr": 0.0,
+        "reranked_mrr": 0.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0104",
+        "base_mrr": 1.0,
+        "reranked_mrr": 1.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0105",
+        "base_mrr": 1.0,
+        "reranked_mrr": 1.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0106",
+        "base_mrr": 1.0,
+        "reranked_mrr": 1.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0107",
+        "base_mrr": 0.0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0108",
+        "base_mrr": 1.0,
+        "reranked_mrr": 1.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0109",
+        "base_mrr": 0.25,
+        "reranked_mrr": 1.0,
+        "effect": 0.75
+      },
+      {
+        "query_id": "query-0110",
+        "base_mrr": 1.0,
+        "reranked_mrr": 1.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0111",
+        "base_mrr": 0.5,
+        "reranked_mrr": 1.0,
+        "effect": 0.5
+      },
+      {
+        "query_id": "query-0112",
+        "base_mrr": 1.0,
+        "reranked_mrr": 1.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0113",
+        "base_mrr": 1.0,
+        "reranked_mrr": 1.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0114",
+        "base_mrr": 0.3333333333333333,
+        "reranked_mrr": 1.0,
+        "effect": 0.6666666666666667
+      },
+      {
+        "query_id": "query-0115",
+        "base_mrr": 0.0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0116",
+        "base_mrr": 0.0,
+        "reranked_mrr": 0.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0117",
+        "base_mrr": 0.125,
+        "reranked_mrr": 0.16666666666666666,
+        "effect": 0.04166666666666666
+      },
+      {
+        "query_id": "query-0118",
+        "base_mrr": 0.0,
+        "reranked_mrr": 0.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0119",
+        "base_mrr": 0.0,
+        "reranked_mrr": 0.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0120",
+        "base_mrr": 0.0,
+        "reranked_mrr": 0.25,
+        "effect": 0.25
+      },
+      {
+        "query_id": "query-0121",
+        "base_mrr": 0.3333333333333333,
+        "reranked_mrr": 0.3333333333333333,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0122",
+        "base_mrr": 0.0,
+        "reranked_mrr": 0.1,
+        "effect": 0.1
+      },
+      {
+        "query_id": "query-0123",
+        "base_mrr": 0.0,
+        "reranked_mrr": 0.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0124",
+        "base_mrr": 0.0,
+        "reranked_mrr": 0.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0125",
+        "base_mrr": 0.0,
+        "reranked_mrr": 0.2,
+        "effect": 0.2
+      },
+      {
+        "query_id": "query-0126",
+        "base_mrr": 0.1,
+        "reranked_mrr": 0.125,
+        "effect": 0.024999999999999994
+      },
+      {
+        "query_id": "query-0127",
+        "base_mrr": 0.1,
+        "reranked_mrr": 0.0,
+        "effect": -0.1
+      },
+      {
+        "query_id": "query-0128",
+        "base_mrr": 0.0,
+        "reranked_mrr": 0.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0129",
+        "base_mrr": 0.0,
+        "reranked_mrr": 0.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0130",
+        "base_mrr": 0.0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0131",
+        "base_mrr": 0.0,
+        "reranked_mrr": 0.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0132",
+        "base_mrr": 0.5,
+        "reranked_mrr": 1.0,
+        "effect": 0.5
+      },
+      {
+        "query_id": "query-0133",
+        "base_mrr": 0.0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0134",
+        "base_mrr": 0.0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0135",
+        "base_mrr": 0.0,
+        "reranked_mrr": 0.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0136",
+        "base_mrr": 0.0,
+        "reranked_mrr": 0.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0137",
+        "base_mrr": 0.0,
+        "reranked_mrr": 1.0,
+        "effect": 1.0
+      },
+      {
+        "query_id": "query-0138",
+        "base_mrr": 0.0,
+        "reranked_mrr": 0.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0139",
+        "base_mrr": 1.0,
+        "reranked_mrr": 1.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0140",
+        "base_mrr": 0.0,
+        "reranked_mrr": 0.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0141",
+        "base_mrr": 0.5,
+        "reranked_mrr": 1.0,
+        "effect": 0.5
+      },
+      {
+        "query_id": "query-0142",
+        "base_mrr": 1.0,
+        "reranked_mrr": 0.5,
+        "effect": -0.5
+      },
+      {
+        "query_id": "query-0143",
+        "base_mrr": 0.5,
+        "reranked_mrr": 0.5,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0144",
+        "base_mrr": 0.0,
+        "reranked_mrr": 0.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0145",
+        "base_mrr": 0.16666666666666666,
+        "reranked_mrr": 1.0,
+        "effect": 0.8333333333333334
+      },
+      {
+        "query_id": "query-0146",
+        "base_mrr": 0.125,
+        "reranked_mrr": 1.0,
+        "effect": 0.875
+      },
+      {
+        "query_id": "query-0147",
+        "base_mrr": 0.0,
+        "reranked_mrr": 0.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0148",
+        "base_mrr": 0.0,
+        "reranked_mrr": 0.0,
+        "effect": 0.0
+      },
+      {
+        "query_id": "query-0149",
+        "base_mrr": 0.25,
+        "reranked_mrr": 1.0,
+        "effect": 0.75
+      },
+      {
+        "query_id": "query-0150",
+        "base_mrr": 0.125,
+        "reranked_mrr": 1.0,
+        "effect": 0.875
+      }
+    ]
+  },
+  "reranker_runtime": {
+    "model": "Qwen/Qwen3-Reranker-0.6B",
+    "device": "cuda",
+    "batch_size": 32,
+    "total_pairs": 7500,
+    "pairs_per_second": 4.6,
+    "latency_p50_ms": 4463.129639625549,
+    "latency_p95_ms": 50176.99196338639,
+    "latency_p99_ms": 100334.80737209298,
+    "latency_max_ms": 180534.40976142883,
+    "total_seconds": 1641.58,
+    "reranker_load_seconds": 5.0
+  },
+  "raw_profile_id": "jina_embeddings_v5_text_nano_768"
+}

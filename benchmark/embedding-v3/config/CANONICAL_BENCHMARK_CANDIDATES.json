@@ -1,0 +1,187 @@
+{
+  "schema_version": "1.2.0",
+  "purpose": "Canonical queue of benchmark candidates that must not disappear before measured results or reproducible blocks are ingested into ALL_BENCHMARK_RESULTS.json.",
+  "canonical_results_file": "benchmark/embedding-v3/ALL_BENCHMARK_RESULTS.json",
+  "huggingface_download_policy": {
+    "applies_to": "all Hugging Face metadata resolution and artifact downloads performed by the local AI",
+    "token_file": "hf_tokens",
+    "token_file_required": true,
+    "use_token_file_for_every_huggingface_download": true,
+    "interactive_login_forbidden": true,
+    "manual_token_paste_forbidden": true,
+    "environment_token_fallback_forbidden_unless_user_authorizes": true,
+    "never_print_token": true,
+    "never_log_token": true,
+    "never_commit_token_file": true,
+    "never_copy_token_into_versioned_files": true,
+    "validate_file_exists_and_is_readable_before_download": true,
+    "missing_file_status": "BLOCKED_HF_TOKEN_FILE_UNAVAILABLE",
+    "notes": "The local AI must read the Hugging Face access token from the local secret file named hf_tokens for every Hugging Face request requiring authentication. Only the file path, existence, permissions and sanitized success/failure may be reported; its contents must never be displayed."
+  },
+  "quantization_policy": {
+    "applies_to": "all locally downloaded embedding and reranker weights",
+    "priority_order": [
+      "NVFP4",
+      "Q4_K_M",
+      "other verified Q4 only when NVFP4 and Q4_K_M do not exist"
+    ],
+    "resolve_exact_artifact_before_download": true,
+    "native_fp32_fp16_bf16_download_forbidden": true,
+    "q8_for_models_over_1b_forbidden": true,
+    "small_model_native_exception": "Only for models <=1B when no compatible NVFP4 or Q4 artifact exists, after documented search, explicit memory preflight and explicit user authorization.",
+    "required_artifact_metadata_before_download": [
+      "repository",
+      "revision",
+      "filename",
+      "format",
+      "quantization",
+      "size_bytes",
+      "license",
+      "runtime_compatibility"
+    ],
+    "remote_api_note": "float32 in an API profile is embedding output dtype, not a local FP32 weight download"
+  },
+  "rules": {
+    "not_a_leaderboard": true,
+    "no_estimated_metrics": true,
+    "remove_candidate_only_after_result_or_reproducible_block_is_ingested": true,
+    "raw_first": true,
+    "rerank_all_eligible_after_raw": true,
+    "same_corpus_and_protocol": true
+  },
+  "embeddings": [
+    {
+      "profile_id": "gemini_embedding_2_768_float32",
+      "model_id": "gemini-embedding-2",
+      "provider": "google_gemini_api",
+      "dimension": 768,
+      "output_dtype": "float32",
+      "weight_quantization": "NOT_APPLICABLE_REMOTE_API",
+      "status": "PENDING_RAW_AND_RERANK",
+      "priority": 1,
+      "requires_api_key": true,
+      "free_tier_expected": true
+    },
+    {
+      "profile_id": "gemini_embedding_2_1536_float32",
+      "model_id": "gemini-embedding-2",
+      "provider": "google_gemini_api",
+      "dimension": 1536,
+      "output_dtype": "float32",
+      "weight_quantization": "NOT_APPLICABLE_REMOTE_API",
+      "status": "PENDING_RAW_AND_RERANK",
+      "priority": 2,
+      "requires_api_key": true,
+      "free_tier_expected": true
+    },
+    {
+      "profile_id": "gemini_embedding_001_768_float32",
+      "model_id": "gemini-embedding-001",
+      "provider": "google_gemini_api",
+      "dimension": 768,
+      "output_dtype": "float32",
+      "weight_quantization": "NOT_APPLICABLE_REMOTE_API",
+      "status": "PENDING_RAW_AND_RERANK",
+      "priority": 3,
+      "requires_api_key": true,
+      "free_tier_expected": true
+    },
+    {
+      "profile_id": "qwen3_embedding_0_6b_1024_quantized",
+      "model_family": "Qwen/Qwen3-Embedding-0.6B",
+      "provider": "local",
+      "dimension": 1024,
+      "artifact_priority": ["NVFP4", "Q4_K_M", "Q4"],
+      "native_weight_download_forbidden": true,
+      "status": "PENDING_ARTIFACT_RESOLUTION_RAW_AND_RERANK",
+      "priority": 4,
+      "license": "Apache-2.0"
+    },
+    {
+      "profile_id": "jina_embeddings_v5_text_small_1024_quantized",
+      "model_family": "jinaai/jina-embeddings-v5-text-small",
+      "provider": "local",
+      "dimension": 1024,
+      "artifact_priority": ["NVFP4", "Q4_K_M", "Q4"],
+      "native_weight_download_forbidden": true,
+      "status": "PENDING_ARTIFACT_RESOLUTION_RAW_AND_RERANK_BENCHMARK_ONLY",
+      "priority": 5,
+      "license": "CC-BY-NC-4.0",
+      "production_eligible": false
+    },
+    {
+      "profile_id": "jina_embeddings_v5_text_nano_768_quantized",
+      "model_family": "jinaai/jina-embeddings-v5-text-nano",
+      "provider": "local",
+      "dimension": 768,
+      "artifact_priority": ["NVFP4", "Q4_K_M", "Q4"],
+      "native_weight_download_forbidden": true,
+      "status": "PENDING_ARTIFACT_RESOLUTION_RAW_AND_RERANK_BENCHMARK_ONLY",
+      "priority": 6,
+      "license": "CC-BY-NC-4.0",
+      "production_eligible": false
+    },
+    {
+      "profile_id": "jina_embeddings_v4_q4",
+      "model_family": "jinaai/jina-embeddings-v4",
+      "provider": "local",
+      "artifact_priority": ["NVFP4", "Q4_K_M", "Q4"],
+      "native_weight_download_forbidden": true,
+      "status": "PENDING_ARTIFACT_RESOLUTION_PREFLIGHT_RAW_AND_RERANK_BENCHMARK_ONLY",
+      "priority": 7,
+      "production_eligible": false
+    },
+    {
+      "profile_id": "cohere_embed_v4_0",
+      "model_id": "embed-v4.0",
+      "provider": "cohere_api",
+      "weight_quantization": "NOT_APPLICABLE_REMOTE_API",
+      "status": "BLOCKED_API_QUOTA_OR_AUTH_REQUIRED",
+      "priority": 8,
+      "requires_api_key": true
+    }
+  ],
+  "rerankers": [
+    {
+      "reranker_id": "lamar_600m_quantized",
+      "model_family": "nlpai-lab/LAMAR-600m",
+      "provider": "local",
+      "artifact_priority": ["NVFP4", "Q4_K_M", "Q4"],
+      "native_weight_download_forbidden": true,
+      "status": "PENDING_ARTIFACT_RESOLUTION_PREFLIGHT_AND_FULL_MATRIX",
+      "priority": 1,
+      "license": "MIT"
+    },
+    {
+      "reranker_id": "ettin_reranker_150m_v1_quantized",
+      "model_family": "cross-encoder/ettin-reranker-150m-v1",
+      "provider": "local",
+      "artifact_priority": ["NVFP4", "Q4_K_M", "Q4"],
+      "native_weight_download_forbidden": true,
+      "status": "PENDING_ARTIFACT_RESOLUTION_FULL_MATRIX",
+      "priority": 2,
+      "license": "Apache-2.0",
+      "language_note": "English-trained; evaluate on the frozen Portuguese corpus."
+    },
+    {
+      "reranker_id": "ettin_reranker_68m_v1_quantized",
+      "model_family": "cross-encoder/ettin-reranker-68m-v1",
+      "provider": "local",
+      "artifact_priority": ["NVFP4", "Q4_K_M", "Q4"],
+      "native_weight_download_forbidden": true,
+      "status": "PENDING_ARTIFACT_RESOLUTION_FULL_MATRIX",
+      "priority": 3,
+      "license": "Apache-2.0",
+      "language_note": "English-trained; evaluate on the frozen Portuguese corpus."
+    },
+    {
+      "reranker_id": "google_vertex_ranking_api",
+      "model_id": "Vertex AI Ranking API",
+      "provider": "google_vertex_ai",
+      "weight_quantization": "NOT_APPLICABLE_REMOTE_API",
+      "status": "BLOCKED_PAID_API_AUTH_REQUIRED",
+      "priority": 99,
+      "requires_billing": true
+    }
+  ]
+}

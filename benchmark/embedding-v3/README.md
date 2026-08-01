@@ -124,7 +124,7 @@ Os artefatos individuais em `results/reranker/pipelines/` continuam sendo a font
 
 Esta seção é o registro humano canônico para decisões de reutilização dos embeddings medidos. Os números continuam vindo de `ALL_BENCHMARK_RESULTS.json` e dos artefatos individuais; esta seção registra interpretação, confiança e decisão operacional sem criar outro leaderboard ou registry paralelo.
 
-Revisão desta classificação: **2026-07-30**.
+Revisão desta classificação: **2026-08-01**.
 
 As colunas não misturam protocolos:
 
@@ -142,29 +142,29 @@ Entrar nesta tabela significa que o perfil pode continuar sendo considerado em n
 
 | Perfil | MRR@10 sozinho | Melhor MRR@10 com reranker | Faixa | Confiança | Decisão |
 |---|---:|---:|---|---|---|
-| `nemotron_8b_abiray_q4_audit_4096` | 0.7970 | 0.8307 | A | alta | Nemotron 8B Q4_K_M canônico; Abiray escolhido por maior adoção no Hugging Face; melhor configuração raw usa 4096 dimensões. |
-| `nemotron_8b_abiray_q4_audit_1024` | 0.7459 | 0.8307 | A | alta | Variante truncada para 1024 dimensões; Qwen e Voyage empataram em MRR@10 arredondado (~0.7907) nesta configuração. |
-| `nemotron_3_embed_1b_nvfp4` | 0.7753 | 0.8318 | A | alta | Melhor baseline local; vLLM/NVFP4; melhor pipeline atual usa NVIDIA Nemotron Rerank. |
+| `nemotron_8b_abiray_q4_audit_4096` | 0.7970 | 0.7894 | A | alta | Nemotron 8B Q4_K_M canônico; Abiray escolhido por maior adoção no Hugging Face; melhor configuração raw usa 4096 dimensões. |
+| `nemotron_8b_abiray_q4_audit_1024` | 0.7459 | 0.8232 | A | alta | Variante truncada para 1024 dimensões; Qwen e Voyage empataram em MRR@10 arredondado (~0.7907) nesta configuração. |
+| `nemotron_3_embed_1b_nvfp4` | 0.7753 | 0.8238 | A | alta | Melhor baseline local; vLLM/NVFP4; melhor pipeline atual usa NVIDIA Nemotron Rerank. |
 | `voyage-4-large` | 0.7728 | — | A | média | API; resultado completo, sem pipeline sob o mesmo ID. |
-| `voyage_4_large_1024_float32` | 0.7728 | 0.8261 | A | média | Variante histórica 1024/F32; melhor reranker Voyage 2.5. |
-| `nemotron_3_embed_1b_q4_k_m_gguf` | 0.7695 | 0.7890 | A | alta | GGUF reproduzível; menor consumo e cold start; pipeline Qwen publicado. |
-| `voyage4_nano_2048_int8` | 0.7681 | 0.8200 | A | média | Variante histórica INT8; desempenho forte. |
-| `embeddinggemma` | 0.7562 | 0.8299 | A | alta | Resultado coerente com a família; melhor pipeline usa NVIDIA Nemotron Rerank. |
-| `pplx_embed_v1_4b_q8_0` | 0.7562 | 0.8221 | A | média-alta | Resultado histórico válido; novas variantes seguem NVFP4/Q4 antes de Q8. |
-| `voyage4_nano_2048_float32` | 0.7561 | 0.8195 | A | média | Variante histórica 2048/F32. |
-| `voyage4_nano` | 0.7528 | 0.8223 | A | alta | Bom equilíbrio entre qualidade e custo. |
-| `voyage4_nano_1024_float32` | 0.7528 | 0.8210 | A | média | Variante histórica 1024/F32. |
-| `voyage-context-4` | 0.7433 | 0.7887 | A | média | API; baseline completo e pipeline Qwen recomposto offline. |
-| `nomic_embed_text_v2_moe_q4` | 0.7420 | 0.8320 | A | alta | Escolha operacional validada; melhor pipeline usa NVIDIA Nemotron Rerank. |
-| `embeddinggemma_768_float32` | 0.7389 | 0.8264 | A | média | Variante histórica; melhor pipeline histórico usa Voyage 2.5. |
-| `embeddinggemma_gguf` | 0.7389 | 0.8198 | A | alta | Baixo consumo e resultado coerente. |
+| `voyage_4_large_1024_float32` | 0.7728 | 0.8239 | A | média | Variante histórica 1024/F32; melhor reranker Voyage 2.5. |
+| `nemotron_3_embed_1b_q4_k_m_gguf` | 0.7695 | 0.8227 | A | alta | GGUF reproduzível; menor consumo e cold start; pipeline Qwen publicado. |
+| `voyage4_nano_2048_int8` | 0.7681 | 0.8239 | A | média | Variante histórica INT8; desempenho forte. |
+| `embeddinggemma` | 0.7562 | 0.8227 | A | alta | Resultado coerente com a família; melhor pipeline usa NVIDIA Nemotron Rerank. |
+| `pplx_embed_v1_4b_q8_0` | 0.7562 | 0.8233 | A | média-alta | Resultado histórico válido; novas variantes seguem NVFP4/Q4 antes de Q8. |
+| `voyage4_nano_2048_float32` | 0.7561 | 0.8239 | A | média | Variante histórica 2048/F32. |
+| `voyage4_nano` | 0.7528 | 0.8239 | A | alta | Bom equilíbrio entre qualidade e custo. |
+| `voyage4_nano_1024_float32` | 0.7528 | 0.8239 | A | média | Variante histórica 1024/F32. |
+| `voyage-context-4` | 0.7433 | 0.8239 | A | média | API; baseline completo e pipeline Qwen recomposto offline. |
+| `nomic_embed_text_v2_moe_q4` | 0.7420 | 0.8241 | A | alta | Escolha operacional validada; melhor pipeline usa NVIDIA Nemotron Rerank. |
+| `embeddinggemma_768_float32` | 0.7389 | 0.8240 | A | média | Variante histórica; melhor pipeline histórico usa Voyage 2.5. |
+| `embeddinggemma_gguf` | 0.7389 | 0.8227 | A | alta | Baixo consumo e resultado coerente. |
 | `bge_m3_dense` | 0.7182 | 0.8067 | A | alta | Boa cobertura; modelo oficial recomenda híbrido com reranking. |
 | `snowflake_arctic_embed_l_v2_q4` | 0.7113 | 0.8158 | A | média-alta | Resultado compatível com modelo multilíngue forte. |
-| `qwen3_embedding_4b_q8_0` | 0.7010 | 0.8326 | A | alta | Melhor MRR@10 reranqueado publicado; novas seleções devem preferir NVFP4/Q4. |
-| `colibri_ptbr` | 0.6966 | 0.8305 | B | alta | Especializado em PT-BR; forte com NVIDIA Nemotron Rerank. |
+| `qwen3_embedding_4b_q8_0` | 0.7010 | 0.8243 | A | alta | Melhor MRR@10 reranqueado publicado; novas seleções devem preferir NVFP4/Q4. |
+| `colibri_ptbr` | 0.6966 | 0.8198 | B | alta | Especializado em PT-BR; forte com NVIDIA Nemotron Rerank. |
 | `jina_embeddings_v5_text_small` | 0.6742 | 0.8216 | B | média-alta | Resultado compatível com MMTEB declarado pelo modelo. |
 | `octen_embedding_8b_q8_0` | 0.6739 | 0.8154 | B | média | Resultado histórico; Q8 não deve ser repetido se houver Q4/NVFP4. |
-| `granite_embedding_311m_r2` | 0.6709 | 0.8185 | B | média-alta | Opção compacta; ganho grande com NVIDIA Nemotron Rerank. |
+| `granite_embedding_311m_r2` | 0.6709 | 0.8092 | B | média-alta | Opção compacta; ganho grande com NVIDIA Nemotron Rerank. |
 | `pplx_embed_v1_06b_native` | 0.6633 | 0.8190 | B | média-alta | Compacto e forte com reranker. |
 | `giga_embeddings_instruct` | 0.6467 | 0.8184 | B | média | Útil com instrução; suporte oficial é sobretudo russo/inglês. |
 | `bidirlm_17b_embedding` | 0.6423 | 0.8190 | B | média-alta | Ordem relativa coerente com MTEB-BR. |
@@ -175,6 +175,70 @@ Entrar nesta tabela significa que o perfil pode continuar sendo considerado em n
 | `gte_multilingual_base` | 0.5676 | 0.8109 | C | alta | Baseline fraco no corpus, mas pipeline útil e fonte oficial forte. |
 | `granite_embedding_97m_r2` | 0.5631 | 0.7890 | C | média-alta | Muito rápido; manter apenas para perfil leve/reranqueado. |
 
+### Tabela 1a — divergência histórica do ranking (pipelines removidos em 91a39f5)
+
+Os valores abaixo foram publicados como "Melhor MRR@10 com reranker" entre 29 e 30 de julho, mas os pipelines que os produziram foram **removidos do checkout** no commit `91a39f5` ("removed 23 empty pipeline artifacts"), que também removeu pipelines com métricas reais. Eles **não participam** do ranking canônico atual; seus score artifacts permanecem em `results/reranker/scores/` e a restauração exigiria decisão explícita e reconstrução a partir dos scores (sem reexecução).
+
+| Embedding | Valor histórico | Reranker histórico | Backend | Commit de origem | Estado atual |
+|---|---:|---|---|---|---|
+| `qwen3_embedding_4b_q8_0` | 0.8326 | llama_nemotron_rerank_1b_v2 | vLLM | `6981b32` | pipeline removido; score vLLM órfão no disco |
+| `nomic_embed_text_v2_moe_q4` | 0.8320 | llama_nemotron_rerank_1b_v2 | vLLM | `6981b32` | substituído por Transformers (0.8241) |
+| `nemotron_3_embed_1b_nvfp4` | 0.8318 | llama_nemotron_rerank_1b_v2 | vLLM | `6981b32` | substituído por Transformers (0.8238) |
+| `nemotron_8b_abiray_q4_audit_4096` | 0.8307 | voyage_rerank_2_5 | Voyage Batch API | `b8ac2d7` | pipeline removido; scoragem parcial top-30 |
+| `colibri_ptbr` | 0.8305 | llama_nemotron_rerank_1b_v2 | vLLM | `6981b32` | pipeline removido; score vLLM órfão no disco |
+
+Diferença de protocolo: os pipelines Nemotron vLLM usavam o template nativo do modelo (`nvidia/llama-nemotron-rerank-1b-v2`, sem instrução explícita), enquanto os pipelines atuais Transformers usam o prompt manual `question:`/`passage:` com `nvidia/llama-3.2-nv-rerankqa-1b-v2`; os pipelines Voyage usavam scoragem parcial (top-30 pontuado + append estável), distinta da scoragem completa top-50 atual. Ambas as diferenças tornam os valores históricos **não diretamente comparáveis** ao ranking canônico vigente.
+
+### Tabela 1b — painéis de rerankers locais nativos (top 15 raw × reranker)
+
+Cada reranker cobre 14 dos 15 perfis do top 15 raw; `voyage-4-large` permanece sem pipeline porque não há candidate artifact local (embeddings de API Voyage). Nemotron 1B v2 foi executado via Transformers (`LlamaBidirectionalForSequenceClassification`), sem vLLM.
+
+| Reranker | Params | Backend | Células válidas | MRR@10 no painel | VRAM pico min/méd/máx (GB) | Tempo min/méd/máx (s) | Melhor célula |
+|---|---:|---|---:|---:|---:|---:|---|
+| `ettin_reranker_68m_v1` | 68M | sentence-transformers.CrossEncoder | 14 | 0.3749–0.4555 | 0.776 / 0.778 / 0.779 | 85.7 / 94.4 / 163.1 | `nemotron_8b_abiray_q4_audit_1024` |
+| `ettin_reranker_150m_v1` | 150M | sentence-transformers.CrossEncoder | 14 | 0.3272–0.3989 | 1.019 / 1.023 / 1.024 | 175.2 / 180.4 / 187.2 | `nemotron_8b_abiray_q4_audit_1024` |
+| `lamar_600m` | 600M | sentence-transformers.CrossEncoder | 14 | 0.7733–0.7785 | 2.452 / 2.455 / 2.456 | 251.7 / 280.5 / 426.1 | `nemotron_8b_abiray_q4_audit_1024` |
+| `llama_nemotron_rerank_1b_v2` | 1B | transformers.LlamaBidirectionalForSequenceClassification | 14 | 0.8227–0.8241 | 4.181 / 4.205 / 4.207 | 260.9 / 270.4 / 281.0 | `nomic_embed_text_v2_moe_q4` |
+
+Qualidade × custo: Nemotron 1B v2 domina o painel (MRR@10 ~0.824) com VRAM pico médio 4.21 GB e ~4.5 min/célula; LAMAR-600m é competitivo (0.77–0.78) com VRAM 2.45 GB e ~4.7 min; os Ettin são rápidos e leves (VRAM 0.78 e 1.02 GB, ~1.5 e 3 min) mas ficam bem abaixo no corpus PT-BR por treino majoritariamente em inglês. Nenhuma métrica foi copiada entre células; cada artefato tem telemetria própria registrada. Estatísticas recalculadas diretamente dos 56 score artifacts.
+
+### Tabela 1c — qualidade × consumo dos embeddings reutilizáveis
+
+Valores em MiB para RAM/VRAM (pico registrado no runtime de cada artefato). `MEASURED` = valor realmente registrado; `LEGACY_NOT_MEASURED` = artefato histórico sem telemetria (nada foi inferido do tamanho do peso); `API_REMOTE` = execução remota. Embedding e reranker são executados em fases separadas e não são somados.
+
+| Embedding | Raw MRR@10 | Melhor reranker | Melhor MRR@10 | RAM pico embedding | VRAM pico embedding | RAM pico reranker | VRAM pico reranker | Tempo reranker (s) | Estado |
+|---|---:|---|---:|---:|---:|---:|---:|---:|---|
+| `nemotron_3_embed_1b_nvfp4` | 0.7753 | llama_nemotron_rerank_1b_v2 | 0.8238 | 2072.00 | 3573.39 | 4011.74 | — | 266.4 | MEASURED |
+| `voyage-4-large` | 0.7728 | — | — | — | — | — | — | — | MEASURED |
+| `voyage_4_large_1024_float32` | 0.7728 | llama_nemotron_rerank_1b_v2 | 0.8239 | — | — | 4011.49 | — | 261.2 | LEGACY_NOT_MEASURED |
+| `nemotron_3_embed_1b_q4_k_m_gguf` | 0.7695 | llama_nemotron_rerank_1b_v2 | 0.8227 | 1288.00 | 1213.48 | 4011.74 | — | 274.8 | MEASURED |
+| `voyage4_nano_2048_int8` | 0.7681 | llama_nemotron_rerank_1b_v2 | 0.8239 | — | — | 4011.74 | — | 267.8 | LEGACY_NOT_MEASURED |
+| `embeddinggemma` | 0.7562 | llama_nemotron_rerank_1b_v2 | 0.8227 | 1692.32 | — | 4011.74 | — | 281.0 | MEASURED |
+| `pplx_embed_v1_4b_q8_0` | 0.7562 | llama_nemotron_rerank_1b_v2 | 0.8233 | — | — | 4011.74 | — | 271.9 | MEASURED |
+| `voyage4_nano_2048_float32` | 0.7561 | llama_nemotron_rerank_1b_v2 | 0.8239 | — | — | 4011.49 | — | 276.1 | LEGACY_NOT_MEASURED |
+| `voyage4_nano` | 0.7528 | llama_nemotron_rerank_1b_v2 | 0.8239 | 2503.17 | — | 4011.49 | — | 270.0 | MEASURED |
+| `voyage4_nano_1024_float32` | 0.7528 | llama_nemotron_rerank_1b_v2 | 0.8239 | — | — | 4011.49 | — | 270.7 | LEGACY_NOT_MEASURED |
+| `voyage-context-4` | 0.7433 | llama_nemotron_rerank_1b_v2 | 0.8239 | — | — | 4011.49 | — | 277.7 | MEASURED |
+| `nomic_embed_text_v2_moe_q4` | 0.7420 | llama_nemotron_rerank_1b_v2 | 0.8241 | — | — | 4011.49 | — | 260.9 | LEGACY_NOT_MEASURED |
+| `embeddinggemma_768_float32` | 0.7389 | llama_nemotron_rerank_1b_v2 | 0.8240 | — | — | 4011.74 | — | 272.6 | LEGACY_NOT_MEASURED |
+| `embeddinggemma_gguf` | 0.7389 | llama_nemotron_rerank_1b_v2 | 0.8227 | 365.00 | — | 4011.74 | — | 265.8 | MEASURED |
+| `bge_m3_dense` | 0.7182 | qwen_local | 0.8067 | 2493.68 | — | — | — | — | MEASURED |
+| `snowflake_arctic_embed_l_v2_q4` | 0.7113 | qwen_local | 0.8158 | — | — | — | — | — | LEGACY_NOT_MEASURED |
+| `qwen3_embedding_4b_q8_0` | 0.7010 | qwen_local | 0.8243 | — | — | — | — | — | MEASURED |
+| `colibri_ptbr` | 0.6966 | qwen_local | 0.8198 | 1101.58 | — | — | — | — | MEASURED |
+| `jina_embeddings_v5_text_small` | 0.6742 | qwen_local | 0.8216 | 2650.25 | — | — | — | — | MEASURED |
+| `granite_embedding_311m_r2` | 0.6709 | qwen_local | 0.8092 | 784.33 | — | — | — | — | MEASURED |
+| `lfm_25_embedding_350m_q4_k_m_official` | 0.6085 | qwen_local | 0.7768 | 430.00 | 685.35 | 3674.81 | — | 604.8 | MEASURED |
+| `gte_multilingual_base` | 0.5676 | qwen_local | 0.8109 | 1637.46 | — | — | — | — | MEASURED |
+| `granite_embedding_97m_r2` | 0.5631 | qwen_local | 0.7890 | 320.94 | — | — | — | — | MEASURED |
+| `qwen3_embedding_8b_gguf` | 0.6920 | qwen_local | 0.7914 | 8596.00 | — | — | — | — | MEASURED |
+| `octen_embedding_8b_q8_0` | 0.6739 | qwen_local | 0.8154 | — | — | — | — | — | MEASURED |
+| `pplx_embed_v1_06b_native` | 0.6633 | qwen_local | 0.8190 | — | — | — | — | — | MEASURED |
+| `giga_embeddings_instruct` | 0.6467 | qwen_local | 0.8184 | — | — | — | — | — | LEGACY_NOT_MEASURED |
+| `bidirlm_17b_embedding` | 0.6423 | qwen_local | 0.8190 | — | — | — | — | — | MEASURED |
+| `multilingual_e5_large_instruct` | 0.6329 | qwen_local | 0.8111 | 1249.33 | — | — | — | — | MEASURED |
+| `qwen3_embedding_06` | 0.6163 | qwen_local | 0.8066 | 2194.14 | — | — | — | — | MEASURED |
+| `qwen3_embedding_06_gguf` | 0.6153 | qwen_local | 0.7477 | 1380.00 | — | — | — | — | MEASURED |
 ### Tabela 2 — blacklist de artefatos e configurações
 
 A blacklist é aplicada ao **ID, peso, quantização e configuração testados**. Ela só deve ser promovida para toda a família do modelo após execuções independentes e reproduzíveis confirmarem o problema. Resultados suspeitos não devem participar de ranking, seleção de produção ou comparação histórica como se fossem válidos.
@@ -198,6 +262,8 @@ O MTEB-BR coloca KaLM 12B, Octen 8B, Qwen3 4B, BidirLM, BOOM 4B e EmbeddingGemma
 O model card oficial do LFM2.5 exige embedding CLS, similaridade cosseno e prefixos assimétricos `query: ` e `document: `. Como o artefato local não registra que esse protocolo foi seguido e ficou muito abaixo da expectativa oficial, ele permanece bloqueado até reexecução.
 
 Os dois Nemotron 8B ficam bloqueados por proveniência: candidates, métricas sem reranker e métricas com Qwen são idênticos, enquanto os artefatos não registram hashes dos pesos, runtime, pooling, dimensão, normalização ou comando. A auditoria deve preferir NVFP4 somente se o arquivo for comprovadamente um modelo 8B; na ausência, deve usar `Q4_K_M`. O NVFP4 oficial publicado pela NVIDIA é de 1B e não pode ser confundido com um artefato 8B.
+
+O perfil `voyage4_nano` teve o candidate corrigido para a identidade dim-1024 comprovada (o artefato anterior continha rankings da variante 2048). A identidade foi provada pela igualdade de MRR@10 e HR@1 com `voyage4_nano_1024_float32` no raw; o pipeline `voyage4_nano__mxbai_rerank_base_v2` foi executado com esses rankings (MRR@10 0.7997).
 
 ### Fontes externas de coerência
 

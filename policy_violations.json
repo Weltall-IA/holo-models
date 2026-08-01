@@ -1,0 +1,82 @@
+[
+  {
+    "path": "embed/qwen3_embedding_0_6b_1024/model.safetensors",
+    "format": "safetensors",
+    "size_bytes": 1191586416,
+    "sha256": "0437e45c94563b09e13cb7a64478fc406947a93cb34a7e05870fc8dcd48e23fd",
+    "status": "POLICY_VIOLATION_NATIVE_FP32",
+    "note": "Downloaded before v1.1 policy correction; not deleted per instructions"
+  },
+  {
+    "path": "rerank/ettin_reranker_68m_v1/model.safetensors",
+    "format": "safetensors",
+    "size_bytes": 272589832,
+    "sha256": "d6aa3080446f53cbc7fc2af35621fcd149eeb8f93def521cadd5b57654f2c422",
+    "status": "POLICY_VIOLATION_NATIVE_FP32",
+    "note": "Downloaded before v1.1 policy correction; not deleted per instructions"
+  },
+  {
+    "path": "rerank/ettin_reranker_150m_v1/model.safetensors",
+    "format": "safetensors",
+    "size_bytes": 596070136,
+    "sha256": "0dd04496917f100307bc37e0fc7acb8750bb8781badfdb21a368b0e965a0d981",
+    "status": "POLICY_VIOLATION_NATIVE_FP32",
+    "note": "Downloaded before v1.1 policy correction; not deleted per instructions"
+  },
+  {
+    "path": "rerank/lamar_600m/model.safetensors",
+    "format": "safetensors",
+    "size_bytes": 2271071852,
+    "sha256": "b6f75184b381c2404972a8158cbdbd5ff05fdddf37aef1462857879b17a7430e",
+    "status": "POLICY_VIOLATION_NATIVE_FP32",
+    "note": "Downloaded before v1.1 policy correction; not deleted per instructions"
+  },
+  {
+    "path": "rerank/ettin_reranker_150m_v1/4_Dense/model.safetensors",
+    "format": "safetensors",
+    "size_bytes": 3220,
+    "sha256": "cececab2925f12c9c7541d5d438202a6eec4b503658e0e64790f2d0414ede6a8",
+    "status": "POLICY_VIOLATION_NATIVE_FP32",
+    "note": "Downloaded before v1.1 policy correction; not deleted per instructions"
+  },
+  {
+    "path": "rerank/ettin_reranker_150m_v1/3_LayerNorm/model.safetensors",
+    "format": "safetensors",
+    "size_bytes": 6296,
+    "sha256": "a119c63bd3b89934c89f2394e2278014e663e01625dc322c603ddbf24b10325c",
+    "status": "POLICY_VIOLATION_NATIVE_FP32",
+    "note": "Downloaded before v1.1 policy correction; not deleted per instructions"
+  },
+  {
+    "path": "rerank/ettin_reranker_150m_v1/2_Dense/model.safetensors",
+    "format": "safetensors",
+    "size_bytes": 2359384,
+    "sha256": "bc39a6bdfd371a47a08fbf84781bc7224b846ec0e15213b560d2abbbfb323b75",
+    "status": "POLICY_VIOLATION_NATIVE_FP32",
+    "note": "Downloaded before v1.1 policy correction; not deleted per instructions"
+  },
+  {
+    "path": "rerank/ettin_reranker_68m_v1/2_Dense/model.safetensors",
+    "format": "safetensors",
+    "size_bytes": 1048664,
+    "sha256": "ee9b8a9186fffb05cea0cd73e2ccfc8a4bf641c075d8f304e5c4e4f5fe0716d0",
+    "status": "POLICY_VIOLATION_NATIVE_FP32",
+    "note": "Downloaded before v1.1 policy correction; not deleted per instructions"
+  },
+  {
+    "path": "rerank/ettin_reranker_68m_v1/3_LayerNorm/model.safetensors",
+    "format": "safetensors",
+    "size_bytes": 4248,
+    "sha256": "3906f4be69408f4f370c7bfdc2de6ef825d4d1f4da4f01221d831336c0e3a91a",
+    "status": "POLICY_VIOLATION_NATIVE_FP32",
+    "note": "Downloaded before v1.1 policy correction; not deleted per instructions"
+  },
+  {
+    "path": "rerank/ettin_reranker_68m_v1/4_Dense/model.safetensors",
+    "format": "safetensors",
+    "size_bytes": 2196,
+    "sha256": "1a391820f020c8fc3efb1da894e1719cfdfb8a6c73d214f34f5b1802bac8b9dd",
+    "status": "POLICY_VIOLATION_NATIVE_FP32",
+    "note": "Downloaded before v1.1 policy correction; not deleted per instructions"
+  }
+]

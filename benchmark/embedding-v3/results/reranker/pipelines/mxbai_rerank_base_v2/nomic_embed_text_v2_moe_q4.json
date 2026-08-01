@@ -6,7 +6,7 @@
     "profile_id": "nomic_embed_text_v2_moe_q4",
     "source_group": "gate3",
     "source_path": "benchmark/embedding-v3/results/gate3/nomic_embed_text_v2_moe_q4.json",
-    "evidence_sha256": "a56f231f6228f5c3ffb62b10858d362a3c1066a34687e73666284490d4a6f0e8",
+    "evidence_sha256": "7e86d5df08b71ed2c47b134876542016602c85161f1e50b0a760d1a4391d5cce",
     "model": null,
     "backend": null,
     "backend_version": null
@@ -9393,5 +9393,5 @@
       }
     ]
   },
-  "completed_at": "2026-07-29T07:14:25.413226+00:00"
+  "completed_at": "2026-08-01T00:25:30.236503+00:00"
 }

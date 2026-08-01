@@ -38288,5 +38288,16 @@
       ]
     }
   ],
-  "completed_at": "2026-07-20T19:57:33.614051+00:00"
+  "completed_at": "2026-07-20T19:57:33.614051+00:00",
+  "ranking_sha256": "0e83b3bc35d3a2b8a93caafcd6fcf022156229b2b9e93356fe90c6ddb7835b5e",
+  "embedding": {
+    "profile_id": "voyage4_nano_1024_float32",
+    "backend": "sentence-transformers",
+    "weight_file": null,
+    "bytes": null,
+    "sha256": "3dae0c63c81dcab79ac213af331940a1bf2b8a53ec8646be878552890291ad30",
+    "quantization": null,
+    "native_dimension": 1024,
+    "evaluated_dimension": 1024
+  }
 }

@@ -9,8 +9,9 @@ from pathlib import Path
 class VoyageStatusBlockTests(unittest.TestCase):
     """After finalize, the Voyage Nemotron 8B status must be COMPLETED."""
 
-    CONSOLIDATED = Path("ALL_BENCHMARK_RESULTS.json")
-    VOYAGE_BLOCKED = Path("results/reranker/voyage_rerank_2_5_nemotron_8b_abiray_blocked.json")
+    PROJECT_ROOT = Path(__file__).resolve().parents[1]
+    CONSOLIDATED = PROJECT_ROOT / "ALL_BENCHMARK_RESULTS.json"
+    VOYAGE_BLOCKED = PROJECT_ROOT / "results" / "reranker" / "voyage_rerank_2_5_nemotron_8b_abiray_blocked.json"
 
     def test_voyage_status_not_blocked_when_pipelines_exist(self):
         if not self.CONSOLIDATED.is_file():
@@ -66,11 +67,27 @@ class VoyageStatusBlockTests(unittest.TestCase):
         data = json.loads(self.CONSOLIDATED.read_text(encoding="utf-8"))
         status_block = data.get("voyage_nemotron_8b_status", {})
         if status_block.get("status") == "COMPLETED_BATCH":
-            checkpoint = status_block.get("checkpoint", "")
+            checkpoint = status_block.get("checkpoint") or ""
+            score_artifact = status_block.get("score_artifact") or ""
             if checkpoint:
                 self.assertTrue(
-                    Path(checkpoint).is_file(),
+                    (self.PROJECT_ROOT / checkpoint).is_file(),
                     f"Checkpoint referenced but missing: {checkpoint}",
+                )
+            else:
+                # Absent checkpoint must be handled explicitly, not silently dropped.
+                self.assertFalse(
+                    status_block.get("checkpoint_available", True),
+                    "Missing checkpoint was not recorded as unavailable",
+                )
+                self.assertTrue(
+                    status_block.get("checkpoint_missing_reason"),
+                    "Missing checkpoint has no recorded reason",
+                )
+            if score_artifact:
+                self.assertTrue(
+                    (self.PROJECT_ROOT / score_artifact).is_file(),
+                    f"Score artifact referenced but missing: {score_artifact}",
                 )
 
 
