@@ -124,7 +124,7 @@ Os artefatos individuais em `results/reranker/pipelines/` continuam sendo a font
 
 Esta seção é o registro humano canônico para decisões de reutilização dos embeddings medidos. Os números continuam vindo de `ALL_BENCHMARK_RESULTS.json` e dos artefatos individuais; esta seção registra interpretação, confiança e decisão operacional sem criar outro leaderboard ou registry paralelo.
 
-Revisão desta classificação: **2026-07-30**.
+Revisão desta classificação: **2026-08-01**.
 
 As colunas não misturam protocolos:
 
@@ -174,6 +174,19 @@ Entrar nesta tabela significa que o perfil pode continuar sendo considerado em n
 | `lfm_25_embedding_350m_q4_k_m_official` | 0.6085 | 0.7768 | C | alta | Reexecução oficial com CLS e prefixos corretos; reutilizável com Qwen. |
 | `gte_multilingual_base` | 0.5676 | 0.8109 | C | alta | Baseline fraco no corpus, mas pipeline útil e fonte oficial forte. |
 | `granite_embedding_97m_r2` | 0.5631 | 0.7890 | C | média-alta | Muito rápido; manter apenas para perfil leve/reranqueado. |
+
+### Tabela 1b — painéis de rerankers locais nativos (top 15 raw × reranker)
+
+Cada reranker cobre 14 dos 15 perfis do top 15 raw; `voyage-4-large` permanece sem pipeline porque não há candidate artifact local (embeddings de API Voyage). Nemotron 1B v2 foi executado via Transformers (`LlamaBidirectionalForSequenceClassification`), sem vLLM.
+
+| Reranker | Params | Backend | Células válidas | MRR@10 no painel | Melhor célula |
+|---|---:|---|---:|---:|---|
+| `ettin_reranker_68m_v1` | 68M | sentence-transformers.CrossEncoder | 14 | 0.3749–0.4555 | `nemotron_8b_abiray_q4_audit_1024` |
+| `ettin_reranker_150m_v1` | 150M | sentence-transformers.CrossEncoder | 14 | 0.3272–0.3989 | `nemotron_8b_abiray_q4_audit_1024` |
+| `lamar_600m` | 600M | sentence-transformers.CrossEncoder | 14 | 0.7733–0.7785 | `nemotron_8b_abiray_q4_audit_1024` |
+| `llama_nemotron_rerank_1b_v2` | 1B | transformers.LlamaBidirectionalForSequenceClassification | 14 | 0.8227–0.8241 | `nomic_embed_text_v2_moe_q4` |
+
+Qualidade × custo: Nemotron 1B v2 domina o painel (MRR@10 ~0.824) com VRAM ~4.2GB e tempo ~10min/célula; LAMAR-600m é competitivo (0.77-0.78) com VRAM ~2.3GB; os Ettin são rápidos e leves (VRAM <1GB) mas ficam bem abaixo no corpus PT-BR por treino majoritariamente em inglês. Nenhuma métrica foi copiada entre células; cada artefato tem telemetria própria registrada.
 
 ### Tabela 2 — blacklist de artefatos e configurações
 
