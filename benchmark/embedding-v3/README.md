@@ -199,6 +199,8 @@ O model card oficial do LFM2.5 exige embedding CLS, similaridade cosseno e prefi
 
 Os dois Nemotron 8B ficam bloqueados por proveniência: candidates, métricas sem reranker e métricas com Qwen são idênticos, enquanto os artefatos não registram hashes dos pesos, runtime, pooling, dimensão, normalização ou comando. A auditoria deve preferir NVFP4 somente se o arquivo for comprovadamente um modelo 8B; na ausência, deve usar `Q4_K_M`. O NVFP4 oficial publicado pela NVIDIA é de 1B e não pode ser confundido com um artefato 8B.
 
+O perfil `voyage4_nano` fica `PENDING_CANDIDATES` para o painel Mixedbread: o candidate artifact persistido em `results/reranker/candidates/voyage4_nano.json` contém rankings idênticos aos da variante `voyage4_nano_2048_float32`, incompatíveis com a dimensão 1024 comprovada do snapshot local, e o gerador canônico (`generate_nano_candidates`) produz somente as variantes sufixadas, não o ID base. Não se reutilizou candidates de outra variante sem identidade comprovada; a célula será executada após regenerar o candidate do snapshot local com identidade registrada.
+
 ### Fontes externas de coerência
 
 - [MTEB-BR — benchmark nativo de português brasileiro](https://mteb-br.org/)

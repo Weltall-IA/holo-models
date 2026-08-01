@@ -41,6 +41,9 @@ PANEL_PROFILES = (
     "embeddinggemma",
     "colibri_ptbr",
     "granite_embedding_311m_r2",
+    "embeddinggemma_768_float32",
+    "qwen3_embedding_0_6b_1024",
+    "voyage4_nano",
 )
 _REQUIRED_MODEL_FILES = (MODEL_WEIGHT_FILE, "config.json", "tokenizer.json")
 

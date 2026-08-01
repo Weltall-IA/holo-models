@@ -38304,5 +38304,17 @@
       ]
     }
   ],
-  "completed_at": "2026-07-20T19:57:01.858901+00:00"
+  "completed_at": "2026-07-20T19:57:01.858901+00:00",
+  "ranking_sha256": "631eaf9bcef75690c768cdfb8391f60c52d679d0a34f7c803494accd3c1d7235",
+  "embedding": {
+    "profile_id": "embeddinggemma_768_float32",
+    "backend": "llama.cpp",
+    "weight_file": "/home/alpha/Playstoria/models/embed/embeddinggemma_gguf/embeddinggemma-300M-Q8_0.gguf",
+    "bytes": 333590944,
+    "sha256": "b5ce9d77a3fc4b3b39ccb5643c36777911cc4eb46a66962eadfa3f5f60490d63",
+    "quantization": "Q8_0",
+    "native_dimension": 768,
+    "evaluated_dimension": 768,
+    "generator_variant": "embeddinggemma_gguf"
+  }
 }

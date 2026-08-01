@@ -1,6 +1,16 @@
 {
   "schema_version": "1.0",
-  "embedding": "qwen3_embedding_0_6b_1024",
+  "embedding": {
+    "profile_id": "qwen3_embedding_0_6b_1024",
+    "backend": "llama.cpp",
+    "repository": "Mungert/Qwen3-Embedding-0.6B-GGUF",
+    "revision": "48ccc6bc9fd9edd966b973ea8b588f59c1f1904a",
+    "weight_file": "Qwen3-Embedding-0.6B-q4_k_m.gguf",
+    "sha256": "c608745221a03d45ee7328aab5ae180ef5db54c9a47eda43ef05f73156ba824b",
+    "quantization": "Q4_K_M",
+    "native_dimension": 1024,
+    "evaluated_dimension": 1024
+  },
   "candidate_top_k": 50,
   "dataset": {
     "corpus_sha256": "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b",
@@ -30759,5 +30769,7 @@
         }
       ]
     }
-  ]
+  ],
+  "variant": "qwen3_embedding_0_6b_1024",
+  "ranking_sha256": "672139c9b22ac916d6ce9f25cff8b4c7ae3e48ea41fce192fb39766f3dc36427"
 }

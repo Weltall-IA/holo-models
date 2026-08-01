@@ -17,14 +17,14 @@ from holo_benchmark.artifact_portability import (
     sanitize_host_payload,
 )
 
-EXPECTED_PIPELINE_COUNT = 93
+EXPECTED_PIPELINE_COUNT = 95
 EXPECTED_PIPELINE_EMBEDDINGS = 39
 EXPECTED_RAW_PROFILE_COUNT = 42
 EXPECTED_RERANKER_COUNTS = {
     "jina_reranker_v3_noncommercial": 12,
     "kalm_reranker_v1_nano": 12,
     "kalm_reranker_v1_small": 12,
-    "mxbai_rerank_base_v2": 6,
+    "mxbai_rerank_base_v2": 8,
     "querit_reranker_4b": 12,
     "qwen_local": 39,
 }
