@@ -66,3 +66,4 @@ prism-llama/llama-prism-b9599-9ca265a/
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
+*.log
