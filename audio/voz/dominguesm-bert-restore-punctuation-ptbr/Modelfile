@@ -1,0 +1,2 @@
+FROM ./model.safetensors
+PARAMETER num_ctx 512

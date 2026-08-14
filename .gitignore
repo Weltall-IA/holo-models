@@ -1,0 +1,68 @@
+# ============================================================
+# models/ — workspace de modelos e configurações do Kilo
+#
+# Função dupla:
+#   1. Base do versionamento (quando virar repositório de verdade)
+#   2. Exclusão do indexing/busca — o ripgrep (busca do VS Code e
+#      ferramentas grep/glob) respeita .gitignore DENTRO de repo git,
+#      e o indexer da extensão Kilo lê .gitignore como fallback.
+# ============================================================
+
+# Ambientes virtuais e bytecode Python
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Runtimes / repos-fonte inteiros (não são código do projeto)
+gitmodels/
+deepgrove-llama.cpp/
+prism-llama-src/
+standalone/
+
+# Modelos e blobs (binários gigantes)
+ollama/blobs/
+ollama/manifests/
+llama_models/
+LM Studio/
+
+# Pesos de modelos de IA — nunca versionar no git (GBs)
+*.gguf
+*.ggml
+*.safetensors
+*.bin
+*.pt
+*.pth
+*.onnx
+*.ckpt
+
+# Bibliotecas compiladas (artefatos de build)
+*.so
+
+# Build do llama.cpp (binários compilados, sem código-fonte)
+prism-llama/llama-prism-b9599-9ca265a/
+
+# Segredos e tokens
+.env
+.env.*
+!.env.example
+.hf_token
+*.secret
+
+# Estado local do Kilo
+.kilo/kilo.json
+.kilo/kilo.jsonc
+.kilo/kilo.jsonc.*
+.kilo/agents/
+.kilo/node_modules/
+.kilo/package.json
+.kilo/package-lock.json
+.kilo/agent-manager.json
+
+# Lixo de ferramentas
+.ipynb_checkpoints/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/

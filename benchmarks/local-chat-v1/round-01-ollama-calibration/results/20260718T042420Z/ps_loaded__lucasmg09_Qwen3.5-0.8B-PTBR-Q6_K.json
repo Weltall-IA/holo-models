@@ -1,0 +1,23 @@
+{
+  "models": [
+    {
+      "name": "lucasmg09/Qwen3.5-0.8B-PTBR-Q6_K:latest",
+      "model": "lucasmg09/Qwen3.5-0.8B-PTBR-Q6_K:latest",
+      "size": 735628492,
+      "digest": "8aaabc3f27e5cc63da9c7db8726d161f5c5b0929ce5ec3c7abe8301ab73f14c3",
+      "details": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "qwen35",
+        "families": [
+          "qwen35"
+        ],
+        "parameter_size": "752.39M",
+        "quantization_level": "Q6_K"
+      },
+      "expires_at": "2026-07-18T01:34:46.110510917-03:00",
+      "size_vram": 735628492,
+      "context_length": 4096
+    }
+  ]
+}

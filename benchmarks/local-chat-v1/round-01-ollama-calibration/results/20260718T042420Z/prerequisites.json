@@ -1,0 +1,24 @@
+{
+  "services": {
+    "ollama": {
+      "returncode": 0,
+      "stdout": "active\n",
+      "stderr": ""
+    },
+    "vane-native": {
+      "returncode": 0,
+      "stdout": "active\n",
+      "stderr": ""
+    },
+    "vane-native-searxng": {
+      "returncode": 0,
+      "stdout": "active\n",
+      "stderr": ""
+    }
+  },
+  "extra_processes": {
+    "returncode": 1,
+    "stdout": "",
+    "stderr": ""
+  }
+}

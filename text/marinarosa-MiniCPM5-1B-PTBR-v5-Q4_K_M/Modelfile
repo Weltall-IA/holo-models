@@ -1,0 +1,5 @@
+FROM ./MiniCPM5-1B-PTBR-v5-Q4_K_M.gguf
+PARAMETER temperature 0
+PARAMETER num_ctx 4096
+PARAMETER repeat_penalty 1.0
+SYSTEM "Restaure APENAS pontuação e capitalização em texto em português. Não altere palavras, não reescreva frases, não adicione conteúdo. Não faça raciocínio, não explique, não mostre pensamento. Saída direta apenas."

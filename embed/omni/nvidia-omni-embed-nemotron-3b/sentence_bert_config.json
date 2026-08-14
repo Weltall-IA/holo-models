@@ -1,0 +1,33 @@
+{
+    "transformer_task": "feature-extraction",
+    "modality_config": {
+        "text": {
+            "method": "forward",
+            "method_output_name": ["hidden_states", -1]
+        },
+        "image": {
+            "method": "forward",
+            "method_output_name": ["hidden_states", -1]
+        },
+        "audio": {
+            "method": "forward",
+            "method_output_name": ["hidden_states", -1]
+        },
+        "video": {
+            "method": "forward",
+            "method_output_name": ["hidden_states", -1]
+        },
+        "message": {
+            "method": "forward",
+            "method_output_name": ["hidden_states", -1],
+            "format": "structured"
+        }
+    },
+    "module_output_name": "token_embeddings",
+    "unpad_inputs": false,
+    "processing_kwargs": {
+        "chat_template": {
+            "chat_template": "sentence_transformers"
+        }
+    }
+}

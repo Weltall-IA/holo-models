@@ -1,0 +1,4 @@
+FROM ./Gemma4-12B-QAT-Uncensored-HauhauCS-Balanced-Q4_K_M.gguf
+DRAFT ./mtp-gemma-4-12B-it.gguf
+PARAMETER num_ctx 16384
+PARAMETER draft_num_predict 2

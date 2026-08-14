@@ -1,0 +1,22 @@
+<|im_start|>system
+You are a helpful assistant.<|im_end|>
+<|im_start|>user
+{% for message in messages -%}
+    {%- if message['content'] is string -%}
+        {{ message['content'] }}
+    {%- else -%}
+        {%- for content in message['content'] -%}
+            {%- if 'text' in content -%}
+                {{ content['text'] }}
+            {%- elif content['type'] == 'image' or 'image' in content -%}
+                <|vision_bos|><|IMAGE|><|vision_eos|>
+            {%- elif content['type'] == 'audio' or 'audio' in content -%}
+                <|audio_bos|><|AUDIO|><|audio_eos|>
+            {%- elif content['type'] == 'video' or 'video' in content -%}
+                <|vision_bos|><|VIDEO|><|vision_eos|>
+            {%- endif -%}
+        {%- endfor -%}
+    {%- endif -%}
+{%- endfor -%}
+<|im_end|>
+
