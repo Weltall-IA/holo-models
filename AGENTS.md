@@ -1,22 +1,35 @@
 # AGENTS.md — Workspace models (Playstoria)
 
-## Regra: uso de MCPs
+## Organização (regra central)
 
-- **Sempre que a tarefa envolver um domínio coberto por um MCP disponível, use o MCP em vez de alternativas ad-hoc** (curl manual, scripts avulsos, aproximações) — a menos que o MCP não exista para o caso.
-- MCPs configurados neste workspace:
+- Categoria canônica por tipo: `text/` (LLMs), `audio/`, `video/`, `image/`, `embed/`, `rerank/`.
+- Pesos reais só na pasta canônica (nome = origem + quantização). Pastas de runtime (`runtimes/llama`, `runtimes/ollama`, `runtimes/lmstudio`, `runtimes/vllm`, `runtimes/comfyui`) contêm apenas links: symlink para `text/` (llama) ou blob/reflink (ollama). Nunca duplicar pesos.
+- Trabalho pesado (quantização, GPU, checkouts de llama.cpp): pasta por tarefa em `tasks/` (ex.: `tasks/qwen38-ara-tq3/`); só o modelo final vai para a categoria canônica. `/home` e `/mnt/pool` são o mesmo volume (bcachefs).
+- Remoção: apagar um modelo exige apagar também o symlink/reflink correspondente de cada runtime (`runtimes/llama`, `runtimes/lmstudio`, `runtimes/ollama`...) — a menos que o modelo continue em uso por outro runtime (ex.: está no ollama e no llama: manter só os links em uso). Nunca deixar link órfão apontando para modelo removido.
+- Detalhes de governança: `gitmodels/docs/model-governance/MODEL_STORAGE.md`.
 
-| Domínio | MCP |
-|---|---|
-| GitHub (repos, PRs, issues, code search) | `github` |
-| Documentação de bibliotecas/frameworks | `context7` |
-| Banco de dados Postgres | `postgres-mcp-pro` |
-| Erros/monitoramento | `sentry` |
-| Automação de workflows | `n8n-mcp` |
-| Navegador/UI/web | `playwright` |
-| Notebooks Jupyter | `jupyter` |
-| PHP/Laravel (artisan) | `laravel-boost` |
-| Observabilidade cloud | `grafana-cloud-mcp` |
+## Fluxo: adicionar modelo (obrigatório)
 
-- Prefira MCP para: leitura de issues/PRs (github), consultas SQL (postgres-mcp-pro), documentação oficial de libs (context7), inspeção de erros (sentry), testes de UI (playwright).
-- MCPs são read-only por padrão nesta máquina, exceto onde explicitamente permitido; não contorne restrições com bash para replicar o que o MCP faz.
-- Preferências explícitas de agentes específicos prevalecem sobre esta regra (ex.: o agente `data` prefere ferramentas nativas de notebook em vez de MCP de notebook).
+1. Identificar o tipo → categoria canônica (`text/`, `audio/`, `video/`, `image/`, `embed/`, `rerank/`).
+2. Baixar do fonte oficial direto na pasta canônica: pasta nomeada `origem-quantizacao` (ex.: `text/Qwen3.8-27B-heretic-ara-TQ3_4S/`), sem espaços.
+3. Criar o link em cada runtime que vai usá-lo:
+   - llama/lmstudio/vllm/comfyui: `ln -s ../text/<modelo>/<arquivo>.gguf runtimes/<runtime>/` (symlink);
+   - ollama: importar para blob (reflink CoW obrigatório, sem cópia — ver MODEL_STORAGE.md).
+4. Validar o modelo no runtime (boot + geração real) antes de considerar pronto.
+5. Se o modelo deixar de ser usado por um runtime, remover só o link desse runtime; o físico na categoria canônica permanece até a remoção total.
+
+## Fluxo: remover modelo (obrigatório)
+
+1. Checar se o modelo está em uso por mais de um runtime (`runtimes/*`).
+2. Remover o symlink/reflink de cada runtime que não vai mais usar o modelo (manter os dos runtimes em uso).
+3. Remover blob do ollama somente após cruzar manifests/digests e provar que não é referenciado.
+4. Remover a pasta canônica (`text/<modelo>/`).
+5. Conferir que nenhum link órfão sobrou (`find . -xtype l` nas pastas de runtime).
+
+## MCPs
+
+- Preferir MCP quando o domínio tiver (github, context7, postgres-mcp-pro, sentry, n8n-mcp, playwright, jupyter, laravel-boost, grafana-cloud-mcp); read-only por padrão.
+
+## Projeto
+
+- Regras do projeto (fluxo, gates, benchmarks, padrão de atendimento): AGENTS.md canônico em `/home/alpha/Playstoria/infra-holoplay/AGENTS.md`.
