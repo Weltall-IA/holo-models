@@ -12,6 +12,9 @@
 .venv/
 venv/
 env/
+/tasks/**/humaneval-venv/
+/tasks/**/.venv/
+/tasks/**/tmp/
 __pycache__/
 *.py[cod]
 *$py.class
@@ -21,6 +24,8 @@ gitmodels/
 deepgrove-llama.cpp/
 prism-llama-src/
 standalone/
+/engines/
+/runtimes/
 
 # Modelos e blobs (binários gigantes)
 ollama/blobs/
@@ -37,12 +42,73 @@ LM Studio/
 *.pth
 *.onnx
 *.ckpt
+*.pkl
+*.h5
+*.npy
+*.npz
 
 # Bibliotecas compiladas (artefatos de build)
 *.so
 
 # Build do llama.cpp (binários compilados, sem código-fonte)
 prism-llama/llama-prism-b9599-9ca265a/
+/tasks/**/llama.cpp-*/build/
+/tasks/**/llama.cpp-*/bin/
+/tasks/**/llama.cpp-*/lib/
+
+# Exportações e checkouts locais de modelos
+/tasks/**/*-HF/
+/tasks/**/sources/
+/tasks/**/derived/
+/tasks/**/quantized/
+/tasks/**/llama.cpp-*/
+
+# Checkouts e caches de dependências baixados por testes
+**/torch_cache/
+**/.cache/
+
+# Resultados e artefatos gerados de benchmarks
+/bench/**/data/
+/bench/**/results/
+/bench/**/artifacts/
+/bench/**/runs/
+/bench/**/outputs/
+/bench/**/logs/
+/bench/**/RESULTADOS_*.md
+/bench/**/*.csv
+/bench/**/*.jsonl
+/bench/**/*.tar
+/bench/**/*.tar.*
+/bench/**/*.zst
+/bench/**/*.sha256
+/benchmarks/**/data/
+/benchmarks/**/results/
+/benchmarks/**/artifacts/
+/benchmarks/**/runs/
+/benchmarks/**/outputs/
+/benchmarks/**/logs/
+/benchmarks/**/RESULTADOS_*.md
+/benchmarks/**/*.csv
+/benchmarks/**/*.jsonl
+/benchmarks/**/*.tar
+/benchmarks/**/*.tar.*
+/benchmarks/**/*.zst
+/benchmarks/**/*.sha256
+/tasks/**/results/
+/tasks/**/artifacts/
+/tasks/**/outputs/
+/tasks/**/worktrees/
+/tasks/**/benchmarks/
+/tasks/**/humaneval/*.csv
+/tasks/**/humaneval/*.json
+/tasks/**/humaneval/*.jsonl
+/tasks/**/humaneval/*.txt
+/tasks/**/ctx_*.txt
+/tasks/**/vram_*.txt
+/tasks/**/*.tar
+/tasks/**/*.tar.*
+/tasks/**/*.zst
+/tasks/**/*.sha256
 
 # Segredos e tokens
 .env
@@ -60,6 +126,9 @@ prism-llama/llama-prism-b9599-9ca265a/
 .kilo/package.json
 .kilo/package-lock.json
 .kilo/agent-manager.json
+.kilocode/
+.opencode/
+.zed/
 
 # Lixo de ferramentas
 .ipynb_checkpoints/
@@ -67,3 +136,6 @@ prism-llama/llama-prism-b9599-9ca265a/
 .mypy_cache/
 .ruff_cache/
 *.log
+*.pid
+*.sqlite
+*.sqlite3
