@@ -1,0 +1,109 @@
+{
+  "model": "sdkyuan-q2",
+  "mode": "quality-engineered",
+  "n": 20,
+  "base": 20,
+  "plus": 20,
+  "results": [
+    {
+      "task_id": "HumanEval/0",
+      "base": true,
+      "plus": true
+    },
+    {
+      "task_id": "HumanEval/1",
+      "base": true,
+      "plus": true
+    },
+    {
+      "task_id": "HumanEval/2",
+      "base": true,
+      "plus": true
+    },
+    {
+      "task_id": "HumanEval/3",
+      "base": true,
+      "plus": true
+    },
+    {
+      "task_id": "HumanEval/4",
+      "base": true,
+      "plus": true
+    },
+    {
+      "task_id": "HumanEval/5",
+      "base": true,
+      "plus": true
+    },
+    {
+      "task_id": "HumanEval/6",
+      "base": true,
+      "plus": true
+    },
+    {
+      "task_id": "HumanEval/7",
+      "base": true,
+      "plus": true
+    },
+    {
+      "task_id": "HumanEval/8",
+      "base": true,
+      "plus": true
+    },
+    {
+      "task_id": "HumanEval/9",
+      "base": true,
+      "plus": true
+    },
+    {
+      "task_id": "HumanEval/10",
+      "base": true,
+      "plus": true
+    },
+    {
+      "task_id": "HumanEval/11",
+      "base": true,
+      "plus": true
+    },
+    {
+      "task_id": "HumanEval/12",
+      "base": true,
+      "plus": true
+    },
+    {
+      "task_id": "HumanEval/13",
+      "base": true,
+      "plus": true
+    },
+    {
+      "task_id": "HumanEval/14",
+      "base": true,
+      "plus": true
+    },
+    {
+      "task_id": "HumanEval/15",
+      "base": true,
+      "plus": true
+    },
+    {
+      "task_id": "HumanEval/16",
+      "base": true,
+      "plus": true
+    },
+    {
+      "task_id": "HumanEval/17",
+      "base": true,
+      "plus": true
+    },
+    {
+      "task_id": "HumanEval/18",
+      "base": true,
+      "plus": true
+    },
+    {
+      "task_id": "HumanEval/19",
+      "base": true,
+      "plus": true
+    }
+  ]
+}

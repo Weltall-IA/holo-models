@@ -1,0 +1,74 @@
+[
+  {
+    "id": "A_fable_heretic",
+    "name": "Fable-Heretic",
+    "repo_id": "armand0e/Qwen3.8-27B-Fable-Distill-Heretic-ara-GGUF",
+    "filename": "Qwen3.8-27B-Fable-Distill-Heretic-ara-Q3_K_M.gguf",
+    "commit_sha": "cfa750900e8d94966b10a071ca5a6bb470d11acf",
+    "quant": "Q3_K_M",
+    "local_path": "/home/alpha/Playstoria/models/text/armand0e-Qwen3.8-27B-Fable-Distill-Heretic-ara-Q3_K_M/Qwen3.8-27B-Fable-Distill-Heretic-ara-Q3_K_M.gguf",
+    "size_bytes": 14150895904,
+    "size_gib": 13.18,
+    "sha256": "44e786a11380bba9cdcd1b40649afee79d6cf78152f9fb014f731209a67044d3"
+  },
+  {
+    "id": "B_t10",
+    "name": "T10",
+    "repo_id": "mradermacher/Qwen3.8-27B-Uncensored-Heretic-T10-BF16-i1-GGUF",
+    "filename": "Qwen3.8-27B-Uncensored-Heretic-T10-BF16.i1-IQ3_M.gguf",
+    "commit_sha": "276b31f06e84adbf22c8ba2886100228d4f08305",
+    "quant": "i1-IQ3_M",
+    "local_path": "/home/alpha/Playstoria/models/text/mradermacher-Qwen3.8-27B-Uncensored-Heretic-T10-BF16-i1-IQ3_M/Qwen3.8-27B-Uncensored-Heretic-T10-BF16.i1-IQ3_M.gguf",
+    "size_bytes": 12580875808,
+    "size_gib": 11.72,
+    "sha256": "197122da1e1e082c5bd7c40507db83961eec350a13a4188fed6302d62f391da4"
+  },
+  {
+    "id": "C_bucoid_ara",
+    "name": "Bucoid ARA",
+    "repo_id": "Bucoid/Qwen3.8-27B-Heretic-Ara-16GB-VRAM-IQ4-XS-MTP-GGUF",
+    "filename": "Qwen3.8-27B-Heretic-Ara-iq4_xs-3.0.gguf",
+    "commit_sha": "d54ccececdc99aea47de641912d600835a98428f",
+    "quant": "IQ4_XS",
+    "local_path": "/home/alpha/Playstoria/models/text/Bucoid-Qwen3.8-27B-Heretic-Ara-IQ4_XS/Qwen3.8-27B-Heretic-Ara-iq4_xs-3.0.gguf",
+    "size_bytes": 13986622016,
+    "size_gib": 13.03,
+    "sha256": "82535d541783b5a0a82cccd79ee25f3cac648732772e604ada556c1e0cd09b9f"
+  },
+  {
+    "id": "D_grug_v11",
+    "name": "GRUG v1.1",
+    "repo_id": "mradermacher/grug-v1.1-qwen-3.8-27b-i1-GGUF",
+    "filename": "grug-v1.1-qwen-3.8-27b.i1-IQ3_M.gguf",
+    "commit_sha": "46413bb1520beadc58026952076e65bd452554f3",
+    "quant": "i1-IQ3_M",
+    "local_path": "/home/alpha/Playstoria/models/text/mradermacher-grug-v1.1-qwen-3.8-27b-i1-IQ3_M/grug-v1.1-qwen-3.8-27b.i1-IQ3_M.gguf",
+    "size_bytes": 12580875712,
+    "size_gib": 11.72,
+    "sha256": "2fe6f6d8987104adefdf143deac9d9ed8fcf01ac82be70293d8bf4591cc41328"
+  },
+  {
+    "id": "E_ektome",
+    "name": "Ektome",
+    "repo_id": "mradermacher/Ektome-Qwen3.8-27B-PristinelyUncensored-i1-GGUF",
+    "filename": "Ektome-Qwen3.8-27B-PristinelyUncensored.i1-IQ3_M.gguf",
+    "commit_sha": "99e57c44bc3c9320a2e7664c2b5e972578001a7b",
+    "quant": "i1-IQ3_M",
+    "local_path": "/home/alpha/Playstoria/models/text/mradermacher-Ektome-Qwen3.8-27B-PristinelyUncensored-i1-IQ3_M/Ektome-Qwen3.8-27B-PristinelyUncensored.i1-IQ3_M.gguf",
+    "size_bytes": 12768332352,
+    "size_gib": 11.89,
+    "sha256": "0015de4edff2cbdc14fb595c023faa7dbbf3705ba291501c08fa0890553ed323"
+  },
+  {
+    "id": "F_rvn_baseline",
+    "name": "RVN baseline",
+    "repo_id": "0bserverx/Qwen3.8-27B-Heretic-Abliterated-Uncensored-GGUF",
+    "filename": "RVN-Q3_K_M.gguf",
+    "commit_sha": "20b94f0613b632b4848bbe3b1e05d9ee0c2b1608",
+    "quant": "Q3_K_M",
+    "local_path": "/home/alpha/Playstoria/models/text/0bserverx-Qwen3.8-27B-Heretic-Abliterated-Uncensored-Q3_K_M/RVN-Q3_K_M.gguf",
+    "size_bytes": 13301442848,
+    "size_gib": 12.39,
+    "sha256": "08a875dc1cae0eec8ffc6ca529495f55d471d933588188ae49f925607937c3e1"
+  }
+]

@@ -1,0 +1,9 @@
+{
+  "gpu": "NVIDIA GeForce RTX 5060 Ti 16 GB",
+  "driver_version": "610.57.04",
+  "cuda_umd_version": "13.3",
+  "vram_total_mib": 16311,
+  "llama_cpp_build": "b1-8ce8ca6 (deepgrove-llama.cpp)",
+  "os": "Linux 6.13.4-arch1-1 (x86_64)",
+  "python_version": "3.13.2"
+}

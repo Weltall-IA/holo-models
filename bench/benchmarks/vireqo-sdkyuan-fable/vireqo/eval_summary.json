@@ -1,0 +1,9 @@
+{
+ "model": "vireqo",
+ "total": 164,
+ "pass_base": 147,
+ "pass_plus": 141,
+ "pass_at_1_base": 0.8963,
+ "pass_at_1_plus": 0.8598,
+ "broke_in_plus": 6
+}

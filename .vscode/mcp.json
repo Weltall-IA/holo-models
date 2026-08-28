@@ -1,0 +1,58 @@
+{
+  "servers": {
+    "context7": {
+      "type": "http",
+      "url": "https://mcp.context7.com/mcp"
+    },
+    "github": {
+      "type": "stdio",
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "GITHUB_PERSONAL_ACCESS_TOKEN",
+        "-e",
+        "GITHUB_READ_ONLY",
+        "ghcr.io/github/github-mcp-server",
+        "stdio"
+      ],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "${env:GITHUB_PERSONAL_ACCESS_TOKEN}",
+        "GITHUB_READ_ONLY": "${env:GITHUB_READ_ONLY}"
+      }
+    },
+    "playwright": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@playwright/mcp@0.0.38"
+      ]
+    },
+    "nteract": {
+      "type": "stdio",
+      "command": "/home/alpha/.local/bin/runt",
+      "args": [
+        "mcp"
+      ],
+      "env": {
+        "NTERACT_CHANNEL": "${env:NTERACT_CHANNEL}"
+      }
+    },
+    "jupyter": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": [
+        "jupyter-mcp-server@latest"
+      ],
+      "env": {
+        "JUPYTER_URL": "${env:JUPYTER_URL}",
+        "JUPYTER_TOKEN": "${env:JUPYTER_TOKEN}",
+        "ALLOW_IMG_OUTPUT": "${env:ALLOW_IMG_OUTPUT}"
+      }
+    }
+  },
+  "inputs": []
+}

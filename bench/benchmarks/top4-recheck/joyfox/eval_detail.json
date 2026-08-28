@@ -1,0 +1,986 @@
+[
+ {
+  "task_id": "HumanEval/0",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/1",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/2",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/3",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/4",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/5",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/6",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/7",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/8",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/9",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/10",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/11",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/12",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/13",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/14",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/15",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/16",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/17",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/18",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/19",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/20",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/21",
+  "pass_base": true,
+  "pass_plus": false,
+  "err": "output mismatch: got [1.0, 0.6952353913042475, 0.48632272260300735, 0.3579034032537592, 0.22948408390 != expected [1.0, 0.6952353913042474, 0.48632272260300735, 0.3579034032537592, 0.22948408390"
+ },
+ {
+  "task_id": "HumanEval/22",
+  "pass_base": true,
+  "pass_plus": false,
+  "err": "output mismatch: got [True, False, 0, -10] != expected [0, -10]"
+ },
+ {
+  "task_id": "HumanEval/23",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/24",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/25",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/26",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/27",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/28",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/29",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/30",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/31",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/32",
+  "pass_base": false,
+  "pass_plus": true,
+  "err": "output mismatch: got -0.6685768983970775 != expected 0.3763741272657057"
+ },
+ {
+  "task_id": "HumanEval/33",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/34",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/35",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/36",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/37",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/38",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/39",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/40",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/41",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/42",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/43",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/44",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/45",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/46",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/47",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/48",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/49",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/50",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/51",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/52",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/53",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/54",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/55",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/56",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/57",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/58",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/59",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/60",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/61",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/62",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/63",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/64",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/65",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/66",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/67",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/68",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/69",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/70",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/71",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/72",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/73",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/74",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/75",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/76",
+  "pass_base": true,
+  "pass_plus": false,
+  "err": "output mismatch: got False != expected True"
+ },
+ {
+  "task_id": "HumanEval/77",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/78",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/79",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/80",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/81",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/82",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/83",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/84",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/85",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/86",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/87",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/88",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/89",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/90",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/91",
+  "pass_base": true,
+  "pass_plus": false,
+  "err": "output mismatch: got 1 != expected 0"
+ },
+ {
+  "task_id": "HumanEval/92",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/93",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/94",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/95",
+  "pass_base": false,
+  "pass_plus": false,
+  "err": "output mismatch: got True != expected False"
+ },
+ {
+  "task_id": "HumanEval/96",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/97",
+  "pass_base": true,
+  "pass_plus": false,
+  "err": "output mismatch: got 15 != expected 35"
+ },
+ {
+  "task_id": "HumanEval/98",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/99",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/100",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/101",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/102",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/103",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/104",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/105",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/106",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/107",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/108",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/109",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/110",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/111",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/112",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/113",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/114",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/115",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/116",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/117",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/118",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/119",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/120",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/121",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/122",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/123",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/124",
+  "pass_base": true,
+  "pass_plus": false,
+  "err": "output mismatch: got True != expected False"
+ },
+ {
+  "task_id": "HumanEval/125",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/126",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/127",
+  "pass_base": false,
+  "pass_plus": false,
+  "err": "output mismatch: got NO != expected YES"
+ },
+ {
+  "task_id": "HumanEval/128",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/129",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/130",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/131",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/132",
+  "pass_base": false,
+  "pass_plus": false,
+  "err": "output mismatch: got False != expected True"
+ },
+ {
+  "task_id": "HumanEval/133",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/134",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/135",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/136",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/137",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/138",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/139",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/140",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/141",
+  "pass_base": true,
+  "pass_plus": false,
+  "err": "output mismatch: got No != expected Yes"
+ },
+ {
+  "task_id": "HumanEval/142",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/143",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/144",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/145",
+  "pass_base": false,
+  "pass_plus": false,
+  "err": "output mismatch: got [-12, -5, 15, 9] != expected [-5, -12, 15, 9]"
+ },
+ {
+  "task_id": "HumanEval/146",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/147",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/148",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/149",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/150",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/151",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/152",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/153",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/154",
+  "pass_base": true,
+  "pass_plus": false,
+  "err": "output mismatch: got False != expected True"
+ },
+ {
+  "task_id": "HumanEval/155",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/156",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/157",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/158",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/159",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/160",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/161",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/162",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ },
+ {
+  "task_id": "HumanEval/163",
+  "pass_base": true,
+  "pass_plus": true,
+  "err": null
+ }
+]

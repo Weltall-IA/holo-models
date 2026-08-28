@@ -1,0 +1,13 @@
+{
+  "model": "sdkyuan-q2",
+  "mode": "json-tool-engineered",
+  "json": {
+    "ok": false,
+    "raw": "```python\nimport json\n\nresult = {\n    \"answer\": 5,\n    \"ok\": True\n}\n\nprint(json.dumps(result))\n```",
+    "error": "JSONDecodeError: Expecting value: line 1 column 1 (char 0)"
+  },
+  "tool": {
+    "ok": false,
+    "raw": []
+  }
+}

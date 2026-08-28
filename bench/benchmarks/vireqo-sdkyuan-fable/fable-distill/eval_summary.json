@@ -1,0 +1,9 @@
+{
+ "model": "fable-distill",
+ "total": 164,
+ "pass_base": 149,
+ "pass_plus": 140,
+ "pass_at_1_base": 0.9085,
+ "pass_at_1_plus": 0.8537,
+ "broke_in_plus": 9
+}

@@ -1,0 +1,3 @@
+Modelo: Qwen3.8-27B-Fable-Distill-Heretic-ara-Q3_K_M.gguf
+Status: Incompatível com importação direta via Ollama create (llama_model_quantize_impl em tensores ARA rank-2).
+Runtime compatível: llama.cpp (llama-server, llama-cli) e LM Studio via symlink runtimes/llama/ e runtimes/lmstudio/.

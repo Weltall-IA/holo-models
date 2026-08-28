@@ -1,0 +1,34 @@
+{
+  "model": "rvn",
+  "mode": "agentic",
+  "root": "/home/alpha/tmp/kilo/rvn-agentic-hnke_9yw",
+  "tasks": [
+    {
+      "task": "calculator",
+      "pass": true,
+      "tool_calls": 4
+    },
+    {
+      "task": "slug",
+      "pass": true,
+      "tool_calls": 4
+    },
+    {
+      "task": "overlap",
+      "pass": true,
+      "tool_calls": 4
+    },
+    {
+      "task": "dedupe",
+      "pass": true,
+      "tool_calls": 4
+    },
+    {
+      "task": "words",
+      "pass": true,
+      "tool_calls": 4
+    }
+  ],
+  "passed": 5,
+  "total": 5
+}

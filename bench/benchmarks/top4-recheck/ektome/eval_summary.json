@@ -1,0 +1,9 @@
+{
+ "model": "ektome",
+ "total": 164,
+ "pass_base": 144,
+ "pass_plus": 140,
+ "pass_at_1_base": 0.878,
+ "pass_at_1_plus": 0.8537,
+ "broke_in_plus": 5
+}

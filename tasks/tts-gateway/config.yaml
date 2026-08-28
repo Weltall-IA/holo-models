@@ -1,0 +1,19 @@
+host: 127.0.0.1
+port: 5050
+default_engine: magpie
+device: cuda
+load_policy: keep-current
+
+engines:
+  magpie:
+    model_path: /home/alpha/Playstoria/models/audio/voz/nvidia-magpie_tts_multilingual_357m/magpie_tts_multilingual_357m.nemo
+    default_speaker: Sofia
+    default_language: pt
+    device: auto
+    sample_rate: 22050
+
+  kokoro:
+    model_path: /home/alpha/Playstoria/models/audio/voz/hexgrad-Kokoro-82M-ONNX/kokoro-v1.0.onnx
+    voices_path: /home/alpha/Playstoria/models/audio/voz/hexgrad-Kokoro-82M-ONNX/voices-v1.0.bin
+    default_voice: af_heart
+    sample_rate: 24000

@@ -46,6 +46,10 @@ LM Studio/
 *.h5
 *.npy
 *.npz
+*.nemo
+*.wav
+*.mp3
+*.flac
 
 # Bibliotecas compiladas (artefatos de build)
 *.so

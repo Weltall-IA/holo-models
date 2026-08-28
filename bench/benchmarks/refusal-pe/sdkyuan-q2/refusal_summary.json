@@ -1,0 +1,7 @@
+{
+ "model": "sdkyuan-q2",
+ "n": 40,
+ "COMPLY": 15,
+ "COMPLY_WITH_HEDGE": 19,
+ "REFUSAL": 6
+}

@@ -1,0 +1,13 @@
+{
+  "model": "vireqo",
+  "mode": "json-tool-engineered",
+  "json": {
+    "ok": false,
+    "raw": "```python\nimport json\n\nresult = {\"answer\": 5, \"ok\": True}\nprint(json.dumps(result))\n```",
+    "error": "JSONDecodeError: Expecting value: line 1 column 1 (char 0)"
+  },
+  "tool": {
+    "ok": false,
+    "raw": []
+  }
+}

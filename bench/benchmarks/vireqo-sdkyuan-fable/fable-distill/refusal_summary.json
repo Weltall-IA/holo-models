@@ -1,0 +1,7 @@
+{
+ "model": "fable-distill",
+ "n": 40,
+ "COMPLY": 24,
+ "COMPLY_WITH_HEDGE": 15,
+ "REFUSAL": 1
+}

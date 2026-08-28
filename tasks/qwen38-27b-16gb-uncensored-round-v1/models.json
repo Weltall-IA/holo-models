@@ -1,0 +1,45 @@
+[
+  {
+    "id": "ektome",
+    "label": "Ektome PristinelyUncensored i1-IQ3_M",
+    "repo_id": "mradermacher/Ektome-Qwen3.8-27B-PristinelyUncensored-i1-GGUF",
+    "commit_sha": "99e57c44bc3c9320a2e7664c2b5e972578001a7b",
+    "filename": "Ektome-Qwen3.8-27B-PristinelyUncensored.i1-IQ3_M.gguf",
+    "local_path": "/home/alpha/Playstoria/models/text/mradermacher-Ektome-Qwen3.8-27B-PristinelyUncensored-i1-IQ3_M/Ektome-Qwen3.8-27B-PristinelyUncensored.i1-IQ3_M.gguf",
+    "size_bytes": 12768332352,
+    "size_gib": 11.89,
+    "sha256": "0015de4edff2cbdc14fb595c023faa7dbbf3705ba291501c08fa0890553ed323",
+    "aux_files": []
+  },
+  {
+    "id": "ara",
+    "label": "Heretic ARA i1-IQ3_M",
+    "repo_id": "mradermacher/Qwen3.8-27B-heretic-ara-i1-GGUF",
+    "commit_sha": "84623b1bd7236f7a10e1d80d25bcbe36b5efbdd4",
+    "filename": "Qwen3.8-27B-heretic-ara.i1-IQ3_M.gguf",
+    "local_path": "/home/alpha/Playstoria/models/text/mradermacher-Qwen3.8-27B-heretic-ara-i1-IQ3_M/Qwen3.8-27B-heretic-ara.i1-IQ3_M.gguf",
+    "size_bytes": 12768331936,
+    "size_gib": 11.89,
+    "sha256": "c7fb6283c47e5c7da3221e21c8cee228999d7102cc5d720ca646741fc240473c",
+    "aux_files": []
+  },
+  {
+    "id": "ultimate",
+    "label": "ULTIMATE UNCENSORED Hybrid 16GB",
+    "repo_id": "lemonyins/Qwen3.8-27B-ULTIMATE-UNCENSORED-MTP-IQ4-GGUF-16GB",
+    "commit_sha": "9d4713440f0f9b9781ee12acc95155a10e564c8b",
+    "filename": "Qwen3.8-27B-ULTIMATE-UNCENSORED-MTP-IQ4-16GB.gguf",
+    "local_path": "/home/alpha/Playstoria/models/text/lemonyins-Qwen3.8-27B-ULTIMATE-UNCENSORED-MTP-IQ4-16GB/Qwen3.8-27B-ULTIMATE-UNCENSORED-MTP-IQ4-16GB.gguf",
+    "size_bytes": 13150651744,
+    "size_gib": 12.25,
+    "sha256": "aab9779ddcc8b0cc2a43be2b7d8c4816e8ccf9a98a13ee62d3ca3a77af3c29b8",
+    "aux_files": [
+      {
+        "filename": "chat_template.jinja",
+        "local_path": "/home/alpha/Playstoria/models/text/lemonyins-Qwen3.8-27B-ULTIMATE-UNCENSORED-MTP-IQ4-16GB/chat_template.jinja",
+        "size_bytes": 8952,
+        "sha256": "c3cf9e34abf4f9e36c2d72165aa9c132d3e2a725b6c2586aaa3a8af9d7a81041"
+      }
+    ]
+  }
+]

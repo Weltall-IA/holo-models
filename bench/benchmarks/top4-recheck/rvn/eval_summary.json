@@ -1,0 +1,9 @@
+{
+ "model": "rvn",
+ "total": 164,
+ "pass_base": 159,
+ "pass_plus": 154,
+ "pass_at_1_base": 0.9695,
+ "pass_at_1_plus": 0.939,
+ "broke_in_plus": 6
+}

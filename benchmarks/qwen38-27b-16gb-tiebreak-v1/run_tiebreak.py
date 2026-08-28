@@ -300,7 +300,7 @@ def start_server(llama_server: str, model: Path, label: str, ctx: int) -> Server
         "-ngl", "999",
         "--cache-type-k", "q4_0",
         "--cache-type-v", "q4_0",
-        "-fa",
+        "-fa", "on",
         "--parallel", "1",
         "--jinja",
     ]
@@ -310,7 +310,10 @@ def start_server(llama_server: str, model: Path, label: str, ctx: int) -> Server
         cmd.extend(shlex.split(extra))
     log.write("$ " + " ".join(cmd) + "\n")
     log.flush()
-    proc = subprocess.Popen(cmd, stdout=log, stderr=subprocess.STDOUT, cwd=ROOT, start_new_session=True)
+    env = os.environ.copy()
+    server_dir = str(Path(llama_server).resolve().parent)
+    env["LD_LIBRARY_PATH"] = f"{server_dir}:{env.get('LD_LIBRARY_PATH', '')}"
+    proc = subprocess.Popen(cmd, stdout=log, stderr=subprocess.STDOUT, cwd=ROOT, env=env, start_new_session=True)
     s = Server(proc=proc, port=port, log_handle=log, model=model, cmd=cmd)
     wait_ready(s)
     return s

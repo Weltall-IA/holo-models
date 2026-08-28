@@ -1,0 +1,22 @@
+{
+  "model": "vireqo",
+  "mode": "json-tool-normal",
+  "json": {
+    "ok": false,
+    "raw": "```json\n{\n  \"answer\": 5,\n  \"ok\": true\n}\n```",
+    "error": "JSONDecodeError: Expecting value: line 1 column 1 (char 0)"
+  },
+  "tool": {
+    "ok": true,
+    "raw": [
+      {
+        "id": "ZZv9NuaclOmZDSBTDntLdBnVItuInke5",
+        "function": {
+          "arguments": "{\"a\":2,\"b\":3}",
+          "name": "add_numbers"
+        },
+        "type": "function"
+      }
+    ]
+  }
+}

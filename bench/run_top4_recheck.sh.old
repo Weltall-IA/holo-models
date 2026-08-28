@@ -1,0 +1,66 @@
+#!/bin/bash
+set -u
+ROOT=/home/alpha/Playstoria/models
+ENGINE=/home/alpha/Playstoria/models/engines/deepgrove-llama.cpp/build/bin
+VENV=/home/alpha/tmp/holoplay-venvs/humaneval-venv/bin/python
+OUT=$ROOT/bench/benchmarks/top4-recheck
+mkdir -p "$OUT"
+LOG=$OUT/pipeline.log
+say(){ echo "[$(date +%H:%M:%S)] $*" | tee -a "$LOG"; }
+
+while pgrep -f "run_vireqo_sdkyuan_fable.sh" >/dev/null 2>&1; do say "aguardando bateria vireqo/sdkyuan/fable terminar..."; sleep 60; done
+sleep 15
+say "bateria anterior encerrada; iniciando top4"
+
+MODEL_PID=""
+stop(){ [ -n "$MODEL_PID" ] && kill "$MODEL_PID" 2>/dev/null || true; [ -n "$MODEL_PID" ] && wait "$MODEL_PID" 2>/dev/null || true; MODEL_PID=""; fuser -k 8081/tcp 2>/dev/null || true; }
+trap stop EXIT INT TERM
+
+start(){ local file=$1 dir=$2; for ngl in 99 95 90 85 80 75 70 65 63 60 55; do stop; mkdir -p "$dir"; echo running > "$dir/status.log"; nohup env LD_LIBRARY_PATH=$ENGINE "$ENGINE/llama-server" -m "$file" -c 8192 -b 256 -ub 128 -np 1 -ngl "$ngl" -fa on -ctk q4_0 -ctv q4_0 --reasoning off --jinja --host 127.0.0.1 --port 8081 > "$dir/server.log" 2>&1 & MODEL_PID=$!; for i in $(seq 1 120); do curl -s --max-time 3 http://127.0.0.1:8081/health 2>/dev/null | grep -q '"status":"ok"' && { echo selected_ngl=$ngl > "$dir/ngl.txt"; return 0; }; kill -0 "$MODEL_PID" 2>/dev/null || break; sleep 2; done; done; return 1; }
+
+tool(){ "$VENV" - <<'PY'
+import json,urllib.request
+b={"messages":[{"role":"user","content":"Call add_numbers with a=2 and b=3. Return only the tool call."}],"tools":[{"type":"function","function":{"name":"add_numbers","description":"Add numbers","parameters":{"type":"object","properties":{"a":{"type":"number"},"b":{"type":"number"}},"required":["a","b"]}}}],"tool_choice":{"type":"function","function":{"name":"add_numbers"}},"temperature":0,"max_tokens":128}
+urllib.request.urlopen(urllib.request.Request("http://127.0.0.1:8081/v1/chat/completions", json.dumps(b).encode(), {"Content-Type":"application/json"}), timeout=120)
+PY
+}
+
+run_one(){ local name=$1 file=$2; local dir="$OUT/$name"; mkdir -p "$dir"; say "==> $name: iniciando"; if ! start "$file" "$dir"; then echo server_failed > "$dir/status.log"; say "==> $name: server_failed"; return; fi; say "==> $name: server ok ($(cat "$dir/ngl.txt"))"; tool > "$dir/tool.json" 2>&1 || true; local t0=$(date +%s); (cd "$ROOT/bench" && "$VENV" benchmarks/coder-v1/scripts/generate.py "$name" http://127.0.0.1:8081/v1 "$dir") > "$dir/generate.log" 2>&1 || true; (cd "$ROOT/bench" && "$VENV" benchmarks/coder-v1/scripts/evaluate.py "$name" "$dir") > "$dir/evaluate.log" 2>&1 || true; (cd "$ROOT/bench" && "$VENV" benchmarks/coder-v1/scripts/classify_refusal.py "$name" "$dir") > "$dir/classify.log" 2>&1 || true; local t1=$(date +%s); echo "DONE $name: tempo $((t1-t0))s" >> "$dir/generate.log"; echo ok > "$dir/status.log"; stop; say "==> $name: concluido"; }
+
+run_one ara "$ROOT/text/Qwen3.8-27B-heretic-ara-IQ4_MIX/Qwen3.8-27B-heretic-ara-IQ4-MIX.gguf"
+run_one joyfox "$ROOT/text/joyfox-Qwen3.8-27B-Uncensored-Aggressive-Q3_K_M/Qwen3.8-27B-Uncensored-JoyFox-Aggressive-Q3_K_M.gguf"
+run_one ektome "$ROOT/text/mradermacher-Ektome-Qwen3.8-27B-PristinelyUncensored-i1-IQ3_M/Ektome-Qwen3.8-27B-PristinelyUncensored.i1-IQ3_M.gguf"
+run_one rvn "$ROOT/text/0bserverx-Qwen3.8-27B-Heretic-RVN-IQ3_M-multilingual-MTP/RVN-IQ3_M-multilingual-mtp.gguf"
+
+"$VENV" - "$OUT" <<'PY'
+import json,sys,os
+out=sys.argv[1]
+rows=[]
+for name in ["ara","joyfox","ektome","rvn"]:
+    d=os.path.join(out,name)
+    ev={}
+    try:
+        ev=json.load(open(os.path.join(d,"evaluate.log")))
+    except Exception:
+        pass
+    rf={}
+    try:
+        rf=json.load(open(os.path.join(d,"refusal_summary.json")))
+    except Exception:
+        pass
+    tool="CHECK"
+    try:
+        if "tool_calls" in open(os.path.join(d,"tool.json")).read(): tool="PASS"
+    except Exception:
+        pass
+    rows.append((name,ev,rf,tool))
+lines=["# Engine","- deepgrove llama.cpp commit 8ce8ca6","","| Modelo | HE | HE+ | Refusal (40) | Tool |","|---|---:|---:|---:|---|"]
+for name,ev,rf,tool in rows:
+    he=f"{ev.get('pass_base','-')}/164 ({ev.get('pass_at_1_base',0)*100:.1f}%)" if ev else "-"
+    hep=f"{ev.get('pass_plus','-')}/164 ({ev.get('pass_at_1_plus',0)*100:.1f}%)" if ev else "-"
+    ref=f"R{rf.get('REFUSAL','-')}/H{rf.get('COMPLY_WITH_HEDGE','-')}/C{rf.get('COMPLY','-')}" if rf else "-"
+    lines.append(f"| {name} | {he} | {hep} | {ref} | {tool} |")
+open(os.path.join(out,"SUMMARY.md"),"w").write("\n".join(lines)+"\n")
+PY
+say "==> SUMMARY.md atualizado; bateria top4 concluida"
+echo done > "$OUT/pipeline.done"

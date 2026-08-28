@@ -1,0 +1,183 @@
+{
+  "mcpServers": {
+    "apify": {
+      "serverUrl": "https://mcp.apify.com",
+      "disabled": true
+    },
+    "chrome-devtools": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "chrome-devtools-mcp@latest"
+      ],
+      "disabled": true
+    },
+    "context7": {
+      "serverUrl": "https://mcp.context7.com/mcp",
+      "disabled": false
+    },
+    "firebase": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "firebase-tools@latest",
+        "mcp"
+      ],
+      "env": {
+        "GOOGLE_APPLICATION_CREDENTIALS": "${GOOGLE_APPLICATION_CREDENTIALS}"
+      },
+      "disabled": true
+    },
+    "github": {
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "GITHUB_PERSONAL_ACCESS_TOKEN",
+        "-e",
+        "GITHUB_READ_ONLY",
+        "ghcr.io/github/github-mcp-server",
+        "stdio"
+      ],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_PERSONAL_ACCESS_TOKEN}",
+        "GITHUB_READ_ONLY": "${GITHUB_READ_ONLY}"
+      },
+      "disabled": false
+    },
+    "google-developer-knowledge": {
+      "serverUrl": "https://developerknowledge.googleapis.com/mcp",
+      "authProviderType": "google_credentials",
+      "disabled": true
+    },
+    "grafana-cloud": {
+      "serverUrl": "https://mcp.grafana.com/mcp",
+      "disabled": true
+    },
+    "jupyter": {
+      "command": "uvx",
+      "args": [
+        "jupyter-mcp-server@latest"
+      ],
+      "env": {
+        "JUPYTER_URL": "${JUPYTER_URL}",
+        "JUPYTER_TOKEN": "${JUPYTER_TOKEN}",
+        "ALLOW_IMG_OUTPUT": "${ALLOW_IMG_OUTPUT}"
+      },
+      "disabled": false
+    },
+    "laravel-boost": {
+      "command": "/home/alpha/Playstoria/holo-agent-tooling/targets/antigravity/generated/mcp/laravel-boost-workspace-wrapper.sh",
+      "args": [],
+      "disabled": true
+    },
+    "n8n": {
+      "command": "/home/alpha/Playstoria/holo-agent-tooling/targets/antigravity/generated/mcp/n8n-node22-wrapper.sh",
+      "args": [],
+      "env": {
+        "MCP_MODE": "${MCP_MODE}",
+        "LOG_LEVEL": "${LOG_LEVEL}",
+        "DISABLE_CONSOLE_OUTPUT": "${DISABLE_CONSOLE_OUTPUT}"
+      },
+      "disabled": true
+    },
+    "nteract": {
+      "command": "/home/alpha/.local/bin/runt",
+      "args": [
+        "mcp"
+      ],
+      "env": {
+        "NTERACT_CHANNEL": "${NTERACT_CHANNEL}"
+      },
+      "disabled": false
+    },
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@playwright/mcp@0.0.38"
+      ],
+      "disabled": false
+    },
+    "postgres": {
+      "command": "/home/alpha/.config/kilo/mcp/postgres-mcp-run.sh",
+      "args": [],
+      "env": {
+        "POSTGRES_CONNECTION_STRING": "${POSTGRES_CONNECTION_STRING}"
+      },
+      "disabled": true
+    },
+    "sentry": {
+      "serverUrl": "https://mcp.sentry.dev/mcp",
+      "disabled": true
+    },
+    "bridge-final-gate": {
+      "command": "python3",
+      "args": [
+        "/home/alpha/Playstoria/holo-agent-tooling/library/mcp/bridges/model_bridge.py"
+      ],
+      "env": {
+        "MODEL_BRIDGE_MODEL": "opencode-go/deepseek-v4-sol",
+        "MODEL_BRIDGE_BASE_URL": "http://127.0.0.1:8080/v1",
+        "MODEL_BRIDGE_API_KEY": "$OPENCODE_GO_API_KEY"
+      }
+    },
+    "bridge-bug-auditor": {
+      "command": "python3",
+      "args": [
+        "/home/alpha/Playstoria/holo-agent-tooling/library/mcp/bridges/model_bridge.py"
+      ],
+      "env": {
+        "MODEL_BRIDGE_MODEL": "opencode-go/grok-4.6",
+        "MODEL_BRIDGE_BASE_URL": "http://127.0.0.1:8080/v1",
+        "MODEL_BRIDGE_API_KEY": "$OPENCODE_GO_API_KEY"
+      }
+    },
+    "bridge-architecture-auditor": {
+      "command": "python3",
+      "args": [
+        "/home/alpha/Playstoria/holo-agent-tooling/library/mcp/bridges/model_bridge.py"
+      ],
+      "env": {
+        "MODEL_BRIDGE_MODEL": "opencode-go/grok-4.6",
+        "MODEL_BRIDGE_BASE_URL": "http://127.0.0.1:8080/v1",
+        "MODEL_BRIDGE_API_KEY": "$OPENCODE_GO_API_KEY"
+      }
+    },
+    "bridge-root-cause": {
+      "command": "python3",
+      "args": [
+        "/home/alpha/Playstoria/holo-agent-tooling/library/mcp/bridges/model_bridge.py"
+      ],
+      "env": {
+        "MODEL_BRIDGE_MODEL": "opencode-go/deepseek-v4-pro",
+        "MODEL_BRIDGE_BASE_URL": "http://127.0.0.1:8080/v1",
+        "MODEL_BRIDGE_API_KEY": "$OPENCODE_GO_API_KEY"
+      }
+    },
+    "bridge-data": {
+      "command": "python3",
+      "args": [
+        "/home/alpha/Playstoria/holo-agent-tooling/library/mcp/bridges/model_bridge.py"
+      ],
+      "env": {
+        "MODEL_BRIDGE_MODEL": "opencode-go/glm-5.3",
+        "MODEL_BRIDGE_BASE_URL": "http://127.0.0.1:8080/v1",
+        "MODEL_BRIDGE_API_KEY": "$OPENCODE_GO_API_KEY"
+      }
+    },
+    "bridge-test-engineer": {
+      "command": "python3",
+      "args": [
+        "/home/alpha/Playstoria/holo-agent-tooling/library/mcp/bridges/model_bridge.py"
+      ],
+      "env": {
+        "MODEL_BRIDGE_MODEL": "opencode-go/deepseek-v4-flash",
+        "MODEL_BRIDGE_BASE_URL": "http://127.0.0.1:8080/v1",
+        "MODEL_BRIDGE_API_KEY": "$OPENCODE_GO_API_KEY"
+      }
+    }
+  }
+}
