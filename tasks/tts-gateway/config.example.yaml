@@ -1,0 +1,32 @@
+host: 127.0.0.1
+port: 5050
+default_engine: magpie
+device: cuda
+
+# lazy: load on first use and keep every loaded engine
+# keep-current: keep only the currently selected engine loaded
+# unload-after: unload after every synthesis request
+load_policy: keep-current
+
+model_aliases: [tts-1, tts-1-hd, gpt-4o-mini-tts]
+response_formats: [wav, flac, mp3, pcm]
+
+chunking_enabled: true
+chunk_chars: 1200
+chunk_pause_ms: 120
+
+engines:
+  magpie:
+    model_path: ${HOME}/path/to/magpie_tts_multilingual_357m.nemo
+    default_speaker: Sofia
+    default_language: pt
+    device: auto
+    sample_rate: 22050
+
+  kokoro:
+    model_path: ${HOME}/path/to/kokoro-v1.0.onnx
+    voices_path: ${HOME}/path/to/voices-v1.0.bin
+    default_voice: af_heart
+    provider: CPUExecutionProvider
+    sample_rate: 24000
+    known_voices: [af_heart, am_onyx]

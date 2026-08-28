@@ -1,79 +1,130 @@
-import os
+from __future__ import annotations
+
+import io
 import time
+from pathlib import Path
+
 import requests
 import soundfile as sf
-import io
+
 
 BASE_URL = "http://127.0.0.1:5050"
+OUTPUT_DIR = Path(__file__).resolve().parent
+
+
+def _health():
+    response = requests.get(f"{BASE_URL}/health", timeout=10)
+    response.raise_for_status()
+    return response.json()
+
+
+def _speech(payload, timeout=240):
+    started = time.time()
+    response = requests.post(
+        f"{BASE_URL}/v1/audio/speech",
+        json=payload,
+        timeout=timeout,
+    )
+    elapsed = time.time() - started
+    return response, elapsed
+
+
+def _validate_soundfile(response, suffix):
+    assert response.status_code == 200, response.text
+    assert response.content
+    audio, sample_rate = sf.read(io.BytesIO(response.content))
+    assert sample_rate > 0
+    assert len(audio) > 0
+    assert len(audio) / sample_rate > 0
+    output = OUTPUT_DIR / f"test_output.{suffix}"
+    output.write_bytes(response.content)
+    return sample_rate, len(audio) / sample_rate, output
+
 
 def test_gateway():
-    print("=== 1. Test GET /health ===")
-    r = requests.get(f"{BASE_URL}/health", timeout=10)
-    print("Health response:", r.status_code, r.json())
+    print("=== health/models/voices ===")
+    health = _health()
+    print(health)
 
-    print("\n=== 2. Test GET /v1/models ===")
-    r = requests.get(f"{BASE_URL}/v1/models", timeout=10)
-    print("Models count:", len(r.json().get("data", [])))
-    print("Models list:", [m["id"] for m in r.json().get("data", [])])
+    models = requests.get(f"{BASE_URL}/v1/models", timeout=10)
+    models.raise_for_status()
+    model_ids = [item["id"] for item in models.json()["data"]]
+    print("models:", model_ids)
 
-    print("\n=== 3. Test GET /v1/audio/voices ===")
-    r = requests.get(f"{BASE_URL}/v1/audio/voices", timeout=10)
-    voices = r.json().get("voices", [])
-    print(f"Total available voices: {len(voices)}")
-    magpie_voices = [v["voice_id"] for v in voices if v.get("engine") == "magpie"]
-    kokoro_voices = [v["voice_id"] for v in voices if v.get("engine") == "kokoro"]
-    print("Magpie voices sample:", magpie_voices[:6])
-    print("Kokoro voices sample:", kokoro_voices[:6])
+    voices_response = requests.get(
+        f"{BASE_URL}/v1/audio/voices", timeout=10
+    )
+    voices_response.raise_for_status()
+    voices = voices_response.json()["voices"]
+    voice_ids = [item["voice_id"] for item in voices]
+    assert "magpie:Sofia-pt" in voice_ids
+    assert "kokoro:af_heart" in voice_ids
+    print("voice count:", len(voices))
 
-    print("\n=== 4. Test POST /v1/audio/speech (Magpie Engine - Portuguese) ===")
-    t0 = time.time()
-    payload_magpie = {
-        "model": "magpie",
-        "voice": "Sofia-pt",
-        "input": "Olá! Estou testando a síntese de voz do Magpie em português através do gateway.",
-        "response_format": "wav"
-    }
-    r = requests.post(f"{BASE_URL}/v1/audio/speech", json=payload_magpie, timeout=180)
-    print("Magpie Status:", r.status_code, "Content-Type:", r.headers.get("content-type"), f"Time: {time.time() - t0:.2f}s")
-    assert r.status_code == 200, f"Magpie failed: {r.text}"
-    
-    data_magpie, sr_magpie = sf.read(io.BytesIO(r.content))
-    duration_magpie = len(data_magpie) / sr_magpie
-    print(f"Magpie WAV: Sample Rate={sr_magpie} Hz, Channels={1 if data_magpie.ndim == 1 else data_magpie.shape[1]}, Duration={duration_magpie:.2f}s, Bytes={len(r.content)}")
-    with open("/home/alpha/Playstoria/models/tasks/tts-gateway/tests/test_magpie_output.wav", "wb") as f:
-        f.write(r.content)
+    print("=== invalid model/voice must fail explicitly ===")
+    bad_model, _ = _speech(
+        {"model": "invalid-engine", "voice": "whatever", "input": "teste"},
+        timeout=30,
+    )
+    assert bad_model.status_code == 400
 
-    print("\n=== 5. Test POST /v1/audio/speech (Kokoro Engine - English / Switch Engine) ===")
-    t0 = time.time()
-    payload_kokoro = {
-        "model": "kokoro",
-        "voice": "af_heart",
-        "input": "Hello! The Kokoro TTS engine is now speaking through the same unified gateway.",
-        "response_format": "wav"
-    }
-    r = requests.post(f"{BASE_URL}/v1/audio/speech", json=payload_kokoro, timeout=180)
-    print("Kokoro Status:", r.status_code, "Content-Type:", r.headers.get("content-type"), f"Time: {time.time() - t0:.2f}s")
-    assert r.status_code == 200, f"Kokoro failed: {r.text}"
-    
-    data_kokoro, sr_kokoro = sf.read(io.BytesIO(r.content))
-    duration_kokoro = len(data_kokoro) / sr_kokoro
-    print(f"Kokoro WAV: Sample Rate={sr_kokoro} Hz, Channels={1 if data_kokoro.ndim == 1 else data_kokoro.shape[1]}, Duration={duration_kokoro:.2f}s, Bytes={len(r.content)}")
-    with open("/home/alpha/Playstoria/models/tasks/tts-gateway/tests/test_kokoro_output.wav", "wb") as f:
-        f.write(r.content)
+    bad_voice, _ = _speech(
+        {"model": "kokoro", "voice": "invalid-voice", "input": "test"},
+        timeout=30,
+    )
+    assert bad_voice.status_code == 400
 
-    print("\n=== 6. Test Switch Back to Magpie (Confirm lazy switch & VRAM release) ===")
-    t0 = time.time()
-    payload_magpie_2 = {
-        "model": "magpie",
-        "voice": "Aria-pt",
-        "input": "Mudando de volta para o Magpie perfeitamente sem reiniciar o gateway.",
-        "response_format": "wav"
-    }
-    r = requests.post(f"{BASE_URL}/v1/audio/speech", json=payload_magpie_2, timeout=180)
-    print("Magpie Switch-back Status:", r.status_code, f"Time: {time.time() - t0:.2f}s")
-    assert r.status_code == 200
+    print("=== Magpie via namespaced voice ===")
+    response, elapsed = _speech(
+        {
+            "voice": "magpie:Sofia-pt",
+            "input": "Olá. Este é um teste do Magpie através do gateway.",
+            "response_format": "wav",
+        }
+    )
+    sample_rate, duration, output = _validate_soundfile(response, "wav")
+    print(
+        f"Magpie: {elapsed:.2f}s, {sample_rate}Hz, "
+        f"{duration:.2f}s -> {output}"
+    )
+    health = _health()
+    assert health["loaded_engines"]["magpie"] is True
 
-    print("\n>>> ALL TESTS PASSED SUCCESSFULLY! <<<")
+    print("=== switch to Kokoro ===")
+    response, elapsed = _speech(
+        {
+            "voice": "kokoro:af_heart",
+            "input": "Hello. Kokoro is speaking through the same gateway.",
+            "response_format": "flac",
+        }
+    )
+    sample_rate, duration, output = _validate_soundfile(response, "flac")
+    print(
+        f"Kokoro: {elapsed:.2f}s, {sample_rate}Hz, "
+        f"{duration:.2f}s -> {output}"
+    )
+    health = _health()
+    if health["load_policy"] == "keep-current":
+        assert health["loaded_engines"]["magpie"] is False
+        assert health["loaded_engines"]["kokoro"] is True
+
+    print("=== switch back to Magpie ===")
+    response, elapsed = _speech(
+        {
+            "model": "magpie",
+            "voice": "Aria-pt",
+            "input": "Voltando para o Magpie sem trocar o endpoint.",
+            "response_format": "wav",
+        }
+    )
+    _validate_soundfile(response, "wav")
+    health = _health()
+    if health["load_policy"] == "keep-current":
+        assert health["loaded_engines"]["magpie"] is True
+        assert health["loaded_engines"]["kokoro"] is False
+
+    print(">>> integration tests passed <<<")
+
 
 if __name__ == "__main__":
     test_gateway()
