@@ -85,6 +85,19 @@ MODELS = [
         "ngl": 99,
         "thinking_supported": "não (desativado via --reasoning off e enable_thinking=false)",
         "extra_args": ["--reasoning", "off", "--chat-template-kwargs", '{"enable_thinking": false}']
+    },
+    {
+        "id": "qwen_9b",
+        "full_name": "Qwen3.8-9B-Distill-uncensored-heretic i1-Q4_K_M",
+        "repo": "petruhonk/Qwen3.8-9B-Distill-uncensored-heretic-GGUF",
+        "gguf_file": "Qwen3.8-9B-Distill-uncensored-heretic.i1-Q4_K_M.gguf",
+        "path": "/home/alpha/Playstoria/models/text/petruhonk-Qwen3.8-9B-Distill-uncensored-heretic/Qwen3.8-9B-Distill-uncensored-heretic.i1-Q4_K_M.gguf",
+        "sha256": "3a63c5b5c7c6af57d92437ed2610d524ea96a7ecf873ae7f8e470a024c047fa6",
+        "quant": "i1-Q4_K_M",
+        "out_file": "04-qwen38-9b-heretic.md",
+        "ngl": 99,
+        "thinking_supported": "não (desativado via --reasoning off e enable_thinking=false)",
+        "extra_args": ["--reasoning", "off", "--chat-template-kwargs", '{"enable_thinking": false}']
     }
 ]
 
