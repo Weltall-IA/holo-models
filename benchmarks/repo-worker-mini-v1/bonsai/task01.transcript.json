@@ -1,0 +1,211 @@
+[
+  {
+    "index": 1,
+    "request": {
+      "role": "user",
+      "content": "You are a repository worker. Work only on the assigned task below.\n\n# Task 1: Repository navigation\n\nIn the repository, determine how a request for the `project-rw` role is routed from the public role/model binding to its effective tool authority. Search at least three files. Report the relevant paths and symbols/keys for the origin, routing decision, and final authority. Do not edit files. Stop once the chain is established.\n\nThe evaluator checks that the answer identifies `library/routing/model-bindings.yaml`, the `project-rw` routing/binding, `library/agents/project-rw/instructions.md`, and the authority/contract surface in `core/agents/contracts/project-rw.yaml` or `library/rules/tool-authority.md`.\n\n\nAvailable tools. Emit exactly one JSON object per turn, with no Markdown.\n{\"action\":\"list\",\"path\":\".\"}\n{\"action\":\"search\",\"query\":\"literal or regex\",\"path\":\".\"}\n{\"action\":\"read\",\"path\":\"relative/path\",\"start\":1,\"end\":200}\n{\"action\":\"patch\",\"diff\":\"unified diff text\"}\n{\"action\":\"run\",\"command\":\"safe shell command\"}\n{\"action\":\"done\",\"answer\":\"final concise answer\"}\nRules: use relative paths; no network, destructive commands, git reset/checkout, or access outside the worktree. For patch, provide a standard unified diff. You must use tools to discover context. For edit tasks, run tests after editing and repair failures. Do not claim a tool call you did not make.\n\nStart by choosing the smallest useful read/search/list action. When complete, emit done with a concise answer."
+    },
+    "response": {
+      "choices": [
+        {
+          "finish_reason": "stop",
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "{\"action\":\"list\",\"path\":\".\"}"
+          }
+        }
+      ],
+      "created": 1788103744,
+      "model": "Ternary-Bonsai-27B-Abliterated-LowDeg-Q2_0.gguf",
+      "system_fingerprint": "b9599-9ca265a57",
+      "object": "chat.completion",
+      "usage": {
+        "completion_tokens": 10,
+        "prompt_tokens": 380,
+        "total_tokens": 390,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "id": "chatcmpl-G5q440Z0bYWuf4mXtozSrKpkUUkCnXUL",
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 380,
+        "prompt_ms": 3355.827,
+        "prompt_per_token_ms": 8.831123684210526,
+        "prompt_per_second": 113.23587300537243,
+        "predicted_n": 10,
+        "predicted_ms": 587.452,
+        "predicted_per_token_ms": 58.7452,
+        "predicted_per_second": 17.022667383888386
+      }
+    },
+    "parsed_action": {
+      "action": "list",
+      "path": "."
+    },
+    "tool_result": {
+      "ok": true,
+      "entries": [
+        {
+          "name": ".git",
+          "type": "file"
+        },
+        {
+          "name": ".gitignore",
+          "type": "file"
+        },
+        {
+          "name": "AGENTS.md",
+          "type": "file"
+        },
+        {
+          "name": "ARCHITECTURE.md",
+          "type": "file"
+        },
+        {
+          "name": "README.md",
+          "type": "file"
+        },
+        {
+          "name": "capabilities",
+          "type": "dir"
+        },
+        {
+          "name": "core",
+          "type": "dir"
+        },
+        {
+          "name": "fixture",
+          "type": "dir"
+        },
+        {
+          "name": "harnesses",
+          "type": "dir"
+        },
+        {
+          "name": "library",
+          "type": "dir"
+        }
+      ]
+    }
+  },
+  {
+    "index": 2,
+    "request": {
+      "role": "user",
+      "content": "TOOL RESULT:\n{\"ok\": true, \"entries\": [{\"name\": \".git\", \"type\": \"file\"}, {\"name\": \".gitignore\", \"type\": \"file\"}, {\"name\": \"AGENTS.md\", \"type\": \"file\"}, {\"name\": \"ARCHITECTURE.md\", \"type\": \"file\"}, {\"name\": \"README.md\", \"type\": \"file\"}, {\"name\": \"capabilities\", \"type\": \"dir\"}, {\"name\": \"core\", \"type\": \"dir\"}, {\"name\": \"fixture\", \"type\": \"dir\"}, {\"name\": \"harnesses\", \"type\": \"dir\"}, {\"name\": \"library\", \"type\": \"dir\"}]}"
+    },
+    "response": {
+      "choices": [
+        {
+          "finish_reason": "stop",
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "{\"action\":\"search\",\"query\":\"project-rw\",\"path\":\"library\"}"
+          }
+        }
+      ],
+      "created": 1788103748,
+      "model": "Ternary-Bonsai-27B-Abliterated-LowDeg-Q2_0.gguf",
+      "system_fingerprint": "b9599-9ca265a57",
+      "object": "chat.completion",
+      "usage": {
+        "completion_tokens": 16,
+        "prompt_tokens": 543,
+        "total_tokens": 559,
+        "prompt_tokens_details": {
+          "cached_tokens": 376
+        }
+      },
+      "id": "chatcmpl-hyjc9jWBxsgpgky6RlFFsZe4QByzzgfX",
+      "timings": {
+        "cache_n": 376,
+        "prompt_n": 167,
+        "prompt_ms": 2987.678,
+        "prompt_per_token_ms": 17.8902874251497,
+        "prompt_per_second": 55.89625120243882,
+        "predicted_n": 16,
+        "predicted_ms": 1006.591,
+        "predicted_per_token_ms": 62.9119375,
+        "predicted_per_second": 15.895234509348882
+      }
+    },
+    "parsed_action": {
+      "action": "search",
+      "query": "project-rw",
+      "path": "library"
+    },
+    "tool_result": {
+      "ok": true,
+      "matches": "/tmp/repo-worker-mini-v1-worktrees/bonsai-task01-1788103739990/library/routing/model-bindings.yaml:88:  project-rw:\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task01-1788103739990/library/rules/tool-authority.md:53:- `project-rw`: write/execute only inside the explicit delegated scope.\n",
+      "exit_code": 0
+    }
+  },
+  {
+    "index": 3,
+    "request": {
+      "role": "user",
+      "content": "TOOL RESULT:\n{\"ok\": true, \"matches\": \"/tmp/repo-worker-mini-v1-worktrees/bonsai-task01-1788103739990/library/routing/model-bindings.yaml:88:  project-rw:\\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task01-1788103739990/library/rules/tool-authority.md:53:- `project-rw`: write/execute only inside the explicit delegated scope.\\n\", \"exit_code\": 0}"
+    },
+    "response": {
+      "choices": [
+        {
+          "finish_reason": "stop",
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "{\"action\":\"read\",\"path\":\"library/routing/model-bindings.yaml\",\"start\":1,\"end\":200}"
+          }
+        }
+      ],
+      "created": 1788103755,
+      "model": "Ternary-Bonsai-27B-Abliterated-LowDeg-Q2_0.gguf",
+      "system_fingerprint": "b9599-9ca265a57",
+      "object": "chat.completion",
+      "usage": {
+        "completion_tokens": 26,
+        "prompt_tokens": 691,
+        "total_tokens": 717,
+        "prompt_tokens_details": {
+          "cached_tokens": 376
+        }
+      },
+      "id": "chatcmpl-0DJj2sbdEMZIvRg2Ie7wzWQUg34VYEbi",
+      "timings": {
+        "cache_n": 376,
+        "prompt_n": 315,
+        "prompt_ms": 5961.757,
+        "prompt_per_token_ms": 18.926212698412698,
+        "prompt_per_second": 52.83677278359384,
+        "predicted_n": 26,
+        "predicted_ms": 1721.619,
+        "predicted_per_token_ms": 66.21611538461538,
+        "predicted_per_second": 15.102063813189794
+      }
+    },
+    "parsed_action": {
+      "action": "read",
+      "path": "library/routing/model-bindings.yaml",
+      "start": 1,
+      "end": 200
+    },
+    "tool_result": {
+      "ok": true,
+      "path": "library/routing/model-bindings.yaml",
+      "start": 1,
+      "end": 101,
+      "content": "1: version: 1\n2: schema: holo-agent-tooling/human-model-bindings/v1\n3: \n4: policy:\n5:   owner: human\n6:   automatic_model_selection: false\n7:   automatic_model_substitution: false\n8:   rule: Holo selects roles; only the human-maintained binding selects the model.\n9: \n10: access_routes:\n11:   ucp-via-cliproxyapi:\n12:     kind: user-selected-access-path\n13:     description: Universal Chat Provider VS Code extension through CLIProxyAPI.\n14:   opencode-api:\n15:     kind: user-selected-access-path\n16:     description: OpenCode API.\n17: \n18: bindings:\n19:   holo:\n20:     model: Gemini 3.7 Flash\n21:     reasoning: high\n22:     access_route: ucp-via-cliproxyapi\n23:     status: selected-by-human\n24: \n25:   explore:\n26:     model: GPT-5.6 Luna\n27:     reasoning: medium\n28:     access_route: ucp-via-cliproxyapi\n29:     status: selected-by-human\n30:     preferred_class: economical-fast\n31: \n32:   shell:\n33:     model: GPT-5.6 Luna\n34:     reasoning: medium\n35:     access_route: ucp-via-cliproxyapi\n36:     status: selected-by-human\n37:     preferred_class: economical-fast\n38: \n39:   browser:\n40:     model: Gemini 3.7 Flash\n41:     reasoning: low\n42:     access_route: ucp-via-cliproxyapi\n43:     status: selected-by-human\n44:     preferred_class: economical-fast\n45: \n46:   test-engineer:\n47:     model: DeepSeek V4 Flash 0731\n48:     reasoning: max\n49:     access_route: opencode-api\n50:     status: selected-by-human\n51: \n52:   data:\n53:     model: GLM-5.3-Flash\n54:     reasoning: default\n55:     access_route: opencode-api\n56:     status: selected-by-human\n57: \n58:   root-cause-specialist:\n59:     model: GPT-5.6 Terra\n60:     reasoning: max\n61:     access_route: ucp-via-cliproxyapi\n62:     status: selected-by-human\n63: \n64:   bug-auditor:\n65:     model: Grok 4.6\n66:     reasoning: high\n67:     access_route: opencode-api\n68:     status: selected-by-human\n69: \n70:   architecture-auditor:\n71:     model: GLM-5.3\n72:     reasoning: max\n73:     access_route: opencode-api\n74:     status: selected-by-human\n75: \n76:   final-gate:\n77:     model: GPT-5.6 Sol\n78:     reasoning: max\n79:     access_route: ucp-via-cliproxyapi\n80:     status: selected-by-human\n81: \n82:   project-ro:\n83:     model: GPT-5.6 Luna\n84:     reasoning: medium\n85:     access_route: ucp-via-cliproxyapi\n86:     status: selected-by-human\n87: \n88:   project-rw:\n89:     model: GPT-5.6 Terra\n90:     reasoning: max\n91:     access_route: ucp-via-cliproxyapi\n92:     status: selected-by-human\n93: \n94: notes:\n95:   - This file records the human-owned architectural roster; it does not generate harness configuration.\n96:   - The selected bindings above were explicitly approved by the human owner.\n97:   - access_route records the human-selected source/path for the model; it is not a universal harness-native model identifier.\n98:   - Each harness may require a different native model identifier, direct CLIProxyAPI access, another native representation, or manual UI configuration.\n99:   - Holo never changes reasoning levels, models or access routes automatically.\n100:   - If a selected model is unavailable in a harness, document the limitation rather than silently substituting another model.\n101:   - Change this file to change architectural intent; apply the selected roster independently in each desired harness."
+    }
+  },
+  {
+    "index": 4,
+    "request": {
+      "role": "user",
+      "content": "TOOL RESULT:\n{\"ok\": true, \"path\": \"library/routing/model-bindings.yaml\", \"start\": 1, \"end\": 101, \"content\": \"1: version: 1\\n2: schema: holo-agent-tooling/human-model-bindings/v1\\n3: \\n4: policy:\\n5:   owner: human\\n6:   automatic_model_selection: false\\n7:   automatic_model_substitution: false\\n8:   rule: Holo selects roles; only the human-maintained binding selects the model.\\n9: \\n10: access_routes:\\n11:   ucp-via-cliproxyapi:\\n12:     kind: user-selected-access-path\\n13:     description: Universal Chat Provider VS Code extension through CLIProxyAPI.\\n14:   opencode-api:\\n15:     kind: user-selected-access-path\\n16:     description: OpenCode API.\\n17: \\n18: bindings:\\n19:   holo:\\n20:     model: Gemini 3.7 Flash\\n21:     reasoning: high\\n22:     access_route: ucp-via-cliproxyapi\\n23:     status: selected-by-human\\n24: \\n25:   explore:\\n26:     model: GPT-5.6 Luna\\n27:     reasoning: medium\\n28:     access_route: ucp-via-cliproxyapi\\n29:     status: selected-by-human\\n30:     preferred_class: economical-fast\\n31: \\n32:   shell:\\n33:     model: GPT-5.6 Luna\\n34:     reasoning: medium\\n35:     access_route: ucp-via-cliproxyapi\\n36:     status: selected-by-human\\n37:     preferred_class: economical-fast\\n38: \\n39:   browser:\\n40:     model: Gemini 3.7 Flash\\n41:     reasoning: low\\n42:     access_route: ucp-via-cliproxyapi\\n43:     status: selected-by-human\\n44:     preferred_class: economical-fast\\n45: \\n46:   test-engineer:\\n47:     model: DeepSeek V4 Flash 0731\\n48:     reasoning: max\\n49:     access_route: opencode-api\\n50:     status: selected-by-human\\n51: \\n52:   data:\\n53:     model: GLM-5.3-Flash\\n54:     reasoning: default\\n55:     access_route: opencode-api\\n56:     status: selected-by-human\\n57: \\n58:   root-cause-specialist:\\n59:     model: GPT-5.6 Terra\\n60:     reasoning: max\\n61:     access_route: ucp-via-cliproxyapi\\n62:     status: selected-by-human\\n63: \\n64:   bug-auditor:\\n65:     model: Grok 4.6\\n66:     reasoning: high\\n67:     access_route: opencode-api\\n68:     status: selected-by-human\\n69: \\n70:   architecture-auditor:\\n71:     model: GLM-5.3\\n72:     reasoning: max\\n73:     access_route: opencode-api\\n74:     status: selected-by-human\\n75: \\n76:   final-gate:\\n77:     model: GPT-5.6 Sol\\n78:     reasoning: max\\n79:     access_route: ucp-via-cliproxyapi\\n80:     status: selected-by-human\\n81: \\n82:   project-ro:\\n83:     model: GPT-5.6 Luna\\n84:     reasoning: medium\\n85:     access_route: ucp-via-cliproxyapi\\n86:     status: selected-by-human\\n87: \\n88:   project-rw:\\n89:     model: GPT-5.6 Terra\\n90:     reasoning: max\\n91:     access_route: ucp-via-cliproxyapi\\n92:     status: selected-by-human\\n93: \\n94: notes:\\n95:   - This file records the human-owned architectural roster; it does not generate harness configuration.\\n96:   - The selected bindings above were explicitly approved by the human owner.\\n97:   - access_route records the human-selected source/path for the model; it is not a universal harness-native model identifier.\\n98:   - Each harness may require a different native model identifier, direct CLIProxyAPI access, another native representation, or manual UI configuration.\\n99:   - Holo never changes reasoning levels, models or access routes automatically.\\n100:   - If a selected model is unavailable in a harness, document the limitation rather than silently substituting another model.\\n101:   - Change this file to change architectural intent; apply the selected roster independently in each desired harness.\"}"
+    },
+    "error": "TimeoutError: request exceeded 30.00s"
+  }
+]

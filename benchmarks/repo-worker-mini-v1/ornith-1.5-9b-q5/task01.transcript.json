@@ -1,0 +1,590 @@
+[
+  {
+    "index": 1,
+    "request": {
+      "role": "user",
+      "content": "You are a repository worker. Work only on the assigned task below.\n\n# Task 1: Repository navigation\n\nIn the repository, determine how a request for the `project-rw` role is routed from the public role/model binding to its effective tool authority. Search at least three files. Report the relevant paths and symbols/keys for the origin, routing decision, and final authority. Do not edit files. Stop once the chain is established.\n\nThe evaluator checks that the answer identifies `library/routing/model-bindings.yaml`, the `project-rw` routing/binding, `library/agents/project-rw/instructions.md`, and the authority/contract surface in `core/agents/contracts/project-rw.yaml` or `library/rules/tool-authority.md`.\n\n\nAvailable tools. Emit exactly one JSON object per turn, with no Markdown.\n{\"action\":\"list\",\"path\":\".\"}\n{\"action\":\"search\",\"query\":\"literal or regex\",\"path\":\".\"}\n{\"action\":\"read\",\"path\":\"relative/path\",\"start\":1,\"end\":200}\n{\"action\":\"patch\",\"diff\":\"unified diff text\"}\n{\"action\":\"run\",\"command\":\"safe shell command\"}\n{\"action\":\"done\",\"answer\":\"final concise answer\"}\nRules: use relative paths; no network, destructive commands, git reset/checkout, or access outside the worktree. For patch, provide a standard unified diff. You must use tools to discover context. For edit tasks, run tests after editing and repair failures. Do not claim a tool call you did not make.\n\nStart by choosing the smallest useful read/search/list action. When complete, emit done with a concise answer."
+    },
+    "response": {
+      "choices": [
+        {
+          "finish_reason": "stop",
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "{\"action\":\"list\",\"path\":\".\"}",
+            "reasoning_content": "Let me start by exploring the repository structure to understand how the `project-rw` role is routed.\n"
+          }
+        }
+      ],
+      "created": 1788104435,
+      "model": "/home/alpha/Playstoria/models/text/bartowski-Ornith-1.5-9B-Q5_K_M/Ornith-1.5-9B-Q5_K_M.gguf",
+      "system_fingerprint": "b1-8ce8ca6",
+      "object": "chat.completion",
+      "usage": {
+        "completion_tokens": 34,
+        "prompt_tokens": 378,
+        "total_tokens": 412,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "id": "chatcmpl-SymLRYHJXpaGRzC6vhrxY7VKwmZaLOBa",
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 378,
+        "prompt_ms": 1234.274,
+        "prompt_per_token_ms": 3.265275132275132,
+        "prompt_per_second": 306.2529065669374,
+        "predicted_n": 34,
+        "predicted_ms": 1046.672,
+        "predicted_per_token_ms": 30.784470588235294,
+        "predicted_per_second": 32.4839109100081
+      }
+    },
+    "parsed_action": {
+      "action": "list",
+      "path": "."
+    },
+    "tool_result": {
+      "ok": true,
+      "entries": [
+        {
+          "name": ".git",
+          "type": "file"
+        },
+        {
+          "name": ".gitignore",
+          "type": "file"
+        },
+        {
+          "name": "AGENTS.md",
+          "type": "file"
+        },
+        {
+          "name": "ARCHITECTURE.md",
+          "type": "file"
+        },
+        {
+          "name": "README.md",
+          "type": "file"
+        },
+        {
+          "name": "capabilities",
+          "type": "dir"
+        },
+        {
+          "name": "core",
+          "type": "dir"
+        },
+        {
+          "name": "fixture",
+          "type": "dir"
+        },
+        {
+          "name": "harnesses",
+          "type": "dir"
+        },
+        {
+          "name": "library",
+          "type": "dir"
+        }
+      ]
+    }
+  },
+  {
+    "index": 2,
+    "request": {
+      "role": "user",
+      "content": "TOOL RESULT:\n{\"ok\": true, \"entries\": [{\"name\": \".git\", \"type\": \"file\"}, {\"name\": \".gitignore\", \"type\": \"file\"}, {\"name\": \"AGENTS.md\", \"type\": \"file\"}, {\"name\": \"ARCHITECTURE.md\", \"type\": \"file\"}, {\"name\": \"README.md\", \"type\": \"file\"}, {\"name\": \"capabilities\", \"type\": \"dir\"}, {\"name\": \"core\", \"type\": \"dir\"}, {\"name\": \"fixture\", \"type\": \"dir\"}, {\"name\": \"harnesses\", \"type\": \"dir\"}, {\"name\": \"library\", \"type\": \"dir\"}]}"
+    },
+    "response": {
+      "choices": [
+        {
+          "finish_reason": "stop",
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "{\"action\":\"read\",\"path\":\"library/routing/model-bindings.yaml\",\"start\":1,\"end\":200}",
+            "reasoning_content": "Let me start by reading the key file mentioned in the task: `library/routing/model-bindings.yaml`.\n"
+          }
+        }
+      ],
+      "created": 1788104437,
+      "model": "/home/alpha/Playstoria/models/text/bartowski-Ornith-1.5-9B-Q5_K_M/Ornith-1.5-9B-Q5_K_M.gguf",
+      "system_fingerprint": "b1-8ce8ca6",
+      "object": "chat.completion",
+      "usage": {
+        "completion_tokens": 51,
+        "prompt_tokens": 541,
+        "total_tokens": 592,
+        "prompt_tokens_details": {
+          "cached_tokens": 374
+        }
+      },
+      "id": "chatcmpl-F3uTtaM5Ch5fgCOpeCcZXvrhWMyrg20k",
+      "timings": {
+        "cache_n": 374,
+        "prompt_n": 167,
+        "prompt_ms": 651.268,
+        "prompt_per_token_ms": 3.899808383233533,
+        "prompt_per_second": 256.42285510726765,
+        "predicted_n": 51,
+        "predicted_ms": 1725.145,
+        "predicted_per_token_ms": 33.82637254901961,
+        "predicted_per_second": 29.562732408000485
+      }
+    },
+    "parsed_action": {
+      "action": "read",
+      "path": "library/routing/model-bindings.yaml",
+      "start": 1,
+      "end": 200
+    },
+    "tool_result": {
+      "ok": true,
+      "path": "library/routing/model-bindings.yaml",
+      "start": 1,
+      "end": 101,
+      "content": "1: version: 1\n2: schema: holo-agent-tooling/human-model-bindings/v1\n3: \n4: policy:\n5:   owner: human\n6:   automatic_model_selection: false\n7:   automatic_model_substitution: false\n8:   rule: Holo selects roles; only the human-maintained binding selects the model.\n9: \n10: access_routes:\n11:   ucp-via-cliproxyapi:\n12:     kind: user-selected-access-path\n13:     description: Universal Chat Provider VS Code extension through CLIProxyAPI.\n14:   opencode-api:\n15:     kind: user-selected-access-path\n16:     description: OpenCode API.\n17: \n18: bindings:\n19:   holo:\n20:     model: Gemini 3.7 Flash\n21:     reasoning: high\n22:     access_route: ucp-via-cliproxyapi\n23:     status: selected-by-human\n24: \n25:   explore:\n26:     model: GPT-5.6 Luna\n27:     reasoning: medium\n28:     access_route: ucp-via-cliproxyapi\n29:     status: selected-by-human\n30:     preferred_class: economical-fast\n31: \n32:   shell:\n33:     model: GPT-5.6 Luna\n34:     reasoning: medium\n35:     access_route: ucp-via-cliproxyapi\n36:     status: selected-by-human\n37:     preferred_class: economical-fast\n38: \n39:   browser:\n40:     model: Gemini 3.7 Flash\n41:     reasoning: low\n42:     access_route: ucp-via-cliproxyapi\n43:     status: selected-by-human\n44:     preferred_class: economical-fast\n45: \n46:   test-engineer:\n47:     model: DeepSeek V4 Flash 0731\n48:     reasoning: max\n49:     access_route: opencode-api\n50:     status: selected-by-human\n51: \n52:   data:\n53:     model: GLM-5.3-Flash\n54:     reasoning: default\n55:     access_route: opencode-api\n56:     status: selected-by-human\n57: \n58:   root-cause-specialist:\n59:     model: GPT-5.6 Terra\n60:     reasoning: max\n61:     access_route: ucp-via-cliproxyapi\n62:     status: selected-by-human\n63: \n64:   bug-auditor:\n65:     model: Grok 4.6\n66:     reasoning: high\n67:     access_route: opencode-api\n68:     status: selected-by-human\n69: \n70:   architecture-auditor:\n71:     model: GLM-5.3\n72:     reasoning: max\n73:     access_route: opencode-api\n74:     status: selected-by-human\n75: \n76:   final-gate:\n77:     model: GPT-5.6 Sol\n78:     reasoning: max\n79:     access_route: ucp-via-cliproxyapi\n80:     status: selected-by-human\n81: \n82:   project-ro:\n83:     model: GPT-5.6 Luna\n84:     reasoning: medium\n85:     access_route: ucp-via-cliproxyapi\n86:     status: selected-by-human\n87: \n88:   project-rw:\n89:     model: GPT-5.6 Terra\n90:     reasoning: max\n91:     access_route: ucp-via-cliproxyapi\n92:     status: selected-by-human\n93: \n94: notes:\n95:   - This file records the human-owned architectural roster; it does not generate harness configuration.\n96:   - The selected bindings above were explicitly approved by the human owner.\n97:   - access_route records the human-selected source/path for the model; it is not a universal harness-native model identifier.\n98:   - Each harness may require a different native model identifier, direct CLIProxyAPI access, another native representation, or manual UI configuration.\n99:   - Holo never changes reasoning levels, models or access routes automatically.\n100:   - If a selected model is unavailable in a harness, document the limitation rather than silently substituting another model.\n101:   - Change this file to change architectural intent; apply the selected roster independently in each desired harness."
+    }
+  },
+  {
+    "index": 3,
+    "request": {
+      "role": "user",
+      "content": "TOOL RESULT:\n{\"ok\": true, \"path\": \"library/routing/model-bindings.yaml\", \"start\": 1, \"end\": 101, \"content\": \"1: version: 1\\n2: schema: holo-agent-tooling/human-model-bindings/v1\\n3: \\n4: policy:\\n5:   owner: human\\n6:   automatic_model_selection: false\\n7:   automatic_model_substitution: false\\n8:   rule: Holo selects roles; only the human-maintained binding selects the model.\\n9: \\n10: access_routes:\\n11:   ucp-via-cliproxyapi:\\n12:     kind: user-selected-access-path\\n13:     description: Universal Chat Provider VS Code extension through CLIProxyAPI.\\n14:   opencode-api:\\n15:     kind: user-selected-access-path\\n16:     description: OpenCode API.\\n17: \\n18: bindings:\\n19:   holo:\\n20:     model: Gemini 3.7 Flash\\n21:     reasoning: high\\n22:     access_route: ucp-via-cliproxyapi\\n23:     status: selected-by-human\\n24: \\n25:   explore:\\n26:     model: GPT-5.6 Luna\\n27:     reasoning: medium\\n28:     access_route: ucp-via-cliproxyapi\\n29:     status: selected-by-human\\n30:     preferred_class: economical-fast\\n31: \\n32:   shell:\\n33:     model: GPT-5.6 Luna\\n34:     reasoning: medium\\n35:     access_route: ucp-via-cliproxyapi\\n36:     status: selected-by-human\\n37:     preferred_class: economical-fast\\n38: \\n39:   browser:\\n40:     model: Gemini 3.7 Flash\\n41:     reasoning: low\\n42:     access_route: ucp-via-cliproxyapi\\n43:     status: selected-by-human\\n44:     preferred_class: economical-fast\\n45: \\n46:   test-engineer:\\n47:     model: DeepSeek V4 Flash 0731\\n48:     reasoning: max\\n49:     access_route: opencode-api\\n50:     status: selected-by-human\\n51: \\n52:   data:\\n53:     model: GLM-5.3-Flash\\n54:     reasoning: default\\n55:     access_route: opencode-api\\n56:     status: selected-by-human\\n57: \\n58:   root-cause-specialist:\\n59:     model: GPT-5.6 Terra\\n60:     reasoning: max\\n61:     access_route: ucp-via-cliproxyapi\\n62:     status: selected-by-human\\n63: \\n64:   bug-auditor:\\n65:     model: Grok 4.6\\n66:     reasoning: high\\n67:     access_route: opencode-api\\n68:     status: selected-by-human\\n69: \\n70:   architecture-auditor:\\n71:     model: GLM-5.3\\n72:     reasoning: max\\n73:     access_route: opencode-api\\n74:     status: selected-by-human\\n75: \\n76:   final-gate:\\n77:     model: GPT-5.6 Sol\\n78:     reasoning: max\\n79:     access_route: ucp-via-cliproxyapi\\n80:     status: selected-by-human\\n81: \\n82:   project-ro:\\n83:     model: GPT-5.6 Luna\\n84:     reasoning: medium\\n85:     access_route: ucp-via-cliproxyapi\\n86:     status: selected-by-human\\n87: \\n88:   project-rw:\\n89:     model: GPT-5.6 Terra\\n90:     reasoning: max\\n91:     access_route: ucp-via-cliproxyapi\\n92:     status: selected-by-human\\n93: \\n94: notes:\\n95:   - This file records the human-owned architectural roster; it does not generate harness configuration.\\n96:   - The selected bindings above were explicitly approved by the human owner.\\n97:   - access_route records the human-selected source/path for the model; it is not a universal harness-native model identifier.\\n98:   - Each harness may require a different native model identifier, direct CLIProxyAPI access, another native representation, or manual UI configuration.\\n99:   - Holo never changes reasoning levels, models or access routes automatically.\\n100:   - If a selected model is unavailable in a harness, document the limitation rather than silently substituting another model.\\n101:   - Change this file to change architectural intent; apply the selected roster independently in each desired harness.\"}"
+    },
+    "response": {
+      "choices": [
+        {
+          "finish_reason": "stop",
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "{\"action\":\"list\",\"path\":\"library/agents\"}",
+            "reasoning_content": "I found the `project-rw` binding in `library/routing/model-bindings.yaml`. Now I need to look at:\n1. `library/agents/project-rw/instructions.md`\n2. `core/agents/contracts/project-rw.yaml` or `library/rules/tool-authority.md`\n\nLet me explore these. First, let me list the directories to understand structure.\n"
+          }
+        }
+      ],
+      "created": 1788104449,
+      "model": "/home/alpha/Playstoria/models/text/bartowski-Ornith-1.5-9B-Q5_K_M/Ornith-1.5-9B-Q5_K_M.gguf",
+      "system_fingerprint": "b1-8ce8ca6",
+      "object": "chat.completion",
+      "usage": {
+        "completion_tokens": 95,
+        "prompt_tokens": 1727,
+        "total_tokens": 1822,
+        "prompt_tokens_details": {
+          "cached_tokens": 537
+        }
+      },
+      "id": "chatcmpl-DsRzhmSbkUdFAQrryHrJkJ0PvxjrHk5W",
+      "timings": {
+        "cache_n": 537,
+        "prompt_n": 1190,
+        "prompt_ms": 8035.162,
+        "prompt_per_token_ms": 6.752236974789916,
+        "prompt_per_second": 148.09906757324867,
+        "predicted_n": 95,
+        "predicted_ms": 4133.796,
+        "predicted_per_token_ms": 43.51364210526316,
+        "predicted_per_second": 22.98129854496932
+      }
+    },
+    "parsed_action": {
+      "action": "list",
+      "path": "library/agents"
+    },
+    "tool_result": {
+      "ok": true,
+      "entries": [
+        {
+          "name": "library/agents/architecture-auditor",
+          "type": "dir"
+        },
+        {
+          "name": "library/agents/browser",
+          "type": "dir"
+        },
+        {
+          "name": "library/agents/bug-auditor",
+          "type": "dir"
+        },
+        {
+          "name": "library/agents/data",
+          "type": "dir"
+        },
+        {
+          "name": "library/agents/explore",
+          "type": "dir"
+        },
+        {
+          "name": "library/agents/final-gate",
+          "type": "dir"
+        },
+        {
+          "name": "library/agents/holo",
+          "type": "dir"
+        },
+        {
+          "name": "library/agents/project-ro",
+          "type": "dir"
+        },
+        {
+          "name": "library/agents/project-rw",
+          "type": "dir"
+        },
+        {
+          "name": "library/agents/root-cause-specialist",
+          "type": "dir"
+        },
+        {
+          "name": "library/agents/shell",
+          "type": "dir"
+        },
+        {
+          "name": "library/agents/test-engineer",
+          "type": "dir"
+        }
+      ]
+    }
+  },
+  {
+    "index": 4,
+    "request": {
+      "role": "user",
+      "content": "TOOL RESULT:\n{\"ok\": true, \"entries\": [{\"name\": \"library/agents/architecture-auditor\", \"type\": \"dir\"}, {\"name\": \"library/agents/browser\", \"type\": \"dir\"}, {\"name\": \"library/agents/bug-auditor\", \"type\": \"dir\"}, {\"name\": \"library/agents/data\", \"type\": \"dir\"}, {\"name\": \"library/agents/explore\", \"type\": \"dir\"}, {\"name\": \"library/agents/final-gate\", \"type\": \"dir\"}, {\"name\": \"library/agents/holo\", \"type\": \"dir\"}, {\"name\": \"library/agents/project-ro\", \"type\": \"dir\"}, {\"name\": \"library/agents/project-rw\", \"type\": \"dir\"}, {\"name\": \"library/agents/root-cause-specialist\", \"type\": \"dir\"}, {\"name\": \"library/agents/shell\", \"type\": \"dir\"}, {\"name\": \"library/agents/test-engineer\", \"type\": \"dir\"}]}"
+    },
+    "response": {
+      "choices": [
+        {
+          "finish_reason": "stop",
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "{\"action\":\"list\",\"path\":\"library/agents/project-rw\"}",
+            "reasoning_content": "Let me read the project-rw instructions.md file.\n"
+          }
+        }
+      ],
+      "created": 1788104453,
+      "model": "/home/alpha/Playstoria/models/text/bartowski-Ornith-1.5-9B-Q5_K_M/Ornith-1.5-9B-Q5_K_M.gguf",
+      "system_fingerprint": "b1-8ce8ca6",
+      "object": "chat.completion",
+      "usage": {
+        "completion_tokens": 29,
+        "prompt_tokens": 1965,
+        "total_tokens": 1994,
+        "prompt_tokens_details": {
+          "cached_tokens": 1723
+        }
+      },
+      "id": "chatcmpl-VeXYfixOHBbzAquIyJFVBjqVVinHlyrN",
+      "timings": {
+        "cache_n": 1723,
+        "prompt_n": 242,
+        "prompt_ms": 2626.17,
+        "prompt_per_token_ms": 10.851942148760331,
+        "prompt_per_second": 92.1494038847447,
+        "predicted_n": 29,
+        "predicted_ms": 1343.089,
+        "predicted_per_token_ms": 46.31341379310344,
+        "predicted_per_second": 21.592016612450852
+      }
+    },
+    "parsed_action": {
+      "action": "list",
+      "path": "library/agents/project-rw"
+    },
+    "tool_result": {
+      "ok": true,
+      "entries": [
+        {
+          "name": "library/agents/project-rw/instructions.md",
+          "type": "file"
+        }
+      ]
+    }
+  },
+  {
+    "index": 5,
+    "request": {
+      "role": "user",
+      "content": "TOOL RESULT:\n{\"ok\": true, \"entries\": [{\"name\": \"library/agents/project-rw/instructions.md\", \"type\": \"file\"}]}"
+    },
+    "response": {
+      "choices": [
+        {
+          "finish_reason": "stop",
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "{\"action\":\"read\",\"path\":\"library/agents/project-rw/instructions.md\",\"start\":1,\"end\":200}",
+            "reasoning_content": "Let me read the project-rw instructions.md file.\n"
+          }
+        }
+      ],
+      "created": 1788104456,
+      "model": "/home/alpha/Playstoria/models/text/bartowski-Ornith-1.5-9B-Q5_K_M/Ornith-1.5-9B-Q5_K_M.gguf",
+      "system_fingerprint": "b1-8ce8ca6",
+      "object": "chat.completion",
+      "usage": {
+        "completion_tokens": 42,
+        "prompt_tokens": 2023,
+        "total_tokens": 2065,
+        "prompt_tokens_details": {
+          "cached_tokens": 1961
+        }
+      },
+      "id": "chatcmpl-MVzbQraKB9w5NSJ1usgQXOmRP5wA88Ph",
+      "timings": {
+        "cache_n": 1961,
+        "prompt_n": 62,
+        "prompt_ms": 958.759,
+        "prompt_per_token_ms": 15.463854838709677,
+        "prompt_per_second": 64.66692881109851,
+        "predicted_n": 42,
+        "predicted_ms": 1959.804,
+        "predicted_per_token_ms": 46.662,
+        "predicted_per_second": 21.43071450002143
+      }
+    },
+    "parsed_action": {
+      "action": "read",
+      "path": "library/agents/project-rw/instructions.md",
+      "start": 1,
+      "end": 200
+    },
+    "tool_result": {
+      "ok": true,
+      "path": "library/agents/project-rw/instructions.md",
+      "start": 1,
+      "end": 9,
+      "content": "1: # Project Read-write\n2: \n3: Implement only the explicitly assigned project change within the authorized\n4: paths. Read applicable instructions first, preserve unrelated work, avoid\n5: secrets and destructive operations, and run the requested verification.\n6: \n7: This role requires explicit write authorization from the coordinator. It does\n8: not authorize external configuration changes, deployment, dependency\n9: installation, or broad refactoring."
+    }
+  },
+  {
+    "index": 6,
+    "request": {
+      "role": "user",
+      "content": "TOOL RESULT:\n{\"ok\": true, \"path\": \"library/agents/project-rw/instructions.md\", \"start\": 1, \"end\": 9, \"content\": \"1: # Project Read-write\\n2: \\n3: Implement only the explicitly assigned project change within the authorized\\n4: paths. Read applicable instructions first, preserve unrelated work, avoid\\n5: secrets and destructive operations, and run the requested verification.\\n6: \\n7: This role requires explicit write authorization from the coordinator. It does\\n8: not authorize external configuration changes, deployment, dependency\\n9: installation, or broad refactoring.\"}"
+    },
+    "response": {
+      "choices": [
+        {
+          "finish_reason": "stop",
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "{\"action\":\"list\",\"path\":\"core/agents/contracts\"}",
+            "reasoning_content": "Now I need to look at the contract surface in `core/agents/contracts/project-rw.yaml` or `library/rules/tool-authority.md`. Let me list the core/agents/contracts directory and read the relevant files.\n"
+          }
+        }
+      ],
+      "created": 1788104462,
+      "model": "/home/alpha/Playstoria/models/text/bartowski-Ornith-1.5-9B-Q5_K_M/Ornith-1.5-9B-Q5_K_M.gguf",
+      "system_fingerprint": "b1-8ce8ca6",
+      "object": "chat.completion",
+      "usage": {
+        "completion_tokens": 63,
+        "prompt_tokens": 2194,
+        "total_tokens": 2257,
+        "prompt_tokens_details": {
+          "cached_tokens": 2019
+        }
+      },
+      "id": "chatcmpl-WrgWRoLeIK2RxnOilKqvhtB17YPZhhhp",
+      "timings": {
+        "cache_n": 2019,
+        "prompt_n": 175,
+        "prompt_ms": 2396.344,
+        "prompt_per_token_ms": 13.693394285714286,
+        "prompt_per_second": 73.02791252007223,
+        "predicted_n": 63,
+        "predicted_ms": 3271.623,
+        "predicted_per_token_ms": 51.93052380952381,
+        "predicted_per_second": 19.256497463185703
+      }
+    },
+    "parsed_action": {
+      "action": "list",
+      "path": "core/agents/contracts"
+    },
+    "tool_result": {
+      "ok": true,
+      "entries": [
+        {
+          "name": "core/agents/contracts/architecture-auditor.yaml",
+          "type": "file"
+        },
+        {
+          "name": "core/agents/contracts/browser.yaml",
+          "type": "file"
+        },
+        {
+          "name": "core/agents/contracts/bug-auditor.yaml",
+          "type": "file"
+        },
+        {
+          "name": "core/agents/contracts/data.yaml",
+          "type": "file"
+        },
+        {
+          "name": "core/agents/contracts/explore.yaml",
+          "type": "file"
+        },
+        {
+          "name": "core/agents/contracts/final-gate.yaml",
+          "type": "file"
+        },
+        {
+          "name": "core/agents/contracts/holo.yaml",
+          "type": "file"
+        },
+        {
+          "name": "core/agents/contracts/project-ro.yaml",
+          "type": "file"
+        },
+        {
+          "name": "core/agents/contracts/project-rw.yaml",
+          "type": "file"
+        },
+        {
+          "name": "core/agents/contracts/root-cause-specialist.yaml",
+          "type": "file"
+        },
+        {
+          "name": "core/agents/contracts/shell.yaml",
+          "type": "file"
+        },
+        {
+          "name": "core/agents/contracts/test-engineer.yaml",
+          "type": "file"
+        }
+      ]
+    }
+  },
+  {
+    "index": 7,
+    "request": {
+      "role": "user",
+      "content": "TOOL RESULT:\n{\"ok\": true, \"entries\": [{\"name\": \"core/agents/contracts/architecture-auditor.yaml\", \"type\": \"file\"}, {\"name\": \"core/agents/contracts/browser.yaml\", \"type\": \"file\"}, {\"name\": \"core/agents/contracts/bug-auditor.yaml\", \"type\": \"file\"}, {\"name\": \"core/agents/contracts/data.yaml\", \"type\": \"file\"}, {\"name\": \"core/agents/contracts/explore.yaml\", \"type\": \"file\"}, {\"name\": \"core/agents/contracts/final-gate.yaml\", \"type\": \"file\"}, {\"name\": \"core/agents/contracts/holo.yaml\", \"type\": \"file\"}, {\"name\": \"core/agents/contracts/project-ro.yaml\", \"type\": \"file\"}, {\"name\": \"core/agents/contracts/project-rw.yaml\", \"type\": \"file\"}, {\"name\": \"core/agents/contracts/root-cause-specialist.yaml\", \"type\": \"file\"}, {\"name\": \"core/agents/contracts/shell.yaml\", \"type\": \"file\"}, {\"name\": \"core/agents/contracts/test-engineer.yaml\", \"type\": \"file\"}]}"
+    },
+    "response": {
+      "choices": [
+        {
+          "finish_reason": "stop",
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "{\"action\":\"read\",\"path\":\"core/agents/contracts/project-rw.yaml\",\"start\":1,\"end\":200}",
+            "reasoning_content": "Let me read the project-rw contract and the tool-authority.md file.\n"
+          }
+        }
+      ],
+      "created": 1788104470,
+      "model": "/home/alpha/Playstoria/models/text/bartowski-Ornith-1.5-9B-Q5_K_M/Ornith-1.5-9B-Q5_K_M.gguf",
+      "system_fingerprint": "b1-8ce8ca6",
+      "object": "chat.completion",
+      "usage": {
+        "completion_tokens": 47,
+        "prompt_tokens": 2470,
+        "total_tokens": 2517,
+        "prompt_tokens_details": {
+          "cached_tokens": 2190
+        }
+      },
+      "id": "chatcmpl-eT56pzCdc4hLfw4Wbe1W3yK43THgiqen",
+      "timings": {
+        "cache_n": 2190,
+        "prompt_n": 280,
+        "prompt_ms": 4812.718,
+        "prompt_per_token_ms": 17.188278571428572,
+        "prompt_per_second": 58.17918274039742,
+        "predicted_n": 47,
+        "predicted_ms": 2819.318,
+        "predicted_per_token_ms": 59.98548936170213,
+        "predicted_per_second": 16.670698374571437
+      }
+    },
+    "parsed_action": {
+      "action": "read",
+      "path": "core/agents/contracts/project-rw.yaml",
+      "start": 1,
+      "end": 200
+    },
+    "tool_result": {
+      "ok": true,
+      "path": "core/agents/contracts/project-rw.yaml",
+      "start": 1,
+      "end": 25,
+      "content": "1: id: project-rw\n2: role: Project-scoped writer contract for a future adapter with explicit write authorization.\n3: responsibilities:\n4:   - Implement only the assigned project change.\n5:   - Preserve project instructions and unrelated work.\n6:   - Run project verification and report the exact diff.\n7: write_policy:\n8:   mode: explicit-scope\n9:   rule: Write only paths and operations authorized by the coordinator.\n10:   forbidden: No secrets, destructive resets, unrelated refactors, or external configuration changes.\n11: read_policy:\n12:   scope: Named project root and applicable instruction files.\n13:   requirement: Confirm scope before editing.\n14: shell_policy:\n15:   mode: approval-required\n16:   rule: Require approval for destructive, external, network, or deployment actions.\n17: delegation_policy:\n18:   mode: coordinator-controlled\n19:   rule: Do not delegate beyond the authorized task contract.\n20: skills_required: [agent-governance, verification]\n21: mcp_capabilities: [repository-read, repository-write, testing]\n22: inputs: [project-root, task, allowed-paths, acceptance-criteria]\n23: outputs: [implementation-diff, verification-report, residual-risk]\n24: verification_requirements: [scope-check, targeted-tests, diff-review, clean-secret-check]\n25: audit_behavior: Hand off for independent audit when behavior, integration, or security risk is material."
+    }
+  },
+  {
+    "index": 8,
+    "request": {
+      "role": "user",
+      "content": "TOOL RESULT:\n{\"ok\": true, \"path\": \"core/agents/contracts/project-rw.yaml\", \"start\": 1, \"end\": 25, \"content\": \"1: id: project-rw\\n2: role: Project-scoped writer contract for a future adapter with explicit write authorization.\\n3: responsibilities:\\n4:   - Implement only the assigned project change.\\n5:   - Preserve project instructions and unrelated work.\\n6:   - Run project verification and report the exact diff.\\n7: write_policy:\\n8:   mode: explicit-scope\\n9:   rule: Write only paths and operations authorized by the coordinator.\\n10:   forbidden: No secrets, destructive resets, unrelated refactors, or external configuration changes.\\n11: read_policy:\\n12:   scope: Named project root and applicable instruction files.\\n13:   requirement: Confirm scope before editing.\\n14: shell_policy:\\n15:   mode: approval-required\\n16:   rule: Require approval for destructive, external, network, or deployment actions.\\n17: delegation_policy:\\n18:   mode: coordinator-controlled\\n19:   rule: Do not delegate beyond the authorized task contract.\\n20: skills_required: [agent-governance, verification]\\n21: mcp_capabilities: [repository-read, repository-write, testing]\\n22: inputs: [project-root, task, allowed-paths, acceptance-criteria]\\n23: outputs: [implementation-diff, verification-report, residual-risk]\\n24: verification_requirements: [scope-check, targeted-tests, diff-review, clean-secret-check]\\n25: audit_behavior: Hand off for independent audit when behavior, integration, or security risk is material.\"}"
+    },
+    "response": {
+      "choices": [
+        {
+          "finish_reason": "stop",
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "{\"action\":\"read\",\"path\":\"library/rules/tool-authority.md\",\"start\":1,\"end\":200}",
+            "reasoning_content": "I have the chain. Let me also check the tool-authority.md to complete the chain to the final authority surface. The evaluator wants me to identify the authority/contract surface in core/agents/contracts/project-rw.yaml or library/rules/tool-authority.md. Let me read tool-authority.md to complete the chain.\n"
+          }
+        }
+      ],
+      "created": 1788104483,
+      "model": "/home/alpha/Playstoria/models/text/bartowski-Ornith-1.5-9B-Q5_K_M/Ornith-1.5-9B-Q5_K_M.gguf",
+      "system_fingerprint": "b1-8ce8ca6",
+      "object": "chat.completion",
+      "usage": {
+        "completion_tokens": 93,
+        "prompt_tokens": 2886,
+        "total_tokens": 2979,
+        "prompt_tokens_details": {
+          "cached_tokens": 2466
+        }
+      },
+      "id": "chatcmpl-of1VSt3ot8JGZp9rHcpoE4TayqiCf1dj",
+      "timings": {
+        "cache_n": 2466,
+        "prompt_n": 420,
+        "prompt_ms": 7509.658,
+        "prompt_per_token_ms": 17.880138095238095,
+        "prompt_per_second": 55.92797967630483,
+        "predicted_n": 93,
+        "predicted_ms": 5816.98,
+        "predicted_per_token_ms": 62.54817204301075,
+        "predicted_per_second": 15.987677454624222
+      }
+    },
+    "parsed_action": {
+      "action": "read",
+      "path": "library/rules/tool-authority.md",
+      "start": 1,
+      "end": 200
+    },
+    "tool_result": {
+      "ok": true,
+      "path": "library/rules/tool-authority.md",
+      "start": 1,
+      "end": 105,
+      "content": "1: # Coordinator and delegated tool authority\n2: \n3: This rule defines the capability boundary between the Holo coordinator and delegated roles.\n4: \n5: ## Core policy\n6: \n7: Holo is the primary coordinator and final integrator. Within the capabilities that the current harness, active project/workspace, trust state, user profile and MCP scope already make available, Holo should be **capability-complete** rather than artificially restricted to a small static tool allow-list.\n8: \n9: Delegated roles are different: they should remain **least-privileged** according to their canonical contracts.\n10: \n11: Conceptually:\n12: \n13: ```text\n14: HOLO\n15:   -> broad access to project-approved harness capabilities\n16:   -> may read, edit, execute, browse, use Skills/MCPs/tools and delegate when useful\n17:   -> still subject to host approvals, trust, project scope and human policy\n18: \n19: DELEGATED ROLE\n20:   -> only the tools/capabilities required by that role\n21:   -> read-only roles stay effectively read-only\n22:   -> nested delegation denied unless explicitly required\n23: ```\n24: \n25: Broad capability does **not** mean automatic approval. A tool may be available to Holo while the harness still asks the human before sensitive execution. Tool availability, tool approval and project/MCP scope are separate controls.\n26: \n27: ## What remains restricted on Holo\n28: \n29: Capability-complete Holo does not mean unrestricted routing authority.\n30: \n31: Preserve all of these invariants:\n32: \n33: - Holo selects roles, not models;\n34: - human-owned model/provider/reasoning bindings remain authoritative;\n35: - Holo must not silently substitute, fall back to, or inherit a different model for a delegated canonical role;\n36: - Holo's delegated-agent allow-list remains restricted to the canonical roles intended for that harness;\n37: - project-specific MCPs remain project/workspace scoped where the harness supports it;\n38: - globally installed MCPs that are not approved for the active project do not become automatically available merely because Holo is capability-complete;\n39: - host trust, approval, sandbox and sensitive-file controls remain active;\n40: - no generic model router, cross-harness dispatcher or universal capability resolver is introduced.\n41: \n42: ## Delegated-role least privilege\n43: \n44: Subagents, fixed role MCP tools and other delegated workers receive only the authority their role requires.\n45: \n46: Examples:\n47: \n48: - `explore`: read/search/context inspection only;\n49: - `shell`: bounded command execution appropriate to the assigned task;\n50: - `browser`: browser/web inspection capabilities plus only the local read context it needs;\n51: - `bug-auditor`, `architecture-auditor`, `final-gate`, `project-ro`: read-only effective authority;\n52: - `test-engineer`: test execution and evidence gathering without unrelated write authority unless explicitly required by the contract;\n53: - `project-rw`: write/execute only inside the explicit delegated scope.\n54: \n55: A delegated role must not inherit Holo's broad tool authority merely because the harness supports inheritance. If the native mechanism cannot preserve the role boundary, use the smallest faithful role-specific adaptation or report the limitation.\n56: \n57: ## Holo direct work versus delegation\n58: \n59: Holo may use any project-approved capability directly when delegation would add little value. Delegation exists for specialization, independent review, context isolation, cost control or useful parallelism; it is not required merely because a specialized tool exists.\n60: \n61: This means, for example, that Holo may use a native integrated browser directly for a quick visual check while still delegating a larger browser investigation to the canonical `browser` role when isolation or specialization helps.\n62: \n63: ## Harness realization\n64: \n65: ### Kilo\n66: \n67: Do not deny ordinary Kilo tools to Holo merely to make the coordinator least-privileged. Holo should be able to request the tools/MCPs/Skills available in the active project, while normal Kilo approval rules may still ask before sensitive actions.\n68: \n69: Keep `permission.task` special: deny by default and allow only the eleven canonical Holo subagents. Delegated subagents keep role-specific permissions and nested `task` denied by default.\n70: \n71: ### VS Code / Copilot\n72: \n73: Do not maintain a narrow hand-curated `tools:` list on Holo that suppresses newly available built-in or extension capabilities. Holo should receive the full tool catalog enabled for the active Copilot profile/project, including native Integrated Browser tools when the installed build exposes them.\n74: \n75: If the current `.agent.md`/Agent Host schema requires explicit tool declarations for the selected target, use the current native mechanism that means \"all enabled tools\" or derive the complete enabled catalog from the runtime; do not preserve a stale subset such as only `read`, `search`, `edit`, `execute`, `agent`, `web` and `todo`.\n76: \n77: Keep the `agents` allow-list restricted to the intended native Holo subagents. Broad tool access does not imply broad subagent access.\n78: \n79: ### Antigravity\n80: \n81: Holo remains the only native Holo agent. Give that main Holo agent the native tools and MCP capabilities approved for the active Project. Project permissions continue to narrow effective authority even when reusable MCP definitions are globally installed.\n82: \n83: The eleven canonical delegated roles remain fixed role-specific MCP tools with their own least-privileged operational authority and fixed model/provider bindings. Do not turn Holo's broad authority into a generic model bridge or pass it through to audit/read-only role tools.\n84: \n85: ### Zed\n86: \n87: The main Holo Agent Profile should receive the built-in tools, Skills and context-server tools approved for that project/profile instead of a small coordinator-only subset. Preserve project-level context-server scoping and worktree trust; capability-complete does not mean enabling every globally configured context server in every project.\n88: \n89: Canonical multi-model roles still use fixed role MCP tools where native `spawn_agent` would inherit Holo's broader tools or shared model and thereby violate the role contract.\n90: \n91: ## Validation\n92: \n93: After applying this rule to a harness, verify both sides of the boundary:\n94: \n95: 1. Holo can see and use the currently enabled project-approved capabilities, including newly added native capabilities such as browser tools when present;\n96: 2. Holo's agent/subagent routing allow-list remains constrained;\n97: 3. delegated roles still expose only their role-appropriate tools/authority;\n98: 4. read-only roles cannot edit or execute destructive actions;\n99: 5. project-specific MCPs have not been widened to unrelated projects;\n100: 6. sensitive actions still follow the harness's native approval/trust policy;\n101: 7. no model fallback, inherited-role model substitution or generic router was introduced.\n102: \n103: The invariant is:\n104: \n105: `Holo is capability-complete inside the project's approved harness surface; delegated roles are capability-minimal inside their contracts.`"
+    }
+  },
+  {
+    "index": 9,
+    "request": {
+      "role": "user",
+      "content": "TOOL RESULT:\n{\"ok\": true, \"path\": \"library/rules/tool-authority.md\", \"start\": 1, \"end\": 105, \"content\": \"1: # Coordinator and delegated tool authority\\n2: \\n3: This rule defines the capability boundary between the Holo coordinator and delegated roles.\\n4: \\n5: ## Core policy\\n6: \\n7: Holo is the primary coordinator and final integrator. Within the capabilities that the current harness, active project/workspace, trust state, user profile and MCP scope already make available, Holo should be **capability-complete** rather than artificially restricted to a small static tool allow-list.\\n8: \\n9: Delegated roles are different: they should remain **least-privileged** according to their canonical contracts.\\n10: \\n11: Conceptually:\\n12: \\n13: ```text\\n14: HOLO\\n15:   -> broad access to project-approved harness capabilities\\n16:   -> may read, edit, execute, browse, use Skills/MCPs/tools and delegate when useful\\n17:   -> still subject to host approvals, trust, project scope and human policy\\n18: \\n19: DELEGATED ROLE\\n20:   -> only the tools/capabilities required by that role\\n21:   -> read-only roles stay effectively read-only\\n22:   -> nested delegation denied unless explicitly required\\n23: ```\\n24: \\n25: Broad capability does **not** mean automatic approval. A tool may be available to Holo while the harness still asks the human before sensitive execution. Tool availability, tool approval and project/MCP scope are separate controls.\\n26: \\n27: ## What remains restricted on Holo\\n28: \\n29: Capability-complete Holo does not mean unrestricted routing authority.\\n30: \\n31: Preserve all of these invariants:\\n32: \\n33: - Holo selects roles, not models;\\n34: - human-owned model/provider/reasoning bindings remain authoritative;\\n35: - Holo must not silently substitute, fall back to, or inherit a different model for a delegated canonical role;\\n36: - Holo's delegated-agent allow-list remains restricted to the canonical roles intended for that harness;\\n37: - project-specific MCPs remain project/workspace scoped where the harness supports it;\\n38: - globally installed MCPs that are not approved for the active project do not become automatically available merely because Holo is capability-complete;\\n39: - host trust, approval, sandbox and sensitive-file controls remain active;\\n40: - no generic model router, cross-harness dispatcher or universal capability resolver is introduced.\\n41: \\n42: ## Delegated-role least privilege\\n43: \\n44: Subagents, fixed role MCP tools and other delegated workers receive only the authority their role requires.\\n45: \\n46: Examples:\\n47: \\n48: - `explore`: read/search/context inspection only;\\n49: - `shell`: bounded command execution appropriate to the assigned task;\\n50: - `browser`: browser/web inspection capabilities plus only the local read context it needs;\\n51: - `bug-auditor`, `architecture-auditor`, `final-gate`, `project-ro`: read-only effective authority;\\n52: - `test-engineer`: test execution and evidence gathering without unrelated write authority unless explicitly required by the contract;\\n53: - `project-rw`: write/execute only inside the explicit delegated scope.\\n54: \\n55: A delegated role must not inherit Holo's broad tool authority merely because the harness supports inheritance. If the native mechanism cannot preserve the role boundary, use the smallest faithful role-specific adaptation or report the limitation.\\n56: \\n57: ## Holo direct work versus delegation\\n58: \\n59: Holo may use any project-approved capability directly when delegation would add little value. Delegation exists for specialization, independent review, context isolation, cost control or useful parallelism; it is not required merely because a specialized tool exists.\\n60: \\n61: This means, for example, that Holo may use a native integrated browser directly for a quick visual check while still delegating a larger browser investigation to the canonical `browser` role when isolation or specialization helps.\\n62: \\n63: ## Harness realization\\n64: \\n65: ### Kilo\\n66: \\n67: Do not deny ordinary Kilo tools to Holo merely to make the coordinator least-privileged. Holo should be able to request the tools/MCPs/Skills available in the active project, while normal Kilo approval rules may still ask before sensitive actions.\\n68: \\n69: Keep `permission.task` special: deny by default and allow only the eleven canonical Holo subagents. Delegated subagents keep role-specific permissions and nested `task` denied by default.\\n70: \\n71: ### VS Code / Copilot\\n72: \\n73: Do not maintain a narrow hand-curated `tools:` list on Holo that suppresses newly available built-in or extension capabilities. Holo should receive the full tool catalog enabled for the active Copilot profile/project, including native Integrated Browser tools when the installed build exposes them.\\n74: \\n75: If the current `.agent.md`/Agent Host schema requires explicit tool declarations for the selected target, use the current native mechanism that means \\\"all enabled tools\\\" or derive the complete enabled catalog from the runtime; do not preserve a stale subset such as only `read`, `search`, `edit`, `execute`, `agent`, `web` and `todo`.\\n76: \\n77: Keep the `agents` allow-list restricted to the intended native Holo subagents. Broad tool access does not imply broad subagent access.\\n78: \\n79: ### Antigravity\\n80: \\n81: Holo remains the only native Holo agent. Give that main Holo agent the native tools and MCP capabilities approved for the active Project. Project permissions continue to narrow effective authority even when reusable MCP definitions are globally installed.\\n82: \\n83: The eleven canonical delegated roles remain fixed role-specific MCP tools with their own least-privileged operational authority and fixed model/provider bindings. Do not turn Holo's broad authority into a generic model bridge or pass it through to audit/read-only role tools.\\n84: \\n85: ### Zed\\n86: \\n87: The main Holo Agent Profile should receive the built-in tools, Skills and context-server tools approved for that project/profile instead of a small coordinator-only subset. Preserve project-level context-server scoping and worktree trust; capability-complete does not mean enabling every globally configured context server in every project.\\n88: \\n89: Canonical multi-model roles still use fixed role MCP tools where native `spawn_agent` would inherit Holo's broader tools or shared model and thereby violate the role contract.\\n90: \\n91: ## Validation\\n92: \\n93: After applying this rule to a harness, verify both sides of the boundary:\\n94: \\n95: 1. Holo can see and use the currently enabled project-approved capabilities, including newly added native capabilities such as browser tools when present;\\n96: 2. Holo's agent/subagent routing allow-list remains constrained;\\n97: 3. delegated roles still expose only their role-appropriate tools/authority;\\n98: 4. read-only roles cannot edit or execute destructive actions;\\n99: 5. project-specific MCPs have not been widened to unrelated projects;\\n100: 6. sensitive actions still follow the harness's native approval/trust policy;\\n101: 7. no model fallback, inherited-role model substitution or generic router was introduced.\\n102: \\n103: The invariant is:\\n104: \\n105: `Holo is capability-complete inside the project's approved harness surface; delegated roles are capability-minimal inside their contracts.`\"}"
+    },
+    "error": "TimeoutError: request exceeded 30.00s"
+  }
+]

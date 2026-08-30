@@ -1,0 +1,37 @@
+{
+  "choices": [
+    {
+      "finish_reason": "length",
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "",
+        "reasoning_content": "The user is asking"
+      }
+    }
+  ],
+  "created": 1788104427,
+  "model": "/home/alpha/Playstoria/models/text/bartowski-Ornith-1.5-9B-Q5_K_M/Ornith-1.5-9B-Q5_K_M.gguf",
+  "system_fingerprint": "b1-8ce8ca6",
+  "object": "chat.completion",
+  "usage": {
+    "completion_tokens": 4,
+    "prompt_tokens": 16,
+    "total_tokens": 20,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    }
+  },
+  "id": "chatcmpl-XUJsxkdsLUnSu674I4SpKbHhjwt3f3mc",
+  "timings": {
+    "cache_n": 0,
+    "prompt_n": 16,
+    "prompt_ms": 128.852,
+    "prompt_per_token_ms": 8.05325,
+    "prompt_per_second": 124.17347033806227,
+    "predicted_n": 4,
+    "predicted_ms": 94.935,
+    "predicted_per_token_ms": 23.73375,
+    "predicted_per_second": 42.13409174698478
+  }
+}

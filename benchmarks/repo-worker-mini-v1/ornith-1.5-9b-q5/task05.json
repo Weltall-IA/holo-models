@@ -1,0 +1,258 @@
+{
+  "model": "ornith-1.5-9b-q5",
+  "task": "task05",
+  "objective": {
+    "objective_pass": false,
+    "checks": {
+      "project-ro": false,
+      "project-rw": false,
+      "explore": false,
+      "browser": false
+    },
+    "tests": {
+      "answer_markers": {
+        "project-ro": false,
+        "project-rw": false,
+        "explore": false,
+        "browser": false
+      }
+    },
+    "diff": "",
+    "status": "",
+    "changed_files": [],
+    "initial_files": [
+      "fixture/README.md",
+      "fixture/config.json",
+      "fixture/loader.md",
+      "fixture/loader.py",
+      "fixture/loader.pyi",
+      "fixture/retry.py",
+      "fixture/settings.py",
+      "fixture/settings.pyi",
+      "fixture/test_loader.py",
+      "fixture/test_retry.py",
+      "fixture/test_settings.py"
+    ]
+  },
+  "answer": "{\"action\":\"read\",\"path\":\"AGENTS.md\",\"start\":1,\"end\":200}",
+  "stop_reason": "generation_timeout",
+  "tool_calls": 3,
+  "files_read": [
+    "AGENTS.md"
+  ],
+  "files_read_count": 1,
+  "files_changed_count": 0,
+  "patch_attempts": 0,
+  "prompt_tokens": 915,
+  "completion_tokens": 107,
+  "generation_tokens": 107,
+  "seconds": 56.7,
+  "generation_tok_s": 1.89,
+  "prompt_processing_tok_s": null,
+  "peak_vram_mib": 11859,
+  "runtime": "deepgrove llama.cpp",
+  "runtime_command": [
+    "/home/alpha/Playstoria/models/engines/deepgrove-llama.cpp/build/bin/llama-server",
+    "-m",
+    "/home/alpha/Playstoria/models/text/bartowski-Ornith-1.5-9B-Q5_K_M/Ornith-1.5-9B-Q5_K_M.gguf",
+    "--host",
+    "127.0.0.1",
+    "--port",
+    "8122",
+    "-c",
+    "32768",
+    "-np",
+    "1",
+    "-ngl",
+    "auto",
+    "-fit",
+    "on",
+    "-fa",
+    "on",
+    "-ctk",
+    "q8_0",
+    "-ctv",
+    "q4_0",
+    "-t",
+    "4",
+    "-tb",
+    "4",
+    "--no-webui"
+  ],
+  "config": {
+    "context": 32768,
+    "concurrency": 1,
+    "flash_attention": true,
+    "kv_k": "q8_0",
+    "kv_v": "q4_0",
+    "threads": 4,
+    "batch_threads": 4,
+    "seed": 3407,
+    "temperature": 0.2,
+    "top_p": 0.95,
+    "speculative_decoding": false,
+    "max_tokens_per_turn": 128,
+    "max_generated_tokens_per_task": 12000
+  },
+  "browser": "unavailable",
+  "transcript": [
+    {
+      "index": 1,
+      "request": {
+        "role": "user",
+        "content": "You are a repository worker. Work only on the assigned task below.\n\n# Task 5: Long investigation / browse-like\n\nInvestigate the repository's current role-routing configuration and local documentation. Search broadly enough to identify every file that defines or constrains tool authority for `project-ro`, `project-rw`, and `explore`. Read the relevant documentation and configuration, inspect the current branch/worktree state, and report one short operational conclusion: which role may edit, which role is read-only, and whether browser capability is guaranteed by the local VS Code harness documentation. Do not edit files.\n\nThe evaluator checks the role/tool conclusions and that the answer cites the relevant local paths. Browser is unavailable in this benchmark harness and must not be claimed as used.\n\n\nAvailable tools. Emit exactly one JSON object per turn, with no Markdown.\n{\"action\":\"list\",\"path\":\".\"}\n{\"action\":\"search\",\"query\":\"literal or regex\",\"path\":\".\"}\n{\"action\":\"read\",\"path\":\"relative/path\",\"start\":1,\"end\":200}\n{\"action\":\"patch\",\"diff\":\"unified diff text\"}\n{\"action\":\"run\",\"command\":\"safe shell command\"}\n{\"action\":\"done\",\"answer\":\"final concise answer\"}\nRules: use relative paths; no network, destructive commands, git reset/checkout, or access outside the worktree. For patch, provide a standard unified diff. You must use tools to discover context. For edit tasks, run tests after editing and repair failures. Do not claim a tool call you did not make.\n\nStart by choosing the smallest useful read/search/list action. When complete, emit done with a concise answer."
+      },
+      "response": {
+        "choices": [
+          {
+            "finish_reason": "stop",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"action\":\"list\",\"path\":\".\"}",
+              "reasoning_content": "Let me investigate the repository's role-routing configuration. I need to find files that define or constrain tool authority for `project-ro`, `project-rw`, and `explore`. Let me start by listing the root and searching for relevant terms.\n"
+            }
+          }
+        ],
+        "created": 1788104898,
+        "model": "/home/alpha/Playstoria/models/text/bartowski-Ornith-1.5-9B-Q5_K_M/Ornith-1.5-9B-Q5_K_M.gguf",
+        "system_fingerprint": "b1-8ce8ca6",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 62,
+          "prompt_tokens": 376,
+          "total_tokens": 438,
+          "prompt_tokens_details": {
+            "cached_tokens": 26
+          }
+        },
+        "id": "chatcmpl-0OTZHBG2Q79TvxferEaczOKTVQdWWswy",
+        "timings": {
+          "cache_n": 26,
+          "prompt_n": 350,
+          "prompt_ms": 767.801,
+          "prompt_per_token_ms": 2.193717142857143,
+          "prompt_per_second": 455.84728334555433,
+          "predicted_n": 62,
+          "predicted_ms": 2172.779,
+          "predicted_per_token_ms": 35.04482258064516,
+          "predicted_per_second": 28.5348855083743
+        }
+      },
+      "parsed_action": {
+        "action": "list",
+        "path": "."
+      },
+      "tool_result": {
+        "ok": true,
+        "entries": [
+          {
+            "name": ".git",
+            "type": "file"
+          },
+          {
+            "name": ".gitignore",
+            "type": "file"
+          },
+          {
+            "name": "AGENTS.md",
+            "type": "file"
+          },
+          {
+            "name": "ARCHITECTURE.md",
+            "type": "file"
+          },
+          {
+            "name": "README.md",
+            "type": "file"
+          },
+          {
+            "name": "capabilities",
+            "type": "dir"
+          },
+          {
+            "name": "core",
+            "type": "dir"
+          },
+          {
+            "name": "fixture",
+            "type": "dir"
+          },
+          {
+            "name": "harnesses",
+            "type": "dir"
+          },
+          {
+            "name": "library",
+            "type": "dir"
+          }
+        ]
+      }
+    },
+    {
+      "index": 2,
+      "request": {
+        "role": "user",
+        "content": "TOOL RESULT:\n{\"ok\": true, \"entries\": [{\"name\": \".git\", \"type\": \"file\"}, {\"name\": \".gitignore\", \"type\": \"file\"}, {\"name\": \"AGENTS.md\", \"type\": \"file\"}, {\"name\": \"ARCHITECTURE.md\", \"type\": \"file\"}, {\"name\": \"README.md\", \"type\": \"file\"}, {\"name\": \"capabilities\", \"type\": \"dir\"}, {\"name\": \"core\", \"type\": \"dir\"}, {\"name\": \"fixture\", \"type\": \"dir\"}, {\"name\": \"harnesses\", \"type\": \"dir\"}, {\"name\": \"library\", \"type\": \"dir\"}]}"
+      },
+      "response": {
+        "choices": [
+          {
+            "finish_reason": "stop",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"action\":\"read\",\"path\":\"AGENTS.md\",\"start\":1,\"end\":200}",
+              "reasoning_content": "Let me investigate the role-routing configuration. Let me look at the key documentation files and configuration directories.\n"
+            }
+          }
+        ],
+        "created": 1788104900,
+        "model": "/home/alpha/Playstoria/models/text/bartowski-Ornith-1.5-9B-Q5_K_M/Ornith-1.5-9B-Q5_K_M.gguf",
+        "system_fingerprint": "b1-8ce8ca6",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 45,
+          "prompt_tokens": 539,
+          "total_tokens": 584,
+          "prompt_tokens_details": {
+            "cached_tokens": 372
+          }
+        },
+        "id": "chatcmpl-MRFpXfkW0SqCmJ8aaVBx4b1boEt61pf4",
+        "timings": {
+          "cache_n": 372,
+          "prompt_n": 167,
+          "prompt_ms": 663.579,
+          "prompt_per_token_ms": 3.9735269461077842,
+          "prompt_per_second": 251.6655891762699,
+          "predicted_n": 45,
+          "predicted_ms": 1809.45,
+          "predicted_per_token_ms": 40.21,
+          "predicted_per_second": 24.86943546381497
+        }
+      },
+      "parsed_action": {
+        "action": "read",
+        "path": "AGENTS.md",
+        "start": 1,
+        "end": 200
+      },
+      "tool_result": {
+        "ok": true,
+        "path": "AGENTS.md",
+        "start": 1,
+        "end": 172,
+        "content": "1: # Holo Agent Tooling Governance\n2: \n3: ## Repository mission\n4: \n5: This repository is an **architecture specification**, not a harness synchronization system.\n6: \n7: Models working here must preserve that boundary. Do not add generators, target trees, installers, background synchronization, schema translators, host-runtime wrappers or automatic propagation between harnesses unless the user explicitly changes the mission of the repository.\n8: \n9: Semantic conformance is required; structural identity is not.\n10: \n11: ## Source of truth\n12: \n13: - `ARCHITECTURE.md` defines the system-level architecture.\n14: - `library/agents/` defines canonical role behavior without hardcoded model identity.\n15: - `core/agents/contracts/` defines formal role boundaries and permission intent.\n16: - `library/rules/` defines delegation, evidence, tool-authority, freshness, MCP scoping, session-orchestration and repository-governance invariants.\n17: - `library/routing/model-bindings.yaml` is the human-owned reference mapping from role to model.\n18: - `harnesses/` records expectations and known constraints for each harness.\n19: - `capabilities/` explains how Skills, MCPs/tools and Hooks fit into the architecture.\n20: \n21: ## Agent model\n22: \n23: Holo is the coordinating primary agent and final integrator. It works alone when delegation adds little value. When delegation helps, Holo selects a **role**. The human-owned binding selects the model occupying that role.\n24: \n25: Keep separate:\n26: \n27: 1. Role — who should perform the work.\n28: 2. Model binding — which model the human assigned to that role.\n29: 3. Skill — reusable procedure or domain knowledge.\n30: 4. MCP/tool — external capability.\n31: 5. Hook — optional harness lifecycle automation.\n32: 6. Project rule — workspace-specific constraint.\n33: 7. Harness implementation — native realization of the architecture in one runtime.\n34: 8. Session/worktree manager — macro orchestration for independent top-level sessions, not a canonical role.\n35: \n36: `explore`, `shell` and `browser` are context workers. They collect and condense context; they are not final reasoning authorities.\n37: \n38: ## Capability selection\n39: \n40: Holo plans in terms of the user's goal, the canonical role and the capability required to complete that goal. Concrete tool names belong to execution in the current harness.\n41: \n42: Use the conceptual flow `goal -> role -> needed capability -> concrete available tool/Skill`. Confirm that a concrete MCP/tool or Skill is actually available before using it. Do not infer availability solely from the architecture or from another harness.\n43: \n44: Holo itself should be **capability-complete within the active project's approved harness surface**. Do not make the coordinator least-privileged by freezing it to a small static tool list that can silently omit new native capabilities. Once a capability is enabled for the active project/profile and permitted by the harness, Holo may use it directly when delegation adds little value.\n45: \n46: Delegated roles are different: they remain **least-privileged** according to their role contracts. Read-only roles must not inherit Holo's edit/execute authority; scoped writers stay scoped; nested delegation remains restricted where required.\n47: \n48: Tool availability does not bypass approval, trust, sandbox, project/MCP scoping or model-routing rules. Broad Holo capability must not widen the canonical subagent allow-list or enable unrelated global MCPs in every project.\n49: \n50: Hooks are normally lifecycle-driven by the harness. Treat their effects as part of the execution environment rather than selecting them like ordinary tools unless a harness explicitly exposes a manual hook action.\n51: \n52: This policy is semantic only. Do not implement a universal capability resolver, registry, dispatcher, adapter layer or synchronization mechanism to enforce it.\n53: \n54: See `library/rules/tool-authority.md`.\n55: \n56: ## MCP scope\n57: \n58: MCP availability should be as narrow as practical. Prefer project/workspace-local MCP configuration when the current harness supports it. Keep an MCP global only when the human intentionally wants it across most projects or when the harness lacks a faithful narrower scope.\n59: \n60: Do not interpret `capabilities/roster.yaml` as an instruction to enable every MCP globally. A roster entry records desired/observed capability coverage, not activation scope.\n61: \n62: Project scoping reduces tool-selection noise, context/tool surface, startup overhead and unnecessary cross-project authority. Follow `library/rules/mcp-scoping.md` and preserve secrets outside committed project configuration.\n63: \n64: ## Harness implementation rule\n65: \n66: A harness is allowed to implement the architecture differently from every other harness.\n67: \n68: When asked to apply Holo to Kilo, VS Code, Antigravity, Zed or a future harness:\n69: \n70: 1. inspect the target harness's installed version/build, current native configuration/schema and current official documentation;\n71: 2. map the canonical roles and permission intent onto the features the harness actually supports now;\n72: 3. distinguish product support from local configuration state;\n73: 4. expose the active project's approved harness capabilities broadly to Holo while keeping delegated roles least-privileged;\n74: 5. prefer project/workspace scope for project-specific MCPs where the harness supports it;\n75: 6. make changes in the target harness/configuration, preferably in a temporary branch/worktree when appropriate;\n76: 7. preserve unrelated native settings, credentials, OAuth, sessions, plugins and provider state;\n77: 8. verify behavior in that harness.\n78: \n79: Do not generate a native configuration from this repository merely to make harnesses look alike.\n80: \n81: If a harness changes its schema or gains a better native mechanism, update that harness implementation. Do not preserve an obsolete workaround just because it existed previously.\n82: \n83: Follow `library/rules/harness-freshness.md`. In particular, `unsupported` is a strong claim: absence from local config is not enough. Use `unknown` or `missing` when appropriate.\n84: \n85: ### Kilo task and Agent Manager\n86: \n87: Kilo's normal Holo delegation is `Holo primary -> task -> canonical custom subagent`. The subagent defines the role/model/permissions; `task` is the invocation mechanism.\n88: \n89: - Holo should be able to request the normal Kilo tools, Skills and MCP tools available to the active project; sensitive operations may still be approval-gated.\n90: - Holo should use an explicit `permission.task` allow-list for the eleven canonical Holo subagents.\n91: - Delegated Holo subagents should have nested task/delegation denied by default and role-specific least-privileged permissions.\n92: - Kilo Agent Manager is a macro session/worktree layer. If the human opens Agent Manager and starts a Holo session, Holo still uses `task` internally.\n93: - Agent Manager is optional and intended for independent large work that benefits from branch/worktree isolation; it is not a replacement for focused role delegation.\n94: \n95: See `harnesses/kilo.md`, `library/rules/tool-authority.md` and `library/rules/session-orchestration.md`.\n96: \n97: ### VS Code Agents window\n98: \n99: The VS Code Agents window is a macro session/worktree layer. A Holo Copilot session launched there continues to use native custom subagents and fixed role MCP tools internally.\n100: \n101: - Holo should receive the full tool catalog enabled for the active Copilot profile/project rather than a stale narrow `tools:` subset; current native capabilities such as Integrated Browser belong to Holo when enabled.\n102: - Holo should have an explicit `agents` allow-list for native Holo subagents.\n103: - Holo must not override a delegated role's human-owned model when invoking the subagent.\n104: - Delegated/read-only roles retain their narrow tool sets even though Holo has broad tool availability.\n105: - Where the installed build supports `reasoning-effort`, persist the human-owned effort in `.agent.md`; otherwise classify that part as manual/unverified.\n106: \n107: See `harnesses/vscode.md`, `library/rules/tool-authority.md` and `library/rules/session-orchestration.md`.\n108: \n109: ### Antigravity exception: roles are MCP tools, not native Holo subagents\n110: \n111: Current Antigravity custom subagents can use Antigravity model tiers such as `inherit`, `flash` and `pro`, but those choices cannot realize the full human-owned Holo roster across UCP/CLIProxyAPI and OpenCode.\n112: \n113: - `holo` is the **only** Antigravity agent used by the Holo architecture.\n114: - Holo receives the native tools and MCP capabilities approved for the active Project; Project permissions remain the authority boundary.\n115: - Do **not** create Antigravity native subagents for the eleven delegated canonical roles merely to mirror the roster.\n116: - OpenCode and UCP/CLIProxyAPI are exposed through fixed role-specific MCP tools.\n117: - Holo selects the role/tool; the human-owned binding selects the model.\n118: - Never use `model: inherit`, `flash` or `pro` as a silent substitute for a different human-selected role model.\n119: - Current OpenCode CLI/server support programmatic execution; absence of a pre-existing listening server does not by itself make OpenCode roles unsupported.\n120: - Preserve role instructions, least privilege, audit-context isolation and `claim + evidence + verification + uncertainty` across the MCP call.\n121: - Do not create a generic model bridge/router.\n122: \n123: The detailed contract lives in `harnesses/antigravity.md`.\n124: \n125: ### Zed exception: profiles/subagents are not the full roster\n126: \n127: Current Zed Agent supports profiles, native Skills, MCP, parallel threads/worktrees, `spawn_agent`, and a shared `agent.subagent_model`. Spawned subagents use the same tools as the parent, and the subagent model setting is not a separate per-canonical-role binding.\n128: \n129: - Use one Holo coordinator profile and give it the native tools, Skills and context-server tools approved for the active project/profile rather than a small static subset.\n130: - Do not require one profile/thread switch per Holo role.\n131: - Do not map strict canonical roles to native `spawn_agent` workers when inherited tools or the shared subagent model would violate the role contract.\n132: - Prefer one Holo coordinator profile plus fixed role-specific MCP tools for canonical roles that require distinct human-selected models/authority.\n133: - Native `spawn_agent` may still be used for opportunistic same-model/same-tool parallel work that is not misrepresented as a stricter canonical role.\n134: - Zed supports native Skills; per-Skill coverage must be inspected, not globally marked unsupported.\n135: - Parallel Zed threads/worktrees are macro isolation tools; a Holo profile inside them keeps the same internal role-routing semantics.\n136: \n137: The detailed contract lives in `harnesses/zed.md`.\n138: \n139: ## Session/worktree orchestration\n140: \n141: Session managers are optional macro layers. They do not change role semantics or model ownership.\n142: \n143: Use them when independent work would naturally justify a branch/worktree or long-running top-level session. Do not create extra sessions merely to simulate subagents. Avoid concurrent writers on the same working tree.\n144: \n145: See `library/rules/session-orchestration.md`.\n146: \n147: ## Cross-harness changes\n148: \n149: There is no automatic synchronization requirement.\n150: \n151: If the user adds a useful Skill, MCP, Hook, role behavior or permission improvement in one harness and wants it elsewhere, inspect the other harnesses independently and implement the equivalent native behavior where it makes sense.\n152: \n153: Differences are acceptable when caused by native harness capabilities or user intent. Document material limitations instead of inventing parity.\n154: \n155: ## Model routing\n156: \n157: Automatic model selection and substitution are forbidden. Holo selects roles, not models. The human-maintained binding is authoritative as an architectural roster; each harness may require its own native model identifier, role-specific MCP realization or manual configuration.\n158: \n159: A harness-native mechanism that allows the parent agent to explicitly override the delegated model must not be used by Holo when that would bypass the human-owned role binding.\n160: \n161: ## Delegation and evidence\n162: \n163: A specialist is not an oracle. Substantive delegated work should identify claim, evidence, verification and uncertainty. Holo evaluates that evidence proportionally to risk and remains responsible for the final decision and integration.\n164: \n165: ## Editing rules\n166: \n167: - Do not put release-specific model preferences inside role instructions, except descriptive role classes such as economical context workers.\n168: - Do not store credentials or harness runtime state here.\n169: - Do not make this repository the owner of live harness configuration.\n170: - Do not introduce generated target files as canonical architecture.\n171: - Do not require byte-for-byte parity between harnesses.\n172: - Prefer clear specification text over executable synchronization machinery."
+      }
+    },
+    {
+      "index": 3,
+      "request": {
+        "role": "user",
+        "content": "TOOL RESULT:\n{\"ok\": true, \"path\": \"AGENTS.md\", \"start\": 1, \"end\": 172, \"content\": \"1: # Holo Agent Tooling Governance\\n2: \\n3: ## Repository mission\\n4: \\n5: This repository is an **architecture specification**, not a harness synchronization system.\\n6: \\n7: Models working here must preserve that boundary. Do not add generators, target trees, installers, background synchronization, schema translators, host-runtime wrappers or automatic propagation between harnesses unless the user explicitly changes the mission of the repository.\\n8: \\n9: Semantic conformance is required; structural identity is not.\\n10: \\n11: ## Source of truth\\n12: \\n13: - `ARCHITECTURE.md` defines the system-level architecture.\\n14: - `library/agents/` defines canonical role behavior without hardcoded model identity.\\n15: - `core/agents/contracts/` defines formal role boundaries and permission intent.\\n16: - `library/rules/` defines delegation, evidence, tool-authority, freshness, MCP scoping, session-orchestration and repository-governance invariants.\\n17: - `library/routing/model-bindings.yaml` is the human-owned reference mapping from role to model.\\n18: - `harnesses/` records expectations and known constraints for each harness.\\n19: - `capabilities/` explains how Skills, MCPs/tools and Hooks fit into the architecture.\\n20: \\n21: ## Agent model\\n22: \\n23: Holo is the coordinating primary agent and final integrator. It works alone when delegation adds little value. When delegation helps, Holo selects a **role**. The human-owned binding selects the model occupying that role.\\n24: \\n25: Keep separate:\\n26: \\n27: 1. Role — who should perform the work.\\n28: 2. Model binding — which model the human assigned to that role.\\n29: 3. Skill — reusable procedure or domain knowledge.\\n30: 4. MCP/tool — external capability.\\n31: 5. Hook — optional harness lifecycle automation.\\n32: 6. Project rule — workspace-specific constraint.\\n33: 7. Harness implementation — native realization of the architecture in one runtime.\\n34: 8. Session/worktree manager — macro orchestration for independent top-level sessions, not a canonical role.\\n35: \\n36: `explore`, `shell` and `browser` are context workers. They collect and condense context; they are not final reasoning authorities.\\n37: \\n38: ## Capability selection\\n39: \\n40: Holo plans in terms of the user's goal, the canonical role and the capability required to complete that goal. Concrete tool names belong to execution in the current harness.\\n41: \\n42: Use the conceptual flow `goal -> role -> needed capability -> concrete available tool/Skill`. Confirm that a concrete MCP/tool or Skill is actually available before using it. Do not infer availability solely from the architecture or from another harness.\\n43: \\n44: Holo itself should be **capability-complete within the active project's approved harness surface**. Do not make the coordinator least-privileged by freezing it to a small static tool list that can silently omit new native capabilities. Once a capability is enabled for the active project/profile and permitted by the harness, Holo may use it directly when delegation adds little value.\\n45: \\n46: Delegated roles are different: they remain **least-privileged** according to their role contracts. Read-only roles must not inherit Holo's edit/execute authority; scoped writers stay scoped; nested delegation remains restricted where required.\\n47: \\n48: Tool availability does not bypass approval, trust, sandbox, project/MCP scoping or model-routing rules. Broad Holo capability must not widen the canonical subagent allow-list or enable unrelated global MCPs in every project.\\n49: \\n50: Hooks are normally lifecycle-driven by the harness. Treat their effects as part of the execution environment rather than selecting them like ordinary tools unless a harness explicitly exposes a manual hook action.\\n51: \\n52: This policy is semantic only. Do not implement a universal capability resolver, registry, dispatcher, adapter layer or synchronization mechanism to enforce it.\\n53: \\n54: See `library/rules/tool-authority.md`.\\n55: \\n56: ## MCP scope\\n57: \\n58: MCP availability should be as narrow as practical. Prefer project/workspace-local MCP configuration when the current harness supports it. Keep an MCP global only when the human intentionally wants it across most projects or when the harness lacks a faithful narrower scope.\\n59: \\n60: Do not interpret `capabilities/roster.yaml` as an instruction to enable every MCP globally. A roster entry records desired/observed capability coverage, not activation scope.\\n61: \\n62: Project scoping reduces tool-selection noise, context/tool surface, startup overhead and unnecessary cross-project authority. Follow `library/rules/mcp-scoping.md` and preserve secrets outside committed project configuration.\\n63: \\n64: ## Harness implementation rule\\n65: \\n66: A harness is allowed to implement the architecture differently from every other harness.\\n67: \\n68: When asked to apply Holo to Kilo, VS Code, Antigravity, Zed or a future harness:\\n69: \\n70: 1. inspect the target harness's installed version/build, current native configuration/schema and current official documentation;\\n71: 2. map the canonical roles and permission intent onto the features the harness actually supports now;\\n72: 3. distinguish product support from local configuration state;\\n73: 4. expose the active project's approved harness capabilities broadly to Holo while keeping delegated roles least-privileged;\\n74: 5. prefer project/workspace scope for project-specific MCPs where the harness supports it;\\n75: 6. make changes in the target harness/configuration, preferably in a temporary branch/worktree when appropriate;\\n76: 7. preserve unrelated native settings, credentials, OAuth, sessions, plugins and provider state;\\n77: 8. verify behavior in that harness.\\n78: \\n79: Do not generate a native configuration from this repository merely to make harnesses look alike.\\n80: \\n81: If a harness changes its schema or gains a better native mechanism, update that harness implementation. Do not preserve an obsolete workaround just because it existed previously.\\n82: \\n83: Follow `library/rules/harness-freshness.md`. In particular, `unsupported` is a strong claim: absence from local config is not enough. Use `unknown` or `missing` when appropriate.\\n84: \\n85: ### Kilo task and Agent Manager\\n86: \\n87: Kilo's normal Holo delegation is `Holo primary -> task -> canonical custom subagent`. The subagent defines the role/model/permissions; `task` is the invocation mechanism.\\n88: \\n89: - Holo should be able to request the normal Kilo tools, Skills and MCP tools available to the active project; sensitive operations may still be approval-gated.\\n90: - Holo should use an explicit `permission.task` allow-list for the eleven canonical Holo subagents.\\n91: - Delegated Holo subagents should have nested task/delegation denied by default and role-specific least-privileged permissions.\\n92: - Kilo Agent Manager is a macro session/worktree layer. If the human opens Agent Manager and starts a Holo session, Holo still uses `task` internally.\\n93: - Agent Manager is optional and intended for independent large work that benefits from branch/worktree isolation; it is not a replacement for focused role delegation.\\n94: \\n95: See `harnesses/kilo.md`, `library/rules/tool-authority.md` and `library/rules/session-orchestration.md`.\\n96: \\n97: ### VS Code Agents window\\n98: \\n99: The VS Code Agents window is a macro session/worktree layer. A Holo Copilot session launched there continues to use native custom subagents and fixed role MCP tools internally.\\n100: \\n101: - Holo should receive the full tool catalog enabled for the active Copilot profile/project rather than a stale narrow `tools:` subset; current native capabilities such as Integrated Browser belong to Holo when enabled.\\n102: - Holo should have an explicit `agents` allow-list for native Holo subagents.\\n103: - Holo must not override a delegated role's human-owned model when invoking the subagent.\\n104: - Delegated/read-only roles retain their narrow tool sets even though Holo has broad tool availability.\\n105: - Where the installed build supports `reasoning-effort`, persist the human-owned effort in `.agent.md`; otherwise classify that part as manual/unverified.\\n106: \\n107: See `harnesses/vscode.md`, `library/rules/tool-authority.md` and `library/rules/session-orchestration.md`.\\n108: \\n109: ### Antigravity exception: roles are MCP tools, not native Holo subagents\\n110: \\n111: Current Antigravity custom subagents can use Antigravity model tiers such as `inherit`, `flash` and `pro`, but those choices cannot realize the full human-owned Holo roster across UCP/CLIProxyAPI and OpenCode.\\n112: \\n113: - `holo` is the **only** Antigravity agent used by the Holo architecture.\\n114: - Holo receives the native tools and MCP capabilities approved for the active Project; Project permissions remain the authority boundary.\\n115: - Do **not** create Antigravity native subagents for the eleven delegated canonical roles merely to mirror the roster.\\n116: - OpenCode and UCP/CLIProxyAPI are exposed through fixed role-specific MCP tools.\\n117: - Holo selects the role/tool; the human-owned binding selects the model.\\n118: - Never use `model: inherit`, `flash` or `pro` as a silent substitute for a different human-selected role model.\\n119: - Current OpenCode CLI/server support programmatic execution; absence of a pre-existing listening server does not by itself make OpenCode roles unsupported.\\n120: - Preserve role instructions, least privilege, audit-context isolation and `claim + evidence + verification + uncertainty` across the MCP call.\\n121: - Do not create a generic model bridge/router.\\n122: \\n123: The detailed contract lives in `harnesses/antigravity.md`.\\n124: \\n125: ### Zed exception: profiles/subagents are not the full roster\\n126: \\n127: Current Zed Agent supports profiles, native Skills, MCP, parallel threads/worktrees, `spawn_agent`, and a shared `agent.subagent_model`. Spawned subagents use the same tools as the parent, and the subagent model setting is not a separate per-canonical-role binding.\\n128: \\n129: - Use one Holo coordinator profile and give it the native tools, Skills and context-server tools approved for the active project/profile rather than a small static subset.\\n130: - Do not require one profile/thread switch per Holo role.\\n131: - Do not map strict canonical roles to native `spawn_agent` workers when inherited tools or the shared subagent model would violate the role contract.\\n132: - Prefer one Holo coordinator profile plus fixed role-specific MCP tools for canonical roles that require distinct human-selected models/authority.\\n133: - Native `spawn_agent` may still be used for opportunistic same-model/same-tool parallel work that is not misrepresented as a stricter canonical role.\\n134: - Zed supports native Skills; per-Skill coverage must be inspected, not globally marked unsupported.\\n135: - Parallel Zed threads/worktrees are macro isolation tools; a Holo profile inside them keeps the same internal role-routing semantics.\\n136: \\n137: The detailed contract lives in `harnesses/zed.md`.\\n138: \\n139: ## Session/worktree orchestration\\n140: \\n141: Session managers are optional macro layers. They do not change role semantics or model ownership.\\n142: \\n143: Use them when independent work would naturally justify a branch/worktree or long-running top-level session. Do not create extra sessions merely to simulate subagents. Avoid concurrent writers on the same working tree.\\n144: \\n145: See `library/rules/session-orchestration.md`.\\n146: \\n147: ## Cross-harness changes\\n148: \\n149: There is no automatic synchronization requirement.\\n150: \\n151: If the user adds a useful Skill, MCP, Hook, role behavior or permission improvement in one harness and wants it elsewhere, inspect the other harnesses independently and implement the equivalent native behavior where it makes sense.\\n152: \\n153: Differences are acceptable when caused by native harness capabilities or user intent. Document material limitations instead of inventing parity.\\n154: \\n155: ## Model routing\\n156: \\n157: Automatic model selection and substitution are forbidden. Holo selects roles, not models. The human-maintained binding is authoritative as an architectural roster; each harness may require its own native model identifier, role-specific MCP realization or manual configuration.\\n158: \\n159: A harness-native mechanism that allows the parent agent to explicitly override the delegated model must not be used by Holo when that would bypass the human-owned role binding.\\n160: \\n161: ## Delegation and evidence\\n162: \\n163: A specialist is not an oracle. Substantive delegated work should identify claim, evidence, verification and uncertainty. Holo evaluates that evidence proportionally to risk and remains responsible for the final decision and integration.\\n164: \\n165: ## Editing rules\\n166: \\n167: - Do not put release-specific model preferences inside role instructions, except descriptive role classes such as economical context workers.\\n168: - Do not store credentials or harness runtime state here.\\n169: - Do not make this repository the owner of live harness configuration.\\n170: - Do not introduce generated target files as canonical architecture.\\n171: - Do not require byte-for-byte parity between harnesses.\\n172: - Prefer clear specification text over executable synchronization machinery.\"}"
+      },
+      "error": "TimeoutError: request exceeded 30.00s"
+    }
+  ]
+}

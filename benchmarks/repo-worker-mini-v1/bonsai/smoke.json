@@ -1,0 +1,36 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "OK"
+      }
+    }
+  ],
+  "created": 1788103735,
+  "model": "Ternary-Bonsai-27B-Abliterated-LowDeg-Q2_0.gguf",
+  "system_fingerprint": "b9599-9ca265a57",
+  "object": "chat.completion",
+  "usage": {
+    "completion_tokens": 2,
+    "prompt_tokens": 18,
+    "total_tokens": 20,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    }
+  },
+  "id": "chatcmpl-cIucVVEA3Efll3nRwxplV3Fdku15afbr",
+  "timings": {
+    "cache_n": 0,
+    "prompt_n": 18,
+    "prompt_ms": 439.787,
+    "prompt_per_token_ms": 24.43261111111111,
+    "prompt_per_second": 40.928904219542645,
+    "predicted_n": 2,
+    "predicted_ms": 162.203,
+    "predicted_per_token_ms": 81.1015,
+    "predicted_per_second": 12.330228170872301
+  }
+}
