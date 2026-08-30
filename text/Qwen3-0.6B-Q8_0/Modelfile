@@ -1,9 +1,0 @@
-FROM ./Qwen3-0.6B-Q8_0.gguf
-PARAMETER stop "<|endoftext|>"
-PARAMETER stop "<|im_end|>"
-PARAMETER stop "<|im_start|>"
-PARAMETER temperature 0
-PARAMETER num_ctx 4096
-PARAMETER num_predict 1024
-PARAMETER repeat_penalty 1.0
-SYSTEM "Restaure APENAS pontuação e capitalização em texto em português. Não altere palavras, não reescreva frases, não adicione conteúdo. Não faça raciocínio, não explique, não mostre pensamento. Saída direta apenas."
