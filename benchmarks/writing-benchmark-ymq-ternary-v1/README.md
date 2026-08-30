@@ -61,5 +61,7 @@ O erro ocorre antes do uso da GPU e antes do template de chat. Portanto, não h�
 
 - `ymq_s_pro.md`: relatório consolidado do YMQ
 - `ymq_s_pro-prompt*.md`: prompts e respostas individuais
-- `ternary-bonsai-load-failure.md`: diagnóstico do carregamento do Ternary
+- `ternary-bonsai-load-failure.md`: diagnóstico e solução do carregamento do Ternary
 - `run_ymq_ternary_benchmark.py`: runner reproduzível
+
+O GGUF Bonsai `Q2_0` não deve ser executado com o geo-llama/mainline. Ele usa o formato group-128 do fork PrismML. No ambiente desta máquina, o smoke test funciona com `engines/prism-llama/llama-prism-b9599-9ca265a/llama-cli` e `LD_LIBRARY_PATH` apontando para o vendor CUDA 12 do LM Studio; o comando completo está no diagnóstico acima.
