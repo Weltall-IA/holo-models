@@ -5,7 +5,7 @@
   "model_sha256": "527f276ddf047b3494de964985b5529b9fc3ecf739ea64d8fab3a6ef8403e81d",
   "runtime": "PrismML llama.cpp",
   "runtime_path": "/home/alpha/Playstoria/models/engines/prism-llama/llama-prism-b9599-9ca265a/llama-server",
-  "source_commit": "20db2e7199d9c19961ce08c4767b35087e1969fc",
+  "source_commit": "c919178521ad79f5d24dfe3aaf1edf65622da30e",
   "command": [
     "/home/alpha/Playstoria/models/engines/prism-llama/llama-prism-b9599-9ca265a/llama-server",
     "-m",
@@ -47,7 +47,7 @@
         }
       }
     ],
-    "created": 1788103735,
+    "created": 1788107219,
     "model": "Ternary-Bonsai-27B-Abliterated-LowDeg-Q2_0.gguf",
     "system_fingerprint": "b9599-9ca265a57",
     "object": "chat.completion",
@@ -59,17 +59,17 @@
         "cached_tokens": 0
       }
     },
-    "id": "chatcmpl-cIucVVEA3Efll3nRwxplV3Fdku15afbr",
+    "id": "chatcmpl-T0Lyl2Tq688J4uBoovDL3x0iaNWZdz55",
     "timings": {
       "cache_n": 0,
       "prompt_n": 18,
-      "prompt_ms": 439.787,
-      "prompt_per_token_ms": 24.43261111111111,
-      "prompt_per_second": 40.928904219542645,
+      "prompt_ms": 505.241,
+      "prompt_per_token_ms": 28.068944444444444,
+      "prompt_per_second": 35.626562373204074,
       "predicted_n": 2,
-      "predicted_ms": 162.203,
-      "predicted_per_token_ms": 81.1015,
-      "predicted_per_second": 12.330228170872301
+      "predicted_ms": 175.747,
+      "predicted_per_token_ms": 87.8735,
+      "predicted_per_second": 11.379995106602104
     }
   },
   "browser": "unavailable"

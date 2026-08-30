@@ -34,29 +34,27 @@
       "fixture/test_settings.py"
     ]
   },
-  "answer": "{\"action\":\"read\",\"path\":\"AGENTS.md\"}",
+  "answer": "{\"action\":\"search\",\"query\":\"reasoning|HOLO_REASONING\",\"path\":\".\"}",
   "stop_reason": "generation_timeout",
-  "tool_calls": 20,
+  "tool_calls": 11,
   "files_read": [
-    "AGENTS.md",
+    "fixture/config.json",
     "fixture/loader.md",
     "fixture/loader.py",
     "fixture/loader.pyi",
     "fixture/settings.py",
-    "fixture/settings.pyi",
-    "fixture/test_loader.py",
-    "fixture/test_settings.py"
+    "fixture/test_loader.py"
   ],
-  "files_read_count": 8,
+  "files_read_count": 6,
   "files_changed_count": 0,
   "patch_attempts": 0,
-  "prompt_tokens": 22646,
-  "completion_tokens": 1565,
-  "generation_tokens": 1565,
-  "seconds": 116.97,
-  "generation_tok_s": 13.38,
+  "prompt_tokens": 9233,
+  "completion_tokens": 2101,
+  "generation_tokens": 2101,
+  "seconds": 180.01,
+  "generation_tok_s": 11.67,
   "prompt_processing_tok_s": null,
-  "peak_vram_mib": 11760,
+  "peak_vram_mib": 12736,
   "runtime": "deepgrove llama.cpp",
   "runtime_command": [
     "/home/alpha/Playstoria/models/engines/deepgrove-llama.cpp/build/bin/llama-server",
@@ -98,7 +96,7 @@
     "temperature": 0.2,
     "top_p": 0.95,
     "speculative_decoding": false,
-    "max_tokens_per_turn": 128,
+    "max_tokens_per_turn": 1024,
     "max_generated_tokens_per_task": 12000
   },
   "browser": "unavailable",
@@ -121,7 +119,7 @@
             }
           }
         ],
-        "created": 1788104758,
+        "created": 1788108765,
         "model": "/home/alpha/Playstoria/models/text/bartowski-Ornith-1.5-9B-Q5_K_M/Ornith-1.5-9B-Q5_K_M.gguf",
         "system_fingerprint": "b1-8ce8ca6",
         "object": "chat.completion",
@@ -133,17 +131,17 @@
             "cached_tokens": 26
           }
         },
-        "id": "chatcmpl-KQcE3cFTGDSWHegSKigXNzfudZlKEAst",
+        "id": "chatcmpl-rU4wincwl6QC420XyeB0psSVYsv3Gr1x",
         "timings": {
           "cache_n": 26,
           "prompt_n": 287,
-          "prompt_ms": 589.018,
-          "prompt_per_token_ms": 2.0523275261324043,
-          "prompt_per_second": 487.25166293729563,
+          "prompt_ms": 537.01,
+          "prompt_per_token_ms": 1.8711149825783973,
+          "prompt_per_second": 534.4406994283161,
           "predicted_n": 28,
-          "predicted_ms": 1066.16,
-          "predicted_per_token_ms": 38.07714285714286,
-          "predicted_per_second": 26.26247467547085
+          "predicted_ms": 707.226,
+          "predicted_per_token_ms": 25.25807142857143,
+          "predicted_per_second": 39.59130461832569
         }
       },
       "parsed_action": {
@@ -214,7 +212,7 @@
             }
           }
         ],
-        "created": 1788104760,
+        "created": 1788108767,
         "model": "/home/alpha/Playstoria/models/text/bartowski-Ornith-1.5-9B-Q5_K_M/Ornith-1.5-9B-Q5_K_M.gguf",
         "system_fingerprint": "b1-8ce8ca6",
         "object": "chat.completion",
@@ -226,17 +224,17 @@
             "cached_tokens": 309
           }
         },
-        "id": "chatcmpl-0mOfgF753zpLpwVUIKta1FprJacUOmUD",
+        "id": "chatcmpl-WWKTsrIh6XMWKzGiemuVy1k7p5yij64T",
         "timings": {
           "cache_n": 309,
           "prompt_n": 167,
-          "prompt_ms": 644.274,
-          "prompt_per_token_ms": 3.857928143712575,
-          "prompt_per_second": 259.20648668113256,
+          "prompt_ms": 630.869,
+          "prompt_per_token_ms": 3.7776586826347307,
+          "prompt_per_second": 264.7142275179158,
           "predicted_n": 32,
-          "predicted_ms": 1109.96,
-          "predicted_per_token_ms": 34.68625,
-          "predicted_per_second": 28.82986774298173
+          "predicted_ms": 864.38,
+          "predicted_per_token_ms": 27.011875,
+          "predicted_per_second": 37.02075476063768
         }
       },
       "parsed_action": {
@@ -311,7 +309,7 @@
             }
           }
         ],
-        "created": 1788104763,
+        "created": 1788108769,
         "model": "/home/alpha/Playstoria/models/text/bartowski-Ornith-1.5-9B-Q5_K_M/Ornith-1.5-9B-Q5_K_M.gguf",
         "system_fingerprint": "b1-8ce8ca6",
         "object": "chat.completion",
@@ -323,17 +321,17 @@
             "cached_tokens": 472
           }
         },
-        "id": "chatcmpl-n46xxzUN2cDsXgNQeivJmUJyFDltKvYc",
+        "id": "chatcmpl-g13fPEiyqawO1ksVtyCkmUqZuW5JlIsr",
         "timings": {
           "cache_n": 472,
           "prompt_n": 198,
-          "prompt_ms": 920.268,
-          "prompt_per_token_ms": 4.647818181818182,
-          "prompt_per_second": 215.15471580017993,
+          "prompt_ms": 876.926,
+          "prompt_per_token_ms": 4.428919191919192,
+          "prompt_per_second": 225.78872105514034,
           "predicted_n": 52,
-          "predicted_ms": 1973.556,
-          "predicted_per_token_ms": 37.953,
-          "predicted_per_second": 26.34837825731826
+          "predicted_ms": 1508.711,
+          "predicted_per_token_ms": 29.013673076923077,
+          "predicted_per_second": 34.466508164916945
         }
       },
       "parsed_action": {
@@ -366,7 +364,7 @@
             }
           }
         ],
-        "created": 1788104765,
+        "created": 1788108771,
         "model": "/home/alpha/Playstoria/models/text/bartowski-Ornith-1.5-9B-Q5_K_M/Ornith-1.5-9B-Q5_K_M.gguf",
         "system_fingerprint": "b1-8ce8ca6",
         "object": "chat.completion",
@@ -378,17 +376,17 @@
             "cached_tokens": 666
           }
         },
-        "id": "chatcmpl-jiisRerapqJQO8G2vewXrCbCbb3ZUFJr",
+        "id": "chatcmpl-CiO8Kdt6p7ZlD9PGGtq0qF3QhKYIfPCR",
         "timings": {
           "cache_n": 666,
           "prompt_n": 144,
-          "prompt_ms": 859.683,
-          "prompt_per_token_ms": 5.970020833333333,
-          "prompt_per_second": 167.50360307229528,
+          "prompt_ms": 842.455,
+          "prompt_per_token_ms": 5.850381944444445,
+          "prompt_per_second": 170.9290110451003,
           "predicted_n": 45,
-          "predicted_ms": 1762.877,
-          "predicted_per_token_ms": 39.175044444444445,
-          "predicted_per_second": 25.526454766838526
+          "predicted_ms": 1414.695,
+          "predicted_per_token_ms": 31.437666666666665,
+          "predicted_per_second": 31.808976493166373
         }
       },
       "parsed_action": {
@@ -421,7 +419,7 @@
             }
           }
         ],
-        "created": 1788104767,
+        "created": 1788108773,
         "model": "/home/alpha/Playstoria/models/text/bartowski-Ornith-1.5-9B-Q5_K_M/Ornith-1.5-9B-Q5_K_M.gguf",
         "system_fingerprint": "b1-8ce8ca6",
         "object": "chat.completion",
@@ -433,17 +431,17 @@
             "cached_tokens": 806
           }
         },
-        "id": "chatcmpl-V4wQHip08wJDXHoewWk70Mu411cML12g",
+        "id": "chatcmpl-tGJFqmEaoC8PVXBD0uckkxZEhyRj8YEM",
         "timings": {
           "cache_n": 806,
           "prompt_n": 95,
-          "prompt_ms": 698.662,
-          "prompt_per_token_ms": 7.354336842105264,
-          "prompt_per_second": 135.97419066730407,
+          "prompt_ms": 725.741,
+          "prompt_per_token_ms": 7.639378947368421,
+          "prompt_per_second": 130.90069322251327,
           "predicted_n": 36,
-          "predicted_ms": 1413.773,
-          "predicted_per_token_ms": 39.27147222222222,
-          "predicted_per_second": 25.4637767166299
+          "predicted_ms": 1157.558,
+          "predicted_per_token_ms": 32.15438888888889,
+          "predicted_per_second": 31.099953522847237
         }
       },
       "parsed_action": {
@@ -476,7 +474,7 @@
             }
           }
         ],
-        "created": 1788104770,
+        "created": 1788108776,
         "model": "/home/alpha/Playstoria/models/text/bartowski-Ornith-1.5-9B-Q5_K_M/Ornith-1.5-9B-Q5_K_M.gguf",
         "system_fingerprint": "b1-8ce8ca6",
         "object": "chat.completion",
@@ -488,17 +486,17 @@
             "cached_tokens": 897
           }
         },
-        "id": "chatcmpl-6bdvNWgWgVubC1ypVQQZtVyhrcFhE2lX",
+        "id": "chatcmpl-YB3X9JAHyGq3tlVNIciDNBa82sRMeooo",
         "timings": {
           "cache_n": 897,
           "prompt_n": 123,
-          "prompt_ms": 963.4,
-          "prompt_per_token_ms": 7.832520325203252,
-          "prompt_per_second": 127.67282541000621,
+          "prompt_ms": 963.722,
+          "prompt_per_token_ms": 7.835138211382113,
+          "prompt_per_second": 127.63016720589549,
           "predicted_n": 45,
-          "predicted_ms": 1826.618,
-          "predicted_per_token_ms": 40.59151111111111,
-          "predicted_per_second": 24.63569284875108
+          "predicted_ms": 1504.359,
+          "predicted_per_token_ms": 33.4302,
+          "predicted_per_second": 29.913072610992458
         }
       },
       "parsed_action": {
@@ -522,126 +520,38 @@
       "response": {
         "choices": [
           {
-            "finish_reason": "length",
-            "index": 0,
-            "message": {
-              "role": "assistant",
-              "content": "",
-              "reasoning_content": "Let me understand the task. I need to add support for loading a `reasoning_budget` integer from the environment variable `HOLO_REASONING_BUDGET`. I need to update:\n1. The loader (fixture/loader.py)\n2. Its public typed settings surface (fixture/loader.pyi)\n3. The test (fixture/test_loader.py)\n4. The local documentation (fixture/loader.md)\n\nPreserve existing default and validation behavior.\n\nLet me read the remaining files: loader.md, settings.pyi, test_settings.py, config.json, README.md.\n\nLet me read loader.md and the other relevant"
-            }
-          }
-        ],
-        "created": 1788104777,
-        "model": "/home/alpha/Playstoria/models/text/bartowski-Ornith-1.5-9B-Q5_K_M/Ornith-1.5-9B-Q5_K_M.gguf",
-        "system_fingerprint": "b1-8ce8ca6",
-        "object": "chat.completion",
-        "usage": {
-          "completion_tokens": 128,
-          "prompt_tokens": 1148,
-          "total_tokens": 1276,
-          "prompt_tokens_details": {
-            "cached_tokens": 1016
-          }
-        },
-        "id": "chatcmpl-PlEhW76eob5T83X0Iq5kB334NZifjaJR",
-        "timings": {
-          "cache_n": 1016,
-          "prompt_n": 132,
-          "prompt_ms": 1076.425,
-          "prompt_per_token_ms": 8.154734848484848,
-          "prompt_per_second": 122.6281440880693,
-          "predicted_n": 128,
-          "predicted_ms": 5546.567,
-          "predicted_per_token_ms": 43.3325546875,
-          "predicted_per_second": 23.077337747835735
-        }
-      }
-    },
-    {
-      "index": 8,
-      "request": {
-        "role": "user",
-        "content": "Invalid protocol. Emit exactly one JSON object using the available actions."
-      },
-      "response": {
-        "choices": [
-          {
-            "finish_reason": "length",
-            "index": 0,
-            "message": {
-              "role": "assistant",
-              "content": "",
-              "reasoning_content": "Let me understand the task. I need to add support for loading a `reasoning_budget` integer from the environment variable `HOLO_REASONING_BUDGET`. I need to update:\n1. The loader (fixture/loader.py)\n2. Its public typed settings surface (fixture/loader.pyi)\n3. The test (fixture/test_loader.py)\n4. The local documentation (fixture/loader.md)\n\nLet me look at the remaining files to understand the pattern fully. Let me read the loader.md, settings.pyi, and test_settings.py.\n\nWait, I already read loader.py, loader.pyi, test"
-            }
-          }
-        ],
-        "created": 1788104783,
-        "model": "/home/alpha/Playstoria/models/text/bartowski-Ornith-1.5-9B-Q5_K_M/Ornith-1.5-9B-Q5_K_M.gguf",
-        "system_fingerprint": "b1-8ce8ca6",
-        "object": "chat.completion",
-        "usage": {
-          "completion_tokens": 128,
-          "prompt_tokens": 1171,
-          "total_tokens": 1299,
-          "prompt_tokens_details": {
-            "cached_tokens": 1144
-          }
-        },
-        "id": "chatcmpl-CdiIA2mAlDazGh9uGgwjTamUrNccNcZm",
-        "timings": {
-          "cache_n": 1144,
-          "prompt_n": 27,
-          "prompt_ms": 388.016,
-          "prompt_per_token_ms": 14.370962962962963,
-          "prompt_per_second": 69.5847593913653,
-          "predicted_n": 128,
-          "predicted_ms": 5622.113,
-          "predicted_per_token_ms": 43.9227578125,
-          "predicted_per_second": 22.767240715368047
-        }
-      }
-    },
-    {
-      "index": 9,
-      "request": {
-        "role": "user",
-        "content": "Invalid protocol. Emit exactly one JSON object using the available actions."
-      },
-      "response": {
-        "choices": [
-          {
             "finish_reason": "stop",
             "index": 0,
             "message": {
               "role": "assistant",
               "content": "{\"action\":\"read\",\"path\":\"fixture/loader.md\"}",
-              "reasoning_content": "Let me look at the remaining files I need to understand. I've read loader.py, loader.pyi, test_loader.py, settings.py. Let me also check the loader.md documentation and the test_settings.py and settings.pyi to understand the full pattern.\n\nLet me read the loader.md documentation and the remaining files.\n"
+              "reasoning_content": "Let me understand the task. I need to add support for loading a `reasoning_budget` integer from the environment variable `HOLO_REASONING_BUDGET`. I need to update:\n1. The loader (fixture/loader.py)\n2. Its public typed settings surface (fixture/loader.pyi)\n3. The test (fixture/test_loader.py)\n4. The local documentation (fixture/loader.md)\n\nPreserve existing default and validation behavior.\n\nLet me read the remaining files: loader.md, settings.pyi, test_settings.py, config.json, README.md.\n\nLet me read loader.md and the other relevant files.\n"
             }
           }
         ],
-        "created": 1788104787,
+        "created": 1788108782,
         "model": "/home/alpha/Playstoria/models/text/bartowski-Ornith-1.5-9B-Q5_K_M/Ornith-1.5-9B-Q5_K_M.gguf",
         "system_fingerprint": "b1-8ce8ca6",
         "object": "chat.completion",
         "usage": {
-          "completion_tokens": 80,
-          "prompt_tokens": 1194,
-          "total_tokens": 1274,
+          "completion_tokens": 145,
+          "prompt_tokens": 1148,
+          "total_tokens": 1293,
           "prompt_tokens_details": {
-            "cached_tokens": 1167
+            "cached_tokens": 1016
           }
         },
-        "id": "chatcmpl-wPGPZwtZzdBQJPsGxEIi5ZaYLC6Q705i",
+        "id": "chatcmpl-8S4zl124QNJZgwjQYussqx5p0gvXLjMw",
         "timings": {
-          "cache_n": 1167,
-          "prompt_n": 27,
-          "prompt_ms": 380.651,
-          "prompt_per_token_ms": 14.098185185185185,
-          "prompt_per_second": 70.93111537865393,
-          "predicted_n": 80,
-          "predicted_ms": 3536.738,
-          "predicted_per_token_ms": 44.209224999999996,
-          "predicted_per_second": 22.619713419540833
+          "cache_n": 1016,
+          "prompt_n": 132,
+          "prompt_ms": 1154.528,
+          "prompt_per_token_ms": 8.746424242424242,
+          "prompt_per_second": 114.33243715180575,
+          "predicted_n": 145,
+          "predicted_ms": 5160.248,
+          "predicted_per_token_ms": 35.58791724137931,
+          "predicted_per_second": 28.09942467881389
         }
       },
       "parsed_action": {
@@ -657,7 +567,7 @@
       }
     },
     {
-      "index": 10,
+      "index": 8,
       "request": {
         "role": "user",
         "content": "TOOL RESULT:\n{\"ok\": true, \"path\": \"fixture/loader.md\", \"start\": 1, \"end\": 3, \"content\": \"1: # Loader\\n2: \\n3: `load` reads `HOLO_RETRIES` and otherwise uses the default of 2.\"}"
@@ -665,488 +575,157 @@
       "response": {
         "choices": [
           {
-            "finish_reason": "length",
+            "finish_reason": "stop",
             "index": 0,
             "message": {
               "role": "assistant",
-              "content": "",
-              "reasoning_content": "Let me review all the files I've read:\n\n1. `fixture/loader.py`:\n```python\nfrom dataclasses import dataclass\n\n\n@dataclass\nclass Settings:\n    retries: int = 2\n\n\ndef load(env: dict[str, str]) -> Settings:\n    return Settings(retries=int(env.get(\"HOLO_RETRIES\", \"2\")))\n```\n\n2. `fixture/loader.pyi`:\n```python\nfrom typing import Mapping\nfrom loader import Settings\n\ndef load(env: Mapping[str, str]) -> Settings: ...\n```\n\n3. `fixture/test_loader.py`:\n```python\n"
+              "content": "{\"action\":\"read\",\"path\":\"fixture/config.json\"}",
+              "reasoning_content": "Let me understand the task. I need to add support for loading a `reasoning_budget` integer from the environment variable `HOLO_REASONING_BUDGET`. I need to update:\n1. The loader (`fixture/loader.py`)\n2. Its public typed settings surface (`fixture/loader.pyi`)\n3. The test (`fixture/test_loader.py`)\n4. The local documentation (`fixture/loader.md`)\n\nPreserve the existing default and validation behavior.\n\nLet me look at the existing pattern:\n- `loader.py`: `Settings` dataclass with `retries: int = 2`, and `load` reads `HOLO_RETRIES` with default \"2\".\n- `loader.pyi`: imports `Settings` from `loader`, defines `load`.\n- `test_loader.py`: tests default and env for retries.\n- `loader.md`: documents `HOLO_RETRIES` and default of 2.\n\nNow I need to add `reasoning_budget: int = 2` (preserving default behavior - the default is 2, matching the pattern). And `load` should read `HOLO_REASONING_BUDGET` with default \"2\".\n\nWait, let me think about the default. The task says \"Preserve the existing default and validation behavior.\" The existing default for retries is 2. For reasoning_budget, I should pick a sensible default. Since the pattern uses 2 for retries, and reasoning_budget is a budget, maybe a larger default like 2000 or something. But the task says preserve existing default behavior. Hmm.\n\nActually, \"Preserve the existing default and validation behavior\" likely means: keep the existing `retries` default of 2 and validation (int parsing). For the new field, I need to choose a default. Let me think about what's reasonable.\n\nActually, let me reconsider. The instruction is a bit ambiguous. Let me look at whether there's a config.json or other docs that might hint at the default. Let me check the fixture/config.json and other docs.\n\nActually, let me be careful. The task says \"Preserve the existing default and validation behavior.\" This means the existing `retries` field should keep its default of 2 and its int validation. For the new `reasoning_budget`, I need to add it. The default value for reasoning_budget isn't specified, so I should pick a reasonable one.\n\nLet me check config.json and other docs to see if there's a hint.\n\nLet me read the remaining files to understand the full context before making changes. Let me check config.json, settings.pyi, test_settings.py, and the README files.\n\nActually, let me focus. The key files to update are clear. But let me check config.json and the other docs to make sure I'm consistent. Let me also check the test command - the task says \"Run the provided test command.\" I need to find what the test command is. Let me check AGENTS.md, README.md, ARCHITECTURE.md.\n\nLet me read config.json and the docs.\n"
             }
           }
         ],
-        "created": 1788104794,
+        "created": 1788108819,
         "model": "/home/alpha/Playstoria/models/text/bartowski-Ornith-1.5-9B-Q5_K_M/Ornith-1.5-9B-Q5_K_M.gguf",
         "system_fingerprint": "b1-8ce8ca6",
         "object": "chat.completion",
         "usage": {
-          "completion_tokens": 128,
-          "prompt_tokens": 1280,
-          "total_tokens": 1408,
+          "completion_tokens": 652,
+          "prompt_tokens": 1234,
+          "total_tokens": 1886,
           "prompt_tokens_details": {
-            "cached_tokens": 1190
+            "cached_tokens": 1144
           }
         },
-        "id": "chatcmpl-HVu8CGKP2xYlAmGNdLQkINEFmOo9WWN9",
+        "id": "chatcmpl-x7sm5KHo1qLC2Ei0PZ7K2ToYfWK7AvJF",
         "timings": {
-          "cache_n": 1190,
+          "cache_n": 1144,
           "prompt_n": 90,
-          "prompt_ms": 927.109,
-          "prompt_per_token_ms": 10.301211111111112,
-          "prompt_per_second": 97.07596409915122,
-          "predicted_n": 128,
-          "predicted_ms": 5861.202,
-          "predicted_per_token_ms": 45.790640625,
-          "predicted_per_second": 21.83852390687098
+          "prompt_ms": 816.324,
+          "prompt_per_token_ms": 9.070266666666667,
+          "prompt_per_second": 110.25034177605953,
+          "predicted_n": 652,
+          "predicted_ms": 35728.916,
+          "predicted_per_token_ms": 54.798950920245396,
+          "predicted_per_second": 18.24852452842398
         }
+      },
+      "parsed_action": {
+        "action": "read",
+        "path": "fixture/config.json"
+      },
+      "tool_result": {
+        "ok": true,
+        "path": "fixture/config.json",
+        "start": 1,
+        "end": 1,
+        "content": "1: {\"tool_timeout_seconds\": 30, \"retries\": 2}"
+      }
+    },
+    {
+      "index": 9,
+      "request": {
+        "role": "user",
+        "content": "TOOL RESULT:\n{\"ok\": true, \"path\": \"fixture/config.json\", \"start\": 1, \"end\": 1, \"content\": \"1: {\\\"tool_timeout_seconds\\\": 30, \\\"retries\\\": 2}\"}"
+      },
+      "response": {
+        "choices": [
+          {
+            "finish_reason": "length",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"action\":\"search\",\"query\":\"reasoning_budget|HOLO_REASONING_BUDGET|reason",
+              "reasoning_content": "Let me understand the task. I need to add support for loading a `reasoning_budget` integer from the environment variable `HOLO_REASONING_BUDGET`. I need to update:\n1. The loader (`fixture/loader.py`)\n2. Its public typed settings surface (`fixture/loader.pyi`)\n3. The test (`fixture/test_loader.py`)\n4. The local documentation (`fixture/loader.md`)\n\nPreserve the existing default and validation behavior. Run the provided test command.\n\nLet me look at the existing pattern:\n- `loader.py`: `Settings` dataclass with `retries: int = 2`, and `load` reads `HOLO_RETRIES` with default \"2\".\n- `loader.pyi`: type stub.\n- `test_loader.py`: tests default and env.\n- `loader.md`: documentation.\n\nI should follow the existing pattern. The `reasoning_budget` should be an integer with a default. What default? The task says \"Preserve the existing default and validation behavior.\" The existing default for retries is 2. For reasoning_budget, I need to pick a reasonable default. Let me think about what makes sense.\n\nActually, the task says \"Preserve the existing default and validation behavior.\" This means I should keep the existing default (2) and validation (int conversion) behavior for the existing field, and add the new field following the same pattern.\n\nFor the new `reasoning_budget`, what default should I use? The task doesn't specify a particular value. Let me think about a reasonable default. A reasoning budget is typically a token count. A common default might be something like 1000 or 2000. But since the task doesn't specify, I should pick something reasonable.\n\nHmm, let me reconsider. The task says \"add support for loading a `reasoning_budget` integer from the environment variable `HOLO_REASONING_BUDGET`.\" It doesn't specify a default value. I'll pick a sensible default. Given the pattern uses 2 for retries, but reasoning budget is a different kind of value (token count), I'll use a reasonable default like 1000.\n\nActually, let me reconsider whether there's a hint. The task says \"Preserve the existing default and validation behavior.\" This is about preserving the existing behavior, not about the new field's default. So I have freedom to choose the new default.\n\nLet me use 1000 as a reasonable default for reasoning budget (tokens). Actually, let me think about what's most natural. A reasoning budget in tokens... common values are 1000, 2000, 4000. I'll go with 1000.\n\nWait, but I should be careful. Let me check if there's any other documentation or config that might hint at the expected value. Let me check the other files - settings.py, settings.pyi, test_settings.py, and the README files.\n\nActually, the task is specifically about the loader pattern. The settings.py is a separate thing (tool_timeout_seconds, retries). The loader is the one with HOLO_RETRIES. So I should focus on the loader.\n\nLet me look at the remaining files to be thorough, then make my changes. Let me check test_settings.py and settings.pyi to understand the full pattern, and the README files for documentation.\n\nActually, let me be efficient. The task is clear about which files to update:\n1. loader.py - add reasoning_budget field and load logic\n2. loader.pyi - add type stub\n3. test_loader.py - add test\n4. loader.md - add documentation\n\nLet me also check the README files to see if they mention the loader and need updating. The task says \"the local documentation\" - this could be loader.md specifically, or also README files. Let me check.\n\nLet me read the remaining relevant files first. Let me check test_settings.py, settings.pyi, and the README files.\n\nActually, let me focus. The task says \"Update the loader, its public typed settings surface, the test, and the local documentation.\" This maps to:\n- loader = fixture/loader.py\n- public typed settings surface = fixture/loader.pyi\n- test = fixture/test_loader.py\n- local documentation = fixture/loader.md\n\nSo I'll update those four files. Let me also quickly check the README files to see if they reference the loader pattern and might need updating, but the primary docs are the four files.\n\nLet me decide on the default value. I'll go with 1000. Actually, let me reconsider - maybe I should look for any hints in the repo. Let me search for \"reasoning\" to see if there's any existing reference.\n\nLet me do a search first.\n"
+            }
+          }
+        ],
+        "created": 1788108937,
+        "model": "/home/alpha/Playstoria/models/text/bartowski-Ornith-1.5-9B-Q5_K_M/Ornith-1.5-9B-Q5_K_M.gguf",
+        "system_fingerprint": "b1-8ce8ca6",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 1024,
+          "prompt_tokens": 1309,
+          "total_tokens": 2333,
+          "prompt_tokens_details": {
+            "cached_tokens": 1230
+          }
+        },
+        "id": "chatcmpl-DCDw9rB3j3zeg3ZdyEPEMNGC0Qdffggl",
+        "timings": {
+          "cache_n": 1230,
+          "prompt_n": 79,
+          "prompt_ms": 1104.41,
+          "prompt_per_token_ms": 13.97987341772152,
+          "prompt_per_second": 71.5314059090374,
+          "predicted_n": 1024,
+          "predicted_ms": 117424.128,
+          "predicted_per_token_ms": 114.672,
+          "predicted_per_second": 8.720524626761547
+        }
+      }
+    },
+    {
+      "index": 10,
+      "request": {
+        "role": "user",
+        "content": "Invalid protocol. Emit exactly one JSON object using the available actions."
+      },
+      "response": {
+        "choices": [
+          {
+            "finish_reason": "stop",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"action\":\"search\",\"query\":\"reasoning|HOLO_REASONING\",\"path\":\".\"}",
+              "reasoning_content": "The search query needs to be a literal or regex. Let me use a proper regex query.\n"
+            }
+          }
+        ],
+        "created": 1788108940,
+        "model": "/home/alpha/Playstoria/models/text/bartowski-Ornith-1.5-9B-Q5_K_M/Ornith-1.5-9B-Q5_K_M.gguf",
+        "system_fingerprint": "b1-8ce8ca6",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 42,
+          "prompt_tokens": 1352,
+          "total_tokens": 1394,
+          "prompt_tokens_details": {
+            "cached_tokens": 1305
+          }
+        },
+        "id": "chatcmpl-PlU4z16FhNXn2KEp2gkNGB5qv070zLR7",
+        "timings": {
+          "cache_n": 1305,
+          "prompt_n": 47,
+          "prompt_ms": 650.595,
+          "prompt_per_token_ms": 13.842446808510639,
+          "prompt_per_second": 72.2415634918805,
+          "predicted_n": 42,
+          "predicted_ms": 1976.717,
+          "predicted_per_token_ms": 47.06469047619048,
+          "predicted_per_second": 21.24735103709838
+        }
+      },
+      "parsed_action": {
+        "action": "search",
+        "query": "reasoning|HOLO_REASONING",
+        "path": "."
+      },
+      "tool_result": {
+        "ok": true,
+        "matches": "/tmp/repo-worker-mini-v1-worktrees/ornith-1.5-9b-q5-task04-1788108764101/AGENTS.md:36:`explore`, `shell` and `browser` are context workers. They collect and condense context; they are not final reasoning authorities.\n/tmp/repo-worker-mini-v1-worktrees/ornith-1.5-9b-q5-task04-1788108764101/AGENTS.md:119:- Where the installed build supports `reasoning-effort`, persist the human-owned effort in `.agent.md`; otherwise classify that part as manual/unverified.\n/tmp/repo-worker-mini-v1-worktrees/ornith-1.5-9b-q5-task04-1788108764101/ARCHITECTURE.md:88:- human-owned model/provider/reasoning bindings remain authoritative;\n/tmp/repo-worker-mini-v1-worktrees/ornith-1.5-9b-q5-task04-1788108764101/harnesses/antigravity.md:82:UCP-bound role tools may call the configured CLIProxyAPI-compatible endpoint directly when that is the verified local access path. Keep model IDs and reasoning variants fixed per role.\n/tmp/repo-worker-mini-v1-worktrees/ornith-1.5-9b-q5-task04-1788108764101/harnesses/kilo.md:7:Current Kilo supports custom primary agents and subagents with isolated sessions, per-agent model overrides, per-agent model variants/reasoning defaults, prompts, permissions, and delegation through the `task` tool. Custom providers can point at OpenAI-compatible endpoints such as CLIProxyAPI.\n/tmp/repo-worker-mini-v1-worktrees/ornith-1.5-9b-q5-task04-1788108764101/harnesses/kilo.md:33:- Each delegated role carries its human-owned `model` binding and `variant`/reasoning setting where Kilo can express it.\n/tmp/repo-worker-mini-v1-worktrees/ornith-1.5-9b-q5-task04-1788108764101/harnesses/vscode.md:69:Reasoning configuration is version-sensitive. Builds that support `reasoning-effort` in custom `.agent.md` files should persist the human-owned reasoning level there. Builds that do not support it may require session/UI reasoning selection.\n/tmp/repo-worker-mini-v1-worktrees/ornith-1.5-9b-q5-task04-1788108764101/harnesses/vscode.md:71:`reasoning-effort` controls the model's reasoning depth/effort; it does not change tools, permissions, provider availability or context isolation. Higher effort may improve difficult reasoning but usually costs more latency/tokens. Preserve the roster intent without treating reasoning effort as a permission mechanism.\n/tmp/repo-worker-mini-v1-worktrees/ornith-1.5-9b-q5-task04-1788108764101/harnesses/vscode.md:100:6. verify Holo's `agents` allow-list, `disable-model-invocation`, each delegated role's narrow tool set, model and reasoning behavior;\n/tmp/repo-worker-mini-v1-worktrees/ornith-1.5-9b-q5-task04-1788108764101/library/routing/model-bindings.yaml:21:    reasoning: high\n/tmp/repo-worker-mini-v1-worktrees/ornith-1.5-9b-q5-task04-1788108764101/library/routing/model-bindings.yaml:27:    reasoning: medium\n/tmp/repo-worker-mini-v1-worktrees/ornith-1.5-9b-q5-task04-1788108764101/library/routing/model-bindings.yaml:34:    reasoning: medium\n/tmp/repo-worker-mini-v1-worktrees/ornith-1.5-9b-q5-task04-1788108764101/library/routing/model-bindings.yaml:41:    reasoning: low\n/tmp/repo-worker-mini-v1-worktrees/ornith-1.5-9b-q5-task04-1788108764101/library/routing/model-bindings.yaml:48:    reasoning: max\n/tmp/repo-worker-mini-v1-worktrees/ornith-1.5-9b-q5-task04-1788108764101/library/routing/model-bindings.yaml:54:    reasoning: default\n/tmp/repo-worker-mini-v1-worktrees/ornith-1.5-9b-q5-task04-1788108764101/library/routing/model-bindings.yaml:60:    reasoning: max\n/tmp/repo-worker-mini-v1-worktrees/ornith-1.5-9b-q5-task04-1788108764101/library/routing/model-bindings.yaml:66:    reasoning: high\n/tmp/repo-worker-mini-v1-worktrees/ornith-1.5-9b-q5-task04-1788108764101/library/routing/model-bindings.yaml:72:    reasoning: max\n/tmp/repo-worker-mini-v1-worktrees/ornith-1.5-9b-q5-task04-1788108764101/library/routing/model-bindings.yaml:78:    reasoning: max\n/tmp/repo-worker-mini-v1-worktrees/ornith-1.5-9b-q5-task04-1788108764101/library/routing/model-bindings.yaml:84:    reasoning: medium\n/tmp/repo-worker-mini-v1-worktrees/ornith-1.5-9b-q5-task04-1788108764101/library/routing/model-bindings.yaml:90:    reasoning: max\n/tmp/repo-worker-mini-v1-worktrees/ornith-1.5-9b-q5-task04-1788108764101/library/routing/model-bindings.yaml:99:  - Holo never changes reasoning levels, models or access routes automatically.\n/tmp/repo-worker-mini-v1-worktrees/ornith-1.5-9b-q5-task04-1788108764101/library/rules/local-harness-application.md:63:The human-owned roster in `library/routing/model-bindings.yaml` is authoritative. Holo selects roles; the local realization fixes the model/provider/reasoning for each role where the harness can faithfully express it.\n/tmp/repo-worker-mini-v1-worktrees/ornith-1.5-9b-q5-task04-1788108764101/library/rules/local-harness-application.md:65:Never repair a binding by silently substituting another model, provider, reasoning level or inherited session model.\n/tmp/repo-worker-mini-v1-worktrees/ornith-1.5-9b-q5-task04-1788108764101/library/rules/local-harness-application.md:112:- each subagent carries its human-owned model/provider and variant/reasoning where the installed Kilo version can express it;\n/tmp/repo-worker-mini-v1-worktrees/ornith-1.5-9b-q5-task04-1788108764101/library/rules/local-harness-application.md:147:- if the installed build supports `reasoning-effort` in `.agent.md`, persist the human-owned reasoning level there; otherwise classify reasoning as manual/unverified;\n/tmp/repo-worker-mini-v1-worktrees/ornith-1.5-9b-q5-task04-1788108764101/library/rules/local-harness-application.md:252:- model/reasoning/permission status;\n/tmp/repo-worker-mini-v1-worktrees/ornith-1.5-9b-q5-task04-1788108764101/library/rules/tool-authority.md:34:- human-owned model/provider/reasoning bindings remain authoritative;\n",
+        "exit_code": 0
       }
     },
     {
       "index": 11,
       "request": {
         "role": "user",
-        "content": "Invalid protocol. Emit exactly one JSON object using the available actions."
+        "content": "TOOL RESULT:\n{\"ok\": true, \"matches\": \"/tmp/repo-worker-mini-v1-worktrees/ornith-1.5-9b-q5-task04-1788108764101/AGENTS.md:36:`explore`, `shell` and `browser` are context workers. They collect and condense context; they are not final reasoning authorities.\\n/tmp/repo-worker-mini-v1-worktrees/ornith-1.5-9b-q5-task04-1788108764101/AGENTS.md:119:- Where the installed build supports `reasoning-effort`, persist the human-owned effort in `.agent.md`; otherwise classify that part as manual/unverified.\\n/tmp/repo-worker-mini-v1-worktrees/ornith-1.5-9b-q5-task04-1788108764101/ARCHITECTURE.md:88:- human-owned model/provider/reasoning bindings remain authoritative;\\n/tmp/repo-worker-mini-v1-worktrees/ornith-1.5-9b-q5-task04-1788108764101/harnesses/antigravity.md:82:UCP-bound role tools may call the configured CLIProxyAPI-compatible endpoint directly when that is the verified local access path. Keep model IDs and reasoning variants fixed per role.\\n/tmp/repo-worker-mini-v1-worktrees/ornith-1.5-9b-q5-task04-1788108764101/harnesses/kilo.md:7:Current Kilo supports custom primary agents and subagents with isolated sessions, per-agent model overrides, per-agent model variants/reasoning defaults, prompts, permissions, and delegation through the `task` tool. Custom providers can point at OpenAI-compatible endpoints such as CLIProxyAPI.\\n/tmp/repo-worker-mini-v1-worktrees/ornith-1.5-9b-q5-task04-1788108764101/harnesses/kilo.md:33:- Each delegated role carries its human-owned `model` binding and `variant`/reasoning setting where Kilo can express it.\\n/tmp/repo-worker-mini-v1-worktrees/ornith-1.5-9b-q5-task04-1788108764101/harnesses/vscode.md:69:Reasoning configuration is version-sensitive. Builds that support `reasoning-effort` in custom `.agent.md` files should persist the human-owned reasoning level there. Builds that do not support it may require session/UI reasoning selection.\\n/tmp/repo-worker-mini-v1-worktrees/ornith-1.5-9b-q5-task04-1788108764101/harnesses/vscode.md:71:`reasoning-effort` controls the model's reasoning depth/effort; it does not change tools, permissions, provider availability or context isolation. Higher effort may improve difficult reasoning but usually costs more latency/tokens. Preserve the roster intent without treating reasoning effort as a permission mechanism.\\n/tmp/repo-worker-mini-v1-worktrees/ornith-1.5-9b-q5-task04-1788108764101/harnesses/vscode.md:100:6. verify Holo's `agents` allow-list, `disable-model-invocation`, each delegated role's narrow tool set, model and reasoning behavior;\\n/tmp/repo-worker-mini-v1-worktrees/ornith-1.5-9b-q5-task04-1788108764101/library/routing/model-bindings.yaml:21:    reasoning: high\\n/tmp/repo-worker-mini-v1-worktrees/ornith-1.5-9b-q5-task04-1788108764101/library/routing/model-bindings.yaml:27:    reasoning: medium\\n/tmp/repo-worker-mini-v1-worktrees/ornith-1.5-9b-q5-task04-1788108764101/library/routing/model-bindings.yaml:34:    reasoning: medium\\n/tmp/repo-worker-mini-v1-worktrees/ornith-1.5-9b-q5-task04-1788108764101/library/routing/model-bindings.yaml:41:    reasoning: low\\n/tmp/repo-worker-mini-v1-worktrees/ornith-1.5-9b-q5-task04-1788108764101/library/routing/model-bindings.yaml:48:    reasoning: max\\n/tmp/repo-worker-mini-v1-worktrees/ornith-1.5-9b-q5-task04-1788108764101/library/routing/model-bindings.yaml:54:    reasoning: default\\n/tmp/repo-worker-mini-v1-worktrees/ornith-1.5-9b-q5-task04-1788108764101/library/routing/model-bindings.yaml:60:    reasoning: max\\n/tmp/repo-worker-mini-v1-worktrees/ornith-1.5-9b-q5-task04-1788108764101/library/routing/model-bindings.yaml:66:    reasoning: high\\n/tmp/repo-worker-mini-v1-worktrees/ornith-1.5-9b-q5-task04-1788108764101/library/routing/model-bindings.yaml:72:    reasoning: max\\n/tmp/repo-worker-mini-v1-worktrees/ornith-1.5-9b-q5-task04-1788108764101/library/routing/model-bindings.yaml:78:    reasoning: max\\n/tmp/repo-worker-mini-v1-worktrees/ornith-1.5-9b-q5-task04-1788108764101/library/routing/model-bindings.yaml:84:    reasoning: medium\\n/tmp/repo-worker-mini-v1-worktrees/ornith-1.5-9b-q5-task04-1788108764101/library/routing/model-bindings.yaml:90:    reasoning: max\\n/tmp/repo-worker-mini-v1-worktrees/ornith-1.5-9b-q5-task04-1788108764101/library/routing/model-bindings.yaml:99:  - Holo never changes reasoning levels, models or access routes automatically.\\n/tmp/repo-worker-mini-v1-worktrees/ornith-1.5-9b-q5-task04-1788108764101/library/rules/local-harness-application.md:63:The human-owned roster in `library/routing/model-bindings.yaml` is authoritative. Holo selects roles; the local realization fixes the model/provider/reasoning for each role where the harness can faithfully express it.\\n/tmp/repo-worker-mini-v1-worktrees/ornith-1.5-9b-q5-task04-1788108764101/library/rules/local-harness-application.md:65:Never repair a binding by silently substituting another model, provider, reasoning level or inherited session model.\\n/tmp/repo-worker-mini-v1-worktrees/ornith-1.5-9b-q5-task04-1788108764101/library/rules/local-harness-application.md:112:- each subagent carries its human-owned model/provider and variant/reasoning where the installed Kilo version can express it;\\n/tmp/repo-worker-mini-v1-worktrees/ornith-1.5-9b-q5-task04-1788108764101/library/rules/local-harness-application.md:147:- if the installed build supports `reasoning-effort` in `.agent.md`, persist the human-owned reasoning level there; otherwise classify reasoning as manual/unverified;\\n/tmp/repo-worker-mini-v1-worktrees/ornith-1.5-9b-q5-task04-1788108764101/library/rules/local-harness-application.md:252:- model/reasoning/permission status;\\n/tmp/repo-worker-mini-v1-worktrees/ornith-1.5-9b-q5-task04-1788108764101/library/rules/tool-authority.md:34:- human-owned model/provider/reasoning bindings remain authoritative;\\n\", \"exit_code\": 0}"
       },
-      "response": {
-        "choices": [
-          {
-            "finish_reason": "length",
-            "index": 0,
-            "message": {
-              "role": "assistant",
-              "content": "",
-              "reasoning_content": "Let me understand the task. I need to add support for loading a `reasoning_budget` integer from the environment variable `HOLO_REASONING_BUDGET`. I need to update:\n1. The loader (`fixture/loader.py`)\n2. Its public typed settings surface (`fixture/loader.pyi`)\n3. The test (`fixture/test_loader.py`)\n4. The local documentation (`fixture/loader.md`)\n\nPreserve the existing default and validation behavior. Run the provided test command.\n\nLet me look at the existing files:\n\n`fixture/loader.py`:\n```python\nfrom dataclasses import dataclass\n\n\n@data"
-            }
-          }
-        ],
-        "created": 1788104800,
-        "model": "/home/alpha/Playstoria/models/text/bartowski-Ornith-1.5-9B-Q5_K_M/Ornith-1.5-9B-Q5_K_M.gguf",
-        "system_fingerprint": "b1-8ce8ca6",
-        "object": "chat.completion",
-        "usage": {
-          "completion_tokens": 128,
-          "prompt_tokens": 1303,
-          "total_tokens": 1431,
-          "prompt_tokens_details": {
-            "cached_tokens": 1276
-          }
-        },
-        "id": "chatcmpl-QKSFuwGEtgkTKIXFFQBDAuOTnmVIoSma",
-        "timings": {
-          "cache_n": 1276,
-          "prompt_n": 27,
-          "prompt_ms": 411.315,
-          "prompt_per_token_ms": 15.233888888888888,
-          "prompt_per_second": 65.64312023631523,
-          "predicted_n": 128,
-          "predicted_ms": 5781.918,
-          "predicted_per_token_ms": 45.171234375,
-          "predicted_per_second": 22.13798258640126
-        }
-      }
-    },
-    {
-      "index": 12,
-      "request": {
-        "role": "user",
-        "content": "Invalid protocol. Emit exactly one JSON object using the available actions."
-      },
-      "response": {
-        "choices": [
-          {
-            "finish_reason": "stop",
-            "index": 0,
-            "message": {
-              "role": "assistant",
-              "content": "{\"action\":\"read\",\"path\":\"fixture/settings.pyi\"}",
-              "reasoning_content": "I need to emit exactly one JSON object per turn. Let me continue reading the remaining files to understand the full pattern, then make my edits. Let me read the settings.pyi, test_settings.py, and the README files.\n"
-            }
-          }
-        ],
-        "created": 1788104803,
-        "model": "/home/alpha/Playstoria/models/text/bartowski-Ornith-1.5-9B-Q5_K_M/Ornith-1.5-9B-Q5_K_M.gguf",
-        "system_fingerprint": "b1-8ce8ca6",
-        "object": "chat.completion",
-        "usage": {
-          "completion_tokens": 62,
-          "prompt_tokens": 1326,
-          "total_tokens": 1388,
-          "prompt_tokens_details": {
-            "cached_tokens": 1299
-          }
-        },
-        "id": "chatcmpl-N8sr8VatcAdYJ1HA6h7Hf0G9jvwhOjIb",
-        "timings": {
-          "cache_n": 1299,
-          "prompt_n": 27,
-          "prompt_ms": 417.63,
-          "prompt_per_token_ms": 15.467777777777778,
-          "prompt_per_second": 64.65052797931183,
-          "predicted_n": 62,
-          "predicted_ms": 2844.177,
-          "predicted_per_token_ms": 45.87382258064516,
-          "predicted_per_second": 21.798924609825615
-        }
-      },
-      "parsed_action": {
-        "action": "read",
-        "path": "fixture/settings.pyi"
-      },
-      "tool_result": {
-        "ok": true,
-        "path": "fixture/settings.pyi",
-        "start": 1,
-        "end": 3,
-        "content": "1: from typing import Mapping\n2: \n3: def load_settings(env: Mapping[str, str]) -> dict[str, int]: ..."
-      }
-    },
-    {
-      "index": 13,
-      "request": {
-        "role": "user",
-        "content": "TOOL RESULT:\n{\"ok\": true, \"path\": \"fixture/settings.pyi\", \"start\": 1, \"end\": 3, \"content\": \"1: from typing import Mapping\\n2: \\n3: def load_settings(env: Mapping[str, str]) -> dict[str, int]: ...\"}"
-      },
-      "response": {
-        "choices": [
-          {
-            "finish_reason": "length",
-            "index": 0,
-            "message": {
-              "role": "assistant",
-              "content": "",
-              "reasoning_content": "Let me understand the structure. There are two separate things:\n\n1. `fixture/loader.py` - has `Settings` dataclass with `retries`, and `load` function reading `HOLO_RETRIES`.\n2. `fixture/settings.py` - has `DEFAULTS` and `load_settings` reading `TOOL_TIMEOUT_SECONDS`.\n\nThe task says: \"add support for loading a `reasoning_budget` integer from the environment variable `HOLO_REASONING_BUDGET`. Update the loader, its public typed settings surface, the test, and the local documentation. Preserve the existing default and validation behavior.\"\n\nSo"
-            }
-          }
-        ],
-        "created": 1788104810,
-        "model": "/home/alpha/Playstoria/models/text/bartowski-Ornith-1.5-9B-Q5_K_M/Ornith-1.5-9B-Q5_K_M.gguf",
-        "system_fingerprint": "b1-8ce8ca6",
-        "object": "chat.completion",
-        "usage": {
-          "completion_tokens": 128,
-          "prompt_tokens": 1414,
-          "total_tokens": 1542,
-          "prompt_tokens_details": {
-            "cached_tokens": 1322
-          }
-        },
-        "id": "chatcmpl-Y2Cakck5Q2AX0yeuvZ3ySabIeKtASG6N",
-        "timings": {
-          "cache_n": 1322,
-          "prompt_n": 92,
-          "prompt_ms": 948.174,
-          "prompt_per_token_ms": 10.306239130434783,
-          "prompt_per_second": 97.02860445445668,
-          "predicted_n": 128,
-          "predicted_ms": 6140.871,
-          "predicted_per_token_ms": 47.9755546875,
-          "predicted_per_second": 20.84394868415246
-        }
-      }
-    },
-    {
-      "index": 14,
-      "request": {
-        "role": "user",
-        "content": "Invalid protocol. Emit exactly one JSON object using the available actions."
-      },
-      "response": {
-        "choices": [
-          {
-            "finish_reason": "length",
-            "index": 0,
-            "message": {
-              "role": "assistant",
-              "content": "",
-              "reasoning_content": "The user is telling me I'm emitting invalid protocol. I need to emit exactly one JSON object per turn. Let me be careful. I've been reading files, which is fine. But I need to make sure each turn is exactly one JSON object.\n\nLet me continue with my task. I've read:\n- fixture/loader.py - has Settings dataclass with retries, and load() function\n- fixture/loader.pyi - type stub\n- fixture/test_loader.py - test\n- fixture/loader.md - documentation\n- fixture/settings.py - has DEFAULTS and load_settings\n- fixture/settings.pyi - type stub\n\nWait,"
-            }
-          }
-        ],
-        "created": 1788104817,
-        "model": "/home/alpha/Playstoria/models/text/bartowski-Ornith-1.5-9B-Q5_K_M/Ornith-1.5-9B-Q5_K_M.gguf",
-        "system_fingerprint": "b1-8ce8ca6",
-        "object": "chat.completion",
-        "usage": {
-          "completion_tokens": 128,
-          "prompt_tokens": 1437,
-          "total_tokens": 1565,
-          "prompt_tokens_details": {
-            "cached_tokens": 1410
-          }
-        },
-        "id": "chatcmpl-dTuPEPlHb5ZfqyqzStKGz2rgbs2d5Vs3",
-        "timings": {
-          "cache_n": 1410,
-          "prompt_n": 27,
-          "prompt_ms": 444.745,
-          "prompt_per_token_ms": 16.472037037037037,
-          "prompt_per_second": 60.70894557555453,
-          "predicted_n": 128,
-          "predicted_ms": 5919.064,
-          "predicted_per_token_ms": 46.2426875,
-          "predicted_per_second": 21.625040715896972
-        }
-      }
-    },
-    {
-      "index": 15,
-      "request": {
-        "role": "user",
-        "content": "Invalid protocol. Emit exactly one JSON object using the available actions."
-      },
-      "response": {
-        "choices": [
-          {
-            "finish_reason": "stop",
-            "index": 0,
-            "message": {
-              "role": "assistant",
-              "content": "{\"action\":\"read\",\"path\":\"fixture/settings.pyi\"}",
-              "reasoning_content": "The system is telling me my previous action was invalid protocol. Let me re-emit a valid JSON object. I was trying to read fixture/settings.pyi. Let me do that properly.\n"
-            }
-          }
-        ],
-        "created": 1788104820,
-        "model": "/home/alpha/Playstoria/models/text/bartowski-Ornith-1.5-9B-Q5_K_M/Ornith-1.5-9B-Q5_K_M.gguf",
-        "system_fingerprint": "b1-8ce8ca6",
-        "object": "chat.completion",
-        "usage": {
-          "completion_tokens": 54,
-          "prompt_tokens": 1460,
-          "total_tokens": 1514,
-          "prompt_tokens_details": {
-            "cached_tokens": 1433
-          }
-        },
-        "id": "chatcmpl-23wUQJYfruNWaL6cVqETiW0mZwevZ6KT",
-        "timings": {
-          "cache_n": 1433,
-          "prompt_n": 27,
-          "prompt_ms": 455.816,
-          "prompt_per_token_ms": 16.882074074074072,
-          "prompt_per_second": 59.23442792705829,
-          "predicted_n": 54,
-          "predicted_ms": 2388.903,
-          "predicted_per_token_ms": 44.23894444444444,
-          "predicted_per_second": 22.604517638430696
-        }
-      },
-      "parsed_action": {
-        "action": "read",
-        "path": "fixture/settings.pyi"
-      },
-      "tool_result": {
-        "ok": true,
-        "path": "fixture/settings.pyi",
-        "start": 1,
-        "end": 3,
-        "content": "1: from typing import Mapping\n2: \n3: def load_settings(env: Mapping[str, str]) -> dict[str, int]: ..."
-      }
-    },
-    {
-      "index": 16,
-      "request": {
-        "role": "user",
-        "content": "TOOL RESULT:\n{\"ok\": true, \"path\": \"fixture/settings.pyi\", \"start\": 1, \"end\": 3, \"content\": \"1: from typing import Mapping\\n2: \\n3: def load_settings(env: Mapping[str, str]) -> dict[str, int]: ...\"}"
-      },
-      "response": {
-        "choices": [
-          {
-            "finish_reason": "stop",
-            "index": 0,
-            "message": {
-              "role": "assistant",
-              "content": "{\"action\":\"read\",\"path\":\"fixture/test_settings.py\"}",
-              "reasoning_content": "I need to read the test_settings.py to understand the settings test pattern. Let me read it.\n"
-            }
-          }
-        ],
-        "created": 1788104822,
-        "model": "/home/alpha/Playstoria/models/text/bartowski-Ornith-1.5-9B-Q5_K_M/Ornith-1.5-9B-Q5_K_M.gguf",
-        "system_fingerprint": "b1-8ce8ca6",
-        "object": "chat.completion",
-        "usage": {
-          "completion_tokens": 36,
-          "prompt_tokens": 1548,
-          "total_tokens": 1584,
-          "prompt_tokens_details": {
-            "cached_tokens": 1456
-          }
-        },
-        "id": "chatcmpl-DXs6KEDFoLvsesGvLHuVManZJMTSvjg0",
-        "timings": {
-          "cache_n": 1456,
-          "prompt_n": 92,
-          "prompt_ms": 1114.017,
-          "prompt_per_token_ms": 12.10888043478261,
-          "prompt_per_second": 82.58401801767836,
-          "predicted_n": 36,
-          "predicted_ms": 1691.259,
-          "predicted_per_token_ms": 46.979416666666665,
-          "predicted_per_second": 21.285917768952004
-        }
-      },
-      "parsed_action": {
-        "action": "read",
-        "path": "fixture/test_settings.py"
-      },
-      "tool_result": {
-        "ok": true,
-        "path": "fixture/test_settings.py",
-        "start": 1,
-        "end": 9,
-        "content": "1: from settings import load_settings\n2: \n3: \n4: def test_default_timeout():\n5:     assert load_settings({\"tool_timeout_seconds\": \"99\"})[\"tool_timeout_seconds\"] == 30\n6: \n7: \n8: def test_environment_timeout():\n9:     assert load_settings({\"TOOL_TIMEOUT_SECONDS\": \"7\"})[\"tool_timeout_seconds\"] == 7"
-      }
-    },
-    {
-      "index": 17,
-      "request": {
-        "role": "user",
-        "content": "TOOL RESULT:\n{\"ok\": true, \"path\": \"fixture/test_settings.py\", \"start\": 1, \"end\": 9, \"content\": \"1: from settings import load_settings\\n2: \\n3: \\n4: def test_default_timeout():\\n5:     assert load_settings({\\\"tool_timeout_seconds\\\": \\\"99\\\"})[\\\"tool_timeout_seconds\\\"] == 30\\n6: \\n7: \\n8: def test_environment_timeout():\\n9:     assert load_settings({\\\"TOOL_TIMEOUT_SECONDS\\\": \\\"7\\\"})[\\\"tool_timeout_seconds\\\"] == 7\"}"
-      },
-      "response": {
-        "choices": [
-          {
-            "finish_reason": "length",
-            "index": 0,
-            "message": {
-              "role": "assistant",
-              "content": "",
-              "reasoning_content": "Let me look at the full picture. I need to understand the structure. Let me re-read the task:\n\n\"Following the existing loader pattern in the fixture, add support for loading a `reasoning_budget` integer from the environment variable `HOLO_REASONING_BUDGET`. Update the loader, its public typed settings surface, the test, and the local documentation. Preserve the existing default and validation behavior. Run the provided test command.\"\n\nSo I need to:\n1. Update `fixture/loader.py` - add `reasoning_budget` to Settings dataclass and load it from `HOLO_REASONING_BUDGET`"
-            }
-          }
-        ],
-        "created": 1788104832,
-        "model": "/home/alpha/Playstoria/models/text/bartowski-Ornith-1.5-9B-Q5_K_M/Ornith-1.5-9B-Q5_K_M.gguf",
-        "system_fingerprint": "b1-8ce8ca6",
-        "object": "chat.completion",
-        "usage": {
-          "completion_tokens": 128,
-          "prompt_tokens": 1702,
-          "total_tokens": 1830,
-          "prompt_tokens_details": {
-            "cached_tokens": 1544
-          }
-        },
-        "id": "chatcmpl-lLcPdfMsoedgScbiDUEjOkB2pWh4WbxM",
-        "timings": {
-          "cache_n": 1544,
-          "prompt_n": 158,
-          "prompt_ms": 1913.501,
-          "prompt_per_token_ms": 12.11076582278481,
-          "prompt_per_second": 82.57116144700211,
-          "predicted_n": 128,
-          "predicted_ms": 7060.061,
-          "predicted_per_token_ms": 55.1567265625,
-          "predicted_per_second": 18.130154966083154
-        }
-      }
-    },
-    {
-      "index": 18,
-      "request": {
-        "role": "user",
-        "content": "Invalid protocol. Emit exactly one JSON object using the available actions."
-      },
-      "response": {
-        "choices": [
-          {
-            "finish_reason": "length",
-            "index": 0,
-            "message": {
-              "role": "assistant",
-              "content": "",
-              "reasoning_content": "The task mentions \"Update the loader, its public typed settings surface, the test, and the local documentation.\" Let me focus on the fixture/loader.py, fixture/loader.pyi, fixture/test_loader.py, and fixture/loader.md.\n\nI've read all the relevant files. Now I need to:\n1. Update fixture/loader.py to add reasoning_budget\n2. Update fixture/loader.pyi (public typed settings surface)\n3. Update fixture/test_loader.py (the test)\n4. Update fixture/loader.md (local documentation)\n\nLet me look at the patterns:\n- loader.py: Settings dataclass with retries, load"
-            }
-          }
-        ],
-        "created": 1788104839,
-        "model": "/home/alpha/Playstoria/models/text/bartowski-Ornith-1.5-9B-Q5_K_M/Ornith-1.5-9B-Q5_K_M.gguf",
-        "system_fingerprint": "b1-8ce8ca6",
-        "object": "chat.completion",
-        "usage": {
-          "completion_tokens": 128,
-          "prompt_tokens": 1725,
-          "total_tokens": 1853,
-          "prompt_tokens_details": {
-            "cached_tokens": 1698
-          }
-        },
-        "id": "chatcmpl-0qe2iGZUtCPWzmehrigcC8ThOUNW7DTs",
-        "timings": {
-          "cache_n": 1698,
-          "prompt_n": 27,
-          "prompt_ms": 624.143,
-          "prompt_per_token_ms": 23.116407407407408,
-          "prompt_per_second": 43.25931717571133,
-          "predicted_n": 128,
-          "predicted_ms": 6532.054,
-          "predicted_per_token_ms": 51.031671875,
-          "predicted_per_second": 19.595673887570435
-        }
-      }
-    },
-    {
-      "index": 19,
-      "request": {
-        "role": "user",
-        "content": "Invalid protocol. Emit exactly one JSON object using the available actions."
-      },
-      "response": {
-        "choices": [
-          {
-            "finish_reason": "stop",
-            "index": 0,
-            "message": {
-              "role": "assistant",
-              "content": "{\"action\":\"read\",\"path\":\"AGENTS.md\"}",
-              "reasoning_content": "Let me continue. I've read the fixture files. Now I need to find the test command. Let me check AGENTS.md or look for a test command. Let me also check the README and other docs.\n\nLet me read AGENTS.md to find the test command.\n"
-            }
-          }
-        ],
-        "created": 1788104843,
-        "model": "/home/alpha/Playstoria/models/text/bartowski-Ornith-1.5-9B-Q5_K_M/Ornith-1.5-9B-Q5_K_M.gguf",
-        "system_fingerprint": "b1-8ce8ca6",
-        "object": "chat.completion",
-        "usage": {
-          "completion_tokens": 71,
-          "prompt_tokens": 1748,
-          "total_tokens": 1819,
-          "prompt_tokens_details": {
-            "cached_tokens": 1721
-          }
-        },
-        "id": "chatcmpl-lVwvsXJeiQohnBq4DqJOTyn6oFluJotD",
-        "timings": {
-          "cache_n": 1721,
-          "prompt_n": 27,
-          "prompt_ms": 511.221,
-          "prompt_per_token_ms": 18.93411111111111,
-          "prompt_per_second": 52.814731789187064,
-          "predicted_n": 71,
-          "predicted_ms": 3644.389,
-          "predicted_per_token_ms": 51.32942253521127,
-          "predicted_per_second": 19.482003704873435
-        }
-      },
-      "parsed_action": {
-        "action": "read",
-        "path": "AGENTS.md"
-      },
-      "tool_result": {
-        "ok": true,
-        "path": "AGENTS.md",
-        "start": 1,
-        "end": 172,
-        "content": "1: # Holo Agent Tooling Governance\n2: \n3: ## Repository mission\n4: \n5: This repository is an **architecture specification**, not a harness synchronization system.\n6: \n7: Models working here must preserve that boundary. Do not add generators, target trees, installers, background synchronization, schema translators, host-runtime wrappers or automatic propagation between harnesses unless the user explicitly changes the mission of the repository.\n8: \n9: Semantic conformance is required; structural identity is not.\n10: \n11: ## Source of truth\n12: \n13: - `ARCHITECTURE.md` defines the system-level architecture.\n14: - `library/agents/` defines canonical role behavior without hardcoded model identity.\n15: - `core/agents/contracts/` defines formal role boundaries and permission intent.\n16: - `library/rules/` defines delegation, evidence, tool-authority, freshness, MCP scoping, session-orchestration and repository-governance invariants.\n17: - `library/routing/model-bindings.yaml` is the human-owned reference mapping from role to model.\n18: - `harnesses/` records expectations and known constraints for each harness.\n19: - `capabilities/` explains how Skills, MCPs/tools and Hooks fit into the architecture.\n20: \n21: ## Agent model\n22: \n23: Holo is the coordinating primary agent and final integrator. It works alone when delegation adds little value. When delegation helps, Holo selects a **role**. The human-owned binding selects the model occupying that role.\n24: \n25: Keep separate:\n26: \n27: 1. Role — who should perform the work.\n28: 2. Model binding — which model the human assigned to that role.\n29: 3. Skill — reusable procedure or domain knowledge.\n30: 4. MCP/tool — external capability.\n31: 5. Hook — optional harness lifecycle automation.\n32: 6. Project rule — workspace-specific constraint.\n33: 7. Harness implementation — native realization of the architecture in one runtime.\n34: 8. Session/worktree manager — macro orchestration for independent top-level sessions, not a canonical role.\n35: \n36: `explore`, `shell` and `browser` are context workers. They collect and condense context; they are not final reasoning authorities.\n37: \n38: ## Capability selection\n39: \n40: Holo plans in terms of the user's goal, the canonical role and the capability required to complete that goal. Concrete tool names belong to execution in the current harness.\n41: \n42: Use the conceptual flow `goal -> role -> needed capability -> concrete available tool/Skill`. Confirm that a concrete MCP/tool or Skill is actually available before using it. Do not infer availability solely from the architecture or from another harness.\n43: \n44: Holo itself should be **capability-complete within the active project's approved harness surface**. Do not make the coordinator least-privileged by freezing it to a small static tool list that can silently omit new native capabilities. Once a capability is enabled for the active project/profile and permitted by the harness, Holo may use it directly when delegation adds little value.\n45: \n46: Delegated roles are different: they remain **least-privileged** according to their role contracts. Read-only roles must not inherit Holo's edit/execute authority; scoped writers stay scoped; nested delegation remains restricted where required.\n47: \n48: Tool availability does not bypass approval, trust, sandbox, project/MCP scoping or model-routing rules. Broad Holo capability must not widen the canonical subagent allow-list or enable unrelated global MCPs in every project.\n49: \n50: Hooks are normally lifecycle-driven by the harness. Treat their effects as part of the execution environment rather than selecting them like ordinary tools unless a harness explicitly exposes a manual hook action.\n51: \n52: This policy is semantic only. Do not implement a universal capability resolver, registry, dispatcher, adapter layer or synchronization mechanism to enforce it.\n53: \n54: See `library/rules/tool-authority.md`.\n55: \n56: ## MCP scope\n57: \n58: MCP availability should be as narrow as practical. Prefer project/workspace-local MCP configuration when the current harness supports it. Keep an MCP global only when the human intentionally wants it across most projects or when the harness lacks a faithful narrower scope.\n59: \n60: Do not interpret `capabilities/roster.yaml` as an instruction to enable every MCP globally. A roster entry records desired/observed capability coverage, not activation scope.\n61: \n62: Project scoping reduces tool-selection noise, context/tool surface, startup overhead and unnecessary cross-project authority. Follow `library/rules/mcp-scoping.md` and preserve secrets outside committed project configuration.\n63: \n64: ## Harness implementation rule\n65: \n66: A harness is allowed to implement the architecture differently from every other harness.\n67: \n68: When asked to apply Holo to Kilo, VS Code, Antigravity, Zed or a future harness:\n69: \n70: 1. inspect the target harness's installed version/build, current native configuration/schema and current official documentation;\n71: 2. map the canonical roles and permission intent onto the features the harness actually supports now;\n72: 3. distinguish product support from local configuration state;\n73: 4. expose the active project's approved harness capabilities broadly to Holo while keeping delegated roles least-privileged;\n74: 5. prefer project/workspace scope for project-specific MCPs where the harness supports it;\n75: 6. make changes in the target harness/configuration, preferably in a temporary branch/worktree when appropriate;\n76: 7. preserve unrelated native settings, credentials, OAuth, sessions, plugins and provider state;\n77: 8. verify behavior in that harness.\n78: \n79: Do not generate a native configuration from this repository merely to make harnesses look alike.\n80: \n81: If a harness changes its schema or gains a better native mechanism, update that harness implementation. Do not preserve an obsolete workaround just because it existed previously.\n82: \n83: Follow `library/rules/harness-freshness.md`. In particular, `unsupported` is a strong claim: absence from local config is not enough. Use `unknown` or `missing` when appropriate.\n84: \n85: ### Kilo task and Agent Manager\n86: \n87: Kilo's normal Holo delegation is `Holo primary -> task -> canonical custom subagent`. The subagent defines the role/model/permissions; `task` is the invocation mechanism.\n88: \n89: - Holo should be able to request the normal Kilo tools, Skills and MCP tools available to the active project; sensitive operations may still be approval-gated.\n90: - Holo should use an explicit `permission.task` allow-list for the eleven canonical Holo subagents.\n91: - Delegated Holo subagents should have nested task/delegation denied by default and role-specific least-privileged permissions.\n92: - Kilo Agent Manager is a macro session/worktree layer. If the human opens Agent Manager and starts a Holo session, Holo still uses `task` internally.\n93: - Agent Manager is optional and intended for independent large work that benefits from branch/worktree isolation; it is not a replacement for focused role delegation.\n94: \n95: See `harnesses/kilo.md`, `library/rules/tool-authority.md` and `library/rules/session-orchestration.md`.\n96: \n97: ### VS Code Agents window\n98: \n99: The VS Code Agents window is a macro session/worktree layer. A Holo Copilot session launched there continues to use native custom subagents and fixed role MCP tools internally.\n100: \n101: - Holo should receive the full tool catalog enabled for the active Copilot profile/project rather than a stale narrow `tools:` subset; current native capabilities such as Integrated Browser belong to Holo when enabled.\n102: - Holo should have an explicit `agents` allow-list for native Holo subagents.\n103: - Holo must not override a delegated role's human-owned model when invoking the subagent.\n104: - Delegated/read-only roles retain their narrow tool sets even though Holo has broad tool availability.\n105: - Where the installed build supports `reasoning-effort`, persist the human-owned effort in `.agent.md`; otherwise classify that part as manual/unverified.\n106: \n107: See `harnesses/vscode.md`, `library/rules/tool-authority.md` and `library/rules/session-orchestration.md`.\n108: \n109: ### Antigravity exception: roles are MCP tools, not native Holo subagents\n110: \n111: Current Antigravity custom subagents can use Antigravity model tiers such as `inherit`, `flash` and `pro`, but those choices cannot realize the full human-owned Holo roster across UCP/CLIProxyAPI and OpenCode.\n112: \n113: - `holo` is the **only** Antigravity agent used by the Holo architecture.\n114: - Holo receives the native tools and MCP capabilities approved for the active Project; Project permissions remain the authority boundary.\n115: - Do **not** create Antigravity native subagents for the eleven delegated canonical roles merely to mirror the roster.\n116: - OpenCode and UCP/CLIProxyAPI are exposed through fixed role-specific MCP tools.\n117: - Holo selects the role/tool; the human-owned binding selects the model.\n118: - Never use `model: inherit`, `flash` or `pro` as a silent substitute for a different human-selected role model.\n119: - Current OpenCode CLI/server support programmatic execution; absence of a pre-existing listening server does not by itself make OpenCode roles unsupported.\n120: - Preserve role instructions, least privilege, audit-context isolation and `claim + evidence + verification + uncertainty` across the MCP call.\n121: - Do not create a generic model bridge/router.\n122: \n123: The detailed contract lives in `harnesses/antigravity.md`.\n124: \n125: ### Zed exception: profiles/subagents are not the full roster\n126: \n127: Current Zed Agent supports profiles, native Skills, MCP, parallel threads/worktrees, `spawn_agent`, and a shared `agent.subagent_model`. Spawned subagents use the same tools as the parent, and the subagent model setting is not a separate per-canonical-role binding.\n128: \n129: - Use one Holo coordinator profile and give it the native tools, Skills and context-server tools approved for the active project/profile rather than a small static subset.\n130: - Do not require one profile/thread switch per Holo role.\n131: - Do not map strict canonical roles to native `spawn_agent` workers when inherited tools or the shared subagent model would violate the role contract.\n132: - Prefer one Holo coordinator profile plus fixed role-specific MCP tools for canonical roles that require distinct human-selected models/authority.\n133: - Native `spawn_agent` may still be used for opportunistic same-model/same-tool parallel work that is not misrepresented as a stricter canonical role.\n134: - Zed supports native Skills; per-Skill coverage must be inspected, not globally marked unsupported.\n135: - Parallel Zed threads/worktrees are macro isolation tools; a Holo profile inside them keeps the same internal role-routing semantics.\n136: \n137: The detailed contract lives in `harnesses/zed.md`.\n138: \n139: ## Session/worktree orchestration\n140: \n141: Session managers are optional macro layers. They do not change role semantics or model ownership.\n142: \n143: Use them when independent work would naturally justify a branch/worktree or long-running top-level session. Do not create extra sessions merely to simulate subagents. Avoid concurrent writers on the same working tree.\n144: \n145: See `library/rules/session-orchestration.md`.\n146: \n147: ## Cross-harness changes\n148: \n149: There is no automatic synchronization requirement.\n150: \n151: If the user adds a useful Skill, MCP, Hook, role behavior or permission improvement in one harness and wants it elsewhere, inspect the other harnesses independently and implement the equivalent native behavior where it makes sense.\n152: \n153: Differences are acceptable when caused by native harness capabilities or user intent. Document material limitations instead of inventing parity.\n154: \n155: ## Model routing\n156: \n157: Automatic model selection and substitution are forbidden. Holo selects roles, not models. The human-maintained binding is authoritative as an architectural roster; each harness may require its own native model identifier, role-specific MCP realization or manual configuration.\n158: \n159: A harness-native mechanism that allows the parent agent to explicitly override the delegated model must not be used by Holo when that would bypass the human-owned role binding.\n160: \n161: ## Delegation and evidence\n162: \n163: A specialist is not an oracle. Substantive delegated work should identify claim, evidence, verification and uncertainty. Holo evaluates that evidence proportionally to risk and remains responsible for the final decision and integration.\n164: \n165: ## Editing rules\n166: \n167: - Do not put release-specific model preferences inside role instructions, except descriptive role classes such as economical context workers.\n168: - Do not store credentials or harness runtime state here.\n169: - Do not make this repository the owner of live harness configuration.\n170: - Do not introduce generated target files as canonical architecture.\n171: - Do not require byte-for-byte parity between harnesses.\n172: - Prefer clear specification text over executable synchronization machinery."
-      }
-    },
-    {
-      "index": 20,
-      "request": {
-        "role": "user",
-        "content": "TOOL RESULT:\n{\"ok\": true, \"path\": \"AGENTS.md\", \"start\": 1, \"end\": 172, \"content\": \"1: # Holo Agent Tooling Governance\\n2: \\n3: ## Repository mission\\n4: \\n5: This repository is an **architecture specification**, not a harness synchronization system.\\n6: \\n7: Models working here must preserve that boundary. Do not add generators, target trees, installers, background synchronization, schema translators, host-runtime wrappers or automatic propagation between harnesses unless the user explicitly changes the mission of the repository.\\n8: \\n9: Semantic conformance is required; structural identity is not.\\n10: \\n11: ## Source of truth\\n12: \\n13: - `ARCHITECTURE.md` defines the system-level architecture.\\n14: - `library/agents/` defines canonical role behavior without hardcoded model identity.\\n15: - `core/agents/contracts/` defines formal role boundaries and permission intent.\\n16: - `library/rules/` defines delegation, evidence, tool-authority, freshness, MCP scoping, session-orchestration and repository-governance invariants.\\n17: - `library/routing/model-bindings.yaml` is the human-owned reference mapping from role to model.\\n18: - `harnesses/` records expectations and known constraints for each harness.\\n19: - `capabilities/` explains how Skills, MCPs/tools and Hooks fit into the architecture.\\n20: \\n21: ## Agent model\\n22: \\n23: Holo is the coordinating primary agent and final integrator. It works alone when delegation adds little value. When delegation helps, Holo selects a **role**. The human-owned binding selects the model occupying that role.\\n24: \\n25: Keep separate:\\n26: \\n27: 1. Role — who should perform the work.\\n28: 2. Model binding — which model the human assigned to that role.\\n29: 3. Skill — reusable procedure or domain knowledge.\\n30: 4. MCP/tool — external capability.\\n31: 5. Hook — optional harness lifecycle automation.\\n32: 6. Project rule — workspace-specific constraint.\\n33: 7. Harness implementation — native realization of the architecture in one runtime.\\n34: 8. Session/worktree manager — macro orchestration for independent top-level sessions, not a canonical role.\\n35: \\n36: `explore`, `shell` and `browser` are context workers. They collect and condense context; they are not final reasoning authorities.\\n37: \\n38: ## Capability selection\\n39: \\n40: Holo plans in terms of the user's goal, the canonical role and the capability required to complete that goal. Concrete tool names belong to execution in the current harness.\\n41: \\n42: Use the conceptual flow `goal -> role -> needed capability -> concrete available tool/Skill`. Confirm that a concrete MCP/tool or Skill is actually available before using it. Do not infer availability solely from the architecture or from another harness.\\n43: \\n44: Holo itself should be **capability-complete within the active project's approved harness surface**. Do not make the coordinator least-privileged by freezing it to a small static tool list that can silently omit new native capabilities. Once a capability is enabled for the active project/profile and permitted by the harness, Holo may use it directly when delegation adds little value.\\n45: \\n46: Delegated roles are different: they remain **least-privileged** according to their role contracts. Read-only roles must not inherit Holo's edit/execute authority; scoped writers stay scoped; nested delegation remains restricted where required.\\n47: \\n48: Tool availability does not bypass approval, trust, sandbox, project/MCP scoping or model-routing rules. Broad Holo capability must not widen the canonical subagent allow-list or enable unrelated global MCPs in every project.\\n49: \\n50: Hooks are normally lifecycle-driven by the harness. Treat their effects as part of the execution environment rather than selecting them like ordinary tools unless a harness explicitly exposes a manual hook action.\\n51: \\n52: This policy is semantic only. Do not implement a universal capability resolver, registry, dispatcher, adapter layer or synchronization mechanism to enforce it.\\n53: \\n54: See `library/rules/tool-authority.md`.\\n55: \\n56: ## MCP scope\\n57: \\n58: MCP availability should be as narrow as practical. Prefer project/workspace-local MCP configuration when the current harness supports it. Keep an MCP global only when the human intentionally wants it across most projects or when the harness lacks a faithful narrower scope.\\n59: \\n60: Do not interpret `capabilities/roster.yaml` as an instruction to enable every MCP globally. A roster entry records desired/observed capability coverage, not activation scope.\\n61: \\n62: Project scoping reduces tool-selection noise, context/tool surface, startup overhead and unnecessary cross-project authority. Follow `library/rules/mcp-scoping.md` and preserve secrets outside committed project configuration.\\n63: \\n64: ## Harness implementation rule\\n65: \\n66: A harness is allowed to implement the architecture differently from every other harness.\\n67: \\n68: When asked to apply Holo to Kilo, VS Code, Antigravity, Zed or a future harness:\\n69: \\n70: 1. inspect the target harness's installed version/build, current native configuration/schema and current official documentation;\\n71: 2. map the canonical roles and permission intent onto the features the harness actually supports now;\\n72: 3. distinguish product support from local configuration state;\\n73: 4. expose the active project's approved harness capabilities broadly to Holo while keeping delegated roles least-privileged;\\n74: 5. prefer project/workspace scope for project-specific MCPs where the harness supports it;\\n75: 6. make changes in the target harness/configuration, preferably in a temporary branch/worktree when appropriate;\\n76: 7. preserve unrelated native settings, credentials, OAuth, sessions, plugins and provider state;\\n77: 8. verify behavior in that harness.\\n78: \\n79: Do not generate a native configuration from this repository merely to make harnesses look alike.\\n80: \\n81: If a harness changes its schema or gains a better native mechanism, update that harness implementation. Do not preserve an obsolete workaround just because it existed previously.\\n82: \\n83: Follow `library/rules/harness-freshness.md`. In particular, `unsupported` is a strong claim: absence from local config is not enough. Use `unknown` or `missing` when appropriate.\\n84: \\n85: ### Kilo task and Agent Manager\\n86: \\n87: Kilo's normal Holo delegation is `Holo primary -> task -> canonical custom subagent`. The subagent defines the role/model/permissions; `task` is the invocation mechanism.\\n88: \\n89: - Holo should be able to request the normal Kilo tools, Skills and MCP tools available to the active project; sensitive operations may still be approval-gated.\\n90: - Holo should use an explicit `permission.task` allow-list for the eleven canonical Holo subagents.\\n91: - Delegated Holo subagents should have nested task/delegation denied by default and role-specific least-privileged permissions.\\n92: - Kilo Agent Manager is a macro session/worktree layer. If the human opens Agent Manager and starts a Holo session, Holo still uses `task` internally.\\n93: - Agent Manager is optional and intended for independent large work that benefits from branch/worktree isolation; it is not a replacement for focused role delegation.\\n94: \\n95: See `harnesses/kilo.md`, `library/rules/tool-authority.md` and `library/rules/session-orchestration.md`.\\n96: \\n97: ### VS Code Agents window\\n98: \\n99: The VS Code Agents window is a macro session/worktree layer. A Holo Copilot session launched there continues to use native custom subagents and fixed role MCP tools internally.\\n100: \\n101: - Holo should receive the full tool catalog enabled for the active Copilot profile/project rather than a stale narrow `tools:` subset; current native capabilities such as Integrated Browser belong to Holo when enabled.\\n102: - Holo should have an explicit `agents` allow-list for native Holo subagents.\\n103: - Holo must not override a delegated role's human-owned model when invoking the subagent.\\n104: - Delegated/read-only roles retain their narrow tool sets even though Holo has broad tool availability.\\n105: - Where the installed build supports `reasoning-effort`, persist the human-owned effort in `.agent.md`; otherwise classify that part as manual/unverified.\\n106: \\n107: See `harnesses/vscode.md`, `library/rules/tool-authority.md` and `library/rules/session-orchestration.md`.\\n108: \\n109: ### Antigravity exception: roles are MCP tools, not native Holo subagents\\n110: \\n111: Current Antigravity custom subagents can use Antigravity model tiers such as `inherit`, `flash` and `pro`, but those choices cannot realize the full human-owned Holo roster across UCP/CLIProxyAPI and OpenCode.\\n112: \\n113: - `holo` is the **only** Antigravity agent used by the Holo architecture.\\n114: - Holo receives the native tools and MCP capabilities approved for the active Project; Project permissions remain the authority boundary.\\n115: - Do **not** create Antigravity native subagents for the eleven delegated canonical roles merely to mirror the roster.\\n116: - OpenCode and UCP/CLIProxyAPI are exposed through fixed role-specific MCP tools.\\n117: - Holo selects the role/tool; the human-owned binding selects the model.\\n118: - Never use `model: inherit`, `flash` or `pro` as a silent substitute for a different human-selected role model.\\n119: - Current OpenCode CLI/server support programmatic execution; absence of a pre-existing listening server does not by itself make OpenCode roles unsupported.\\n120: - Preserve role instructions, least privilege, audit-context isolation and `claim + evidence + verification + uncertainty` across the MCP call.\\n121: - Do not create a generic model bridge/router.\\n122: \\n123: The detailed contract lives in `harnesses/antigravity.md`.\\n124: \\n125: ### Zed exception: profiles/subagents are not the full roster\\n126: \\n127: Current Zed Agent supports profiles, native Skills, MCP, parallel threads/worktrees, `spawn_agent`, and a shared `agent.subagent_model`. Spawned subagents use the same tools as the parent, and the subagent model setting is not a separate per-canonical-role binding.\\n128: \\n129: - Use one Holo coordinator profile and give it the native tools, Skills and context-server tools approved for the active project/profile rather than a small static subset.\\n130: - Do not require one profile/thread switch per Holo role.\\n131: - Do not map strict canonical roles to native `spawn_agent` workers when inherited tools or the shared subagent model would violate the role contract.\\n132: - Prefer one Holo coordinator profile plus fixed role-specific MCP tools for canonical roles that require distinct human-selected models/authority.\\n133: - Native `spawn_agent` may still be used for opportunistic same-model/same-tool parallel work that is not misrepresented as a stricter canonical role.\\n134: - Zed supports native Skills; per-Skill coverage must be inspected, not globally marked unsupported.\\n135: - Parallel Zed threads/worktrees are macro isolation tools; a Holo profile inside them keeps the same internal role-routing semantics.\\n136: \\n137: The detailed contract lives in `harnesses/zed.md`.\\n138: \\n139: ## Session/worktree orchestration\\n140: \\n141: Session managers are optional macro layers. They do not change role semantics or model ownership.\\n142: \\n143: Use them when independent work would naturally justify a branch/worktree or long-running top-level session. Do not create extra sessions merely to simulate subagents. Avoid concurrent writers on the same working tree.\\n144: \\n145: See `library/rules/session-orchestration.md`.\\n146: \\n147: ## Cross-harness changes\\n148: \\n149: There is no automatic synchronization requirement.\\n150: \\n151: If the user adds a useful Skill, MCP, Hook, role behavior or permission improvement in one harness and wants it elsewhere, inspect the other harnesses independently and implement the equivalent native behavior where it makes sense.\\n152: \\n153: Differences are acceptable when caused by native harness capabilities or user intent. Document material limitations instead of inventing parity.\\n154: \\n155: ## Model routing\\n156: \\n157: Automatic model selection and substitution are forbidden. Holo selects roles, not models. The human-maintained binding is authoritative as an architectural roster; each harness may require its own native model identifier, role-specific MCP realization or manual configuration.\\n158: \\n159: A harness-native mechanism that allows the parent agent to explicitly override the delegated model must not be used by Holo when that would bypass the human-owned role binding.\\n160: \\n161: ## Delegation and evidence\\n162: \\n163: A specialist is not an oracle. Substantive delegated work should identify claim, evidence, verification and uncertainty. Holo evaluates that evidence proportionally to risk and remains responsible for the final decision and integration.\\n164: \\n165: ## Editing rules\\n166: \\n167: - Do not put release-specific model preferences inside role instructions, except descriptive role classes such as economical context workers.\\n168: - Do not store credentials or harness runtime state here.\\n169: - Do not make this repository the owner of live harness configuration.\\n170: - Do not introduce generated target files as canonical architecture.\\n171: - Do not require byte-for-byte parity between harnesses.\\n172: - Prefer clear specification text over executable synchronization machinery.\"}"
-      },
-      "error": "TimeoutError: request exceeded 30.00s"
+      "error": "TimeoutError: request exceeded 3.75s"
     }
   ]
 }

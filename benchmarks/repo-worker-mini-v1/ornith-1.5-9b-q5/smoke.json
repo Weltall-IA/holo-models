@@ -10,7 +10,7 @@
       }
     }
   ],
-  "created": 1788104427,
+  "created": 1788108216,
   "model": "/home/alpha/Playstoria/models/text/bartowski-Ornith-1.5-9B-Q5_K_M/Ornith-1.5-9B-Q5_K_M.gguf",
   "system_fingerprint": "b1-8ce8ca6",
   "object": "chat.completion",
@@ -22,16 +22,16 @@
       "cached_tokens": 0
     }
   },
-  "id": "chatcmpl-XUJsxkdsLUnSu674I4SpKbHhjwt3f3mc",
+  "id": "chatcmpl-y5EnqfWoaqZyC2nsxU8eIa6GykoNpQCz",
   "timings": {
     "cache_n": 0,
     "prompt_n": 16,
-    "prompt_ms": 128.852,
-    "prompt_per_token_ms": 8.05325,
-    "prompt_per_second": 124.17347033806227,
+    "prompt_ms": 158.015,
+    "prompt_per_token_ms": 9.8759375,
+    "prompt_per_second": 101.25620985349494,
     "predicted_n": 4,
-    "predicted_ms": 94.935,
-    "predicted_per_token_ms": 23.73375,
-    "predicted_per_second": 42.13409174698478
+    "predicted_ms": 100.924,
+    "predicted_per_token_ms": 25.231,
+    "predicted_per_second": 39.633783837342946
   }
 }

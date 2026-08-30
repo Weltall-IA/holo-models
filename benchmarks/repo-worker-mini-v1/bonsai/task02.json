@@ -38,10 +38,10 @@
   "prompt_tokens": 7962,
   "completion_tokens": 96,
   "generation_tokens": 96,
-  "seconds": 150.07,
-  "generation_tok_s": 0.64,
+  "seconds": 180.02,
+  "generation_tok_s": 0.53,
   "prompt_processing_tok_s": null,
-  "peak_vram_mib": 12820,
+  "peak_vram_mib": 12804,
   "runtime": "PrismML llama.cpp",
   "runtime_command": [
     "/home/alpha/Playstoria/models/engines/prism-llama/llama-prism-b9599-9ca265a/llama-server",
@@ -85,7 +85,7 @@
     "temperature": 0.2,
     "top_p": 0.95,
     "speculative_decoding": false,
-    "max_tokens_per_turn": 128,
+    "max_tokens_per_turn": 1024,
     "max_generated_tokens_per_task": 12000
   },
   "browser": "unavailable",
@@ -107,7 +107,7 @@
             }
           }
         ],
-        "created": 1788103810,
+        "created": 1788107438,
         "model": "Ternary-Bonsai-27B-Abliterated-LowDeg-Q2_0.gguf",
         "system_fingerprint": "b9599-9ca265a57",
         "object": "chat.completion",
@@ -119,17 +119,17 @@
             "cached_tokens": 26
           }
         },
-        "id": "chatcmpl-Y9SoHRjB8fQnfea2dHwT38oojddmS9ty",
+        "id": "chatcmpl-Ly2Y9rJY1AQnR2qeuLEgjj2wo84nz8aa",
         "timings": {
           "cache_n": 26,
           "prompt_n": 296,
-          "prompt_ms": 2457.65,
-          "prompt_per_token_ms": 8.302871621621621,
-          "prompt_per_second": 120.440257970012,
+          "prompt_ms": 2653.76,
+          "prompt_per_token_ms": 8.965405405405406,
+          "prompt_per_second": 111.5398528879778,
           "predicted_n": 16,
-          "predicted_ms": 862.533,
-          "predicted_per_token_ms": 53.9083125,
-          "predicted_per_second": 18.550014897980713
+          "predicted_ms": 978.201,
+          "predicted_per_token_ms": 61.1375625,
+          "predicted_per_second": 16.356556576818058
         }
       },
       "parsed_action": {
@@ -139,7 +139,7 @@
       },
       "tool_result": {
         "ok": true,
-        "matches": "/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/settings.py:1:DEFAULTS = {\"tool_timeout_seconds\": 30, \"retries\": 2}\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/settings.py:5:    return {**DEFAULTS, \"tool_timeout_seconds\": int(env.get(\"TOOL_TIMEOUT_SECONDS\", DEFAULTS[\"tool_timeout_seconds\"]))}\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/README.md:3:The `tool_timeout_seconds` setting controls the maximum wait for a tool.\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/test_settings.py:5:    assert load_settings({\"tool_timeout_seconds\": \"99\"})[\"tool_timeout_seconds\"] == 30\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/test_settings.py:9:    assert load_settings({\"TOOL_TIMEOUT_SECONDS\": \"7\"})[\"tool_timeout_seconds\"] == 7\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/config.json:1:{\"tool_timeout_seconds\": 30, \"retries\": 2}\n",
+        "matches": "/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/config.json:1:{\"tool_timeout_seconds\": 30, \"retries\": 2}\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/test_settings.py:5:    assert load_settings({\"tool_timeout_seconds\": \"99\"})[\"tool_timeout_seconds\"] == 30\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/test_settings.py:9:    assert load_settings({\"TOOL_TIMEOUT_SECONDS\": \"7\"})[\"tool_timeout_seconds\"] == 7\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/README.md:3:The `tool_timeout_seconds` setting controls the maximum wait for a tool.\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/settings.py:1:DEFAULTS = {\"tool_timeout_seconds\": 30, \"retries\": 2}\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/settings.py:5:    return {**DEFAULTS, \"tool_timeout_seconds\": int(env.get(\"TOOL_TIMEOUT_SECONDS\", DEFAULTS[\"tool_timeout_seconds\"]))}\n",
         "exit_code": 0
       }
     },
@@ -147,7 +147,7 @@
       "index": 2,
       "request": {
         "role": "user",
-        "content": "TOOL RESULT:\n{\"ok\": true, \"matches\": \"/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/settings.py:1:DEFAULTS = {\\\"tool_timeout_seconds\\\": 30, \\\"retries\\\": 2}\\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/settings.py:5:    return {**DEFAULTS, \\\"tool_timeout_seconds\\\": int(env.get(\\\"TOOL_TIMEOUT_SECONDS\\\", DEFAULTS[\\\"tool_timeout_seconds\\\"]))}\\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/README.md:3:The `tool_timeout_seconds` setting controls the maximum wait for a tool.\\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/test_settings.py:5:    assert load_settings({\\\"tool_timeout_seconds\\\": \\\"99\\\"})[\\\"tool_timeout_seconds\\\"] == 30\\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/test_settings.py:9:    assert load_settings({\\\"TOOL_TIMEOUT_SECONDS\\\": \\\"7\\\"})[\\\"tool_timeout_seconds\\\"] == 7\\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/config.json:1:{\\\"tool_timeout_seconds\\\": 30, \\\"retries\\\": 2}\\n\", \"exit_code\": 0}"
+        "content": "TOOL RESULT:\n{\"ok\": true, \"matches\": \"/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/config.json:1:{\\\"tool_timeout_seconds\\\": 30, \\\"retries\\\": 2}\\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/test_settings.py:5:    assert load_settings({\\\"tool_timeout_seconds\\\": \\\"99\\\"})[\\\"tool_timeout_seconds\\\"] == 30\\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/test_settings.py:9:    assert load_settings({\\\"TOOL_TIMEOUT_SECONDS\\\": \\\"7\\\"})[\\\"tool_timeout_seconds\\\"] == 7\\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/README.md:3:The `tool_timeout_seconds` setting controls the maximum wait for a tool.\\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/settings.py:1:DEFAULTS = {\\\"tool_timeout_seconds\\\": 30, \\\"retries\\\": 2}\\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/settings.py:5:    return {**DEFAULTS, \\\"tool_timeout_seconds\\\": int(env.get(\\\"TOOL_TIMEOUT_SECONDS\\\", DEFAULTS[\\\"tool_timeout_seconds\\\"]))}\\n\", \"exit_code\": 0}"
       },
       "response": {
         "choices": [
@@ -160,7 +160,7 @@
             }
           }
         ],
-        "created": 1788103819,
+        "created": 1788107449,
         "model": "Ternary-Bonsai-27B-Abliterated-LowDeg-Q2_0.gguf",
         "system_fingerprint": "b9599-9ca265a57",
         "object": "chat.completion",
@@ -172,17 +172,17 @@
             "cached_tokens": 318
           }
         },
-        "id": "chatcmpl-tXnDtL5m3DDBjhO6xGncaChzdqlYO5oo",
+        "id": "chatcmpl-2DyUo4GbPW2aeQVV24Z6iPfM9EjDL4O5",
         "timings": {
           "cache_n": 318,
           "prompt_n": 406,
-          "prompt_ms": 7851.43,
-          "prompt_per_token_ms": 19.338497536945813,
-          "prompt_per_second": 51.71032538021736,
+          "prompt_ms": 8949.243,
+          "prompt_per_token_ms": 22.042470443349753,
+          "prompt_per_second": 45.36696567519733,
           "predicted_n": 16,
-          "predicted_ms": 1160.234,
-          "predicted_per_token_ms": 72.514625,
-          "predicted_per_second": 13.790321607537791
+          "predicted_ms": 1482.012,
+          "predicted_per_token_ms": 92.62575,
+          "predicted_per_second": 10.796133904448817
         }
       },
       "parsed_action": {
@@ -192,7 +192,7 @@
       },
       "tool_result": {
         "ok": true,
-        "matches": "/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/settings.py:1:DEFAULTS = {\"tool_timeout_seconds\": 30, \"retries\": 2}\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/settings.py:5:    return {**DEFAULTS, \"tool_timeout_seconds\": int(env.get(\"TOOL_TIMEOUT_SECONDS\", DEFAULTS[\"tool_timeout_seconds\"]))}\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/README.md:3:The `tool_timeout_seconds` setting controls the maximum wait for a tool.\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/test_settings.py:5:    assert load_settings({\"tool_timeout_seconds\": \"99\"})[\"tool_timeout_seconds\"] == 30\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/test_settings.py:9:    assert load_settings({\"TOOL_TIMEOUT_SECONDS\": \"7\"})[\"tool_timeout_seconds\"] == 7\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/config.json:1:{\"tool_timeout_seconds\": 30, \"retries\": 2}\n",
+        "matches": "/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/settings.py:1:DEFAULTS = {\"tool_timeout_seconds\": 30, \"retries\": 2}\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/settings.py:5:    return {**DEFAULTS, \"tool_timeout_seconds\": int(env.get(\"TOOL_TIMEOUT_SECONDS\", DEFAULTS[\"tool_timeout_seconds\"]))}\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/README.md:3:The `tool_timeout_seconds` setting controls the maximum wait for a tool.\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/config.json:1:{\"tool_timeout_seconds\": 30, \"retries\": 2}\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/test_settings.py:5:    assert load_settings({\"tool_timeout_seconds\": \"99\"})[\"tool_timeout_seconds\"] == 30\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/test_settings.py:9:    assert load_settings({\"TOOL_TIMEOUT_SECONDS\": \"7\"})[\"tool_timeout_seconds\"] == 7\n",
         "exit_code": 0
       }
     },
@@ -200,7 +200,7 @@
       "index": 3,
       "request": {
         "role": "user",
-        "content": "TOOL RESULT:\n{\"ok\": true, \"matches\": \"/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/settings.py:1:DEFAULTS = {\\\"tool_timeout_seconds\\\": 30, \\\"retries\\\": 2}\\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/settings.py:5:    return {**DEFAULTS, \\\"tool_timeout_seconds\\\": int(env.get(\\\"TOOL_TIMEOUT_SECONDS\\\", DEFAULTS[\\\"tool_timeout_seconds\\\"]))}\\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/README.md:3:The `tool_timeout_seconds` setting controls the maximum wait for a tool.\\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/test_settings.py:5:    assert load_settings({\\\"tool_timeout_seconds\\\": \\\"99\\\"})[\\\"tool_timeout_seconds\\\"] == 30\\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/test_settings.py:9:    assert load_settings({\\\"TOOL_TIMEOUT_SECONDS\\\": \\\"7\\\"})[\\\"tool_timeout_seconds\\\"] == 7\\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/config.json:1:{\\\"tool_timeout_seconds\\\": 30, \\\"retries\\\": 2}\\n\", \"exit_code\": 0}"
+        "content": "TOOL RESULT:\n{\"ok\": true, \"matches\": \"/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/settings.py:1:DEFAULTS = {\\\"tool_timeout_seconds\\\": 30, \\\"retries\\\": 2}\\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/settings.py:5:    return {**DEFAULTS, \\\"tool_timeout_seconds\\\": int(env.get(\\\"TOOL_TIMEOUT_SECONDS\\\", DEFAULTS[\\\"tool_timeout_seconds\\\"]))}\\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/README.md:3:The `tool_timeout_seconds` setting controls the maximum wait for a tool.\\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/config.json:1:{\\\"tool_timeout_seconds\\\": 30, \\\"retries\\\": 2}\\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/test_settings.py:5:    assert load_settings({\\\"tool_timeout_seconds\\\": \\\"99\\\"})[\\\"tool_timeout_seconds\\\"] == 30\\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/test_settings.py:9:    assert load_settings({\\\"TOOL_TIMEOUT_SECONDS\\\": \\\"7\\\"})[\\\"tool_timeout_seconds\\\"] == 7\\n\", \"exit_code\": 0}"
       },
       "response": {
         "choices": [
@@ -213,7 +213,7 @@
             }
           }
         ],
-        "created": 1788103834,
+        "created": 1788107470,
         "model": "Ternary-Bonsai-27B-Abliterated-LowDeg-Q2_0.gguf",
         "system_fingerprint": "b9599-9ca265a57",
         "object": "chat.completion",
@@ -225,17 +225,17 @@
             "cached_tokens": 720
           }
         },
-        "id": "chatcmpl-3nthrqvstXR6zAlE0POaWLJxxyObytDd",
+        "id": "chatcmpl-sVCFjQimxsqxTK7UThFKNCnYZkr9ArYH",
         "timings": {
           "cache_n": 720,
           "prompt_n": 406,
-          "prompt_ms": 12803.258,
-          "prompt_per_token_ms": 31.535118226600986,
-          "prompt_per_second": 31.710678641327075,
+          "prompt_ms": 17369.671,
+          "prompt_per_token_ms": 42.782440886699504,
+          "prompt_per_second": 23.37407542146308,
           "predicted_n": 16,
-          "predicted_ms": 1406.479,
-          "predicted_per_token_ms": 87.9049375,
-          "predicted_per_second": 11.37592527154689
+          "predicted_ms": 3546.669,
+          "predicted_per_token_ms": 221.6668125,
+          "predicted_per_second": 4.511275227544493
         }
       },
       "parsed_action": {
@@ -245,7 +245,7 @@
       },
       "tool_result": {
         "ok": true,
-        "matches": "/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/config.json:1:{\"tool_timeout_seconds\": 30, \"retries\": 2}\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/settings.py:1:DEFAULTS = {\"tool_timeout_seconds\": 30, \"retries\": 2}\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/settings.py:5:    return {**DEFAULTS, \"tool_timeout_seconds\": int(env.get(\"TOOL_TIMEOUT_SECONDS\", DEFAULTS[\"tool_timeout_seconds\"]))}\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/test_settings.py:5:    assert load_settings({\"tool_timeout_seconds\": \"99\"})[\"tool_timeout_seconds\"] == 30\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/test_settings.py:9:    assert load_settings({\"TOOL_TIMEOUT_SECONDS\": \"7\"})[\"tool_timeout_seconds\"] == 7\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/README.md:3:The `tool_timeout_seconds` setting controls the maximum wait for a tool.\n",
+        "matches": "/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/config.json:1:{\"tool_timeout_seconds\": 30, \"retries\": 2}\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/README.md:3:The `tool_timeout_seconds` setting controls the maximum wait for a tool.\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/test_settings.py:5:    assert load_settings({\"tool_timeout_seconds\": \"99\"})[\"tool_timeout_seconds\"] == 30\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/test_settings.py:9:    assert load_settings({\"TOOL_TIMEOUT_SECONDS\": \"7\"})[\"tool_timeout_seconds\"] == 7\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/settings.py:1:DEFAULTS = {\"tool_timeout_seconds\": 30, \"retries\": 2}\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/settings.py:5:    return {**DEFAULTS, \"tool_timeout_seconds\": int(env.get(\"TOOL_TIMEOUT_SECONDS\", DEFAULTS[\"tool_timeout_seconds\"]))}\n",
         "exit_code": 0
       }
     },
@@ -253,7 +253,7 @@
       "index": 4,
       "request": {
         "role": "user",
-        "content": "TOOL RESULT:\n{\"ok\": true, \"matches\": \"/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/config.json:1:{\\\"tool_timeout_seconds\\\": 30, \\\"retries\\\": 2}\\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/settings.py:1:DEFAULTS = {\\\"tool_timeout_seconds\\\": 30, \\\"retries\\\": 2}\\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/settings.py:5:    return {**DEFAULTS, \\\"tool_timeout_seconds\\\": int(env.get(\\\"TOOL_TIMEOUT_SECONDS\\\", DEFAULTS[\\\"tool_timeout_seconds\\\"]))}\\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/test_settings.py:5:    assert load_settings({\\\"tool_timeout_seconds\\\": \\\"99\\\"})[\\\"tool_timeout_seconds\\\"] == 30\\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/test_settings.py:9:    assert load_settings({\\\"TOOL_TIMEOUT_SECONDS\\\": \\\"7\\\"})[\\\"tool_timeout_seconds\\\"] == 7\\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/README.md:3:The `tool_timeout_seconds` setting controls the maximum wait for a tool.\\n\", \"exit_code\": 0}"
+        "content": "TOOL RESULT:\n{\"ok\": true, \"matches\": \"/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/config.json:1:{\\\"tool_timeout_seconds\\\": 30, \\\"retries\\\": 2}\\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/README.md:3:The `tool_timeout_seconds` setting controls the maximum wait for a tool.\\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/test_settings.py:5:    assert load_settings({\\\"tool_timeout_seconds\\\": \\\"99\\\"})[\\\"tool_timeout_seconds\\\"] == 30\\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/test_settings.py:9:    assert load_settings({\\\"TOOL_TIMEOUT_SECONDS\\\": \\\"7\\\"})[\\\"tool_timeout_seconds\\\"] == 7\\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/settings.py:1:DEFAULTS = {\\\"tool_timeout_seconds\\\": 30, \\\"retries\\\": 2}\\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/settings.py:5:    return {**DEFAULTS, \\\"tool_timeout_seconds\\\": int(env.get(\\\"TOOL_TIMEOUT_SECONDS\\\", DEFAULTS[\\\"tool_timeout_seconds\\\"]))}\\n\", \"exit_code\": 0}"
       },
       "response": {
         "choices": [
@@ -266,7 +266,7 @@
             }
           }
         ],
-        "created": 1788103853,
+        "created": 1788107493,
         "model": "Ternary-Bonsai-27B-Abliterated-LowDeg-Q2_0.gguf",
         "system_fingerprint": "b9599-9ca265a57",
         "object": "chat.completion",
@@ -278,17 +278,17 @@
             "cached_tokens": 1122
           }
         },
-        "id": "chatcmpl-K4Pd2yqbbQhDCPsgyszUNUAl0vyhYq3n",
+        "id": "chatcmpl-uw1pfArDWmA23xbb9niPZg0ml19rY2p7",
         "timings": {
           "cache_n": 1122,
           "prompt_n": 406,
-          "prompt_ms": 17852.606,
-          "prompt_per_token_ms": 43.97193596059113,
-          "prompt_per_second": 22.741777867052015,
+          "prompt_ms": 21072.905,
+          "prompt_per_token_ms": 51.90370689655172,
+          "prompt_per_second": 19.26644665270403,
           "predicted_n": 16,
-          "predicted_ms": 1757.08,
-          "predicted_per_token_ms": 109.8175,
-          "predicted_per_second": 9.106016800600997
+          "predicted_ms": 2036.681,
+          "predicted_per_token_ms": 127.2925625,
+          "predicted_per_second": 7.8559185262689635
         }
       },
       "parsed_action": {
@@ -298,7 +298,7 @@
       },
       "tool_result": {
         "ok": true,
-        "matches": "/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/settings.py:1:DEFAULTS = {\"tool_timeout_seconds\": 30, \"retries\": 2}\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/settings.py:5:    return {**DEFAULTS, \"tool_timeout_seconds\": int(env.get(\"TOOL_TIMEOUT_SECONDS\", DEFAULTS[\"tool_timeout_seconds\"]))}\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/README.md:3:The `tool_timeout_seconds` setting controls the maximum wait for a tool.\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/config.json:1:{\"tool_timeout_seconds\": 30, \"retries\": 2}\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/test_settings.py:5:    assert load_settings({\"tool_timeout_seconds\": \"99\"})[\"tool_timeout_seconds\"] == 30\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/test_settings.py:9:    assert load_settings({\"TOOL_TIMEOUT_SECONDS\": \"7\"})[\"tool_timeout_seconds\"] == 7\n",
+        "matches": "/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/settings.py:1:DEFAULTS = {\"tool_timeout_seconds\": 30, \"retries\": 2}\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/settings.py:5:    return {**DEFAULTS, \"tool_timeout_seconds\": int(env.get(\"TOOL_TIMEOUT_SECONDS\", DEFAULTS[\"tool_timeout_seconds\"]))}\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/README.md:3:The `tool_timeout_seconds` setting controls the maximum wait for a tool.\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/config.json:1:{\"tool_timeout_seconds\": 30, \"retries\": 2}\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/test_settings.py:5:    assert load_settings({\"tool_timeout_seconds\": \"99\"})[\"tool_timeout_seconds\"] == 30\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/test_settings.py:9:    assert load_settings({\"TOOL_TIMEOUT_SECONDS\": \"7\"})[\"tool_timeout_seconds\"] == 7\n",
         "exit_code": 0
       }
     },
@@ -306,7 +306,7 @@
       "index": 5,
       "request": {
         "role": "user",
-        "content": "TOOL RESULT:\n{\"ok\": true, \"matches\": \"/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/settings.py:1:DEFAULTS = {\\\"tool_timeout_seconds\\\": 30, \\\"retries\\\": 2}\\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/settings.py:5:    return {**DEFAULTS, \\\"tool_timeout_seconds\\\": int(env.get(\\\"TOOL_TIMEOUT_SECONDS\\\", DEFAULTS[\\\"tool_timeout_seconds\\\"]))}\\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/README.md:3:The `tool_timeout_seconds` setting controls the maximum wait for a tool.\\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/config.json:1:{\\\"tool_timeout_seconds\\\": 30, \\\"retries\\\": 2}\\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/test_settings.py:5:    assert load_settings({\\\"tool_timeout_seconds\\\": \\\"99\\\"})[\\\"tool_timeout_seconds\\\"] == 30\\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/test_settings.py:9:    assert load_settings({\\\"TOOL_TIMEOUT_SECONDS\\\": \\\"7\\\"})[\\\"tool_timeout_seconds\\\"] == 7\\n\", \"exit_code\": 0}"
+        "content": "TOOL RESULT:\n{\"ok\": true, \"matches\": \"/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/settings.py:1:DEFAULTS = {\\\"tool_timeout_seconds\\\": 30, \\\"retries\\\": 2}\\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/settings.py:5:    return {**DEFAULTS, \\\"tool_timeout_seconds\\\": int(env.get(\\\"TOOL_TIMEOUT_SECONDS\\\", DEFAULTS[\\\"tool_timeout_seconds\\\"]))}\\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/README.md:3:The `tool_timeout_seconds` setting controls the maximum wait for a tool.\\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/config.json:1:{\\\"tool_timeout_seconds\\\": 30, \\\"retries\\\": 2}\\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/test_settings.py:5:    assert load_settings({\\\"tool_timeout_seconds\\\": \\\"99\\\"})[\\\"tool_timeout_seconds\\\"] == 30\\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/test_settings.py:9:    assert load_settings({\\\"TOOL_TIMEOUT_SECONDS\\\": \\\"7\\\"})[\\\"tool_timeout_seconds\\\"] == 7\\n\", \"exit_code\": 0}"
       },
       "response": {
         "choices": [
@@ -319,7 +319,7 @@
             }
           }
         ],
-        "created": 1788103877,
+        "created": 1788107525,
         "model": "Ternary-Bonsai-27B-Abliterated-LowDeg-Q2_0.gguf",
         "system_fingerprint": "b9599-9ca265a57",
         "object": "chat.completion",
@@ -331,17 +331,17 @@
             "cached_tokens": 1524
           }
         },
-        "id": "chatcmpl-885ncV2C4fEvneAy7wdlyX9PH10IjT8A",
+        "id": "chatcmpl-mXpnbGtsU302cdeUGp3pcNsR0eM0476R",
         "timings": {
           "cache_n": 1524,
           "prompt_n": 406,
-          "prompt_ms": 22028.57,
-          "prompt_per_token_ms": 54.25756157635468,
-          "prompt_per_second": 18.43061079316542,
+          "prompt_ms": 29245.969,
+          "prompt_per_token_ms": 72.03440640394089,
+          "prompt_per_second": 13.882255021196254,
           "predicted_n": 16,
-          "predicted_ms": 1812.07,
-          "predicted_per_token_ms": 113.254375,
-          "predicted_per_second": 8.82968097258936
+          "predicted_ms": 2228.054,
+          "predicted_per_token_ms": 139.253375,
+          "predicted_per_second": 7.181154496255476
         }
       },
       "parsed_action": {
@@ -351,7 +351,7 @@
       },
       "tool_result": {
         "ok": true,
-        "matches": "/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/test_settings.py:5:    assert load_settings({\"tool_timeout_seconds\": \"99\"})[\"tool_timeout_seconds\"] == 30\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/test_settings.py:9:    assert load_settings({\"TOOL_TIMEOUT_SECONDS\": \"7\"})[\"tool_timeout_seconds\"] == 7\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/config.json:1:{\"tool_timeout_seconds\": 30, \"retries\": 2}\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/settings.py:1:DEFAULTS = {\"tool_timeout_seconds\": 30, \"retries\": 2}\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/settings.py:5:    return {**DEFAULTS, \"tool_timeout_seconds\": int(env.get(\"TOOL_TIMEOUT_SECONDS\", DEFAULTS[\"tool_timeout_seconds\"]))}\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/README.md:3:The `tool_timeout_seconds` setting controls the maximum wait for a tool.\n",
+        "matches": "/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/settings.py:1:DEFAULTS = {\"tool_timeout_seconds\": 30, \"retries\": 2}\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/settings.py:5:    return {**DEFAULTS, \"tool_timeout_seconds\": int(env.get(\"TOOL_TIMEOUT_SECONDS\", DEFAULTS[\"tool_timeout_seconds\"]))}\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/test_settings.py:5:    assert load_settings({\"tool_timeout_seconds\": \"99\"})[\"tool_timeout_seconds\"] == 30\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/test_settings.py:9:    assert load_settings({\"TOOL_TIMEOUT_SECONDS\": \"7\"})[\"tool_timeout_seconds\"] == 7\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/README.md:3:The `tool_timeout_seconds` setting controls the maximum wait for a tool.\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/config.json:1:{\"tool_timeout_seconds\": 30, \"retries\": 2}\n",
         "exit_code": 0
       }
     },
@@ -359,7 +359,7 @@
       "index": 6,
       "request": {
         "role": "user",
-        "content": "TOOL RESULT:\n{\"ok\": true, \"matches\": \"/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/test_settings.py:5:    assert load_settings({\\\"tool_timeout_seconds\\\": \\\"99\\\"})[\\\"tool_timeout_seconds\\\"] == 30\\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/test_settings.py:9:    assert load_settings({\\\"TOOL_TIMEOUT_SECONDS\\\": \\\"7\\\"})[\\\"tool_timeout_seconds\\\"] == 7\\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/config.json:1:{\\\"tool_timeout_seconds\\\": 30, \\\"retries\\\": 2}\\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/settings.py:1:DEFAULTS = {\\\"tool_timeout_seconds\\\": 30, \\\"retries\\\": 2}\\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/settings.py:5:    return {**DEFAULTS, \\\"tool_timeout_seconds\\\": int(env.get(\\\"TOOL_TIMEOUT_SECONDS\\\", DEFAULTS[\\\"tool_timeout_seconds\\\"]))}\\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/README.md:3:The `tool_timeout_seconds` setting controls the maximum wait for a tool.\\n\", \"exit_code\": 0}"
+        "content": "TOOL RESULT:\n{\"ok\": true, \"matches\": \"/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/settings.py:1:DEFAULTS = {\\\"tool_timeout_seconds\\\": 30, \\\"retries\\\": 2}\\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/settings.py:5:    return {**DEFAULTS, \\\"tool_timeout_seconds\\\": int(env.get(\\\"TOOL_TIMEOUT_SECONDS\\\", DEFAULTS[\\\"tool_timeout_seconds\\\"]))}\\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/test_settings.py:5:    assert load_settings({\\\"tool_timeout_seconds\\\": \\\"99\\\"})[\\\"tool_timeout_seconds\\\"] == 30\\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/test_settings.py:9:    assert load_settings({\\\"TOOL_TIMEOUT_SECONDS\\\": \\\"7\\\"})[\\\"tool_timeout_seconds\\\"] == 7\\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/README.md:3:The `tool_timeout_seconds` setting controls the maximum wait for a tool.\\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/config.json:1:{\\\"tool_timeout_seconds\\\": 30, \\\"retries\\\": 2}\\n\", \"exit_code\": 0}"
       },
       "response": {
         "choices": [
@@ -372,7 +372,7 @@
             }
           }
         ],
-        "created": 1788103905,
+        "created": 1788107565,
         "model": "Ternary-Bonsai-27B-Abliterated-LowDeg-Q2_0.gguf",
         "system_fingerprint": "b9599-9ca265a57",
         "object": "chat.completion",
@@ -384,17 +384,17 @@
             "cached_tokens": 1926
           }
         },
-        "id": "chatcmpl-DzVOONOL1fxvjvzeSmXakZXnx1d6Vqim",
+        "id": "chatcmpl-JSf5Vz6GRBU3XNbMCFwmNjz9a1OgWI6o",
         "timings": {
           "cache_n": 1926,
           "prompt_n": 406,
-          "prompt_ms": 26092.032,
-          "prompt_per_token_ms": 64.26608866995073,
-          "prompt_per_second": 15.560305920213498,
+          "prompt_ms": 37365.909,
+          "prompt_per_token_ms": 92.03425862068966,
+          "prompt_per_second": 10.86551915544193,
           "predicted_n": 16,
-          "predicted_ms": 2016.265,
-          "predicted_per_token_ms": 126.0165625,
-          "predicted_per_second": 7.9354648322517125
+          "predicted_ms": 2563.103,
+          "predicted_per_token_ms": 160.1939375,
+          "predicted_per_second": 6.242433487846567
         }
       },
       "parsed_action": {
@@ -404,7 +404,7 @@
       },
       "tool_result": {
         "ok": true,
-        "matches": "/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/settings.py:1:DEFAULTS = {\"tool_timeout_seconds\": 30, \"retries\": 2}\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/settings.py:5:    return {**DEFAULTS, \"tool_timeout_seconds\": int(env.get(\"TOOL_TIMEOUT_SECONDS\", DEFAULTS[\"tool_timeout_seconds\"]))}\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/README.md:3:The `tool_timeout_seconds` setting controls the maximum wait for a tool.\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/config.json:1:{\"tool_timeout_seconds\": 30, \"retries\": 2}\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/test_settings.py:5:    assert load_settings({\"tool_timeout_seconds\": \"99\"})[\"tool_timeout_seconds\"] == 30\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/test_settings.py:9:    assert load_settings({\"TOOL_TIMEOUT_SECONDS\": \"7\"})[\"tool_timeout_seconds\"] == 7\n",
+        "matches": "/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/settings.py:1:DEFAULTS = {\"tool_timeout_seconds\": 30, \"retries\": 2}\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/settings.py:5:    return {**DEFAULTS, \"tool_timeout_seconds\": int(env.get(\"TOOL_TIMEOUT_SECONDS\", DEFAULTS[\"tool_timeout_seconds\"]))}\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/README.md:3:The `tool_timeout_seconds` setting controls the maximum wait for a tool.\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/config.json:1:{\"tool_timeout_seconds\": 30, \"retries\": 2}\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/test_settings.py:5:    assert load_settings({\"tool_timeout_seconds\": \"99\"})[\"tool_timeout_seconds\"] == 30\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/test_settings.py:9:    assert load_settings({\"TOOL_TIMEOUT_SECONDS\": \"7\"})[\"tool_timeout_seconds\"] == 7\n",
         "exit_code": 0
       }
     },
@@ -412,9 +412,9 @@
       "index": 7,
       "request": {
         "role": "user",
-        "content": "TOOL RESULT:\n{\"ok\": true, \"matches\": \"/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/settings.py:1:DEFAULTS = {\\\"tool_timeout_seconds\\\": 30, \\\"retries\\\": 2}\\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/settings.py:5:    return {**DEFAULTS, \\\"tool_timeout_seconds\\\": int(env.get(\\\"TOOL_TIMEOUT_SECONDS\\\", DEFAULTS[\\\"tool_timeout_seconds\\\"]))}\\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/README.md:3:The `tool_timeout_seconds` setting controls the maximum wait for a tool.\\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/config.json:1:{\\\"tool_timeout_seconds\\\": 30, \\\"retries\\\": 2}\\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/test_settings.py:5:    assert load_settings({\\\"tool_timeout_seconds\\\": \\\"99\\\"})[\\\"tool_timeout_seconds\\\"] == 30\\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788103785965/fixture/test_settings.py:9:    assert load_settings({\\\"TOOL_TIMEOUT_SECONDS\\\": \\\"7\\\"})[\\\"tool_timeout_seconds\\\"] == 7\\n\", \"exit_code\": 0}"
+        "content": "TOOL RESULT:\n{\"ok\": true, \"matches\": \"/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/settings.py:1:DEFAULTS = {\\\"tool_timeout_seconds\\\": 30, \\\"retries\\\": 2}\\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/settings.py:5:    return {**DEFAULTS, \\\"tool_timeout_seconds\\\": int(env.get(\\\"TOOL_TIMEOUT_SECONDS\\\", DEFAULTS[\\\"tool_timeout_seconds\\\"]))}\\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/README.md:3:The `tool_timeout_seconds` setting controls the maximum wait for a tool.\\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/config.json:1:{\\\"tool_timeout_seconds\\\": 30, \\\"retries\\\": 2}\\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/test_settings.py:5:    assert load_settings({\\\"tool_timeout_seconds\\\": \\\"99\\\"})[\\\"tool_timeout_seconds\\\"] == 30\\n/tmp/repo-worker-mini-v1-worktrees/bonsai-task02-1788107419256/fixture/test_settings.py:9:    assert load_settings({\\\"TOOL_TIMEOUT_SECONDS\\\": \\\"7\\\"})[\\\"tool_timeout_seconds\\\"] == 7\\n\", \"exit_code\": 0}"
       },
-      "error": "TimeoutError: request exceeded 30.00s"
+      "error": "TimeoutError: request exceeded 34.06s"
     }
   ]
 }

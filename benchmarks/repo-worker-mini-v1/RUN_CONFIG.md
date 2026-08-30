@@ -15,4 +15,4 @@ Requested baseline:
 - temperature 0.2, top_p 0.95
 - speculative decoding off
 
-Per-model runtime/template differences are recorded in `RESULTS.json`. The benchmark protocol uses one JSON tool action per model turn. The final run used a maximum of 20 tool calls, 12000 generated/reasoning output tokens, 128 model tokens per turn, and 180 seconds per task. Each HTTP generation runs in a terminable subprocess so a slow response cannot block later tasks. Browser is unavailable in this local harness unless recorded otherwise.
+Per-model runtime/template differences are recorded in `RESULTS.json`. The benchmark protocol uses one JSON tool action per model turn. The final run used a maximum of 20 tool calls, 12000 generated/reasoning output tokens, 1024 model tokens per turn, and 180 seconds per task. Each HTTP generation runs in a terminable subprocess so a slow response cannot block later tasks. Browser is unavailable in this local harness unless recorded otherwise.

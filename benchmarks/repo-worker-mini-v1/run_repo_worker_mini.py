@@ -23,7 +23,7 @@ WORK_ROOT = Path('/tmp/repo-worker-mini-v1-worktrees')
 PORTS = {'bonsai': 8121, 'ornith-1.5-9b-q5': 8122}
 MAX_TOOL_CALLS = 20
 MAX_GENERATED_TOKENS = 12000
-MAX_TOKENS_PER_TURN = 128
+MAX_TOKENS_PER_TURN = 1024
 TASK_TIMEOUT_SECONDS = 180
 
 BONSAI = ROOT / 'text/Ternary-Bonsai-27B-Abliterated-LowDeg/Ternary-Bonsai-27B-Abliterated-LowDeg-Q2_0.gguf'
@@ -326,7 +326,7 @@ def run_task(model, task_id, server, cfg, command, worktree, output_dir):
             stop_reason = 'task_timeout'
             break
         try:
-            response = request_json(f'http://127.0.0.1:{PORTS[model]}/v1/chat/completions', {'messages': messages, 'temperature': 0.2, 'top_p': 0.95, 'seed': 3407, 'max_tokens': MAX_TOKENS_PER_TURN, 'stream': False}, timeout=min(30, remaining))
+            response = request_json(f'http://127.0.0.1:{PORTS[model]}/v1/chat/completions', {'messages': messages, 'temperature': 0.2, 'top_p': 0.95, 'seed': 3407, 'max_tokens': MAX_TOKENS_PER_TURN, 'stream': False}, timeout=remaining)
         except (TimeoutError, urllib.error.URLError) as exc:
             stop_reason = 'generation_timeout' if isinstance(exc, TimeoutError) else 'request_error'
             events.append({'index': call_index + 1, 'request': messages[-1], 'error': f'{type(exc).__name__}: {exc}'})

@@ -17,7 +17,7 @@
           }
         }
       ],
-      "created": 1788104435,
+      "created": 1788108225,
       "model": "/home/alpha/Playstoria/models/text/bartowski-Ornith-1.5-9B-Q5_K_M/Ornith-1.5-9B-Q5_K_M.gguf",
       "system_fingerprint": "b1-8ce8ca6",
       "object": "chat.completion",
@@ -29,17 +29,17 @@
           "cached_tokens": 0
         }
       },
-      "id": "chatcmpl-SymLRYHJXpaGRzC6vhrxY7VKwmZaLOBa",
+      "id": "chatcmpl-X6GHSkMCmg9mCZCv7PLMzdqfKnO80WAf",
       "timings": {
         "cache_n": 0,
         "prompt_n": 378,
-        "prompt_ms": 1234.274,
-        "prompt_per_token_ms": 3.265275132275132,
-        "prompt_per_second": 306.2529065669374,
+        "prompt_ms": 1521.857,
+        "prompt_per_token_ms": 4.02607671957672,
+        "prompt_per_second": 248.38076113590174,
         "predicted_n": 34,
-        "predicted_ms": 1046.672,
-        "predicted_per_token_ms": 30.784470588235294,
-        "predicted_per_second": 32.4839109100081
+        "predicted_ms": 1122.195,
+        "predicted_per_token_ms": 33.00573529411764,
+        "predicted_per_second": 30.297764648746433
       }
     },
     "parsed_action": {
@@ -110,7 +110,7 @@
           }
         }
       ],
-      "created": 1788104437,
+      "created": 1788108227,
       "model": "/home/alpha/Playstoria/models/text/bartowski-Ornith-1.5-9B-Q5_K_M/Ornith-1.5-9B-Q5_K_M.gguf",
       "system_fingerprint": "b1-8ce8ca6",
       "object": "chat.completion",
@@ -122,17 +122,17 @@
           "cached_tokens": 374
         }
       },
-      "id": "chatcmpl-F3uTtaM5Ch5fgCOpeCcZXvrhWMyrg20k",
+      "id": "chatcmpl-gRD5ES6RzvpIHfmeqk4S87zKe3sL5d6E",
       "timings": {
         "cache_n": 374,
         "prompt_n": 167,
-        "prompt_ms": 651.268,
-        "prompt_per_token_ms": 3.899808383233533,
-        "prompt_per_second": 256.42285510726765,
+        "prompt_ms": 783.376,
+        "prompt_per_token_ms": 4.690874251497005,
+        "prompt_per_second": 213.17987786197176,
         "predicted_n": 51,
-        "predicted_ms": 1725.145,
-        "predicted_per_token_ms": 33.82637254901961,
-        "predicted_per_second": 29.562732408000485
+        "predicted_ms": 1836.612,
+        "predicted_per_token_ms": 36.012,
+        "predicted_per_second": 27.768521603909807
       }
     },
     "parsed_action": {
@@ -167,7 +167,7 @@
           }
         }
       ],
-      "created": 1788104449,
+      "created": 1788108241,
       "model": "/home/alpha/Playstoria/models/text/bartowski-Ornith-1.5-9B-Q5_K_M/Ornith-1.5-9B-Q5_K_M.gguf",
       "system_fingerprint": "b1-8ce8ca6",
       "object": "chat.completion",
@@ -179,17 +179,17 @@
           "cached_tokens": 537
         }
       },
-      "id": "chatcmpl-DsRzhmSbkUdFAQrryHrJkJ0PvxjrHk5W",
+      "id": "chatcmpl-aCGLv95NkVtYf4sIhvCnhRuwDNKjm7Sb",
       "timings": {
         "cache_n": 537,
         "prompt_n": 1190,
-        "prompt_ms": 8035.162,
-        "prompt_per_token_ms": 6.752236974789916,
-        "prompt_per_second": 148.09906757324867,
+        "prompt_ms": 9279.972,
+        "prompt_per_token_ms": 7.7982957983193275,
+        "prompt_per_second": 128.23314553104257,
         "predicted_n": 95,
-        "predicted_ms": 4133.796,
-        "predicted_per_token_ms": 43.51364210526316,
-        "predicted_per_second": 22.98129854496932
+        "predicted_ms": 4660.267,
+        "predicted_per_token_ms": 49.055442105263154,
+        "predicted_per_second": 20.38509810703979
       }
     },
     "parsed_action": {
@@ -268,7 +268,7 @@
           }
         }
       ],
-      "created": 1788104453,
+      "created": 1788108246,
       "model": "/home/alpha/Playstoria/models/text/bartowski-Ornith-1.5-9B-Q5_K_M/Ornith-1.5-9B-Q5_K_M.gguf",
       "system_fingerprint": "b1-8ce8ca6",
       "object": "chat.completion",
@@ -280,17 +280,17 @@
           "cached_tokens": 1723
         }
       },
-      "id": "chatcmpl-VeXYfixOHBbzAquIyJFVBjqVVinHlyrN",
+      "id": "chatcmpl-l7tbulh4RpQx3C4aqB95IIEKsPM13gCk",
       "timings": {
         "cache_n": 1723,
         "prompt_n": 242,
-        "prompt_ms": 2626.17,
-        "prompt_per_token_ms": 10.851942148760331,
-        "prompt_per_second": 92.1494038847447,
+        "prompt_ms": 3247.172,
+        "prompt_per_token_ms": 13.41806611570248,
+        "prompt_per_second": 74.52638788459619,
         "predicted_n": 29,
-        "predicted_ms": 1343.089,
-        "predicted_per_token_ms": 46.31341379310344,
-        "predicted_per_second": 21.592016612450852
+        "predicted_ms": 1503.789,
+        "predicted_per_token_ms": 51.85479310344827,
+        "predicted_per_second": 19.284620382247777
       }
     },
     "parsed_action": {
@@ -325,7 +325,7 @@
           }
         }
       ],
-      "created": 1788104456,
+      "created": 1788108250,
       "model": "/home/alpha/Playstoria/models/text/bartowski-Ornith-1.5-9B-Q5_K_M/Ornith-1.5-9B-Q5_K_M.gguf",
       "system_fingerprint": "b1-8ce8ca6",
       "object": "chat.completion",
@@ -337,17 +337,17 @@
           "cached_tokens": 1961
         }
       },
-      "id": "chatcmpl-MVzbQraKB9w5NSJ1usgQXOmRP5wA88Ph",
+      "id": "chatcmpl-IZngkaenZZf8plJ6bgMSptpdDkNYDu9n",
       "timings": {
         "cache_n": 1961,
         "prompt_n": 62,
-        "prompt_ms": 958.759,
-        "prompt_per_token_ms": 15.463854838709677,
-        "prompt_per_second": 64.66692881109851,
+        "prompt_ms": 1070.506,
+        "prompt_per_token_ms": 17.266225806451615,
+        "prompt_per_second": 57.91653666583839,
         "predicted_n": 42,
-        "predicted_ms": 1959.804,
-        "predicted_per_token_ms": 46.662,
-        "predicted_per_second": 21.43071450002143
+        "predicted_ms": 2297.428,
+        "predicted_per_token_ms": 54.70066666666666,
+        "predicted_per_second": 18.281312842012895
       }
     },
     "parsed_action": {
@@ -382,7 +382,7 @@
           }
         }
       ],
-      "created": 1788104462,
+      "created": 1788108256,
       "model": "/home/alpha/Playstoria/models/text/bartowski-Ornith-1.5-9B-Q5_K_M/Ornith-1.5-9B-Q5_K_M.gguf",
       "system_fingerprint": "b1-8ce8ca6",
       "object": "chat.completion",
@@ -394,17 +394,17 @@
           "cached_tokens": 2019
         }
       },
-      "id": "chatcmpl-WrgWRoLeIK2RxnOilKqvhtB17YPZhhhp",
+      "id": "chatcmpl-zkx3c3Kf3pVmECgUVdsz01TNRR7LgeP3",
       "timings": {
         "cache_n": 2019,
         "prompt_n": 175,
-        "prompt_ms": 2396.344,
-        "prompt_per_token_ms": 13.693394285714286,
-        "prompt_per_second": 73.02791252007223,
+        "prompt_ms": 2810.537,
+        "prompt_per_token_ms": 16.060211428571428,
+        "prompt_per_second": 62.265680900126924,
         "predicted_n": 63,
-        "predicted_ms": 3271.623,
-        "predicted_per_token_ms": 51.93052380952381,
-        "predicted_per_second": 19.256497463185703
+        "predicted_ms": 3410.067,
+        "predicted_per_token_ms": 54.12804761904762,
+        "predicted_per_second": 18.474710320940908
       }
     },
     "parsed_action": {
@@ -483,7 +483,7 @@
           }
         }
       ],
-      "created": 1788104470,
+      "created": 1788108264,
       "model": "/home/alpha/Playstoria/models/text/bartowski-Ornith-1.5-9B-Q5_K_M/Ornith-1.5-9B-Q5_K_M.gguf",
       "system_fingerprint": "b1-8ce8ca6",
       "object": "chat.completion",
@@ -495,17 +495,17 @@
           "cached_tokens": 2190
         }
       },
-      "id": "chatcmpl-eT56pzCdc4hLfw4Wbe1W3yK43THgiqen",
+      "id": "chatcmpl-j2xn5CCB5zK7zzzM2ZSPqniMJ5HRsl63",
       "timings": {
         "cache_n": 2190,
         "prompt_n": 280,
-        "prompt_ms": 4812.718,
-        "prompt_per_token_ms": 17.188278571428572,
-        "prompt_per_second": 58.17918274039742,
+        "prompt_ms": 5394.006,
+        "prompt_per_token_ms": 19.264307142857145,
+        "prompt_per_second": 51.90947136506707,
         "predicted_n": 47,
-        "predicted_ms": 2819.318,
-        "predicted_per_token_ms": 59.98548936170213,
-        "predicted_per_second": 16.670698374571437
+        "predicted_ms": 2848.299,
+        "predicted_per_token_ms": 60.602106382978725,
+        "predicted_per_second": 16.501076607476953
       }
     },
     "parsed_action": {
@@ -540,7 +540,7 @@
           }
         }
       ],
-      "created": 1788104483,
+      "created": 1788108282,
       "model": "/home/alpha/Playstoria/models/text/bartowski-Ornith-1.5-9B-Q5_K_M/Ornith-1.5-9B-Q5_K_M.gguf",
       "system_fingerprint": "b1-8ce8ca6",
       "object": "chat.completion",
@@ -552,17 +552,17 @@
           "cached_tokens": 2466
         }
       },
-      "id": "chatcmpl-of1VSt3ot8JGZp9rHcpoE4TayqiCf1dj",
+      "id": "chatcmpl-v0EI4JLyu9jn7FYHit9xepEcQgbqJb99",
       "timings": {
         "cache_n": 2466,
         "prompt_n": 420,
-        "prompt_ms": 7509.658,
-        "prompt_per_token_ms": 17.880138095238095,
-        "prompt_per_second": 55.92797967630483,
+        "prompt_ms": 10547.245,
+        "prompt_per_token_ms": 25.112488095238096,
+        "prompt_per_second": 39.82082524867868,
         "predicted_n": 93,
-        "predicted_ms": 5816.98,
-        "predicted_per_token_ms": 62.54817204301075,
-        "predicted_per_second": 15.987677454624222
+        "predicted_ms": 7527.079,
+        "predicted_per_token_ms": 80.93633333333334,
+        "predicted_per_second": 12.355390450930567
       }
     },
     "parsed_action": {
@@ -585,6 +585,6 @@
       "role": "user",
       "content": "TOOL RESULT:\n{\"ok\": true, \"path\": \"library/rules/tool-authority.md\", \"start\": 1, \"end\": 105, \"content\": \"1: # Coordinator and delegated tool authority\\n2: \\n3: This rule defines the capability boundary between the Holo coordinator and delegated roles.\\n4: \\n5: ## Core policy\\n6: \\n7: Holo is the primary coordinator and final integrator. Within the capabilities that the current harness, active project/workspace, trust state, user profile and MCP scope already make available, Holo should be **capability-complete** rather than artificially restricted to a small static tool allow-list.\\n8: \\n9: Delegated roles are different: they should remain **least-privileged** according to their canonical contracts.\\n10: \\n11: Conceptually:\\n12: \\n13: ```text\\n14: HOLO\\n15:   -> broad access to project-approved harness capabilities\\n16:   -> may read, edit, execute, browse, use Skills/MCPs/tools and delegate when useful\\n17:   -> still subject to host approvals, trust, project scope and human policy\\n18: \\n19: DELEGATED ROLE\\n20:   -> only the tools/capabilities required by that role\\n21:   -> read-only roles stay effectively read-only\\n22:   -> nested delegation denied unless explicitly required\\n23: ```\\n24: \\n25: Broad capability does **not** mean automatic approval. A tool may be available to Holo while the harness still asks the human before sensitive execution. Tool availability, tool approval and project/MCP scope are separate controls.\\n26: \\n27: ## What remains restricted on Holo\\n28: \\n29: Capability-complete Holo does not mean unrestricted routing authority.\\n30: \\n31: Preserve all of these invariants:\\n32: \\n33: - Holo selects roles, not models;\\n34: - human-owned model/provider/reasoning bindings remain authoritative;\\n35: - Holo must not silently substitute, fall back to, or inherit a different model for a delegated canonical role;\\n36: - Holo's delegated-agent allow-list remains restricted to the canonical roles intended for that harness;\\n37: - project-specific MCPs remain project/workspace scoped where the harness supports it;\\n38: - globally installed MCPs that are not approved for the active project do not become automatically available merely because Holo is capability-complete;\\n39: - host trust, approval, sandbox and sensitive-file controls remain active;\\n40: - no generic model router, cross-harness dispatcher or universal capability resolver is introduced.\\n41: \\n42: ## Delegated-role least privilege\\n43: \\n44: Subagents, fixed role MCP tools and other delegated workers receive only the authority their role requires.\\n45: \\n46: Examples:\\n47: \\n48: - `explore`: read/search/context inspection only;\\n49: - `shell`: bounded command execution appropriate to the assigned task;\\n50: - `browser`: browser/web inspection capabilities plus only the local read context it needs;\\n51: - `bug-auditor`, `architecture-auditor`, `final-gate`, `project-ro`: read-only effective authority;\\n52: - `test-engineer`: test execution and evidence gathering without unrelated write authority unless explicitly required by the contract;\\n53: - `project-rw`: write/execute only inside the explicit delegated scope.\\n54: \\n55: A delegated role must not inherit Holo's broad tool authority merely because the harness supports inheritance. If the native mechanism cannot preserve the role boundary, use the smallest faithful role-specific adaptation or report the limitation.\\n56: \\n57: ## Holo direct work versus delegation\\n58: \\n59: Holo may use any project-approved capability directly when delegation would add little value. Delegation exists for specialization, independent review, context isolation, cost control or useful parallelism; it is not required merely because a specialized tool exists.\\n60: \\n61: This means, for example, that Holo may use a native integrated browser directly for a quick visual check while still delegating a larger browser investigation to the canonical `browser` role when isolation or specialization helps.\\n62: \\n63: ## Harness realization\\n64: \\n65: ### Kilo\\n66: \\n67: Do not deny ordinary Kilo tools to Holo merely to make the coordinator least-privileged. Holo should be able to request the tools/MCPs/Skills available in the active project, while normal Kilo approval rules may still ask before sensitive actions.\\n68: \\n69: Keep `permission.task` special: deny by default and allow only the eleven canonical Holo subagents. Delegated subagents keep role-specific permissions and nested `task` denied by default.\\n70: \\n71: ### VS Code / Copilot\\n72: \\n73: Do not maintain a narrow hand-curated `tools:` list on Holo that suppresses newly available built-in or extension capabilities. Holo should receive the full tool catalog enabled for the active Copilot profile/project, including native Integrated Browser tools when the installed build exposes them.\\n74: \\n75: If the current `.agent.md`/Agent Host schema requires explicit tool declarations for the selected target, use the current native mechanism that means \\\"all enabled tools\\\" or derive the complete enabled catalog from the runtime; do not preserve a stale subset such as only `read`, `search`, `edit`, `execute`, `agent`, `web` and `todo`.\\n76: \\n77: Keep the `agents` allow-list restricted to the intended native Holo subagents. Broad tool access does not imply broad subagent access.\\n78: \\n79: ### Antigravity\\n80: \\n81: Holo remains the only native Holo agent. Give that main Holo agent the native tools and MCP capabilities approved for the active Project. Project permissions continue to narrow effective authority even when reusable MCP definitions are globally installed.\\n82: \\n83: The eleven canonical delegated roles remain fixed role-specific MCP tools with their own least-privileged operational authority and fixed model/provider bindings. Do not turn Holo's broad authority into a generic model bridge or pass it through to audit/read-only role tools.\\n84: \\n85: ### Zed\\n86: \\n87: The main Holo Agent Profile should receive the built-in tools, Skills and context-server tools approved for that project/profile instead of a small coordinator-only subset. Preserve project-level context-server scoping and worktree trust; capability-complete does not mean enabling every globally configured context server in every project.\\n88: \\n89: Canonical multi-model roles still use fixed role MCP tools where native `spawn_agent` would inherit Holo's broader tools or shared model and thereby violate the role contract.\\n90: \\n91: ## Validation\\n92: \\n93: After applying this rule to a harness, verify both sides of the boundary:\\n94: \\n95: 1. Holo can see and use the currently enabled project-approved capabilities, including newly added native capabilities such as browser tools when present;\\n96: 2. Holo's agent/subagent routing allow-list remains constrained;\\n97: 3. delegated roles still expose only their role-appropriate tools/authority;\\n98: 4. read-only roles cannot edit or execute destructive actions;\\n99: 5. project-specific MCPs have not been widened to unrelated projects;\\n100: 6. sensitive actions still follow the harness's native approval/trust policy;\\n101: 7. no model fallback, inherited-role model substitution or generic router was introduced.\\n102: \\n103: The invariant is:\\n104: \\n105: `Holo is capability-complete inside the project's approved harness surface; delegated roles are capability-minimal inside their contracts.`\"}"
     },
-    "error": "TimeoutError: request exceeded 30.00s"
+    "error": "TimeoutError: request exceeded 119.64s"
   }
 ]
