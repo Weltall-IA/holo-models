@@ -2,7 +2,7 @@ host: 127.0.0.1
 port: 5050
 default_engine: magpie
 device: cuda
-load_policy: keep-current
+load_policy: lazy
 
 # OpenAI-compatible aliases routed to default_engine.
 model_aliases:

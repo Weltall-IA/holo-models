@@ -82,6 +82,11 @@ class MagpieEngine(BaseTTSEngine):
         started = time.time()
 
         from nemo.collections.tts.models import MagpieTTSModel
+        from nemo.collections.tts.parts.utils import tts_dataset_utils
+
+        # Register Brazilian Portuguese tokenizer mapping so language="pt" doesn't fall back to English
+        tts_dataset_utils.LANGUAGE_TOKENIZER_MAP["pt"] = ["portuguese_Brazilian_phoneme"]
+        tts_dataset_utils.LANGUAGE_TOKENIZER_MAP["pt-BR"] = ["portuguese_Brazilian_phoneme"]
 
         self.model = MagpieTTSModel.restore_from(
             self.model_path, map_location=device
@@ -215,10 +220,11 @@ class MagpieEngine(BaseTTSEngine):
 
         speaker_idx = self.speaker_map[base_voice]
         language = str(req_lang or self._detect_language(text))
+        apply_tn = bool(options.get("apply_TN", True))
 
         print(
             f"[MagpieEngine] Synthesizing voice={voice_str}, "
-            f"speaker={speaker_idx}, language={language}"
+            f"speaker={speaker_idx}, language={language}, apply_TN={apply_tn}"
         )
 
         torch = self._torch()
@@ -226,7 +232,7 @@ class MagpieEngine(BaseTTSEngine):
             audio, audio_len = self.model.do_tts(
                 text,
                 language=language,
-                apply_TN=False,
+                apply_TN=apply_tn,
                 speaker_index=speaker_idx,
             )
 
