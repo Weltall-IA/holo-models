@@ -92,19 +92,19 @@ PROFILES = [
         'sampling': {'temperature': 0.6, 'top_p': 0.95}
     },
     {
-        'key': 'V1',
-        'id': 'vireqo-corrected',
-        'name': 'Vireqo-27B-Plus (Corrected Reference Profile)',
+        'key': 'Q9B',
+        'id': 'qwen38-9b-uncensored',
+        'name': 'Qwen3.8-9B-Distill-uncensored-heretic Q4_K_M (Thinking OFF)',
         'runtime_type': 'deepgrove',
         'runtime_bin': ROOT / 'engines/deepgrove-llama.cpp/build/bin/llama-server',
         'runtime_libs': str(ROOT / 'engines/deepgrove-llama.cpp/build/bin'),
         'runtime_sha': '8ce8ca6c6d370b6235dfa8e2a0611a9adb6d77d1',
-        'model_path': ROOT / 'text/Vireqo-27B-Plus-260816/Vireqo-27B-Plus-260816.gguf',
-        'model_sha256': 'a32a8ec286a11c6534bf29d1ee20bd4c02064032b51ae8310bb1216e2de17e03',
+        'model_path': ROOT / 'text/petruhonk-Qwen3.8-9B-Distill-uncensored-heretic/Qwen3.8-9B-Distill-uncensored-heretic.i1-Q4_K_M.gguf',
+        'model_sha256': '3a63c5b5c7c6af57d92437ed2610d524ea96a7ecf873ae7f8e470a024c047fa6',
         'thinking': False,
-        'context': 2048,
-        'server_args': ['-m', str(ROOT / 'text/Vireqo-27B-Plus-260816/Vireqo-27B-Plus-260816.gguf'), '--host', '127.0.0.1', '--port', str(PORT), '-c', '2048', '-np', '1', '-ngl', '999', '-fa', 'on', '-ctk', 'q8_0', '-ctv', 'q8_0', '-t', '4', '-tb', '4', '--no-webui', '--reasoning', 'off'],
-        'sampling': {'temperature': 0.7, 'top_k': 20, 'top_p': 0.95, 'min_p': 0, 'repeat_penalty': 1.08, 'repeat_last_n': 64}
+        'context': 32768,
+        'server_args': ['-m', str(ROOT / 'text/petruhonk-Qwen3.8-9B-Distill-uncensored-heretic/Qwen3.8-9B-Distill-uncensored-heretic.i1-Q4_K_M.gguf'), '--host', '127.0.0.1', '--port', str(PORT), '-c', '32768', '-np', '1', '-ngl', '999', '-fa', 'on', '-ctk', 'q8_0', '-ctv', 'q4_0', '-t', '4', '-tb', '4', '--no-webui', '--reasoning', 'off'],
+        'sampling': {'temperature': 0.2, 'top_p': 0.95}
     }
 ]
 

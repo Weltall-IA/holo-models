@@ -1,0 +1,192 @@
+{
+  "task_id": "task05_recovery_missing_path",
+  "profile_id": "qwen38-9b-uncensored",
+  "seed": 3407,
+  "passed": true,
+  "total_time_s": 7.9939782790024765,
+  "time_to_first_useful_s": 1.0829983660078142,
+  "time_to_first_edit_s": null,
+  "peak_vram_mib": 7280,
+  "total_turns": 5,
+  "tool_errors": 1,
+  "recovered_errors": 1,
+  "files_read": [
+    "fixture/settings.py",
+    "fixture/non_existent_config.py"
+  ],
+  "files_edited": [],
+  "successful_edits": 0,
+  "failed_edits": 0,
+  "prompt_tokens": 2577,
+  "reasoning_tokens": 0,
+  "output_tokens": 58,
+  "eval_detail": {
+    "type": "oracle_strings",
+    "expected": [
+      "30"
+    ],
+    "found": true
+  },
+  "events": [
+    {
+      "turn": 1,
+      "content": "{\"action\":\"list\",\"path\":\".\"}",
+      "reasoning": "",
+      "action": {
+        "action": "list",
+        "path": "."
+      },
+      "finish_reason": "stop",
+      "tool_res": {
+        "ok": true,
+        "entries": [
+          {
+            "name": "AGENTS.md",
+            "type": "file"
+          },
+          {
+            "name": "ARCHITECTURE.md",
+            "type": "file"
+          },
+          {
+            "name": "README.md",
+            "type": "file"
+          },
+          {
+            "name": "capabilities",
+            "type": "dir"
+          },
+          {
+            "name": "core",
+            "type": "dir"
+          },
+          {
+            "name": "fixture",
+            "type": "dir"
+          },
+          {
+            "name": "harnesses",
+            "type": "dir"
+          },
+          {
+            "name": "library",
+            "type": "dir"
+          }
+        ]
+      }
+    },
+    {
+      "turn": 2,
+      "content": "{\"action\":\"read\",\"path\":\"fixture/non_existent_config.py\"}",
+      "reasoning": "",
+      "action": {
+        "action": "read",
+        "path": "fixture/non_existent_config.py"
+      },
+      "finish_reason": "stop",
+      "tool_res": {
+        "ok": false,
+        "error": "File not found: fixture/non_existent_config.py"
+      }
+    },
+    {
+      "turn": 3,
+      "content": "{\"action\":\"list\",\"path\":\"fixture\"}",
+      "reasoning": "",
+      "action": {
+        "action": "list",
+        "path": "fixture"
+      },
+      "finish_reason": "stop",
+      "tool_res": {
+        "ok": true,
+        "entries": [
+          {
+            "name": "fixture/README.md",
+            "type": "file"
+          },
+          {
+            "name": "fixture/cache.py",
+            "type": "file"
+          },
+          {
+            "name": "fixture/config.json",
+            "type": "file"
+          },
+          {
+            "name": "fixture/ratelimit.py",
+            "type": "file"
+          },
+          {
+            "name": "fixture/retry.py",
+            "type": "file"
+          },
+          {
+            "name": "fixture/router.py",
+            "type": "file"
+          },
+          {
+            "name": "fixture/settings.py",
+            "type": "file"
+          },
+          {
+            "name": "fixture/settings.pyi",
+            "type": "file"
+          },
+          {
+            "name": "fixture/test_cache.py",
+            "type": "file"
+          },
+          {
+            "name": "fixture/test_ratelimit.py",
+            "type": "file"
+          },
+          {
+            "name": "fixture/test_retry.py",
+            "type": "file"
+          },
+          {
+            "name": "fixture/test_router.py",
+            "type": "file"
+          },
+          {
+            "name": "fixture/test_settings.py",
+            "type": "file"
+          }
+        ]
+      }
+    },
+    {
+      "turn": 4,
+      "content": "{\"action\":\"read\",\"path\":\"fixture/settings.py\"}",
+      "reasoning": "",
+      "action": {
+        "action": "read",
+        "path": "fixture/settings.py"
+      },
+      "finish_reason": "stop",
+      "tool_res": {
+        "ok": true,
+        "path": "fixture/settings.py",
+        "start": 1,
+        "end": 4,
+        "content": "1: DEFAULTS = {\"tool_timeout_seconds\": 30, \"retries\": 2}\n2: \n3: def load_settings(env):\n4:     return {**DEFAULTS, \"tool_timeout_seconds\": int(env.get(\"TOOL_TIMEOUT_SECONDS\", DEFAULTS[\"tool_timeout_seconds\"]))}"
+      }
+    },
+    {
+      "turn": 5,
+      "content": "{\"action\":\"done\",\"answer\":\"30\"}",
+      "reasoning": "",
+      "action": {
+        "action": "done",
+        "answer": "30"
+      },
+      "finish_reason": "stop",
+      "tool_res": {
+        "ok": true,
+        "done": true,
+        "answer": "30"
+      }
+    }
+  ]
+}
