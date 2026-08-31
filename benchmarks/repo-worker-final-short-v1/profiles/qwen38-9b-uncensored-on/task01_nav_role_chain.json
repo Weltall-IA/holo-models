@@ -1,0 +1,365 @@
+{
+  "task_id": "task01_nav_role_chain",
+  "profile_id": "qwen38-9b-uncensored-on",
+  "seed": 3407,
+  "passed": true,
+  "total_time_s": 148.37453599399305,
+  "time_to_first_useful_s": 3.0785659510002006,
+  "time_to_first_edit_s": null,
+  "peak_vram_mib": 7468,
+  "total_turns": 11,
+  "tool_errors": 0,
+  "recovered_errors": 0,
+  "files_read": [
+    "library/routing/model-bindings.yaml",
+    "core/agents/contracts/project-rw.yaml",
+    "library/agents/project-rw/instructions.md",
+    "README.md"
+  ],
+  "files_edited": [],
+  "successful_edits": 0,
+  "failed_edits": 0,
+  "prompt_tokens": 31175,
+  "reasoning_tokens": 0,
+  "output_tokens": 1112,
+  "eval_detail": {
+    "type": "oracle_strings",
+    "expected": [
+      "model-bindings.yaml",
+      "project-rw",
+      "instructions.md"
+    ],
+    "found": true
+  },
+  "events": [
+    {
+      "turn": 1,
+      "content": "{\"action\":\"list\",\"path\":\".\"}",
+      "reasoning": "The task asks me to trace how a request for the `project-rw` role is routed from top-level model bindings to agent instructions and contract specification. I need to explore the repository structure to understand the routing mechanism.\n\nLet me start by listing the top-level directory to understand the project structure.\n",
+      "action": {
+        "action": "list",
+        "path": "."
+      },
+      "finish_reason": "stop",
+      "tool_res": {
+        "ok": true,
+        "entries": [
+          {
+            "name": "AGENTS.md",
+            "type": "file"
+          },
+          {
+            "name": "ARCHITECTURE.md",
+            "type": "file"
+          },
+          {
+            "name": "README.md",
+            "type": "file"
+          },
+          {
+            "name": "capabilities",
+            "type": "dir"
+          },
+          {
+            "name": "core",
+            "type": "dir"
+          },
+          {
+            "name": "fixture",
+            "type": "dir"
+          },
+          {
+            "name": "harnesses",
+            "type": "dir"
+          },
+          {
+            "name": "library",
+            "type": "dir"
+          }
+        ]
+      }
+    },
+    {
+      "turn": 2,
+      "content": "{\"action\":\"read\",\"path\":\"README.md\"}",
+      "reasoning": "The repository shows a project with directories like \"capabilities\", \"core\", \"harnesses\", and \"library\". The task is about the `project-rw` role routing. I need to explore these directories to understand the role routing mechanism. Let me start by reading the main documentation files and then explore the relevant directories.\n",
+      "action": {
+        "action": "read",
+        "path": "README.md"
+      },
+      "finish_reason": "stop",
+      "tool_res": {
+        "ok": true,
+        "path": "README.md",
+        "start": 1,
+        "end": 114,
+        "content": "1: # Holo Agent Tooling\n2: \n3: Architecture specification for the Holo multi-agent system across different agentic harnesses.\n4: \n5: This repository defines **what the Holo architecture means**. It is not a synchronization engine, installer, deployment system, or source of generated harness configuration.\n6: \n7: ## Mission\n8: \n9: Holo is the coordinating agent. The user owns model selection. Holo selects a role when delegation is useful; it does not automatically select or substitute the model assigned to that role.\n10: \n11: The architecture defines:\n12: \n13: - role semantics and autonomy boundaries;\n14: - delegation and evidence rules;\n15: - coordinator-versus-delegated tool-authority policy;\n16: - human-owned model bindings;\n17: - expected capability classes such as Skills, MCPs/tools and Hooks;\n18: - MCP scoping policy;\n19: - session/worktree orchestration semantics;\n20: - the invariants each harness implementation must preserve.\n21: \n22: Kilo, VS Code, Antigravity, Zed and future harnesses are **independent native implementations** of this specification. They do not need identical files, schemas, features or byte-for-byte configuration.\n23: \n24: ## What this repository does not do\n25: \n26: It does not:\n27: \n28: - generate target configurations;\n29: - keep harnesses automatically synchronized;\n30: - install agents, Skills, MCPs or Hooks into the host machine;\n31: - own OAuth, credentials, provider state or live harness configuration;\n32: - require every harness to implement a capability in the same way.\n33: \n34: If a harness changes its configuration format or gains a better native mechanism, adapt that harness implementation to the architecture. The architecture should change only when the desired Holo behavior changes.\n35: \n36: ## Canonical specification\n37: \n38: - `ARCHITECTURE.md` \u2014 system design and invariants.\n39: - `library/agents/` \u2014 canonical role instructions.\n40: - `core/agents/contracts/` \u2014 formal role boundaries and policies.\n41: - `library/rules/` \u2014 delegation, evidence, tool-authority, harness-freshness, MCP-scoping, session-orchestration and specification-governance rules.\n42: - `library/routing/model-bindings.yaml` \u2014 human-owned reference roster.\n43: - `harnesses/` \u2014 what each harness is expected to preserve using its current native features.\n44: - `capabilities/` \u2014 architectural treatment of Skills, MCPs/tools and Hooks.\n45: \n46: ## Tool authority\n47: \n48: Holo is the coordinator and should be **capability-complete inside the active project's approved harness surface**. Do not artificially restrict Holo to a stale, narrow static list of tools when the harness exposes additional project-approved capabilities.\n49: \n50: Delegated roles remain **least-privileged** according to their contracts. Read-only roles stay read-only; scoped writers stay scoped; nested delegation remains restricted where required.\n51: \n52: Tool availability is not the same as automatic approval. Native approval, trust, sandbox and sensitive-action controls still apply. Project-specific MCP scoping also remains authoritative: broad Holo tool access does not mean enabling every global MCP in every project.\n53: \n54: See `library/rules/tool-authority.md`.\n55: \n56: ## Applying the architecture\n57: \n58: For an existing harness:\n59: \n60: 1. identify the installed version/build actually in use;\n61: 2. inspect the harness's current native configuration/schema and current official documentation;\n62: 3. distinguish product support from what is locally installed/configured;\n63: 4. implement the Holo roles and invariants using the best current native mechanisms;\n64: 5. expose the active project's approved harness capabilities broadly to Holo while keeping delegated roles least-privileged;\n65: 6. prefer project/workspace-local MCP scope for project-specific capabilities where the harness supports it;\n66: 7. preserve unrelated user configuration, authentication and runtime state;\n67: 8. review the resulting configuration and smoke-test behavior.\n68: \n69: Do not carry forward an old workaround merely because it existed previously. `unsupported` is a strong claim: absence from local configuration normally means `missing` or `unknown`, not that the product lacks the capability.\n70: \n71: Role-specific MCP model routing is not a general fallback. The current explicit exception is Antigravity, whose native subagent model choices cannot realize the human-owned multi-provider Holo roster. Kilo and VS Code use native canonical subagents; Zed should use its native mechanisms and report any per-role binding limitation rather than importing the Antigravity exception.\n72: \n73: ## MCP scope\n74: \n75: Do not enable every MCP globally merely because it appears in the capability roster. Project-specific capabilities should normally live in project/workspace configuration, while genuinely universal personal capabilities may remain global.\n76: \n77: This reduces tool/context noise and unnecessary cross-project authority. See `library/rules/mcp-scoping.md` for the harness-specific policy and secret-handling constraints.\n78: \n79: ## Delegation versus session orchestration\n80: \n81: Focused role work happens inside Holo. Macro session/worktree managers organize independent top-level work.\n82: \n83: Examples:\n84: \n85: ```text\n86: Kilo Agent Manager\n87:   -> Holo primary\n88:       -> task -> canonical subagent\n89: \n90: VS Code Agents window\n91:   -> Holo custom agent\n92:       -> native canonical custom subagent\n93: \n94: Zed parallel thread/worktree\n95:   -> Holo profile\n96:       -> native Zed delegation where faithful\n97:       -> explicit limitation/manual workflow where per-role binding is unavailable\n98: \n99: Antigravity session\n100:   -> Holo main agent\n101:       -> fixed role MCP tools\n102: ```\n103: \n104: A session manager does not replace Holo delegation and does not choose specialist models. The user may open a macro session/worktree and select Holo; Holo then continues to route focused work internally according to the human-owned roster and the native capabilities of that harness.\n105: \n106: When a Skill, MCP, Hook or useful agent behavior is added to one harness and should exist elsewhere, repeat the inspection/application process for each desired harness. There is no automatic propagation requirement.\n107: \n108: For a new harness, inspect its native capabilities, add a short note under `harnesses/`, and implement the architecture directly in that environment.\n109: \n110: ## Core invariant\n111: \n112: `specify architecture -> inspect current target harness -> implement natively -> verify behavior`\n113: \n114: The target is semantic conformance to the Holo architecture, not synchronization between harnesses."
+      }
+    },
+    {
+      "turn": 3,
+      "content": "{\"action\":\"list\",\"path\":\"library\"}",
+      "reasoning": "The task asks about routing of the `project-rw` role from model bindings to agent instructions and contract specification. Based on the README, the relevant files are:\n- `library/routing/model-bindings.yaml` - human-owned reference roster\n- `library/agents/` - canonical role instructions\n- `core/agents/contracts/` - formal role boundaries and policies\n\nLet me explore these to trace the routing path.\n",
+      "action": {
+        "action": "list",
+        "path": "library"
+      },
+      "finish_reason": "stop",
+      "tool_res": {
+        "ok": true,
+        "entries": [
+          {
+            "name": "library/README.md",
+            "type": "file"
+          },
+          {
+            "name": "library/agents",
+            "type": "dir"
+          },
+          {
+            "name": "library/routing",
+            "type": "dir"
+          },
+          {
+            "name": "library/rules",
+            "type": "dir"
+          }
+        ]
+      }
+    },
+    {
+      "turn": 4,
+      "content": "{\"action\":\"list\",\"path\":\"library/routing\"}",
+      "reasoning": "The README mentions `library/routing/model-bindings.yaml` as the human-owned reference roster. Let me search for it and explore the routing directory to understand how the project-rw role is routed.\n",
+      "action": {
+        "action": "list",
+        "path": "library/routing"
+      },
+      "finish_reason": "stop",
+      "tool_res": {
+        "ok": true,
+        "entries": [
+          {
+            "name": "library/routing/README.md",
+            "type": "file"
+          },
+          {
+            "name": "library/routing/model-bindings.yaml",
+            "type": "file"
+          }
+        ]
+      }
+    },
+    {
+      "turn": 5,
+      "content": "{\"action\":\"read\",\"path\":\"library/routing/model-bindings.yaml\"}",
+      "reasoning": "The README mentions `library/routing/model-bindings.yaml` as the human-owned reference roster. This is where the project-rw role is defined. I need to read this file to see the routing configuration for the project-rw role.\n",
+      "action": {
+        "action": "read",
+        "path": "library/routing/model-bindings.yaml"
+      },
+      "finish_reason": "stop",
+      "tool_res": {
+        "ok": true,
+        "path": "library/routing/model-bindings.yaml",
+        "start": 1,
+        "end": 101,
+        "content": "1: version: 1\n2: schema: holo-agent-tooling/human-model-bindings/v1\n3: \n4: policy:\n5:   owner: human\n6:   automatic_model_selection: false\n7:   automatic_model_substitution: false\n8:   rule: Holo selects roles; only the human-maintained binding selects the model.\n9: \n10: access_routes:\n11:   ucp-via-cliproxyapi:\n12:     kind: user-selected-access-path\n13:     description: Universal Chat Provider VS Code extension through CLIProxyAPI.\n14:   opencode-api:\n15:     kind: user-selected-access-path\n16:     description: OpenCode API.\n17: \n18: bindings:\n19:   holo:\n20:     model: Gemini 3.7 Flash\n21:     reasoning: high\n22:     access_route: ucp-via-cliproxyapi\n23:     status: selected-by-human\n24: \n25:   explore:\n26:     model: GPT-5.6 Luna\n27:     reasoning: medium\n28:     access_route: ucp-via-cliproxyapi\n29:     status: selected-by-human\n30:     preferred_class: economical-fast\n31: \n32:   shell:\n33:     model: GPT-5.6 Luna\n34:     reasoning: medium\n35:     access_route: ucp-via-cliproxyapi\n36:     status: selected-by-human\n37:     preferred_class: economical-fast\n38: \n39:   browser:\n40:     model: Gemini 3.7 Flash\n41:     reasoning: low\n42:     access_route: ucp-via-cliproxyapi\n43:     status: selected-by-human\n44:     preferred_class: economical-fast\n45: \n46:   test-engineer:\n47:     model: DeepSeek V4 Flash 0731\n48:     reasoning: max\n49:     access_route: opencode-api\n50:     status: selected-by-human\n51: \n52:   data:\n53:     model: GLM-5.3-Flash\n54:     reasoning: default\n55:     access_route: opencode-api\n56:     status: selected-by-human\n57: \n58:   root-cause-specialist:\n59:     model: GPT-5.6 Terra\n60:     reasoning: max\n61:     access_route: ucp-via-cliproxyapi\n62:     status: selected-by-human\n63: \n64:   bug-auditor:\n65:     model: Grok 4.6\n66:     reasoning: high\n67:     access_route: opencode-api\n68:     status: selected-by-human\n69: \n70:   architecture-auditor:\n71:     model: GLM-5.3\n72:     reasoning: max\n73:     access_route: opencode-api\n74:     status: selected-by-human\n75: \n76:   final-gate:\n77:     model: GPT-5.6 Sol\n78:     reasoning: max\n79:     access_route: ucp-via-cliproxyapi\n80:     status: selected-by-human\n81: \n82:   project-ro:\n83:     model: GPT-5.6 Luna\n84:     reasoning: medium\n85:     access_route: ucp-via-cliproxyapi\n86:     status: selected-by-human\n87: \n88:   project-rw:\n89:     model: GPT-5.6 Terra\n90:     reasoning: max\n91:     access_route: ucp-via-cliproxyapi\n92:     status: selected-by-human\n93: \n94: notes:\n95:   - This file records the human-owned architectural roster; it does not generate harness configuration.\n96:   - The selected bindings above were explicitly approved by the human owner.\n97:   - access_route records the human-selected source/path for the model; it is not a universal harness-native model identifier.\n98:   - Each harness may require a different native model identifier, direct CLIProxyAPI access, another native representation, or manual UI configuration.\n99:   - Holo never changes reasoning levels, models or access routes automatically.\n100:   - If a selected model is unavailable in a harness, document the limitation rather than silently substituting another model.\n101:   - Change this file to change architectural intent; apply the selected roster independently in each desired harness."
+      }
+    },
+    {
+      "turn": 6,
+      "content": "{\"action\":\"list\",\"path\":\"library/agents\"}",
+      "reasoning": "The `model-bindings.yaml` shows `project-rw` is bound to `GPT-5.6 Terra` via `ucp-via-cliproxyapi` with `reasoning: max`. Now I need to find the agent instructions for `project-rw` and its effective contract specification.\n",
+      "action": {
+        "action": "list",
+        "path": "library/agents"
+      },
+      "finish_reason": "stop",
+      "tool_res": {
+        "ok": true,
+        "entries": [
+          {
+            "name": "library/agents/architecture-auditor",
+            "type": "dir"
+          },
+          {
+            "name": "library/agents/browser",
+            "type": "dir"
+          },
+          {
+            "name": "library/agents/bug-auditor",
+            "type": "dir"
+          },
+          {
+            "name": "library/agents/data",
+            "type": "dir"
+          },
+          {
+            "name": "library/agents/explore",
+            "type": "dir"
+          },
+          {
+            "name": "library/agents/final-gate",
+            "type": "dir"
+          },
+          {
+            "name": "library/agents/holo",
+            "type": "dir"
+          },
+          {
+            "name": "library/agents/project-ro",
+            "type": "dir"
+          },
+          {
+            "name": "library/agents/project-rw",
+            "type": "dir"
+          },
+          {
+            "name": "library/agents/root-cause-specialist",
+            "type": "dir"
+          },
+          {
+            "name": "library/agents/shell",
+            "type": "dir"
+          },
+          {
+            "name": "library/agents/test-engineer",
+            "type": "dir"
+          }
+        ]
+      }
+    },
+    {
+      "turn": 7,
+      "content": "{\"action\":\"list\",\"path\":\"library/agents/project-rw\"}",
+      "reasoning": "The routing file shows `project-rw` is bound to GPT-5.6 Terra with max reasoning. Now I need to find the agent instructions for `project-rw` and the contract specification. The README mentions `library/agents/` for canonical role instructions and `core/agents/contracts/` for formal role boundaries.\n",
+      "action": {
+        "action": "list",
+        "path": "library/agents/project-rw"
+      },
+      "finish_reason": "stop",
+      "tool_res": {
+        "ok": true,
+        "entries": [
+          {
+            "name": "library/agents/project-rw/instructions.md",
+            "type": "file"
+          }
+        ]
+      }
+    },
+    {
+      "turn": 8,
+      "content": "{\"action\":\"read\",\"path\":\"library/agents/project-rw/instructions.md\"}",
+      "reasoning": "I'm tracing the routing chain for `project-rw`. I found the model binding in `library/routing/model-bindings.yaml` (lines 88-92) and the agent instructions in `library/agents/project-rw/instructions.md`. Now I need to find the effective contract specification, which according to the README is in `core/agents/contracts/`.\n",
+      "action": {
+        "action": "read",
+        "path": "library/agents/project-rw/instructions.md"
+      },
+      "finish_reason": "stop",
+      "tool_res": {
+        "ok": true,
+        "path": "library/agents/project-rw/instructions.md",
+        "start": 1,
+        "end": 9,
+        "content": "1: # Project Read-write\n2: \n3: Implement only the explicitly assigned project change within the authorized\n4: paths. Read applicable instructions first, preserve unrelated work, avoid\n5: secrets and destructive operations, and run the requested verification.\n6: \n7: This role requires explicit write authorization from the coordinator. It does\n8: not authorize external configuration changes, deployment, dependency\n9: installation, or broad refactoring."
+      }
+    },
+    {
+      "turn": 9,
+      "content": "{\"action\":\"list\",\"path\":\"core/agents/contracts\"}",
+      "reasoning": "I have the role instructions. Now I need to find the contract specification for the `project-rw` role. Based on the README.md, contracts are in `core/agents/contracts/`.\n",
+      "action": {
+        "action": "list",
+        "path": "core/agents/contracts"
+      },
+      "finish_reason": "stop",
+      "tool_res": {
+        "ok": true,
+        "entries": [
+          {
+            "name": "core/agents/contracts/architecture-auditor.yaml",
+            "type": "file"
+          },
+          {
+            "name": "core/agents/contracts/browser.yaml",
+            "type": "file"
+          },
+          {
+            "name": "core/agents/contracts/bug-auditor.yaml",
+            "type": "file"
+          },
+          {
+            "name": "core/agents/contracts/data.yaml",
+            "type": "file"
+          },
+          {
+            "name": "core/agents/contracts/explore.yaml",
+            "type": "file"
+          },
+          {
+            "name": "core/agents/contracts/final-gate.yaml",
+            "type": "file"
+          },
+          {
+            "name": "core/agents/contracts/holo.yaml",
+            "type": "file"
+          },
+          {
+            "name": "core/agents/contracts/project-ro.yaml",
+            "type": "file"
+          },
+          {
+            "name": "core/agents/contracts/project-rw.yaml",
+            "type": "file"
+          },
+          {
+            "name": "core/agents/contracts/root-cause-specialist.yaml",
+            "type": "file"
+          },
+          {
+            "name": "core/agents/contracts/shell.yaml",
+            "type": "file"
+          },
+          {
+            "name": "core/agents/contracts/test-engineer.yaml",
+            "type": "file"
+          }
+        ]
+      }
+    },
+    {
+      "turn": 10,
+      "content": "{\"action\":\"read\",\"path\":\"core/agents/contracts/project-rw.yaml\"}",
+      "reasoning": "I found the project-rw contract file. Let me read it to complete the chain of paths.\n",
+      "action": {
+        "action": "read",
+        "path": "core/agents/contracts/project-rw.yaml"
+      },
+      "finish_reason": "stop",
+      "tool_res": {
+        "ok": true,
+        "path": "core/agents/contracts/project-rw.yaml",
+        "start": 1,
+        "end": 25,
+        "content": "1: id: project-rw\n2: role: Project-scoped writer contract for a future adapter with explicit write authorization.\n3: responsibilities:\n4:   - Implement only the assigned project change.\n5:   - Preserve project instructions and unrelated work.\n6:   - Run project verification and report the exact diff.\n7: write_policy:\n8:   mode: explicit-scope\n9:   rule: Write only paths and operations authorized by the coordinator.\n10:   forbidden: No secrets, destructive resets, unrelated refactors, or external configuration changes.\n11: read_policy:\n12:   scope: Named project root and applicable instruction files.\n13:   requirement: Confirm scope before editing.\n14: shell_policy:\n15:   mode: approval-required\n16:   rule: Require approval for destructive, external, network, or deployment actions.\n17: delegation_policy:\n18:   mode: coordinator-controlled\n19:   rule: Do not delegate beyond the authorized task contract.\n20: skills_required: [agent-governance, verification]\n21: mcp_capabilities: [repository-read, repository-write, testing]\n22: inputs: [project-root, task, allowed-paths, acceptance-criteria]\n23: outputs: [implementation-diff, verification-report, residual-risk]\n24: verification_requirements: [scope-check, targeted-tests, diff-review, clean-secret-check]\n25: audit_behavior: Hand off for independent audit when behavior, integration, or security risk is material."
+      }
+    },
+    {
+      "turn": 11,
+      "content": "{\"action\":\"done\",\"answer\":\"The project-rw role routing chain is:\\n\\n1. **Top-level model bindings** \u2192 `library/routing/model-bindings.yaml`\\n   - Defines the role's model (GPT-5.6 Terra), reasoning level (max), access route (ucp-via-cliproxyapi), and status (selected-by-human).\\n\\n2. **Agent instructions** \u2192 `library/agents/project-rw/instructions.md`\\n   - Defines the role's responsibilities: implement assigned project change, preserve unrelated work, avoid secrets/destructive operations, and run verification.\\n\\n3. **Contract specification** \u2192 `core/agents/contracts/project-rw.yaml`\\n   - Defines the formal contract: explicit-scope write policy, named-project read scope, approval-required shell policy, coordinator-controlled delegation, required skills (agent-governance, verification), MCP capabilities (repository-read, repository-write, testing), and audit behavior for material risk.\\n\\nThis chain shows how a human-selected model binding routes to role instructions, which are then formalized into a contract governing the agent's behavior and authority boundaries.\"}",
+      "reasoning": "I now have the complete chain of paths for the project-rw role request. Let me trace it:\n\n1. Top-level model bindings: `library/routing/model-bindings.yaml` - defines project-rw's model, reasoning level, and access route\n2. Agent instructions: `library/agents/project-rw/instructions.md` - defines the role's responsibilities and constraints\n3. Contract specification: `core/agents/contracts/project-rw.yaml` - defines the formal contract with write_policy, read_policy, shell_policy, delegation_policy, etc.\n\nThis is the complete routing chain from top-level model bindings to agent instructions to effective contract specification.\n",
+      "action": {
+        "action": "done",
+        "answer": "The project-rw role routing chain is:\n\n1. **Top-level model bindings** \u2192 `library/routing/model-bindings.yaml`\n   - Defines the role's model (GPT-5.6 Terra), reasoning level (max), access route (ucp-via-cliproxyapi), and status (selected-by-human).\n\n2. **Agent instructions** \u2192 `library/agents/project-rw/instructions.md`\n   - Defines the role's responsibilities: implement assigned project change, preserve unrelated work, avoid secrets/destructive operations, and run verification.\n\n3. **Contract specification** \u2192 `core/agents/contracts/project-rw.yaml`\n   - Defines the formal contract: explicit-scope write policy, named-project read scope, approval-required shell policy, coordinator-controlled delegation, required skills (agent-governance, verification), MCP capabilities (repository-read, repository-write, testing), and audit behavior for material risk.\n\nThis chain shows how a human-selected model binding routes to role instructions, which are then formalized into a contract governing the agent's behavior and authority boundaries."
+      },
+      "finish_reason": "stop",
+      "tool_res": {
+        "ok": true,
+        "done": true,
+        "answer": "The project-rw role routing chain is:\n\n1. **Top-level model bindings** \u2192 `library/routing/model-bindings.yaml`\n   - Defines the role's model (GPT-5.6 Terra), reasoning level (max), access route (ucp-via-cliproxyapi), and status (selected-by-human).\n\n2. **Agent instructions** \u2192 `library/agents/project-rw/instructions.md`\n   - Defines the role's responsibilities: implement assigned project change, preserve unrelated work, avoid secrets/destructive operations, and run verification.\n\n3. **Contract specification** \u2192 `core/agents/contracts/project-rw.yaml`\n   - Defines the formal contract: explicit-scope write policy, named-project read scope, approval-required shell policy, coordinator-controlled delegation, required skills (agent-governance, verification), MCP capabilities (repository-read, repository-write, testing), and audit behavior for material risk.\n\nThis chain shows how a human-selected model binding routes to role instructions, which are then formalized into a contract governing the agent's behavior and authority boundaries."
+      }
+    }
+  ]
+}
