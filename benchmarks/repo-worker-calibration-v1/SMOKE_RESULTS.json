@@ -1,0 +1,1096 @@
+{
+  "B1": {
+    "profile_key": "B1",
+    "profile_id": "bonsai-thinking-off-dspark-off",
+    "profile_name": "Bonsai thinking OFF / DSpark OFF",
+    "runtime_type": "prism",
+    "runtime_sha": "9ca265a57f85f2117942490f421f64a226dd9847",
+    "server_command": "-m /home/alpha/Playstoria/models/text/Ternary-Bonsai-27B-Abliterated-LowDeg/Ternary-Bonsai-27B-Abliterated-LowDeg-Q2_0.gguf --host 127.0.0.1 --port 8131 -c 32768 -np 1 -ngl 999 -fa on -ctk q8_0 -ctv q4_0 -t 4 -tb 4 --no-webui --reasoning off",
+    "load": true,
+    "smoke_a_basic": true,
+    "smoke_b_math": true,
+    "smoke_c_tool": true,
+    "smoke_d_thinking": true,
+    "smoke_e_dspark": "N/A",
+    "decode_tok_per_sec": 27.12246879559965,
+    "prompt_tok_per_sec": 69.23856462161125,
+    "peak_vram_mib": 10925,
+    "ready": true,
+    "smoke_details": {
+      "smoke_a": {
+        "content": "SMOKE_OK",
+        "reasoning_content": "",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 22,
+          "prompt_ms": 317.742,
+          "prompt_per_token_ms": 14.442818181818183,
+          "prompt_per_second": 69.23856462161125,
+          "predicted_n": 5,
+          "predicted_ms": 184.349,
+          "predicted_per_token_ms": 36.8698,
+          "predicted_per_second": 27.12246879559965
+        },
+        "usage": {
+          "completion_tokens": 5,
+          "prompt_tokens": 22,
+          "total_tokens": 27,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        }
+      },
+      "smoke_b": {
+        "content": "391",
+        "reasoning_content": "",
+        "usage": {
+          "completion_tokens": 4,
+          "prompt_tokens": 30,
+          "total_tokens": 34,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        }
+      },
+      "smoke_c": {
+        "success": true,
+        "events": [
+          {
+            "step": 1,
+            "response": {
+              "role": "assistant",
+              "content": "{\"action\":\"list\",\"path\":\".\"}"
+            }
+          },
+          {
+            "step": 1,
+            "action": {
+              "action": "list",
+              "path": "."
+            },
+            "tool_result": {
+              "ok": true,
+              "entries": [
+                {
+                  "name": "SMOKE_TARGET.txt",
+                  "type": "file"
+                },
+                {
+                  "name": "dummy.py",
+                  "type": "file"
+                }
+              ]
+            }
+          },
+          {
+            "step": 2,
+            "response": {
+              "role": "assistant",
+              "content": "{\"action\":\"read\",\"path\":\"SMOKE_TARGET.txt\",\"start\":1,\"end\":100}"
+            }
+          },
+          {
+            "step": 2,
+            "action": {
+              "action": "read",
+              "path": "SMOKE_TARGET.txt",
+              "start": 1,
+              "end": 100
+            },
+            "tool_result": {
+              "ok": true,
+              "path": "SMOKE_TARGET.txt",
+              "start": 1,
+              "end": 1,
+              "content": "1: TOOL_SMOKE_OK_4827"
+            }
+          },
+          {
+            "step": 3,
+            "response": {
+              "role": "assistant",
+              "content": "{\"action\":\"done\",\"answer\":\"1: TOOL_SMOKE_OK_4827\"}"
+            }
+          },
+          {
+            "step": 3,
+            "action": {
+              "action": "done",
+              "answer": "1: TOOL_SMOKE_OK_4827"
+            },
+            "tool_result": {
+              "ok": true,
+              "done": true,
+              "answer": "1: TOOL_SMOKE_OK_4827"
+            }
+          }
+        ]
+      },
+      "smoke_d": {
+        "expected_thinking": false,
+        "observed_thinking": false,
+        "reasoning_a_length": 0,
+        "content_a": "SMOKE_OK"
+      }
+    }
+  },
+  "B2": {
+    "profile_key": "B2",
+    "profile_id": "bonsai-thinking-on-dspark-off",
+    "profile_name": "Bonsai thinking ON / DSpark OFF",
+    "runtime_type": "prism",
+    "runtime_sha": "9ca265a57f85f2117942490f421f64a226dd9847",
+    "server_command": "-m /home/alpha/Playstoria/models/text/Ternary-Bonsai-27B-Abliterated-LowDeg/Ternary-Bonsai-27B-Abliterated-LowDeg-Q2_0.gguf --host 127.0.0.1 --port 8131 -c 32768 -np 1 -ngl 999 -fa on -ctk q8_0 -ctv q4_0 -t 4 -tb 4 --no-webui --reasoning on",
+    "load": true,
+    "smoke_a_basic": true,
+    "smoke_b_math": true,
+    "smoke_c_tool": true,
+    "smoke_d_thinking": true,
+    "smoke_e_dspark": "N/A",
+    "decode_tok_per_sec": 34.45166673395508,
+    "prompt_tok_per_sec": 66.4019442489276,
+    "peak_vram_mib": 10922,
+    "ready": true,
+    "smoke_details": {
+      "smoke_a": {
+        "content": "",
+        "reasoning_content": "Here's a thinking process:\n\n1.  **Analyze User Input:**\n   - User says: \"Responda somente com: SMOKE_OK\"\n   - Language: Portuguese\n   - Instruction: \"Responda somente com: SMOKE_OK\" (Reply only with: SMOKE_OK)\n\n2.  **Identify Key Constraints:**\n   - The response must be exactly \"SMOKE_OK\"\n   - No additional text, no explanations, no greetings\n   - Must match the exact string requested\n\n3.  **Formulate Response:**\n   - Just output: S",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 20,
+          "prompt_ms": 301.196,
+          "prompt_per_token_ms": 15.059800000000001,
+          "prompt_per_second": 66.4019442489276,
+          "predicted_n": 128,
+          "predicted_ms": 3715.35,
+          "predicted_per_token_ms": 29.026171875,
+          "predicted_per_second": 34.45166673395508
+        },
+        "usage": {
+          "completion_tokens": 128,
+          "prompt_tokens": 20,
+          "total_tokens": 148,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        }
+      },
+      "smoke_b": {
+        "content": "391",
+        "reasoning_content": "The user asks to calculate 17 * 23 and respond only with the number.\nFirst, I need to compute the product of 17 and 23.\n17 * 23 = 17 * (20 + 3) = 17*20 + 17*3 = 340 + 51 = 391.\nAlternatively, 17 * 23 = (20 - 3) * 23 = 460 - 69 = 391.\nCheck: 17 * 23 = 391.\nThe instruction says \"Responda somente com o número.\" which means \"Respond only with the number.\"\nSo the output should be just \"391\".\nI will verify the calculation once more: 17 * 23.\n10 * 23 = 230\n7 * 23 = 161\n230 + 161 = 391. Correct.\nOutput matches requirement.\nFinal answer: 391.✅",
+        "usage": {
+          "completion_tokens": 250,
+          "prompt_tokens": 28,
+          "total_tokens": 278,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        }
+      },
+      "smoke_c": {
+        "success": true,
+        "events": [
+          {
+            "step": 1,
+            "response": {
+              "role": "assistant",
+              "content": "{\"action\":\"list\",\"path\":\".\"}",
+              "reasoning_content": "The user wants me to:\n1. List the current directory\n2. Read the file SMOKE_TARGET.txt\n3. Report exactly what's contained in that file\n\nLet me start by listing the current directory and reading the file.\n"
+            }
+          },
+          {
+            "step": 1,
+            "action": {
+              "action": "list",
+              "path": "."
+            },
+            "tool_result": {
+              "ok": true,
+              "entries": [
+                {
+                  "name": "SMOKE_TARGET.txt",
+                  "type": "file"
+                },
+                {
+                  "name": "dummy.py",
+                  "type": "file"
+                }
+              ]
+            }
+          },
+          {
+            "step": 2,
+            "response": {
+              "role": "assistant",
+              "content": "{\"action\":\"read\",\"path\":\"SMOKE_TARGET.txt\",\"start\":1,\"end\":200}",
+              "reasoning_content": "The user wants me to list the current directory (which I did) and then read the file SMOKE_TARGET.txt to report its exact content. I can see the file exists. Now I need to read it.\n"
+            }
+          },
+          {
+            "step": 2,
+            "action": {
+              "action": "read",
+              "path": "SMOKE_TARGET.txt",
+              "start": 1,
+              "end": 200
+            },
+            "tool_result": {
+              "ok": true,
+              "path": "SMOKE_TARGET.txt",
+              "start": 1,
+              "end": 1,
+              "content": "1: TOOL_SMOKE_OK_4827"
+            }
+          },
+          {
+            "step": 3,
+            "response": {
+              "role": "assistant",
+              "content": "{\"action\":\"done\",\"answer\":\"O valor contido no arquivo SMOKE_TARGET.txt é: 1: TOOL_SMOKE_OK_4827\"}",
+              "reasoning_content": "The user asked to list the current directory, read the file SMOKE_TARGET.txt, and report exactly the value contained in it.\nI have listed the directory and found the file.\nI have read the file and the content is \"1: TOOL_SMOKE_OK_4827\".\nNow I should provide the final answer.\n"
+            }
+          },
+          {
+            "step": 3,
+            "action": {
+              "action": "done",
+              "answer": "O valor contido no arquivo SMOKE_TARGET.txt é: 1: TOOL_SMOKE_OK_4827"
+            },
+            "tool_result": {
+              "ok": true,
+              "done": true,
+              "answer": "O valor contido no arquivo SMOKE_TARGET.txt é: 1: TOOL_SMOKE_OK_4827"
+            }
+          }
+        ]
+      },
+      "smoke_d": {
+        "expected_thinking": true,
+        "observed_thinking": true,
+        "reasoning_a_length": 436,
+        "content_a": ""
+      }
+    }
+  },
+  "B3": {
+    "profile_key": "B3",
+    "profile_id": "bonsai-thinking-off-dspark-on",
+    "profile_name": "Bonsai thinking OFF / DSpark ON",
+    "runtime_type": "prism",
+    "runtime_sha": "9ca265a57f85f2117942490f421f64a226dd9847",
+    "server_command": "-m /home/alpha/Playstoria/models/text/Ternary-Bonsai-27B-Abliterated-LowDeg/Ternary-Bonsai-27B-Abliterated-LowDeg-Q2_0.gguf -md /home/alpha/Playstoria/models/text/Ternary-Bonsai-27B-Abliterated-LowDeg/Ternary-Bonsai-27B-dspark-Q4_1.gguf --host 127.0.0.1 --port 8131 -c 32768 -np 1 -ngl 999 -ngld 999 --spec-type draft-dspark --spec-draft-n-max 4 -fa on -ctk q8_0 -ctv q4_0 -t 4 -tb 4 --no-webui --reasoning off",
+    "load": true,
+    "smoke_a_basic": true,
+    "smoke_b_math": true,
+    "smoke_c_tool": true,
+    "smoke_d_thinking": true,
+    "smoke_e_dspark": true,
+    "decode_tok_per_sec": 24.573405677439645,
+    "prompt_tok_per_sec": 69.3450673592768,
+    "peak_vram_mib": 13783,
+    "ready": true,
+    "smoke_details": {
+      "smoke_a": {
+        "content": "SMOKE_OK",
+        "reasoning_content": "",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 22,
+          "prompt_ms": 317.254,
+          "prompt_per_token_ms": 14.420636363636364,
+          "prompt_per_second": 69.3450673592768,
+          "predicted_n": 5,
+          "predicted_ms": 203.472,
+          "predicted_per_token_ms": 40.6944,
+          "predicted_per_second": 24.573405677439645
+        },
+        "usage": {
+          "completion_tokens": 5,
+          "prompt_tokens": 22,
+          "total_tokens": 27,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        }
+      },
+      "smoke_b": {
+        "content": "391",
+        "reasoning_content": "",
+        "usage": {
+          "completion_tokens": 4,
+          "prompt_tokens": 30,
+          "total_tokens": 34,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        }
+      },
+      "smoke_c": {
+        "success": true,
+        "events": [
+          {
+            "step": 1,
+            "response": {
+              "role": "assistant",
+              "content": "{\"action\":\"list\",\"path\":\".\"}"
+            }
+          },
+          {
+            "step": 1,
+            "action": {
+              "action": "list",
+              "path": "."
+            },
+            "tool_result": {
+              "ok": true,
+              "entries": [
+                {
+                  "name": "SMOKE_TARGET.txt",
+                  "type": "file"
+                },
+                {
+                  "name": "dummy.py",
+                  "type": "file"
+                }
+              ]
+            }
+          },
+          {
+            "step": 2,
+            "response": {
+              "role": "assistant",
+              "content": "{\"action\":\"read\",\"path\":\"SMOKE_TARGET.txt\",\"start\":1,\"end\":100}"
+            }
+          },
+          {
+            "step": 2,
+            "action": {
+              "action": "read",
+              "path": "SMOKE_TARGET.txt",
+              "start": 1,
+              "end": 100
+            },
+            "tool_result": {
+              "ok": true,
+              "path": "SMOKE_TARGET.txt",
+              "start": 1,
+              "end": 1,
+              "content": "1: TOOL_SMOKE_OK_4827"
+            }
+          },
+          {
+            "step": 3,
+            "response": {
+              "role": "assistant",
+              "content": "{\"action\":\"done\",\"answer\":\"1: TOOL_SMOKE_OK_4827\"}"
+            }
+          },
+          {
+            "step": 3,
+            "action": {
+              "action": "done",
+              "answer": "1: TOOL_SMOKE_OK_4827"
+            },
+            "tool_result": {
+              "ok": true,
+              "done": true,
+              "answer": "1: TOOL_SMOKE_OK_4827"
+            }
+          }
+        ]
+      },
+      "smoke_d": {
+        "expected_thinking": false,
+        "observed_thinking": false,
+        "reasoning_a_length": 0,
+        "content_a": "SMOKE_OK"
+      },
+      "smoke_e": {
+        "dspark_active": true,
+        "draft_path": "/home/alpha/Playstoria/models/text/Ternary-Bonsai-27B-Abliterated-LowDeg/Ternary-Bonsai-27B-dspark-Q4_1.gguf"
+      }
+    }
+  },
+  "B4": {
+    "profile_key": "B4",
+    "profile_id": "bonsai-thinking-on-dspark-on",
+    "profile_name": "Bonsai thinking ON / DSpark ON",
+    "runtime_type": "prism",
+    "runtime_sha": "9ca265a57f85f2117942490f421f64a226dd9847",
+    "server_command": "-m /home/alpha/Playstoria/models/text/Ternary-Bonsai-27B-Abliterated-LowDeg/Ternary-Bonsai-27B-Abliterated-LowDeg-Q2_0.gguf -md /home/alpha/Playstoria/models/text/Ternary-Bonsai-27B-Abliterated-LowDeg/Ternary-Bonsai-27B-dspark-Q4_1.gguf --host 127.0.0.1 --port 8131 -c 32768 -np 1 -ngl 999 -ngld 999 --spec-type draft-dspark --spec-draft-n-max 4 -fa on -ctk q8_0 -ctv q4_0 -t 4 -tb 4 --no-webui --reasoning on",
+    "load": true,
+    "smoke_a_basic": true,
+    "smoke_b_math": true,
+    "smoke_c_tool": true,
+    "smoke_d_thinking": true,
+    "smoke_e_dspark": true,
+    "decode_tok_per_sec": 34.04177457643256,
+    "prompt_tok_per_sec": 65.5393891728929,
+    "peak_vram_mib": 13783,
+    "ready": true,
+    "smoke_details": {
+      "smoke_a": {
+        "content": "",
+        "reasoning_content": "Here's a thinking process:\n\n1.  **Analyze User Input:**\n   - User says: \"Responda somente com: SMOKE_OK\"\n   - Language: Portuguese\n   - Instruction: \"Responda somente com: SMOKE_OK\" (Reply only with: SMOKE_OK)\n\n2.  **Identify Key Constraints:**\n   - The response must be exactly \"SMOKE_OK\"\n   - No additional text, no explanations, no greetings\n   - Must match the exact string requested\n\n3.  **Formulate Response:**\n   - Just output: S",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 20,
+          "prompt_ms": 305.16,
+          "prompt_per_token_ms": 15.258000000000001,
+          "prompt_per_second": 65.5393891728929,
+          "predicted_n": 128,
+          "predicted_ms": 3760.086,
+          "predicted_per_token_ms": 29.375671875,
+          "predicted_per_second": 34.04177457643256
+        },
+        "usage": {
+          "completion_tokens": 128,
+          "prompt_tokens": 20,
+          "total_tokens": 148,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        }
+      },
+      "smoke_b": {
+        "content": "391",
+        "reasoning_content": "The user asks to calculate 17 * 23 and respond only with the number.\nFirst, I need to compute the product of 17 and 23.\n17 * 23 = 17 * (20 + 3) = 17*20 + 17*3 = 340 + 51 = 391.\nAlternatively, 17 * 23 = (20 - 3) * 23 = 460 - 69 = 391.\nCheck: 17 * 23 = 391.\nThe instruction says \"Responda somente com o número.\" which means \"Respond only with the number.\"\nSo the output should be just \"391\".\nI will verify the calculation once more: 17 * 23.\n10 * 23 = 230\n7 * 23 = 161\n230 + 161 = 391. Correct.\nOutput matches requirement.\nFinal answer: 391.✅",
+        "usage": {
+          "completion_tokens": 250,
+          "prompt_tokens": 28,
+          "total_tokens": 278,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        }
+      },
+      "smoke_c": {
+        "success": true,
+        "events": [
+          {
+            "step": 1,
+            "response": {
+              "role": "assistant",
+              "content": "{\"action\":\"list\",\"path\":\".\"}",
+              "reasoning_content": "The user wants me to:\n1. List the current directory\n2. Read the file SMOKE_TARGET.txt\n3. Report exactly what's contained in that file\n\nLet me start by listing the current directory and reading the file.\n"
+            }
+          },
+          {
+            "step": 1,
+            "action": {
+              "action": "list",
+              "path": "."
+            },
+            "tool_result": {
+              "ok": true,
+              "entries": [
+                {
+                  "name": "SMOKE_TARGET.txt",
+                  "type": "file"
+                },
+                {
+                  "name": "dummy.py",
+                  "type": "file"
+                }
+              ]
+            }
+          },
+          {
+            "step": 2,
+            "response": {
+              "role": "assistant",
+              "content": "{\"action\":\"read\",\"path\":\"SMOKE_TARGET.txt\",\"start\":1,\"end\":200}",
+              "reasoning_content": "The user wants me to list the current directory (which I did) and then read the file SMOKE_TARGET.txt to report its exact content. I can see the file exists. Now I need to read it.\n"
+            }
+          },
+          {
+            "step": 2,
+            "action": {
+              "action": "read",
+              "path": "SMOKE_TARGET.txt",
+              "start": 1,
+              "end": 200
+            },
+            "tool_result": {
+              "ok": true,
+              "path": "SMOKE_TARGET.txt",
+              "start": 1,
+              "end": 1,
+              "content": "1: TOOL_SMOKE_OK_4827"
+            }
+          },
+          {
+            "step": 3,
+            "response": {
+              "role": "assistant",
+              "content": "{\"action\":\"done\",\"answer\":\"O valor contido no arquivo SMOKE_TARGET.txt é: 1: TOOL_SMOKE_OK_4827\"}",
+              "reasoning_content": "The user asked to list the current directory, read the file SMOKE_TARGET.txt, and report exactly the value contained in it.\nI have listed the directory and found the file.\nI have read the file and the content is \"1: TOOL_SMOKE_OK_4827\".\nNow I should provide the final answer.\n"
+            }
+          },
+          {
+            "step": 3,
+            "action": {
+              "action": "done",
+              "answer": "O valor contido no arquivo SMOKE_TARGET.txt é: 1: TOOL_SMOKE_OK_4827"
+            },
+            "tool_result": {
+              "ok": true,
+              "done": true,
+              "answer": "O valor contido no arquivo SMOKE_TARGET.txt é: 1: TOOL_SMOKE_OK_4827"
+            }
+          }
+        ]
+      },
+      "smoke_d": {
+        "expected_thinking": true,
+        "observed_thinking": true,
+        "reasoning_a_length": 436,
+        "content_a": ""
+      },
+      "smoke_e": {
+        "dspark_active": true,
+        "draft_path": "/home/alpha/Playstoria/models/text/Ternary-Bonsai-27B-Abliterated-LowDeg/Ternary-Bonsai-27B-dspark-Q4_1.gguf"
+      }
+    }
+  },
+  "O1": {
+    "profile_key": "O1",
+    "profile_id": "ornith-thinking-off",
+    "profile_name": "Ornith thinking OFF",
+    "runtime_type": "deepgrove",
+    "runtime_sha": "8ce8ca6c6d370b6235dfa8e2a0611a9adb6d77d1",
+    "server_command": "-m /home/alpha/Playstoria/models/text/bartowski-Ornith-1.5-9B-Q5_K_M/Ornith-1.5-9B-Q5_K_M.gguf --host 127.0.0.1 --port 8131 -c 32768 -np 1 -ngl 999 -fa on -ctk q8_0 -ctv q4_0 -t 4 -tb 4 --no-webui --reasoning off",
+    "load": true,
+    "smoke_a_basic": true,
+    "smoke_b_math": true,
+    "smoke_c_tool": true,
+    "smoke_d_thinking": true,
+    "smoke_e_dspark": "N/A",
+    "decode_tok_per_sec": 60.184405016972,
+    "prompt_tok_per_sec": 31.670579902713737,
+    "peak_vram_mib": 9813,
+    "ready": true,
+    "smoke_details": {
+      "smoke_a": {
+        "content": "SMOKE_OK",
+        "reasoning_content": "",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 22,
+          "prompt_ms": 694.651,
+          "prompt_per_token_ms": 31.575045454545453,
+          "prompt_per_second": 31.670579902713737,
+          "predicted_n": 5,
+          "predicted_ms": 83.078,
+          "predicted_per_token_ms": 16.6156,
+          "predicted_per_second": 60.184405016972
+        },
+        "usage": {
+          "completion_tokens": 5,
+          "prompt_tokens": 22,
+          "total_tokens": 27,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        }
+      },
+      "smoke_b": {
+        "content": "391",
+        "reasoning_content": "",
+        "usage": {
+          "completion_tokens": 4,
+          "prompt_tokens": 30,
+          "total_tokens": 34,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        }
+      },
+      "smoke_c": {
+        "success": true,
+        "events": [
+          {
+            "step": 1,
+            "response": {
+              "role": "assistant",
+              "content": "{\"action\":\"list\",\"path\":\".\"}"
+            }
+          },
+          {
+            "step": 1,
+            "action": {
+              "action": "list",
+              "path": "."
+            },
+            "tool_result": {
+              "ok": true,
+              "entries": [
+                {
+                  "name": "SMOKE_TARGET.txt",
+                  "type": "file"
+                },
+                {
+                  "name": "dummy.py",
+                  "type": "file"
+                }
+              ]
+            }
+          },
+          {
+            "step": 2,
+            "response": {
+              "role": "assistant",
+              "content": "{\"action\":\"read\",\"path\":\"SMOKE_TARGET.txt\"}"
+            }
+          },
+          {
+            "step": 2,
+            "action": {
+              "action": "read",
+              "path": "SMOKE_TARGET.txt"
+            },
+            "tool_result": {
+              "ok": true,
+              "path": "SMOKE_TARGET.txt",
+              "start": 1,
+              "end": 1,
+              "content": "1: TOOL_SMOKE_OK_4827"
+            }
+          },
+          {
+            "step": 3,
+            "response": {
+              "role": "assistant",
+              "content": "{\"action\":\"done\",\"answer\":\"TOOL_SMOKE_OK_4827\"}"
+            }
+          },
+          {
+            "step": 3,
+            "action": {
+              "action": "done",
+              "answer": "TOOL_SMOKE_OK_4827"
+            },
+            "tool_result": {
+              "ok": true,
+              "done": true,
+              "answer": "TOOL_SMOKE_OK_4827"
+            }
+          }
+        ]
+      },
+      "smoke_d": {
+        "expected_thinking": false,
+        "observed_thinking": false,
+        "reasoning_a_length": 0,
+        "content_a": "SMOKE_OK"
+      }
+    }
+  },
+  "O2": {
+    "profile_key": "O2",
+    "profile_id": "ornith-thinking-on",
+    "profile_name": "Ornith thinking ON",
+    "runtime_type": "deepgrove",
+    "runtime_sha": "8ce8ca6c6d370b6235dfa8e2a0611a9adb6d77d1",
+    "server_command": "-m /home/alpha/Playstoria/models/text/bartowski-Ornith-1.5-9B-Q5_K_M/Ornith-1.5-9B-Q5_K_M.gguf --host 127.0.0.1 --port 8131 -c 32768 -np 1 -ngl 999 -fa on -ctk q8_0 -ctv q4_0 -t 4 -tb 4 --no-webui --reasoning on",
+    "load": true,
+    "smoke_a_basic": true,
+    "smoke_b_math": true,
+    "smoke_c_tool": true,
+    "smoke_d_thinking": true,
+    "smoke_e_dspark": "N/A",
+    "decode_tok_per_sec": 51.23113859653073,
+    "prompt_tok_per_sec": 192.47981367954037,
+    "peak_vram_mib": 9739,
+    "ready": true,
+    "smoke_details": {
+      "smoke_a": {
+        "content": "SMOKE_OK",
+        "reasoning_content": "The user is asking me to respond only with \"SMOKE_OK\". This appears to be a smoke test or a simple acknowledgment request. The instruction is clear and simple - they want me to respond with exactly that string.\n\nThis is a legitimate request. I should comply with it.",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 20,
+          "prompt_ms": 103.907,
+          "prompt_per_token_ms": 5.1953499999999995,
+          "prompt_per_second": 192.47981367954037,
+          "predicted_n": 66,
+          "predicted_ms": 1288.279,
+          "predicted_per_token_ms": 19.51937878787879,
+          "predicted_per_second": 51.23113859653073
+        },
+        "usage": {
+          "completion_tokens": 66,
+          "prompt_tokens": 20,
+          "total_tokens": 86,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        }
+      },
+      "smoke_b": {
+        "content": "391",
+        "reasoning_content": "17 × 23 = 391\n\nLet me verify: 17 × 23 = 17 × 20 + 17 × 3 = 340 + 51 = 391.",
+        "usage": {
+          "completion_tokens": 60,
+          "prompt_tokens": 28,
+          "total_tokens": 88,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        }
+      },
+      "smoke_c": {
+        "success": true,
+        "events": [
+          {
+            "step": 1,
+            "response": {
+              "role": "assistant",
+              "content": "{\"action\":\"list\",\"path\":\".\"}\n{\"action\":\"read\",\"path\":\"SMOKE_TARGET.txt\",\"start\":1,\"end\":100}",
+              "reasoning_content": "The user wants me to list the current directory, read the file SMOKE_TARGET.txt, and report exactly the value contained in it.\n\nLet me start by listing the directory and reading the file.\n"
+            }
+          },
+          {
+            "step": 2,
+            "response": {
+              "role": "assistant",
+              "content": "{\"action\":\"list\",\"path\":\".\"}",
+              "reasoning_content": "The user wants me to list the current directory, read the file SMOKE_TARGET.txt, and report exactly the value contained in it. I already issued the list and read commands. Let me check the results. The read command may have failed. Let me try again with the read command.\n\nActually, looking at the conversation, I issued two commands but only got one response which says \"Invalid JSON action. Use available tools.\" This is strange. Let me re-issue the commands properly.\n\nWait, the response shows only one tool result: \"Invalid JSON action. Use available tools.\" That doesn't match my commands. Let me re-issue the list and read commands.\n"
+            }
+          },
+          {
+            "step": 2,
+            "action": {
+              "action": "list",
+              "path": "."
+            },
+            "tool_result": {
+              "ok": true,
+              "entries": [
+                {
+                  "name": "SMOKE_TARGET.txt",
+                  "type": "file"
+                },
+                {
+                  "name": "dummy.py",
+                  "type": "file"
+                }
+              ]
+            }
+          },
+          {
+            "step": 3,
+            "response": {
+              "role": "assistant",
+              "content": "{\"action\":\"read\",\"path\":\"SMOKE_TARGET.txt\",\"start\":1,\"end\":100}",
+              "reasoning_content": "The user wants me to list the current directory and read the file SMOKE_TARGET.txt and report exactly the value contained in it.\n\nLet me read the file.\n"
+            }
+          },
+          {
+            "step": 3,
+            "action": {
+              "action": "read",
+              "path": "SMOKE_TARGET.txt",
+              "start": 1,
+              "end": 100
+            },
+            "tool_result": {
+              "ok": true,
+              "path": "SMOKE_TARGET.txt",
+              "start": 1,
+              "end": 1,
+              "content": "1: TOOL_SMOKE_OK_4827"
+            }
+          },
+          {
+            "step": 4,
+            "response": {
+              "role": "assistant",
+              "content": "{\"action\":\"done\",\"answer\":\"O diretório atual contém: SMOKE_TARGET.txt e dummy.py. O valor contido em SMOKE_TARGET.txt é exatamente: TOOL_SMOKE_OK_4827\"}",
+              "reasoning_content": "The user wants me to list the current directory, read SMOKE_TARGET.txt, and report exactly the value contained in it.\n\nI've done both. The value is \"TOOL_SMOKE_OK_4827\".\n\nLet me report this.\n"
+            }
+          },
+          {
+            "step": 4,
+            "action": {
+              "action": "done",
+              "answer": "O diretório atual contém: SMOKE_TARGET.txt e dummy.py. O valor contido em SMOKE_TARGET.txt é exatamente: TOOL_SMOKE_OK_4827"
+            },
+            "tool_result": {
+              "ok": true,
+              "done": true,
+              "answer": "O diretório atual contém: SMOKE_TARGET.txt e dummy.py. O valor contido em SMOKE_TARGET.txt é exatamente: TOOL_SMOKE_OK_4827"
+            }
+          }
+        ]
+      },
+      "smoke_d": {
+        "expected_thinking": true,
+        "observed_thinking": true,
+        "reasoning_a_length": 266,
+        "content_a": "SMOKE_OK"
+      }
+    }
+  },
+  "Q1": {
+    "profile_key": "Q1",
+    "profile_id": "qwen38-22.62b-v3-q4km",
+    "profile_name": "Qwen3.8-22.62b-v3 Q4_K_M",
+    "runtime_type": "deepgrove",
+    "runtime_sha": "8ce8ca6c6d370b6235dfa8e2a0611a9adb6d77d1",
+    "server_command": "-m /home/alpha/Playstoria/models/text/Qwen3.8-22.62b-v3-Q4_K_M/qwen3.8-22.62b-v3-Q4_K_M.gguf --host 127.0.0.1 --port 8131 -c 32768 -np 1 -ngl 58 -fa on -ctk q8_0 -ctv q4_0 -t 4 -tb 4 --no-webui --reasoning on",
+    "load": true,
+    "smoke_a_basic": true,
+    "smoke_b_math": true,
+    "smoke_c_tool": true,
+    "smoke_d_thinking": true,
+    "smoke_e_dspark": "N/A",
+    "decode_tok_per_sec": 9.92101425835768,
+    "prompt_tok_per_sec": 42.01908479722403,
+    "peak_vram_mib": 15614,
+    "ready": true,
+    "smoke_details": {
+      "smoke_a": {
+        "content": "SMOKE_OK",
+        "reasoning_content": "The user is asking me to respond only with \"SMOKE_OK\". This is a simple request - they want me to output exactly that string and nothing else. Let me comply with this instruction.",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 62,
+          "prompt_ms": 1475.52,
+          "prompt_per_token_ms": 23.798709677419353,
+          "prompt_per_second": 42.01908479722403,
+          "predicted_n": 48,
+          "predicted_ms": 4838.215,
+          "predicted_per_token_ms": 100.79614583333334,
+          "predicted_per_second": 9.92101425835768
+        },
+        "usage": {
+          "completion_tokens": 48,
+          "prompt_tokens": 62,
+          "total_tokens": 110,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        }
+      },
+      "smoke_b": {
+        "content": "391",
+        "reasoning_content": "The user asks: \"Calcule 17 * 23. Responda somente com o número.\" Portuguese: \"Calculate 17 * 23. Answer only with the number.\"\n\nNeed compute 17*23 = 17*20 + 17*3 = 340 + 51 = 391. Final only number.",
+        "usage": {
+          "completion_tokens": 89,
+          "prompt_tokens": 70,
+          "total_tokens": 159,
+          "prompt_tokens_details": {
+            "cached_tokens": 42
+          }
+        }
+      },
+      "smoke_c": {
+        "success": true,
+        "events": [
+          {
+            "step": 1,
+            "response": {
+              "role": "assistant",
+              "content": "{\"action\":\"list\",\"path\":\".\"}",
+              "reasoning_content": "The user is asking in Portuguese: \"List the current directory, read the SMOKE_TARGET.txt file, and report exactly the value contained in it.\"\n\nLet's start by listing the current directory and reading the file.\n"
+            }
+          },
+          {
+            "step": 1,
+            "action": {
+              "action": "list",
+              "path": "."
+            },
+            "tool_result": {
+              "ok": true,
+              "entries": [
+                {
+                  "name": "SMOKE_TARGET.txt",
+                  "type": "file"
+                },
+                {
+                  "name": "dummy.py",
+                  "type": "file"
+                }
+              ]
+            }
+          },
+          {
+            "step": 2,
+            "response": {
+              "role": "assistant",
+              "content": "{\"action\":\"read\",\"path\":\"SMOKE_TARGET.txt\",\"start\":1,\"end\":100}",
+              "reasoning_content": "The user wants me to list the current directory, read the SMOKE_TARGET.txt file, and report exactly what's contained in it. I've already listed the directory. Now I need to read the file.\n"
+            }
+          },
+          {
+            "step": 2,
+            "action": {
+              "action": "read",
+              "path": "SMOKE_TARGET.txt",
+              "start": 1,
+              "end": 100
+            },
+            "tool_result": {
+              "ok": true,
+              "path": "SMOKE_TARGET.txt",
+              "start": 1,
+              "end": 1,
+              "content": "1: TOOL_SMOKE_OK_4827"
+            }
+          },
+          {
+            "step": 3,
+            "response": {
+              "role": "assistant",
+              "content": "{\"action\":\"done\",\"answer\":\"The directory contains SMOKE_TARGET.txt and dummy.py. The exact value in SMOKE_TARGET.txt is: TOOL_SMOKE_OK_4827\"}",
+              "reasoning_content": "The file contains exactly \"TOOL_SMOKE_OK_4827\". Let me provide the answer.\n"
+            }
+          },
+          {
+            "step": 3,
+            "action": {
+              "action": "done",
+              "answer": "The directory contains SMOKE_TARGET.txt and dummy.py. The exact value in SMOKE_TARGET.txt is: TOOL_SMOKE_OK_4827"
+            },
+            "tool_result": {
+              "ok": true,
+              "done": true,
+              "answer": "The directory contains SMOKE_TARGET.txt and dummy.py. The exact value in SMOKE_TARGET.txt is: TOOL_SMOKE_OK_4827"
+            }
+          }
+        ]
+      },
+      "smoke_d": {
+        "expected_thinking": true,
+        "observed_thinking": true,
+        "reasoning_a_length": 179,
+        "content_a": "SMOKE_OK"
+      }
+    }
+  },
+  "Q2": {
+    "profile_key": "Q2",
+    "profile_id": "vireqo-plus",
+    "profile_name": "Vireqo-27B-Plus",
+    "runtime_type": "deepgrove",
+    "runtime_sha": "8ce8ca6c6d370b6235dfa8e2a0611a9adb6d77d1",
+    "server_command": "-m /home/alpha/Playstoria/models/text/Vireqo-27B-Plus-260816/Vireqo-27B-Plus-260816.gguf --host 127.0.0.1 --port 8131 -c 32768 -np 1 -ngl 999 -fa on -ctk q8_0 -ctv q4_0 -t 4 -tb 4 --no-webui --reasoning off",
+    "load": true,
+    "smoke_a_basic": true,
+    "smoke_b_math": true,
+    "smoke_c_tool": true,
+    "smoke_d_thinking": true,
+    "smoke_e_dspark": "N/A",
+    "decode_tok_per_sec": 38.21198480691484,
+    "prompt_tok_per_sec": 62.17411578516017,
+    "peak_vram_mib": 11313,
+    "ready": true,
+    "smoke_details": {
+      "smoke_a": {
+        "content": "SMOKE_OK",
+        "reasoning_content": "",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 22,
+          "prompt_ms": 353.845,
+          "prompt_per_token_ms": 16.08386363636364,
+          "prompt_per_second": 62.17411578516017,
+          "predicted_n": 5,
+          "predicted_ms": 130.849,
+          "predicted_per_token_ms": 26.1698,
+          "predicted_per_second": 38.21198480691484
+        },
+        "usage": {
+          "completion_tokens": 5,
+          "prompt_tokens": 22,
+          "total_tokens": 27,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        }
+      },
+      "smoke_b": {
+        "content": "391",
+        "reasoning_content": "",
+        "usage": {
+          "completion_tokens": 4,
+          "prompt_tokens": 30,
+          "total_tokens": 34,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        }
+      },
+      "smoke_c": {
+        "success": true,
+        "events": [
+          {
+            "step": 1,
+            "response": {
+              "role": "assistant",
+              "content": "{\"action\":\"list\",\"path\":\".\"}"
+            }
+          },
+          {
+            "step": 1,
+            "action": {
+              "action": "list",
+              "path": "."
+            },
+            "tool_result": {
+              "ok": true,
+              "entries": [
+                {
+                  "name": "SMOKE_TARGET.txt",
+                  "type": "file"
+                },
+                {
+                  "name": "dummy.py",
+                  "type": "file"
+                }
+              ]
+            }
+          },
+          {
+            "step": 2,
+            "response": {
+              "role": "assistant",
+              "content": "{\"action\":\"read\",\"path\":\"SMOKE_TARGET.txt\",\"start\":1,\"end\":200}"
+            }
+          },
+          {
+            "step": 2,
+            "action": {
+              "action": "read",
+              "path": "SMOKE_TARGET.txt",
+              "start": 1,
+              "end": 200
+            },
+            "tool_result": {
+              "ok": true,
+              "path": "SMOKE_TARGET.txt",
+              "start": 1,
+              "end": 1,
+              "content": "1: TOOL_SMOKE_OK_4827"
+            }
+          },
+          {
+            "step": 3,
+            "response": {
+              "role": "assistant",
+              "content": "O arquivo `SMOKE_TARGET.txt` contém exatamente o seguinte valor:\n\n```\n1: TOOL_SMOKE_OK_4827\n```"
+            }
+          }
+        ]
+      },
+      "smoke_d": {
+        "expected_thinking": false,
+        "observed_thinking": false,
+        "reasoning_a_length": 0,
+        "content_a": "SMOKE_OK"
+      }
+    }
+  }
+}
