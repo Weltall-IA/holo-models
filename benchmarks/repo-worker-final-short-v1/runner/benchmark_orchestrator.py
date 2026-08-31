@@ -77,6 +77,21 @@ PROFILES = [
         'sampling': {'temperature': 0.2, 'top_p': 0.95}
     },
     {
+        'key': 'M1-ON',
+        'id': 'minitron-20b-iq3m-on',
+        'name': 'Qwen3.8-20B-Minitron IQ3_M (Thinking ON)',
+        'runtime_type': 'deepgrove',
+        'runtime_bin': ROOT / 'engines/deepgrove-llama.cpp/build/bin/llama-server',
+        'runtime_libs': str(ROOT / 'engines/deepgrove-llama.cpp/build/bin'),
+        'runtime_sha': '8ce8ca6c6d370b6235dfa8e2a0611a9adb6d77d1',
+        'model_path': ROOT / 'text/mradermacher-Qwen3.8-20B-Minitron-i1-IQ3_M/Qwen3.8-20B-Minitron.i1-IQ3_M.gguf',
+        'model_sha256': '253f542604f42433cf9fad806b30c0d1243418c5b543eca56ad62c0761b12bbd',
+        'thinking': True,
+        'context': 16384,
+        'server_args': ['-m', str(ROOT / 'text/mradermacher-Qwen3.8-20B-Minitron-i1-IQ3_M/Qwen3.8-20B-Minitron.i1-IQ3_M.gguf'), '--host', '127.0.0.1', '--port', str(PORT), '-c', '16384', '-np', '1', '-ngl', '999', '-fa', 'on', '-ctk', 'q8_0', '-ctv', 'q4_0', '-t', '4', '-tb', '4', '--no-webui', '--reasoning', 'on'],
+        'sampling': {'temperature': 0.6, 'top_p': 0.95}
+    },
+    {
         'key': 'V1',
         'id': 'vireqo-corrected',
         'name': 'Vireqo-27B-Plus (Corrected Reference Profile)',

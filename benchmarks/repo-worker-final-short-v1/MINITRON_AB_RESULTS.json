@@ -1,0 +1,66 @@
+{
+  "off": [
+    {
+      "task_id": "ab_task1_navigation",
+      "mode": "off",
+      "passed": false,
+      "time_s": 153.66074872299214,
+      "turns": 5,
+      "tool_errors": 0,
+      "recovered_errors": 0,
+      "successful_edits": 0
+    },
+    {
+      "task_id": "ab_task2_bugfix",
+      "mode": "off",
+      "passed": true,
+      "time_s": 4.309623389999615,
+      "turns": 2,
+      "tool_errors": 0,
+      "recovered_errors": 0,
+      "successful_edits": 0
+    },
+    {
+      "task_id": "ab_task3_recovery",
+      "mode": "off",
+      "passed": true,
+      "time_s": 16.86016996699618,
+      "turns": 5,
+      "tool_errors": 1,
+      "recovered_errors": 1,
+      "successful_edits": 1
+    }
+  ],
+  "on": [
+    {
+      "task_id": "ab_task1_navigation",
+      "mode": "on",
+      "passed": true,
+      "time_s": 139.11494529101765,
+      "turns": 6,
+      "tool_errors": 1,
+      "recovered_errors": 0,
+      "successful_edits": 0
+    },
+    {
+      "task_id": "ab_task2_bugfix",
+      "mode": "on",
+      "passed": true,
+      "time_s": 223.57420281498344,
+      "turns": 7,
+      "tool_errors": 1,
+      "recovered_errors": 0,
+      "successful_edits": 0
+    },
+    {
+      "task_id": "ab_task3_recovery",
+      "mode": "on",
+      "passed": true,
+      "time_s": 28.813441328995395,
+      "turns": 5,
+      "tool_errors": 1,
+      "recovered_errors": 1,
+      "successful_edits": 1
+    }
+  ]
+}
