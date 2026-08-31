@@ -1,0 +1,104 @@
+{
+  "task_id": "task01_nav_role_chain",
+  "profile_id": "bonsai-thinking-on-dspark",
+  "seed": 3407,
+  "passed": false,
+  "total_time_s": 137.35351915698266,
+  "time_to_first_useful_s": 8.484565110993572,
+  "time_to_first_edit_s": null,
+  "peak_vram_mib": 13271,
+  "total_turns": 3,
+  "tool_errors": 1,
+  "recovered_errors": 0,
+  "files_read": [
+    "AGENTS.md"
+  ],
+  "files_edited": [],
+  "successful_edits": 0,
+  "failed_edits": 0,
+  "prompt_tokens": 668,
+  "reasoning_tokens": 0,
+  "output_tokens": 187,
+  "eval_detail": {
+    "type": "oracle_strings",
+    "expected": [
+      "model-bindings.yaml",
+      "project-rw",
+      "instructions.md"
+    ],
+    "found": false
+  },
+  "events": [
+    {
+      "turn": 1,
+      "content": "{\"action\":\"list\",\"path\":\".\"}",
+      "reasoning": "The user wants to understand how a request for the `project-rw` role is routed from top-level model bindings to agent instructions and its effective contract specification. This sounds like a task involving some kind of role-based access control or routing system in a codebase.\n\nLet me start by exploring the repository structure to understand what files are available.\n",
+      "action": {
+        "action": "list",
+        "path": "."
+      },
+      "finish_reason": "stop",
+      "tool_res": {
+        "ok": true,
+        "entries": [
+          {
+            "name": "AGENTS.md",
+            "type": "file"
+          },
+          {
+            "name": "ARCHITECTURE.md",
+            "type": "file"
+          },
+          {
+            "name": "README.md",
+            "type": "file"
+          },
+          {
+            "name": "capabilities",
+            "type": "dir"
+          },
+          {
+            "name": "core",
+            "type": "dir"
+          },
+          {
+            "name": "fixture",
+            "type": "dir"
+          },
+          {
+            "name": "harnesses",
+            "type": "dir"
+          },
+          {
+            "name": "library",
+            "type": "dir"
+          }
+        ]
+      }
+    },
+    {
+      "turn": 2,
+      "content": "{\"action\":\"read\",\"path\":\"AGENTS.md\",\"start\":1,\"end\":200}",
+      "reasoning": "The task is to determine how a request for the `project-rw` role is routed from top-level model bindings to its agent instructions and its effective contract specification. I need to find the chain of paths.\n\nLet me explore the repository structure to understand how roles are defined and routed. I should look at AGENTS.md first to understand the overall architecture, and then look for role-specific files.\n",
+      "action": {
+        "action": "read",
+        "path": "AGENTS.md",
+        "start": 1,
+        "end": 200
+      },
+      "finish_reason": "stop",
+      "tool_res": {
+        "ok": true,
+        "path": "AGENTS.md",
+        "start": 1,
+        "end": 200,
+        "content": "1: # Holo Agent Tooling Governance\n2: \n3: ## Repository mission\n4: \n5: This repository is an **architecture specification**, not a harness synchronization system.\n6: \n7: Models working here must preserve that boundary. Do not add generators, target trees, installers, background synchronization, schema translators, host-runtime wrappers or automatic propagation between harnesses unless the user explicitly changes the mission of the repository.\n8: \n9: Semantic conformance is required; structural identity is not.\n10: \n11: ## Source of truth\n12: \n13: - `ARCHITECTURE.md` defines the system-level architecture.\n14: - `library/agents/` defines canonical role behavior without hardcoded model identity.\n15: - `core/agents/contracts/` defines formal role boundaries and permission intent.\n16: - `library/rules/` defines delegation, evidence, tool-authority, runtime-path durability, freshness, MCP scoping, session-orchestration and repository-governance invariants.\n17: - `library/routing/model-bindings.yaml` is the human-owned reference mapping from role to model.\n18: - `harnesses/` records expectations and known constraints for each harness.\n19: - `capabilities/` explains how Skills, MCPs/tools and Hooks fit into the architecture.\n20: \n21: ## Agent model\n22: \n23: Holo is the coordinating primary agent and final integrator. It works alone when delegation adds little value. When delegation helps, Holo selects a **role**. The human-owned binding selects the model occupying that role.\n24: \n25: Keep separate:\n26: \n27: 1. Role \u2014 who should perform the work.\n28: 2. Model binding \u2014 which model the human assigned to that role.\n29: 3. Skill \u2014 reusable procedure or domain knowledge.\n30: 4. MCP/tool \u2014 external capability.\n31: 5. Hook \u2014 optional harness lifecycle automation.\n32: 6. Project rule \u2014 workspace-specific constraint.\n33: 7. Harness implementation \u2014 native realization of the architecture in one runtime.\n34: 8. Session/worktree manager \u2014 macro orchestration for independent top-level sessions, not a canonical role.\n35: \n36: `explore`, `shell` and `browser` are context workers. They collect and condense context; they are not final reasoning authorities.\n37: \n38: ## Capability selection\n39: \n40: Holo plans in terms of the user's goal, the canonical role and the capability required to complete that goal. Concrete tool names belong to execution in the current harness.\n41: \n42: Use the conceptual flow `goal -> role -> needed capability -> concrete available tool/Skill`. Confirm that a concrete MCP/tool or Skill is actually available before using it. Do not infer availability solely from the architecture or from another harness.\n43: \n44: Holo itself should be **capability-complete within the active project's approved harness surface**. Do not make the coordinator least-privileged by freezing it to a small static tool list that can silently omit new native capabilities. Once a capability is enabled for the active project/profile and permitted by the harness, Holo may use it directly when delegation adds little value.\n45: \n46: Delegated roles are different: they remain **least-privileged** according to their role contracts. Read-only roles must not inherit Holo's edit/execute authority; scoped writers stay scoped; nested delegation remains restricted where required.\n47: \n48: Tool availability does not bypass approval, trust, sandbox, project/MCP scoping or model-routing rules. Broad Holo capability must not widen the canonical subagent allow-list or enable unrelated global MCPs in every project.\n49: \n50: Hooks are normally lifecycle-driven by the harness. Treat their effects as part of the execution environment rather than selecting them like ordinary tools unless a harness explicitly exposes a manual hook action.\n51: \n52: This policy is semantic only. Do not implement a universal capability resolver, registry, dispatcher, adapter layer or synchronization mechanism to enforce it.\n53: \n54: See `library/rules/tool-authority.md`.\n55: \n56: ## Canonical path terminology\n57: \n58: Use the word **canonical** narrowly.\n59: \n60: A filesystem location is `harness-canonical` only when the current harness documentation/schema/runtime explicitly defines or supports that location for the relevant object type and scope. Examples are product-defined locations for MCP configuration, custom agents, Skills, plugins, profiles or workspace settings.\n61: \n62: Do **not** call a host path canonical merely because it is persistent, tidy, conventional on Linux/XDG, managed by a package manager, or chosen by Holo. Paths such as `/usr/bin/...`, `~/.local/bin/...`, `~/.local/lib/...`, `/opt/...` or a project directory may be valid durable runtime locations, but they are not canonical paths of Kilo, VS Code, Antigravity or Zed unless that harness explicitly defines them as such.\n63: \n64: Keep these classifications separate:\n65: \n66: - harness-defined config placement: `HARNESS_CANONICAL`, `HARNESS_SUPPORTED_ALTERNATE`, `WRONG_CONFIG_LOCATION`, `UNKNOWN_CONFIG_LOCATION`;\n67: - runtime dependency: `HOST_RESOLVED`, `PUBLIC_ENTRYPOINT`, `STABLE_RUNTIME`, `PROJECT_OWNED`, `FRAGILE_INTERNAL`, `INVALID_EPHEMERAL`, `BROKEN`, `UNKNOWN_RUNTIME`.\n68: \n69: Never infer a harness-canonical runtime directory when the product defines only the configuration location. If the harness has no official storage location for arbitrary stdio MCP code, treat that code as an external runtime dependency instead of inventing a product-specific directory for it.\n70: \n71: This distinction must be checked from the installed/current harness before making or reviewing local configuration. See `library/rules/canonical-runtime-paths.md`.\n72: \n73: ## Runtime path durability\n74: \n75: Persistent harness configuration must reference persistent runtime dependencies.\n76: \n77: Do not write temporary, cache, staging, extracted-download, build-output, transient-mount or session-specific executable paths into Holo-owned agent/MCP/provider configuration. Paths under `/tmp`, `~/tmp`, disposable `/var/tmp`, cache directories and one-off extraction directories are invalid persistent dependencies even if they work during installation.\n78: \n79: Prefer a stable executable name through the harness's verified `PATH`; when an absolute path is required, discover the actual persistent installed path on that machine. Do not guess common paths and do not hardcode a versioned runtime living in scratch space.\n80: \n81: Before validating a harness, audit Holo-owned MCP commands, interpreters, helper scripts and provider/client launchers. An ephemeral runtime path is a configuration defect, not an acceptable implementation detail.\n82: \n83: Follow `library/rules/canonical-runtime-paths.md`.\n84: \n85: ## Runtime simplicity\n86: \n87: Filesystem tidiness and deduplication are not architecture goals. Small duplicated helper scripts across harnesses are acceptable when they are durable, functional and preserve the intended Holo semantics.\n88: \n89: Do not refactor working runtime code, create a shared runtime package, introduce new wrappers/symlinks, create a secret store, or move/copy credentials merely to normalize paths or eliminate duplication. A stable cross-harness helper reference may be recorded as implementation debt; it is not automatically a validation failure.\n90: \n91: Mandatory repair is for concrete defects such as broken or ephemeral dependencies, wrong harness configuration placement, unsafe behavior, or a fragile internal package path that can be replaced directly and safely by a verified public entrypoint. When cleanup would require new lifecycle machinery or changes across several harnesses, prefer the existing durable implementation unless the user explicitly asks for consolidation.\n92: \n93: The operational preference is:\n94: \n95: `working + durable + harness-native configuration > filesystem tidiness or deduplication`\n96: \n97: ## MCP scope\n98: \n99: MCP availability should be as narrow as practical. Prefer project/workspace-local MCP configuration when the current harness supports it. Keep an MCP global only when the human intentionally wants it across most projects or when the harness lacks a faithful narrower scope.\n100: \n101: Do not interpret `capabilities/roster.yaml` as an instruction to enable every MCP globally. A roster entry records desired/observed capability coverage, not activation scope.\n102: \n103: Project scoping reduces tool-selection noise, context/tool surface, startup overhead and unnecessary cross-project authority. Follow `library/rules/mcp-scoping.md` and preserve secrets outside committed project configuration.\n104: \n105: ## Harness implementation rule\n106: \n107: A harness is allowed to implement the architecture differently from every other harness.\n108: \n109: When asked to apply Holo to Kilo, VS Code, Antigravity, Zed or a future harness:\n110: \n111: 1. inspect the target harness's installed version/build, current native configuration/schema and current official documentation;\n112: 2. map the canonical roles and permission intent onto the features the harness actually supports now;\n113: 3. distinguish product support from local configuration state;\n114: 4. expose the active project's approved harness capabilities broadly to Holo while keeping delegated roles least-privileged;\n115: 5. prefer project/workspace scope for project-specific MCPs where the harness supports it;\n116: 6. classify harness-defined configuration paths separately from external runtime dependencies; never call an OS/Holo-chosen runtime path harness-canonical without product evidence;\n117: 7. use only persistent/host-resolved runtime paths for Holo-owned executable, MCP, interpreter and helper references;\n118: 8. make changes in the target harness/configuration, preferably in a temporary branch/worktree when appropriate;\n119: 9. preserve unrelated native settings, credentials, OAuth, sessions, plugins and provider state;\n120: 10. verify behavior in that harness.\n121: \n122: Do not generate a native configuration from this repository merely to make harnesses look alike.\n123: \n124: If a harness changes its schema or gains a better native mechanism, update that harness implementation. Do not preserve an obsolete workaround just because it existed previously.\n125: \n126: **Role-specific MCP tools are not a generic fallback for missing model-provider integration.** The current Holo specification permits MCP-as-role/model-routing only for an explicitly documented harness exception. At present that exception is Antigravity. Do not copy the Antigravity exception into VS Code, Kilo or Zed. If another harness cannot faithfully express a human-owned role/model binding natively, report the limitation or manual requirement unless the human explicitly approves a new harness-specific exception in this specification.\n127: \n128: Follow `library/rules/harness-freshness.md`. In particular, `unsupported` is a strong claim: absence from local config is not enough. Use `unknown` or `missing` when appropriate.\n129: \n130: ### Kilo task and Agent Manager\n131: \n132: Kilo's normal Holo delegation is `Holo primary -> task -> canonical custom subagent`. The subagent defines the role/model/permissions; `task` is the invocation mechanism.\n133: \n134: - Holo should be able to request the normal Kilo tools, Skills and MCP tools available to the active project; sensitive operations may still be approval-gated.\n135: - Holo should use an explicit `permission.task` allow-list for the eleven canonical Holo subagents.\n136: - Delegated Holo subagents should have nested task/delegation denied by default and role-specific least-privileged permissions.\n137: - Kilo Agent Manager is a macro session/worktree layer. If the human opens Agent Manager and starts a Holo session, Holo still uses `task` internally.\n138: - Agent Manager is optional and intended for independent large work that benefits from branch/worktree isolation; it is not a replacement for focused role delegation.\n139: - Holo-owned Kilo/MCP/provider runtime paths must satisfy `canonical-runtime-paths.md`.\n140: \n141: See `harnesses/kilo.md`, `library/rules/tool-authority.md`, `library/rules/canonical-runtime-paths.md` and `library/rules/session-orchestration.md`.\n142: \n143: ### VS Code Agents window\n144: \n145: The VS Code Agents window is a macro session/worktree layer. A Holo Copilot session launched there continues to use the eleven canonical roles as native custom subagents internally.\n146: \n147: - Holo should receive the full tool catalog enabled for the active Copilot profile/project rather than a stale narrow `tools:` subset; current native capabilities such as Integrated Browser belong to Holo when enabled.\n148: - Holo should have an explicit `agents` allow-list for the native Holo subagents.\n149: - All eleven delegated canonical Holo roles are `.agent.md` custom agents/subagents; do not represent some of them as model-routing MCP tools.\n150: - Holo must not override a delegated role's human-owned model when invoking the subagent.\n151: - Delegated/read-only roles retain their narrow tool sets even though Holo has broad tool availability.\n152: - Where the installed build supports `reasoning-effort`, persist the human-owned effort in `.agent.md`; otherwise classify that part as manual/unverified.\n153: - If a selected role model is not available through the active VS Code language-model providers, report the binding limitation; do not replace the native role with a model-routing MCP wrapper or silently inherit Holo's model.\n154: - Agent Host/MCP/helper commands must not point to temporary or cache-extracted runtimes.\n155: \n156: See `harnesses/vscode.md`, `library/rules/tool-authority.md`, `library/rules/canonical-runtime-paths.md` and `library/rules/session-orchestration.md`.\n157: \n158: ### Antigravity exception: roles are MCP tools, not native Holo subagents\n159: \n160: Current Antigravity custom subagents can use Antigravity model tiers such as `inherit`, `flash` and `pro`, but those choices cannot realize the full human-owned Holo roster across UCP/CLIProxyAPI and OpenCode.\n161: \n162: - `holo` is the **only** Antigravity agent used by the Holo architecture.\n163: - Holo receives the native tools and MCP capabilities approved for the active Project; Project permissions remain the authority boundary.\n164: - Do **not** create Antigravity native subagents for the eleven delegated canonical roles merely to mirror the roster.\n165: - OpenCode and UCP/CLIProxyAPI are exposed through fixed role-specific MCP tools.\n166: - Holo selects the role/tool; the human-owned binding selects the model.\n167: - Never use `model: inherit`, `flash` or `pro` as a silent substitute for a different human-selected role model.\n168: - Current OpenCode CLI/server support programmatic execution; absence of a pre-existing listening server does not by itself make OpenCode roles unsupported.\n169: - Preserve role instructions, least privilege, audit-context isolation and `claim + evidence + verification + uncertainty` across the MCP call.\n170: - Reusable MCP commands must use stable host-resolvable runtimes; temporary extracted Node/Python/toolchain paths are forbidden.\n171: - Do not create a generic model bridge/router.\n172: \n173: The detailed contract lives in `harnesses/antigravity.md`.\n174: \n175: ### Zed native limitation\n176: \n177: Current Zed Agent supports profiles, native Skills, MCP, parallel threads/worktrees, `spawn_agent`, and a shared `agent.subagent_model`. Spawned subagents use the same tools as the parent, and the subagent model setting is not a separate per-canonical-role binding.\n178: \n179: - Use one Holo coordinator profile and give it the native tools, Skills and context-server tools approved for the active project/profile rather than a small static subset.\n180: - Do not require one profile/thread switch per Holo role as if that were automatic Holo delegation.\n181: - Do not map strict canonical roles to native `spawn_agent` workers when inherited tools or the shared subagent model would violate the role contract.\n182: - Do not introduce Antigravity-style role-specific MCP model-routing tools into Zed merely to force roster parity.\n183: - Native `spawn_agent` may be used for opportunistic same-model/same-tool parallel work that is not misrepresented as a stricter canonical role.\n184: - When Zed cannot automatically realize a canonical per-role model/tool boundary, report that binding/delegation limitation or a manual workflow instead of silently substituting a model.\n185: - Zed supports native Skills; per-Skill coverage must be inspected, not globally marked unsupported.\n186: - Parallel Zed threads/worktrees are macro isolation tools; a Holo profile inside them keeps the same native limitations.\n187: - Context-server/interpreter/helper commands must use persistent or verified host-resolved paths.\n188: \n189: The detailed contract lives in `harnesses/zed.md`.\n190: \n191: ## Session/worktree orchestration\n192: \n193: Session managers are optional macro layers. They do not change role semantics or model ownership.\n194: \n195: Use them when independent work would naturally justify a branch/worktree or long-running session. Do not create extra sessions merely to simulate subagents. Avoid concurrent writers on the same working tree.\n196: \n197: See `library/rules/session-orchestration.md`.\n198: \n199: ## Cross-harness changes\n200: "
+      }
+    },
+    {
+      "turn": 3,
+      "type": "request_error",
+      "error": "Request exceeded timeout (120.00s)"
+    }
+  ]
+}

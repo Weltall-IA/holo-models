@@ -1,0 +1,268 @@
+{
+  "task_id": "task05_recovery_missing_path",
+  "profile_id": "ornith-off",
+  "seed": 3407,
+  "passed": true,
+  "total_time_s": 43.201733932015486,
+  "time_to_first_useful_s": 2.3278703720134217,
+  "time_to_first_edit_s": null,
+  "peak_vram_mib": 8291,
+  "total_turns": 9,
+  "tool_errors": 2,
+  "recovered_errors": 2,
+  "files_read": [
+    "fixture/README.md",
+    "fixture/non_existent_config.py",
+    "fixture/test_settings.py",
+    "fixture/settings.py"
+  ],
+  "files_edited": [],
+  "successful_edits": 0,
+  "failed_edits": 0,
+  "prompt_tokens": 6641,
+  "reasoning_tokens": 0,
+  "output_tokens": 223,
+  "eval_detail": {
+    "type": "oracle_strings",
+    "expected": [
+      "30"
+    ],
+    "found": true
+  },
+  "events": [
+    {
+      "turn": 1,
+      "content": "{\"action\":\"read\",\"path\":\"fixture/non_existent_config.py\",\"start\":1,\"end\":200}",
+      "reasoning": "",
+      "action": {
+        "action": "read",
+        "path": "fixture/non_existent_config.py",
+        "start": 1,
+        "end": 200
+      },
+      "finish_reason": "stop",
+      "tool_res": {
+        "ok": false,
+        "error": "File not found: fixture/non_existent_config.py"
+      }
+    },
+    {
+      "turn": 2,
+      "content": "{\"action\":\"list\",\"path\":\".\"}",
+      "reasoning": "",
+      "action": {
+        "action": "list",
+        "path": "."
+      },
+      "finish_reason": "stop",
+      "tool_res": {
+        "ok": true,
+        "entries": [
+          {
+            "name": "AGENTS.md",
+            "type": "file"
+          },
+          {
+            "name": "ARCHITECTURE.md",
+            "type": "file"
+          },
+          {
+            "name": "README.md",
+            "type": "file"
+          },
+          {
+            "name": "capabilities",
+            "type": "dir"
+          },
+          {
+            "name": "core",
+            "type": "dir"
+          },
+          {
+            "name": "fixture",
+            "type": "dir"
+          },
+          {
+            "name": "harnesses",
+            "type": "dir"
+          },
+          {
+            "name": "library",
+            "type": "dir"
+          }
+        ]
+      }
+    },
+    {
+      "turn": 3,
+      "content": "{\"action\":\"list\",\"path\":\"fixture\"}",
+      "reasoning": "",
+      "action": {
+        "action": "list",
+        "path": "fixture"
+      },
+      "finish_reason": "stop",
+      "tool_res": {
+        "ok": true,
+        "entries": [
+          {
+            "name": "fixture/README.md",
+            "type": "file"
+          },
+          {
+            "name": "fixture/cache.py",
+            "type": "file"
+          },
+          {
+            "name": "fixture/config.json",
+            "type": "file"
+          },
+          {
+            "name": "fixture/ratelimit.py",
+            "type": "file"
+          },
+          {
+            "name": "fixture/retry.py",
+            "type": "file"
+          },
+          {
+            "name": "fixture/router.py",
+            "type": "file"
+          },
+          {
+            "name": "fixture/settings.py",
+            "type": "file"
+          },
+          {
+            "name": "fixture/settings.pyi",
+            "type": "file"
+          },
+          {
+            "name": "fixture/test_cache.py",
+            "type": "file"
+          },
+          {
+            "name": "fixture/test_ratelimit.py",
+            "type": "file"
+          },
+          {
+            "name": "fixture/test_retry.py",
+            "type": "file"
+          },
+          {
+            "name": "fixture/test_router.py",
+            "type": "file"
+          },
+          {
+            "name": "fixture/test_settings.py",
+            "type": "file"
+          }
+        ]
+      }
+    },
+    {
+      "turn": 4,
+      "content": "{\"action\":\"read\",\"path\":\"fixture/non_existent_config.py\",\"start\":1,\"end\":200}",
+      "reasoning": "",
+      "action": {
+        "action": "read",
+        "path": "fixture/non_existent_config.py",
+        "start": 1,
+        "end": 200
+      },
+      "finish_reason": "stop",
+      "tool_res": {
+        "ok": false,
+        "error": "File not found: fixture/non_existent_config.py"
+      }
+    },
+    {
+      "turn": 5,
+      "content": "{\"action\":\"read\",\"path\":\"fixture/README.md\",\"start\":1,\"end\":200}",
+      "reasoning": "",
+      "action": {
+        "action": "read",
+        "path": "fixture/README.md",
+        "start": 1,
+        "end": 200
+      },
+      "finish_reason": "stop",
+      "tool_res": {
+        "ok": true,
+        "path": "fixture/README.md",
+        "start": 1,
+        "end": 5,
+        "content": "1: # Fixture settings\n2: \n3: The `tool_timeout_seconds` setting controls the maximum wait for a tool.\n4: \n5: Environment: `TOOL_TIMEOUT_SECONDS`."
+      }
+    },
+    {
+      "turn": 6,
+      "content": "{\"action\":\"read\",\"path\":\"fixture/settings.py\",\"start\":1,\"end\":200}",
+      "reasoning": "",
+      "action": {
+        "action": "read",
+        "path": "fixture/settings.py",
+        "start": 1,
+        "end": 200
+      },
+      "finish_reason": "stop",
+      "tool_res": {
+        "ok": true,
+        "path": "fixture/settings.py",
+        "start": 1,
+        "end": 4,
+        "content": "1: DEFAULTS = {\"tool_timeout_seconds\": 30, \"retries\": 2}\n2: \n3: def load_settings(env):\n4:     return {**DEFAULTS, \"tool_timeout_seconds\": int(env.get(\"TOOL_TIMEOUT_SECONDS\", DEFAULTS[\"tool_timeout_seconds\"]))}"
+      }
+    },
+    {
+      "turn": 7,
+      "content": "{\"action\":\"read\",\"path\":\"fixture/test_settings.py\",\"start\":1,\"end\":200}",
+      "reasoning": "",
+      "action": {
+        "action": "read",
+        "path": "fixture/test_settings.py",
+        "start": 1,
+        "end": 200
+      },
+      "finish_reason": "stop",
+      "tool_res": {
+        "ok": true,
+        "path": "fixture/test_settings.py",
+        "start": 1,
+        "end": 7,
+        "content": "1: from settings import load_settings\n2: \n3: def test_default_timeout():\n4:     assert load_settings({\"tool_timeout_seconds\": \"99\"})[\"tool_timeout_seconds\"] == 30\n5: \n6: def test_environment_timeout():\n7:     assert load_settings({\"TOOL_TIMEOUT_SECONDS\": \"7\"})[\"tool_timeout_seconds\"] == 7"
+      }
+    },
+    {
+      "turn": 8,
+      "content": "{\"action\":\"run\",\"command\":\"cd fixture && python -m pytest test_settings.py -q 2>&1 | head -30\"}",
+      "reasoning": "",
+      "action": {
+        "action": "run",
+        "command": "cd fixture && python -m pytest test_settings.py -q 2>&1 | head -30"
+      },
+      "finish_reason": "stop",
+      "tool_res": {
+        "ok": true,
+        "exit_code": 0,
+        "stdout": "..                                                                       [100%]\n2 passed in 0.02s\n",
+        "stderr": ""
+      }
+    },
+    {
+      "turn": 9,
+      "content": "{\"action\":\"done\",\"answer\":\"The file fixture/non_existent_config.py does not exist; the real settings file is fixture/settings.py, where DEFAULTS sets tool_timeout_seconds to 30 (confirmed by test_default_timeout passing). Default timeout = 30\"}",
+      "reasoning": "",
+      "action": {
+        "action": "done",
+        "answer": "The file fixture/non_existent_config.py does not exist; the real settings file is fixture/settings.py, where DEFAULTS sets tool_timeout_seconds to 30 (confirmed by test_default_timeout passing). Default timeout = 30"
+      },
+      "finish_reason": "stop",
+      "tool_res": {
+        "ok": true,
+        "done": true,
+        "answer": "The file fixture/non_existent_config.py does not exist; the real settings file is fixture/settings.py, where DEFAULTS sets tool_timeout_seconds to 30 (confirmed by test_default_timeout passing). Default timeout = 30"
+      }
+    }
+  ]
+}
