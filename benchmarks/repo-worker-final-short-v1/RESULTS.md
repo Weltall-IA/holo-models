@@ -52,3 +52,38 @@ WINNER_REPO_WORKER=Qwen3.8-9B-Distill-uncensored-heretic Q4_K_M (Thinking OFF)
 SECOND_PLACE=Ornith 1.5 9B Q5_K_M (Thinking OFF)
 THIRD_PLACE=Qwen3.8-9B-Distill-uncensored-heretic Q4_K_M (Thinking ON)
 ```
+
+---
+
+## 4. Avaliação dos Qwen3.8-27B GSQ-RCO (IQ2_S e IQ3_XXS)
+
+Ambos os modelos **ISTA-DASLab/Qwen3.8-27B-GSQ-RCO** foram avaliados nas 6 tarefas nos dois modos (Thinking OFF e Thinking ON), com contexto 32768, KV Q8_0/Q4_0, FA ON, 4 threads e full GPU offload.
+
+### Preflight
+| Modelo | SHA256 | Tamanho | PP512 | TG128 | Peak VRAM |
+|---|---|---:|---:|---:|---:|
+| GSQ-RCO IQ2_S | `16c9802111aa9ef3acde465188d6d601f8db128ee3d828ad983a5caca4135ecb` | 9,259,510,912 B | 210.09 t/s | 31.14 t/s | 11,901 MiB |
+| GSQ-RCO IQ3_XXS | `fdfcb6a29b11188956dfbfd904223588a6c1b77eb250c3e8a36e1bd269df91f7` | 10,094,357,632 B | 212.99 t/s | 29.93 t/s | 13,700 MiB |
+
+Sanidade: `17*23=391` PASS, `Paris` PASS em ambos.
+
+### Resultados das 6 Tasks
+
+| Métrica | GSQ IQ2_S (OFF) | GSQ IQ2_S (ON) | GSQ IQ3_XXS (OFF) | GSQ IQ3_XXS (ON) | Qwen 9B Heretic (OFF) | Ornith 1.5 9B (OFF) |
+|---|---:|---:|---:|---:|---:|---:|
+| **Tasks passed / 6** | 5 / 6 | 5 / 6 | **6 / 6** | **6 / 6** | **6 / 6** | **6 / 6** |
+| **Successful edits** | 8 | 10 | 8 | 10 | 9 | 11 |
+| **Tool errors** | 2 | 2 | 2 | 3 | 3 | 2 |
+| **Recovery rate** | 50.0% | 50.0% | 50.0% | 66.7% | **100.0%** | **100.0%** |
+| **Avg time** | **80.4s** | 111.9s | 132.2s | 121.0s | **43.6s** | 115.8s |
+| **Median time** | 64.8s | 79.9s | 35.2s | 73.9s | **15.5s** | 67.6s |
+| **Decode tok/s (server)** | — | 49.84 t/s | 45.18 t/s | 46.61 t/s | **91.92 t/s** | 38.52 t/s |
+| **Prompt tok/s (server)** | — | 81.11 t/s | 71.57 t/s | 76.37 t/s | **154.49 t/s** | 64.56 t/s |
+| **Peak VRAM** | 11,901 MiB | 11,388 MiB | 13,700 MiB | 12,050 MiB | **7,313 MiB** | 8,434 MiB |
+| **Contexto usado** | 32768 | 32768 | 32768 | 32768 | 32768 | 32768 |
+| **Tasks/hour** | **37.32** | 26.80 | 27.23 | 29.74 | **82.57** | 31.09 |
+
+### Conclusões GSQ-RCO
+1. **IQ3_XXS é o melhor dos dois GSQ**: 6/6 PASS em ambos os modos (OFF e ON), enquanto o IQ2_S falhou consistentemente na T1 (navegação) nos dois modos — indício de perda de capacidade de recuperação de contexto longo na quantização mais agressiva.
+2. **Thinking ON no IQ3_XXS** melhora levemente a taxa de recuperação (66.7% vs 50.0%) sem perder tasks, mas custa ~10% mais tempo médio.
+3. **Nenhum GSQ-RCO supera o Qwen 9B Heretic**: o modelo de 9B mantém 100% de acerto com 2x o throughput (82.57 vs ~29 tasks/hour) e metade da VRAM.

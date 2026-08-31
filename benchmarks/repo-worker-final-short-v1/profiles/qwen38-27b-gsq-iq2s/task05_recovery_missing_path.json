@@ -1,0 +1,149 @@
+{
+  "task_id": "task05_recovery_missing_path",
+  "profile_id": "qwen38-27b-gsq-iq2s",
+  "seed": 3407,
+  "passed": true,
+  "total_time_s": 16.698896254005376,
+  "time_to_first_useful_s": 2.9016214779985603,
+  "time_to_first_edit_s": null,
+  "peak_vram_mib": 11790,
+  "total_turns": 4,
+  "tool_errors": 1,
+  "recovered_errors": 1,
+  "files_read": [
+    "fixture/non_existent_config.py",
+    "fixture/settings.py"
+  ],
+  "files_edited": [],
+  "successful_edits": 0,
+  "failed_edits": 0,
+  "prompt_tokens": 1833,
+  "reasoning_tokens": 0,
+  "output_tokens": 89,
+  "eval_detail": {
+    "type": "oracle_strings",
+    "expected": [
+      "30"
+    ],
+    "found": true
+  },
+  "events": [
+    {
+      "turn": 1,
+      "content": "{\"action\":\"read\",\"path\":\"fixture/non_existent_config.py\",\"start\":1,\"end\":200}",
+      "reasoning": "",
+      "action": {
+        "action": "read",
+        "path": "fixture/non_existent_config.py",
+        "start": 1,
+        "end": 200
+      },
+      "finish_reason": "stop",
+      "tool_res": {
+        "ok": false,
+        "error": "File not found: fixture/non_existent_config.py"
+      }
+    },
+    {
+      "turn": 2,
+      "content": "{\"action\":\"list\",\"path\":\"fixture\"}",
+      "reasoning": "",
+      "action": {
+        "action": "list",
+        "path": "fixture"
+      },
+      "finish_reason": "stop",
+      "tool_res": {
+        "ok": true,
+        "entries": [
+          {
+            "name": "fixture/README.md",
+            "type": "file"
+          },
+          {
+            "name": "fixture/cache.py",
+            "type": "file"
+          },
+          {
+            "name": "fixture/config.json",
+            "type": "file"
+          },
+          {
+            "name": "fixture/ratelimit.py",
+            "type": "file"
+          },
+          {
+            "name": "fixture/retry.py",
+            "type": "file"
+          },
+          {
+            "name": "fixture/router.py",
+            "type": "file"
+          },
+          {
+            "name": "fixture/settings.py",
+            "type": "file"
+          },
+          {
+            "name": "fixture/settings.pyi",
+            "type": "file"
+          },
+          {
+            "name": "fixture/test_cache.py",
+            "type": "file"
+          },
+          {
+            "name": "fixture/test_ratelimit.py",
+            "type": "file"
+          },
+          {
+            "name": "fixture/test_retry.py",
+            "type": "file"
+          },
+          {
+            "name": "fixture/test_router.py",
+            "type": "file"
+          },
+          {
+            "name": "fixture/test_settings.py",
+            "type": "file"
+          }
+        ]
+      }
+    },
+    {
+      "turn": 3,
+      "content": "{\"action\":\"read\",\"path\":\"fixture/settings.py\",\"start\":1,\"end\":200}",
+      "reasoning": "",
+      "action": {
+        "action": "read",
+        "path": "fixture/settings.py",
+        "start": 1,
+        "end": 200
+      },
+      "finish_reason": "stop",
+      "tool_res": {
+        "ok": true,
+        "path": "fixture/settings.py",
+        "start": 1,
+        "end": 4,
+        "content": "1: DEFAULTS = {\"tool_timeout_seconds\": 30, \"retries\": 2}\n2: \n3: def load_settings(env):\n4:     return {**DEFAULTS, \"tool_timeout_seconds\": int(env.get(\"TOOL_TIMEOUT_SECONDS\", DEFAULTS[\"tool_timeout_seconds\"]))}"
+      }
+    },
+    {
+      "turn": 4,
+      "content": "{\"action\":\"done\",\"answer\":\"done: confirmed default timeout is 30 (from fixture/settings.py DEFAULTS tool_timeout_seconds=30)\"}",
+      "reasoning": "",
+      "action": {
+        "action": "done",
+        "answer": "done: confirmed default timeout is 30 (from fixture/settings.py DEFAULTS tool_timeout_seconds=30)"
+      },
+      "finish_reason": "stop",
+      "tool_res": {
+        "ok": true,
+        "done": true,
+        "answer": "done: confirmed default timeout is 30 (from fixture/settings.py DEFAULTS tool_timeout_seconds=30)"
+      }
+    }
+  ]
+}

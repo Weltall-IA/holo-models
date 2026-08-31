@@ -120,6 +120,66 @@ PROFILES = [
         'context': 32768,
         'server_args': ['-m', str(ROOT / 'text/petruhonk-Qwen3.8-9B-Distill-uncensored-heretic/Qwen3.8-9B-Distill-uncensored-heretic.i1-Q4_K_M.gguf'), '--host', '127.0.0.1', '--port', str(PORT), '-c', '32768', '-np', '1', '-ngl', '999', '-fa', 'on', '-ctk', 'q8_0', '-ctv', 'q4_0', '-t', '4', '-tb', '4', '--no-webui', '--reasoning', 'on'],
         'sampling': {'temperature': 0.6, 'top_p': 0.95}
+    },
+    {
+        'key': 'Q27B-IQ2S',
+        'id': 'qwen38-27b-gsq-iq2s',
+        'name': 'Qwen3.8-27B-GSQ-RCO-IQ2_S (Thinking OFF)',
+        'runtime_type': 'deepgrove',
+        'runtime_bin': ROOT / 'engines/deepgrove-llama.cpp/build/bin/llama-server',
+        'runtime_libs': str(ROOT / 'engines/deepgrove-llama.cpp/build/bin'),
+        'runtime_sha': '8ce8ca6c6d370b6235dfa8e2a0611a9adb6d77d1',
+        'model_path': ROOT / 'text/ISTA-DASLab-Qwen3.8-27B-GSQ-RCO-IQ2_S/Qwen3.8-27B-GSQ-RCO-IQ2_S.gguf',
+        'model_sha256': '16c9802111aa9ef3acde465188d6d601f8db128ee3d828ad983a5caca4135ecb',
+        'thinking': False,
+        'context': 32768,
+        'server_args': ['-m', str(ROOT / 'text/ISTA-DASLab-Qwen3.8-27B-GSQ-RCO-IQ2_S/Qwen3.8-27B-GSQ-RCO-IQ2_S.gguf'), '--host', '127.0.0.1', '--port', str(PORT), '-c', '32768', '-np', '1', '-ngl', '999', '-fa', 'on', '-ctk', 'q8_0', '-ctv', 'q4_0', '-t', '4', '-tb', '4', '--no-webui', '--reasoning', 'off'],
+        'sampling': {'temperature': 0.2, 'top_p': 0.95}
+    },
+    {
+        'key': 'Q27B-IQ3XXS',
+        'id': 'qwen38-27b-gsq-iq3xxs',
+        'name': 'Qwen3.8-27B-GSQ-RCO-IQ3_XXS (Thinking OFF)',
+        'runtime_type': 'deepgrove',
+        'runtime_bin': ROOT / 'engines/deepgrove-llama.cpp/build/bin/llama-server',
+        'runtime_libs': str(ROOT / 'engines/deepgrove-llama.cpp/build/bin'),
+        'runtime_sha': '8ce8ca6c6d370b6235dfa8e2a0611a9adb6d77d1',
+        'model_path': ROOT / 'text/ISTA-DASLab-Qwen3.8-27B-GSQ-RCO-IQ3_XXS/Qwen3.8-27B-GSQ-RCO-IQ3_XXS.gguf',
+        'model_sha256': 'fdfcb6a29b11188956dfbfd904223588a6c1b77eb250c3e8a36e1bd269df91f7',
+        'thinking': False,
+        'context': 32768,
+        'server_args': ['-m', str(ROOT / 'text/ISTA-DASLab-Qwen3.8-27B-GSQ-RCO-IQ3_XXS/Qwen3.8-27B-GSQ-RCO-IQ3_XXS.gguf'), '--host', '127.0.0.1', '--port', str(PORT), '-c', '32768', '-np', '1', '-ngl', '999', '-fa', 'on', '-ctk', 'q8_0', '-ctv', 'q4_0', '-t', '4', '-tb', '4', '--no-webui', '--reasoning', 'off'],
+        'sampling': {'temperature': 0.2, 'top_p': 0.95}
+    },
+    {
+        'key': 'Q27B-IQ2S-ON',
+        'id': 'qwen38-27b-gsq-iq2s-on',
+        'name': 'Qwen3.8-27B-GSQ-RCO-IQ2_S (Thinking ON)',
+        'runtime_type': 'deepgrove',
+        'runtime_bin': ROOT / 'engines/deepgrove-llama.cpp/build/bin/llama-server',
+        'runtime_libs': str(ROOT / 'engines/deepgrove-llama.cpp/build/bin'),
+        'runtime_sha': '8ce8ca6c6d370b6235dfa8e2a0611a9adb6d77d1',
+        'model_path': ROOT / 'text/ISTA-DASLab-Qwen3.8-27B-GSQ-RCO-IQ2_S/Qwen3.8-27B-GSQ-RCO-IQ2_S.gguf',
+        'model_sha256': '16c9802111aa9ef3acde465188d6d601f8db128ee3d828ad983a5caca4135ecb',
+        'thinking': True,
+        'context': 32768,
+        'server_args': ['-m', str(ROOT / 'text/ISTA-DASLab-Qwen3.8-27B-GSQ-RCO-IQ2_S/Qwen3.8-27B-GSQ-RCO-IQ2_S.gguf'), '--host', '127.0.0.1', '--port', str(PORT), '-c', '32768', '-np', '1', '-ngl', '999', '-fa', 'on', '-ctk', 'q8_0', '-ctv', 'q4_0', '-t', '4', '-tb', '4', '--no-webui', '--reasoning', 'on'],
+        'sampling': {'temperature': 0.6, 'top_p': 0.95}
+    },
+    {
+        'key': 'Q27B-IQ3XXS-ON',
+        'id': 'qwen38-27b-gsq-iq3xxs-on',
+        'name': 'Qwen3.8-27B-GSQ-RCO-IQ3_XXS (Thinking ON)',
+        'runtime_type': 'deepgrove',
+        'runtime_bin': ROOT / 'engines/deepgrove-llama.cpp/build/bin/llama-server',
+        'runtime_libs': str(ROOT / 'engines/deepgrove-llama.cpp/build/bin'),
+        'runtime_sha': '8ce8ca6c6d370b6235dfa8e2a0611a9adb6d77d1',
+        'model_path': ROOT / 'text/ISTA-DASLab-Qwen3.8-27B-GSQ-RCO-IQ3_XXS/Qwen3.8-27B-GSQ-RCO-IQ3_XXS.gguf',
+        'model_sha256': 'fdfcb6a29b11188956dfbfd904223588a6c1b77eb250c3e8a36e1bd269df91f7',
+        'thinking': True,
+        'context': 32768,
+        'server_args': ['-m', str(ROOT / 'text/ISTA-DASLab-Qwen3.8-27B-GSQ-RCO-IQ3_XXS/Qwen3.8-27B-GSQ-RCO-IQ3_XXS.gguf'), '--host', '127.0.0.1', '--port', str(PORT), '-c', '32768', '-np', '1', '-ngl', '999', '-fa', 'on', '-ctk', 'q8_0', '-ctv', 'q4_0', '-t', '4', '-tb', '4', '--no-webui', '--reasoning', 'on'],
+        'sampling': {'temperature': 0.6, 'top_p': 0.95}
     }
 ]
 
@@ -341,16 +401,18 @@ def start_server_for_profile(profile: dict, log_path: Path):
     return process, log_file
 
 
-def wait_for_server(port=PORT, timeout=120):
+def wait_for_server(port=PORT, timeout=240):
     deadline = time.time() + timeout
     while time.time() < deadline:
         try:
-            with urllib.request.urlopen(f'http://127.0.0.1:{port}/health', timeout=1) as resp:
-                data = json.loads(resp.read().decode())
-                if data.get('status') == 'ok':
-                    return True
+            req = urllib.request.Request(f'http://127.0.0.1:{port}/health')
+            with urllib.request.urlopen(req, timeout=2) as resp:
+                if resp.status == 200:
+                    data = json.loads(resp.read().decode())
+                    if data.get('status') == 'ok':
+                        return True
         except Exception:
-            time.sleep(1)
+            time.sleep(2)
     return False
 
 
@@ -365,7 +427,7 @@ def stop_server(process, log_file):
     if log_file and not log_file.closed:
         log_file.close()
     subprocess.run(['pkill', '-9', '-f', 'llama-server'], capture_output=True)
-    time.sleep(2)
+    time.sleep(3)
 
 
 def setup_clean_worktree(worktree_dir: Path):

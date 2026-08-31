@@ -1,0 +1,292 @@
+{
+  "task_id": "task01_nav_role_chain",
+  "profile_id": "qwen38-27b-gsq-iq2s-on",
+  "seed": 3407,
+  "passed": false,
+  "total_time_s": 270.88292377900007,
+  "time_to_first_useful_s": 7.022903031000055,
+  "time_to_first_edit_s": null,
+  "peak_vram_mib": 11388,
+  "total_turns": 10,
+  "tool_errors": 1,
+  "recovered_errors": 0,
+  "files_read": [
+    "library/routing/model-bindings.yaml",
+    "core/agents/contracts/project-rw.yaml",
+    "capabilities/roster.yaml"
+  ],
+  "files_edited": [],
+  "successful_edits": 0,
+  "failed_edits": 0,
+  "prompt_tokens": 13263,
+  "reasoning_tokens": 0,
+  "output_tokens": 705,
+  "eval_detail": {
+    "type": "oracle_strings",
+    "expected": [
+      "model-bindings.yaml",
+      "project-rw",
+      "instructions.md"
+    ],
+    "found": false
+  },
+  "events": [
+    {
+      "turn": 1,
+      "content": "{\"action\":\"list\",\"path\":\".\"}",
+      "reasoning": "We need answer user: repository-worker agent, task: Determine how request for project-rw role is routed from top-level model bindings to its agent instructions and effective contract specification. Inspect repo files and emit done with chain of paths. Need explore. We must output exactly one JSON action per turn. Need likely list root. Let's do list.\n",
+      "action": {
+        "action": "list",
+        "path": "."
+      },
+      "finish_reason": "stop",
+      "tool_res": {
+        "ok": true,
+        "entries": [
+          {
+            "name": "AGENTS.md",
+            "type": "file"
+          },
+          {
+            "name": "ARCHITECTURE.md",
+            "type": "file"
+          },
+          {
+            "name": "README.md",
+            "type": "file"
+          },
+          {
+            "name": "capabilities",
+            "type": "dir"
+          },
+          {
+            "name": "core",
+            "type": "dir"
+          },
+          {
+            "name": "fixture",
+            "type": "dir"
+          },
+          {
+            "name": "harnesses",
+            "type": "dir"
+          },
+          {
+            "name": "library",
+            "type": "dir"
+          }
+        ]
+      }
+    },
+    {
+      "turn": 2,
+      "content": "{\"action\":\"list\",\"path\":\"core\"}",
+      "reasoning": "Let me explore the repository structure to understand how a request for the `project-rw` role is routed.\n",
+      "action": {
+        "action": "list",
+        "path": "core"
+      },
+      "finish_reason": "stop",
+      "tool_res": {
+        "ok": true,
+        "entries": [
+          {
+            "name": "core/agents",
+            "type": "dir"
+          }
+        ]
+      }
+    },
+    {
+      "turn": 3,
+      "content": "{\"action\":\"list\",\"path\":\"core/agents\"}",
+      "reasoning": "I'll explore the core/agents directory and check AGENTS.md and ARCHITECTURE.md to understand the routing.\n",
+      "action": {
+        "action": "list",
+        "path": "core/agents"
+      },
+      "finish_reason": "stop",
+      "tool_res": {
+        "ok": true,
+        "entries": [
+          {
+            "name": "core/agents/contracts",
+            "type": "dir"
+          }
+        ]
+      }
+    },
+    {
+      "turn": 4,
+      "content": "{\"action\":\"list\",\"path\":\"core/agents/contracts\"}",
+      "reasoning": "",
+      "action": {
+        "action": "list",
+        "path": "core/agents/contracts"
+      },
+      "finish_reason": "stop",
+      "tool_res": {
+        "ok": true,
+        "entries": [
+          {
+            "name": "core/agents/contracts/architecture-auditor.yaml",
+            "type": "file"
+          },
+          {
+            "name": "core/agents/contracts/browser.yaml",
+            "type": "file"
+          },
+          {
+            "name": "core/agents/contracts/bug-auditor.yaml",
+            "type": "file"
+          },
+          {
+            "name": "core/agents/contracts/data.yaml",
+            "type": "file"
+          },
+          {
+            "name": "core/agents/contracts/explore.yaml",
+            "type": "file"
+          },
+          {
+            "name": "core/agents/contracts/final-gate.yaml",
+            "type": "file"
+          },
+          {
+            "name": "core/agents/contracts/holo.yaml",
+            "type": "file"
+          },
+          {
+            "name": "core/agents/contracts/project-ro.yaml",
+            "type": "file"
+          },
+          {
+            "name": "core/agents/contracts/project-rw.yaml",
+            "type": "file"
+          },
+          {
+            "name": "core/agents/contracts/root-cause-specialist.yaml",
+            "type": "file"
+          },
+          {
+            "name": "core/agents/contracts/shell.yaml",
+            "type": "file"
+          },
+          {
+            "name": "core/agents/contracts/test-engineer.yaml",
+            "type": "file"
+          }
+        ]
+      }
+    },
+    {
+      "turn": 5,
+      "content": "{\"action\":\"search\",\"query\":\"project-rw\",\"path\":\".\"}",
+      "reasoning": "I see `core/agents/contracts/project-rw.yaml`. Now I need to find the routing chain from top-level model bindings to agent instructions and effective contract specification. Let me look at other directories and search for `project-rw`.\n",
+      "action": {
+        "action": "search",
+        "query": "project-rw",
+        "path": "."
+      },
+      "finish_reason": "stop",
+      "tool_res": {
+        "ok": true,
+        "matches": "/tmp/repo-worker-short-v1-worktrees/qwen38-27b-gsq-iq2s-on_task01_nav_role_chain/ARCHITECTURE.md:55:- `project-rw` \u2014 explicitly scoped project implementer.\n/tmp/repo-worker-short-v1-worktrees/qwen38-27b-gsq-iq2s-on_task01_nav_role_chain/core/agents/contracts/project-rw.yaml:1:id: project-rw\n/tmp/repo-worker-short-v1-worktrees/qwen38-27b-gsq-iq2s-on_task01_nav_role_chain/harnesses/antigravity.md:109:A successful model response does not prove operational authority. Do not report `shell` as command-capable or `project-rw` as writable unless the MCP implementation actually performs those scoped operations. If a role tool is analysis/proposal-only, report that limitation explicitly and let Holo perform only the actions that its own Antigravity authority permits after reviewing the result.\n/tmp/repo-worker-short-v1-worktrees/qwen38-27b-gsq-iq2s-on_task01_nav_role_chain/harnesses/antigravity.md:123:`bug-auditor` and `architecture-auditor` are read-only and require clean/minimally sufficient first-pass context. `final-gate` and `project-ro` are read-only. `project-rw` may write only if the concrete MCP implementation truly has scoped write capability; otherwise it is proposal-only and must be reported as such.\n/tmp/repo-worker-short-v1-worktrees/qwen38-27b-gsq-iq2s-on_task01_nav_role_chain/harnesses/antigravity.md:150:10. verify the actual capability of `shell`, `project-rw`, test and audit tools rather than inferring it from their prompts;\n/tmp/repo-worker-short-v1-worktrees/qwen38-27b-gsq-iq2s-on_task01_nav_role_chain/harnesses/kilo.md:39:- `project-rw` may write only within explicitly delegated scope.\n/tmp/repo-worker-short-v1-worktrees/qwen38-27b-gsq-iq2s-on_task01_nav_role_chain/harnesses/kilo.md:87:  project-rw: allow\n/tmp/repo-worker-short-v1-worktrees/qwen38-27b-gsq-iq2s-on_task01_nav_role_chain/harnesses/vscode.md:47:- `project-rw` is the scoped implementation role.\n/tmp/repo-worker-short-v1-worktrees/qwen38-27b-gsq-iq2s-on_task01_nav_role_chain/library/rules/tool-authority.md:53:- `project-rw`: write/execute only inside the explicit delegated scope.\n/tmp/repo-worker-short-v1-worktrees/qwen38-27b-gsq-iq2s-on_task01_nav_role_chain/library/routing/model-bindings.yaml:88:  project-rw:\n",
+        "exit_code": 0
+      }
+    },
+    {
+      "turn": 6,
+      "content": "{\"action\":\"read\",\"path\":\"library/routing/model-bindings.yaml\",\"start\":1,\"end\":200}",
+      "reasoning": "Let me look at the model-bindings.yaml file, since that's the top-level model bindings.\n",
+      "action": {
+        "action": "read",
+        "path": "library/routing/model-bindings.yaml",
+        "start": 1,
+        "end": 200
+      },
+      "finish_reason": "stop",
+      "tool_res": {
+        "ok": true,
+        "path": "library/routing/model-bindings.yaml",
+        "start": 1,
+        "end": 101,
+        "content": "1: version: 1\n2: schema: holo-agent-tooling/human-model-bindings/v1\n3: \n4: policy:\n5:   owner: human\n6:   automatic_model_selection: false\n7:   automatic_model_substitution: false\n8:   rule: Holo selects roles; only the human-maintained binding selects the model.\n9: \n10: access_routes:\n11:   ucp-via-cliproxyapi:\n12:     kind: user-selected-access-path\n13:     description: Universal Chat Provider VS Code extension through CLIProxyAPI.\n14:   opencode-api:\n15:     kind: user-selected-access-path\n16:     description: OpenCode API.\n17: \n18: bindings:\n19:   holo:\n20:     model: Gemini 3.7 Flash\n21:     reasoning: high\n22:     access_route: ucp-via-cliproxyapi\n23:     status: selected-by-human\n24: \n25:   explore:\n26:     model: GPT-5.6 Luna\n27:     reasoning: medium\n28:     access_route: ucp-via-cliproxyapi\n29:     status: selected-by-human\n30:     preferred_class: economical-fast\n31: \n32:   shell:\n33:     model: GPT-5.6 Luna\n34:     reasoning: medium\n35:     access_route: ucp-via-cliproxyapi\n36:     status: selected-by-human\n37:     preferred_class: economical-fast\n38: \n39:   browser:\n40:     model: Gemini 3.7 Flash\n41:     reasoning: low\n42:     access_route: ucp-via-cliproxyapi\n43:     status: selected-by-human\n44:     preferred_class: economical-fast\n45: \n46:   test-engineer:\n47:     model: DeepSeek V4 Flash 0731\n48:     reasoning: max\n49:     access_route: opencode-api\n50:     status: selected-by-human\n51: \n52:   data:\n53:     model: GLM-5.3-Flash\n54:     reasoning: default\n55:     access_route: opencode-api\n56:     status: selected-by-human\n57: \n58:   root-cause-specialist:\n59:     model: GPT-5.6 Terra\n60:     reasoning: max\n61:     access_route: ucp-via-cliproxyapi\n62:     status: selected-by-human\n63: \n64:   bug-auditor:\n65:     model: Grok 4.6\n66:     reasoning: high\n67:     access_route: opencode-api\n68:     status: selected-by-human\n69: \n70:   architecture-auditor:\n71:     model: GLM-5.3\n72:     reasoning: max\n73:     access_route: opencode-api\n74:     status: selected-by-human\n75: \n76:   final-gate:\n77:     model: GPT-5.6 Sol\n78:     reasoning: max\n79:     access_route: ucp-via-cliproxyapi\n80:     status: selected-by-human\n81: \n82:   project-ro:\n83:     model: GPT-5.6 Luna\n84:     reasoning: medium\n85:     access_route: ucp-via-cliproxyapi\n86:     status: selected-by-human\n87: \n88:   project-rw:\n89:     model: GPT-5.6 Terra\n90:     reasoning: max\n91:     access_route: ucp-via-cliproxyapi\n92:     status: selected-by-human\n93: \n94: notes:\n95:   - This file records the human-owned architectural roster; it does not generate harness configuration.\n96:   - The selected bindings above were explicitly approved by the human owner.\n97:   - access_route records the human-selected source/path for the model; it is not a universal harness-native model identifier.\n98:   - Each harness may require a different native model identifier, direct CLIProxyAPI access, another native representation, or manual UI configuration.\n99:   - Holo never changes reasoning levels, models or access routes automatically.\n100:   - If a selected model is unavailable in a harness, document the limitation rather than silently substituting another model.\n101:   - Change this file to change architectural intent; apply the selected roster independently in each desired harness."
+      }
+    },
+    {
+      "turn": 7,
+      "content": "{\"action\":\"read\",\"path\":\"core/agents/contracts/project-rw.yaml\",\"start\":1,\"end\":200}",
+      "reasoning": "I see the top-level model binding for `project-rw`. I need to find how it routes to agent instructions and its effective contract specification. Let me look at the contract file and search for agent instructions.\n",
+      "action": {
+        "action": "read",
+        "path": "core/agents/contracts/project-rw.yaml",
+        "start": 1,
+        "end": 200
+      },
+      "finish_reason": "stop",
+      "tool_res": {
+        "ok": true,
+        "path": "core/agents/contracts/project-rw.yaml",
+        "start": 1,
+        "end": 25,
+        "content": "1: id: project-rw\n2: role: Project-scoped writer contract for a future adapter with explicit write authorization.\n3: responsibilities:\n4:   - Implement only the assigned project change.\n5:   - Preserve project instructions and unrelated work.\n6:   - Run project verification and report the exact diff.\n7: write_policy:\n8:   mode: explicit-scope\n9:   rule: Write only paths and operations authorized by the coordinator.\n10:   forbidden: No secrets, destructive resets, unrelated refactors, or external configuration changes.\n11: read_policy:\n12:   scope: Named project root and applicable instruction files.\n13:   requirement: Confirm scope before editing.\n14: shell_policy:\n15:   mode: approval-required\n16:   rule: Require approval for destructive, external, network, or deployment actions.\n17: delegation_policy:\n18:   mode: coordinator-controlled\n19:   rule: Do not delegate beyond the authorized task contract.\n20: skills_required: [agent-governance, verification]\n21: mcp_capabilities: [repository-read, repository-write, testing]\n22: inputs: [project-root, task, allowed-paths, acceptance-criteria]\n23: outputs: [implementation-diff, verification-report, residual-risk]\n24: verification_requirements: [scope-check, targeted-tests, diff-review, clean-secret-check]\n25: audit_behavior: Hand off for independent audit when behavior, integration, or security risk is material."
+      }
+    },
+    {
+      "turn": 8,
+      "content": "{\"action\":\"list\",\"path\":\"capabilities\"}",
+      "reasoning": "I found the model binding for project-rw in `library/routing/model-bindings.yaml`, and the contract in `core/agents/contracts/project-rw.yaml`.\n\nThe task is: \"Determine how a request for the `project-rw` role is routed from the top-level model binding to its agent instructions and effective contract specification. Inspect the repository files and output a `done` containing the path chain.\"\n\nSo the chain is:\n1. Top-level model binding: `library/routing/model-bindings.yaml` (the project-rw entry, lines 88\u201392)\n2. Agent instructions: probably somewhere in `core/agents/...` \u2014 but core/agents only has a `contracts` directory. Let me check whether there are other places that reference project-rw, e.g. AGENTS.md or ARCHITECTURE.md.\n\nLet me check the references in ARCHITECTURE.md and AGENTS.md, and also check the capabilities directory.\n\nThe task says \"from the top-level model binding to its agent instructions and effective contract specification.\" So the chain is probably:\n- library/routing/model-bindings.yaml (top-level model binding)\n- core/agents/contracts/project-rw.yaml (contract specification)\n\nBut \"agent instructions\" might be a separate file. Let me search for \"agent instructions\" or check the capabilities directory.\n",
+      "action": {
+        "action": "list",
+        "path": "capabilities"
+      },
+      "finish_reason": "stop",
+      "tool_res": {
+        "ok": true,
+        "entries": [
+          {
+            "name": "capabilities/hooks.md",
+            "type": "file"
+          },
+          {
+            "name": "capabilities/mcp-tools.md",
+            "type": "file"
+          },
+          {
+            "name": "capabilities/roster.yaml",
+            "type": "file"
+          },
+          {
+            "name": "capabilities/skills.md",
+            "type": "file"
+          }
+        ]
+      }
+    },
+    {
+      "turn": 9,
+      "content": "{\"action\":\"read\",\"path\":\"capabilities/roster.yaml\",\"start\":1,\"end\":200}",
+      "reasoning": "Let's check the roster.yaml and mcp-tools.md to confirm the routing chain.\n",
+      "action": {
+        "action": "read",
+        "path": "capabilities/roster.yaml",
+        "start": 1,
+        "end": 200
+      },
+      "finish_reason": "stop",
+      "tool_res": {
+        "ok": true,
+        "path": "capabilities/roster.yaml",
+        "start": 1,
+        "end": 161,
+        "content": "1: version: 1\n2: schema: holo-agent-tooling/capability-roster/v1\n3: \n4: policy:\n5:   owner: human\n6:   purpose: Record desired capability coverage across supported harnesses without generating or synchronizing configuration.\n7:   supported_harnesses: [kilo, vscode, antigravity, zed]\n8:   automatic_propagation: false\n9:   portable_default: all-supported-harnesses\n10:   gap_reporting: surface-and-ask-before-apply\n11:   status_values: [unknown, present, missing, broken, unsupported, not-desired]\n12:   status_semantics:\n13:     unknown: Coverage or current-version support has not been verified sufficiently.\n14:     present: The capability was observed configured with no known broken local reference. This does not imply a full runtime smoke test unless separately stated.\n15:     missing: The inspected current harness supports a useful equivalent, but the desired capability was not found in local configuration.\n16:     broken: The capability is configured or linked but its referenced file, wrapper, symlink target or other required local implementation is missing or invalid.\n17:     unsupported: After checking the installed version/build and current product behavior/documentation, the harness has no useful equivalent for the desired capability.\n18:     not-desired: The human does not currently want this capability on that harness.\n19:   rules:\n20:     - A portable capability added to this roster is desired on all supported harnesses unless the user says otherwise or the capability is clearly harness-specific.\n21:     - Before classifying support, identify the installed harness version/build and check the current native mechanism/documentation relevant to that capability.\n22:     - Absence from local configuration is not sufficient evidence for `unsupported`; prefer `missing` when support exists or `unknown` when support has not been verified.\n23:     - Mark a harness present, missing, broken or unsupported only after inspecting that harness or receiving explicit user-confirmed state.\n24:     - When a capability is present in one desired harness and missing or broken in another, surface the gap and ask whether to apply or repair it there.\n25:     - When coverage is unknown, say that it is unverified rather than claiming the capability is missing.\n26:     - A broken capability does not count as present coverage.\n27:     - If a newer harness version gains a useful native mechanism, refresh stale statuses instead of preserving an older workaround/classification.\n28:     - Never install, generate, synchronize or propagate capability configuration automatically from this roster.\n29:     - Concrete Skill, MCP/tool and Hook configuration remains native to each harness.\n30:     - Follow library/rules/harness-freshness.md when updating this roster.\n31: \n32: coverage:\n33:   observed_on: 2026-08-29\n34:   source: prior-local-inventory-plus-current-harness-doc-review\n35:   note: Coverage records observed local configuration. Harness support may change independently; a support capability is not the same as a locally installed capability.\n36: \n37: capabilities:\n38:   skills:\n39:     - id: frontend-design\n40:       kind: skill\n41:       desired_on: [kilo, vscode, antigravity, zed]\n42:       status:\n43:         kilo: present\n44:         vscode: present\n45:         antigravity: present\n46:         zed: unknown\n47:       notes:\n48:         - Natively discovered in Kilo (~/.kilo/skills/), Antigravity (~/.gemini/config/skills/), and VS Code (~/.agents/skills/).\n49:         - Current Zed supports native Skills; the prior `unsupported` classification was obsolete. Re-inspect the local Zed Skill inventory before marking this specific Skill present or missing.\n50: \n51:     - id: jupyter-notebook\n52:       kind: skill\n53:       desired_on: [kilo, vscode, antigravity, zed]\n54:       status:\n55:         kilo: present\n56:         vscode: present\n57:         antigravity: present\n58:         zed: unknown\n59:       notes:\n60:         - Natively discovered in Kilo (~/.kilo/skills/), Antigravity (~/.gemini/config/skills/), and VS Code (~/.agents/skills/).\n61:         - Current Zed supports native Skills; the prior `unsupported` classification was obsolete. Re-inspect the local Zed Skill inventory before marking this specific Skill present or missing.\n62: \n63:     - id: android-cli\n64:       kind: skill\n65:       desired_on: [antigravity]\n66:       status:\n67:         kilo: not-desired\n68:         vscode: not-desired\n69:         antigravity: present\n70:         zed: not-desired\n71:       notes:\n72:         - Provided natively in Antigravity via installed android-cli-plugin.\n73: \n74:     - id: google-antigravity-sdk\n75:       kind: skill\n76:       desired_on: [antigravity]\n77:       status:\n78:         kilo: not-desired\n79:         vscode: not-desired\n80:         antigravity: present\n81:         zed: not-desired\n82:       notes:\n83:         - Provided natively in Antigravity via installed google-antigravity-sdk plugin.\n84: \n85:   mcps:\n86:     - id: context7\n87:       kind: mcp\n88:       desired_on: [kilo, vscode, antigravity, zed]\n89:       status: {kilo: present, vscode: present, antigravity: present, zed: present}\n90: \n91:     - id: github\n92:       kind: mcp\n93:       desired_on: [kilo, vscode, antigravity, zed]\n94:       status: {kilo: present, vscode: present, antigravity: present, zed: present}\n95: \n96:     - id: playwright\n97:       kind: mcp\n98:       desired_on: [kilo, vscode, antigravity, zed]\n99:       status: {kilo: present, vscode: present, antigravity: present, zed: present}\n100: \n101:     - id: chrome-devtools\n102:       kind: mcp\n103:       desired_on: [kilo, vscode, antigravity, zed]\n104:       status: {kilo: present, vscode: present, antigravity: present, zed: present}\n105: \n106:     - id: laravel-boost\n107:       kind: mcp\n108:       desired_on: [kilo, vscode, antigravity, zed]\n109:       status: {kilo: present, vscode: present, antigravity: present, zed: present}\n110:       notes:\n111:         - Handshake verified (Laravel Boost 0.0.1). In Zed, context server is project-scoped to holo-infra.\n112: \n113:     - id: jupyter\n114:       kind: mcp\n115:       desired_on: [kilo, vscode, antigravity, zed]\n116:       status: {kilo: present, vscode: present, antigravity: present, zed: present}\n117: \n118:     - id: n8n\n119:       kind: mcp\n120:       desired_on: [kilo, vscode, antigravity, zed]\n121:       status: {kilo: present, vscode: present, antigravity: present, zed: present}\n122:       notes:\n123:         - Handshake verified (n8n-documentation-mcp 2.12.2) via isolated Node 22 runtime. In Zed, context server is project-scoped to holo-infra.\n124: \n125:     - id: postgres\n126:       kind: mcp\n127:       desired_on: [kilo, vscode, antigravity, zed]\n128:       status: {kilo: present, vscode: present, antigravity: present, zed: present}\n129: \n130:     - id: firebase\n131:       kind: mcp\n132:       desired_on: [kilo, vscode, antigravity, zed]\n133:       status: {kilo: present, vscode: present, antigravity: present, zed: present}\n134: \n135:     - id: google-developer-knowledge\n136:       kind: mcp\n137:       desired_on: [kilo, vscode, antigravity, zed]\n138:       status: {kilo: present, vscode: present, antigravity: present, zed: present}\n139: \n140:     - id: sentry\n141:       kind: mcp\n142:       desired_on: [kilo, vscode, antigravity, zed]\n143:       status: {kilo: present, vscode: present, antigravity: missing, zed: present}\n144:       notes:\n145:         - Discovered during the 2026-08-27 local inventory and promoted as a portable desired capability.\n146: \n147:     - id: grafana-cloud\n148:       kind: mcp\n149:       desired_on: [kilo, vscode, antigravity, zed]\n150:       status: {kilo: present, vscode: present, antigravity: missing, zed: present}\n151:       notes:\n152:         - Discovered during the 2026-08-27 local inventory and promoted as a portable desired capability.\n153: \n154:     - id: apify\n155:       kind: mcp\n156:       desired_on: [kilo, vscode, antigravity, zed]\n157:       status: {kilo: present, vscode: present, antigravity: missing, zed: present}\n158:       notes:\n159:         - Discovered during the 2026-08-27 local inventory and promoted as a portable desired capability.\n160: \n161:   hooks: []"
+      }
+    },
+    {
+      "turn": 10,
+      "type": "request_error",
+      "error": "Request exceeded timeout (120.00s)"
+    }
+  ]
+}
