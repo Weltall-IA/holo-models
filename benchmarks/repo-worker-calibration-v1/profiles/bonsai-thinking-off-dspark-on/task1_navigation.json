@@ -1,0 +1,1195 @@
+{
+  "task_id": "task1_navigation",
+  "passed": false,
+  "total_time_s": 599.99,
+  "time_first_tool_call_s": 2.88,
+  "time_first_useful_action_s": 2.88,
+  "time_first_edit_s": null,
+  "time_pass_s": null,
+  "tool_calls_count": 33,
+  "files_read": [
+    "library/routing/model-bindings.yaml",
+    "core/agents/contracts/project-rw.yaml"
+  ],
+  "files_edited": [],
+  "successful_edits": 0,
+  "failed_edits": 0,
+  "patch_attempts": 0,
+  "tool_errors": 0,
+  "recovery_rate": 1.0,
+  "prompt_tokens": 91793,
+  "reasoning_tokens": 0,
+  "output_tokens": 564,
+  "avg_decode_tok_per_sec": 9.37,
+  "avg_prompt_tok_per_sec": 19.88,
+  "peak_vram_mib": 13349,
+  "evaluation_details": {
+    "has_bindings": true,
+    "has_role": true,
+    "has_instructions": false,
+    "has_contract": true
+  },
+  "events": [
+    {
+      "step": 1,
+      "content": "{\"action\":\"list\",\"path\":\".\"}",
+      "reasoning_content": "",
+      "action": {
+        "action": "list",
+        "path": "."
+      },
+      "tool_result": {
+        "ok": true,
+        "entries": [
+          {
+            "name": "AGENTS.md",
+            "type": "file"
+          },
+          {
+            "name": "ARCHITECTURE.md",
+            "type": "file"
+          },
+          {
+            "name": "README.md",
+            "type": "file"
+          },
+          {
+            "name": "capabilities",
+            "type": "dir"
+          },
+          {
+            "name": "core",
+            "type": "dir"
+          },
+          {
+            "name": "fixture",
+            "type": "dir"
+          },
+          {
+            "name": "harnesses",
+            "type": "dir"
+          },
+          {
+            "name": "library",
+            "type": "dir"
+          }
+        ]
+      },
+      "usage": {
+        "completion_tokens": 10,
+        "prompt_tokens": 344,
+        "total_tokens": 354,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 344,
+        "prompt_ms": 2422.917,
+        "prompt_per_token_ms": 7.043363372093023,
+        "prompt_per_second": 141.9776244914704,
+        "predicted_n": 10,
+        "predicted_ms": 404.254,
+        "predicted_per_token_ms": 40.4254,
+        "predicted_per_second": 24.736922825748167
+      },
+      "elapsed_s": 2.877899408340454
+    },
+    {
+      "step": 2,
+      "content": "{\"action\":\"search\",\"query\":\"project-rw\",\"path\":\".\"}",
+      "reasoning_content": "",
+      "action": {
+        "action": "search",
+        "query": "project-rw",
+        "path": "."
+      },
+      "tool_result": {
+        "ok": true,
+        "matches": "/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task1_navigation/ARCHITECTURE.md:55:- `project-rw` — explicitly scoped project implementer.\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task1_navigation/core/agents/contracts/project-rw.yaml:1:id: project-rw\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task1_navigation/harnesses/antigravity.md:109:A successful model response does not prove operational authority. Do not report `shell` as command-capable or `project-rw` as writable unless the MCP implementation actually performs those scoped operations. If a role tool is analysis/proposal-only, report that limitation explicitly and let Holo perform only the actions that its own Antigravity authority permits after reviewing the result.\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task1_navigation/harnesses/antigravity.md:123:`bug-auditor` and `architecture-auditor` are read-only and require clean/minimally sufficient first-pass context. `final-gate` and `project-ro` are read-only. `project-rw` may write only if the concrete MCP implementation truly has scoped write capability; otherwise it is proposal-only and must be reported as such.\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task1_navigation/harnesses/antigravity.md:150:10. verify the actual capability of `shell`, `project-rw`, test and audit tools rather than inferring it from their prompts;\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task1_navigation/harnesses/kilo.md:39:- `project-rw` may write only within explicitly delegated scope.\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task1_navigation/harnesses/kilo.md:87:  project-rw: allow\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task1_navigation/harnesses/vscode.md:43:- `project-rw` is the scoped implementation role.\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task1_navigation/library/routing/model-bindings.yaml:88:  project-rw:\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task1_navigation/library/rules/tool-authority.md:53:- `project-rw`: write/execute only inside the explicit delegated scope.\n",
+        "exit_code": 0
+      },
+      "usage": {
+        "completion_tokens": 16,
+        "prompt_tokens": 477,
+        "total_tokens": 493,
+        "prompt_tokens_details": {
+          "cached_tokens": 340
+        }
+      },
+      "timings": {
+        "cache_n": 340,
+        "prompt_n": 137,
+        "prompt_ms": 1934.904,
+        "prompt_per_token_ms": 14.123386861313868,
+        "prompt_per_second": 70.80454637542742,
+        "predicted_n": 16,
+        "predicted_ms": 767.213,
+        "predicted_per_token_ms": 47.9508125,
+        "predicted_per_second": 20.854703973994184
+      },
+      "elapsed_s": 5.637185335159302
+    },
+    {
+      "step": 3,
+      "content": "{\"action\":\"read\",\"path\":\"library/routing/model-bindings.yaml\",\"start\":80,\"end\":100}",
+      "reasoning_content": "",
+      "action": {
+        "action": "read",
+        "path": "library/routing/model-bindings.yaml",
+        "start": 80,
+        "end": 100
+      },
+      "tool_result": {
+        "ok": true,
+        "path": "library/routing/model-bindings.yaml",
+        "start": 80,
+        "end": 100,
+        "content": "80:     status: selected-by-human\n81: \n82:   project-ro:\n83:     model: GPT-5.6 Luna\n84:     reasoning: medium\n85:     access_route: ucp-via-cliproxyapi\n86:     status: selected-by-human\n87: \n88:   project-rw:\n89:     model: GPT-5.6 Terra\n90:     reasoning: max\n91:     access_route: ucp-via-cliproxyapi\n92:     status: selected-by-human\n93: \n94: notes:\n95:   - This file records the human-owned architectural roster; it does not generate harness configuration.\n96:   - The selected bindings above were explicitly approved by the human owner.\n97:   - access_route records the human-selected source/path for the model; it is not a universal harness-native model identifier.\n98:   - Each harness may require a different native model identifier, direct CLIProxyAPI access, another native representation, or manual UI configuration.\n99:   - Holo never changes reasoning levels, models or access routes automatically.\n100:   - If a selected model is unavailable in a harness, document the limitation rather than silently substituting another model."
+      },
+      "usage": {
+        "completion_tokens": 27,
+        "prompt_tokens": 1095,
+        "total_tokens": 1122,
+        "prompt_tokens_details": {
+          "cached_tokens": 340
+        }
+      },
+      "timings": {
+        "cache_n": 340,
+        "prompt_n": 755,
+        "prompt_ms": 15068.331,
+        "prompt_per_token_ms": 19.958054304635763,
+        "prompt_per_second": 50.105084630806154,
+        "predicted_n": 27,
+        "predicted_ms": 1658.069,
+        "predicted_per_token_ms": 61.409962962962965,
+        "predicted_per_second": 16.28400265610177
+      },
+      "elapsed_s": 22.42323589324951
+    },
+    {
+      "step": 4,
+      "content": "{\"action\":\"read\",\"path\":\"core/agents/contracts/project-rw.yaml\",\"start\":1,\"end\":50}",
+      "reasoning_content": "",
+      "action": {
+        "action": "read",
+        "path": "core/agents/contracts/project-rw.yaml",
+        "start": 1,
+        "end": 50
+      },
+      "tool_result": {
+        "ok": true,
+        "path": "core/agents/contracts/project-rw.yaml",
+        "start": 1,
+        "end": 25,
+        "content": "1: id: project-rw\n2: role: Project-scoped writer contract for a future adapter with explicit write authorization.\n3: responsibilities:\n4:   - Implement only the assigned project change.\n5:   - Preserve project instructions and unrelated work.\n6:   - Run project verification and report the exact diff.\n7: write_policy:\n8:   mode: explicit-scope\n9:   rule: Write only paths and operations authorized by the coordinator.\n10:   forbidden: No secrets, destructive resets, unrelated refactors, or external configuration changes.\n11: read_policy:\n12:   scope: Named project root and applicable instruction files.\n13:   requirement: Confirm scope before editing.\n14: shell_policy:\n15:   mode: approval-required\n16:   rule: Require approval for destructive, external, network, or deployment actions.\n17: delegation_policy:\n18:   mode: coordinator-controlled\n19:   rule: Do not delegate beyond the authorized task contract.\n20: skills_required: [agent-governance, verification]\n21: mcp_capabilities: [repository-read, repository-write, testing]\n22: inputs: [project-root, task, allowed-paths, acceptance-criteria]\n23: outputs: [implementation-diff, verification-report, residual-risk]\n24: verification_requirements: [scope-check, targeted-tests, diff-review, clean-secret-check]\n25: audit_behavior: Hand off for independent audit when behavior, integration, or security risk is material."
+      },
+      "usage": {
+        "completion_tokens": 27,
+        "prompt_tokens": 1459,
+        "total_tokens": 1486,
+        "prompt_tokens_details": {
+          "cached_tokens": 1091
+        }
+      },
+      "timings": {
+        "cache_n": 1091,
+        "prompt_n": 368,
+        "prompt_ms": 12599.356,
+        "prompt_per_token_ms": 34.23738043478261,
+        "prompt_per_second": 29.207842051609624,
+        "predicted_n": 27,
+        "predicted_ms": 1899.443,
+        "predicted_per_token_ms": 70.34974074074074,
+        "predicted_per_second": 14.214693465400119
+      },
+      "elapsed_s": 36.98919653892517
+    },
+    {
+      "step": 5,
+      "content": "{\"action\":\"search\",\"query\":\"model-bindings\",\"path\":\"library/routing\"}",
+      "reasoning_content": "",
+      "action": {
+        "action": "search",
+        "query": "model-bindings",
+        "path": "library/routing"
+      },
+      "tool_result": {
+        "ok": true,
+        "matches": "/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task1_navigation/library/routing/README.md:3:`model-bindings.yaml` is the human-owned Holo roster.\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task1_navigation/library/routing/model-bindings.yaml:2:schema: holo-agent-tooling/human-model-bindings/v1\n",
+        "exit_code": 0
+      },
+      "usage": {
+        "completion_tokens": 18,
+        "prompt_tokens": 1869,
+        "total_tokens": 1887,
+        "prompt_tokens_details": {
+          "cached_tokens": 1455
+        }
+      },
+      "timings": {
+        "cache_n": 1455,
+        "prompt_n": 414,
+        "prompt_ms": 18005.825,
+        "prompt_per_token_ms": 43.4923309178744,
+        "prompt_per_second": 22.992559352320708,
+        "predicted_n": 18,
+        "predicted_ms": 1490.831,
+        "predicted_per_token_ms": 82.82394444444444,
+        "predicted_per_second": 12.073803133956835
+      },
+      "elapsed_s": 56.54908204078674
+    },
+    {
+      "step": 6,
+      "content": "{\"action\":\"search\",\"query\":\"project-rw\", \"path\":\"library/routing\"}",
+      "reasoning_content": "",
+      "action": {
+        "action": "search",
+        "query": "project-rw",
+        "path": "library/routing"
+      },
+      "tool_result": {
+        "ok": true,
+        "matches": "/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task1_navigation/library/routing/model-bindings.yaml:88:  project-rw:\n",
+        "exit_code": 0
+      },
+      "usage": {
+        "completion_tokens": 19,
+        "prompt_tokens": 2003,
+        "total_tokens": 2022,
+        "prompt_tokens_details": {
+          "cached_tokens": 1865
+        }
+      },
+      "timings": {
+        "cache_n": 1865,
+        "prompt_n": 138,
+        "prompt_ms": 7841.476,
+        "prompt_per_token_ms": 56.82228985507246,
+        "prompt_per_second": 17.598727586490096,
+        "predicted_n": 19,
+        "predicted_ms": 1663.031,
+        "predicted_per_token_ms": 87.52794736842105,
+        "predicted_per_second": 11.424922325560978
+      },
+      "elapsed_s": 66.12683892250061
+    },
+    {
+      "step": 7,
+      "content": "{\"action\":\"search\",\"query\":\"project-rw\", \"path\":\"library\"}",
+      "reasoning_content": "",
+      "action": {
+        "action": "search",
+        "query": "project-rw",
+        "path": "library"
+      },
+      "tool_result": {
+        "ok": true,
+        "matches": "/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task1_navigation/library/routing/model-bindings.yaml:88:  project-rw:\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task1_navigation/library/rules/tool-authority.md:53:- `project-rw`: write/execute only inside the explicit delegated scope.\n",
+        "exit_code": 0
+      },
+      "usage": {
+        "completion_tokens": 17,
+        "prompt_tokens": 2086,
+        "total_tokens": 2103,
+        "prompt_tokens_details": {
+          "cached_tokens": 1865
+        }
+      },
+      "timings": {
+        "cache_n": 1865,
+        "prompt_n": 221,
+        "prompt_ms": 11199.051,
+        "prompt_per_token_ms": 50.67443891402715,
+        "prompt_per_second": 19.733814945569943,
+        "predicted_n": 17,
+        "predicted_ms": 1582.485,
+        "predicted_per_token_ms": 93.08735294117646,
+        "predicted_per_second": 10.74259787612521
+      },
+      "elapsed_s": 79.00603985786438
+    },
+    {
+      "step": 8,
+      "content": "{\"action\":\"search\",\"query\":\"project-rw\", \"path\":\"library/rules\"}",
+      "reasoning_content": "",
+      "action": {
+        "action": "search",
+        "query": "project-rw",
+        "path": "library/rules"
+      },
+      "tool_result": {
+        "ok": true,
+        "matches": "/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task1_navigation/library/rules/tool-authority.md:53:- `project-rw`: write/execute only inside the explicit delegated scope.\n",
+        "exit_code": 0
+      },
+      "usage": {
+        "completion_tokens": 18,
+        "prompt_tokens": 2214,
+        "total_tokens": 2232,
+        "prompt_tokens_details": {
+          "cached_tokens": 1865
+        }
+      },
+      "timings": {
+        "cache_n": 1865,
+        "prompt_n": 349,
+        "prompt_ms": 19756.074,
+        "prompt_per_token_ms": 56.60766189111748,
+        "prompt_per_second": 17.66545316645402,
+        "predicted_n": 18,
+        "predicted_ms": 1829.053,
+        "predicted_per_token_ms": 101.61405555555557,
+        "predicted_per_second": 9.841158238716975
+      },
+      "elapsed_s": 100.66419553756714
+    },
+    {
+      "step": 9,
+      "content": "{\"action\":\"search\",\"query\":\"project-rw\", \"path\":\"library/rules\"}",
+      "reasoning_content": "",
+      "action": {
+        "action": "search",
+        "query": "project-rw",
+        "path": "library/rules"
+      },
+      "tool_result": {
+        "ok": true,
+        "matches": "/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task1_navigation/library/rules/tool-authority.md:53:- `project-rw`: write/execute only inside the explicit delegated scope.\n",
+        "exit_code": 0
+      },
+      "usage": {
+        "completion_tokens": 18,
+        "prompt_tokens": 2305,
+        "total_tokens": 2323,
+        "prompt_tokens_details": {
+          "cached_tokens": 2210
+        }
+      },
+      "timings": {
+        "cache_n": 2210,
+        "prompt_n": 95,
+        "prompt_ms": 5906.473,
+        "prompt_per_token_ms": 62.1734,
+        "prompt_per_second": 16.084048805437696,
+        "predicted_n": 18,
+        "predicted_ms": 1877.351,
+        "predicted_per_token_ms": 104.29727777777778,
+        "predicted_per_second": 9.587977954042689
+      },
+      "elapsed_s": 108.54239702224731
+    },
+    {
+      "step": 10,
+      "content": "{\"action\":\"search\",\"query\":\"project-rw\", \"path\":\"library/rules\"}",
+      "reasoning_content": "",
+      "action": {
+        "action": "search",
+        "query": "project-rw",
+        "path": "library/rules"
+      },
+      "tool_result": {
+        "ok": true,
+        "matches": "/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task1_navigation/library/rules/tool-authority.md:53:- `project-rw`: write/execute only inside the explicit delegated scope.\n",
+        "exit_code": 0
+      },
+      "usage": {
+        "completion_tokens": 18,
+        "prompt_tokens": 2396,
+        "total_tokens": 2414,
+        "prompt_tokens_details": {
+          "cached_tokens": 2210
+        }
+      },
+      "timings": {
+        "cache_n": 2210,
+        "prompt_n": 186,
+        "prompt_ms": 12804.014,
+        "prompt_per_token_ms": 68.83878494623656,
+        "prompt_per_second": 14.526694519390562,
+        "predicted_n": 18,
+        "predicted_ms": 1771.552,
+        "predicted_per_token_ms": 98.41955555555555,
+        "predicted_per_second": 10.160582359422698
+      },
+      "elapsed_s": 123.19317746162415
+    },
+    {
+      "step": 11,
+      "content": "{\"action\":\"search\",\"query\":\"project-rw\", \"path\":\"library/rules\"}",
+      "reasoning_content": "",
+      "action": {
+        "action": "search",
+        "query": "project-rw",
+        "path": "library/rules"
+      },
+      "tool_result": {
+        "ok": true,
+        "matches": "/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task1_navigation/library/rules/tool-authority.md:53:- `project-rw`: write/execute only inside the explicit delegated scope.\n",
+        "exit_code": 0
+      },
+      "usage": {
+        "completion_tokens": 18,
+        "prompt_tokens": 2487,
+        "total_tokens": 2505,
+        "prompt_tokens_details": {
+          "cached_tokens": 2210
+        }
+      },
+      "timings": {
+        "cache_n": 2210,
+        "prompt_n": 277,
+        "prompt_ms": 16785.999,
+        "prompt_per_token_ms": 60.59927436823104,
+        "prompt_per_second": 16.501847760148205,
+        "predicted_n": 18,
+        "predicted_ms": 1826.365,
+        "predicted_per_token_ms": 101.46472222222222,
+        "predicted_per_second": 9.855642218286048
+      },
+      "elapsed_s": 141.88102436065674
+    },
+    {
+      "step": 12,
+      "content": "{\"action\":\"search\",\"query\":\"project-rw\", \"path\":\"library/rules\"}",
+      "reasoning_content": "",
+      "action": {
+        "action": "search",
+        "query": "project-rw",
+        "path": "library/rules"
+      },
+      "tool_result": {
+        "ok": true,
+        "matches": "/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task1_navigation/library/rules/tool-authority.md:53:- `project-rw`: write/execute only inside the explicit delegated scope.\n",
+        "exit_code": 0
+      },
+      "usage": {
+        "completion_tokens": 18,
+        "prompt_tokens": 2578,
+        "total_tokens": 2596,
+        "prompt_tokens_details": {
+          "cached_tokens": 2483
+        }
+      },
+      "timings": {
+        "cache_n": 2483,
+        "prompt_n": 95,
+        "prompt_ms": 6434.607,
+        "prompt_per_token_ms": 67.7327052631579,
+        "prompt_per_second": 14.763916428773351,
+        "predicted_n": 18,
+        "predicted_ms": 1920.215,
+        "predicted_per_token_ms": 106.67861111111111,
+        "predicted_per_second": 9.373950312855591
+      },
+      "elapsed_s": 150.30884504318237
+    },
+    {
+      "step": 13,
+      "content": "{\"action\":\"search\",\"query\":\"project-rw\",\"path\":\"library/rules\"}",
+      "reasoning_content": "",
+      "action": {
+        "action": "search",
+        "query": "project-rw",
+        "path": "library/rules"
+      },
+      "tool_result": {
+        "ok": true,
+        "matches": "/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task1_navigation/library/rules/tool-authority.md:53:- `project-rw`: write/execute only inside the explicit delegated scope.\n",
+        "exit_code": 0
+      },
+      "usage": {
+        "completion_tokens": 17,
+        "prompt_tokens": 2669,
+        "total_tokens": 2686,
+        "prompt_tokens_details": {
+          "cached_tokens": 2483
+        }
+      },
+      "timings": {
+        "cache_n": 2483,
+        "prompt_n": 186,
+        "prompt_ms": 13605.16,
+        "prompt_per_token_ms": 73.14602150537634,
+        "prompt_per_second": 13.67128354242067,
+        "predicted_n": 17,
+        "predicted_ms": 1771.506,
+        "predicted_per_token_ms": 104.20623529411765,
+        "predicted_per_second": 9.5963547399783
+      },
+      "elapsed_s": 165.7599332332611
+    },
+    {
+      "step": 14,
+      "content": "{\"action\":\"search\",\"query\":\"project-rw\",\"path\":\"library/rules\"}",
+      "reasoning_content": "",
+      "action": {
+        "action": "search",
+        "query": "project-rw",
+        "path": "library/rules"
+      },
+      "tool_result": {
+        "ok": true,
+        "matches": "/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task1_navigation/library/rules/tool-authority.md:53:- `project-rw`: write/execute only inside the explicit delegated scope.\n",
+        "exit_code": 0
+      },
+      "usage": {
+        "completion_tokens": 17,
+        "prompt_tokens": 2759,
+        "total_tokens": 2776,
+        "prompt_tokens_details": {
+          "cached_tokens": 2483
+        }
+      },
+      "timings": {
+        "cache_n": 2483,
+        "prompt_n": 276,
+        "prompt_ms": 21049.341,
+        "prompt_per_token_ms": 76.26572826086957,
+        "prompt_per_second": 13.11204944610855,
+        "predicted_n": 17,
+        "predicted_ms": 1873.068,
+        "predicted_per_token_ms": 110.1804705882353,
+        "predicted_per_second": 9.07601859622822
+      },
+      "elapsed_s": 188.75858163833618
+    },
+    {
+      "step": 15,
+      "content": "{\"action\":\"search\",\"query\":\"project-rw\",\"path\":\"library/rules\"}",
+      "reasoning_content": "",
+      "action": {
+        "action": "search",
+        "query": "project-rw",
+        "path": "library/rules"
+      },
+      "tool_result": {
+        "ok": true,
+        "matches": "/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task1_navigation/library/rules/tool-authority.md:53:- `project-rw`: write/execute only inside the explicit delegated scope.\n",
+        "exit_code": 0
+      },
+      "usage": {
+        "completion_tokens": 17,
+        "prompt_tokens": 2849,
+        "total_tokens": 2866,
+        "prompt_tokens_details": {
+          "cached_tokens": 2755
+        }
+      },
+      "timings": {
+        "cache_n": 2755,
+        "prompt_n": 94,
+        "prompt_ms": 7629.71,
+        "prompt_per_token_ms": 81.16712765957446,
+        "prompt_per_second": 12.320258568150035,
+        "predicted_n": 17,
+        "predicted_ms": 2134.256,
+        "predicted_per_token_ms": 125.54447058823528,
+        "predicted_per_second": 7.965305005585085
+      },
+      "elapsed_s": 198.5986213684082
+    },
+    {
+      "step": 16,
+      "content": "{\"action\":\"search\",\"query\":\"project-rw\",\"path\":\"library/rules\"}",
+      "reasoning_content": "",
+      "action": {
+        "action": "search",
+        "query": "project-rw",
+        "path": "library/rules"
+      },
+      "tool_result": {
+        "ok": true,
+        "matches": "/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task1_navigation/library/rules/tool-authority.md:53:- `project-rw`: write/execute only inside the explicit delegated scope.\n",
+        "exit_code": 0
+      },
+      "usage": {
+        "completion_tokens": 17,
+        "prompt_tokens": 2939,
+        "total_tokens": 2956,
+        "prompt_tokens_details": {
+          "cached_tokens": 2755
+        }
+      },
+      "timings": {
+        "cache_n": 2755,
+        "prompt_n": 184,
+        "prompt_ms": 14623.753,
+        "prompt_per_token_ms": 79.47691847826087,
+        "prompt_per_second": 12.582269407859938,
+        "predicted_n": 17,
+        "predicted_ms": 2005.391,
+        "predicted_per_token_ms": 117.96417647058824,
+        "predicted_per_second": 8.477149842599273
+      },
+      "elapsed_s": 215.3036823272705
+    },
+    {
+      "step": 17,
+      "content": "{\"action\":\"search\",\"query\":\"project-rw\",\"path\":\"library/rules\"}",
+      "reasoning_content": "",
+      "action": {
+        "action": "search",
+        "query": "project-rw",
+        "path": "library/rules"
+      },
+      "tool_result": {
+        "ok": true,
+        "matches": "/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task1_navigation/library/rules/tool-authority.md:53:- `project-rw`: write/execute only inside the explicit delegated scope.\n",
+        "exit_code": 0
+      },
+      "usage": {
+        "completion_tokens": 17,
+        "prompt_tokens": 3029,
+        "total_tokens": 3046,
+        "prompt_tokens_details": {
+          "cached_tokens": 2755
+        }
+      },
+      "timings": {
+        "cache_n": 2755,
+        "prompt_n": 274,
+        "prompt_ms": 21524.181,
+        "prompt_per_token_ms": 78.55540510948906,
+        "prompt_per_second": 12.72986879268484,
+        "predicted_n": 17,
+        "predicted_ms": 2065.429,
+        "predicted_per_token_ms": 121.49582352941177,
+        "predicted_per_second": 8.230735600207026
+      },
+      "elapsed_s": 238.9826066493988
+    },
+    {
+      "step": 18,
+      "content": "{\"action\":\"search\",\"query\":\"project-rw\",\"path\":\"library/rules\"}",
+      "reasoning_content": "",
+      "action": {
+        "action": "search",
+        "query": "project-rw",
+        "path": "library/rules"
+      },
+      "tool_result": {
+        "ok": true,
+        "matches": "/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task1_navigation/library/rules/tool-authority.md:53:- `project-rw`: write/execute only inside the explicit delegated scope.\n",
+        "exit_code": 0
+      },
+      "usage": {
+        "completion_tokens": 17,
+        "prompt_tokens": 3119,
+        "total_tokens": 3136,
+        "prompt_tokens_details": {
+          "cached_tokens": 3025
+        }
+      },
+      "timings": {
+        "cache_n": 3025,
+        "prompt_n": 94,
+        "prompt_ms": 8245.474,
+        "prompt_per_token_ms": 87.7178085106383,
+        "prompt_per_second": 11.400193609245507,
+        "predicted_n": 17,
+        "predicted_ms": 2085.362,
+        "predicted_per_token_ms": 122.66835294117648,
+        "predicted_per_second": 8.152061848254643
+      },
+      "elapsed_s": 249.39402985572815
+    },
+    {
+      "step": 19,
+      "content": "{\"action\":\"search\",\"query\":\"project-rw\",\"path\":\"library/rules\"}",
+      "reasoning_content": "",
+      "action": {
+        "action": "search",
+        "query": "project-rw",
+        "path": "library/rules"
+      },
+      "tool_result": {
+        "ok": true,
+        "matches": "/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task1_navigation/library/rules/tool-authority.md:53:- `project-rw`: write/execute only inside the explicit delegated scope.\n",
+        "exit_code": 0
+      },
+      "usage": {
+        "completion_tokens": 17,
+        "prompt_tokens": 3209,
+        "total_tokens": 3226,
+        "prompt_tokens_details": {
+          "cached_tokens": 3025
+        }
+      },
+      "timings": {
+        "cache_n": 3025,
+        "prompt_n": 184,
+        "prompt_ms": 15949.988,
+        "prompt_per_token_ms": 86.68471739130435,
+        "prompt_per_second": 11.536058835906335,
+        "predicted_n": 17,
+        "predicted_ms": 2076.931,
+        "predicted_per_token_ms": 122.17241176470588,
+        "predicted_per_second": 8.185153960338596
+      },
+      "elapsed_s": 267.51789116859436
+    },
+    {
+      "step": 20,
+      "content": "{\"action\":\"search\",\"query\":\"project-rw\",\"path\":\"library/rules\"}",
+      "reasoning_content": "",
+      "action": {
+        "action": "search",
+        "query": "project-rw",
+        "path": "library/rules"
+      },
+      "tool_result": {
+        "ok": true,
+        "matches": "/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task1_navigation/library/rules/tool-authority.md:53:- `project-rw`: write/execute only inside the explicit delegated scope.\n",
+        "exit_code": 0
+      },
+      "usage": {
+        "completion_tokens": 17,
+        "prompt_tokens": 3299,
+        "total_tokens": 3316,
+        "prompt_tokens_details": {
+          "cached_tokens": 3025
+        }
+      },
+      "timings": {
+        "cache_n": 3025,
+        "prompt_n": 274,
+        "prompt_ms": 22522.867,
+        "prompt_per_token_ms": 82.20024452554743,
+        "prompt_per_second": 12.165413932426986,
+        "predicted_n": 17,
+        "predicted_ms": 2252.482,
+        "predicted_per_token_ms": 132.4989411764706,
+        "predicted_per_second": 7.5472301221497
+      },
+      "elapsed_s": 292.3717896938324
+    },
+    {
+      "step": 21,
+      "content": "{\"action\":\"search\",\"query\":\"project-rw\",\"path\":\"library/rules\"}",
+      "reasoning_content": "",
+      "action": {
+        "action": "search",
+        "query": "project-rw",
+        "path": "library/rules"
+      },
+      "tool_result": {
+        "ok": true,
+        "matches": "/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task1_navigation/library/rules/tool-authority.md:53:- `project-rw`: write/execute only inside the explicit delegated scope.\n",
+        "exit_code": 0
+      },
+      "usage": {
+        "completion_tokens": 17,
+        "prompt_tokens": 3389,
+        "total_tokens": 3406,
+        "prompt_tokens_details": {
+          "cached_tokens": 3295
+        }
+      },
+      "timings": {
+        "cache_n": 3295,
+        "prompt_n": 94,
+        "prompt_ms": 9217.319,
+        "prompt_per_token_ms": 98.05658510638297,
+        "prompt_per_second": 10.198193205638212,
+        "predicted_n": 17,
+        "predicted_ms": 2486.302,
+        "predicted_per_token_ms": 146.25305882352941,
+        "predicted_per_second": 6.837463831827348
+      },
+      "elapsed_s": 304.1694357395172
+    },
+    {
+      "step": 22,
+      "content": "{\"action\":\"search\",\"query\":\"project-rw\",\"path\":\"library/rules\"}",
+      "reasoning_content": "",
+      "action": {
+        "action": "search",
+        "query": "project-rw",
+        "path": "library/rules"
+      },
+      "tool_result": {
+        "ok": true,
+        "matches": "/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task1_navigation/library/rules/tool-authority.md:53:- `project-rw`: write/execute only inside the explicit delegated scope.\n",
+        "exit_code": 0
+      },
+      "usage": {
+        "completion_tokens": 17,
+        "prompt_tokens": 3479,
+        "total_tokens": 3496,
+        "prompt_tokens_details": {
+          "cached_tokens": 3295
+        }
+      },
+      "timings": {
+        "cache_n": 3295,
+        "prompt_n": 184,
+        "prompt_ms": 18161.834,
+        "prompt_per_token_ms": 98.70561956521739,
+        "prompt_per_second": 10.13113543489055,
+        "predicted_n": 17,
+        "predicted_ms": 2746.009,
+        "predicted_per_token_ms": 161.5299411764706,
+        "predicted_per_second": 6.19080272497286
+      },
+      "elapsed_s": 325.16331148147583
+    },
+    {
+      "step": 23,
+      "content": "{\"action\":\"search\",\"query\":\"project-rw\",\"path\":\"library/rules\"}",
+      "reasoning_content": "",
+      "action": {
+        "action": "search",
+        "query": "project-rw",
+        "path": "library/rules"
+      },
+      "tool_result": {
+        "ok": true,
+        "matches": "/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task1_navigation/library/rules/tool-authority.md:53:- `project-rw`: write/execute only inside the explicit delegated scope.\n",
+        "exit_code": 0
+      },
+      "usage": {
+        "completion_tokens": 17,
+        "prompt_tokens": 3569,
+        "total_tokens": 3586,
+        "prompt_tokens_details": {
+          "cached_tokens": 3295
+        }
+      },
+      "timings": {
+        "cache_n": 3295,
+        "prompt_n": 274,
+        "prompt_ms": 27512.475,
+        "prompt_per_token_ms": 100.41049270072992,
+        "prompt_per_second": 9.959118545314444,
+        "predicted_n": 17,
+        "predicted_ms": 2484.083,
+        "predicted_per_token_ms": 146.1225294117647,
+        "predicted_per_second": 6.843571651993915
+      },
+      "elapsed_s": 355.25238132476807
+    },
+    {
+      "step": 24,
+      "content": "{\"action\":\"search\",\"query\":\"project-rw\",\"path\":\"library/rules\"}",
+      "reasoning_content": "",
+      "action": {
+        "action": "search",
+        "query": "project-rw",
+        "path": "library/rules"
+      },
+      "tool_result": {
+        "ok": true,
+        "matches": "/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task1_navigation/library/rules/tool-authority.md:53:- `project-rw`: write/execute only inside the explicit delegated scope.\n",
+        "exit_code": 0
+      },
+      "usage": {
+        "completion_tokens": 17,
+        "prompt_tokens": 3659,
+        "total_tokens": 3676,
+        "prompt_tokens_details": {
+          "cached_tokens": 3565
+        }
+      },
+      "timings": {
+        "cache_n": 3565,
+        "prompt_n": 94,
+        "prompt_ms": 9798.225,
+        "prompt_per_token_ms": 104.23643617021277,
+        "prompt_per_second": 9.593574346373961,
+        "predicted_n": 17,
+        "predicted_ms": 2749.925,
+        "predicted_per_token_ms": 161.76029411764708,
+        "predicted_per_second": 6.181986781457676
+      },
+      "elapsed_s": 367.88927125930786
+    },
+    {
+      "step": 25,
+      "content": "{\"action\":\"search\",\"query\":\"project-rw\",\"path\":\"library/rules\"}",
+      "reasoning_content": "",
+      "action": {
+        "action": "search",
+        "query": "project-rw",
+        "path": "library/rules"
+      },
+      "tool_result": {
+        "ok": true,
+        "matches": "/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task1_navigation/library/rules/tool-authority.md:53:- `project-rw`: write/execute only inside the explicit delegated scope.\n",
+        "exit_code": 0
+      },
+      "usage": {
+        "completion_tokens": 17,
+        "prompt_tokens": 3749,
+        "total_tokens": 3766,
+        "prompt_tokens_details": {
+          "cached_tokens": 3565
+        }
+      },
+      "timings": {
+        "cache_n": 3565,
+        "prompt_n": 184,
+        "prompt_ms": 20547.849,
+        "prompt_per_token_ms": 111.67309239130434,
+        "prompt_per_second": 8.954708592612299,
+        "predicted_n": 17,
+        "predicted_ms": 2786.709,
+        "predicted_per_token_ms": 163.9240588235294,
+        "predicted_per_second": 6.100385795574637
+      },
+      "elapsed_s": 391.3150734901428
+    },
+    {
+      "step": 26,
+      "content": "{\"action\":\"search\",\"query\":\"project-rw\",\"path\":\"library/rules\"}",
+      "reasoning_content": "",
+      "action": {
+        "action": "search",
+        "query": "project-rw",
+        "path": "library/rules"
+      },
+      "tool_result": {
+        "ok": true,
+        "matches": "/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task1_navigation/library/rules/tool-authority.md:53:- `project-rw`: write/execute only inside the explicit delegated scope.\n",
+        "exit_code": 0
+      },
+      "usage": {
+        "completion_tokens": 17,
+        "prompt_tokens": 3839,
+        "total_tokens": 3856,
+        "prompt_tokens_details": {
+          "cached_tokens": 3565
+        }
+      },
+      "timings": {
+        "cache_n": 3565,
+        "prompt_n": 274,
+        "prompt_ms": 29986.06,
+        "prompt_per_token_ms": 109.43817518248176,
+        "prompt_per_second": 9.13757926183033,
+        "predicted_n": 17,
+        "predicted_ms": 2947.023,
+        "predicted_per_token_ms": 173.35429411764707,
+        "predicted_per_second": 5.768533194345615
+      },
+      "elapsed_s": 424.3464286327362
+    },
+    {
+      "step": 27,
+      "content": "{\"action\":\"search\",\"query\":\"project-rw\",\"path\":\"library/rules\"}",
+      "reasoning_content": "",
+      "action": {
+        "action": "search",
+        "query": "project-rw",
+        "path": "library/rules"
+      },
+      "tool_result": {
+        "ok": true,
+        "matches": "/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task1_navigation/library/rules/tool-authority.md:53:- `project-rw`: write/execute only inside the explicit delegated scope.\n",
+        "exit_code": 0
+      },
+      "usage": {
+        "completion_tokens": 17,
+        "prompt_tokens": 3929,
+        "total_tokens": 3946,
+        "prompt_tokens_details": {
+          "cached_tokens": 3835
+        }
+      },
+      "timings": {
+        "cache_n": 3835,
+        "prompt_n": 94,
+        "prompt_ms": 11675.23,
+        "prompt_per_token_ms": 124.2045744680851,
+        "prompt_per_second": 8.051233251935937,
+        "predicted_n": 17,
+        "predicted_ms": 2552.288,
+        "predicted_per_token_ms": 150.13458823529413,
+        "predicted_per_second": 6.660690329617974
+      },
+      "elapsed_s": 438.6863269805908
+    },
+    {
+      "step": 28,
+      "content": "{\"action\":\"search\",\"query\":\"project-rw\",\"path\":\"library/rules\"}",
+      "reasoning_content": "",
+      "action": {
+        "action": "search",
+        "query": "project-rw",
+        "path": "library/rules"
+      },
+      "tool_result": {
+        "ok": true,
+        "matches": "/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task1_navigation/library/rules/tool-authority.md:53:- `project-rw`: write/execute only inside the explicit delegated scope.\n",
+        "exit_code": 0
+      },
+      "usage": {
+        "completion_tokens": 17,
+        "prompt_tokens": 4019,
+        "total_tokens": 4036,
+        "prompt_tokens_details": {
+          "cached_tokens": 3835
+        }
+      },
+      "timings": {
+        "cache_n": 3835,
+        "prompt_n": 184,
+        "prompt_ms": 22818.398,
+        "prompt_per_token_ms": 124.01303260869565,
+        "prompt_per_second": 8.063668623888494,
+        "predicted_n": 17,
+        "predicted_ms": 2907.99,
+        "predicted_per_token_ms": 171.05823529411762,
+        "predicted_per_second": 5.845962331369778
+      },
+      "elapsed_s": 464.5023922920227
+    },
+    {
+      "step": 29,
+      "content": "{\"action\":\"search\",\"query\":\"project-rw\",\"path\":\"library/rules\"}",
+      "reasoning_content": "",
+      "action": {
+        "action": "search",
+        "query": "project-rw",
+        "path": "library/rules"
+      },
+      "tool_result": {
+        "ok": true,
+        "matches": "/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task1_navigation/library/rules/tool-authority.md:53:- `project-rw`: write/execute only inside the explicit delegated scope.\n",
+        "exit_code": 0
+      },
+      "usage": {
+        "completion_tokens": 17,
+        "prompt_tokens": 4109,
+        "total_tokens": 4126,
+        "prompt_tokens_details": {
+          "cached_tokens": 3835
+        }
+      },
+      "timings": {
+        "cache_n": 3835,
+        "prompt_n": 274,
+        "prompt_ms": 33546.884,
+        "prompt_per_token_ms": 122.43388321167883,
+        "prompt_per_second": 8.167673635500693,
+        "predicted_n": 17,
+        "predicted_ms": 2509.444,
+        "predicted_per_token_ms": 147.61435294117646,
+        "predicted_per_second": 6.774408992589594
+      },
+      "elapsed_s": 500.6644115447998
+    },
+    {
+      "step": 30,
+      "content": "{\"action\":\"search\",\"query\":\"project-rw\",\"path\":\"library/rules\"}",
+      "reasoning_content": "",
+      "action": {
+        "action": "search",
+        "query": "project-rw",
+        "path": "library/rules"
+      },
+      "tool_result": {
+        "ok": true,
+        "matches": "/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task1_navigation/library/rules/tool-authority.md:53:- `project-rw`: write/execute only inside the explicit delegated scope.\n",
+        "exit_code": 0
+      },
+      "usage": {
+        "completion_tokens": 17,
+        "prompt_tokens": 4199,
+        "total_tokens": 4216,
+        "prompt_tokens_details": {
+          "cached_tokens": 4105
+        }
+      },
+      "timings": {
+        "cache_n": 4105,
+        "prompt_n": 94,
+        "prompt_ms": 12452.786,
+        "prompt_per_token_ms": 132.47644680851064,
+        "prompt_per_second": 7.5485116342640115,
+        "predicted_n": 17,
+        "predicted_ms": 3276.442,
+        "predicted_per_token_ms": 192.73188235294117,
+        "predicted_per_second": 5.188555146100557
+      },
+      "elapsed_s": 516.5182201862335
+    },
+    {
+      "step": 31,
+      "content": "{\"action\":\"search\",\"query\":\"project-rw\",\"path\":\"library/rules\"}",
+      "reasoning_content": "",
+      "action": {
+        "action": "search",
+        "query": "project-rw",
+        "path": "library/rules"
+      },
+      "tool_result": {
+        "ok": true,
+        "matches": "/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task1_navigation/library/rules/tool-authority.md:53:- `project-rw`: write/execute only inside the explicit delegated scope.\n",
+        "exit_code": 0
+      },
+      "usage": {
+        "completion_tokens": 17,
+        "prompt_tokens": 4289,
+        "total_tokens": 4306,
+        "prompt_tokens_details": {
+          "cached_tokens": 4105
+        }
+      },
+      "timings": {
+        "cache_n": 4105,
+        "prompt_n": 184,
+        "prompt_ms": 23997.119,
+        "prompt_per_token_ms": 130.41912499999998,
+        "prompt_per_second": 7.667587096601055,
+        "predicted_n": 17,
+        "predicted_ms": 2951.511,
+        "predicted_per_token_ms": 173.61829411764705,
+        "predicted_per_second": 5.759761694942014
+      },
+      "elapsed_s": 543.5827734470367
+    },
+    {
+      "step": 32,
+      "content": "{\"action\":\"search\",\"query\":\"project-rw\",\"path\":\"library/rules\"}",
+      "reasoning_content": "",
+      "action": {
+        "action": "search",
+        "query": "project-rw",
+        "path": "library/rules"
+      },
+      "tool_result": {
+        "ok": true,
+        "matches": "/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task1_navigation/library/rules/tool-authority.md:53:- `project-rw`: write/execute only inside the explicit delegated scope.\n",
+        "exit_code": 0
+      },
+      "usage": {
+        "completion_tokens": 17,
+        "prompt_tokens": 4379,
+        "total_tokens": 4396,
+        "prompt_tokens_details": {
+          "cached_tokens": 4105
+        }
+      },
+      "timings": {
+        "cache_n": 4105,
+        "prompt_n": 274,
+        "prompt_ms": 37963.131,
+        "prompt_per_token_ms": 138.55157299270073,
+        "prompt_per_second": 7.217529028361755,
+        "predicted_n": 17,
+        "predicted_ms": 3282.64,
+        "predicted_per_token_ms": 193.0964705882353,
+        "predicted_per_second": 5.178758560183267
+      },
+      "elapsed_s": 584.9210240840912
+    },
+    {
+      "step": 33,
+      "error": "Request error: Request exceeded timeout (15.00s)"
+    }
+  ]
+}

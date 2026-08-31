@@ -1,0 +1,526 @@
+{
+  "task_id": "task1_navigation",
+  "passed": false,
+  "total_time_s": 606.18,
+  "time_first_tool_call_s": 6.79,
+  "time_first_useful_action_s": 6.79,
+  "time_first_edit_s": null,
+  "time_pass_s": null,
+  "tool_calls_count": 11,
+  "files_read": [
+    "README.md",
+    "ARCHITECTURE.md",
+    "library/routing/model-bindings.yaml",
+    "library/agents/project-rw/instructions.md",
+    "core/agents/contracts/project-rw.yaml"
+  ],
+  "files_edited": [],
+  "successful_edits": 0,
+  "failed_edits": 0,
+  "patch_attempts": 0,
+  "tool_errors": 0,
+  "recovery_rate": 1.0,
+  "prompt_tokens": 31582,
+  "reasoning_tokens": 371,
+  "output_tokens": 945,
+  "avg_decode_tok_per_sec": 4.92,
+  "avg_prompt_tok_per_sec": 25.62,
+  "peak_vram_mib": 15768,
+  "evaluation_details": {
+    "has_bindings": true,
+    "has_role": true,
+    "has_instructions": true,
+    "has_contract": true
+  },
+  "events": [
+    {
+      "step": 1,
+      "content": "{\"action\":\"list\",\"path\":\".\"}",
+      "reasoning_content": "Let's start by exploring the repository structure.\n",
+      "action": {
+        "action": "list",
+        "path": "."
+      },
+      "tool_result": {
+        "ok": true,
+        "entries": [
+          {
+            "name": "AGENTS.md",
+            "type": "file"
+          },
+          {
+            "name": "ARCHITECTURE.md",
+            "type": "file"
+          },
+          {
+            "name": "README.md",
+            "type": "file"
+          },
+          {
+            "name": "capabilities",
+            "type": "dir"
+          },
+          {
+            "name": "core",
+            "type": "dir"
+          },
+          {
+            "name": "fixture",
+            "type": "dir"
+          },
+          {
+            "name": "harnesses",
+            "type": "dir"
+          },
+          {
+            "name": "library",
+            "type": "dir"
+          }
+        ]
+      },
+      "usage": {
+        "completion_tokens": 22,
+        "prompt_tokens": 380,
+        "total_tokens": 402,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 380,
+        "prompt_ms": 3847.82,
+        "prompt_per_token_ms": 10.125842105263159,
+        "prompt_per_second": 98.75721837300081,
+        "predicted_n": 22,
+        "predicted_ms": 2832.852,
+        "predicted_per_token_ms": 128.766,
+        "predicted_per_second": 7.766025192985727
+      },
+      "elapsed_s": 6.785424470901489
+    },
+    {
+      "step": 2,
+      "content": "{\"action\":\"read\",\"path\":\"README.md\"}",
+      "reasoning_content": "Let's start by exploring the repository structure. I'll check the top-level files and directories.\n",
+      "action": {
+        "action": "read",
+        "path": "README.md"
+      },
+      "tool_result": {
+        "ok": true,
+        "path": "README.md",
+        "start": 1,
+        "end": 111,
+        "content": "1: # Holo Agent Tooling\n2: \n3: Architecture specification for the Holo multi-agent system across different agentic harnesses.\n4: \n5: This repository defines **what the Holo architecture means**. It is not a synchronization engine, installer, deployment system, or source of generated harness configuration.\n6: \n7: ## Mission\n8: \n9: Holo is the coordinating agent. The user owns model selection. Holo selects a role when delegation is useful; it does not automatically select or substitute the model assigned to that role.\n10: \n11: The architecture defines:\n12: \n13: - role semantics and autonomy boundaries;\n14: - delegation and evidence rules;\n15: - coordinator-versus-delegated tool-authority policy;\n16: - human-owned model bindings;\n17: - expected capability classes such as Skills, MCPs/tools and Hooks;\n18: - MCP scoping policy;\n19: - session/worktree orchestration semantics;\n20: - the invariants each harness implementation must preserve.\n21: \n22: Kilo, VS Code, Antigravity, Zed and future harnesses are **independent native implementations** of this specification. They do not need identical files, schemas, features or byte-for-byte configuration.\n23: \n24: ## What this repository does not do\n25: \n26: It does not:\n27: \n28: - generate target configurations;\n29: - keep harnesses automatically synchronized;\n30: - install agents, Skills, MCPs or Hooks into the host machine;\n31: - own OAuth, credentials, provider state or live harness configuration;\n32: - require every harness to implement a capability in the same way.\n33: \n34: If a harness changes its configuration format or gains a better native mechanism, adapt that harness implementation to the architecture. The architecture should change only when the desired Holo behavior changes.\n35: \n36: ## Canonical specification\n37: \n38: - `ARCHITECTURE.md` — system design and invariants.\n39: - `library/agents/` — canonical role instructions.\n40: - `core/agents/contracts/` — formal role boundaries and policies.\n41: - `library/rules/` — delegation, evidence, tool-authority, harness-freshness, MCP-scoping, session-orchestration and specification-governance rules.\n42: - `library/routing/model-bindings.yaml` — human-owned reference roster.\n43: - `harnesses/` — what each harness is expected to preserve using its current native features.\n44: - `capabilities/` — architectural treatment of Skills, MCPs/tools and Hooks.\n45: \n46: ## Tool authority\n47: \n48: Holo is the coordinator and should be **capability-complete inside the active project's approved harness surface**. Do not artificially restrict Holo to a stale, narrow static list of tools when the harness exposes additional project-approved capabilities.\n49: \n50: Delegated roles remain **least-privileged** according to their contracts. Read-only roles stay read-only; scoped writers stay scoped; nested delegation remains restricted where required.\n51: \n52: Tool availability is not the same as automatic approval. Native approval, trust, sandbox and sensitive-action controls still apply. Project-specific MCP scoping also remains authoritative: broad Holo tool access does not mean enabling every global MCP in every project.\n53: \n54: See `library/rules/tool-authority.md`.\n55: \n56: ## Applying the architecture\n57: \n58: For an existing harness:\n59: \n60: 1. identify the installed version/build actually in use;\n61: 2. inspect the harness's current native configuration/schema and current official documentation;\n62: 3. distinguish product support from what is locally installed/configured;\n63: 4. implement the Holo roles and invariants using the best current native mechanisms;\n64: 5. expose the active project's approved harness capabilities broadly to Holo while keeping delegated roles least-privileged;\n65: 6. prefer project/workspace-local MCP scope for project-specific capabilities where the harness supports it;\n66: 7. preserve unrelated user configuration, authentication and runtime state;\n67: 8. review the resulting configuration and smoke-test behavior.\n68: \n69: Do not carry forward an old workaround merely because it existed previously. `unsupported` is a strong claim: absence from local configuration normally means `missing` or `unknown`, not that the product lacks the capability.\n70: \n71: ## MCP scope\n72: \n73: Do not enable every MCP globally merely because it appears in the capability roster. Project-specific capabilities should normally live in project/workspace configuration, while genuinely universal personal capabilities may remain global.\n74: \n75: This reduces tool/context noise and unnecessary cross-project authority. See `library/rules/mcp-scoping.md` for the harness-specific policy and secret-handling constraints.\n76: \n77: ## Delegation versus session orchestration\n78: \n79: Focused role work happens inside Holo. Macro session/worktree managers organize independent top-level work.\n80: \n81: Examples:\n82: \n83: ```text\n84: Kilo Agent Manager\n85:   -> Holo primary\n86:       -> task -> canonical subagent\n87: \n88: VS Code Agents window\n89:   -> Holo custom agent\n90:       -> native subagent / fixed role MCP tool\n91: \n92: Zed parallel thread/worktree\n93:   -> Holo profile\n94:       -> fixed role MCP tools / safe generic workers\n95: \n96: Antigravity session\n97:   -> Holo main agent\n98:       -> fixed role MCP tools\n99: ```\n100: \n101: A session manager does not replace Holo delegation and does not choose specialist models. The user may open a macro session/worktree and select Holo; Holo then continues to route focused work internally according to the human-owned roster.\n102: \n103: When a Skill, MCP, Hook or useful agent behavior is added to one harness and should exist elsewhere, repeat the inspection/application process for each desired harness. There is no automatic propagation requirement.\n104: \n105: For a new harness, inspect its native capabilities, add a short note under `harnesses/`, and implement the architecture directly in that environment.\n106: \n107: ## Core invariant\n108: \n109: `specify architecture -> inspect current target harness -> implement natively -> verify behavior`\n110: \n111: The target is semantic conformance to the Holo architecture, not synchronization between harnesses."
+      },
+      "usage": {
+        "completion_tokens": 33,
+        "prompt_tokens": 517,
+        "total_tokens": 550,
+        "prompt_tokens_details": {
+          "cached_tokens": 376
+        }
+      },
+      "timings": {
+        "cache_n": 376,
+        "prompt_n": 141,
+        "prompt_ms": 2895.782,
+        "prompt_per_token_ms": 20.537460992907803,
+        "prompt_per_second": 48.69151061785728,
+        "predicted_n": 33,
+        "predicted_ms": 4437.486,
+        "predicted_per_token_ms": 134.4692727272727,
+        "predicted_per_second": 7.436643180395386
+      },
+      "elapsed_s": 14.183510780334473
+    },
+    {
+      "step": 3,
+      "content": "{\"action\":\"read\",\"path\":\"library/routing/model-bindings.yaml\"}",
+      "reasoning_content": "The README mentions `library/routing/model-bindings.yaml` as the human-owned reference roster. Let me read that file to find the `project-rw` role binding.\n",
+      "action": {
+        "action": "read",
+        "path": "library/routing/model-bindings.yaml"
+      },
+      "tool_result": {
+        "ok": true,
+        "path": "library/routing/model-bindings.yaml",
+        "start": 1,
+        "end": 101,
+        "content": "1: version: 1\n2: schema: holo-agent-tooling/human-model-bindings/v1\n3: \n4: policy:\n5:   owner: human\n6:   automatic_model_selection: false\n7:   automatic_model_substitution: false\n8:   rule: Holo selects roles; only the human-maintained binding selects the model.\n9: \n10: access_routes:\n11:   ucp-via-cliproxyapi:\n12:     kind: user-selected-access-path\n13:     description: Universal Chat Provider VS Code extension through CLIProxyAPI.\n14:   opencode-api:\n15:     kind: user-selected-access-path\n16:     description: OpenCode API.\n17: \n18: bindings:\n19:   holo:\n20:     model: Gemini 3.7 Flash\n21:     reasoning: high\n22:     access_route: ucp-via-cliproxyapi\n23:     status: selected-by-human\n24: \n25:   explore:\n26:     model: GPT-5.6 Luna\n27:     reasoning: medium\n28:     access_route: ucp-via-cliproxyapi\n29:     status: selected-by-human\n30:     preferred_class: economical-fast\n31: \n32:   shell:\n33:     model: GPT-5.6 Luna\n34:     reasoning: medium\n35:     access_route: ucp-via-cliproxyapi\n36:     status: selected-by-human\n37:     preferred_class: economical-fast\n38: \n39:   browser:\n40:     model: Gemini 3.7 Flash\n41:     reasoning: low\n42:     access_route: ucp-via-cliproxyapi\n43:     status: selected-by-human\n44:     preferred_class: economical-fast\n45: \n46:   test-engineer:\n47:     model: DeepSeek V4 Flash 0731\n48:     reasoning: max\n49:     access_route: opencode-api\n50:     status: selected-by-human\n51: \n52:   data:\n53:     model: GLM-5.3-Flash\n54:     reasoning: default\n55:     access_route: opencode-api\n56:     status: selected-by-human\n57: \n58:   root-cause-specialist:\n59:     model: GPT-5.6 Terra\n60:     reasoning: max\n61:     access_route: ucp-via-cliproxyapi\n62:     status: selected-by-human\n63: \n64:   bug-auditor:\n65:     model: Grok 4.6\n66:     reasoning: high\n67:     access_route: opencode-api\n68:     status: selected-by-human\n69: \n70:   architecture-auditor:\n71:     model: GLM-5.3\n72:     reasoning: max\n73:     access_route: opencode-api\n74:     status: selected-by-human\n75: \n76:   final-gate:\n77:     model: GPT-5.6 Sol\n78:     reasoning: max\n79:     access_route: ucp-via-cliproxyapi\n80:     status: selected-by-human\n81: \n82:   project-ro:\n83:     model: GPT-5.6 Luna\n84:     reasoning: medium\n85:     access_route: ucp-via-cliproxyapi\n86:     status: selected-by-human\n87: \n88:   project-rw:\n89:     model: GPT-5.6 Terra\n90:     reasoning: max\n91:     access_route: ucp-via-cliproxyapi\n92:     status: selected-by-human\n93: \n94: notes:\n95:   - This file records the human-owned architectural roster; it does not generate harness configuration.\n96:   - The selected bindings above were explicitly approved by the human owner.\n97:   - access_route records the human-selected source/path for the model; it is not a universal harness-native model identifier.\n98:   - Each harness may require a different native model identifier, direct CLIProxyAPI access, another native representation, or manual UI configuration.\n99:   - Holo never changes reasoning levels, models or access routes automatically.\n100:   - If a selected model is unavailable in a harness, document the limitation rather than silently substituting another model.\n101:   - Change this file to change architectural intent; apply the selected roster independently in each desired harness."
+      },
+      "usage": {
+        "completion_tokens": 54,
+        "prompt_tokens": 2177,
+        "total_tokens": 2231,
+        "prompt_tokens_details": {
+          "cached_tokens": 513
+        }
+      },
+      "timings": {
+        "cache_n": 513,
+        "prompt_n": 1664,
+        "prompt_ms": 46576.649,
+        "prompt_per_token_ms": 27.990774639423076,
+        "prompt_per_second": 35.72605663408718,
+        "predicted_n": 54,
+        "predicted_ms": 11884.615,
+        "predicted_per_token_ms": 220.08546296296296,
+        "predicted_per_second": 4.543689467433316
+      },
+      "elapsed_s": 72.7224235534668
+    },
+    {
+      "step": 4,
+      "content": "{\"action\":\"list\",\"path\":\"library/agents\"}",
+      "reasoning_content": "The model-bindings.yaml file shows the binding for `project-rw`:\n- model: GPT-5.6 Terra\n- reasoning: max\n- access_route: ucp-via-cliproxyapi\n- status: selected-by-human\n\nNow I need to trace how the `project-rw` role is routed to its agent instructions and its effective contract specification. Let me look at the canonical specification files:\n- `library/agents/` — canonical role instructions\n- `core/agents/contracts/` — formal role boundaries and policies\n\nLet me explore these directories.\n",
+      "action": {
+        "action": "list",
+        "path": "library/agents"
+      },
+      "tool_result": {
+        "ok": true,
+        "entries": [
+          {
+            "name": "library/agents/architecture-auditor",
+            "type": "dir"
+          },
+          {
+            "name": "library/agents/browser",
+            "type": "dir"
+          },
+          {
+            "name": "library/agents/bug-auditor",
+            "type": "dir"
+          },
+          {
+            "name": "library/agents/data",
+            "type": "dir"
+          },
+          {
+            "name": "library/agents/explore",
+            "type": "dir"
+          },
+          {
+            "name": "library/agents/final-gate",
+            "type": "dir"
+          },
+          {
+            "name": "library/agents/holo",
+            "type": "dir"
+          },
+          {
+            "name": "library/agents/project-ro",
+            "type": "dir"
+          },
+          {
+            "name": "library/agents/project-rw",
+            "type": "dir"
+          },
+          {
+            "name": "library/agents/root-cause-specialist",
+            "type": "dir"
+          },
+          {
+            "name": "library/agents/shell",
+            "type": "dir"
+          },
+          {
+            "name": "library/agents/test-engineer",
+            "type": "dir"
+          }
+        ]
+      },
+      "usage": {
+        "completion_tokens": 137,
+        "prompt_tokens": 3352,
+        "total_tokens": 3489,
+        "prompt_tokens_details": {
+          "cached_tokens": 2173
+        }
+      },
+      "timings": {
+        "cache_n": 2173,
+        "prompt_n": 1179,
+        "prompt_ms": 71639.647,
+        "prompt_per_token_ms": 60.763059372349446,
+        "prompt_per_second": 16.45736752443797,
+        "predicted_n": 137,
+        "predicted_ms": 41427.724,
+        "predicted_per_token_ms": 302.3921459854015,
+        "predicted_per_second": 3.306964196246938
+      },
+      "elapsed_s": 185.86080765724182
+    },
+    {
+      "step": 5,
+      "content": "{\"action\":\"list\",\"path\":\"library/agents/project-rw\"}",
+      "reasoning_content": "I found the project-rw directory. Let me list its contents and also check the contracts directory.\n",
+      "action": {
+        "action": "list",
+        "path": "library/agents/project-rw"
+      },
+      "tool_result": {
+        "ok": true,
+        "entries": [
+          {
+            "name": "library/agents/project-rw/instructions.md",
+            "type": "file"
+          }
+        ]
+      },
+      "usage": {
+        "completion_tokens": 38,
+        "prompt_tokens": 3589,
+        "total_tokens": 3627,
+        "prompt_tokens_details": {
+          "cached_tokens": 3348
+        }
+      },
+      "timings": {
+        "cache_n": 3348,
+        "prompt_n": 241,
+        "prompt_ms": 34996.126,
+        "prompt_per_token_ms": 145.21214107883816,
+        "prompt_per_second": 6.886476520286846,
+        "predicted_n": 38,
+        "predicted_ms": 8496.684,
+        "predicted_per_token_ms": 223.59694736842104,
+        "predicted_per_second": 4.472332971309749
+      },
+      "elapsed_s": 229.4395718574524
+    },
+    {
+      "step": 6,
+      "content": "{\"action\":\"list\",\"path\":\"core/agents/contracts\"}",
+      "reasoning_content": "I found the instructions file. Now let me check the contract specification in core/agents/contracts/.\n",
+      "action": {
+        "action": "list",
+        "path": "core/agents/contracts"
+      },
+      "tool_result": {
+        "ok": true,
+        "entries": [
+          {
+            "name": "core/agents/contracts/architecture-auditor.yaml",
+            "type": "file"
+          },
+          {
+            "name": "core/agents/contracts/browser.yaml",
+            "type": "file"
+          },
+          {
+            "name": "core/agents/contracts/bug-auditor.yaml",
+            "type": "file"
+          },
+          {
+            "name": "core/agents/contracts/data.yaml",
+            "type": "file"
+          },
+          {
+            "name": "core/agents/contracts/explore.yaml",
+            "type": "file"
+          },
+          {
+            "name": "core/agents/contracts/final-gate.yaml",
+            "type": "file"
+          },
+          {
+            "name": "core/agents/contracts/holo.yaml",
+            "type": "file"
+          },
+          {
+            "name": "core/agents/contracts/project-ro.yaml",
+            "type": "file"
+          },
+          {
+            "name": "core/agents/contracts/project-rw.yaml",
+            "type": "file"
+          },
+          {
+            "name": "core/agents/contracts/root-cause-specialist.yaml",
+            "type": "file"
+          },
+          {
+            "name": "core/agents/contracts/shell.yaml",
+            "type": "file"
+          },
+          {
+            "name": "core/agents/contracts/test-engineer.yaml",
+            "type": "file"
+          }
+        ]
+      },
+      "usage": {
+        "completion_tokens": 37,
+        "prompt_tokens": 3646,
+        "total_tokens": 3683,
+        "prompt_tokens_details": {
+          "cached_tokens": 3585
+        }
+      },
+      "timings": {
+        "cache_n": 3585,
+        "prompt_n": 61,
+        "prompt_ms": 6297.617,
+        "prompt_per_token_ms": 103.23962295081968,
+        "prompt_per_second": 9.68620352746126,
+        "predicted_n": 37,
+        "predicted_ms": 6723.341,
+        "predicted_per_token_ms": 181.71191891891894,
+        "predicted_per_second": 5.503216332475179
+      },
+      "elapsed_s": 242.5257270336151
+    },
+    {
+      "step": 7,
+      "content": "{\"action\":\"read\",\"path\":\"core/agents/contracts/project-rw.yaml\"}",
+      "reasoning_content": "I'm checking the project-rw contract and its instructions to understand what needs to be done.\n",
+      "action": {
+        "action": "read",
+        "path": "core/agents/contracts/project-rw.yaml"
+      },
+      "tool_result": {
+        "ok": true,
+        "path": "core/agents/contracts/project-rw.yaml",
+        "start": 1,
+        "end": 25,
+        "content": "1: id: project-rw\n2: role: Project-scoped writer contract for a future adapter with explicit write authorization.\n3: responsibilities:\n4:   - Implement only the assigned project change.\n5:   - Preserve project instructions and unrelated work.\n6:   - Run project verification and report the exact diff.\n7: write_policy:\n8:   mode: explicit-scope\n9:   rule: Write only paths and operations authorized by the coordinator.\n10:   forbidden: No secrets, destructive resets, unrelated refactors, or external configuration changes.\n11: read_policy:\n12:   scope: Named project root and applicable instruction files.\n13:   requirement: Confirm scope before editing.\n14: shell_policy:\n15:   mode: approval-required\n16:   rule: Require approval for destructive, external, network, or deployment actions.\n17: delegation_policy:\n18:   mode: coordinator-controlled\n19:   rule: Do not delegate beyond the authorized task contract.\n20: skills_required: [agent-governance, verification]\n21: mcp_capabilities: [repository-read, repository-write, testing]\n22: inputs: [project-root, task, allowed-paths, acceptance-criteria]\n23: outputs: [implementation-diff, verification-report, residual-risk]\n24: verification_requirements: [scope-check, targeted-tests, diff-review, clean-secret-check]\n25: audit_behavior: Hand off for independent audit when behavior, integration, or security risk is material."
+      },
+      "usage": {
+        "completion_tokens": 40,
+        "prompt_tokens": 3921,
+        "total_tokens": 3961,
+        "prompt_tokens_details": {
+          "cached_tokens": 3642
+        }
+      },
+      "timings": {
+        "cache_n": 3642,
+        "prompt_n": 279,
+        "prompt_ms": 21631.418,
+        "prompt_per_token_ms": 77.5319641577061,
+        "prompt_per_second": 12.897906184421196,
+        "predicted_n": 40,
+        "predicted_ms": 9290.813,
+        "predicted_per_token_ms": 232.270325,
+        "predicted_per_second": 4.305328285048898
+      },
+      "elapsed_s": 273.50016736984253
+    },
+    {
+      "step": 8,
+      "content": "{\"action\":\"read\",\"path\":\"library/agents/project-rw/instructions.md\"}",
+      "reasoning_content": "I've found the complete chain. Let me verify the instructions file and check if there's any additional routing configuration.\n",
+      "action": {
+        "action": "read",
+        "path": "library/agents/project-rw/instructions.md"
+      },
+      "tool_result": {
+        "ok": true,
+        "path": "library/agents/project-rw/instructions.md",
+        "start": 1,
+        "end": 9,
+        "content": "1: # Project Read-write\n2: \n3: Implement only the explicitly assigned project change within the authorized\n4: paths. Read applicable instructions first, preserve unrelated work, avoid\n5: secrets and destructive operations, and run the requested verification.\n6: \n7: This role requires explicit write authorization from the coordinator. It does\n8: not authorize external configuration changes, deployment, dependency\n9: installation, or broad refactoring."
+      },
+      "usage": {
+        "completion_tokens": 44,
+        "prompt_tokens": 4326,
+        "total_tokens": 4370,
+        "prompt_tokens_details": {
+          "cached_tokens": 3917
+        }
+      },
+      "timings": {
+        "cache_n": 3917,
+        "prompt_n": 409,
+        "prompt_ms": 36823.414,
+        "prompt_per_token_ms": 90.03279706601467,
+        "prompt_per_second": 11.107063565589003,
+        "predicted_n": 44,
+        "predicted_ms": 9824.544,
+        "predicted_per_token_ms": 223.2850909090909,
+        "predicted_per_second": 4.4785793620548695
+      },
+      "elapsed_s": 320.2116963863373
+    },
+    {
+      "step": 9,
+      "content": "{\"action\":\"search\",\"query\":\"project-rw\",\"path\":\".\"}",
+      "reasoning_content": "I have the complete chain:\n\n1. Top-level model bindings: `library/routing/model-bindings.yaml` → `bindings.project-rw` (model: GPT-5.6 Terra, reasoning: max, access_route: ucp-via-cliproxyapi, status: selected-by-human)\n2. Agent instructions: `library/agents/project-rw/instructions.md`\n3. Contract: `core/agents/contracts/project-rw.yaml` (id: project-rw, write_policy.mode: explicit-scope, etc.)\n\nLet me verify the routing chain. The README says:\n- `library/agents/` — canonical role instructions.\n- `core/agents/contracts/` — formal role boundaries and policies.\n- `library/routing/model-bindings.yaml` — human-owned reference roster.\n\nLet me check if there's a routing file that maps roles to instructions/contracts. Let me search for \"project-rw\" to see all references.\n",
+      "action": {
+        "action": "search",
+        "query": "project-rw",
+        "path": "."
+      },
+      "tool_result": {
+        "ok": true,
+        "matches": "/tmp/repo-worker-calibration-v1-worktrees/qwen38-22.62b-v3-q4km_task1_navigation/ARCHITECTURE.md:55:- `project-rw` — explicitly scoped project implementer.\n/tmp/repo-worker-calibration-v1-worktrees/qwen38-22.62b-v3-q4km_task1_navigation/core/agents/contracts/project-rw.yaml:1:id: project-rw\n/tmp/repo-worker-calibration-v1-worktrees/qwen38-22.62b-v3-q4km_task1_navigation/library/rules/tool-authority.md:53:- `project-rw`: write/execute only inside the explicit delegated scope.\n/tmp/repo-worker-calibration-v1-worktrees/qwen38-22.62b-v3-q4km_task1_navigation/harnesses/antigravity.md:109:A successful model response does not prove operational authority. Do not report `shell` as command-capable or `project-rw` as writable unless the MCP implementation actually performs those scoped operations. If a role tool is analysis/proposal-only, report that limitation explicitly and let Holo perform only the actions that its own Antigravity authority permits after reviewing the result.\n/tmp/repo-worker-calibration-v1-worktrees/qwen38-22.62b-v3-q4km_task1_navigation/harnesses/antigravity.md:123:`bug-auditor` and `architecture-auditor` are read-only and require clean/minimally sufficient first-pass context. `final-gate` and `project-ro` are read-only. `project-rw` may write only if the concrete MCP implementation truly has scoped write capability; otherwise it is proposal-only and must be reported as such.\n/tmp/repo-worker-calibration-v1-worktrees/qwen38-22.62b-v3-q4km_task1_navigation/harnesses/antigravity.md:150:10. verify the actual capability of `shell`, `project-rw`, test and audit tools rather than inferring it from their prompts;\n/tmp/repo-worker-calibration-v1-worktrees/qwen38-22.62b-v3-q4km_task1_navigation/harnesses/kilo.md:39:- `project-rw` may write only within explicitly delegated scope.\n/tmp/repo-worker-calibration-v1-worktrees/qwen38-22.62b-v3-q4km_task1_navigation/harnesses/kilo.md:87:  project-rw: allow\n/tmp/repo-worker-calibration-v1-worktrees/qwen38-22.62b-v3-q4km_task1_navigation/harnesses/vscode.md:43:- `project-rw` is the scoped implementation role.\n/tmp/repo-worker-calibration-v1-worktrees/qwen38-22.62b-v3-q4km_task1_navigation/library/routing/model-bindings.yaml:88:  project-rw:\n",
+        "exit_code": 0
+      },
+      "usage": {
+        "completion_tokens": 224,
+        "prompt_tokens": 4486,
+        "total_tokens": 4710,
+        "prompt_tokens_details": {
+          "cached_tokens": 4322
+        }
+      },
+      "timings": {
+        "cache_n": 4322,
+        "prompt_n": 164,
+        "prompt_ms": 17487.49,
+        "prompt_per_token_ms": 106.63103658536586,
+        "prompt_per_second": 9.37813259650184,
+        "predicted_n": 224,
+        "predicted_ms": 53560.372,
+        "predicted_per_token_ms": 239.10880357142858,
+        "predicted_per_second": 4.182196494079616
+      },
+      "elapsed_s": 391.32188606262207
+    },
+    {
+      "step": 10,
+      "content": "{\"action\":\"read\",\"path\":\"ARCHITECTURE.md\",\"start\":40,\"end\":70}",
+      "reasoning_content": "I've found the complete chain. Let me verify the routing flow:\n\n1. Top-level model bindings: `library/routing/model-bindings.yaml` → `bindings.project-rw` → model: GPT-5.6 Terra, reasoning: max, access_route: ucp-via-cliproxyapi, status: selected-by-human\n\n2. Agent instructions: `library/agents/project-rw/instructions.md` — canonical role instructions\n\n3. Contract specification: `core/agents/contracts/project-rw.yaml` — id: project-rw, role, responsibilities, write_policy (explicit-scope), read_policy, shell_policy (approval-required), delegation_policy (coordinator-controlled), skills_required, mcp_capabilities, inputs, outputs, verification_requirements, audit_behavior\n\nThe routing chain:\n- Holo (coordinator) selects the role `project-rw` when delegation is useful\n- The human-owned binding in `library/routing/model-bindings.yaml` under `bindings.project-rw` selects the model (GPT-5.6 Terra, reasoning: max, access_route: ucp-via-cliproxyapi)\n- The role instructions live in `library/agents/project-rw/instructions.md`\n- The formal contract lives in `core/agents/contracts/project-rw.yaml`\n\nLet me also check the ARCHITECTURE.md to confirm the routing description.\n",
+      "action": {
+        "action": "read",
+        "path": "ARCHITECTURE.md",
+        "start": 40,
+        "end": 70
+      },
+      "tool_result": {
+        "ok": true,
+        "path": "ARCHITECTURE.md",
+        "start": 40,
+        "end": 70,
+        "content": "40: ## Roles\n41: \n42: The canonical roles are:\n43: \n44: - `holo` — coordinator and final integrator;\n45: - `explore` — read-only repository/context discovery worker;\n46: - `shell` — bounded command/output context worker;\n47: - `browser` — read-only web/documentation context worker;\n48: - `test-engineer` — focused test and regression specialist;\n49: - `data` — data, metrics, SQL and notebook specialist;\n50: - `root-cause-specialist` — deep causal diagnosis specialist;\n51: - `bug-auditor` — independent bug/regression auditor;\n52: - `architecture-auditor` — independent architecture/contract auditor;\n53: - `final-gate` — evidence-based final review gate;\n54: - `project-ro` — strict read-only project inspector;\n55: - `project-rw` — explicitly scoped project implementer.\n56: \n57: Detailed behavior lives in `library/agents/`; formal boundaries live in `core/agents/contracts/`.\n58: \n59: ## Holo responsibilities\n60: \n61: Holo:\n62: \n63: - understands the user's goal and the current project state;\n64: - works alone when delegation would add little value;\n65: - delegates by role when specialization, independent review, parallelism or context isolation helps;\n66: - plans from goal to role to needed capability before choosing a concrete tool name;\n67: - uses only concrete tools, MCPs and Skills actually available in the current harness/project;\n68: - is capability-complete within the active project's approved harness surface rather than artificially restricted to a narrow static coordinator tool list;\n69: - does not choose or silently substitute the model bound to a role;\n70: - reviews evidence rather than trusting model reputation;"
+      },
+      "usage": {
+        "completion_tokens": 316,
+        "prompt_tokens": 5188,
+        "total_tokens": 5504,
+        "prompt_tokens_details": {
+          "cached_tokens": 4482
+        }
+      },
+      "timings": {
+        "cache_n": 4482,
+        "prompt_n": 706,
+        "prompt_ms": 106214.959,
+        "prompt_per_token_ms": 150.4461175637394,
+        "prompt_per_second": 6.646898013678092,
+        "predicted_n": 316,
+        "predicted_ms": 98507.876,
+        "predicted_per_token_ms": 311.7337848101266,
+        "predicted_per_second": 3.2078653284535337
+      },
+      "elapsed_s": 596.1247410774231
+    },
+    {
+      "step": 11,
+      "error": "Request error: Request exceeded timeout (10.00s)"
+    }
+  ]
+}

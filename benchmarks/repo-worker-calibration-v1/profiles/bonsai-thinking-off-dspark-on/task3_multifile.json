@@ -1,0 +1,656 @@
+{
+  "task_id": "task3_multifile",
+  "passed": false,
+  "total_time_s": 599.31,
+  "time_first_tool_call_s": 2.93,
+  "time_first_useful_action_s": 2.93,
+  "time_first_edit_s": null,
+  "time_pass_s": null,
+  "tool_calls_count": 18,
+  "files_read": [],
+  "files_edited": [],
+  "successful_edits": 0,
+  "failed_edits": 0,
+  "patch_attempts": 0,
+  "tool_errors": 0,
+  "recovery_rate": 1.0,
+  "prompt_tokens": 51332,
+  "reasoning_tokens": 0,
+  "output_tokens": 283,
+  "avg_decode_tok_per_sec": 9.76,
+  "avg_prompt_tok_per_sec": 27.22,
+  "peak_vram_mib": 13349,
+  "evaluation_details": {
+    "pytest_exit_code": 0,
+    "old_key_absent": false,
+    "new_key_present": true
+  },
+  "events": [
+    {
+      "step": 1,
+      "content": "{\"action\":\"list\",\"path\":\"fixture/\"}",
+      "reasoning_content": "",
+      "action": {
+        "action": "list",
+        "path": "fixture/"
+      },
+      "tool_result": {
+        "ok": true,
+        "entries": [
+          {
+            "name": "fixture/README.md",
+            "type": "file"
+          },
+          {
+            "name": "fixture/config.json",
+            "type": "file"
+          },
+          {
+            "name": "fixture/retry.py",
+            "type": "file"
+          },
+          {
+            "name": "fixture/settings.py",
+            "type": "file"
+          },
+          {
+            "name": "fixture/settings.pyi",
+            "type": "file"
+          },
+          {
+            "name": "fixture/test_retry.py",
+            "type": "file"
+          },
+          {
+            "name": "fixture/test_settings.py",
+            "type": "file"
+          }
+        ]
+      },
+      "usage": {
+        "completion_tokens": 11,
+        "prompt_tokens": 340,
+        "total_tokens": 351,
+        "prompt_tokens_details": {
+          "cached_tokens": 28
+        }
+      },
+      "timings": {
+        "cache_n": 28,
+        "prompt_n": 312,
+        "prompt_ms": 2099.524,
+        "prompt_per_token_ms": 6.729243589743589,
+        "prompt_per_second": 148.6051123969052,
+        "predicted_n": 11,
+        "predicted_ms": 492.954,
+        "predicted_per_token_ms": 44.814,
+        "predicted_per_second": 22.314455304146023
+      },
+      "elapsed_s": 2.92879581451416
+    },
+    {
+      "step": 2,
+      "content": "{\"action\":\"search\",\"query\":\"tool_timeout_seconds\",\"path\":\"fixture/\"}",
+      "reasoning_content": "",
+      "action": {
+        "action": "search",
+        "query": "tool_timeout_seconds",
+        "path": "fixture/"
+      },
+      "tool_result": {
+        "ok": true,
+        "matches": "/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/test_settings.py:5:    assert load_settings({\"tool_timeout_seconds\": \"99\"})[\"tool_timeout_seconds\"] == 30\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/test_settings.py:9:    assert load_settings({\"TOOL_TIMEOUT_SECONDS\": \"7\"})[\"tool_timeout_seconds\"] == 7\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/settings.py:1:DEFAULTS = {\"tool_timeout_seconds\": 30, \"retries\": 2}\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/settings.py:5:    return {**DEFAULTS, \"tool_timeout_seconds\": int(env.get(\"TOOL_TIMEOUT_SECONDS\", DEFAULTS[\"tool_timeout_seconds\"]))}\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/README.md:3:The `tool_timeout_seconds` setting controls the maximum wait for a tool.\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/config.json:1:{\"tool_timeout_seconds\": 30, \"retries\": 2}\n",
+        "exit_code": 0
+      },
+      "usage": {
+        "completion_tokens": 17,
+        "prompt_tokens": 472,
+        "total_tokens": 489,
+        "prompt_tokens_details": {
+          "cached_tokens": 336
+        }
+      },
+      "timings": {
+        "cache_n": 336,
+        "prompt_n": 136,
+        "prompt_ms": 1763.057,
+        "prompt_per_token_ms": 12.963654411764706,
+        "prompt_per_second": 77.13874253640125,
+        "predicted_n": 17,
+        "predicted_ms": 745.464,
+        "predicted_per_token_ms": 43.85082352941177,
+        "predicted_per_second": 22.804588819849112
+      },
+      "elapsed_s": 5.499194383621216
+    },
+    {
+      "step": 3,
+      "content": "{\"action\":\"search\",\"query\":\"tool_timeout_s\",\"path\":\"fixture/\"}",
+      "reasoning_content": "",
+      "action": {
+        "action": "search",
+        "query": "tool_timeout_s",
+        "path": "fixture/"
+      },
+      "tool_result": {
+        "ok": true,
+        "matches": "/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/test_settings.py:5:    assert load_settings({\"tool_timeout_seconds\": \"99\"})[\"tool_timeout_seconds\"] == 30\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/test_settings.py:9:    assert load_settings({\"TOOL_TIMEOUT_SECONDS\": \"7\"})[\"tool_timeout_seconds\"] == 7\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/settings.py:1:DEFAULTS = {\"tool_timeout_seconds\": 30, \"retries\": 2}\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/settings.py:5:    return {**DEFAULTS, \"tool_timeout_seconds\": int(env.get(\"TOOL_TIMEOUT_SECONDS\", DEFAULTS[\"tool_timeout_seconds\"]))}\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/README.md:3:The `tool_timeout_seconds` setting controls the maximum wait for a tool.\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/config.json:1:{\"tool_timeout_seconds\": 30, \"retries\": 2}\n",
+        "exit_code": 0
+      },
+      "usage": {
+        "completion_tokens": 17,
+        "prompt_tokens": 834,
+        "total_tokens": 851,
+        "prompt_tokens_details": {
+          "cached_tokens": 336
+        }
+      },
+      "timings": {
+        "cache_n": 336,
+        "prompt_n": 498,
+        "prompt_ms": 8926.038,
+        "prompt_per_token_ms": 17.92377108433735,
+        "prompt_per_second": 55.79183059718097,
+        "predicted_n": 17,
+        "predicted_ms": 1017.762,
+        "predicted_per_token_ms": 59.86835294117647,
+        "predicted_per_second": 16.703315706422526
+      },
+      "elapsed_s": 15.513798236846924
+    },
+    {
+      "step": 4,
+      "content": "{\"action\":\"search\",\"query\":\"tool_timeout_s\",\"path\":\"fixture/\"}",
+      "reasoning_content": "",
+      "action": {
+        "action": "search",
+        "query": "tool_timeout_s",
+        "path": "fixture/"
+      },
+      "tool_result": {
+        "ok": true,
+        "matches": "/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/settings.py:1:DEFAULTS = {\"tool_timeout_seconds\": 30, \"retries\": 2}\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/settings.py:5:    return {**DEFAULTS, \"tool_timeout_seconds\": int(env.get(\"TOOL_TIMEOUT_SECONDS\", DEFAULTS[\"tool_timeout_seconds\"]))}\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/README.md:3:The `tool_timeout_seconds` setting controls the maximum wait for a tool.\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/config.json:1:{\"tool_timeout_seconds\": 30, \"retries\": 2}\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/test_settings.py:5:    assert load_settings({\"tool_timeout_seconds\": \"99\"})[\"tool_timeout_seconds\"] == 30\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/test_settings.py:9:    assert load_settings({\"TOOL_TIMEOUT_SECONDS\": \"7\"})[\"tool_timeout_seconds\"] == 7\n",
+        "exit_code": 0
+      },
+      "usage": {
+        "completion_tokens": 17,
+        "prompt_tokens": 1196,
+        "total_tokens": 1213,
+        "prompt_tokens_details": {
+          "cached_tokens": 830
+        }
+      },
+      "timings": {
+        "cache_n": 830,
+        "prompt_n": 366,
+        "prompt_ms": 10929.273,
+        "prompt_per_token_ms": 29.861401639344262,
+        "prompt_per_second": 33.48804627718605,
+        "predicted_n": 17,
+        "predicted_ms": 1189.576,
+        "predicted_per_token_ms": 69.97505882352941,
+        "predicted_per_second": 14.290806135967774
+      },
+      "elapsed_s": 27.713168144226074
+    },
+    {
+      "step": 5,
+      "content": "{\"action\":\"search\",\"query\":\"tool_timeout_s\",\"path\":\"fixture/\"}",
+      "reasoning_content": "",
+      "action": {
+        "action": "search",
+        "query": "tool_timeout_s",
+        "path": "fixture/"
+      },
+      "tool_result": {
+        "ok": true,
+        "matches": "/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/settings.py:1:DEFAULTS = {\"tool_timeout_seconds\": 30, \"retries\": 2}\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/settings.py:5:    return {**DEFAULTS, \"tool_timeout_seconds\": int(env.get(\"TOOL_TIMEOUT_SECONDS\", DEFAULTS[\"tool_timeout_seconds\"]))}\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/README.md:3:The `tool_timeout_seconds` setting controls the maximum wait for a tool.\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/config.json:1:{\"tool_timeout_seconds\": 30, \"retries\": 2}\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/test_settings.py:5:    assert load_settings({\"tool_timeout_seconds\": \"99\"})[\"tool_timeout_seconds\"] == 30\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/test_settings.py:9:    assert load_settings({\"TOOL_TIMEOUT_SECONDS\": \"7\"})[\"tool_timeout_seconds\"] == 7\n",
+        "exit_code": 0
+      },
+      "usage": {
+        "completion_tokens": 17,
+        "prompt_tokens": 1558,
+        "total_tokens": 1575,
+        "prompt_tokens_details": {
+          "cached_tokens": 1192
+        }
+      },
+      "timings": {
+        "cache_n": 1192,
+        "prompt_n": 366,
+        "prompt_ms": 15604.508,
+        "prompt_per_token_ms": 42.63526775956284,
+        "prompt_per_second": 23.454760637118454,
+        "predicted_n": 17,
+        "predicted_ms": 1303.436,
+        "predicted_per_token_ms": 76.67270588235294,
+        "predicted_per_second": 13.042450875992378
+      },
+      "elapsed_s": 44.69564700126648
+    },
+    {
+      "step": 6,
+      "content": "{\"action\":\"search\",\"query\":\"tool_timeout_s\",\"path\":\"fixture/\"}",
+      "reasoning_content": "",
+      "action": {
+        "action": "search",
+        "query": "tool_timeout_s",
+        "path": "fixture/"
+      },
+      "tool_result": {
+        "ok": true,
+        "matches": "/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/settings.py:1:DEFAULTS = {\"tool_timeout_seconds\": 30, \"retries\": 2}\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/settings.py:5:    return {**DEFAULTS, \"tool_timeout_seconds\": int(env.get(\"TOOL_TIMEOUT_SECONDS\", DEFAULTS[\"tool_timeout_seconds\"]))}\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/README.md:3:The `tool_timeout_seconds` setting controls the maximum wait for a tool.\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/config.json:1:{\"tool_timeout_seconds\": 30, \"retries\": 2}\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/test_settings.py:5:    assert load_settings({\"tool_timeout_seconds\": \"99\"})[\"tool_timeout_seconds\"] == 30\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/test_settings.py:9:    assert load_settings({\"TOOL_TIMEOUT_SECONDS\": \"7\"})[\"tool_timeout_seconds\"] == 7\n",
+        "exit_code": 0
+      },
+      "usage": {
+        "completion_tokens": 17,
+        "prompt_tokens": 1920,
+        "total_tokens": 1937,
+        "prompt_tokens_details": {
+          "cached_tokens": 1554
+        }
+      },
+      "timings": {
+        "cache_n": 1554,
+        "prompt_n": 366,
+        "prompt_ms": 18385.444,
+        "prompt_per_token_ms": 50.23345355191257,
+        "prompt_per_second": 19.907052557447077,
+        "predicted_n": 17,
+        "predicted_ms": 1544.744,
+        "predicted_per_token_ms": 90.86729411764705,
+        "predicted_per_second": 11.005059738053685
+      },
+      "elapsed_s": 64.69211959838867
+    },
+    {
+      "step": 7,
+      "content": "{\"action\":\"search\",\"query\":\"tool_timeout_s\",\"path\":\"fixture/\"}",
+      "reasoning_content": "",
+      "action": {
+        "action": "search",
+        "query": "tool_timeout_s",
+        "path": "fixture/"
+      },
+      "tool_result": {
+        "ok": true,
+        "matches": "/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/config.json:1:{\"tool_timeout_seconds\": 30, \"retries\": 2}\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/settings.py:1:DEFAULTS = {\"tool_timeout_seconds\": 30, \"retries\": 2}\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/settings.py:5:    return {**DEFAULTS, \"tool_timeout_seconds\": int(env.get(\"TOOL_TIMEOUT_SECONDS\", DEFAULTS[\"tool_timeout_seconds\"]))}\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/test_settings.py:5:    assert load_settings({\"tool_timeout_seconds\": \"99\"})[\"tool_timeout_seconds\"] == 30\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/test_settings.py:9:    assert load_settings({\"TOOL_TIMEOUT_SECONDS\": \"7\"})[\"tool_timeout_seconds\"] == 7\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/README.md:3:The `tool_timeout_seconds` setting controls the maximum wait for a tool.\n",
+        "exit_code": 0
+      },
+      "usage": {
+        "completion_tokens": 17,
+        "prompt_tokens": 2282,
+        "total_tokens": 2299,
+        "prompt_tokens_details": {
+          "cached_tokens": 1916
+        }
+      },
+      "timings": {
+        "cache_n": 1916,
+        "prompt_n": 366,
+        "prompt_ms": 21970.435,
+        "prompt_per_token_ms": 60.02851092896175,
+        "prompt_per_second": 16.65875072569114,
+        "predicted_n": 17,
+        "predicted_ms": 1783.682,
+        "predicted_per_token_ms": 104.9224705882353,
+        "predicted_per_second": 9.530846866201488
+      },
+      "elapsed_s": 88.51765990257263
+    },
+    {
+      "step": 8,
+      "content": "{\"action\":\"search\",\"query\":\"tool_timeout_s\",\"path\":\"fixture/\"}",
+      "reasoning_content": "",
+      "action": {
+        "action": "search",
+        "query": "tool_timeout_s",
+        "path": "fixture/"
+      },
+      "tool_result": {
+        "ok": true,
+        "matches": "/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/settings.py:1:DEFAULTS = {\"tool_timeout_seconds\": 30, \"retries\": 2}\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/settings.py:5:    return {**DEFAULTS, \"tool_timeout_seconds\": int(env.get(\"TOOL_TIMEOUT_SECONDS\", DEFAULTS[\"tool_timeout_seconds\"]))}\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/README.md:3:The `tool_timeout_seconds` setting controls the maximum wait for a tool.\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/config.json:1:{\"tool_timeout_seconds\": 30, \"retries\": 2}\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/test_settings.py:5:    assert load_settings({\"tool_timeout_seconds\": \"99\"})[\"tool_timeout_seconds\"] == 30\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/test_settings.py:9:    assert load_settings({\"TOOL_TIMEOUT_SECONDS\": \"7\"})[\"tool_timeout_seconds\"] == 7\n",
+        "exit_code": 0
+      },
+      "usage": {
+        "completion_tokens": 17,
+        "prompt_tokens": 2644,
+        "total_tokens": 2661,
+        "prompt_tokens_details": {
+          "cached_tokens": 2278
+        }
+      },
+      "timings": {
+        "cache_n": 2278,
+        "prompt_n": 366,
+        "prompt_ms": 25988.161,
+        "prompt_per_token_ms": 71.0059043715847,
+        "prompt_per_second": 14.083335869744689,
+        "predicted_n": 17,
+        "predicted_ms": 2166.512,
+        "predicted_per_token_ms": 127.44188235294119,
+        "predicted_per_second": 7.8467139808134
+      },
+      "elapsed_s": 116.744295835495
+    },
+    {
+      "step": 9,
+      "content": "{\"action\":\"search\",\"query\":\"tool_timeout_s\",\"path\":\"fixture/\"}",
+      "reasoning_content": "",
+      "action": {
+        "action": "search",
+        "query": "tool_timeout_s",
+        "path": "fixture/"
+      },
+      "tool_result": {
+        "ok": true,
+        "matches": "/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/settings.py:1:DEFAULTS = {\"tool_timeout_seconds\": 30, \"retries\": 2}\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/settings.py:5:    return {**DEFAULTS, \"tool_timeout_seconds\": int(env.get(\"TOOL_TIMEOUT_SECONDS\", DEFAULTS[\"tool_timeout_seconds\"]))}\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/README.md:3:The `tool_timeout_seconds` setting controls the maximum wait for a tool.\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/config.json:1:{\"tool_timeout_seconds\": 30, \"retries\": 2}\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/test_settings.py:5:    assert load_settings({\"tool_timeout_seconds\": \"99\"})[\"tool_timeout_seconds\"] == 30\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/test_settings.py:9:    assert load_settings({\"TOOL_TIMEOUT_SECONDS\": \"7\"})[\"tool_timeout_seconds\"] == 7\n",
+        "exit_code": 0
+      },
+      "usage": {
+        "completion_tokens": 17,
+        "prompt_tokens": 3006,
+        "total_tokens": 3023,
+        "prompt_tokens_details": {
+          "cached_tokens": 2640
+        }
+      },
+      "timings": {
+        "cache_n": 2640,
+        "prompt_n": 366,
+        "prompt_ms": 28219.561,
+        "prompt_per_token_ms": 77.10262568306011,
+        "prompt_per_second": 12.969726920982222,
+        "predicted_n": 17,
+        "predicted_ms": 2079.696,
+        "predicted_per_token_ms": 122.33505882352941,
+        "predicted_per_second": 8.174271624314324
+      },
+      "elapsed_s": 147.13568711280823
+    },
+    {
+      "step": 10,
+      "content": "{\"action\":\"search\",\"query\":\"tool_timeout_s\",\"path\":\"fixture/\"}",
+      "reasoning_content": "",
+      "action": {
+        "action": "search",
+        "query": "tool_timeout_s",
+        "path": "fixture/"
+      },
+      "tool_result": {
+        "ok": true,
+        "matches": "/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/settings.py:1:DEFAULTS = {\"tool_timeout_seconds\": 30, \"retries\": 2}\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/settings.py:5:    return {**DEFAULTS, \"tool_timeout_seconds\": int(env.get(\"TOOL_TIMEOUT_SECONDS\", DEFAULTS[\"tool_timeout_seconds\"]))}\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/README.md:3:The `tool_timeout_seconds` setting controls the maximum wait for a tool.\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/test_settings.py:5:    assert load_settings({\"tool_timeout_seconds\": \"99\"})[\"tool_timeout_seconds\"] == 30\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/test_settings.py:9:    assert load_settings({\"TOOL_TIMEOUT_SECONDS\": \"7\"})[\"tool_timeout_seconds\"] == 7\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/config.json:1:{\"tool_timeout_seconds\": 30, \"retries\": 2}\n",
+        "exit_code": 0
+      },
+      "usage": {
+        "completion_tokens": 17,
+        "prompt_tokens": 3368,
+        "total_tokens": 3385,
+        "prompt_tokens_details": {
+          "cached_tokens": 3002
+        }
+      },
+      "timings": {
+        "cache_n": 3002,
+        "prompt_n": 366,
+        "prompt_ms": 33250.351,
+        "prompt_per_token_ms": 90.84795355191258,
+        "prompt_per_second": 11.007402598547003,
+        "predicted_n": 17,
+        "predicted_ms": 2658.9,
+        "predicted_per_token_ms": 156.40588235294118,
+        "predicted_per_second": 6.393621422392719
+      },
+      "elapsed_s": 183.12612652778625
+    },
+    {
+      "step": 11,
+      "content": "{\"action\":\"search\",\"query\":\"tool_timeout_s\",\"path\":\"fixture/\"}",
+      "reasoning_content": "",
+      "action": {
+        "action": "search",
+        "query": "tool_timeout_s",
+        "path": "fixture/"
+      },
+      "tool_result": {
+        "ok": true,
+        "matches": "/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/settings.py:1:DEFAULTS = {\"tool_timeout_seconds\": 30, \"retries\": 2}\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/settings.py:5:    return {**DEFAULTS, \"tool_timeout_seconds\": int(env.get(\"TOOL_TIMEOUT_SECONDS\", DEFAULTS[\"tool_timeout_seconds\"]))}\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/README.md:3:The `tool_timeout_seconds` setting controls the maximum wait for a tool.\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/config.json:1:{\"tool_timeout_seconds\": 30, \"retries\": 2}\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/test_settings.py:5:    assert load_settings({\"tool_timeout_seconds\": \"99\"})[\"tool_timeout_seconds\"] == 30\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/test_settings.py:9:    assert load_settings({\"TOOL_TIMEOUT_SECONDS\": \"7\"})[\"tool_timeout_seconds\"] == 7\n",
+        "exit_code": 0
+      },
+      "usage": {
+        "completion_tokens": 17,
+        "prompt_tokens": 3730,
+        "total_tokens": 3747,
+        "prompt_tokens_details": {
+          "cached_tokens": 3364
+        }
+      },
+      "timings": {
+        "cache_n": 3364,
+        "prompt_n": 366,
+        "prompt_ms": 38568.993,
+        "prompt_per_token_ms": 105.37976229508197,
+        "prompt_per_second": 9.489488097342857,
+        "predicted_n": 17,
+        "predicted_ms": 2789.164,
+        "predicted_per_token_ms": 164.0684705882353,
+        "predicted_per_second": 6.0950162844493905
+      },
+      "elapsed_s": 224.57399606704712
+    },
+    {
+      "step": 12,
+      "content": "{\"action\":\"search\",\"query\":\"tool_timeout_s\",\"path\":\"fixture/\"}",
+      "reasoning_content": "",
+      "action": {
+        "action": "search",
+        "query": "tool_timeout_s",
+        "path": "fixture/"
+      },
+      "tool_result": {
+        "ok": true,
+        "matches": "/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/settings.py:1:DEFAULTS = {\"tool_timeout_seconds\": 30, \"retries\": 2}\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/settings.py:5:    return {**DEFAULTS, \"tool_timeout_seconds\": int(env.get(\"TOOL_TIMEOUT_SECONDS\", DEFAULTS[\"tool_timeout_seconds\"]))}\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/README.md:3:The `tool_timeout_seconds` setting controls the maximum wait for a tool.\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/config.json:1:{\"tool_timeout_seconds\": 30, \"retries\": 2}\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/test_settings.py:5:    assert load_settings({\"tool_timeout_seconds\": \"99\"})[\"tool_timeout_seconds\"] == 30\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/test_settings.py:9:    assert load_settings({\"TOOL_TIMEOUT_SECONDS\": \"7\"})[\"tool_timeout_seconds\"] == 7\n",
+        "exit_code": 0
+      },
+      "usage": {
+        "completion_tokens": 17,
+        "prompt_tokens": 4092,
+        "total_tokens": 4109,
+        "prompt_tokens_details": {
+          "cached_tokens": 3726
+        }
+      },
+      "timings": {
+        "cache_n": 3726,
+        "prompt_n": 366,
+        "prompt_ms": 42600.698,
+        "prompt_per_token_ms": 116.39534972677595,
+        "prompt_per_second": 8.591408525747632,
+        "predicted_n": 17,
+        "predicted_ms": 3371.965,
+        "predicted_per_token_ms": 198.3508823529412,
+        "predicted_per_second": 5.041570716184776
+      },
+      "elapsed_s": 270.62483859062195
+    },
+    {
+      "step": 13,
+      "content": "{\"action\":\"search\",\"query\":\"tool_timeout_s\",\"path\":\"fixture/\"}",
+      "reasoning_content": "",
+      "action": {
+        "action": "search",
+        "query": "tool_timeout_s",
+        "path": "fixture/"
+      },
+      "tool_result": {
+        "ok": true,
+        "matches": "/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/settings.py:1:DEFAULTS = {\"tool_timeout_seconds\": 30, \"retries\": 2}\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/settings.py:5:    return {**DEFAULTS, \"tool_timeout_seconds\": int(env.get(\"TOOL_TIMEOUT_SECONDS\", DEFAULTS[\"tool_timeout_seconds\"]))}\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/README.md:3:The `tool_timeout_seconds` setting controls the maximum wait for a tool.\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/config.json:1:{\"tool_timeout_seconds\": 30, \"retries\": 2}\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/test_settings.py:5:    assert load_settings({\"tool_timeout_seconds\": \"99\"})[\"tool_timeout_seconds\"] == 30\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/test_settings.py:9:    assert load_settings({\"TOOL_TIMEOUT_SECONDS\": \"7\"})[\"tool_timeout_seconds\"] == 7\n",
+        "exit_code": 0
+      },
+      "usage": {
+        "completion_tokens": 17,
+        "prompt_tokens": 4454,
+        "total_tokens": 4471,
+        "prompt_tokens_details": {
+          "cached_tokens": 4088
+        }
+      },
+      "timings": {
+        "cache_n": 4088,
+        "prompt_n": 366,
+        "prompt_ms": 47565.142,
+        "prompt_per_token_ms": 129.9594043715847,
+        "prompt_per_second": 7.69471055084835,
+        "predicted_n": 17,
+        "predicted_ms": 3485.547,
+        "predicted_per_token_ms": 205.03217647058824,
+        "predicted_per_second": 4.877283249946134
+      },
+      "elapsed_s": 321.76958417892456
+    },
+    {
+      "step": 14,
+      "content": "{\"action\":\"search\",\"query\":\"tool_timeout_s\",\"path\":\"fixture/\"}",
+      "reasoning_content": "",
+      "action": {
+        "action": "search",
+        "query": "tool_timeout_s",
+        "path": "fixture/"
+      },
+      "tool_result": {
+        "ok": true,
+        "matches": "/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/settings.py:1:DEFAULTS = {\"tool_timeout_seconds\": 30, \"retries\": 2}\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/settings.py:5:    return {**DEFAULTS, \"tool_timeout_seconds\": int(env.get(\"TOOL_TIMEOUT_SECONDS\", DEFAULTS[\"tool_timeout_seconds\"]))}\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/README.md:3:The `tool_timeout_seconds` setting controls the maximum wait for a tool.\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/config.json:1:{\"tool_timeout_seconds\": 30, \"retries\": 2}\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/test_settings.py:5:    assert load_settings({\"tool_timeout_seconds\": \"99\"})[\"tool_timeout_seconds\"] == 30\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/test_settings.py:9:    assert load_settings({\"TOOL_TIMEOUT_SECONDS\": \"7\"})[\"tool_timeout_seconds\"] == 7\n",
+        "exit_code": 0
+      },
+      "usage": {
+        "completion_tokens": 17,
+        "prompt_tokens": 4816,
+        "total_tokens": 4833,
+        "prompt_tokens_details": {
+          "cached_tokens": 4450
+        }
+      },
+      "timings": {
+        "cache_n": 4450,
+        "prompt_n": 366,
+        "prompt_ms": 52409.934,
+        "prompt_per_token_ms": 143.19654098360655,
+        "prompt_per_second": 6.9834089087004,
+        "predicted_n": 17,
+        "predicted_ms": 3348.771,
+        "predicted_per_token_ms": 196.9865294117647,
+        "predicted_per_second": 5.076489255311874
+      },
+      "elapsed_s": 377.61496448516846
+    },
+    {
+      "step": 15,
+      "content": "{\"action\":\"search\",\"query\":\"tool_timeout_s\",\"path\":\"fixture/\"}",
+      "reasoning_content": "",
+      "action": {
+        "action": "search",
+        "query": "tool_timeout_s",
+        "path": "fixture/"
+      },
+      "tool_result": {
+        "ok": true,
+        "matches": "/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/settings.py:1:DEFAULTS = {\"tool_timeout_seconds\": 30, \"retries\": 2}\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/settings.py:5:    return {**DEFAULTS, \"tool_timeout_seconds\": int(env.get(\"TOOL_TIMEOUT_SECONDS\", DEFAULTS[\"tool_timeout_seconds\"]))}\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/README.md:3:The `tool_timeout_seconds` setting controls the maximum wait for a tool.\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/config.json:1:{\"tool_timeout_seconds\": 30, \"retries\": 2}\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/test_settings.py:5:    assert load_settings({\"tool_timeout_seconds\": \"99\"})[\"tool_timeout_seconds\"] == 30\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/test_settings.py:9:    assert load_settings({\"TOOL_TIMEOUT_SECONDS\": \"7\"})[\"tool_timeout_seconds\"] == 7\n",
+        "exit_code": 0
+      },
+      "usage": {
+        "completion_tokens": 17,
+        "prompt_tokens": 5178,
+        "total_tokens": 5195,
+        "prompt_tokens_details": {
+          "cached_tokens": 4812
+        }
+      },
+      "timings": {
+        "cache_n": 4812,
+        "prompt_n": 366,
+        "prompt_ms": 59415.329,
+        "prompt_per_token_ms": 162.33696448087431,
+        "prompt_per_second": 6.160026480708371,
+        "predicted_n": 17,
+        "predicted_ms": 3867.432,
+        "predicted_per_token_ms": 227.49599999999998,
+        "predicted_per_second": 4.395681682315294
+      },
+      "elapsed_s": 441.00121116638184
+    },
+    {
+      "step": 16,
+      "content": "{\"action\":\"search\",\"query\":\"tool_timeout_s\",\"path\":\"fixture/\"}",
+      "reasoning_content": "",
+      "action": {
+        "action": "search",
+        "query": "tool_timeout_s",
+        "path": "fixture/"
+      },
+      "tool_result": {
+        "ok": true,
+        "matches": "/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/settings.py:1:DEFAULTS = {\"tool_timeout_seconds\": 30, \"retries\": 2}\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/settings.py:5:    return {**DEFAULTS, \"tool_timeout_seconds\": int(env.get(\"TOOL_TIMEOUT_SECONDS\", DEFAULTS[\"tool_timeout_seconds\"]))}\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/README.md:3:The `tool_timeout_seconds` setting controls the maximum wait for a tool.\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/config.json:1:{\"tool_timeout_seconds\": 30, \"retries\": 2}\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/test_settings.py:5:    assert load_settings({\"tool_timeout_seconds\": \"99\"})[\"tool_timeout_seconds\"] == 30\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/test_settings.py:9:    assert load_settings({\"TOOL_TIMEOUT_SECONDS\": \"7\"})[\"tool_timeout_seconds\"] == 7\n",
+        "exit_code": 0
+      },
+      "usage": {
+        "completion_tokens": 17,
+        "prompt_tokens": 5540,
+        "total_tokens": 5557,
+        "prompt_tokens_details": {
+          "cached_tokens": 5174
+        }
+      },
+      "timings": {
+        "cache_n": 5174,
+        "prompt_n": 366,
+        "prompt_ms": 66209.91,
+        "prompt_per_token_ms": 180.90139344262295,
+        "prompt_per_second": 5.527873395387488,
+        "predicted_n": 17,
+        "predicted_ms": 3749.709,
+        "predicted_per_token_ms": 220.57111764705883,
+        "predicted_per_second": 4.533685147300765
+      },
+      "elapsed_s": 511.04726457595825
+    },
+    {
+      "step": 17,
+      "content": "{\"action\":\"search\",\"query\":\"tool_timeout_s\",\"path\":\"fixture/\"}",
+      "reasoning_content": "",
+      "action": {
+        "action": "search",
+        "query": "tool_timeout_s",
+        "path": "fixture/"
+      },
+      "tool_result": {
+        "ok": true,
+        "matches": "/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/settings.py:1:DEFAULTS = {\"tool_timeout_seconds\": 30, \"retries\": 2}\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/settings.py:5:    return {**DEFAULTS, \"tool_timeout_seconds\": int(env.get(\"TOOL_TIMEOUT_SECONDS\", DEFAULTS[\"tool_timeout_seconds\"]))}\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/README.md:3:The `tool_timeout_seconds` setting controls the maximum wait for a tool.\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/config.json:1:{\"tool_timeout_seconds\": 30, \"retries\": 2}\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/test_settings.py:5:    assert load_settings({\"tool_timeout_seconds\": \"99\"})[\"tool_timeout_seconds\"] == 30\n/tmp/repo-worker-calibration-v1-worktrees/bonsai-thinking-off-dspark-on_task3_multifile/fixture/test_settings.py:9:    assert load_settings({\"TOOL_TIMEOUT_SECONDS\": \"7\"})[\"tool_timeout_seconds\"] == 7\n",
+        "exit_code": 0
+      },
+      "usage": {
+        "completion_tokens": 17,
+        "prompt_tokens": 5902,
+        "total_tokens": 5919,
+        "prompt_tokens_details": {
+          "cached_tokens": 5536
+        }
+      },
+      "timings": {
+        "cache_n": 5536,
+        "prompt_n": 366,
+        "prompt_ms": 71547.892,
+        "prompt_per_token_ms": 195.48604371584702,
+        "prompt_per_second": 5.115454694318597,
+        "predicted_n": 17,
+        "predicted_ms": 4566.051,
+        "predicted_per_token_ms": 268.59123529411767,
+        "predicted_per_second": 3.723129680329895
+      },
+      "elapsed_s": 587.2465493679047
+    },
+    {
+      "step": 18,
+      "error": "Request error: Request exceeded timeout (12.00s)"
+    }
+  ]
+}

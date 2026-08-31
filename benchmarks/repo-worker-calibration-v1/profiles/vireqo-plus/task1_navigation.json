@@ -1,0 +1,287 @@
+{
+  "task_id": "task1_navigation",
+  "passed": false,
+  "total_time_s": 203.49,
+  "time_first_tool_call_s": 2.96,
+  "time_first_useful_action_s": 2.96,
+  "time_first_edit_s": null,
+  "time_pass_s": null,
+  "tool_calls_count": 6,
+  "files_read": [
+    "library/routing/model-bindings.yaml",
+    "core/agents/contracts/project-rw.yaml"
+  ],
+  "files_edited": [],
+  "successful_edits": 0,
+  "failed_edits": 0,
+  "patch_attempts": 0,
+  "tool_errors": 34,
+  "recovery_rate": 0.03,
+  "prompt_tokens": 124779,
+  "reasoning_tokens": 0,
+  "output_tokens": 666,
+  "avg_decode_tok_per_sec": 9.06,
+  "avg_prompt_tok_per_sec": 21.27,
+  "peak_vram_mib": 10866,
+  "evaluation_details": {
+    "has_bindings": true,
+    "has_role": true,
+    "has_instructions": false,
+    "has_contract": true
+  },
+  "events": [
+    {
+      "step": 1,
+      "content": "{\"action\":\"list\",\"path\":\".\"}",
+      "reasoning_content": "",
+      "action": {
+        "action": "list",
+        "path": "."
+      },
+      "tool_result": {
+        "ok": true,
+        "entries": [
+          {
+            "name": "AGENTS.md",
+            "type": "file"
+          },
+          {
+            "name": "ARCHITECTURE.md",
+            "type": "file"
+          },
+          {
+            "name": "README.md",
+            "type": "file"
+          },
+          {
+            "name": "capabilities",
+            "type": "dir"
+          },
+          {
+            "name": "core",
+            "type": "dir"
+          },
+          {
+            "name": "fixture",
+            "type": "dir"
+          },
+          {
+            "name": "harnesses",
+            "type": "dir"
+          },
+          {
+            "name": "library",
+            "type": "dir"
+          }
+        ]
+      },
+      "usage": {
+        "completion_tokens": 10,
+        "prompt_tokens": 344,
+        "total_tokens": 354,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 344,
+        "prompt_ms": 2287.445,
+        "prompt_per_token_ms": 6.649549418604652,
+        "prompt_per_second": 150.3861295025673,
+        "predicted_n": 10,
+        "predicted_ms": 607.902,
+        "predicted_per_token_ms": 60.790200000000006,
+        "predicted_per_second": 16.450019904524083
+      },
+      "elapsed_s": 2.95589017868042
+    },
+    {
+      "step": 2,
+      "content": "{\"action\":\"search\",\"query\":\"project-rw\",\"path\":\".\"}",
+      "reasoning_content": "",
+      "action": {
+        "action": "search",
+        "query": "project-rw",
+        "path": "."
+      },
+      "tool_result": {
+        "ok": true,
+        "matches": "/tmp/repo-worker-calibration-v1-worktrees/vireqo-plus_task1_navigation/ARCHITECTURE.md:55:- `project-rw` — explicitly scoped project implementer.\n/tmp/repo-worker-calibration-v1-worktrees/vireqo-plus_task1_navigation/harnesses/antigravity.md:109:A successful model response does not prove operational authority. Do not report `shell` as command-capable or `project-rw` as writable unless the MCP implementation actually performs those scoped operations. If a role tool is analysis/proposal-only, report that limitation explicitly and let Holo perform only the actions that its own Antigravity authority permits after reviewing the result.\n/tmp/repo-worker-calibration-v1-worktrees/vireqo-plus_task1_navigation/harnesses/antigravity.md:123:`bug-auditor` and `architecture-auditor` are read-only and require clean/minimally sufficient first-pass context. `final-gate` and `project-ro` are read-only. `project-rw` may write only if the concrete MCP implementation truly has scoped write capability; otherwise it is proposal-only and must be reported as such.\n/tmp/repo-worker-calibration-v1-worktrees/vireqo-plus_task1_navigation/harnesses/antigravity.md:150:10. verify the actual capability of `shell`, `project-rw`, test and audit tools rather than inferring it from their prompts;\n/tmp/repo-worker-calibration-v1-worktrees/vireqo-plus_task1_navigation/harnesses/kilo.md:39:- `project-rw` may write only within explicitly delegated scope.\n/tmp/repo-worker-calibration-v1-worktrees/vireqo-plus_task1_navigation/harnesses/kilo.md:87:  project-rw: allow\n/tmp/repo-worker-calibration-v1-worktrees/vireqo-plus_task1_navigation/harnesses/vscode.md:43:- `project-rw` is the scoped implementation role.\n/tmp/repo-worker-calibration-v1-worktrees/vireqo-plus_task1_navigation/core/agents/contracts/project-rw.yaml:1:id: project-rw\n/tmp/repo-worker-calibration-v1-worktrees/vireqo-plus_task1_navigation/library/rules/tool-authority.md:53:- `project-rw`: write/execute only inside the explicit delegated scope.\n/tmp/repo-worker-calibration-v1-worktrees/vireqo-plus_task1_navigation/library/routing/model-bindings.yaml:88:  project-rw:\n",
+        "exit_code": 0
+      },
+      "usage": {
+        "completion_tokens": 16,
+        "prompt_tokens": 481,
+        "total_tokens": 497,
+        "prompt_tokens_details": {
+          "cached_tokens": 353
+        }
+      },
+      "timings": {
+        "cache_n": 353,
+        "prompt_n": 128,
+        "prompt_ms": 1408.415,
+        "prompt_per_token_ms": 11.0032421875,
+        "prompt_per_second": 90.88230386640302,
+        "predicted_n": 16,
+        "predicted_ms": 760.192,
+        "predicted_per_token_ms": 47.512,
+        "predicted_per_second": 21.04731436268732
+      },
+      "elapsed_s": 5.169318437576294
+    },
+    {
+      "step": 3,
+      "content": "{\"action\":\"read\",\"path\":\"library/routing/model-bindings.yaml\",\"start\":80,\"end\":120}",
+      "reasoning_content": "",
+      "action": {
+        "action": "read",
+        "path": "library/routing/model-bindings.yaml",
+        "start": 80,
+        "end": 120
+      },
+      "tool_result": {
+        "ok": true,
+        "path": "library/routing/model-bindings.yaml",
+        "start": 80,
+        "end": 101,
+        "content": "80:     status: selected-by-human\n81: \n82:   project-ro:\n83:     model: GPT-5.6 Luna\n84:     reasoning: medium\n85:     access_route: ucp-via-cliproxyapi\n86:     status: selected-by-human\n87: \n88:   project-rw:\n89:     model: GPT-5.6 Terra\n90:     reasoning: max\n91:     access_route: ucp-via-cliproxyapi\n92:     status: selected-by-human\n93: \n94: notes:\n95:   - This file records the human-owned architectural roster; it does not generate harness configuration.\n96:   - The selected bindings above were explicitly approved by the human owner.\n97:   - access_route records the human-selected source/path for the model; it is not a universal harness-native model identifier.\n98:   - Each harness may require a different native model identifier, direct CLIProxyAPI access, another native representation, or manual UI configuration.\n99:   - Holo never changes reasoning levels, models or access routes automatically.\n100:   - If a selected model is unavailable in a harness, document the limitation rather than silently substituting another model.\n101:   - Change this file to change architectural intent; apply the selected roster independently in each desired harness."
+      },
+      "usage": {
+        "completion_tokens": 27,
+        "prompt_tokens": 1073,
+        "total_tokens": 1100,
+        "prompt_tokens_details": {
+          "cached_tokens": 496
+        }
+      },
+      "timings": {
+        "cache_n": 496,
+        "prompt_n": 577,
+        "prompt_ms": 8319.695,
+        "prompt_per_token_ms": 14.418882149046793,
+        "prompt_per_second": 69.35350394455565,
+        "predicted_n": 27,
+        "predicted_ms": 1731.954,
+        "predicted_per_token_ms": 64.14644444444444,
+        "predicted_per_second": 15.589328584939324
+      },
+      "elapsed_s": 15.276864528656006
+    },
+    {
+      "step": 4,
+      "content": "{\"action\":\"read\",\"path\":\"library/routing/model-bindings.yaml\",\"start\":1,\"end\":80}",
+      "reasoning_content": "",
+      "action": {
+        "action": "read",
+        "path": "library/routing/model-bindings.yaml",
+        "start": 1,
+        "end": 80
+      },
+      "tool_result": {
+        "ok": true,
+        "path": "library/routing/model-bindings.yaml",
+        "start": 1,
+        "end": 80,
+        "content": "1: version: 1\n2: schema: holo-agent-tooling/human-model-bindings/v1\n3: \n4: policy:\n5:   owner: human\n6:   automatic_model_selection: false\n7:   automatic_model_substitution: false\n8:   rule: Holo selects roles; only the human-maintained binding selects the model.\n9: \n10: access_routes:\n11:   ucp-via-cliproxyapi:\n12:     kind: user-selected-access-path\n13:     description: Universal Chat Provider VS Code extension through CLIProxyAPI.\n14:   opencode-api:\n15:     kind: user-selected-access-path\n16:     description: OpenCode API.\n17: \n18: bindings:\n19:   holo:\n20:     model: Gemini 3.7 Flash\n21:     reasoning: high\n22:     access_route: ucp-via-cliproxyapi\n23:     status: selected-by-human\n24: \n25:   explore:\n26:     model: GPT-5.6 Luna\n27:     reasoning: medium\n28:     access_route: ucp-via-cliproxyapi\n29:     status: selected-by-human\n30:     preferred_class: economical-fast\n31: \n32:   shell:\n33:     model: GPT-5.6 Luna\n34:     reasoning: medium\n35:     access_route: ucp-via-cliproxyapi\n36:     status: selected-by-human\n37:     preferred_class: economical-fast\n38: \n39:   browser:\n40:     model: Gemini 3.7 Flash\n41:     reasoning: low\n42:     access_route: ucp-via-cliproxyapi\n43:     status: selected-by-human\n44:     preferred_class: economical-fast\n45: \n46:   test-engineer:\n47:     model: DeepSeek V4 Flash 0731\n48:     reasoning: max\n49:     access_route: opencode-api\n50:     status: selected-by-human\n51: \n52:   data:\n53:     model: GLM-5.3-Flash\n54:     reasoning: default\n55:     access_route: opencode-api\n56:     status: selected-by-human\n57: \n58:   root-cause-specialist:\n59:     model: GPT-5.6 Terra\n60:     reasoning: max\n61:     access_route: ucp-via-cliproxyapi\n62:     status: selected-by-human\n63: \n64:   bug-auditor:\n65:     model: Grok 4.6\n66:     reasoning: high\n67:     access_route: opencode-api\n68:     status: selected-by-human\n69: \n70:   architecture-auditor:\n71:     model: GLM-5.3\n72:     reasoning: max\n73:     access_route: opencode-api\n74:     status: selected-by-human\n75: \n76:   final-gate:\n77:     model: GPT-5.6 Sol\n78:     reasoning: max\n79:     access_route: ucp-via-cliproxyapi\n80:     status: selected-by-human"
+      },
+      "usage": {
+        "completion_tokens": 25,
+        "prompt_tokens": 1466,
+        "total_tokens": 1491,
+        "prompt_tokens_details": {
+          "cached_tokens": 1099
+        }
+      },
+      "timings": {
+        "cache_n": 1099,
+        "prompt_n": 367,
+        "prompt_ms": 9585.14,
+        "prompt_per_token_ms": 26.117547683923704,
+        "prompt_per_second": 38.288433971752106,
+        "predicted_n": 25,
+        "predicted_ms": 1842.253,
+        "predicted_per_token_ms": 73.69012,
+        "predicted_per_second": 13.570340230142113
+      },
+      "elapsed_s": 26.753441095352173
+    },
+    {
+      "step": 5,
+      "content": "{\"action\":\"read\",\"path\":\"core/agents/contracts/project-rw.yaml\",\"start\":1,\"end\":100}",
+      "reasoning_content": "",
+      "action": {
+        "action": "read",
+        "path": "core/agents/contracts/project-rw.yaml",
+        "start": 1,
+        "end": 100
+      },
+      "tool_result": {
+        "ok": true,
+        "path": "core/agents/contracts/project-rw.yaml",
+        "start": 1,
+        "end": 25,
+        "content": "1: id: project-rw\n2: role: Project-scoped writer contract for a future adapter with explicit write authorization.\n3: responsibilities:\n4:   - Implement only the assigned project change.\n5:   - Preserve project instructions and unrelated work.\n6:   - Run project verification and report the exact diff.\n7: write_policy:\n8:   mode: explicit-scope\n9:   rule: Write only paths and operations authorized by the coordinator.\n10:   forbidden: No secrets, destructive resets, unrelated refactors, or external configuration changes.\n11: read_policy:\n12:   scope: Named project root and applicable instruction files.\n13:   requirement: Confirm scope before editing.\n14: shell_policy:\n15:   mode: approval-required\n16:   rule: Require approval for destructive, external, network, or deployment actions.\n17: delegation_policy:\n18:   mode: coordinator-controlled\n19:   rule: Do not delegate beyond the authorized task contract.\n20: skills_required: [agent-governance, verification]\n21: mcp_capabilities: [repository-read, repository-write, testing]\n22: inputs: [project-root, task, allowed-paths, acceptance-criteria]\n23: outputs: [implementation-diff, verification-report, residual-risk]\n24: verification_requirements: [scope-check, targeted-tests, diff-review, clean-secret-check]\n25: audit_behavior: Hand off for independent audit when behavior, integration, or security risk is material."
+      },
+      "usage": {
+        "completion_tokens": 28,
+        "prompt_tokens": 2342,
+        "total_tokens": 2370,
+        "prompt_tokens_details": {
+          "cached_tokens": 1490
+        }
+      },
+      "timings": {
+        "cache_n": 1490,
+        "prompt_n": 852,
+        "prompt_ms": 27559.621,
+        "prompt_per_token_ms": 32.34697300469483,
+        "prompt_per_second": 30.914793784718594,
+        "predicted_n": 28,
+        "predicted_ms": 2852.536,
+        "predicted_per_token_ms": 101.87628571428571,
+        "predicted_per_second": 9.815827039518519
+      },
+      "elapsed_s": 57.218775033950806
+    },
+    {
+      "step": 7,
+      "content": "{\"action\":\"list\",\"path\":\"core/agents\"}",
+      "reasoning_content": "",
+      "action": {
+        "action": "list",
+        "path": "core/agents"
+      },
+      "tool_result": {
+        "ok": true,
+        "entries": [
+          {
+            "name": "core/agents/contracts",
+            "type": "dir"
+          }
+        ]
+      },
+      "usage": {
+        "completion_tokens": 12,
+        "prompt_tokens": 2797,
+        "total_tokens": 2809,
+        "prompt_tokens_details": {
+          "cached_tokens": 2775
+        }
+      },
+      "timings": {
+        "cache_n": 2775,
+        "prompt_n": 22,
+        "prompt_ms": 1347.848,
+        "prompt_per_token_ms": 61.26581818181818,
+        "prompt_per_second": 16.322315275906483,
+        "predicted_n": 12,
+        "predicted_ms": 1317.005,
+        "predicted_per_token_ms": 109.75041666666668,
+        "predicted_per_second": 9.111582719883371
+      },
+      "elapsed_s": 78.3425624370575
+    }
+  ]
+}

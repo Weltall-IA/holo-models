@@ -28,6 +28,7 @@ ROOT = Path('/home/alpha/Playstoria/models')
 BENCHMARK_DIR = ROOT / 'benchmarks/repo-worker-calibration-v1'
 SOURCE_REPO = Path('/home/alpha/Playstoria/holo-agent-tooling')
 WORK_ROOT = Path('/tmp/repo-worker-calibration-v1-worktrees')
+PYTEST_BIN = Path('/home/alpha/Playstoria/models/.venv/bin/pytest')
 
 PRISM_SERVER = ROOT / 'engines/prism-llama/llama-prism-b9599-9ca265a/llama-server'
 PRISM_LIBS = f"/home/alpha/.lmstudio/extensions/backends/vendor/linux-llama-cuda12-vendor-v1:{PRISM_SERVER.parent}"
@@ -269,7 +270,10 @@ def tool_call(worktree: Path, action: dict) -> dict:
             forbidden = re.search(r'(^|[;&|])\s*(rm|git\s+(reset|checkout|clean)|curl|wget|ssh)\b|\.\./', command)
             if forbidden:
                 return {'ok': False, 'error': 'Command rejected by harness security policy'}
-            res = subprocess.run(command, cwd=worktree, shell=True, text=True, capture_output=True, timeout=120)
+            env = os.environ.copy()
+            if PYTEST_BIN.exists():
+                env['PATH'] = f"{PYTEST_BIN.parent}:{env.get('PATH', '')}"
+            res = subprocess.run(command, cwd=worktree, env=env, shell=True, text=True, capture_output=True, timeout=120)
             return {'ok': res.returncode == 0, 'exit_code': res.returncode, 'stdout': res.stdout[-20000:], 'stderr': res.stderr[-20000:]}
 
         elif name == 'done':
@@ -721,7 +725,10 @@ def run_agent_task(profile: dict, task_id: str, worktree: Path, output_dir: Path
 
     elif task_id == 'task2_bugfix':
         # Pytest check on fixture/test_retry.py
-        py_res = subprocess.run([sys.executable, '-m', 'pytest', '-q', 'test_retry.py'], cwd=worktree / 'fixture', capture_output=True, text=True)
+        py_cmd = [str(PYTEST_BIN) if PYTEST_BIN.exists() else sys.executable, '-q', 'test_retry.py']
+        if not PYTEST_BIN.exists():
+            py_cmd = [sys.executable, '-m', 'pytest', '-q', 'test_retry.py']
+        py_res = subprocess.run(py_cmd, cwd=worktree / 'fixture', capture_output=True, text=True)
         task_passed = (py_res.returncode == 0)
         evaluation_details = {
             'pytest_exit_code': py_res.returncode,
@@ -731,9 +738,12 @@ def run_agent_task(profile: dict, task_id: str, worktree: Path, output_dir: Path
 
     elif task_id == 'task3_multifile':
         # Pytest check on test_settings.py + check all fixture files for tool_timeout_seconds vs tool_timeout_s
-        py_res = subprocess.run([sys.executable, '-m', 'pytest', '-q', 'test_settings.py'], cwd=worktree / 'fixture', capture_output=True, text=True)
-        fixture_files = list((worktree / 'fixture').rglob('*'))
-        all_fixture_text = '\n'.join(p.read_text(encoding='utf-8') for p in fixture_files if p.is_file())
+        py_cmd = [str(PYTEST_BIN) if PYTEST_BIN.exists() else sys.executable, '-q', 'test_settings.py']
+        if not PYTEST_BIN.exists():
+            py_cmd = [sys.executable, '-m', 'pytest', '-q', 'test_settings.py']
+        py_res = subprocess.run(py_cmd, cwd=worktree / 'fixture', capture_output=True, text=True)
+        fixture_files = [p for p in (worktree / 'fixture').rglob('*') if p.is_file() and not p.name.endswith('.pyc') and '__pycache__' not in str(p)]
+        all_fixture_text = '\n'.join(p.read_text(encoding='utf-8', errors='replace') for p in fixture_files)
         old_absent = 'tool_timeout_seconds' not in all_fixture_text
         new_present = 'tool_timeout_s' in all_fixture_text
         task_passed = (py_res.returncode == 0) and old_absent and new_present
@@ -874,6 +884,14 @@ def main():
                     continue
 
                 for t_id in tasks_list:
+                    t_json = p_dir / f'{t_id}.json'
+                    if t_json.exists():
+                        print(f"Skipping {t_id} on {prof['key']} (already completed)")
+                        try:
+                            prof_results[t_id] = json.loads(t_json.read_text(encoding='utf-8'))
+                            continue
+                        except Exception:
+                            pass
                     print(f"\n--- Starting {t_id} on {prof['key']} ---")
                     worktree = WORK_ROOT / f"{prof['id']}_{t_id}"
                     setup_clean_worktree(worktree)
