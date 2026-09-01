@@ -341,10 +341,12 @@ def request_json(url: str, payload: dict[str, Any], timeout: float) -> dict[str,
 
 
 def profile_server_args(profile: dict[str, Any]) -> list[str]:
+    # gsq-iq3xxs-on OOMs at 32768/24576 with thinking ON on 16GB VRAM; use 16384 as fallback
+    ctx = "16384" if profile["id"] == "gsq-iq3xxs-on" else "32768"
     return [
         "-m", str(profile["model_path"]), "--host", "127.0.0.1", "--port", str(PORT),
-        "-c", "32768", "-np", "1", "-ngl", "999", "-fa", "on", "-ctk", "q8_0", "-ctv", "q4_0",
-        "-t", "4", "-tb", "4", "--no-webui", "--reasoning", "on" if profile["thinking"] else "off",
+        "-c", ctx, "-np", "1", "-ngl", "999", "-fa", "on", "-ctk", "q8_0", "-ctv", "q4_0",
+        "-t", "2", "-tb", "2", "--no-webui", "--reasoning", "on" if profile["thinking"] else "off",
     ]
 
 
@@ -610,7 +612,7 @@ def run_llama_bench(profile: dict[str, Any], output_path: Path) -> dict[str, Any
     env = os.environ.copy()
     env["LD_LIBRARY_PATH"] = f"{LLAMA_BENCH.parent}:{env.get('LD_LIBRARY_PATH', '')}"
     cmd = [
-        str(LLAMA_BENCH), "-m", str(profile["model_path"]), "-ngl", "999", "-fa", "1",
+        str(LLAMA_BENCH), "-m", str(profile["model_path"]), "-ngl", "999", "-fa", "1", "-t", "2",
         "-ctk", "q8_0", "-ctv", "q4_0", "-t", "4", "-p", "512", "-n", "128", "-r", "3",
     ]
     try:

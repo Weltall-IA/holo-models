@@ -1,0 +1,199 @@
+{
+  "benchmark": "repo-worker-challenger-v2",
+  "created_by_runner_version": 1,
+  "seed": 9137,
+  "planned_runs": 32,
+  "source_repo_head": "5a7720c3d4874524e4b8fda6c7be5ae456208fdd",
+  "runtime_sha": "8ce8ca6c6d370b6235dfa8e2a0611a9adb6d77d1",
+  "task_timeout_s": 480,
+  "request_timeout_ceiling_s": 240,
+  "max_turns": 40,
+  "profiles": [
+    {
+      "id": "gsq-iq2s-off",
+      "name": "Qwen3.8-27B GSQ-RCO IQ2_S (Thinking OFF)",
+      "model_path": "/home/alpha/Playstoria/models/text/ISTA-DASLab-Qwen3.8-27B-GSQ-RCO-IQ2_S/Qwen3.8-27B-GSQ-RCO-IQ2_S.gguf",
+      "model_sha256": "16c9802111aa9ef3acde465188d6d601f8db128ee3d828ad983a5caca4135ecb",
+      "thinking": false,
+      "temperature": 0.2,
+      "top_p": 0.95,
+      "server_args": [
+        "-m",
+        "/home/alpha/Playstoria/models/text/ISTA-DASLab-Qwen3.8-27B-GSQ-RCO-IQ2_S/Qwen3.8-27B-GSQ-RCO-IQ2_S.gguf",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "8147",
+        "-c",
+        "32768",
+        "-np",
+        "1",
+        "-ngl",
+        "999",
+        "-fa",
+        "on",
+        "-ctk",
+        "q8_0",
+        "-ctv",
+        "q4_0",
+        "-t",
+        "2",
+        "-tb",
+        "2",
+        "--no-webui",
+        "--reasoning",
+        "off"
+      ]
+    },
+    {
+      "id": "gsq-iq3xxs-on",
+      "name": "Qwen3.8-27B GSQ-RCO IQ3_XXS (Thinking ON)",
+      "model_path": "/home/alpha/Playstoria/models/text/ISTA-DASLab-Qwen3.8-27B-GSQ-RCO-IQ3_XXS/Qwen3.8-27B-GSQ-RCO-IQ3_XXS.gguf",
+      "model_sha256": "fdfcb6a29b11188956dfbfd904223588a6c1b77eb250c3e8a36e1bd269df91f7",
+      "thinking": true,
+      "temperature": 0.6,
+      "top_p": 0.95,
+      "server_args": [
+        "-m",
+        "/home/alpha/Playstoria/models/text/ISTA-DASLab-Qwen3.8-27B-GSQ-RCO-IQ3_XXS/Qwen3.8-27B-GSQ-RCO-IQ3_XXS.gguf",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "8147",
+        "-c",
+        "16384",
+        "-np",
+        "1",
+        "-ngl",
+        "999",
+        "-fa",
+        "on",
+        "-ctk",
+        "q8_0",
+        "-ctv",
+        "q4_0",
+        "-t",
+        "2",
+        "-tb",
+        "2",
+        "--no-webui",
+        "--reasoning",
+        "on"
+      ]
+    },
+    {
+      "id": "qwen38-9b-heretic-off",
+      "name": "Qwen3.8-9B Distill uncensored/heretic Q4_K_M (Thinking OFF)",
+      "model_path": "/home/alpha/Playstoria/models/text/petruhonk-Qwen3.8-9B-Distill-uncensored-heretic/Qwen3.8-9B-Distill-uncensored-heretic.i1-Q4_K_M.gguf",
+      "model_sha256": "3a63c5b5c7c6af57d92437ed2610d524ea96a7ecf873ae7f8e470a024c047fa6",
+      "thinking": false,
+      "temperature": 0.2,
+      "top_p": 0.95,
+      "server_args": [
+        "-m",
+        "/home/alpha/Playstoria/models/text/petruhonk-Qwen3.8-9B-Distill-uncensored-heretic/Qwen3.8-9B-Distill-uncensored-heretic.i1-Q4_K_M.gguf",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "8147",
+        "-c",
+        "32768",
+        "-np",
+        "1",
+        "-ngl",
+        "999",
+        "-fa",
+        "on",
+        "-ctk",
+        "q8_0",
+        "-ctv",
+        "q4_0",
+        "-t",
+        "2",
+        "-tb",
+        "2",
+        "--no-webui",
+        "--reasoning",
+        "off"
+      ]
+    },
+    {
+      "id": "ornith-15-9b-off",
+      "name": "Ornith 1.5 9B Q5_K_M (Thinking OFF)",
+      "model_path": "/home/alpha/Playstoria/models/text/bartowski-Ornith-1.5-9B-Q5_K_M/Ornith-1.5-9B-Q5_K_M.gguf",
+      "model_sha256": "b50e44fd4e4dc2a14e5b864cbc296885d111e772c07286efbac9a20c1f1c63ab",
+      "thinking": false,
+      "temperature": 0.2,
+      "top_p": 0.95,
+      "server_args": [
+        "-m",
+        "/home/alpha/Playstoria/models/text/bartowski-Ornith-1.5-9B-Q5_K_M/Ornith-1.5-9B-Q5_K_M.gguf",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "8147",
+        "-c",
+        "32768",
+        "-np",
+        "1",
+        "-ngl",
+        "999",
+        "-fa",
+        "on",
+        "-ctk",
+        "q8_0",
+        "-ctv",
+        "q4_0",
+        "-t",
+        "2",
+        "-tb",
+        "2",
+        "--no-webui",
+        "--reasoning",
+        "off"
+      ]
+    }
+  ],
+  "tasks": [
+    {
+      "id": "task01_deep_repo_navigation",
+      "kind": "ordered_oracle",
+      "instruction": "A synthetic role-routing subsystem exists under `challenge/nav`. Determine the complete active routing chain from the user-facing role request through alias resolution, binding resolution, canonical role instructions, formal contract, and final write-scope policy. Several plausible legacy/decoy files exist. Do not edit anything. Emit `done` with the ordered chain of repository-relative paths and a short explanation of why that chain is active."
+    },
+    {
+      "id": "task02_diagnostic_bugfix",
+      "kind": "hidden_pytest",
+      "instruction": "The pagination tests in `challenge/diag/test_pager.py` are failing. Diagnose the underlying implementation bug without being told its location, make the smallest correct fix, run `pytest challenge/diag/test_pager.py`, and emit `done` when the behavior is correct. Preserve valid cursor behavior for empty/final pages and arbitrary limits."
+    },
+    {
+      "id": "task03_semantic_regression_trap",
+      "kind": "hidden_pytest",
+      "instruction": "Extend the rule table under `challenge/semantic` with namespace-prefix rules via `add_namespace(prefix, action)`. Exact rules registered with `add_exact` must remain exact-only and take precedence. When multiple namespace rules match, the longest prefix must win. Update the implementation as needed, run the public tests, and emit `done`. Preserve all existing exact-rule semantics."
+    },
+    {
+      "id": "task04_feature_and_test_authoring",
+      "kind": "feature_test_authoring",
+      "instruction": "In `challenge/feature`, add `LRUCache.invalidate_prefix(prefix)`. It must remove every entry whose key is a string starting with `prefix`, leave non-string keys untouched, preserve the remaining LRU order, and return the number removed. Add meaningful public tests for the new behavior, run `pytest challenge/feature/test_cache.py`, and emit `done`."
+    },
+    {
+      "id": "task05_real_multifile_change",
+      "kind": "multifile",
+      "instruction": "Within `challenge/multifile`, replace the public setting `max_attempts` with `retry_limit` throughout the implementation and all consumers. Preserve the default value 3, change the environment override to `RETRY_LIMIT`, keep code/stub/config/docs/tests consistent, discover all affected files yourself, run `pytest challenge/multifile/test_client.py`, and emit `done`."
+    },
+    {
+      "id": "task06_mandatory_recovery",
+      "kind": "mandatory_recovery",
+      "instruction": "Start by reading `challenge/recovery/runtime_effective.py`. If it does not exist, handle that tool error, locate the actual effective runtime settings under `challenge/recovery`, determine the configured default worker timeout, and emit `done` with the confirmed value and the repository-relative path of the authoritative settings file. Do not edit anything."
+    },
+    {
+      "id": "task07_architectural_placement",
+      "kind": "architecture",
+      "instruction": "The mini application under `challenge/arch` follows transport -> service -> policy/repository boundaries. Add the rule that any target user id beginning with `reserved:` is denied before the repository is queried. Access-decision logic belongs in the policy layer; the service should consume that policy rather than duplicating the rule. Preserve normal/admin behavior, run `pytest challenge/arch/test_profile.py`, and emit `done`."
+    },
+    {
+      "id": "task08_stopping_control",
+      "kind": "stopping",
+      "instruction": "Investigate the audit-export configuration under `challenge/stopping`. Determine which backend is actually active and the exact enabling condition that makes it active. Legacy and documentation files may contain stale alternatives. Do not edit anything. Once the authoritative evidence is sufficient, emit `done` with the backend and enabling condition."
+    }
+  ]
+}

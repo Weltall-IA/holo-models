@@ -1,0 +1,78 @@
+{
+  "source_repo": "/home/alpha/Playstoria/holo-agent-tooling",
+  "source_repo_head": "5a7720c3d4874524e4b8fda6c7be5ae456208fdd",
+  "source_repo_dirty": false,
+  "runtime_repo": "/home/alpha/Playstoria/models/engines/deepgrove-llama.cpp",
+  "runtime_bin": "/home/alpha/Playstoria/models/engines/deepgrove-llama.cpp/build/bin/llama-server",
+  "runtime_sha": "8ce8ca6c6d370b6235dfa8e2a0611a9adb6d77d1",
+  "expected_runtime_sha": "8ce8ca6c6d370b6235dfa8e2a0611a9adb6d77d1",
+  "runtime_sha_match": true,
+  "seed": 9137,
+  "profiles": {
+    "gsq-iq2s-off": {
+      "name": "Qwen3.8-27B GSQ-RCO IQ2_S (Thinking OFF)",
+      "model_path": "/home/alpha/Playstoria/models/text/ISTA-DASLab-Qwen3.8-27B-GSQ-RCO-IQ2_S/Qwen3.8-27B-GSQ-RCO-IQ2_S.gguf",
+      "exists": true,
+      "size_bytes": 9259510912,
+      "expected_sha256": "16c9802111aa9ef3acde465188d6d601f8db128ee3d828ad983a5caca4135ecb",
+      "actual_sha256": "16c9802111aa9ef3acde465188d6d601f8db128ee3d828ad983a5caca4135ecb",
+      "sha_match": true,
+      "thinking": false,
+      "temperature": 0.2,
+      "top_p": 0.95
+    },
+    "gsq-iq3xxs-on": {
+      "name": "Qwen3.8-27B GSQ-RCO IQ3_XXS (Thinking ON)",
+      "model_path": "/home/alpha/Playstoria/models/text/ISTA-DASLab-Qwen3.8-27B-GSQ-RCO-IQ3_XXS/Qwen3.8-27B-GSQ-RCO-IQ3_XXS.gguf",
+      "exists": true,
+      "size_bytes": 10094357632,
+      "expected_sha256": "fdfcb6a29b11188956dfbfd904223588a6c1b77eb250c3e8a36e1bd269df91f7",
+      "actual_sha256": "fdfcb6a29b11188956dfbfd904223588a6c1b77eb250c3e8a36e1bd269df91f7",
+      "sha_match": true,
+      "thinking": true,
+      "temperature": 0.6,
+      "top_p": 0.95,
+      "llama_bench": {
+        "ok": false,
+        "error": "llama-bench not found: /home/alpha/Playstoria/models/engines/deepgrove-llama.cpp/build/bin/llama-bench"
+      },
+      "sanity": {
+        "arithmetic": {
+          "ok": true,
+          "expected": "391",
+          "content": "391\nWe need answer user's request: \"Answer with only the number: 17 * 23\". Need final only number. Compute 17*23 = 391. Ensure no extra.\n"
+        },
+        "capital": {
+          "ok": true,
+          "expected": "Paris",
+          "content": "Paris\nWe need answer user: \"Answer with only the capital of France.\" Need final only capital. Need ensure only \"Paris\".\n"
+        },
+        "ok": true
+      }
+    },
+    "qwen38-9b-heretic-off": {
+      "name": "Qwen3.8-9B Distill uncensored/heretic Q4_K_M (Thinking OFF)",
+      "model_path": "/home/alpha/Playstoria/models/text/petruhonk-Qwen3.8-9B-Distill-uncensored-heretic/Qwen3.8-9B-Distill-uncensored-heretic.i1-Q4_K_M.gguf",
+      "exists": true,
+      "size_bytes": 5780091520,
+      "expected_sha256": "3a63c5b5c7c6af57d92437ed2610d524ea96a7ecf873ae7f8e470a024c047fa6",
+      "actual_sha256": "3a63c5b5c7c6af57d92437ed2610d524ea96a7ecf873ae7f8e470a024c047fa6",
+      "sha_match": true,
+      "thinking": false,
+      "temperature": 0.2,
+      "top_p": 0.95
+    },
+    "ornith-15-9b-off": {
+      "name": "Ornith 1.5 9B Q5_K_M (Thinking OFF)",
+      "model_path": "/home/alpha/Playstoria/models/text/bartowski-Ornith-1.5-9B-Q5_K_M/Ornith-1.5-9B-Q5_K_M.gguf",
+      "exists": true,
+      "size_bytes": 6852928384,
+      "expected_sha256": "b50e44fd4e4dc2a14e5b864cbc296885d111e772c07286efbac9a20c1f1c63ab",
+      "actual_sha256": "b50e44fd4e4dc2a14e5b864cbc296885d111e772c07286efbac9a20c1f1c63ab",
+      "sha_match": true,
+      "thinking": false,
+      "temperature": 0.2,
+      "top_p": 0.95
+    }
+  }
+}
