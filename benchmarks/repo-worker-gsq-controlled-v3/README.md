@@ -40,7 +40,7 @@ All six use the same sampling and runtime envelope:
 - one slot
 - task timeout `480 s`
 
-The budgeted profiles use `--reasoning-budget 256` and a short budget-exhaustion message. They are not unrestricted Thinking ON profiles.
+The budgeted profiles use native `--reasoning-budget 256` with the runtime's default budget-exhaustion behavior. They are not unrestricted Thinking ON profiles.
 
 ## Suite
 
