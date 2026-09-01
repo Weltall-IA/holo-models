@@ -31,6 +31,18 @@
       "sha_match": true,
       "thinking": true,
       "temperature": 0.6,
+      "top_p": 0.95
+    },
+    "gsq-iq3xxs-off": {
+      "name": "Qwen3.8-27B GSQ-RCO IQ3_XXS (Thinking OFF)",
+      "model_path": "/home/alpha/Playstoria/models/text/ISTA-DASLab-Qwen3.8-27B-GSQ-RCO-IQ3_XXS/Qwen3.8-27B-GSQ-RCO-IQ3_XXS.gguf",
+      "exists": true,
+      "size_bytes": 10094357632,
+      "expected_sha256": "fdfcb6a29b11188956dfbfd904223588a6c1b77eb250c3e8a36e1bd269df91f7",
+      "actual_sha256": "fdfcb6a29b11188956dfbfd904223588a6c1b77eb250c3e8a36e1bd269df91f7",
+      "sha_match": true,
+      "thinking": false,
+      "temperature": 0.2,
       "top_p": 0.95,
       "llama_bench": {
         "ok": false,
@@ -40,12 +52,41 @@
         "arithmetic": {
           "ok": true,
           "expected": "391",
-          "content": "391\nWe need answer user's request: \"Answer with only the number: 17 * 23\". Need final only number. Compute 17*23 = 391. Ensure no extra.\n"
+          "content": "391\n"
         },
         "capital": {
           "ok": true,
           "expected": "Paris",
-          "content": "Paris\nWe need answer user: \"Answer with only the capital of France.\" Need final only capital. Need ensure only \"Paris\".\n"
+          "content": "Paris\n"
+        },
+        "ok": true
+      }
+    },
+    "gsq-iq2s-on": {
+      "name": "Qwen3.8-27B GSQ-RCO IQ2_S (Thinking ON)",
+      "model_path": "/home/alpha/Playstoria/models/text/ISTA-DASLab-Qwen3.8-27B-GSQ-RCO-IQ2_S/Qwen3.8-27B-GSQ-RCO-IQ2_S.gguf",
+      "exists": true,
+      "size_bytes": 9259510912,
+      "expected_sha256": "16c9802111aa9ef3acde465188d6d601f8db128ee3d828ad983a5caca4135ecb",
+      "actual_sha256": "16c9802111aa9ef3acde465188d6d601f8db128ee3d828ad983a5caca4135ecb",
+      "sha_match": true,
+      "thinking": true,
+      "temperature": 0.6,
+      "top_p": 0.95,
+      "llama_bench": {
+        "ok": false,
+        "error": "llama-bench not found: /home/alpha/Playstoria/models/engines/deepgrove-llama.cpp/build/bin/llama-bench"
+      },
+      "sanity": {
+        "arithmetic": {
+          "ok": true,
+          "expected": "391",
+          "content": "391\nThe user asks to answer with only the number for 17 * 23. Compute: 17*20=340, 17*3=51, total 391. Need final only number.\n"
+        },
+        "capital": {
+          "ok": true,
+          "expected": "Paris",
+          "content": "Paris\nThe user asks: \"Answer with only the capital of France.\" The capital of France is Paris. They want only the capital, so output should be just \"Paris\". No extra text.\n"
         },
         "ok": true
       }

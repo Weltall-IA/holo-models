@@ -10,6 +10,8 @@
 | profile | model SHA match | size bytes | sanity | PP512 | TG128 |
 |---|---:|---:|---:|---:|---:|
 | gsq-iq2s-off | True | 9259510912 | — | — | — |
-| gsq-iq3xxs-on | True | 10094357632 | PASS | — | — |
+| gsq-iq3xxs-on | True | 10094357632 | — | — | — |
+| gsq-iq3xxs-off | True | 10094357632 | PASS | — | — |
+| gsq-iq2s-on | True | 9259510912 | PASS | — | — |
 | qwen38-9b-heretic-off | True | 5780091520 | — | — | — |
 | ornith-15-9b-off | True | 6852928384 | — | — | — |
