@@ -7,6 +7,7 @@ import importlib.util
 import json
 import os
 import re
+import subprocess
 from pathlib import Path
 
 ROOT = Path('/home/alpha/Playstoria/models')
@@ -52,6 +53,20 @@ def load_base():
     return module
 
 
+def verify_runtime_features(runtime_bin: Path) -> None:
+    p = subprocess.run([str(runtime_bin), '--help'], capture_output=True, text=True, timeout=30)
+    text = p.stdout + p.stderr
+    required = {
+        '--reasoning-budget': '--reasoning-budget' in text,
+        '--spec-type': '--spec-type' in text,
+        'draft-mtp': 'draft-mtp' in text,
+        '--spec-draft-n-max': '--spec-draft-n-max' in text,
+    }
+    missing = [name for name, ok in required.items() if not ok]
+    if missing:
+        raise SystemExit('RUNTIME_FEATURE_MISSING=' + ','.join(missing))
+
+
 def profile(pid: str, name: str, path: Path, model_sha: str, reasoning: bool, mtp: bool, budget: int | None):
     return {
         'id': pid,
@@ -88,6 +103,7 @@ def main() -> int:
         raise SystemExit(f'IQ2 SHA mismatch: {iq2_sha}')
 
     m = load_base()
+    verify_runtime_features(m.RUNTIME_BIN)
     m.BENCHMARK_DIR = HERE
     m.WORK_ROOT = Path('/tmp/repo-worker-gsq-controlled-v3-worktrees')
     m.PORT = 8153
@@ -127,8 +143,7 @@ def main() -> int:
             '--no-webui', '--reasoning', 'on' if p['thinking'] else 'off',
         ]
         if p.get('reasoning_budget') is not None:
-            args += ['--reasoning-budget', str(p['reasoning_budget']),
-                     '--reasoning-budget-message', 'Reasoning budget reached; choose the next tool action now.']
+            args += ['--reasoning-budget', str(p['reasoning_budget'])]
         if p.get('mtp'):
             args += ['--spec-type', 'draft-mtp', '--spec-draft-n-max', str(DRAFT_N)]
         return args
