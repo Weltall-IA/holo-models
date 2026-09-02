@@ -18,6 +18,9 @@ TARGET = ROOT / 'text/ISTA-DASLab-Qwen3.8-27B-GSQ-RCO-IQ2_S/Qwen3.8-27B-GSQ-RCO-
 TARGET_SHA = '16c9802111aa9ef3acde465188d6d601f8db128ee3d828ad983a5caca4135ecb'
 DFLASH = ROOT / 'text/z-lab-Qwen3.8-27B-DFlash2-GGUF/Qwen3.8-27B-DFlash2-Q4_K_M.gguf'
 DFLASH_SHA = '1a25c56858e1ebe93f2718ac1d49d1151f9323325c1bbfd6209370f4db131ebd'
+FROG_TEMPLATE = ROOT / 'text/froggeric-Qwen-Fixed-Chat-Templates-v22.4/chat_template.jinja'
+FROG_REVISION = 'e649070'
+FROG_VERSION = 'qwen3.8-froggeric-v22.4'
 
 SEED = 9137
 CTX = 32768
@@ -28,6 +31,7 @@ TEMP = 0.2
 TOP_P = 0.95
 CACHE_K = 'q8_0'
 CACHE_V = 'q4_0'
+EFFORT = 'medium'
 
 
 def sha256(path: Path) -> str:
@@ -48,7 +52,7 @@ def ensure_suite_links() -> None:
 
 
 def load_base():
-    spec = importlib.util.spec_from_file_location('challenger_v2_base_dflash', BASE_RUNNER)
+    spec = importlib.util.spec_from_file_location('challenger_v2_base_dflash_frog', BASE_RUNNER)
     if spec is None or spec.loader is None:
         raise RuntimeError(f'Cannot import {BASE_RUNNER}')
     module = importlib.util.module_from_spec(spec)
@@ -66,6 +70,10 @@ def verify_runtime_features(runtime_bin: Path) -> dict:
         '--spec-draft-n-max': '--spec-draft-n-max' in text,
         'draft_gpu_layers': ('--spec-draft-ngl' in text) or ('--gpu-layers-draft' in text) or ('-ngld' in text),
         '--reasoning-budget': '--reasoning-budget' in text,
+        '--chat-template-file': '--chat-template-file' in text,
+        '--chat-template-kwargs': '--chat-template-kwargs' in text,
+        '--reasoning-format': '--reasoning-format' in text,
+        '--jinja': '--jinja' in text,
     }
     missing = [name for name, ok in required.items() if not ok]
     if missing:
@@ -73,16 +81,17 @@ def verify_runtime_features(runtime_bin: Path) -> dict:
     return required
 
 
-def profile(pid: str, name: str, reasoning: bool, budget: int | None) -> dict:
+def profile(pid: str, name: str, budget: int | None) -> dict:
     return {
         'id': pid,
         'name': name,
         'model_path': TARGET,
         'model_sha256': TARGET_SHA,
-        'thinking': reasoning,
+        'thinking': True,
         'temperature': TEMP,
         'top_p': TOP_P,
         'reasoning_budget': budget,
+        'reasoning_effort': EFFORT,
     }
 
 
@@ -111,13 +120,19 @@ def main() -> int:
         raise SystemExit(f'TARGET_MISSING={TARGET}')
     if not DFLASH.exists():
         raise SystemExit('DFLASH2_MISSING=YES; run PREPARE_DFLASH2.sh first')
+    if not FROG_TEMPLATE.exists():
+        raise SystemExit('FROGGERIC_TEMPLATE_MISSING=YES; run PREPARE_DFLASH2.sh first')
 
     target_sha = sha256(TARGET)
     dflash_sha = sha256(DFLASH)
+    frog_sha = sha256(FROG_TEMPLATE)
+    frog_text = FROG_TEMPLATE.read_text(encoding='utf-8', errors='replace')
     if target_sha != TARGET_SHA:
         raise SystemExit(f'TARGET_SHA_MISMATCH={target_sha}')
     if dflash_sha != DFLASH_SHA:
         raise SystemExit(f'DFLASH2_SHA_MISMATCH={dflash_sha}')
+    if FROG_VERSION not in frog_text:
+        raise SystemExit('FROGGERIC_VERSION_MISMATCH=YES')
 
     m = load_base()
     runtime_features = verify_runtime_features(m.RUNTIME_BIN)
@@ -137,8 +152,16 @@ def main() -> int:
     m.TASKS = tasks
 
     m.PROFILES = [
-        profile('iq2-dflash-off', 'GSQ IQ2_S / DFlash2 Q4_K_M / reasoning OFF', False, None),
-        profile('iq2-dflash-b256', 'GSQ IQ2_S / DFlash2 Q4_K_M / reasoning budget 256', True, BUDGET),
+        profile(
+            'iq2-dflash-frog-medium',
+            'GSQ IQ2_S / DFlash2 Q4_K_M / Froggeric v22.4 medium',
+            None,
+        ),
+        profile(
+            'iq2-dflash-frog-medium-b256',
+            'GSQ IQ2_S / DFlash2 Q4_K_M / Froggeric v22.4 medium / hard budget 256',
+            BUDGET,
+        ),
     ]
 
     original_eval = m.evaluate_task
@@ -150,6 +173,11 @@ def main() -> int:
     m.evaluate_task = fixed_eval
 
     def server_args(p):
+        template_kwargs = json.dumps({
+            'reasoning_effort': p['reasoning_effort'],
+            'enable_thinking': True,
+            'preserve_thinking': True,
+        }, separators=(',', ':'))
         args = [
             '-m', str(TARGET), '-md', str(DFLASH),
             '--host', '127.0.0.1', '--port', str(m.PORT),
@@ -158,7 +186,10 @@ def main() -> int:
             '-t', str(THREADS), '-tb', str(THREADS),
             '-ngld', '999',
             '--spec-type', 'draft-dflash', '--spec-draft-n-max', str(DRAFT_N),
-            '--no-webui', '--reasoning', 'on' if p['thinking'] else 'off',
+            '--jinja', '--chat-template-file', str(FROG_TEMPLATE),
+            '--chat-template-kwargs', template_kwargs,
+            '--reasoning-format', 'deepseek',
+            '--no-webui', '--reasoning', 'on',
         ]
         if p.get('reasoning_budget') is not None:
             args += ['--reasoning-budget', str(p['reasoning_budget'])]
@@ -166,15 +197,14 @@ def main() -> int:
     m.profile_server_args = server_args
 
     # Avoid rerunning target-only llama-bench: server traces are the relevant
-    # measurement for DFlash2 and the no-spec target baseline already exists.
+    # measurement for DFlash2 + template behavior and the no-spec baseline exists.
     def skip_llama_bench(profile, output_path):
-        output_path.write_text('Skipped: DFlash2 speed is measured from live server traces.\n', encoding='utf-8')
-        return {'ok': True, 'skipped': True, 'reason': 'use live server traces for DFlash2'}
+        output_path.write_text('Skipped: DFlash2/template speed is measured from live server traces.\n', encoding='utf-8')
+        return {'ok': True, 'skipped': True, 'reason': 'use live server traces for DFlash2 + Froggeric'}
     m.run_llama_bench = skip_llama_bench
 
-    # A 64-token sanity response can be consumed entirely by a 256-token
-    # reasoning budget. Give the budgeted profile enough completion headroom
-    # without changing task generation limits.
+    # Both profiles reason. Give sanity checks enough completion headroom while
+    # keeping the actual task generation limit unchanged in the base runner.
     def sanity_check(p):
         url = f'http://127.0.0.1:{m.PORT}/v1/chat/completions'
         checks = [
@@ -187,7 +217,7 @@ def main() -> int:
                 'model': p['id'],
                 'messages': [{'role': 'user', 'content': prompt}],
                 'temperature': 0.0, 'top_p': 1.0, 'seed': SEED,
-                'max_tokens': 384 if p['thinking'] else 64,
+                'max_tokens': 384,
             }
             try:
                 resp = m.request_json(url, payload, timeout=120)
@@ -217,7 +247,14 @@ def main() -> int:
         'cache_v': CACHE_V,
         'temperature': TEMP,
         'top_p': TOP_P,
+        'reasoning_effort': EFFORT,
         'reasoning_budget': BUDGET,
+        'froggeric_version': FROG_VERSION,
+        'froggeric_revision': FROG_REVISION,
+        'froggeric_sha256': frog_sha,
+        'chat_template_file': str(FROG_TEMPLATE),
+        'reasoning_format': 'deepseek',
+        'preserve_thinking': True,
         'spec_type': 'draft-dflash',
         'spec_draft_n_max': DRAFT_N,
         'target_sha256': target_sha,
