@@ -1,0 +1,66 @@
+{
+  "runtime_version": "version: 0.3.0-dev (build 10752, commit b96806d96)\nbuilt with GNU 16.2.1 for Linux x86_64",
+  "models": [
+    {
+      "id": "gsq_iq2s_base",
+      "path": "/home/alpha/Playstoria/models/text/ISTA-DASLab-Qwen3.8-27B-GSQ-RCO-IQ2_S/Qwen3.8-27B-GSQ-RCO-IQ2_S.gguf",
+      "exists": true,
+      "sha256": "16c9802111aa9ef3acde465188d6d601f8db128ee3d828ad983a5caca4135ecb",
+      "expected_sha256": "16c9802111aa9ef3acde465188d6d601f8db128ee3d828ad983a5caca4135ecb",
+      "sha_match": true
+    },
+    {
+      "id": "gsq_iq2s_dflash2",
+      "path": "/home/alpha/Playstoria/models/text/ISTA-DASLab-Qwen3.8-27B-GSQ-RCO-IQ2_S/Qwen3.8-27B-GSQ-RCO-IQ2_S.gguf",
+      "exists": true,
+      "sha256": "16c9802111aa9ef3acde465188d6d601f8db128ee3d828ad983a5caca4135ecb",
+      "expected_sha256": "16c9802111aa9ef3acde465188d6d601f8db128ee3d828ad983a5caca4135ecb",
+      "sha_match": true,
+      "draft_exists": true,
+      "draft_sha256": "1a25c56858e1ebe93f2718ac1d49d1151f9323325c1bbfd6209370f4db131ebd",
+      "draft_expected_sha256": "1a25c56858e1ebe93f2718ac1d49d1151f9323325c1bbfd6209370f4db131ebd",
+      "draft_sha_match": true
+    },
+    {
+      "id": "rvn_iq3m_mtp",
+      "path": "/home/alpha/Playstoria/models/text/0bserverx-Qwen3.8-27B-Heretic-RVN-IQ3_M-multilingual-MTP/RVN-IQ3_M-multilingual-mtp.gguf",
+      "exists": true,
+      "sha256": "6deae4e6a0883fcf9a0e440902ef05a10b7a029d2717346c53b01c157c8a83db",
+      "expected_sha256": "6deae4e6a0883fcf9a0e440902ef05a10b7a029d2717346c53b01c157c8a83db",
+      "sha_match": true
+    },
+    {
+      "id": "fable_heretic_q3km",
+      "path": "/home/alpha/Playstoria/models/text/armand0e-Qwen3.8-27B-Fable-Distill-Heretic-ara-Q3_K_M/Qwen3.8-27B-Fable-Distill-Heretic-ara-Q3_K_M.gguf",
+      "exists": true,
+      "sha256": "44e786a11380bba9cdcd1b40649afee79d6cf78152f9fb014f731209a67044d3",
+      "expected_sha256": "44e786a11380bba9cdcd1b40649afee79d6cf78152f9fb014f731209a67044d3",
+      "sha_match": true
+    },
+    {
+      "id": "grug_v11_iq3m",
+      "path": "/home/alpha/Playstoria/models/text/mradermacher-grug-v1.1-qwen-3.8-27b-i1-IQ3_M/grug-v1.1-qwen-3.8-27b.i1-IQ3_M.gguf",
+      "exists": true,
+      "sha256": "2fe6f6d8987104adefdf143deac9d9ed8fcf01ac82be70293d8bf4591cc41328",
+      "expected_sha256": "2fe6f6d8987104adefdf143deac9d9ed8fcf01ac82be70293d8bf4591cc41328",
+      "sha_match": true
+    },
+    {
+      "id": "ymq_s_pro",
+      "path": "/home/alpha/Playstoria/models/text/zerodigest-Qwen3.8-27B-Uncensored-YMQ-MTP-S-Pro/Qwen3.8-27B-Uncensored-YMQ-S-Pro.gguf",
+      "exists": true,
+      "sha256": "6ea94df0ca1cf1b9c276668c0fd495ae17ae300cbf2fda2a6d9a67592fd53084",
+      "expected_sha256": null,
+      "sha_match": true
+    },
+    {
+      "id": "qwen38_9b_heretic_q4km",
+      "path": "/home/alpha/Playstoria/models/text/petruhonk-Qwen3.8-9B-Distill-uncensored-heretic/Qwen3.8-9B-Distill-uncensored-heretic.i1-Q4_K_M.gguf",
+      "exists": true,
+      "sha256": "3a63c5b5c7c6af57d92437ed2610d524ea96a7ecf873ae7f8e470a024c047fa6",
+      "expected_sha256": "3a63c5b5c7c6af57d92437ed2610d524ea96a7ecf873ae7f8e470a024c047fa6",
+      "sha_match": true
+    }
+  ],
+  "failures": []
+}
