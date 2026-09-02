@@ -21,6 +21,9 @@ DFLASH_SHA = '1a25c56858e1ebe93f2718ac1d49d1151f9323325c1bbfd6209370f4db131ebd'
 FROG_TEMPLATE = ROOT / 'text/froggeric-Qwen-Fixed-Chat-Templates-v22.4/chat_template.jinja'
 FROG_REVISION = 'e649070'
 FROG_VERSION = 'qwen3.8-froggeric-v22.4'
+RUNTIME_REPO = ROOT / 'engines/llama.cpp-dflash2-v4'
+RUNTIME_BIN = RUNTIME_REPO / 'build/bin/llama-server'
+RUNTIME_REVISION = 'b96806d96061049a5b574269b049bf6241d63d46'
 
 SEED = 9137
 CTX = 32768
@@ -40,6 +43,14 @@ def sha256(path: Path) -> str:
         for chunk in iter(lambda: f.read(16 * 1024 * 1024), b''):
             h.update(chunk)
     return h.hexdigest()
+
+
+def git_head(path: Path) -> str:
+    try:
+        p = subprocess.run(['git', '-C', str(path), 'rev-parse', 'HEAD'], capture_output=True, text=True, timeout=30)
+        return p.stdout.strip() if p.returncode == 0 else ''
+    except Exception:
+        return ''
 
 
 def ensure_suite_links() -> None:
@@ -70,10 +81,12 @@ def verify_runtime_features(runtime_bin: Path) -> dict:
         '--spec-draft-n-max': '--spec-draft-n-max' in text,
         'draft_gpu_layers': ('--spec-draft-ngl' in text) or ('--gpu-layers-draft' in text) or ('-ngld' in text),
         '--reasoning-budget': '--reasoning-budget' in text,
+        '--reasoning-effort': '--reasoning-effort' in text,
         '--chat-template-file': '--chat-template-file' in text,
         '--chat-template-kwargs': '--chat-template-kwargs' in text,
         '--reasoning-format': '--reasoning-format' in text,
         '--jinja': '--jinja' in text,
+        '--fit': '--fit' in text,
     }
     missing = [name for name, ok in required.items() if not ok]
     if missing:
@@ -122,19 +135,28 @@ def main() -> int:
         raise SystemExit('DFLASH2_MISSING=YES; run PREPARE_DFLASH2.sh first')
     if not FROG_TEMPLATE.exists():
         raise SystemExit('FROGGERIC_TEMPLATE_MISSING=YES; run PREPARE_DFLASH2.sh first')
+    if not RUNTIME_BIN.exists():
+        raise SystemExit('RUNTIME_MISSING=YES; run PREPARE_RUNTIME.sh first')
 
     target_sha = sha256(TARGET)
     dflash_sha = sha256(DFLASH)
     frog_sha = sha256(FROG_TEMPLATE)
     frog_text = FROG_TEMPLATE.read_text(encoding='utf-8', errors='replace')
+    runtime_sha = git_head(RUNTIME_REPO)
     if target_sha != TARGET_SHA:
         raise SystemExit(f'TARGET_SHA_MISMATCH={target_sha}')
     if dflash_sha != DFLASH_SHA:
         raise SystemExit(f'DFLASH2_SHA_MISMATCH={dflash_sha}')
     if FROG_VERSION not in frog_text:
         raise SystemExit('FROGGERIC_VERSION_MISMATCH=YES')
+    if runtime_sha != RUNTIME_REVISION:
+        raise SystemExit(f'RUNTIME_SHA_MISMATCH={runtime_sha}; expected={RUNTIME_REVISION}')
 
     m = load_base()
+    m.RUNTIME_REPO = RUNTIME_REPO
+    m.RUNTIME_BIN = RUNTIME_BIN
+    m.LLAMA_BENCH = RUNTIME_REPO / 'build/bin/llama-bench'
+    m.EXPECTED_RUNTIME_SHA = RUNTIME_REVISION
     runtime_features = verify_runtime_features(m.RUNTIME_BIN)
 
     m.BENCHMARK_DIR = HERE
@@ -174,7 +196,6 @@ def main() -> int:
 
     def server_args(p):
         template_kwargs = json.dumps({
-            'reasoning_effort': p['reasoning_effort'],
             'enable_thinking': True,
             'preserve_thinking': True,
         }, separators=(',', ':'))
@@ -182,12 +203,14 @@ def main() -> int:
             '-m', str(TARGET), '-md', str(DFLASH),
             '--host', '127.0.0.1', '--port', str(m.PORT),
             '-c', str(CTX), '-np', '1', '-ngl', '999', '-fa', 'on',
+            '--fit', 'off',
             '-ctk', CACHE_K, '-ctv', CACHE_V,
             '-t', str(THREADS), '-tb', str(THREADS),
             '-ngld', '999',
             '--spec-type', 'draft-dflash', '--spec-draft-n-max', str(DRAFT_N),
             '--jinja', '--chat-template-file', str(FROG_TEMPLATE),
             '--chat-template-kwargs', template_kwargs,
+            '--reasoning-effort', p['reasoning_effort'],
             '--reasoning-format', 'deepseek',
             '--no-webui', '--reasoning', 'on',
         ]
@@ -196,8 +219,8 @@ def main() -> int:
         return args
     m.profile_server_args = server_args
 
-    # Avoid rerunning target-only llama-bench: server traces are the relevant
-    # measurement for DFlash2 + template behavior and the no-spec baseline exists.
+    # Avoid target-only llama-bench: DFlash2/template speed must be measured
+    # from the live server traces and the old no-spec target baseline exists.
     def skip_llama_bench(profile, output_path):
         output_path.write_text('Skipped: DFlash2/template speed is measured from live server traces.\n', encoding='utf-8')
         return {'ok': True, 'skipped': True, 'reason': 'use live server traces for DFlash2 + Froggeric'}
@@ -259,7 +282,11 @@ def main() -> int:
         'spec_draft_n_max': DRAFT_N,
         'target_sha256': target_sha,
         'dflash_sha256': dflash_sha,
+        'runtime_repo': str(RUNTIME_REPO),
+        'runtime_revision': runtime_sha,
+        'runtime_bin': str(RUNTIME_BIN),
         'runtime_features': runtime_features,
+        'runtime_fit': 'off',
         't7_fix': 'service edit no longer required; policy placement remains mandatory',
     }
     (HERE / 'CONTROLLED_CONFIG.json').write_text(json.dumps(config, indent=2), encoding='utf-8')
