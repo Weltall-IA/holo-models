@@ -70,18 +70,17 @@ Não produzir um score único combinando velocidade e liberdade de escrita. Um m
 
 ## Perfis
 
-`models.json` contém:
+`models.json` contém os 7 perfis confirmados pelo preflight local de 2026-09-02:
 
 - GSQ IQ2_S base;
 - GSQ IQ2_S + DFlash2;
 - RVN IQ3_M multilingual MTP;
-- HauhauCS Aggressive IQ3_XS;
 - Fable Distill Heretic Q3_K_M;
 - GRUG v1.1 IQ3_M;
 - YMQ S-Pro;
 - Qwen3.8 9B Heretic Q4_K_M como referência de velocidade.
 
-Bonsai, Vireqo e Minitron não fazem parte desta rodada.
+HauhauCS Aggressive IQ3_XS foi removido da v1 depois que o preflight provou que o arquivo não existe no armazenamento local. Ele não deve ser baixado ou substituído só para completar esta rodada. Bonsai, Vireqo e Minitron também não fazem parte desta rodada.
 
 ## Preflight e integridade
 
@@ -94,6 +93,8 @@ O GitHub não prova que um arquivo ainda existe no disco local. Por isso o runne
 5. aborta em divergência, sem baixar, substituir ou escolher fallback.
 
 O SHA do YMQ não estava versionado nas fontes auditadas; nesse caso o preflight registra o SHA real da execução, mas não inventa um expected hash.
+
+O primeiro preflight da v1 abortou corretamente em `hauhau_aggressive_iq3xs` antes de qualquer geração. Esse abort não é uma rodada parcial de benchmark; após a correção da lista de modelos, o workload canônico passa a ser `7 × 2 × 3 = 42` gerações.
 
 ## Artefatos esperados
 
