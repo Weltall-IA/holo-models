@@ -1,0 +1,70 @@
+[
+  {
+    "id": "gsq_iq2s_base",
+    "name": "Qwen3.8-27B GSQ-RCO IQ2_S",
+    "path": "/home/alpha/Playstoria/models/text/ISTA-DASLab-Qwen3.8-27B-GSQ-RCO-IQ2_S/Qwen3.8-27B-GSQ-RCO-IQ2_S.gguf",
+    "sha256": "16c9802111aa9ef3acde465188d6d601f8db128ee3d828ad983a5caca4135ecb",
+    "profile": "base",
+    "extra_server_args": []
+  },
+  {
+    "id": "gsq_iq2s_dflash2",
+    "name": "Qwen3.8-27B GSQ-RCO IQ2_S + DFlash2 Q4_K_M",
+    "path": "/home/alpha/Playstoria/models/text/ISTA-DASLab-Qwen3.8-27B-GSQ-RCO-IQ2_S/Qwen3.8-27B-GSQ-RCO-IQ2_S.gguf",
+    "sha256": "16c9802111aa9ef3acde465188d6d601f8db128ee3d828ad983a5caca4135ecb",
+    "profile": "dflash2",
+    "draft_path": "/home/alpha/Playstoria/models/text/z-lab-Qwen3.8-27B-DFlash2-GGUF/Qwen3.8-27B-DFlash2-Q4_K_M.gguf",
+    "draft_sha256": "1a25c56858e1ebe93f2718ac1d49d1151f9323325c1bbfd6209370f4db131ebd",
+    "spec_type": "draft-dflash",
+    "spec_draft_n_max": 7,
+    "extra_server_args": []
+  },
+  {
+    "id": "rvn_iq3m_mtp",
+    "name": "Qwen3.8-27B Heretic RVN IQ3_M multilingual MTP",
+    "path": "/home/alpha/Playstoria/models/text/0bserverx-Qwen3.8-27B-Heretic-RVN-IQ3_M-multilingual-MTP/RVN-IQ3_M-multilingual-mtp.gguf",
+    "sha256": "6deae4e6a0883fcf9a0e440902ef05a10b7a029d2717346c53b01c157c8a83db",
+    "profile": "base",
+    "extra_server_args": []
+  },
+  {
+    "id": "hauhau_aggressive_iq3xs",
+    "name": "Qwen3.8-27B HauhauCS Aggressive IQ3_XS",
+    "path": "/home/alpha/Playstoria/models/text/HauhauCS-Qwen3.8-27B-Uncensored-HauhauCS-Aggressive-IQ3_XS/Qwen3.8-27B-Uncensored-HauhauCS-Aggressive-IQ3_XS.gguf",
+    "sha256": "e22208325e05d8561b51829048e52512da57c2bf8d54866199c4126c45bd3504",
+    "profile": "base",
+    "extra_server_args": []
+  },
+  {
+    "id": "fable_heretic_q3km",
+    "name": "Qwen3.8-27B Fable Distill Heretic ARA Q3_K_M",
+    "path": "/home/alpha/Playstoria/models/text/armand0e-Qwen3.8-27B-Fable-Distill-Heretic-ara-Q3_K_M/Qwen3.8-27B-Fable-Distill-Heretic-ara-Q3_K_M.gguf",
+    "sha256": "44e786a11380bba9cdcd1b40649afee79d6cf78152f9fb014f731209a67044d3",
+    "profile": "base",
+    "extra_server_args": []
+  },
+  {
+    "id": "grug_v11_iq3m",
+    "name": "GRUG v1.1 Qwen3.8-27B i1-IQ3_M",
+    "path": "/home/alpha/Playstoria/models/text/mradermacher-grug-v1.1-qwen-3.8-27b-i1-IQ3_M/grug-v1.1-qwen-3.8-27b.i1-IQ3_M.gguf",
+    "sha256": "2fe6f6d8987104adefdf143deac9d9ed8fcf01ac82be70293d8bf4591cc41328",
+    "profile": "base",
+    "extra_server_args": []
+  },
+  {
+    "id": "ymq_s_pro",
+    "name": "Qwen3.8-27B Uncensored YMQ S-Pro",
+    "path": "/home/alpha/Playstoria/models/text/zerodigest-Qwen3.8-27B-Uncensored-YMQ-MTP-S-Pro/Qwen3.8-27B-Uncensored-YMQ-S-Pro.gguf",
+    "sha256": null,
+    "profile": "base",
+    "extra_server_args": []
+  },
+  {
+    "id": "qwen38_9b_heretic_q4km",
+    "name": "Qwen3.8-9B Distill uncensored heretic i1-Q4_K_M",
+    "path": "/home/alpha/Playstoria/models/text/petruhonk-Qwen3.8-9B-Distill-uncensored-heretic/Qwen3.8-9B-Distill-uncensored-heretic.i1-Q4_K_M.gguf",
+    "sha256": "3a63c5b5c7c6af57d92437ed2610d524ea96a7ecf873ae7f8e470a024c047fa6",
+    "profile": "reference",
+    "extra_server_args": []
+  }
+]
