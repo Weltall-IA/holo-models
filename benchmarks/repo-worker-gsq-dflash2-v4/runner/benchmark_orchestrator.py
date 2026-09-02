@@ -21,7 +21,7 @@ DFLASH_SHA = '1a25c56858e1ebe93f2718ac1d49d1151f9323325c1bbfd6209370f4db131ebd'
 FROG_TEMPLATE = ROOT / 'text/froggeric-Qwen-Fixed-Chat-Templates-v22.4/chat_template.jinja'
 FROG_REVISION = 'e649070'
 FROG_VERSION = 'qwen3.8-froggeric-v22.4'
-RUNTIME_REPO = ROOT / 'engines/llama.cpp-dflash2-v4'
+RUNTIME_REPO = ROOT / 'engines/llama.cpp'
 RUNTIME_BIN = RUNTIME_REPO / 'build/bin/llama-server'
 RUNTIME_REVISION = 'b96806d96061049a5b574269b049bf6241d63d46'
 
@@ -136,7 +136,7 @@ def main() -> int:
     if not FROG_TEMPLATE.exists():
         raise SystemExit('FROGGERIC_TEMPLATE_MISSING=YES; run PREPARE_DFLASH2.sh first')
     if not RUNTIME_BIN.exists():
-        raise SystemExit('RUNTIME_MISSING=YES; run PREPARE_RUNTIME.sh first')
+        raise SystemExit('RUNTIME_MISSING=YES; run UPDATE_LLAMA_CPP.sh first')
 
     target_sha = sha256(TARGET)
     dflash_sha = sha256(DFLASH)
