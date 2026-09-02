@@ -1,0 +1,18 @@
+{
+  "iq2-dflash-frog-medium": {
+    "draft_acceptance_rate_last": null,
+    "draft_acceptance_rate_max": null,
+    "draft_generated_tokens_max": null,
+    "draft_accepted_tokens_max": null,
+    "observed_rate_samples": 0,
+    "observed_counter_samples": 0
+  },
+  "iq2-dflash-frog-medium-b256": {
+    "draft_acceptance_rate_last": null,
+    "draft_acceptance_rate_max": null,
+    "draft_generated_tokens_max": null,
+    "draft_accepted_tokens_max": null,
+    "observed_rate_samples": 0,
+    "observed_counter_samples": 0
+  }
+}

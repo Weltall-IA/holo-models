@@ -9,6 +9,8 @@ import os
 import re
 import shutil
 import subprocess
+import urllib.error
+import urllib.request
 from pathlib import Path
 
 ROOT = Path('/home/alpha/Playstoria/models')
@@ -201,6 +203,12 @@ def main() -> int:
             task['required_edits'] = ['challenge/arch/policy/access.py']
         return original_eval(task, *args, **kwargs)
     m.evaluate_task = fixed_eval
+
+    def direct_request_json(url, payload, timeout=120):
+        req = urllib.request.Request(url, data=json.dumps(payload).encode(), headers={'Content-Type': 'application/json'})
+        with urllib.request.urlopen(req, timeout=timeout) as response:
+            return json.loads(response.read().decode())
+    m.request_json = direct_request_json
 
     def server_args(p):
         template_kwargs = json.dumps({

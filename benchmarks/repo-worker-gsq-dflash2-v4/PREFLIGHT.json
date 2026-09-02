@@ -1,0 +1,73 @@
+{
+  "source_repo": "/home/alpha/Playstoria/holo-agent-tooling",
+  "source_repo_head": "5a7720c3d4874524e4b8fda6c7be5ae456208fdd",
+  "source_repo_dirty": true,
+  "runtime_repo": "/home/alpha/.llama-app",
+  "runtime_bin": "/home/alpha/.local/bin/llama",
+  "runtime_sha": "b10752 | b96806d96061049a5b574269b049bf6241d63d46 | version: 0.3.0-dev (build 10752, commit b96806d96) ; built with GNU 16.2.1 for Linux x86_64",
+  "expected_runtime_sha": "b10752 | b96806d96061049a5b574269b049bf6241d63d46 | version: 0.3.0-dev (build 10752, commit b96806d96) ; built with GNU 16.2.1 for Linux x86_64",
+  "runtime_sha_match": true,
+  "seed": 9137,
+  "profiles": {
+    "iq2-dflash-frog-medium": {
+      "name": "GSQ IQ2_S / DFlash2 Q4_K_M / Froggeric v22.4 medium",
+      "model_path": "/home/alpha/Playstoria/models/text/ISTA-DASLab-Qwen3.8-27B-GSQ-RCO-IQ2_S/Qwen3.8-27B-GSQ-RCO-IQ2_S.gguf",
+      "exists": true,
+      "size_bytes": 9259510912,
+      "expected_sha256": "16c9802111aa9ef3acde465188d6d601f8db128ee3d828ad983a5caca4135ecb",
+      "actual_sha256": "16c9802111aa9ef3acde465188d6d601f8db128ee3d828ad983a5caca4135ecb",
+      "sha_match": true,
+      "thinking": true,
+      "temperature": 0.2,
+      "top_p": 0.95,
+      "llama_bench": {
+        "ok": true,
+        "skipped": true,
+        "reason": "use live server traces for DFlash2 + Froggeric"
+      },
+      "sanity": {
+        "arithmetic": {
+          "ok": true,
+          "expected": "391",
+          "content": "391\nThe user wants me to calculate 17 * 23 and answer with only the number.\n\n17 * 23 = 17 * 20 + 17 * 3 = 340 + 51 = 391\n"
+        },
+        "capital": {
+          "ok": true,
+          "expected": "Paris",
+          "content": "Paris\nThe user is asking for the capital of France, and wants only that answer. The capital of France is Paris.\n"
+        },
+        "ok": true
+      }
+    },
+    "iq2-dflash-frog-medium-b256": {
+      "name": "GSQ IQ2_S / DFlash2 Q4_K_M / Froggeric v22.4 medium / hard budget 256",
+      "model_path": "/home/alpha/Playstoria/models/text/ISTA-DASLab-Qwen3.8-27B-GSQ-RCO-IQ2_S/Qwen3.8-27B-GSQ-RCO-IQ2_S.gguf",
+      "exists": true,
+      "size_bytes": 9259510912,
+      "expected_sha256": "16c9802111aa9ef3acde465188d6d601f8db128ee3d828ad983a5caca4135ecb",
+      "actual_sha256": "16c9802111aa9ef3acde465188d6d601f8db128ee3d828ad983a5caca4135ecb",
+      "sha_match": true,
+      "thinking": true,
+      "temperature": 0.2,
+      "top_p": 0.95,
+      "llama_bench": {
+        "ok": true,
+        "skipped": true,
+        "reason": "use live server traces for DFlash2 + Froggeric"
+      },
+      "sanity": {
+        "arithmetic": {
+          "ok": true,
+          "expected": "391",
+          "content": "391\nThe user wants me to calculate 17 * 23 and answer with only the number.\n\n17 * 23 = 17 * 20 + 17 * 3 = 340 + 51 = 391\n"
+        },
+        "capital": {
+          "ok": true,
+          "expected": "Paris",
+          "content": "Paris\nThe user is asking for the capital of France, and wants only that answer. The capital of France is Paris.\n"
+        },
+        "ok": true
+      }
+    }
+  }
+}
