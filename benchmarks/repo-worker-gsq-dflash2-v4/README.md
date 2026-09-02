@@ -6,25 +6,31 @@ This round deliberately does **not** repeat IQ3, Ornith, Qwen 9B, or the already
 
 ## Runtime requirement
 
-The first preflight attempt correctly stopped at `0/16`: the historical DeepGrove runtime at commit `8ce8ca6c6d370b6235dfa8e2a0611a9adb6d77d1` predates the DFlash2, modern Jinja and native reasoning controls required by this round.
+The `wrong number of tensors; expected 81, got 58` failure was **not evidence that GSQ-RCO is incompatible with DFlash2**. It is the known signature of trying to load a DFlash2 checkpoint with a llama.cpp runtime that only understands the older DFlash tensor layout.
 
-That DeepGrove checkout is now treated as **historical only**. It remains untouched so older benchmark results can still be reproduced, but it is no longer the normal runtime for new GGUF work.
+The DFlash2 model card explicitly requires llama.cpp DFlash2 support from PR #27342. That support reached upstream master on 2026-08-27 in commit `b10f9ca58c89ccfc3653ac01e979dd085d582b76` via #27816. The Arch Linux `llama-cpp 0.2.0-1` package was built on 2026-08-22, before that integration, so it is too old for this round even though its CLI exposes `draft-dflash`.
 
-The canonical runtime for new work is the official upstream `ggml-org/llama.cpp` checkout at:
+For this benchmark we use the official prebuilt llama.cpp runtime from `llama.app`, pinned to release:
 
-`/home/alpha/Playstoria/models/engines/llama.cpp/`
+`b10752`
 
-For this benchmark it is pinned to upstream revision:
+Release `b10752` targets upstream commit:
 
 `b96806d96061049a5b574269b049bf6241d63d46`
 
-`UPDATE_LLAMA_CPP.sh` creates or updates that canonical upstream checkout, builds `llama-server` with CUDA using at most 8 parallel build jobs, and verifies DFlash2, Jinja, reasoning-effort and reasoning-budget support. It does **not** create a benchmark-specific llama.cpp clone. The previously proposed `llama.cpp-dflash2-v4` checkout is cancelled and should not be used.
+That commit contains the DFlash2 local-convolution and candidate-selector implementation, together with the Jinja/reasoning controls required by Froggeric v22.4. `PREPARE_LLAMA_APP.sh` downloads the official CUDA-capable prebuilt binary; it does not run CMake or compile llama.cpp locally.
 
-The runner also pins the runtime revision and sets `--fit off` so a newer llama.cpp cannot silently shrink context or alter offload parameters to fit VRAM.
+The historical DeepGrove runtime remains untouched for reproduction of older results. The stale Arch `llama-server` is not used by this round.
+
+## Why the GSQ target remains valid
+
+The GSQ-RCO repository states that its files are standard GGUFs that run unmodified in llama.cpp. The IQ2_S target remains the same model already validated in challenger-v2. DFlash2 is a separate draft model; the target still verifies the speculative tokens.
+
+The DFlash2 repository documents the pairing as a Qwen3.8-27B target plus the DFlash2 sidecar with `--spec-type draft-dflash --spec-draft-n-max 7`. Its published evaluation uses a Q4_K_M target, but the loader failure we observed happened before inference and was caused by the stale runtime tensor schema, not by GSQ quantization.
 
 ## Why Froggeric v22.4
 
-As of 2026-09-02, `froggeric/Qwen-Fixed-Chat-Templates` v22.4 is the newest published v22 release on Hugging Face. It supersedes v22.3/v22.2 and is pinned here to the v22.4 template release commit `e649070` so later `main` changes cannot silently alter the benchmark.
+As of 2026-09-02, `froggeric/Qwen-Fixed-Chat-Templates` v22.4 is the newest published v22 release on Hugging Face. It is pinned here to revision `e649070` so later `main` changes cannot silently alter the benchmark.
 
 The template identifies itself as:
 
@@ -43,11 +49,9 @@ Test only two new operating points:
 
 Expected run count: `2 profiles × 8 tasks = 16`.
 
-This answers a practical question without another broad rerun: is Froggeric's safer `medium` reasoning enough for agent work, or is the additional native `--reasoning-budget 256` guard still useful?
-
 ## Models
 
-Target GGUF, identical to the challenger-v2 IQ2_S target:
+Target:
 
 `/home/alpha/Playstoria/models/text/ISTA-DASLab-Qwen3.8-27B-GSQ-RCO-IQ2_S/Qwen3.8-27B-GSQ-RCO-IQ2_S.gguf`
 
@@ -57,13 +61,13 @@ Target SHA256:
 
 Draft:
 
-`Qwen3.8-27B-DFlash2-Q4_K_M.gguf`
+`/home/alpha/Playstoria/models/text/z-lab-Qwen3.8-27B-DFlash2-GGUF/Qwen3.8-27B-DFlash2-Q4_K_M.gguf`
 
-Expected draft SHA256:
+Draft SHA256:
 
 `1a25c56858e1ebe93f2718ac1d49d1151f9323325c1bbfd6209370f4db131ebd`
 
-DFlash2 is loaded separately with `-md`, `--spec-type draft-dflash`, full draft GPU offload, and `--spec-draft-n-max 7`, matching its trained block size of 8.
+The current z-lab and incoai Q4_K_M mirror files have the same 1.14 GB artifact and SHA256 above.
 
 Froggeric template:
 
@@ -72,11 +76,7 @@ Froggeric template:
 - file: `chat_template.jinja`
 - expected embedded version: `qwen3.8-froggeric-v22.4`
 
-`PREPARE_DFLASH2.sh` fetches both the draft and the pinned template and refuses to continue if the expected target/draft SHA or template version marker does not match.
-
 ## Controlled envelope
-
-The round preserves the actual challenger-v2 IQ2 runtime envelope wherever possible:
 
 - seed `9137`
 - context `32768`
@@ -91,19 +91,16 @@ The round preserves the actual challenger-v2 IQ2 runtime envelope wherever possi
 - one slot
 - task timeout `480 s`
 - request timeout ceiling `240 s`
-
-Both new profiles use:
-
+- DFlash2 draft width `7`
 - Froggeric v22.4
 - native `--reasoning-effort medium`
 - `enable_thinking = true`
 - `preserve_thinking = true`
 - `--reasoning-format deepseek`
-- DFlash2 speculative decoding
 
 Only the second profile adds native `--reasoning-budget 256`.
 
-Because the old challenger-v2 baseline used the historical runtime, original model template and no DFlash2, it is a practical reference rather than a single-variable A/B control. The within-round comparison between the two new profiles is controlled except for the hard reasoning budget.
+Because the old challenger-v2 baseline used a different runtime, original model template and no DFlash2, it remains a practical reference rather than a single-variable A/B control. The within-round comparison between the two new profiles is controlled except for the hard reasoning budget.
 
 ## Suite
 
@@ -114,11 +111,11 @@ The same eight challenger-v2 tasks, public fixtures, hidden tests and strict `do
 ```bash
 cd /home/alpha/Playstoria/models
 git pull --ff-only origin master
-bash benchmarks/repo-worker-gsq-dflash2-v4/UPDATE_LLAMA_CPP.sh
+bash benchmarks/repo-worker-gsq-dflash2-v4/PREPARE_LLAMA_APP.sh
 bash benchmarks/repo-worker-gsq-dflash2-v4/PREPARE_DFLASH2.sh
 python3 benchmarks/repo-worker-gsq-dflash2-v4/runner/benchmark_orchestrator.py
 ```
 
-Do not alter or fallback any runtime parameter if the canonical runtime fails to build/load. Preserve the failure and report it.
+Do not use `/usr/bin/llama-server` for this round. Do not compile llama.cpp locally. Do not alter or fallback any runtime/model parameter if the pinned official runtime fails to load. Preserve and report the failure.
 
-The runner verifies the exact upstream runtime revision and required DFlash2/custom-Jinja/reasoning features before executing tasks. It writes per-task traces, server logs, corrected prompt/decode TPS, DFlash draft/acceptance metrics, template/runtime SHA, VRAM and factual result tables. It does not rank the profiles.
+The runner verifies release `b10752`, upstream commit `b96806d96061049a5b574269b049bf6241d63d46`, DFlash2/custom-Jinja/reasoning features, model/template hashes, and writes per-task traces, server logs, corrected prompt/decode TPS, DFlash acceptance metrics, runtime provenance, VRAM and factual result tables. It does not rank the profiles.
