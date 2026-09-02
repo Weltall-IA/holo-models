@@ -4,6 +4,22 @@ Focused follow-up for the surviving Qwen3.8-27B GSQ-RCO IQ2_S operating point.
 
 This round deliberately does **not** repeat IQ3, Ornith, Qwen 9B, or the already-run IQ2_S no-spec baseline. The challenger-v2 IQ2_S OFF trace remains the practical reference operating point.
 
+## Runtime requirement
+
+The first preflight attempt correctly stopped at `0/16`: the historical DeepGrove runtime at commit `8ce8ca6c6d370b6235dfa8e2a0611a9adb6d77d1` predates the DFlash2, modern Jinja and native reasoning controls required by this round.
+
+Do not update or overwrite that historical runtime; it remains the provenance runtime for the older benchmark results.
+
+This round instead uses a dedicated upstream `ggml-org/llama.cpp` checkout at:
+
+`/home/alpha/Playstoria/models/engines/llama.cpp-dflash2-v4/`
+
+Pinned upstream revision:
+
+`b96806d96061049a5b574269b049bf6241d63d46`
+
+`PREPARE_RUNTIME.sh` clones/fetches exactly that revision, builds `llama-server` with CUDA using at most 8 parallel build jobs, and verifies the required DFlash2, Jinja, reasoning-effort and reasoning-budget flags before the benchmark can start. The runner also pins that runtime SHA and sets `--fit off` so the newer llama.cpp cannot silently shrink context or alter offload parameters to fit VRAM.
+
 ## Why Froggeric v22.4
 
 As of 2026-09-02, `froggeric/Qwen-Fixed-Chat-Templates` v22.4 is the newest published v22 release on Hugging Face. It supersedes v22.3/v22.2 and is pinned here to the v22.4 template release commit `e649070` so later `main` changes cannot silently alter the benchmark.
@@ -12,7 +28,7 @@ The template identifies itself as:
 
 `qwen3.8-froggeric-v22.4`
 
-For Qwen3.8, v22.4 changes the unsafe default reasoning baseline from `xhigh` to `medium`, supports explicit `reasoning_effort`, fixes historical empty-think/tool-loop issues, preserves chronological reasoning for KV-cache reuse, and is intended for llama.cpp through `--jinja --chat-template-file ... --reasoning-format deepseek`.
+For Qwen3.8, v22.4 changes the unsafe default reasoning baseline from `xhigh` to `medium`, supports explicit `reasoning_effort`, fixes historical empty-think/tool-loop issues, preserves chronological reasoning for KV-cache reuse, and is intended for llama.cpp through custom Jinja plus reasoning extraction.
 
 ## Question
 
@@ -69,6 +85,7 @@ The round preserves the actual challenger-v2 IQ2 runtime envelope wherever possi
 - full target GPU offload
 - full draft GPU offload
 - flash attention ON
+- automatic runtime fitting OFF
 - one slot
 - task timeout `480 s`
 - request timeout ceiling `240 s`
@@ -76,7 +93,7 @@ The round preserves the actual challenger-v2 IQ2 runtime envelope wherever possi
 Both new profiles use:
 
 - Froggeric v22.4
-- `reasoning_effort = medium`
+- native `--reasoning-effort medium`
 - `enable_thinking = true`
 - `preserve_thinking = true`
 - `--reasoning-format deepseek`
@@ -84,7 +101,7 @@ Both new profiles use:
 
 Only the second profile adds native `--reasoning-budget 256`.
 
-Because the old challenger-v2 baseline used the model's original template and no DFlash2, it is a practical reference rather than a single-variable A/B control. The within-round comparison between the two new profiles is controlled except for the hard reasoning budget.
+Because the old challenger-v2 baseline used the historical runtime, original model template and no DFlash2, it is a practical reference rather than a single-variable A/B control. The within-round comparison between the two new profiles is controlled except for the hard reasoning budget.
 
 ## Suite
 
@@ -95,10 +112,11 @@ The same eight challenger-v2 tasks, public fixtures, hidden tests and strict `do
 ```bash
 cd /home/alpha/Playstoria/models
 git pull --ff-only origin master
+bash benchmarks/repo-worker-gsq-dflash2-v4/PREPARE_RUNTIME.sh
 bash benchmarks/repo-worker-gsq-dflash2-v4/PREPARE_DFLASH2.sh
 python3 benchmarks/repo-worker-gsq-dflash2-v4/runner/benchmark_orchestrator.py
 ```
 
-Do not alter or fallback any runtime parameter if a profile fails to load. Preserve the failure and report it.
+Do not alter or fallback any runtime parameter if a profile fails to build/load. Preserve the failure and report it.
 
-The runner verifies that the local runtime exposes DFlash2, custom Jinja template, chat-template kwargs, reasoning-format, and reasoning-budget support before executing tasks. It writes per-task traces, server logs, corrected prompt/decode TPS, DFlash draft/acceptance metrics, template SHA, VRAM and factual result tables. It does not rank the profiles.
+The runner verifies the exact upstream runtime revision and required DFlash2/custom-Jinja/reasoning features before executing tasks. It writes per-task traces, server logs, corrected prompt/decode TPS, DFlash draft/acceptance metrics, template/runtime SHA, VRAM and factual result tables. It does not rank the profiles.
