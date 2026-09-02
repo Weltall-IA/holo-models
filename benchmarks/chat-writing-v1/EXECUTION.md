@@ -20,19 +20,23 @@ cat benchmarks/chat-writing-v1/models.json
 
 Não use `/usr/bin/llama-server`, DeepGrove ou `geo-llama`. O runner exige o `llama.app` b10752 / upstream commit `b96806d96061049a5b574269b049bf6241d63d46` em `~/.local/bin/llama`.
 
-Não baixar ou substituir modelos durante a rodada. O preflight deve provar o estado local. Se um path estiver ausente ou um SHA conhecido divergir, pare e retorne o erro exato.
+Não baixar ou substituir modelos durante a rodada. O primeiro preflight já provou que HauhauCS Aggressive IQ3_XS não existe localmente; por isso esse perfil foi removido da suíte pelo ChatGPT. Não o reintroduza nem faça download dele nesta rodada.
+
+Se algum dos 7 perfis restantes estiver ausente ou um SHA conhecido divergir, pare e retorne o erro exato.
 
 ## Execução
 
-Primeiro execute o preflight implicitamente através da suíte completa:
+O preflight anterior gerou apenas `results/PREFLIGHT.json` e abortou antes de qualquer geração. Como não existe `RAW_RESULTS.jsonl`, essa tentativa não conta como rodada parcial e pode ser seguida pela execução corrigida.
+
+Execute:
 
 ```bash
 python3 benchmarks/chat-writing-v1/run_benchmark.py
 ```
 
-Workload esperado: `8 perfis × 2 prompts × 3 repetições = 48` gerações medidas, além de um warmup curto por perfil.
+Workload canônico esperado: `7 perfis × 2 prompts × 3 repetições = 42` gerações medidas, além de um warmup curto por perfil.
 
-Não rerodar um `RAW_RESULTS.jsonl` já existente. O runner aborta de propósito se encontrar resultados prévios. Se houver falha de infraestrutura, preserve os artefatos e logs parciais e informe o ponto exato da falha; não apague resultados para tentar melhorar números.
+Não rerodar um `RAW_RESULTS.jsonl` já existente. O runner aborta de propósito se encontrar resultados prévios. Se houver falha de infraestrutura depois que resultados brutos começarem a ser escritos, preserve todos os artefatos e logs parciais e informe o ponto exato da falha; não apague resultados para tentar melhorar números.
 
 Não introduza system prompt permissivo. Não habilite reasoning/thinking. Não acrescente Froggeric, hard reasoning budget, ferramentas ou contexto de agente.
 
@@ -49,7 +53,7 @@ cat benchmarks/chat-writing-v1/results/SUMMARY.json
 wc -l benchmarks/chat-writing-v1/results/RAW_RESULTS.jsonl
 ```
 
-O `wc -l` esperado na rodada completa é `48`.
+O `wc -l` esperado na rodada completa é `42`.
 
 Versione os artefatos sem reescrever o resumo manualmente:
 
@@ -65,7 +69,7 @@ Retorne somente fatos de execução primeiro:
 ```text
 COMMIT=<sha>
 SOURCE_REPO_HEAD=<sha antes da execução>
-RUNS_COMPLETED=<n>/48
+RUNS_COMPLETED=<n>/42
 INFRA_ERRORS=<n>
 RUNTIME_REVISION=<release/commit/version>
 MISSING_OR_MISMATCHED_MODELS=<lista ou none>
