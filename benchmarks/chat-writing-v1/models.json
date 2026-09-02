@@ -28,14 +28,6 @@
     "extra_server_args": []
   },
   {
-    "id": "hauhau_aggressive_iq3xs",
-    "name": "Qwen3.8-27B HauhauCS Aggressive IQ3_XS",
-    "path": "/home/alpha/Playstoria/models/text/HauhauCS-Qwen3.8-27B-Uncensored-HauhauCS-Aggressive-IQ3_XS/Qwen3.8-27B-Uncensored-HauhauCS-Aggressive-IQ3_XS.gguf",
-    "sha256": "e22208325e05d8561b51829048e52512da57c2bf8d54866199c4126c45bd3504",
-    "profile": "base",
-    "extra_server_args": []
-  },
-  {
     "id": "fable_heretic_q3km",
     "name": "Qwen3.8-27B Fable Distill Heretic ARA Q3_K_M",
     "path": "/home/alpha/Playstoria/models/text/armand0e-Qwen3.8-27B-Fable-Distill-Heretic-ara-Q3_K_M/Qwen3.8-27B-Fable-Distill-Heretic-ara-Q3_K_M.gguf",
