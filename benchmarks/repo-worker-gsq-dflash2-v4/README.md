@@ -8,17 +8,19 @@ This round deliberately does **not** repeat IQ3, Ornith, Qwen 9B, or the already
 
 The first preflight attempt correctly stopped at `0/16`: the historical DeepGrove runtime at commit `8ce8ca6c6d370b6235dfa8e2a0611a9adb6d77d1` predates the DFlash2, modern Jinja and native reasoning controls required by this round.
 
-Do not update or overwrite that historical runtime; it remains the provenance runtime for the older benchmark results.
+That DeepGrove checkout is now treated as **historical only**. It remains untouched so older benchmark results can still be reproduced, but it is no longer the normal runtime for new GGUF work.
 
-This round instead uses a dedicated upstream `ggml-org/llama.cpp` checkout at:
+The canonical runtime for new work is the official upstream `ggml-org/llama.cpp` checkout at:
 
-`/home/alpha/Playstoria/models/engines/llama.cpp-dflash2-v4/`
+`/home/alpha/Playstoria/models/engines/llama.cpp/`
 
-Pinned upstream revision:
+For this benchmark it is pinned to upstream revision:
 
 `b96806d96061049a5b574269b049bf6241d63d46`
 
-`PREPARE_RUNTIME.sh` clones/fetches exactly that revision, builds `llama-server` with CUDA using at most 8 parallel build jobs, and verifies the required DFlash2, Jinja, reasoning-effort and reasoning-budget flags before the benchmark can start. The runner also pins that runtime SHA and sets `--fit off` so the newer llama.cpp cannot silently shrink context or alter offload parameters to fit VRAM.
+`UPDATE_LLAMA_CPP.sh` creates or updates that canonical upstream checkout, builds `llama-server` with CUDA using at most 8 parallel build jobs, and verifies DFlash2, Jinja, reasoning-effort and reasoning-budget support. It does **not** create a benchmark-specific llama.cpp clone. The previously proposed `llama.cpp-dflash2-v4` checkout is cancelled and should not be used.
+
+The runner also pins the runtime revision and sets `--fit off` so a newer llama.cpp cannot silently shrink context or alter offload parameters to fit VRAM.
 
 ## Why Froggeric v22.4
 
@@ -112,11 +114,11 @@ The same eight challenger-v2 tasks, public fixtures, hidden tests and strict `do
 ```bash
 cd /home/alpha/Playstoria/models
 git pull --ff-only origin master
-bash benchmarks/repo-worker-gsq-dflash2-v4/PREPARE_RUNTIME.sh
+bash benchmarks/repo-worker-gsq-dflash2-v4/UPDATE_LLAMA_CPP.sh
 bash benchmarks/repo-worker-gsq-dflash2-v4/PREPARE_DFLASH2.sh
 python3 benchmarks/repo-worker-gsq-dflash2-v4/runner/benchmark_orchestrator.py
 ```
 
-Do not alter or fallback any runtime parameter if a profile fails to build/load. Preserve the failure and report it.
+Do not alter or fallback any runtime parameter if the canonical runtime fails to build/load. Preserve the failure and report it.
 
 The runner verifies the exact upstream runtime revision and required DFlash2/custom-Jinja/reasoning features before executing tasks. It writes per-task traces, server logs, corrected prompt/decode TPS, DFlash draft/acceptance metrics, template/runtime SHA, VRAM and factual result tables. It does not rank the profiles.
