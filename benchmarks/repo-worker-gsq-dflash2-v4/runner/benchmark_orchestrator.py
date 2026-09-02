@@ -22,6 +22,8 @@ DFLASH_SHA = '1a25c56858e1ebe93f2718ac1d49d1151f9323325c1bbfd6209370f4db131ebd'
 FROG_TEMPLATE = ROOT / 'text/froggeric-Qwen-Fixed-Chat-Templates-v22.4/chat_template.jinja'
 FROG_REVISION = 'e649070'
 FROG_VERSION = 'qwen3.8-froggeric-v22.4'
+LLAMA_APP_VERSION = 'b10752'
+LLAMA_APP_COMMIT = 'b96806d96061049a5b574269b049bf6241d63d46'
 
 SEED = 9137
 CTX = 32768
@@ -61,25 +63,26 @@ def load_base():
     return module
 
 
-def system_runtime() -> tuple[Path, str, str]:
-    found = shutil.which('llama-server')
+def official_runtime() -> tuple[Path, str, str]:
+    preferred = Path.home() / '.local/bin/llama'
+    found = str(preferred) if preferred.is_file() else shutil.which('llama')
     if not found:
-        raise SystemExit('RUNTIME_MISSING=llama-server; install Arch packages llama-cpp and ggml-cuda')
+        raise SystemExit('RUNTIME_MISSING=official llama.app binary; run PREPARE_LLAMA_APP.sh first')
     runtime_bin = Path(found).resolve()
-    p = subprocess.run([str(runtime_bin), '--version'], capture_output=True, text=True, timeout=30)
+    p = subprocess.run([str(runtime_bin), 'version'], capture_output=True, text=True, timeout=30)
     version = (p.stdout + p.stderr).strip()
     if p.returncode != 0:
         raise SystemExit(f'RUNTIME_VERSION_ERROR={p.returncode}')
-    packages = []
-    for package in ('llama-cpp', 'ggml-cuda'):
-        q = subprocess.run(['pacman', '-Q', package], capture_output=True, text=True, timeout=30)
-        packages.append(q.stdout.strip() if q.returncode == 0 else f'{package}=NOT_INSTALLED')
-    revision = ' | '.join(packages) + ' | ' + version.replace('\n', ' ; ')
+    if LLAMA_APP_VERSION not in version and f'build {LLAMA_APP_VERSION[1:]}' not in version:
+        raise SystemExit(f'RUNTIME_VERSION_MISMATCH={version}; expected={LLAMA_APP_VERSION}')
+    if LLAMA_APP_COMMIT[:7] not in version and LLAMA_APP_COMMIT not in version:
+        raise SystemExit(f'RUNTIME_COMMIT_MISMATCH={version}; expected_commit={LLAMA_APP_COMMIT}')
+    revision = f'{LLAMA_APP_VERSION} | {LLAMA_APP_COMMIT} | {version.replace(chr(10), " ; ")}'
     return runtime_bin, revision, version
 
 
 def verify_runtime_features(runtime_bin: Path) -> dict:
-    p = subprocess.run([str(runtime_bin), '--help'], capture_output=True, text=True, timeout=30)
+    p = subprocess.run([str(runtime_bin), 'serve', '--help'], capture_output=True, text=True, timeout=30)
     text = p.stdout + p.stderr
     required = {
         'draft_model_flag': ('--spec-draft-model' in text) or ('--model-draft' in text) or ('-md' in text),
@@ -154,13 +157,13 @@ def main() -> int:
     if FROG_VERSION not in frog_text:
         raise SystemExit('FROGGERIC_VERSION_MISMATCH=YES')
 
-    runtime_bin, runtime_revision, runtime_version = system_runtime()
+    runtime_bin, runtime_revision, runtime_version = official_runtime()
     runtime_features = verify_runtime_features(runtime_bin)
 
     m = load_base()
-    m.RUNTIME_REPO = Path('/usr')
+    m.RUNTIME_REPO = Path.home() / '.llama-app'
     m.RUNTIME_BIN = runtime_bin
-    m.LLAMA_BENCH = Path(shutil.which('llama-bench') or '/usr/bin/llama-bench')
+    m.LLAMA_BENCH = runtime_bin
     m.EXPECTED_RUNTIME_SHA = runtime_revision
     m.runtime_head = lambda: runtime_revision
 
@@ -205,6 +208,7 @@ def main() -> int:
             'preserve_thinking': True,
         }, separators=(',', ':'))
         args = [
+            'serve',
             '-m', str(TARGET), '-md', str(DFLASH),
             '--host', '127.0.0.1', '--port', str(m.PORT),
             '-c', str(CTX), '-np', '1', '-ngl', '999', '-fa', 'on',
@@ -283,7 +287,9 @@ def main() -> int:
         'spec_draft_n_max': DRAFT_N,
         'target_sha256': target_sha,
         'dflash_sha256': dflash_sha,
-        'runtime_source': 'Arch Linux packages llama-cpp + ggml-cuda',
+        'runtime_source': 'official llama.app prebuilt CUDA binary',
+        'runtime_release': LLAMA_APP_VERSION,
+        'runtime_commit': LLAMA_APP_COMMIT,
         'runtime_revision': runtime_revision,
         'runtime_version': runtime_version,
         'runtime_bin': str(runtime_bin),
