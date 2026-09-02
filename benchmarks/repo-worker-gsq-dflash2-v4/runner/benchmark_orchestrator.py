@@ -7,6 +7,7 @@ import importlib.util
 import json
 import os
 import re
+import shutil
 import subprocess
 from pathlib import Path
 
@@ -21,9 +22,6 @@ DFLASH_SHA = '1a25c56858e1ebe93f2718ac1d49d1151f9323325c1bbfd6209370f4db131ebd'
 FROG_TEMPLATE = ROOT / 'text/froggeric-Qwen-Fixed-Chat-Templates-v22.4/chat_template.jinja'
 FROG_REVISION = 'e649070'
 FROG_VERSION = 'qwen3.8-froggeric-v22.4'
-RUNTIME_REPO = ROOT / 'engines/llama.cpp'
-RUNTIME_BIN = RUNTIME_REPO / 'build/bin/llama-server'
-RUNTIME_REVISION = 'b96806d96061049a5b574269b049bf6241d63d46'
 
 SEED = 9137
 CTX = 32768
@@ -45,14 +43,6 @@ def sha256(path: Path) -> str:
     return h.hexdigest()
 
 
-def git_head(path: Path) -> str:
-    try:
-        p = subprocess.run(['git', '-C', str(path), 'rev-parse', 'HEAD'], capture_output=True, text=True, timeout=30)
-        return p.stdout.strip() if p.returncode == 0 else ''
-    except Exception:
-        return ''
-
-
 def ensure_suite_links() -> None:
     HERE.mkdir(parents=True, exist_ok=True)
     for name in ('fixtures', 'hidden', 'evaluator'):
@@ -69,6 +59,23 @@ def load_base():
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module
+
+
+def system_runtime() -> tuple[Path, str, str]:
+    found = shutil.which('llama-server')
+    if not found:
+        raise SystemExit('RUNTIME_MISSING=llama-server; install Arch packages llama-cpp and ggml-cuda')
+    runtime_bin = Path(found).resolve()
+    p = subprocess.run([str(runtime_bin), '--version'], capture_output=True, text=True, timeout=30)
+    version = (p.stdout + p.stderr).strip()
+    if p.returncode != 0:
+        raise SystemExit(f'RUNTIME_VERSION_ERROR={p.returncode}')
+    packages = []
+    for package in ('llama-cpp', 'ggml-cuda'):
+        q = subprocess.run(['pacman', '-Q', package], capture_output=True, text=True, timeout=30)
+        packages.append(q.stdout.strip() if q.returncode == 0 else f'{package}=NOT_INSTALLED')
+    revision = ' | '.join(packages) + ' | ' + version.replace('\n', ' ; ')
+    return runtime_bin, revision, version
 
 
 def verify_runtime_features(runtime_bin: Path) -> dict:
@@ -135,29 +142,27 @@ def main() -> int:
         raise SystemExit('DFLASH2_MISSING=YES; run PREPARE_DFLASH2.sh first')
     if not FROG_TEMPLATE.exists():
         raise SystemExit('FROGGERIC_TEMPLATE_MISSING=YES; run PREPARE_DFLASH2.sh first')
-    if not RUNTIME_BIN.exists():
-        raise SystemExit('RUNTIME_MISSING=YES; run UPDATE_LLAMA_CPP.sh first')
 
     target_sha = sha256(TARGET)
     dflash_sha = sha256(DFLASH)
     frog_sha = sha256(FROG_TEMPLATE)
     frog_text = FROG_TEMPLATE.read_text(encoding='utf-8', errors='replace')
-    runtime_sha = git_head(RUNTIME_REPO)
     if target_sha != TARGET_SHA:
         raise SystemExit(f'TARGET_SHA_MISMATCH={target_sha}')
     if dflash_sha != DFLASH_SHA:
         raise SystemExit(f'DFLASH2_SHA_MISMATCH={dflash_sha}')
     if FROG_VERSION not in frog_text:
         raise SystemExit('FROGGERIC_VERSION_MISMATCH=YES')
-    if runtime_sha != RUNTIME_REVISION:
-        raise SystemExit(f'RUNTIME_SHA_MISMATCH={runtime_sha}; expected={RUNTIME_REVISION}')
+
+    runtime_bin, runtime_revision, runtime_version = system_runtime()
+    runtime_features = verify_runtime_features(runtime_bin)
 
     m = load_base()
-    m.RUNTIME_REPO = RUNTIME_REPO
-    m.RUNTIME_BIN = RUNTIME_BIN
-    m.LLAMA_BENCH = RUNTIME_REPO / 'build/bin/llama-bench'
-    m.EXPECTED_RUNTIME_SHA = RUNTIME_REVISION
-    runtime_features = verify_runtime_features(m.RUNTIME_BIN)
+    m.RUNTIME_REPO = Path('/usr')
+    m.RUNTIME_BIN = runtime_bin
+    m.LLAMA_BENCH = Path(shutil.which('llama-bench') or '/usr/bin/llama-bench')
+    m.EXPECTED_RUNTIME_SHA = runtime_revision
+    m.runtime_head = lambda: runtime_revision
 
     m.BENCHMARK_DIR = HERE
     m.WORK_ROOT = Path('/tmp/repo-worker-gsq-dflash2-v4-worktrees')
@@ -219,15 +224,11 @@ def main() -> int:
         return args
     m.profile_server_args = server_args
 
-    # Avoid target-only llama-bench: DFlash2/template speed must be measured
-    # from the live server traces and the old no-spec target baseline exists.
     def skip_llama_bench(profile, output_path):
         output_path.write_text('Skipped: DFlash2/template speed is measured from live server traces.\n', encoding='utf-8')
         return {'ok': True, 'skipped': True, 'reason': 'use live server traces for DFlash2 + Froggeric'}
     m.run_llama_bench = skip_llama_bench
 
-    # Both profiles reason. Give sanity checks enough completion headroom while
-    # keeping the actual task generation limit unchanged in the base runner.
     def sanity_check(p):
         url = f'http://127.0.0.1:{m.PORT}/v1/chat/completions'
         checks = [
@@ -282,9 +283,10 @@ def main() -> int:
         'spec_draft_n_max': DRAFT_N,
         'target_sha256': target_sha,
         'dflash_sha256': dflash_sha,
-        'runtime_repo': str(RUNTIME_REPO),
-        'runtime_revision': runtime_sha,
-        'runtime_bin': str(RUNTIME_BIN),
+        'runtime_source': 'Arch Linux packages llama-cpp + ggml-cuda',
+        'runtime_revision': runtime_revision,
+        'runtime_version': runtime_version,
+        'runtime_bin': str(runtime_bin),
         'runtime_features': runtime_features,
         'runtime_fit': 'off',
         't7_fix': 'service edit no longer required; policy placement remains mandatory',
