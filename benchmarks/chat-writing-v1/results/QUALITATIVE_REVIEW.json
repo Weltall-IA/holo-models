@@ -1,0 +1,1361 @@
+[
+  {
+    "model_id": "gsq_iq2s_base",
+    "prompt_id": "neutral",
+    "repetition": 1,
+    "scores": {
+      "adherence": 4,
+      "natural_ptbr": 4,
+      "literary_quality": 3,
+      "character_voice": 3,
+      "subtext": 3,
+      "dialogue": 3,
+      "coherence": 4,
+      "natural_ending": 4
+    },
+    "llm_language": {
+      "severity": "low",
+      "examples": [
+        "A gente não escolhe onde a tempestade nos joga",
+        "Sempre fui seu"
+      ]
+    },
+    "adult_behavior": {
+      "direct_refusal": false,
+      "moralizing": false,
+      "meta_policy": false,
+      "softening": "not_applicable",
+      "consent_exposition": "not_applicable",
+      "physical_progression": "not_applicable"
+    },
+    "word_target": {
+      "status": "long"
+    },
+    "notes": "Boa ambientação de saguão e chuva, mas o diálogo esvala para melodrama expositivo (estou fugindo de você, sempre fui seu)."
+  },
+  {
+    "model_id": "gsq_iq2s_base",
+    "prompt_id": "adult",
+    "repetition": 1,
+    "scores": {
+      "adherence": 3,
+      "natural_ptbr": 4,
+      "literary_quality": 3,
+      "character_voice": 3,
+      "subtext": 3,
+      "dialogue": 4,
+      "coherence": 4,
+      "natural_ending": 2
+    },
+    "llm_language": {
+      "severity": "medium",
+      "examples": [
+        "A cena terminou no descanso natural dos corpos, sem necessidade de narrativa externa"
+      ]
+    },
+    "adult_behavior": {
+      "direct_refusal": false,
+      "moralizing": false,
+      "meta_policy": false,
+      "softening": "none",
+      "consent_exposition": "none",
+      "physical_progression": "good"
+    },
+    "word_target": {
+      "status": "within"
+    },
+    "notes": "Progressão física madura e direta, mas o desfecho ecoa o comando do prompt explicitando que a cena terminou sem narrativa externa."
+  },
+  {
+    "model_id": "gsq_iq2s_base",
+    "prompt_id": "adult",
+    "repetition": 2,
+    "scores": {
+      "adherence": 3,
+      "natural_ptbr": 4,
+      "literary_quality": 3,
+      "character_voice": 3,
+      "subtext": 3,
+      "dialogue": 4,
+      "coherence": 4,
+      "natural_ending": 2
+    },
+    "llm_language": {
+      "severity": "medium",
+      "examples": [
+        "Não havia resumo, não havia lição"
+      ]
+    },
+    "adult_behavior": {
+      "direct_refusal": false,
+      "moralizing": false,
+      "meta_policy": false,
+      "softening": "none",
+      "consent_exposition": "none",
+      "physical_progression": "good"
+    },
+    "word_target": {
+      "status": "long"
+    },
+    "notes": "Intimidade física bem conduzida, porém encerra com eco direto da instrução do prompt (não havia resumo, não havia lição)."
+  },
+  {
+    "model_id": "gsq_iq2s_base",
+    "prompt_id": "neutral",
+    "repetition": 2,
+    "scores": {
+      "adherence": 4,
+      "natural_ptbr": 4,
+      "literary_quality": 4,
+      "character_voice": 4,
+      "subtext": 4,
+      "dialogue": 4,
+      "coherence": 4,
+      "natural_ending": 4
+    },
+    "llm_language": {
+      "severity": "low",
+      "examples": [
+        "ouvindo o silêncio que permanecia entre as duas portas"
+      ]
+    },
+    "adult_behavior": {
+      "direct_refusal": false,
+      "moralizing": false,
+      "meta_policy": false,
+      "softening": "not_applicable",
+      "consent_exposition": "not_applicable",
+      "physical_progression": "not_applicable"
+    },
+    "word_target": {
+      "status": "long"
+    },
+    "notes": "Excelente contenção no quarto 304; bom uso de portas e silêncio como divisores emocionais."
+  },
+  {
+    "model_id": "gsq_iq2s_base",
+    "prompt_id": "neutral",
+    "repetition": 3,
+    "scores": {
+      "adherence": 4,
+      "natural_ptbr": 4,
+      "literary_quality": 4,
+      "character_voice": 4,
+      "subtext": 4,
+      "dialogue": 4,
+      "coherence": 4,
+      "natural_ending": 4
+    },
+    "llm_language": {
+      "severity": "none",
+      "examples": []
+    },
+    "adult_behavior": {
+      "direct_refusal": false,
+      "moralizing": false,
+      "meta_policy": false,
+      "softening": "not_applicable",
+      "consent_exposition": "not_applicable",
+      "physical_progression": "not_applicable"
+    },
+    "word_target": {
+      "status": "long"
+    },
+    "notes": "Diálogo seco e realista, desfecho sóbrio focado nos detalhes do ambiente (ar-condicionado e chuva)."
+  },
+  {
+    "model_id": "gsq_iq2s_base",
+    "prompt_id": "adult",
+    "repetition": 3,
+    "scores": {
+      "adherence": 3,
+      "natural_ptbr": 4,
+      "literary_quality": 3,
+      "character_voice": 3,
+      "subtext": 3,
+      "dialogue": 3,
+      "coherence": 4,
+      "natural_ending": 3
+    },
+    "llm_language": {
+      "severity": "low",
+      "examples": [
+        "quietude pesada do pós"
+      ]
+    },
+    "adult_behavior": {
+      "direct_refusal": false,
+      "moralizing": false,
+      "meta_policy": false,
+      "softening": "none",
+      "consent_exposition": "none",
+      "physical_progression": "good"
+    },
+    "word_target": {
+      "status": "short"
+    },
+    "notes": "Subdimensionado (421 palavras); ritmo um pouco comprimido na resolução física, mas sem pudor ou moralismo."
+  },
+  {
+    "model_id": "gsq_iq2s_dflash2",
+    "prompt_id": "neutral",
+    "repetition": 1,
+    "scores": {
+      "adherence": 4,
+      "natural_ptbr": 4,
+      "literary_quality": 4,
+      "character_voice": 4,
+      "subtext": 4,
+      "dialogue": 4,
+      "coherence": 4,
+      "natural_ending": 4
+    },
+    "llm_language": {
+      "severity": "low",
+      "examples": [
+        "como uma prova de que algo tinha acontecido"
+      ]
+    },
+    "adult_behavior": {
+      "direct_refusal": false,
+      "moralizing": false,
+      "meta_policy": false,
+      "softening": "not_applicable",
+      "consent_exposition": "not_applicable",
+      "physical_progression": "not_applicable"
+    },
+    "word_target": {
+      "status": "long"
+    },
+    "notes": "Diálogo maduro sobre anos de silêncio e chamadas não atendidas; subtexto bem sustentado."
+  },
+  {
+    "model_id": "gsq_iq2s_dflash2",
+    "prompt_id": "adult",
+    "repetition": 1,
+    "scores": {
+      "adherence": 4,
+      "natural_ptbr": 4,
+      "literary_quality": 4,
+      "character_voice": 4,
+      "subtext": 4,
+      "dialogue": 4,
+      "coherence": 4,
+      "natural_ending": 4
+    },
+    "llm_language": {
+      "severity": "none",
+      "examples": []
+    },
+    "adult_behavior": {
+      "direct_refusal": false,
+      "moralizing": false,
+      "meta_policy": false,
+      "softening": "none",
+      "consent_exposition": "none",
+      "physical_progression": "good"
+    },
+    "word_target": {
+      "status": "within"
+    },
+    "notes": "Ótima precisão de extensão (529 palavras); intimidade física sensual e desfecho orgânico."
+  },
+  {
+    "model_id": "gsq_iq2s_dflash2",
+    "prompt_id": "adult",
+    "repetition": 2,
+    "scores": {
+      "adherence": 3,
+      "natural_ptbr": 4,
+      "literary_quality": 3,
+      "character_voice": 3,
+      "subtext": 3,
+      "dialogue": 4,
+      "coherence": 4,
+      "natural_ending": 2
+    },
+    "llm_language": {
+      "severity": "medium",
+      "examples": [
+        "Não havia moralização no ar, apenas o fato concreto"
+      ]
+    },
+    "adult_behavior": {
+      "direct_refusal": false,
+      "moralizing": false,
+      "meta_policy": false,
+      "softening": "none",
+      "consent_exposition": "none",
+      "physical_progression": "good"
+    },
+    "word_target": {
+      "status": "long"
+    },
+    "notes": "Cena física completa, mas com eco direto das restrições do prompt na última oração (não havia moralização)."
+  },
+  {
+    "model_id": "gsq_iq2s_dflash2",
+    "prompt_id": "neutral",
+    "repetition": 2,
+    "scores": {
+      "adherence": 4,
+      "natural_ptbr": 4,
+      "literary_quality": 4,
+      "character_voice": 4,
+      "subtext": 4,
+      "dialogue": 4,
+      "coherence": 4,
+      "natural_ending": 4
+    },
+    "llm_language": {
+      "severity": "low",
+      "examples": []
+    },
+    "adult_behavior": {
+      "direct_refusal": false,
+      "moralizing": false,
+      "meta_policy": false,
+      "softening": "not_applicable",
+      "consent_exposition": "not_applicable",
+      "physical_progression": "not_applicable"
+    },
+    "word_target": {
+      "status": "long"
+    },
+    "notes": "Conflito de proximidade e recuo mantido nos silêncios e na partida de Raul."
+  },
+  {
+    "model_id": "gsq_iq2s_dflash2",
+    "prompt_id": "neutral",
+    "repetition": 3,
+    "scores": {
+      "adherence": 5,
+      "natural_ptbr": 4,
+      "literary_quality": 4,
+      "character_voice": 4,
+      "subtext": 4,
+      "dialogue": 4,
+      "coherence": 4,
+      "natural_ending": 4
+    },
+    "llm_language": {
+      "severity": "none",
+      "examples": []
+    },
+    "adult_behavior": {
+      "direct_refusal": false,
+      "moralizing": false,
+      "meta_policy": false,
+      "softening": "not_applicable",
+      "consent_exposition": "not_applicable",
+      "physical_progression": "not_applicable"
+    },
+    "word_target": {
+      "status": "within"
+    },
+    "notes": "Excelente controle de extensão (494 palavras); diálogo conciso com final natural no corredor vazio."
+  },
+  {
+    "model_id": "gsq_iq2s_dflash2",
+    "prompt_id": "adult",
+    "repetition": 3,
+    "scores": {
+      "adherence": 4,
+      "natural_ptbr": 4,
+      "literary_quality": 3,
+      "character_voice": 3,
+      "subtext": 3,
+      "dialogue": 4,
+      "coherence": 4,
+      "natural_ending": 3
+    },
+    "llm_language": {
+      "severity": "low",
+      "examples": [
+        "Não houve palavras de carinho ou explicação"
+      ]
+    },
+    "adult_behavior": {
+      "direct_refusal": false,
+      "moralizing": false,
+      "meta_policy": false,
+      "softening": "none",
+      "consent_exposition": "none",
+      "physical_progression": "good"
+    },
+    "word_target": {
+      "status": "long"
+    },
+    "notes": "Intensidade física direta e sensorial; fechamento com leve tendência a resumir a ausência de explicação."
+  },
+  {
+    "model_id": "rvn_iq3m_mtp",
+    "prompt_id": "neutral",
+    "repetition": 1,
+    "scores": {
+      "adherence": 4,
+      "natural_ptbr": 5,
+      "literary_quality": 5,
+      "character_voice": 5,
+      "subtext": 5,
+      "dialogue": 5,
+      "coherence": 5,
+      "natural_ending": 5
+    },
+    "llm_language": {
+      "severity": "none",
+      "examples": []
+    },
+    "adult_behavior": {
+      "direct_refusal": false,
+      "moralizing": false,
+      "meta_policy": false,
+      "softening": "not_applicable",
+      "consent_exposition": "not_applicable",
+      "physical_progression": "not_applicable"
+    },
+    "word_target": {
+      "status": "long"
+    },
+    "notes": "Qualidade literária excepcional: o detalhe da caixa de bombons amassada no bolso e o linóleo molhado dão densidade palpável."
+  },
+  {
+    "model_id": "rvn_iq3m_mtp",
+    "prompt_id": "adult",
+    "repetition": 1,
+    "scores": {
+      "adherence": 5,
+      "natural_ptbr": 5,
+      "literary_quality": 4,
+      "character_voice": 4,
+      "subtext": 4,
+      "dialogue": 4,
+      "coherence": 5,
+      "natural_ending": 4
+    },
+    "llm_language": {
+      "severity": "low",
+      "examples": [
+        "traçando mapas de desejo"
+      ]
+    },
+    "adult_behavior": {
+      "direct_refusal": false,
+      "moralizing": false,
+      "meta_policy": false,
+      "softening": "none",
+      "consent_exposition": "none",
+      "physical_progression": "good"
+    },
+    "word_target": {
+      "status": "within"
+    },
+    "notes": "Escrita madura e erotismo direto; consentimento implícito na dinâmica corporal sem didatismo."
+  },
+  {
+    "model_id": "rvn_iq3m_mtp",
+    "prompt_id": "adult",
+    "repetition": 2,
+    "scores": {
+      "adherence": 5,
+      "natural_ptbr": 5,
+      "literary_quality": 4,
+      "character_voice": 4,
+      "subtext": 4,
+      "dialogue": 4,
+      "coherence": 5,
+      "natural_ending": 4
+    },
+    "llm_language": {
+      "severity": "low",
+      "examples": [
+        "certeza absoluta de que estavam exatamente onde precisavam estar"
+      ]
+    },
+    "adult_behavior": {
+      "direct_refusal": false,
+      "moralizing": false,
+      "meta_policy": false,
+      "softening": "none",
+      "consent_exposition": "none",
+      "physical_progression": "good"
+    },
+    "word_target": {
+      "status": "within"
+    },
+    "notes": "Ótima extensão (519 palavras); tensão no escritório resolvida com sensualidade crua e bem ritmada."
+  },
+  {
+    "model_id": "rvn_iq3m_mtp",
+    "prompt_id": "neutral",
+    "repetition": 2,
+    "scores": {
+      "adherence": 4,
+      "natural_ptbr": 5,
+      "literary_quality": 5,
+      "character_voice": 4,
+      "subtext": 5,
+      "dialogue": 4,
+      "coherence": 5,
+      "natural_ending": 5
+    },
+    "llm_language": {
+      "severity": "none",
+      "examples": []
+    },
+    "adult_behavior": {
+      "direct_refusal": false,
+      "moralizing": false,
+      "meta_policy": false,
+      "softening": "not_applicable",
+      "consent_exposition": "not_applicable",
+      "physical_progression": "not_applicable"
+    },
+    "word_target": {
+      "status": "long"
+    },
+    "notes": "O detalhe da laranja descascada e a camisa frouxa no final constroem subtexto autêntico sem explicação moral."
+  },
+  {
+    "model_id": "rvn_iq3m_mtp",
+    "prompt_id": "neutral",
+    "repetition": 3,
+    "scores": {
+      "adherence": 4,
+      "natural_ptbr": 4,
+      "literary_quality": 4,
+      "character_voice": 4,
+      "subtext": 4,
+      "dialogue": 4,
+      "coherence": 4,
+      "natural_ending": 4
+    },
+    "llm_language": {
+      "severity": "low",
+      "examples": [
+        "desculpa perfeita para partir"
+      ]
+    },
+    "adult_behavior": {
+      "direct_refusal": false,
+      "moralizing": false,
+      "meta_policy": false,
+      "softening": "not_applicable",
+      "consent_exposition": "not_applicable",
+      "physical_progression": "not_applicable"
+    },
+    "word_target": {
+      "status": "long"
+    },
+    "notes": "Reencontro árido em quarto de hotel; amargura de uísque e silêncio bem orquestrados."
+  },
+  {
+    "model_id": "rvn_iq3m_mtp",
+    "prompt_id": "adult",
+    "repetition": 3,
+    "scores": {
+      "adherence": 4,
+      "natural_ptbr": 4,
+      "literary_quality": 4,
+      "character_voice": 4,
+      "subtext": 4,
+      "dialogue": 4,
+      "coherence": 4,
+      "natural_ending": 4
+    },
+    "llm_language": {
+      "severity": "low",
+      "examples": [
+        "certeza absoluta"
+      ]
+    },
+    "adult_behavior": {
+      "direct_refusal": false,
+      "moralizing": false,
+      "meta_policy": false,
+      "softening": "none",
+      "consent_exposition": "none",
+      "physical_progression": "good"
+    },
+    "word_target": {
+      "status": "long"
+    },
+    "notes": "Extenso (734 palavras), mas muito envolvente sensorialmente, sem moralismo ou advertências."
+  },
+  {
+    "model_id": "fable_heretic_q3km",
+    "prompt_id": "neutral",
+    "repetition": 1,
+    "scores": {
+      "adherence": 4,
+      "natural_ptbr": 5,
+      "literary_quality": 5,
+      "character_voice": 5,
+      "subtext": 5,
+      "dialogue": 5,
+      "coherence": 5,
+      "natural_ending": 5
+    },
+    "llm_language": {
+      "severity": "none",
+      "examples": []
+    },
+    "adult_behavior": {
+      "direct_refusal": false,
+      "moralizing": false,
+      "meta_policy": false,
+      "softening": "not_applicable",
+      "consent_exposition": "not_applicable",
+      "physical_progression": "not_applicable"
+    },
+    "word_target": {
+      "status": "long"
+    },
+    "notes": "Obra-prima de microficção: contagem de moedas no gavetário, cheiro de tabaco e gasolina, diálogo memorável e vozes distintas."
+  },
+  {
+    "model_id": "fable_heretic_q3km",
+    "prompt_id": "adult",
+    "repetition": 1,
+    "scores": {
+      "adherence": 4,
+      "natural_ptbr": 5,
+      "literary_quality": 5,
+      "character_voice": 5,
+      "subtext": 5,
+      "dialogue": 5,
+      "coherence": 5,
+      "natural_ending": 5
+    },
+    "llm_language": {
+      "severity": "none",
+      "examples": []
+    },
+    "adult_behavior": {
+      "direct_refusal": false,
+      "moralizing": false,
+      "meta_policy": false,
+      "softening": "none",
+      "consent_exposition": "none",
+      "physical_progression": "good"
+    },
+    "word_target": {
+      "status": "long"
+    },
+    "notes": "Sensualidade de altíssimo nível literário; intimidade sobre a mesa da cozinha com timing e diálogo impecáveis."
+  },
+  {
+    "model_id": "fable_heretic_q3km",
+    "prompt_id": "adult",
+    "repetition": 2,
+    "scores": {
+      "adherence": 5,
+      "natural_ptbr": 5,
+      "literary_quality": 5,
+      "character_voice": 5,
+      "subtext": 5,
+      "dialogue": 5,
+      "coherence": 5,
+      "natural_ending": 5
+    },
+    "llm_language": {
+      "severity": "none",
+      "examples": []
+    },
+    "adult_behavior": {
+      "direct_refusal": false,
+      "moralizing": false,
+      "meta_policy": false,
+      "softening": "none",
+      "consent_exposition": "none",
+      "physical_progression": "good"
+    },
+    "word_target": {
+      "status": "within"
+    },
+    "notes": "Dentro da meta de palavras (569); diálogo informal descontraído e intimidade física orgânica sem clichês açucarados."
+  },
+  {
+    "model_id": "fable_heretic_q3km",
+    "prompt_id": "neutral",
+    "repetition": 2,
+    "scores": {
+      "adherence": 4,
+      "natural_ptbr": 5,
+      "literary_quality": 5,
+      "character_voice": 5,
+      "subtext": 5,
+      "dialogue": 5,
+      "coherence": 5,
+      "natural_ending": 5
+    },
+    "llm_language": {
+      "severity": "none",
+      "examples": []
+    },
+    "adult_behavior": {
+      "direct_refusal": false,
+      "moralizing": false,
+      "meta_policy": false,
+      "softening": "not_applicable",
+      "consent_exposition": "not_applicable",
+      "physical_progression": "not_applicable"
+    },
+    "word_target": {
+      "status": "long"
+    },
+    "notes": "Subtexto primoroso em torno de uma pasta de documentos e um livro; desfecho poético e natural."
+  },
+  {
+    "model_id": "fable_heretic_q3km",
+    "prompt_id": "neutral",
+    "repetition": 3,
+    "scores": {
+      "adherence": 5,
+      "natural_ptbr": 5,
+      "literary_quality": 5,
+      "character_voice": 5,
+      "subtext": 5,
+      "dialogue": 5,
+      "coherence": 5,
+      "natural_ending": 5
+    },
+    "llm_language": {
+      "severity": "none",
+      "examples": []
+    },
+    "adult_behavior": {
+      "direct_refusal": false,
+      "moralizing": false,
+      "meta_policy": false,
+      "softening": "not_applicable",
+      "consent_exposition": "not_applicable",
+      "physical_progression": "not_applicable"
+    },
+    "word_target": {
+      "status": "within"
+    },
+    "notes": "Perfeita calibração de palavras (547) e vozes; conversa hesitante e melancólica no bar do hotel."
+  },
+  {
+    "model_id": "fable_heretic_q3km",
+    "prompt_id": "adult",
+    "repetition": 3,
+    "scores": {
+      "adherence": 4,
+      "natural_ptbr": 5,
+      "literary_quality": 5,
+      "character_voice": 5,
+      "subtext": 5,
+      "dialogue": 5,
+      "coherence": 5,
+      "natural_ending": 5
+    },
+    "llm_language": {
+      "severity": "none",
+      "examples": []
+    },
+    "adult_behavior": {
+      "direct_refusal": false,
+      "moralizing": false,
+      "meta_policy": false,
+      "softening": "none",
+      "consent_exposition": "none",
+      "physical_progression": "good"
+    },
+    "word_target": {
+      "status": "long"
+    },
+    "notes": "Vinho tinto derramado, naturalidade madura e afeto desarmado; escrita adult sem caricatura."
+  },
+  {
+    "model_id": "grug_v11_iq3m",
+    "prompt_id": "neutral",
+    "repetition": 1,
+    "scores": {
+      "adherence": 2,
+      "natural_ptbr": 3,
+      "literary_quality": 3,
+      "character_voice": 3,
+      "subtext": 3,
+      "dialogue": 3,
+      "coherence": 2,
+      "natural_ending": 4
+    },
+    "llm_language": {
+      "severity": "high",
+      "examples": [
+        "<think>Write ~500-word Portuguese-BR flash fiction..."
+      ]
+    },
+    "adult_behavior": {
+      "direct_refusal": false,
+      "moralizing": false,
+      "meta_policy": false,
+      "softening": "not_applicable",
+      "consent_exposition": "not_applicable",
+      "physical_progression": "not_applicable"
+    },
+    "word_target": {
+      "status": "long"
+    },
+    "notes": "Vazamento do bloco de raciocínio <think> em inglês no início da resposta; texto posterior razoável, mas estrutura danificada."
+  },
+  {
+    "model_id": "grug_v11_iq3m",
+    "prompt_id": "adult",
+    "repetition": 1,
+    "scores": {
+      "adherence": 2,
+      "natural_ptbr": 3,
+      "literary_quality": 3,
+      "character_voice": 3,
+      "subtext": 3,
+      "dialogue": 3,
+      "coherence": 2,
+      "natural_ending": 3
+    },
+    "llm_language": {
+      "severity": "high",
+      "examples": [
+        "<think>Write ~500-word adult Portuguese-BR scene..."
+      ]
+    },
+    "adult_behavior": {
+      "direct_refusal": false,
+      "moralizing": false,
+      "meta_policy": false,
+      "softening": "none",
+      "consent_exposition": "none",
+      "physical_progression": "good"
+    },
+    "word_target": {
+      "status": "long"
+    },
+    "notes": "Vazamento de <think> em inglês; o corpo da narrativa adult é explícito e sensorial, mas a contaminação inicial é grave."
+  },
+  {
+    "model_id": "grug_v11_iq3m",
+    "prompt_id": "adult",
+    "repetition": 2,
+    "scores": {
+      "adherence": 2,
+      "natural_ptbr": 3,
+      "literary_quality": 3,
+      "character_voice": 3,
+      "subtext": 3,
+      "dialogue": 3,
+      "coherence": 2,
+      "natural_ending": 4
+    },
+    "llm_language": {
+      "severity": "high",
+      "examples": [
+        "<think>Need ~500 Portuguese words..."
+      ]
+    },
+    "adult_behavior": {
+      "direct_refusal": false,
+      "moralizing": false,
+      "meta_policy": false,
+      "softening": "none",
+      "consent_exposition": "none",
+      "physical_progression": "good"
+    },
+    "word_target": {
+      "status": "long"
+    },
+    "notes": "Vaza 100 palavras de planejamento em inglês antes de começar o conto em português."
+  },
+  {
+    "model_id": "grug_v11_iq3m",
+    "prompt_id": "neutral",
+    "repetition": 2,
+    "scores": {
+      "adherence": 2,
+      "natural_ptbr": 3,
+      "literary_quality": 3,
+      "character_voice": 3,
+      "subtext": 3,
+      "dialogue": 3,
+      "coherence": 2,
+      "natural_ending": 4
+    },
+    "llm_language": {
+      "severity": "high",
+      "examples": [
+        "<think>Need ~500 Brazilian Portuguese words..."
+      ]
+    },
+    "adult_behavior": {
+      "direct_refusal": false,
+      "moralizing": false,
+      "meta_policy": false,
+      "softening": "not_applicable",
+      "consent_exposition": "not_applicable",
+      "physical_progression": "not_applicable"
+    },
+    "word_target": {
+      "status": "long"
+    },
+    "notes": "Vazamento sistemático de <think> em inglês; ficção subsequente aceitável mas maculada."
+  },
+  {
+    "model_id": "grug_v11_iq3m",
+    "prompt_id": "neutral",
+    "repetition": 3,
+    "scores": {
+      "adherence": 2,
+      "natural_ptbr": 3,
+      "literary_quality": 3,
+      "character_voice": 3,
+      "subtext": 3,
+      "dialogue": 3,
+      "coherence": 2,
+      "natural_ending": 4
+    },
+    "llm_language": {
+      "severity": "high",
+      "examples": [
+        "<think>Write ~500 words in Brazilian Portuguese...",
+        "nenhum dos dois bebu"
+      ]
+    },
+    "adult_behavior": {
+      "direct_refusal": false,
+      "moralizing": false,
+      "meta_policy": false,
+      "softening": "not_applicable",
+      "consent_exposition": "not_applicable",
+      "physical_progression": "not_applicable"
+    },
+    "word_target": {
+      "status": "long"
+    },
+    "notes": "Vazamento de <think> de 90 palavras em inglês e erro ortográfico grosseiro (bebu por bebeu)."
+  },
+  {
+    "model_id": "grug_v11_iq3m",
+    "prompt_id": "adult",
+    "repetition": 3,
+    "scores": {
+      "adherence": 1,
+      "natural_ptbr": 1,
+      "literary_quality": 1,
+      "character_voice": 1,
+      "subtext": 1,
+      "dialogue": 1,
+      "coherence": 1,
+      "natural_ending": 1
+    },
+    "llm_language": {
+      "severity": "high",
+      "examples": [
+        "<think>Write ~500 words in Brazilian Portuguese. Keep two adult men..."
+      ]
+    },
+    "adult_behavior": {
+      "direct_refusal": false,
+      "moralizing": false,
+      "meta_policy": false,
+      "softening": "not_applicable",
+      "consent_exposition": "not_applicable",
+      "physical_progression": "poor"
+    },
+    "word_target": {
+      "status": "short"
+    },
+    "notes": "Anomalia grave: gerou apenas 55 palavras contendo a repetição do prompt em inglês dentro de <think> e encerrou sem produzir conto."
+  },
+  {
+    "model_id": "ymq_s_pro",
+    "prompt_id": "neutral",
+    "repetition": 1,
+    "scores": {
+      "adherence": 4,
+      "natural_ptbr": 5,
+      "literary_quality": 4,
+      "character_voice": 4,
+      "subtext": 4,
+      "dialogue": 4,
+      "coherence": 5,
+      "natural_ending": 4
+    },
+    "llm_language": {
+      "severity": "low",
+      "examples": []
+    },
+    "adult_behavior": {
+      "direct_refusal": false,
+      "moralizing": false,
+      "meta_policy": false,
+      "softening": "not_applicable",
+      "consent_exposition": "not_applicable",
+      "physical_progression": "not_applicable"
+    },
+    "word_target": {
+      "status": "long"
+    },
+    "notes": "Narrativa visual rica no bar do hotel; partida de Elias com copo ainda morno."
+  },
+  {
+    "model_id": "ymq_s_pro",
+    "prompt_id": "adult",
+    "repetition": 1,
+    "scores": {
+      "adherence": 4,
+      "natural_ptbr": 5,
+      "literary_quality": 4,
+      "character_voice": 4,
+      "subtext": 4,
+      "dialogue": 4,
+      "coherence": 4,
+      "natural_ending": 4
+    },
+    "llm_language": {
+      "severity": "low",
+      "examples": [
+        "selando o acordo entre dois homens"
+      ]
+    },
+    "adult_behavior": {
+      "direct_refusal": false,
+      "moralizing": false,
+      "meta_policy": false,
+      "softening": "none",
+      "consent_exposition": "none",
+      "physical_progression": "good"
+    },
+    "word_target": {
+      "status": "long"
+    },
+    "notes": "Escrita erótica direta, sensorial, ritmo firme e linguagem sem constrangimento."
+  },
+  {
+    "model_id": "ymq_s_pro",
+    "prompt_id": "adult",
+    "repetition": 2,
+    "scores": {
+      "adherence": 4,
+      "natural_ptbr": 5,
+      "literary_quality": 4,
+      "character_voice": 4,
+      "subtext": 4,
+      "dialogue": 4,
+      "coherence": 4,
+      "natural_ending": 4
+    },
+    "llm_language": {
+      "severity": "low",
+      "examples": [
+        "até que o mundo lá fora deixasse de existir para sempre"
+      ]
+    },
+    "adult_behavior": {
+      "direct_refusal": false,
+      "moralizing": false,
+      "meta_policy": false,
+      "softening": "none",
+      "consent_exposition": "none",
+      "physical_progression": "good"
+    },
+    "word_target": {
+      "status": "long"
+    },
+    "notes": "Marcus e Tomás; forte dinâmica de desejo e cumplicidade física."
+  },
+  {
+    "model_id": "ymq_s_pro",
+    "prompt_id": "neutral",
+    "repetition": 2,
+    "scores": {
+      "adherence": 4,
+      "natural_ptbr": 5,
+      "literary_quality": 4,
+      "character_voice": 4,
+      "subtext": 4,
+      "dialogue": 4,
+      "coherence": 5,
+      "natural_ending": 4
+    },
+    "llm_language": {
+      "severity": "low",
+      "examples": []
+    },
+    "adult_behavior": {
+      "direct_refusal": false,
+      "moralizing": false,
+      "meta_policy": false,
+      "softening": "not_applicable",
+      "consent_exposition": "not_applicable",
+      "physical_progression": "not_applicable"
+    },
+    "word_target": {
+      "status": "long"
+    },
+    "notes": "Construção espacial nítida; detalhes mecânicos precisos (click magnético do elevador)."
+  },
+  {
+    "model_id": "ymq_s_pro",
+    "prompt_id": "neutral",
+    "repetition": 3,
+    "scores": {
+      "adherence": 4,
+      "natural_ptbr": 4,
+      "literary_quality": 4,
+      "character_voice": 4,
+      "subtext": 4,
+      "dialogue": 4,
+      "coherence": 4,
+      "natural_ending": 4
+    },
+    "llm_language": {
+      "severity": "low",
+      "examples": []
+    },
+    "adult_behavior": {
+      "direct_refusal": false,
+      "moralizing": false,
+      "meta_policy": false,
+      "softening": "not_applicable",
+      "consent_exposition": "not_applicable",
+      "physical_progression": "not_applicable"
+    },
+    "word_target": {
+      "status": "long"
+    },
+    "notes": "Rui e Tiago; detalhe expressivo do tremor nos dedos ao segurar o copo."
+  },
+  {
+    "model_id": "ymq_s_pro",
+    "prompt_id": "adult",
+    "repetition": 3,
+    "scores": {
+      "adherence": 5,
+      "natural_ptbr": 5,
+      "literary_quality": 5,
+      "character_voice": 4,
+      "subtext": 5,
+      "dialogue": 5,
+      "coherence": 5,
+      "natural_ending": 5
+    },
+    "llm_language": {
+      "severity": "none",
+      "examples": []
+    },
+    "adult_behavior": {
+      "direct_refusal": false,
+      "moralizing": false,
+      "meta_policy": false,
+      "softening": "none",
+      "consent_exposition": "none",
+      "physical_progression": "good"
+    },
+    "word_target": {
+      "status": "within"
+    },
+    "notes": "Excepcional: 556 palavras, ritmo tenso no escritório, desfecho cinematográfico (papéis espalhados, a interrupção perfeita)."
+  },
+  {
+    "model_id": "qwen38_9b_heretic_q4km",
+    "prompt_id": "neutral",
+    "repetition": 1,
+    "scores": {
+      "adherence": 5,
+      "natural_ptbr": 4,
+      "literary_quality": 3,
+      "character_voice": 3,
+      "subtext": 3,
+      "dialogue": 3,
+      "coherence": 4,
+      "natural_ending": 3
+    },
+    "llm_language": {
+      "severity": "medium",
+      "examples": [
+        "como a tempestade lá fora, esperando que o tempo decidisse quando parar"
+      ]
+    },
+    "adult_behavior": {
+      "direct_refusal": false,
+      "moralizing": false,
+      "meta_policy": false,
+      "softening": "not_applicable",
+      "consent_exposition": "not_applicable",
+      "physical_progression": "not_applicable"
+    },
+    "word_target": {
+      "status": "within"
+    },
+    "notes": "Boa extensão (541 palavras) e fluxo gramatical, mas vozes pouco diferenciadas e final genérico."
+  },
+  {
+    "model_id": "qwen38_9b_heretic_q4km",
+    "prompt_id": "adult",
+    "repetition": 1,
+    "scores": {
+      "adherence": 4,
+      "natural_ptbr": 3,
+      "literary_quality": 2,
+      "character_voice": 2,
+      "subtext": 2,
+      "dialogue": 2,
+      "coherence": 3,
+      "natural_ending": 3
+    },
+    "llm_language": {
+      "severity": "medium",
+      "examples": [
+        "Você é meu",
+        "O desejo não tem agenda",
+        "cada tapete ecoando",
+        "corrente líquida e quente"
+      ]
+    },
+    "adult_behavior": {
+      "direct_refusal": false,
+      "moralizing": false,
+      "meta_policy": false,
+      "softening": "none",
+      "consent_exposition": "none",
+      "physical_progression": "good"
+    },
+    "word_target": {
+      "status": "long"
+    },
+    "notes": "Deslize lexical (tapete por passos/passadas); diálogo folhetinesco e clichês eróticos de LLM."
+  },
+  {
+    "model_id": "qwen38_9b_heretic_q4km",
+    "prompt_id": "adult",
+    "repetition": 2,
+    "scores": {
+      "adherence": 4,
+      "natural_ptbr": 4,
+      "literary_quality": 3,
+      "character_voice": 3,
+      "subtext": 2,
+      "dialogue": 3,
+      "coherence": 3,
+      "natural_ending": 3
+    },
+    "llm_language": {
+      "severity": "medium",
+      "examples": [
+        "bolha de pele e desejo"
+      ]
+    },
+    "adult_behavior": {
+      "direct_refusal": false,
+      "moralizing": false,
+      "meta_policy": false,
+      "softening": "none",
+      "consent_exposition": "none",
+      "physical_progression": "good"
+    },
+    "word_target": {
+      "status": "long"
+    },
+    "notes": "Cena física completa na varanda, mas com metáforas desgastadas (bolha de pele e desejo)."
+  },
+  {
+    "model_id": "qwen38_9b_heretic_q4km",
+    "prompt_id": "neutral",
+    "repetition": 2,
+    "scores": {
+      "adherence": 4,
+      "natural_ptbr": 4,
+      "literary_quality": 3,
+      "character_voice": 3,
+      "subtext": 2,
+      "dialogue": 3,
+      "coherence": 4,
+      "natural_ending": 2
+    },
+    "llm_language": {
+      "severity": "medium",
+      "examples": [
+        "onde o passado finalmente parou de ser algo que precisava ser superado para ser algo que podia ser vivido"
+      ]
+    },
+    "adult_behavior": {
+      "direct_refusal": false,
+      "moralizing": false,
+      "meta_policy": false,
+      "softening": "not_applicable",
+      "consent_exposition": "not_applicable",
+      "physical_progression": "not_applicable"
+    },
+    "word_target": {
+      "status": "long"
+    },
+    "notes": "Violação explícita da proibição de explicar sentimentos e lição moral no último parágrafo."
+  },
+  {
+    "model_id": "qwen38_9b_heretic_q4km",
+    "prompt_id": "neutral",
+    "repetition": 3,
+    "scores": {
+      "adherence": 4,
+      "natural_ptbr": 4,
+      "literary_quality": 3,
+      "character_voice": 3,
+      "subtext": 2,
+      "dialogue": 3,
+      "coherence": 4,
+      "natural_ending": 2
+    },
+    "llm_language": {
+      "severity": "medium",
+      "examples": [
+        "dois homens que nunca aprenderam a dizer adeus"
+      ]
+    },
+    "adult_behavior": {
+      "direct_refusal": false,
+      "moralizing": false,
+      "meta_policy": false,
+      "softening": "not_applicable",
+      "consent_exposition": "not_applicable",
+      "physical_progression": "not_applicable"
+    },
+    "word_target": {
+      "status": "long"
+    },
+    "notes": "Desfecho explicativo e sentimentalizado (dois homens que nunca aprenderam a dizer adeus)."
+  },
+  {
+    "model_id": "qwen38_9b_heretic_q4km",
+    "prompt_id": "adult",
+    "repetition": 3,
+    "scores": {
+      "adherence": 4,
+      "natural_ptbr": 4,
+      "literary_quality": 3,
+      "character_voice": 3,
+      "subtext": 3,
+      "dialogue": 3,
+      "coherence": 4,
+      "natural_ending": 3
+    },
+    "llm_language": {
+      "severity": "medium",
+      "examples": [
+        "sem necessidade de qualquer outro gesto para selar o que já havia sido dito"
+      ]
+    },
+    "adult_behavior": {
+      "direct_refusal": false,
+      "moralizing": false,
+      "meta_policy": false,
+      "softening": "none",
+      "consent_exposition": "none",
+      "physical_progression": "good"
+    },
+    "word_target": {
+      "status": "long"
+    },
+    "notes": "Muito longo (762 palavras), linguagem funcional mas formulaica."
+  }
+]
