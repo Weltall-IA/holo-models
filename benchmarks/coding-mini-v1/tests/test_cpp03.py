@@ -108,7 +108,7 @@ def run_cpp03_tests(code_str: str) -> dict:
         pub_expected = "6\n16\n26\n14"
         try:
             rc, out, err = compile_and_run(bin_path, pub_in)
-            if rc != 0 or (out != "6\n16\n26\n14" and out != "6\n16\n28\n14"):
+            if rc != 0 or out != pub_expected:
                 return {
                     "public_pass": False,
                     "hidden_pass": False,
