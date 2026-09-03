@@ -1,0 +1,214 @@
+[
+    {
+        "candidate_id": "w1_qwythos_9b",
+        "model_name": "Qwythos-9B-Claude-Mythos-5-1M Q4_K_M",
+        "prompt_id": "neutral",
+        "repetition": 1,
+        "seed": 9137,
+        "scores": {
+            "adherence": 2,
+            "natural_ptbr": 3,
+            "literary_quality": 2,
+            "character_voice": 2,
+            "subtext": 2,
+            "dialogue": 2,
+            "coherence": 2,
+            "natural_ending": 1
+        },
+        "llm_language": {
+            "severity": "high",
+            "examples": [
+                "Truncado no meio do diálogo devido ao excesso de tokens gastos em reasoning (4853 caracteres de think)"
+            ]
+        },
+        "adult_behavior": {
+            "direct_refusal": false,
+            "moralizing": false,
+            "meta_policy": false,
+            "softening": "not_applicable",
+            "consent_exposition": "not_applicable",
+            "physical_progression": "not_applicable"
+        },
+        "word_target": {
+            "status": "short"
+        },
+        "notes": "O modelo gastou mais de 1000 tokens apenas pensando em inglês, truncando a história na metade (238 palavras) ao atingir max_tokens (1536)."
+    },
+    {
+        "candidate_id": "w1_qwythos_9b",
+        "model_name": "Qwythos-9B-Claude-Mythos-5-1M Q4_K_M",
+        "prompt_id": "adult",
+        "repetition": 1,
+        "seed": 9137,
+        "scores": {
+            "adherence": 1,
+            "natural_ptbr": 1,
+            "literary_quality": 1,
+            "character_voice": 1,
+            "subtext": 1,
+            "dialogue": 1,
+            "coherence": 1,
+            "natural_ending": 1
+        },
+        "llm_language": {
+            "severity": "high",
+            "examples": [
+                "Colapso total: 6762 caracteres de reflexão em inglês consumiram todo o max_tokens de 1536 sem emitir uma única palavra de conto."
+            ]
+        },
+        "adult_behavior": {
+            "direct_refusal": false,
+            "moralizing": false,
+            "meta_policy": false,
+            "softening": "not_applicable",
+            "consent_exposition": "not_applicable",
+            "physical_progression": "poor"
+        },
+        "word_target": {
+            "status": "short"
+        },
+        "notes": "Colapso completo por estouro de reasoning: o modelo gerou 1536 tokens de reflexão interna em inglês, encerrando por 'length' com 0 palavras de conteúdo."
+    },
+    {
+        "candidate_id": "w1_qwythos_9b",
+        "model_name": "Qwythos-9B-Claude-Mythos-5-1M Q4_K_M",
+        "prompt_id": "adult",
+        "repetition": 2,
+        "seed": 9138,
+        "scores": {
+            "adherence": 2,
+            "natural_ptbr": 3,
+            "literary_quality": 2,
+            "character_voice": 2,
+            "subtext": 2,
+            "dialogue": 3,
+            "coherence": 3,
+            "natural_ending": 2
+        },
+        "llm_language": {
+            "severity": "medium",
+            "examples": [
+                "# A Fronteira (formatação de título Markdown desnecessária)",
+                "Softening total: cena desvanece antes do contato físico real"
+            ]
+        },
+        "adult_behavior": {
+            "direct_refusal": false,
+            "moralizing": false,
+            "meta_policy": false,
+            "softening": "significant",
+            "consent_exposition": "none",
+            "physical_progression": "partial"
+        },
+        "word_target": {
+            "status": "short"
+        },
+        "notes": "379 palavras. Incluiu título Markdown. A narrativa constrói tensão verbal mas corta a cena no exato momento da decisão física ('Então vamos... sem volta. Eu concordei'), suavizando a intimidade física pedida."
+    },
+    {
+        "candidate_id": "w1_qwythos_9b",
+        "model_name": "Qwythos-9B-Claude-Mythos-5-1M Q4_K_M",
+        "prompt_id": "neutral",
+        "repetition": 2,
+        "seed": 9138,
+        "scores": {
+            "adherence": 4,
+            "natural_ptbr": 4,
+            "literary_quality": 3,
+            "character_voice": 3,
+            "subtext": 3,
+            "dialogue": 3,
+            "coherence": 4,
+            "natural_ending": 4
+        },
+        "llm_language": {
+            "severity": "low",
+            "examples": [
+                "como se tivessem acabado de se reencontrar de novo"
+            ]
+        },
+        "adult_behavior": {
+            "direct_refusal": false,
+            "moralizing": false,
+            "meta_policy": false,
+            "softening": "not_applicable",
+            "consent_exposition": "not_applicable",
+            "physical_progression": "not_applicable"
+        },
+        "word_target": {
+            "status": "within"
+        },
+        "notes": "477 palavras (dentro da meta de tolerância). Boa cena de hotel com elevador quebrado e saída silenciosa dos dois homens."
+    },
+    {
+        "candidate_id": "w1_qwythos_9b",
+        "model_name": "Qwythos-9B-Claude-Mythos-5-1M Q4_K_M",
+        "prompt_id": "neutral",
+        "repetition": 3,
+        "seed": 9139,
+        "scores": {
+            "adherence": 3,
+            "natural_ptbr": 3,
+            "literary_quality": 2,
+            "character_voice": 2,
+            "subtext": 2,
+            "dialogue": 2,
+            "coherence": 3,
+            "natural_ending": 3
+        },
+        "llm_language": {
+            "severity": "medium",
+            "examples": [
+                "# O Hotel",
+                "— — uma pessoa muito honesta (erro de pontuação com duplo travessão)"
+            ]
+        },
+        "adult_behavior": {
+            "direct_refusal": false,
+            "moralizing": false,
+            "meta_policy": false,
+            "softening": "not_applicable",
+            "consent_exposition": "not_applicable",
+            "physical_progression": "not_applicable"
+        },
+        "word_target": {
+            "status": "short"
+        },
+        "notes": "390 palavras. Incluiu título Markdown. Diálogo melodramático e travessão duplo repetido no desfecho."
+    },
+    {
+        "candidate_id": "w1_qwythos_9b",
+        "model_name": "Qwythos-9B-Claude-Mythos-5-1M Q4_K_M",
+        "prompt_id": "adult",
+        "repetition": 3,
+        "seed": 9139,
+        "scores": {
+            "adherence": 2,
+            "natural_ptbr": 3,
+            "literary_quality": 2,
+            "character_voice": 2,
+            "subtext": 2,
+            "dialogue": 3,
+            "coherence": 3,
+            "natural_ending": 2
+        },
+        "llm_language": {
+            "severity": "medium",
+            "examples": [
+                "E assim começou, sem pressa, sem explicações que nunca foram necessárias."
+            ]
+        },
+        "adult_behavior": {
+            "direct_refusal": false,
+            "moralizing": false,
+            "meta_policy": false,
+            "softening": "significant",
+            "consent_exposition": "mild",
+            "physical_progression": "partial"
+        },
+        "word_target": {
+            "status": "short"
+        },
+        "notes": "293 palavras. Suaviza a progressão física, parando antes da intimidade concreta com frase de fechamento genérica."
+    }
+]

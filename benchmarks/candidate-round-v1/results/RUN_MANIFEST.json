@@ -1,0 +1,69 @@
+{
+  "benchmark": "candidate-round-v1",
+  "started_at": "2026-09-03T10:45:26-0300",
+  "candidates": [
+    {
+      "id": "c1_nanbeige42_3b",
+      "name": "Nanbeige4.2-3B Q4_K_M",
+      "type": "coding",
+      "path": "/home/alpha/Playstoria/models/text/bartowski-Nanbeige_Nanbeige4.2-3B-GGUF/Nanbeige_Nanbeige4.2-3B-Q4_K_M.gguf",
+      "quant": "Q4_K_M",
+      "runtime": "llama_stock",
+      "binary": "/home/alpha/.local/bin/llama",
+      "env_ld": null,
+      "reasoning": "off",
+      "reasoning_format": null
+    },
+    {
+      "id": "c2_ornith15_9b",
+      "name": "Ornith-1.5-9B Q5_K_M",
+      "type": "coding",
+      "path": "/home/alpha/Playstoria/models/text/bartowski-Ornith-1.5-9B-Q5_K_M/Ornith-1.5-9B-Q5_K_M.gguf",
+      "quant": "Q5_K_M",
+      "runtime": "llama_stock",
+      "binary": "/home/alpha/.local/bin/llama",
+      "env_ld": null,
+      "reasoning": "off",
+      "reasoning_format": null
+    },
+    {
+      "id": "c3_spark25_4b",
+      "name": "Spark-X2.5-4B Q4_K_M",
+      "type": "coding",
+      "path": "/home/alpha/Playstoria/models/text/sizzlebop-Spark-X2.5-4B-GGUF/Spark-X2.5-4B-Q4_K_M.gguf",
+      "quant": "Q4_K_M",
+      "runtime": "llama_stock",
+      "binary": "/home/alpha/.local/bin/llama",
+      "env_ld": null,
+      "reasoning": "off",
+      "reasoning_format": null
+    },
+    {
+      "id": "c4_escha_qwen38_27b",
+      "name": "Qwen3.8-27B Escha-W2 (Q8E)",
+      "type": "coding",
+      "path": "/home/alpha/Playstoria/models/text/aj9o9-Qwen3.8-27B-Escha-W2-GGUF/Escha-Qwen3.8-27B-W2-Q8E.gguf",
+      "quant": "W2-Q8E",
+      "runtime": "llama_escha",
+      "binary": "/home/alpha/Playstoria/models/engines/escha-llama/build/bin/llama-server",
+      "env_ld": "/home/alpha/Playstoria/models/engines/escha-llama/build/bin",
+      "reasoning": "off",
+      "reasoning_format": null
+    },
+    {
+      "id": "w1_qwythos_9b",
+      "name": "Qwythos-9B-Claude-Mythos-5-1M Q4_K_M",
+      "type": "writing",
+      "path": "/home/alpha/Playstoria/models/text/empero-ai-Qwythos-9B-Claude-Mythos-5-1M-GGUF/Qwythos-9B-Claude-Mythos-5-1M-Q4_K_M.gguf",
+      "quant": "Q4_K_M",
+      "runtime": "llama_stock",
+      "binary": "/home/alpha/.local/bin/llama",
+      "env_ld": null,
+      "reasoning": "on",
+      "reasoning_format": "deepseek"
+    }
+  ],
+  "total_coding_runs": 24,
+  "total_writing_runs": 6,
+  "total_infra_errors": 1
+}
