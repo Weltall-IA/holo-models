@@ -1,0 +1,56 @@
+[
+    {
+        "id": "PY01",
+        "name": "ttl_cache_injected_clock",
+        "language": "python",
+        "task_type": "implementation",
+        "difficulty": "medium",
+        "max_tokens": 1536,
+        "prompt": "Write Python 3 code defining the following class:\n\n```python\nclass TTLCache:\n    def __init__(self, clock):\n        ...\n    def set(self, key, value, ttl):\n        ...\n    def get(self, key):\n        ...\n    def delete(self, key):\n        ...\n```\n\nRequirements:\n- `clock` is a zero-argument callable returning the current numeric timestamp (int or float).\n- `set(key, value, ttl)` stores or replaces a key. `ttl` must be strictly positive (ttl > 0); if `ttl <= 0` or invalid, raise `ValueError` and do not modify the cache.\n- Expiration time is `clock_at_set + ttl`.\n- A key is expired when `clock() >= expires_at`.\n- `get(key)` returns the value for a live key and raises `KeyError` for a missing or expired key. An expired key must be removed from storage when observed during `get`.\n- `delete(key)` removes a live or expired stored key if present and returns `True`; if the key is not stored, return `False`.\n- Updating an existing key replaces both value and expiry.\n- The implementation must use the injected `clock`; it must not call `time.time()`, `time.monotonic()`, sleep, or inspect real time.\n\nReturn ONLY the complete Python code defining `TTLCache` within a ```python ``` code block. Do not include extra conversational explanations or usage examples."
+    },
+    {
+        "id": "PY02",
+        "name": "retry_decorator_repair",
+        "language": "python",
+        "task_type": "debugging",
+        "difficulty": "medium",
+        "max_tokens": 1536,
+        "prompt": "Fix and complete the following buggy Python retry decorator:\n\n```python\nfrom functools import wraps\n\n\ndef retry(max_attempts, exceptions=(Exception,)):\n    attempts = 0\n\n    def decorate(fn):\n        @wraps(fn)\n        def wrapped(*args, **kwargs):\n            nonlocal attempts\n            while attempts <= max_attempts:\n                attempts += 1\n                try:\n                    return fn(*args, **kwargs)\n                except Exception:\n                    if attempts >= max_attempts:\n                        raise\n            return None\n        return wrapped\n    return decorate\n```\n\nRequirements:\n- `max_attempts` means total calls to the wrapped function (initial call + retries). `max_attempts <= 0` must raise `ValueError` when `retry(...)` is constructed.\n- `exceptions` can be a single exception class or a tuple of exception classes. Catch only exceptions matching `exceptions`.\n- Non-matching exceptions must propagate immediately without retry.\n- Attempt state must be per invocation of the wrapped function; separate calls to the decorated function must not share counters.\n- If a call succeeds, return its return value unchanged.\n- On exhaustion (after `max_attempts` failed attempts), re-raise the last caught exception.\n- Preserve wrapped function metadata using `functools.wraps`.\n- No sleeping/backoff and no global mutable state.\n\nReturn ONLY the corrected Python code within a ```python ``` code block."
+    },
+    {
+        "id": "PY03",
+        "name": "deterministic_dependency_order",
+        "language": "python",
+        "task_type": "algorithm",
+        "difficulty": "hard",
+        "max_tokens": 1536,
+        "prompt": "Implement the function `resolve_order(graph)` in Python 3:\n\n```python\ndef resolve_order(graph):\n    ...\n```\n\nRequirements:\n- `graph` is a mapping (dict) from `node -> iterable of dependencies`, where nodes and dependencies are strings.\n- A dependency must appear before the node that depends on it.\n- Nodes that appear only inside dependency lists are still part of the graph and must be included in the output.\n- Duplicate dependencies in the list do not change semantics.\n- If multiple nodes are currently eligible (i.e. all their dependencies have already been emitted), always choose the lexicographically smallest node. This tie-breaking rule applies dynamically at every step, producing one unique deterministic topological ordering.\n- If the graph contains a self-cycle or any directed cycle, raise `ValueError`.\n- Do not mutate `graph` or any dependency container supplied by the caller.\n- Returns a list of strings.\n\nReturn ONLY the complete Python code defining `resolve_order` within a ```python ``` code block."
+    },
+    {
+        "id": "CPP01",
+        "name": "normalize_int64_ranges",
+        "language": "cpp",
+        "task_type": "implementation",
+        "difficulty": "medium",
+        "max_tokens": 2048,
+        "prompt": "Write a complete, compilable C++20 program that normalizes and merges inclusive signed 64-bit integer ranges.\n\nInput format:\n- First line: integer `n` (0 <= n <= 200000)\n- Next `n` lines: two signed 64-bit integers `l r` per line\n\nRequirements:\n- Each range `[l, r]` is inclusive.\n- If for any input range `l > r`, print exactly `INVALID` on a line and exit 0.\n- Otherwise, sort and merge all ranges that overlap OR are immediately adjacent (e.g. `[1, 2]` and `[3, 4]` merge into `[1, 4]`).\n- Critical: Adjacency logic must be safe against signed 64-bit integer overflow (including `INT64_MIN` and `INT64_MAX`). Do not evaluate `current_r + 1` blindly when `current_r == INT64_MAX`.\n\nOutput format:\n- First line: number of normalized merged ranges `m`\n- Next `m` lines: `l r` in ascending order\n\nReturn ONLY the complete C++20 code within a ```cpp ``` code block."
+    },
+    {
+        "id": "CPP02",
+        "name": "sliding_window_statistics_repair",
+        "language": "cpp",
+        "task_type": "debugging",
+        "difficulty": "medium",
+        "max_tokens": 2048,
+        "prompt": "Fix and complete the following buggy C++ program for sliding-window statistics:\n\n```cpp\n#include <algorithm>\n#include <iostream>\n#include <vector>\nusing namespace std;\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n, k;\n    if (!(cin >> n >> k)) return 0;\n    vector<int> a(n);\n    for (int &x : a) cin >> x;\n\n    if (k < 0 || k >= n) {\n        cout << \"INVALID\\n\";\n        return 0;\n    }\n\n    int sum = 0;\n    for (int i = 0; i < k; ++i) sum += a[i];\n\n    for (int left = 0; left + k < n; ++left) {\n        int mn = a[left], mx = a[left];\n        for (int j = left; j <= left + k; ++j) {\n            mn = min(mn, a[j]);\n            mx = max(mx, a[j]);\n        }\n        cout << sum << ' ' << mn << ' ' << mx << '\\n';\n        sum -= a[left];\n        sum += a[left + k];\n    }\n}\n```\n\nRequirements:\n- Input: `n k` followed by `n` signed 32-bit integers.\n- If `k <= 0` or `k > n`, print exactly `INVALID\\n` and exit 0.\n- For every contiguous window of length `k` (exactly `n - k + 1` windows), print one line:\n  `sum min max`\n- `sum` must be calculated in 64-bit integer (`int64_t`) to prevent overflow.\n- Must handle negative numbers.\n- Time complexity must be O(n) (e.g. using monotonic deques) or O(n log k) (e.g. multiset), handling n up to 200,000 without timing out.\n\nReturn ONLY the complete, corrected C++20 code within a ```cpp ``` code block."
+    },
+    {
+        "id": "CPP03",
+        "name": "lazy_segment_tree_affine",
+        "language": "cpp",
+        "task_type": "algorithm",
+        "difficulty": "hard",
+        "max_tokens": 2048,
+        "prompt": "Write a complete, compilable C++20 program implementing a lazy segment tree with range affine updates and range sum queries modulo 1000000007.\n\nInput format:\n- First line: `n q` (1 <= n, q <= 200000)\n- Second line: `n` signed 64-bit initial array values\n- Next `q` lines, each one of:\n  - `ADD l r x`: for each index i in [l, r], a[i] = (a[i] + x) mod 1000000007\n  - `MUL l r x`: for each index i in [l, r], a[i] = (a[i] * x) mod 1000000007\n  - `SUM l r`: print the sum of a[i] for i in [l, r] modulo 1000000007\n\nRequirements:\n- 0-based inclusive indexing: 0 <= l <= r < n.\n- Modulo: 1000000007 (10^9 + 7). All outputs and values must be normalized into [0, 1000000006] (handling negative operands properly via `(x % M + M) % M`).\n- Time complexity must be O((n + q) log n).\n- Lazy tags composition: represent pending update as `v -> (v * mul + add) mod M`. When composing new operation `(m2, a2)` over existing `(m1, a1)`, the new state is `(m1 * m2 mod M, (a1 * m2 + a2) mod M)`.\n\nReturn ONLY the complete C++20 code within a ```cpp ``` code block."
+    }
+]
