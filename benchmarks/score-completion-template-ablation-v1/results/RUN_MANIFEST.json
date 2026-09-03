@@ -1,0 +1,15 @@
+{
+  "benchmark": "score-completion-template-ablation-v1",
+  "started_at": "2026-09-03T12:35:51-0300",
+  "completed_at": "2026-09-03T12:35:51-0300",
+  "total_coding_runs": 12,
+  "total_writing_runs": 24,
+  "total_new_generations": 36,
+  "cleanup_freed_gib": 11.62,
+  "escha_dflash_status": "BLOCKED_RUNTIME_UNSUPPORTED",
+  "runtimes": {
+    "stock": "/home/alpha/.local/bin/llama",
+    "escha": "/home/alpha/Playstoria/models/engines/escha-llama/build/bin/llama-server",
+    "spark": "/home/alpha/Playstoria/models/engines/spark-llama/build/bin/llama-server"
+  }
+}

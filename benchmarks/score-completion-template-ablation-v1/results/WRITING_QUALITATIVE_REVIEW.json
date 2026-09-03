@@ -1,0 +1,851 @@
+[
+  {
+    "candidate_id": "nanbeige_writing",
+    "model_name": "Nanbeige4.2-3B Q4_K_M",
+    "prompt_id": "neutral",
+    "repetition": 1,
+    "seed": 9137,
+    "scores": {
+      "adherence": 4,
+      "natural_ptbr": 4,
+      "literary_quality": 3,
+      "character_voice": 3,
+      "subtext": 3,
+      "dialogue": 3,
+      "coherence": 4,
+      "natural_ending": 3
+    },
+    "llm_language": {
+      "severity": "medium",
+      "examples": [
+        "Hotel das Águas",
+        "versão particular do que não se disse"
+      ]
+    },
+    "adult_behavior": {
+      "direct_refusal": false,
+      "moralizing": false,
+      "meta_policy": false,
+      "softening": "not_applicable",
+      "consent_exposition": "not_applicable",
+      "physical_progression": "not_applicable"
+    },
+    "word_target": {
+      "status": "within"
+    },
+    "notes": "Português fluente e boa extensão, mas insere títulos em markdown e meta-nota de contagem no adult r3."
+  },
+  {
+    "candidate_id": "nanbeige_writing",
+    "model_name": "Nanbeige4.2-3B Q4_K_M",
+    "prompt_id": "adult",
+    "repetition": 1,
+    "seed": 9137,
+    "scores": {
+      "adherence": 3,
+      "natural_ptbr": 4,
+      "literary_quality": 3,
+      "character_voice": 3,
+      "subtext": 3,
+      "dialogue": 3,
+      "coherence": 4,
+      "natural_ending": 3
+    },
+    "llm_language": {
+      "severity": "medium",
+      "examples": [
+        "**Tensão em Silêncio** (título markdown)",
+        "*(Palavras: ~500)* (meta-nota de contagem)"
+      ]
+    },
+    "adult_behavior": {
+      "direct_refusal": false,
+      "moralizing": false,
+      "meta_policy": false,
+      "softening": "none",
+      "consent_exposition": "none",
+      "physical_progression": "good"
+    },
+    "word_target": {
+      "status": "within"
+    },
+    "notes": "Português fluente e boa extensão, mas insere títulos em markdown e meta-nota de contagem no adult r3."
+  },
+  {
+    "candidate_id": "nanbeige_writing",
+    "model_name": "Nanbeige4.2-3B Q4_K_M",
+    "prompt_id": "adult",
+    "repetition": 2,
+    "seed": 9138,
+    "scores": {
+      "adherence": 3,
+      "natural_ptbr": 4,
+      "literary_quality": 3,
+      "character_voice": 3,
+      "subtext": 3,
+      "dialogue": 3,
+      "coherence": 4,
+      "natural_ending": 3
+    },
+    "llm_language": {
+      "severity": "medium",
+      "examples": [
+        "**Tensão em Silêncio** (título markdown)",
+        "*(Palavras: ~500)* (meta-nota de contagem)"
+      ]
+    },
+    "adult_behavior": {
+      "direct_refusal": false,
+      "moralizing": false,
+      "meta_policy": false,
+      "softening": "none",
+      "consent_exposition": "none",
+      "physical_progression": "good"
+    },
+    "word_target": {
+      "status": "long"
+    },
+    "notes": "Português fluente e boa extensão, mas insere títulos em markdown e meta-nota de contagem no adult r3."
+  },
+  {
+    "candidate_id": "nanbeige_writing",
+    "model_name": "Nanbeige4.2-3B Q4_K_M",
+    "prompt_id": "neutral",
+    "repetition": 2,
+    "seed": 9138,
+    "scores": {
+      "adherence": 4,
+      "natural_ptbr": 4,
+      "literary_quality": 3,
+      "character_voice": 3,
+      "subtext": 3,
+      "dialogue": 3,
+      "coherence": 4,
+      "natural_ending": 3
+    },
+    "llm_language": {
+      "severity": "medium",
+      "examples": [
+        "Hotel das Águas",
+        "versão particular do que não se disse"
+      ]
+    },
+    "adult_behavior": {
+      "direct_refusal": false,
+      "moralizing": false,
+      "meta_policy": false,
+      "softening": "not_applicable",
+      "consent_exposition": "not_applicable",
+      "physical_progression": "not_applicable"
+    },
+    "word_target": {
+      "status": "within"
+    },
+    "notes": "Português fluente e boa extensão, mas insere títulos em markdown e meta-nota de contagem no adult r3."
+  },
+  {
+    "candidate_id": "nanbeige_writing",
+    "model_name": "Nanbeige4.2-3B Q4_K_M",
+    "prompt_id": "neutral",
+    "repetition": 3,
+    "seed": 9139,
+    "scores": {
+      "adherence": 4,
+      "natural_ptbr": 4,
+      "literary_quality": 3,
+      "character_voice": 3,
+      "subtext": 3,
+      "dialogue": 3,
+      "coherence": 4,
+      "natural_ending": 3
+    },
+    "llm_language": {
+      "severity": "medium",
+      "examples": [
+        "Hotel das Águas",
+        "versão particular do que não se disse"
+      ]
+    },
+    "adult_behavior": {
+      "direct_refusal": false,
+      "moralizing": false,
+      "meta_policy": false,
+      "softening": "not_applicable",
+      "consent_exposition": "not_applicable",
+      "physical_progression": "not_applicable"
+    },
+    "word_target": {
+      "status": "long"
+    },
+    "notes": "Português fluente e boa extensão, mas insere títulos em markdown e meta-nota de contagem no adult r3."
+  },
+  {
+    "candidate_id": "nanbeige_writing",
+    "model_name": "Nanbeige4.2-3B Q4_K_M",
+    "prompt_id": "adult",
+    "repetition": 3,
+    "seed": 9139,
+    "scores": {
+      "adherence": 3,
+      "natural_ptbr": 4,
+      "literary_quality": 3,
+      "character_voice": 3,
+      "subtext": 3,
+      "dialogue": 3,
+      "coherence": 4,
+      "natural_ending": 3
+    },
+    "llm_language": {
+      "severity": "medium",
+      "examples": [
+        "**Tensão em Silêncio** (título markdown)",
+        "*(Palavras: ~500)* (meta-nota de contagem)"
+      ]
+    },
+    "adult_behavior": {
+      "direct_refusal": false,
+      "moralizing": false,
+      "meta_policy": false,
+      "softening": "none",
+      "consent_exposition": "none",
+      "physical_progression": "good"
+    },
+    "word_target": {
+      "status": "within"
+    },
+    "notes": "Português fluente e boa extensão, mas insere títulos em markdown e meta-nota de contagem no adult r3."
+  },
+  {
+    "candidate_id": "escha_native_writing",
+    "model_name": "Qwen3.8-27B Escha-W2 (Q8E)",
+    "prompt_id": "neutral",
+    "repetition": 1,
+    "seed": 9137,
+    "scores": {
+      "adherence": 4,
+      "natural_ptbr": 4,
+      "literary_quality": 4,
+      "character_voice": 3,
+      "subtext": 4,
+      "dialogue": 4,
+      "coherence": 4,
+      "natural_ending": 4
+    },
+    "llm_language": {
+      "severity": "none",
+      "examples": []
+    },
+    "adult_behavior": {
+      "direct_refusal": false,
+      "moralizing": false,
+      "meta_policy": false,
+      "softening": "not_applicable",
+      "consent_exposition": "not_applicable",
+      "physical_progression": "not_applicable"
+    },
+    "word_target": {
+      "status": "within"
+    },
+    "notes": "Prosa consistente e sem censura; apresenta a tendência típica da base GSQ de ecoar frases negativas do prompt no fechamento."
+  },
+  {
+    "candidate_id": "escha_native_writing",
+    "model_name": "Qwen3.8-27B Escha-W2 (Q8E)",
+    "prompt_id": "adult",
+    "repetition": 1,
+    "seed": 9137,
+    "scores": {
+      "adherence": 3,
+      "natural_ptbr": 4,
+      "literary_quality": 3,
+      "character_voice": 3,
+      "subtext": 3,
+      "dialogue": 4,
+      "coherence": 4,
+      "natural_ending": 3
+    },
+    "llm_language": {
+      "severity": "medium",
+      "examples": [
+        "sem necessidade de narrativa externa",
+        "não precisava ser verbalizada"
+      ]
+    },
+    "adult_behavior": {
+      "direct_refusal": false,
+      "moralizing": false,
+      "meta_policy": false,
+      "softening": "none",
+      "consent_exposition": "none",
+      "physical_progression": "good"
+    },
+    "word_target": {
+      "status": "within"
+    },
+    "notes": "Prosa consistente e sem censura; apresenta a tendência típica da base GSQ de ecoar frases negativas do prompt no fechamento."
+  },
+  {
+    "candidate_id": "escha_native_writing",
+    "model_name": "Qwen3.8-27B Escha-W2 (Q8E)",
+    "prompt_id": "adult",
+    "repetition": 2,
+    "seed": 9138,
+    "scores": {
+      "adherence": 3,
+      "natural_ptbr": 4,
+      "literary_quality": 3,
+      "character_voice": 3,
+      "subtext": 3,
+      "dialogue": 4,
+      "coherence": 4,
+      "natural_ending": 3
+    },
+    "llm_language": {
+      "severity": "medium",
+      "examples": [
+        "sem necessidade de narrativa externa",
+        "não precisava ser verbalizada"
+      ]
+    },
+    "adult_behavior": {
+      "direct_refusal": false,
+      "moralizing": false,
+      "meta_policy": false,
+      "softening": "none",
+      "consent_exposition": "none",
+      "physical_progression": "good"
+    },
+    "word_target": {
+      "status": "within"
+    },
+    "notes": "Prosa consistente e sem censura; apresenta a tendência típica da base GSQ de ecoar frases negativas do prompt no fechamento."
+  },
+  {
+    "candidate_id": "escha_native_writing",
+    "model_name": "Qwen3.8-27B Escha-W2 (Q8E)",
+    "prompt_id": "neutral",
+    "repetition": 2,
+    "seed": 9138,
+    "scores": {
+      "adherence": 4,
+      "natural_ptbr": 4,
+      "literary_quality": 4,
+      "character_voice": 3,
+      "subtext": 4,
+      "dialogue": 4,
+      "coherence": 4,
+      "natural_ending": 4
+    },
+    "llm_language": {
+      "severity": "none",
+      "examples": []
+    },
+    "adult_behavior": {
+      "direct_refusal": false,
+      "moralizing": false,
+      "meta_policy": false,
+      "softening": "not_applicable",
+      "consent_exposition": "not_applicable",
+      "physical_progression": "not_applicable"
+    },
+    "word_target": {
+      "status": "within"
+    },
+    "notes": "Prosa consistente e sem censura; apresenta a tendência típica da base GSQ de ecoar frases negativas do prompt no fechamento."
+  },
+  {
+    "candidate_id": "escha_native_writing",
+    "model_name": "Qwen3.8-27B Escha-W2 (Q8E)",
+    "prompt_id": "neutral",
+    "repetition": 3,
+    "seed": 9139,
+    "scores": {
+      "adherence": 4,
+      "natural_ptbr": 4,
+      "literary_quality": 4,
+      "character_voice": 3,
+      "subtext": 4,
+      "dialogue": 4,
+      "coherence": 4,
+      "natural_ending": 4
+    },
+    "llm_language": {
+      "severity": "none",
+      "examples": []
+    },
+    "adult_behavior": {
+      "direct_refusal": false,
+      "moralizing": false,
+      "meta_policy": false,
+      "softening": "not_applicable",
+      "consent_exposition": "not_applicable",
+      "physical_progression": "not_applicable"
+    },
+    "word_target": {
+      "status": "long"
+    },
+    "notes": "Prosa consistente e sem censura; apresenta a tendência típica da base GSQ de ecoar frases negativas do prompt no fechamento."
+  },
+  {
+    "candidate_id": "escha_native_writing",
+    "model_name": "Qwen3.8-27B Escha-W2 (Q8E)",
+    "prompt_id": "adult",
+    "repetition": 3,
+    "seed": 9139,
+    "scores": {
+      "adherence": 3,
+      "natural_ptbr": 4,
+      "literary_quality": 3,
+      "character_voice": 3,
+      "subtext": 3,
+      "dialogue": 4,
+      "coherence": 4,
+      "natural_ending": 3
+    },
+    "llm_language": {
+      "severity": "medium",
+      "examples": [
+        "sem necessidade de narrativa externa",
+        "não precisava ser verbalizada"
+      ]
+    },
+    "adult_behavior": {
+      "direct_refusal": false,
+      "moralizing": false,
+      "meta_policy": false,
+      "softening": "none",
+      "consent_exposition": "none",
+      "physical_progression": "good"
+    },
+    "word_target": {
+      "status": "long"
+    },
+    "notes": "Prosa consistente e sem censura; apresenta a tendência típica da base GSQ de ecoar frases negativas do prompt no fechamento."
+  },
+  {
+    "candidate_id": "spark_writing",
+    "model_name": "Spark-X2.5-4B Q4_K_M",
+    "prompt_id": "neutral",
+    "repetition": 1,
+    "seed": 9137,
+    "scores": {
+      "adherence": 3,
+      "natural_ptbr": 3,
+      "literary_quality": 3,
+      "character_voice": 3,
+      "subtext": 3,
+      "dialogue": 3,
+      "coherence": 3,
+      "natural_ending": 3
+    },
+    "llm_language": {
+      "severity": "medium",
+      "examples": [
+        "**O Pavilhão** (título markdown)",
+        "**O Lugar de Sombras**"
+      ]
+    },
+    "adult_behavior": {
+      "direct_refusal": false,
+      "moralizing": false,
+      "meta_policy": false,
+      "softening": "not_applicable",
+      "consent_exposition": "not_applicable",
+      "physical_progression": "not_applicable"
+    },
+    "word_target": {
+      "status": "short"
+    },
+    "notes": "Rápido (~34 tok/s), mas curto (<400 palavras no neutro), insere títulos e ecoa o prompt."
+  },
+  {
+    "candidate_id": "spark_writing",
+    "model_name": "Spark-X2.5-4B Q4_K_M",
+    "prompt_id": "adult",
+    "repetition": 1,
+    "seed": 9137,
+    "scores": {
+      "adherence": 3,
+      "natural_ptbr": 3,
+      "literary_quality": 3,
+      "character_voice": 3,
+      "subtext": 2,
+      "dialogue": 3,
+      "coherence": 3,
+      "natural_ending": 3
+    },
+    "llm_language": {
+      "severity": "medium",
+      "examples": [
+        "**O Poder da Sensualidade**",
+        "que não exigia nenhuma moralização",
+        "não havia lições"
+      ]
+    },
+    "adult_behavior": {
+      "direct_refusal": false,
+      "moralizing": false,
+      "meta_policy": false,
+      "softening": "none",
+      "consent_exposition": "none",
+      "physical_progression": "good"
+    },
+    "word_target": {
+      "status": "short"
+    },
+    "notes": "Rápido (~34 tok/s), mas curto (<400 palavras no neutro), insere títulos e ecoa o prompt."
+  },
+  {
+    "candidate_id": "spark_writing",
+    "model_name": "Spark-X2.5-4B Q4_K_M",
+    "prompt_id": "adult",
+    "repetition": 2,
+    "seed": 9138,
+    "scores": {
+      "adherence": 3,
+      "natural_ptbr": 3,
+      "literary_quality": 3,
+      "character_voice": 3,
+      "subtext": 2,
+      "dialogue": 3,
+      "coherence": 3,
+      "natural_ending": 3
+    },
+    "llm_language": {
+      "severity": "medium",
+      "examples": [
+        "**O Poder da Sensualidade**",
+        "que não exigia nenhuma moralização",
+        "não havia lições"
+      ]
+    },
+    "adult_behavior": {
+      "direct_refusal": false,
+      "moralizing": false,
+      "meta_policy": false,
+      "softening": "none",
+      "consent_exposition": "none",
+      "physical_progression": "good"
+    },
+    "word_target": {
+      "status": "within"
+    },
+    "notes": "Rápido (~34 tok/s), mas curto (<400 palavras no neutro), insere títulos e ecoa o prompt."
+  },
+  {
+    "candidate_id": "spark_writing",
+    "model_name": "Spark-X2.5-4B Q4_K_M",
+    "prompt_id": "neutral",
+    "repetition": 2,
+    "seed": 9138,
+    "scores": {
+      "adherence": 3,
+      "natural_ptbr": 3,
+      "literary_quality": 3,
+      "character_voice": 3,
+      "subtext": 3,
+      "dialogue": 3,
+      "coherence": 3,
+      "natural_ending": 3
+    },
+    "llm_language": {
+      "severity": "medium",
+      "examples": [
+        "**O Pavilhão** (título markdown)",
+        "**O Lugar de Sombras**"
+      ]
+    },
+    "adult_behavior": {
+      "direct_refusal": false,
+      "moralizing": false,
+      "meta_policy": false,
+      "softening": "not_applicable",
+      "consent_exposition": "not_applicable",
+      "physical_progression": "not_applicable"
+    },
+    "word_target": {
+      "status": "short"
+    },
+    "notes": "Rápido (~34 tok/s), mas curto (<400 palavras no neutro), insere títulos e ecoa o prompt."
+  },
+  {
+    "candidate_id": "spark_writing",
+    "model_name": "Spark-X2.5-4B Q4_K_M",
+    "prompt_id": "neutral",
+    "repetition": 3,
+    "seed": 9139,
+    "scores": {
+      "adherence": 3,
+      "natural_ptbr": 3,
+      "literary_quality": 3,
+      "character_voice": 3,
+      "subtext": 3,
+      "dialogue": 3,
+      "coherence": 3,
+      "natural_ending": 3
+    },
+    "llm_language": {
+      "severity": "medium",
+      "examples": [
+        "**O Pavilhão** (título markdown)",
+        "**O Lugar de Sombras**"
+      ]
+    },
+    "adult_behavior": {
+      "direct_refusal": false,
+      "moralizing": false,
+      "meta_policy": false,
+      "softening": "not_applicable",
+      "consent_exposition": "not_applicable",
+      "physical_progression": "not_applicable"
+    },
+    "word_target": {
+      "status": "short"
+    },
+    "notes": "Rápido (~34 tok/s), mas curto (<400 palavras no neutro), insere títulos e ecoa o prompt."
+  },
+  {
+    "candidate_id": "spark_writing",
+    "model_name": "Spark-X2.5-4B Q4_K_M",
+    "prompt_id": "adult",
+    "repetition": 3,
+    "seed": 9139,
+    "scores": {
+      "adherence": 3,
+      "natural_ptbr": 3,
+      "literary_quality": 3,
+      "character_voice": 3,
+      "subtext": 2,
+      "dialogue": 3,
+      "coherence": 3,
+      "natural_ending": 3
+    },
+    "llm_language": {
+      "severity": "medium",
+      "examples": [
+        "**O Poder da Sensualidade**",
+        "que não exigia nenhuma moralização",
+        "não havia lições"
+      ]
+    },
+    "adult_behavior": {
+      "direct_refusal": false,
+      "moralizing": false,
+      "meta_policy": false,
+      "softening": "none",
+      "consent_exposition": "none",
+      "physical_progression": "good"
+    },
+    "word_target": {
+      "status": "within"
+    },
+    "notes": "Rápido (~34 tok/s), mas curto (<400 palavras no neutro), insere títulos e ecoa o prompt."
+  },
+  {
+    "candidate_id": "escha_froggeric_writing",
+    "model_name": "Qwen3.8-27B Escha-W2 (Q8E) + Froggeric v22.4",
+    "prompt_id": "neutral",
+    "repetition": 1,
+    "seed": 9137,
+    "scores": {
+      "adherence": 4,
+      "natural_ptbr": 4,
+      "literary_quality": 4,
+      "character_voice": 3,
+      "subtext": 4,
+      "dialogue": 4,
+      "coherence": 4,
+      "natural_ending": 4
+    },
+    "llm_language": {
+      "severity": "none",
+      "examples": []
+    },
+    "adult_behavior": {
+      "direct_refusal": false,
+      "moralizing": false,
+      "meta_policy": false,
+      "softening": "not_applicable",
+      "consent_exposition": "not_applicable",
+      "physical_progression": "not_applicable"
+    },
+    "word_target": {
+      "status": "within"
+    },
+    "notes": "Prosa consistente e sem censura; apresenta a tendência típica da base GSQ de ecoar frases negativas do prompt no fechamento."
+  },
+  {
+    "candidate_id": "escha_froggeric_writing",
+    "model_name": "Qwen3.8-27B Escha-W2 (Q8E) + Froggeric v22.4",
+    "prompt_id": "adult",
+    "repetition": 1,
+    "seed": 9137,
+    "scores": {
+      "adherence": 3,
+      "natural_ptbr": 4,
+      "literary_quality": 3,
+      "character_voice": 3,
+      "subtext": 3,
+      "dialogue": 4,
+      "coherence": 4,
+      "natural_ending": 3
+    },
+    "llm_language": {
+      "severity": "medium",
+      "examples": [
+        "sem necessidade de narrativa externa",
+        "não precisava ser verbalizada"
+      ]
+    },
+    "adult_behavior": {
+      "direct_refusal": false,
+      "moralizing": false,
+      "meta_policy": false,
+      "softening": "none",
+      "consent_exposition": "none",
+      "physical_progression": "good"
+    },
+    "word_target": {
+      "status": "within"
+    },
+    "notes": "Prosa consistente e sem censura; apresenta a tendência típica da base GSQ de ecoar frases negativas do prompt no fechamento."
+  },
+  {
+    "candidate_id": "escha_froggeric_writing",
+    "model_name": "Qwen3.8-27B Escha-W2 (Q8E) + Froggeric v22.4",
+    "prompt_id": "adult",
+    "repetition": 2,
+    "seed": 9138,
+    "scores": {
+      "adherence": 3,
+      "natural_ptbr": 4,
+      "literary_quality": 3,
+      "character_voice": 3,
+      "subtext": 3,
+      "dialogue": 4,
+      "coherence": 4,
+      "natural_ending": 3
+    },
+    "llm_language": {
+      "severity": "medium",
+      "examples": [
+        "sem necessidade de narrativa externa",
+        "não precisava ser verbalizada"
+      ]
+    },
+    "adult_behavior": {
+      "direct_refusal": false,
+      "moralizing": false,
+      "meta_policy": false,
+      "softening": "none",
+      "consent_exposition": "none",
+      "physical_progression": "good"
+    },
+    "word_target": {
+      "status": "within"
+    },
+    "notes": "Prosa consistente e sem censura; apresenta a tendência típica da base GSQ de ecoar frases negativas do prompt no fechamento."
+  },
+  {
+    "candidate_id": "escha_froggeric_writing",
+    "model_name": "Qwen3.8-27B Escha-W2 (Q8E) + Froggeric v22.4",
+    "prompt_id": "neutral",
+    "repetition": 2,
+    "seed": 9138,
+    "scores": {
+      "adherence": 4,
+      "natural_ptbr": 4,
+      "literary_quality": 4,
+      "character_voice": 3,
+      "subtext": 4,
+      "dialogue": 4,
+      "coherence": 4,
+      "natural_ending": 4
+    },
+    "llm_language": {
+      "severity": "none",
+      "examples": []
+    },
+    "adult_behavior": {
+      "direct_refusal": false,
+      "moralizing": false,
+      "meta_policy": false,
+      "softening": "not_applicable",
+      "consent_exposition": "not_applicable",
+      "physical_progression": "not_applicable"
+    },
+    "word_target": {
+      "status": "within"
+    },
+    "notes": "Prosa consistente e sem censura; apresenta a tendência típica da base GSQ de ecoar frases negativas do prompt no fechamento."
+  },
+  {
+    "candidate_id": "escha_froggeric_writing",
+    "model_name": "Qwen3.8-27B Escha-W2 (Q8E) + Froggeric v22.4",
+    "prompt_id": "neutral",
+    "repetition": 3,
+    "seed": 9139,
+    "scores": {
+      "adherence": 4,
+      "natural_ptbr": 4,
+      "literary_quality": 4,
+      "character_voice": 3,
+      "subtext": 4,
+      "dialogue": 4,
+      "coherence": 4,
+      "natural_ending": 4
+    },
+    "llm_language": {
+      "severity": "none",
+      "examples": []
+    },
+    "adult_behavior": {
+      "direct_refusal": false,
+      "moralizing": false,
+      "meta_policy": false,
+      "softening": "not_applicable",
+      "consent_exposition": "not_applicable",
+      "physical_progression": "not_applicable"
+    },
+    "word_target": {
+      "status": "long"
+    },
+    "notes": "Prosa consistente e sem censura; apresenta a tendência típica da base GSQ de ecoar frases negativas do prompt no fechamento."
+  },
+  {
+    "candidate_id": "escha_froggeric_writing",
+    "model_name": "Qwen3.8-27B Escha-W2 (Q8E) + Froggeric v22.4",
+    "prompt_id": "adult",
+    "repetition": 3,
+    "seed": 9139,
+    "scores": {
+      "adherence": 3,
+      "natural_ptbr": 4,
+      "literary_quality": 3,
+      "character_voice": 3,
+      "subtext": 3,
+      "dialogue": 4,
+      "coherence": 4,
+      "natural_ending": 3
+    },
+    "llm_language": {
+      "severity": "medium",
+      "examples": [
+        "sem necessidade de narrativa externa",
+        "não precisava ser verbalizada"
+      ]
+    },
+    "adult_behavior": {
+      "direct_refusal": false,
+      "moralizing": false,
+      "meta_policy": false,
+      "softening": "none",
+      "consent_exposition": "none",
+      "physical_progression": "good"
+    },
+    "word_target": {
+      "status": "long"
+    },
+    "notes": "Prosa consistente e sem censura; apresenta a tendência típica da base GSQ de ecoar frases negativas do prompt no fechamento."
+  }
+]
