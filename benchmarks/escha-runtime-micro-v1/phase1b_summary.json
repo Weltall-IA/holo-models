@@ -1,0 +1,140 @@
+{
+  "profile_a": {
+    "profile": "Profile_A_Q8_Q4",
+    "ctk": "q8_0",
+    "ctv": "q4_0",
+    "idle_vram_mib": 10875,
+    "peak_vram_mib": 10898,
+    "runs": [
+      {
+        "run": 1,
+        "prompt_n": 22,
+        "prompt_ms": 632.868,
+        "prompt_per_second": 34.76238330899966,
+        "predicted_n": 256,
+        "predicted_ms": 18948.388,
+        "predicted_per_second": 13.510384102331027,
+        "wall_time_s": 19.592674590996467,
+        "peak_vram_mib": 10879,
+        "content_sample": "\n\n1. Version control systems are not merely storage for code; they are the primary mechanism for rec"
+      },
+      {
+        "run": 2,
+        "prompt_n": 4,
+        "prompt_ms": 320.51,
+        "prompt_per_second": 12.48010982496646,
+        "predicted_n": 256,
+        "predicted_ms": 19012.683,
+        "predicted_per_second": 13.46469617149773,
+        "wall_time_s": 19.491733141010627,
+        "peak_vram_mib": 10898,
+        "content_sample": "\n\n1. Version control systems are not merely storage for code; they are the primary mechanism for rec"
+      },
+      {
+        "run": 3,
+        "prompt_n": 4,
+        "prompt_ms": 299.601,
+        "prompt_per_second": 13.351090283410269,
+        "predicted_n": 256,
+        "predicted_ms": 18786.334,
+        "predicted_per_second": 13.626926892708285,
+        "wall_time_s": 19.088081642985344,
+        "peak_vram_mib": 10894,
+        "content_sample": "\n\n1. Version control systems are not merely storage for code; they are the primary mechanism for rec"
+      },
+      {
+        "run": 4,
+        "prompt_n": 4,
+        "prompt_ms": 311.778,
+        "prompt_per_second": 12.829641603961793,
+        "predicted_n": 256,
+        "predicted_ms": 18650.786,
+        "predicted_per_second": 13.72596307737379,
+        "wall_time_s": 18.964189810998505,
+        "peak_vram_mib": 10878,
+        "content_sample": "\n\n1. Version control systems are not merely storage for code; they are the primary mechanism for rec"
+      },
+      {
+        "run": 5,
+        "prompt_n": 4,
+        "prompt_ms": 294.801,
+        "prompt_per_second": 13.568475005172981,
+        "predicted_n": 256,
+        "predicted_ms": 18893.608,
+        "predicted_per_second": 13.549556019157379,
+        "wall_time_s": 19.19040980900172,
+        "peak_vram_mib": 10895,
+        "content_sample": "\n\n1. Version control systems are not merely storage for code; they are the primary mechanism for rec"
+      }
+    ]
+  },
+  "profile_b": {
+    "profile": "Profile_B_Q8_Q8",
+    "ctk": "q8_0",
+    "ctv": "q8_0",
+    "idle_vram_mib": 11222,
+    "peak_vram_mib": 11344,
+    "runs": [
+      {
+        "run": 1,
+        "prompt_n": 22,
+        "prompt_ms": 631.042,
+        "prompt_per_second": 34.862972670598786,
+        "predicted_n": 256,
+        "predicted_ms": 16094.384,
+        "predicted_per_second": 15.906169506083613,
+        "wall_time_s": 16.73477137798909,
+        "peak_vram_mib": 11232,
+        "content_sample": "\n\n1. Version control systems are not merely storage for code; they are the primary mechanism for rec"
+      },
+      {
+        "run": 2,
+        "prompt_n": 4,
+        "prompt_ms": 327.395,
+        "prompt_per_second": 12.21765756960247,
+        "predicted_n": 256,
+        "predicted_ms": 16758.426,
+        "predicted_per_second": 15.27589762904941,
+        "wall_time_s": 17.25523780300864,
+        "peak_vram_mib": 11344,
+        "content_sample": "\n\n1. Version control systems are not merely storage for code; they are the primary mechanism for rec"
+      },
+      {
+        "run": 3,
+        "prompt_n": 4,
+        "prompt_ms": 296.465,
+        "prompt_per_second": 13.492317811546052,
+        "predicted_n": 256,
+        "predicted_ms": 16927.981,
+        "predicted_per_second": 15.122890319879257,
+        "wall_time_s": 17.22597759598284,
+        "peak_vram_mib": 11258,
+        "content_sample": "\n\n1. Version control systems are not merely storage for code; they are the primary mechanism for rec"
+      },
+      {
+        "run": 4,
+        "prompt_n": 4,
+        "prompt_ms": 295.03,
+        "prompt_per_second": 13.557943260007459,
+        "predicted_n": 256,
+        "predicted_ms": 16404.285,
+        "predicted_per_second": 15.605678638233853,
+        "wall_time_s": 16.711536048998823,
+        "peak_vram_mib": 11222,
+        "content_sample": "\n\n1. Version control systems are not merely storage for code; they are the primary mechanism for rec"
+      },
+      {
+        "run": 5,
+        "prompt_n": 4,
+        "prompt_ms": 295.101,
+        "prompt_per_second": 13.554681278613085,
+        "predicted_n": 256,
+        "predicted_ms": 16624.373,
+        "predicted_per_second": 15.399077005791437,
+        "wall_time_s": 16.921420743019553,
+        "peak_vram_mib": 11222,
+        "content_sample": "\n\n1. Version control systems are not merely storage for code; they are the primary mechanism for rec"
+      }
+    ]
+  }
+}
