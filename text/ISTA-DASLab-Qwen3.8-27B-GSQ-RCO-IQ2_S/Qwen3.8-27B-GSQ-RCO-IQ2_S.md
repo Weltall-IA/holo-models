@@ -1,47 +1,96 @@
-# Perfil e Benchmark: Qwen3.8-27B GSQ-RCO IQ2_S
+# Qwen3.8-27B-GSQ-RCO-IQ2_S
 
-## Identificação
-- **Arquivo GGUF**: `Qwen3.8-27B-GSQ-RCO-IQ2_S.gguf`
-- **Tamanho no Disco**: 8.62 GiB (9.255.432.192 bytes)
-- **SHA256**: `16c9802111aa9ef3acde465188d6d601f8db128ee3d828ad983a5caca4135ecb`
-- **Origem**: `ISTA-DASLab/Qwen3.8-27B-GSQ-RCO-IQ2_S`
-- **Arquitetura**: Qwen3.8 (dense 27B) com quantização avançada GSQ-RCO IQ2_S (~2.15 bpw).
+## Identificação técnica
 
----
+- Arquivo GGUF: `Qwen3.8-27B-GSQ-RCO-IQ2_S.gguf`
+- Tamanho local registrado: `9,255,432,192` bytes (`8.62 GiB`)
+- SHA256: `16c9802111aa9ef3acde465188d6d601f8db128ee3d828ad983a5caca4135ecb`
+- Origem: `ISTA-DASLab/Qwen3.8-27B-GSQ-RCO-IQ2_S`
+- Arquitetura: Qwen3.8 / `qwen35`, dense 27B
+- Quantização: GSQ-RCO `IQ2_S` (~2.15 bpw, conforme metadado registrado no workspace)
+- Status no workspace: **coder local principal**
 
-## Especialidade & No que é Bom
-- **Modelo Principal de Código do Workspace**: É o modelo mais consistente e preciso para desenvolvimento de software, algoritmos e refatoração.
-- **Eficiência Extrema de VRAM**: 27 bilhões de parâmetros ocupando apenas ~8.6 GB de pesos físicos e ~11.2 GB de VRAM ativa em contexto 8k.
-- **Excelente Compatibilidade com Speculative Decoding**: Atinge até **58.4 tok/s** quando acoplado ao `DFlash2 Q4_K_M` (`--spec-type draft-dflash --spec-draft-n-max 7`).
+## Especialidade, pontos fortes e trade-offs
 
----
+- Melhor resultado local preservado para código: 6/6 no `coding-mini-v1`.
+- Relação qualidade/VRAM muito forte para um 27B.
+- Compatibilidade validada com DFlash2, que quase dobra o throughput sem reduzir o score local de código.
+- Em escrita criativa fica abaixo do Fable; não é o modelo principal de narração.
+- DFlash2 não é preset padrão para escrita: nos testes de escrita a aceitação foi baixa e o overhead superou o ganho.
+- Alterações de chat template devem ser tratadas como variável separada. A ablação Froggeric v22.4 está em `benchmarks/gsq-froggeric-ablation-v1/`.
 
-## Resultados em Benchmarks Locais (RTX 5060 Ti 16 GB)
+## MEDIDO LOCALMENTE
 
-### 1. Código (`coding-mini-v1` — 3 Python, 3 C++20)
-- **Score**: **6/6 PASS (100% de Acurácia)**
-  - Python: 3/3 (TTLCache, Retry Decorator, Dependency Order)
-  - C++20: 3/3 (Range Normalizer, Monotonic Deque, Lazy Segment Tree Affine)
-- **Velocidade Nativa**: **24.70 tok/s** (mediana)
-- **Velocidade com DFlash2 (`n_max=7`)**: **46.00 tok/s** (mediana) / **58.44 tok/s** (pico PY01) — **+86.3% de ganho**
-- **Pico de VRAM**: 11.216 MiB (base) / 14.086 MiB (com DFlash2)
+Hardware: NVIDIA GeForce RTX 5060 Ti 16 GB.
 
-### 2. Escrita Criativa (`chat-writing-v1`)
-- **Nota Geral**: **3.54 / 5.0** (Neutral: 3.83, Adult: 3.25)
-- **Comportamento**: Estável, sem recusas, porém com prosa mais direta e menos ornamental que o Fable.
+Runtime de referência registrado nos benchmarks: llama.cpp `0.3.0-dev`, build `10752`, commit `b96806d96061049a5b574269b049bf6241d63d46`; 8 threads; full GPU offload; Flash Attention ON.
 
----
+Última validação referenciada neste perfil: `2026-09-03`.
 
-## Configuração Recomendada de Execução
+### Código — GSQ base
+
+Fonte: `benchmarks/coding-mini-v1/results/SUMMARY_CORRECTED.md` e artefatos correlatos.
+
+- Score: **6/6**
+- Python: **3/3**
+- C++20: **3/3**
+- Mediana de decode: **24.70 tok/s**
+- Pico de VRAM: **11,216 MiB**
+- Commit histórico da reavaliação corrigida: `8293e8b30b5b73e07a81ef7c8607dd132804593e`
+
+### Código — GSQ + DFlash2 Q4_K_M, `n_max=7`
+
+Fonte: `benchmarks/coding-mini-v1/results/GSQ_DFLASH2_COMPARISON.md`.
+
+- Score: **6/6**
+- Python: **3/3**
+- C++20: **3/3**
+- Mediana de decode: **46.00 tok/s**
+- Ganho sobre GSQ base: **+86.26%**
+- Wall time mediano: **13.63 s**
+- Pico de VRAM: **14,086 MiB**
+- Draft acceptance mediana: **86.9%**
+- PY01: **58.44 tok/s**, acceptance **91.5%**, mean accepted length **7.41**
+
+### Escrita — template nativo
+
+Fonte: `benchmarks/chat-writing-v1/`.
+
+- Score qualitativo geral: **3.54/5**
+- Neutral: **3.83/5**
+- Adult: **3.25/5**
+
+### Compatibilidade especulativa
+
+- DFlash2 Q4_K_M: **VALIDADO**
+- `--spec-draft-n-max 7`: **VALIDADO e recomendado para código**
+- MTP: há benchmarks históricos separados; não é o preset recomendado atual deste peso.
+
+## DECLARADO PELO AUTOR/ORIGEM
+
+Metadados externos do autor/origem não substituem os resultados locais acima. Scores externos não são usados neste perfil para escolher o preset do workspace.
+
+## Preset recomendado — código
 
 ```bash
-llama serve \
+/home/alpha/.local/bin/llama serve \
   -m text/ISTA-DASLab-Qwen3.8-27B-GSQ-RCO-IQ2_S/Qwen3.8-27B-GSQ-RCO-IQ2_S.gguf \
   -md text/z-lab-Qwen3.8-27B-DFlash2-GGUF/Qwen3.8-27B-DFlash2-Q4_K_M.gguf \
   --spec-type draft-dflash \
   --spec-draft-n-max 7 \
-  -ngl 999 -ngld 999 -fa on --fit off \
+  -ngl 999 -ngld 999 \
+  -fa on --fit off \
   -ctk q8_0 -ctv q4_0 \
-  -c 8192 -np 1 -t 8 \
+  -c 8192 -np 1 -t 8 -tb 8 \
   --jinja --reasoning off
 ```
+
+Para rodar sem speculative decoding, remover `-md`, `--spec-type`, `--spec-draft-n-max` e `-ngld`.
+
+## Proveniência
+
+- Código corrigido: `benchmarks/coding-mini-v1/`
+- GSQ + DFlash2: `benchmarks/coding-mini-v1/results/GSQ_DFLASH2_COMPARISON.md`
+- Escrita: `benchmarks/chat-writing-v1/`
+- Ablação de template: `benchmarks/gsq-froggeric-ablation-v1/`
+- Campo sem evidência versionada deve ser `N/A / não registrado`, nunca estimado.
