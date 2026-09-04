@@ -18,6 +18,7 @@
 - O ganho depende fortemente da aceitação do target e do tipo de workload; não deve ser generalizado para qualquer modelo Qwen3.8-27B.
 - Em escrita criativa o DFlash2 não é preset recomendado: a aceitação observada foi baixa e o overhead superou o ganho.
 - `n_max=7` é o maior valor permitido pelo bloco usado no checkpoint/runtime atual; é também o ponto validado no GSQ, não uma regra universal para outros targets.
+- Froggeric v22.4 foi testado junto ao GSQ+DFlash2: manteve 6/6 e 86.9% de aceitação, mas o throughput ficou materialmente empatado com o template nativo. Portanto, **o template nativo continua recomendado**.
 
 ## MEDIDO LOCALMENTE
 
@@ -25,7 +26,7 @@ Hardware: NVIDIA GeForce RTX 5060 Ti 16 GB.
 
 Runtime de referência: llama.cpp `0.3.0-dev`, build `10752`, commit `b96806d96061049a5b574269b049bf6241d63d46`; 8 threads; full GPU offload; Flash Attention ON.
 
-Última validação referenciada neste perfil: `2026-09-03`.
+Última validação referenciada neste perfil: `2026-09-04`.
 
 ### GSQ IQ2_S + DFlash2 — `coding-mini-v1`
 
@@ -41,6 +42,19 @@ Fonte: `benchmarks/coding-mini-v1/results/GSQ_DFLASH2_COMPARISON.md`.
 - Draft acceptance mediana: **86.9%**
 - PY01: **58.44 tok/s**, acceptance **91.5%**, mean accepted length **7.41**
 - Integridade de qualidade: **6/6 antes e 6/6 depois**
+
+### GSQ IQ2_S + DFlash2 + Froggeric v22.4
+
+Fonte: `benchmarks/gsq-froggeric-ablation-v1/results/SUMMARY.md`.
+
+- Score: **6/6**
+- Mediana com Froggeric: **46.38 tok/s**
+- Controle DFlash2 + template nativo: **46.00 tok/s**
+- Delta: **+0.8%**, sem ganho material
+- Pico de VRAM: **14,374 MiB** versus **14,086 MiB** no controle
+- Draft acceptance mediana: **86.9%**
+- Mean accepted draft length: **7.08**
+- Conclusão: **compatível, mas sem benefício suficiente para trocar o template nativo**.
 
 ### Escrita
 
@@ -73,9 +87,13 @@ A descrição de arquitetura DFlash2/candidate selector é metadado da origem/ch
   --jinja --reasoning off
 ```
 
+Não adicionar Froggeric a este preset padrão: a ablação mostrou compatibilidade, mas não ganho material.
+
 ## Proveniência
 
 - Comparação principal: `benchmarks/coding-mini-v1/results/GSQ_DFLASH2_COMPARISON.md`
+- Ablação Froggeric: `benchmarks/gsq-froggeric-ablation-v1/`
+- Execução Froggeric: `de6fe06b9656350cc037052a8be8154e14387a4e`
 - Código consolidado: `benchmarks/score-completion-template-ablation-v1/results/CODING_SUMMARY.md`
 - Escrita: `benchmarks/chat-writing-v1/`
 - Histórico DFlash2/port: `benchmarks/score-completion-template-ablation-v1/DFLASH2_ADDENDUM.md` e respectivos resultados.
