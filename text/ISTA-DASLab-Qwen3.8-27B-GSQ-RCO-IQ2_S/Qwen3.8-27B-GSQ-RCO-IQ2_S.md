@@ -113,9 +113,11 @@ Fonte: `benchmarks/gsq-froggeric-agent-tools-v1/results/SUMMARY.md`.
 - **Froggeric v22.5 (Arm F)**:
   - STRICT PASS: **4/8 (50.0%)**
   - Component Score: **49/80**
+  - Tool Selection/Sequence: **87.5%**, empatado com Native.
   - Passou em T01, T02, T04 e T08.
-  - Falhou em T03, T05 e T06 por loop/repetição infinita de tags `<tool_call>` em parâmetros de `read_file`, causando erro de JSON parseamento no parser OpenAI-compatible do `llama-server`.
-- **Conclusão Agentic**: **`NATIVE_AGENT_CLEAR_WIN`**. O template nativo é substancialmente mais confiável e robusto em chamadas de ferramentas e interações multi-turn no `llama-server`.
+  - Falhou em T03, T05 e T06 por emissão repetitiva/malformada de tags `<tool_call>` nos argumentos estruturados de `read_file`, levando o parser JSON OpenAI-compatible do `llama-server` a erro.
+- **Conclusão Agentic**: **`NATIVE_AGENT_CLEAR_WIN` para o caminho de deployment testado** (`llama-server` build 10752 + OpenAI tools + JSON tool parser). O resultado prova maior robustez prática do template nativo nessa integração; não prova que Froggeric tenha raciocínio agentic intrinsecamente pior fora desse parser/runtime.
+- **T07**: ambos falharam a estratégia de recuperação após `FILE_NOT_FOUND`; é uma fraqueza compartilhada de recovery/model behavior, não uma regressão exclusiva do Froggeric.
 
 ### Ablação Froggeric v22.4 — código sem DFlash2 (Histórico)
 
@@ -168,7 +170,7 @@ Fonte de geração: `benchmarks/gsq-froggeric-ablation-v1/results/WRITING_FROGGE
 
 Metadados externos do autor/origem não substituem os resultados locais acima. Scores externos não são usados neste perfil para escolher o preset do workspace.
 
-Froggeric upstream declara suporte a tool-calling, thinking e múltiplos runtimes. Neste workspace, o clean retest v22.5 validou apenas o comportamento non-thinking de chat/writing/coding coberto pelo SPEC; tool-calling permanece não testado localmente.
+Froggeric upstream declara suporte a tool-calling, thinking e múltiplos runtimes. Neste workspace, tool-calling foi testado localmente em `benchmarks/gsq-froggeric-agent-tools-v1/`: o template nativo venceu claramente no caminho `llama-server`/OpenAI JSON usado pelo workspace, enquanto Froggeric apresentou falhas de serialização/parser em tool calls multi-turn.
 
 ## Preset recomendado — código
 
@@ -185,7 +187,7 @@ Froggeric upstream declara suporte a tool-calling, thinking e múltiplos runtime
   --jinja --reasoning off
 ```
 
-**Não adicionar `--chat-template-file` Froggeric neste preset padrão.** O clean retest mostrou paridade de saída, não superioridade funcional.
+**Não adicionar `--chat-template-file` Froggeric neste preset padrão.** O clean retest mostrou paridade de saída, e o benchmark agent/tool mostrou menor robustez prática do Froggeric no parser OpenAI JSON do `llama-server` testado.
 
 Para rodar sem speculative decoding, remover `-md`, `--spec-type`, `--spec-draft-n-max` e `-ngld`.
 
@@ -197,4 +199,5 @@ Para rodar sem speculative decoding, remover `-md`, `--spec-type`, `--spec-draft
 - Froggeric v22.4 histórico: `benchmarks/gsq-froggeric-ablation-v1/`
 - Froggeric v22.5 clean retest: `benchmarks/gsq-froggeric-v225-clean-retest-v1/`
 - Review final de writing v22.5: `benchmarks/gsq-froggeric-v225-clean-retest-v1/results/WRITING_CHATGPT_REVIEW.md`
+- Tool-calling/agent: `benchmarks/gsq-froggeric-agent-tools-v1/`
 - Campo sem evidência versionada deve ser `N/A / não registrado`, nunca estimado.
