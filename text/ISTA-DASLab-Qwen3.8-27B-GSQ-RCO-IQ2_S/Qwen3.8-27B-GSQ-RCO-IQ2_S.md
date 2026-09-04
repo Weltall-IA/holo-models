@@ -99,7 +99,23 @@ Fonte: `benchmarks/gsq-froggeric-v225-clean-retest-v1/results/SUMMARY.md` e `WRI
 - Efeito de performance do template: **INCONCLUSIVE**.
 - Preset padrão: **KEEP_NATIVE**, por simplicidade de deployment e ausência de ganho funcional medido.
 - Froggeric v22.5: **compatível e corretamente integrado para o modo non-thinking testado**.
-- Tool-calling local: **N/A / não testado** neste benchmark. O upstream anuncia suporte, mas não há validação local deste comportamento nesta rodada.
+
+### Benchmark de Tool-Calling & Agente (2026-09-04)
+
+Fonte: `benchmarks/gsq-froggeric-agent-tools-v1/results/SUMMARY.md`.
+
+- Protocolo: 8 casos canônicos, OpenAI-compatible `/v1/chat/completions` com `tools`, `tool_choice=auto`, `tool_call_format=json`, amostragem determinística (`temp=0.0, seed=9137`).
+- **Template Nativo (Arm N)**:
+  - STRICT PASS: **7/8 (87.5%)**
+  - Component Score: **70/80**
+  - Tool Selection: **87.5%**, Schema/Arguments: **87.5%**, Grounded Answer: **87.5%**, Hygiene: **87.5%**.
+  - Passou impecavelmente em T01, T02, T03, T04, T05, T06 e T08 (falhou apenas em T07 na recuperação de erro de arquivo).
+- **Froggeric v22.5 (Arm F)**:
+  - STRICT PASS: **4/8 (50.0%)**
+  - Component Score: **49/80**
+  - Passou em T01, T02, T04 e T08.
+  - Falhou em T03, T05 e T06 por loop/repetição infinita de tags `<tool_call>` em parâmetros de `read_file`, causando erro de JSON parseamento no parser OpenAI-compatible do `llama-server`.
+- **Conclusão Agentic**: **`NATIVE_AGENT_CLEAR_WIN`**. O template nativo é substancialmente mais confiável e robusto em chamadas de ferramentas e interações multi-turn no `llama-server`.
 
 ### Ablação Froggeric v22.4 — código sem DFlash2 (Histórico)
 
