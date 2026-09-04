@@ -1,0 +1,39 @@
+{
+  "benchmark_id": "reranker-v2-unbiased",
+  "version": 1,
+  "primary_metric": "ndcg@10",
+  "secondary_metrics": ["mrr@10", "map", "hit@1", "recall@10", "recall@20"],
+  "bootstrap": {
+    "seed": 20260904,
+    "resamples": 10000,
+    "confidence": 0.95,
+    "paired": true
+  },
+  "candidate_pool": {
+    "top_k": 50,
+    "frozen_before_reranking": true,
+    "same_candidates_for_all_models": true,
+    "hard_negative_policy": "first_stage_retrieval"
+  },
+  "tracks": {
+    "general": {
+      "datasets": ["NanoMSMARCO", "NanoNQ", "NanoNFCorpus", "NanoFiQA", "NanoSciFact"],
+      "aggregate_across_datasets": false
+    },
+    "holo": {
+      "target_queries_min": 300,
+      "target_queries_max": 500,
+      "languages": ["pt-BR", "en"],
+      "categories": ["docs", "code", "skills", "tools", "config", "semantic_near_miss"],
+      "held_out": true
+    }
+  },
+  "models": [
+    {"id": "nemotron_1b_v2", "hf_id": "nvidia/llama-nemotron-rerank-1b-v2", "adapter": "nemotron_native"},
+    {"id": "jina_v35", "hf_id": "jinaai/jina-reranker-v3.5", "adapter": "jina_listwise"},
+    {"id": "qwen3_06b", "hf_id": "Qwen/Qwen3-Reranker-0.6B", "adapter": "qwen_official"},
+    {"id": "ettin_400m", "hf_id": "cross-encoder/ettin-reranker-400m-v1", "adapter": "cross_encoder"}
+  ],
+  "quality_efficiency_separate": true,
+  "projections_forbidden": true
+}
