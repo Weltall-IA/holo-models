@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Holo Reranker V2 Query",
+  "type": "object",
+  "required": ["query_id", "query", "language", "category", "relevant_doc_ids"],
+  "properties": {
+    "query_id": {"type": "string", "minLength": 1},
+    "query": {"type": "string", "minLength": 1},
+    "language": {"enum": ["pt-BR", "en"]},
+    "category": {"enum": ["docs", "code", "skills", "tools", "config", "semantic_near_miss"]},
+    "relevant_doc_ids": {
+      "type": "array",
+      "items": {"type": "string"},
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "notes": {"type": "string"}
+  },
+  "additionalProperties": false
+}
