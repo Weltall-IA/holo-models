@@ -43,7 +43,20 @@ Fonte: `benchmarks/coding-mini-v1/results/GSQ_DFLASH2_COMPARISON.md`.
 - PY01: **58.44 tok/s**, acceptance **91.5%**, mean accepted length **7.41**
 - Integridade de qualidade: **6/6 antes e 6/6 depois**
 
-### GSQ IQ2_S + DFlash2 + Froggeric v22.4
+### GSQ IQ2_S + DFlash2 + Froggeric v22.5 — Clean Retest (2026-09-04)
+
+Fonte: `benchmarks/gsq-froggeric-v225-clean-retest-v1/results/SUMMARY.md`.
+
+- Score: **6/6 PASS** (100% de integridade preservada, código byte-idêntico ao nativo).
+- Mediana com Froggeric v22.5 (Arm D): **37.54 tok/s**.
+- Controle nativo pareado na mesma sessão limpa (Arm C): **33.63 tok/s**.
+- Delta: **+11.6%**.
+- Pico de VRAM: **14,508 MiB** versus **14,465 MiB** no controle nativo.
+- Draft acceptance mediana: **86.9%** (100% idêntica ao nativo).
+- Mean accepted draft length: **7.08**.
+- Conclusão: **Compatível com alta taxa de aceitação especulativa e paridade funcional total**.
+
+### GSQ IQ2_S + DFlash2 + Froggeric v22.4 (Histórico)
 
 Fonte: `benchmarks/gsq-froggeric-ablation-v1/results/SUMMARY.md`.
 

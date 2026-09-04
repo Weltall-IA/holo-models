@@ -53,7 +53,27 @@ Fonte: `benchmarks/coding-mini-v1/results/GSQ_DFLASH2_COMPARISON.md`.
 - Draft acceptance mediana: **86.9%**
 - PY01: **58.44 tok/s**, acceptance **91.5%**, mean accepted length **7.41**
 
-### Ablação Froggeric v22.4 — código sem DFlash2
+### Ablação Froggeric v22.5 — Clean Retest (2026-09-04)
+
+Fonte: `benchmarks/gsq-froggeric-v225-clean-retest-v1/results/SUMMARY.md`.
+
+- Condição de teste: Clean-GPU gate validado (sem processos concorrentes com >=25% SM).
+- Froggeric commit: `4ea21db`, SHA256: `e57684bae4156211a55473c5a63be976a405a37ab5be5ae0e5abf1df5349c4b2`.
+- Flags: `--reasoning-format deepseek --chat-template-kwargs '{"enable_thinking":false,"reasoning_effort":"none"}'`.
+- **Identidade Textual**: Sob non-thinking, o Froggeric v22.5 produziu saídas **100% byte-idênticas** ao template nativo em todos os 18 pares (6 coding, 6 coding DFlash2, 6 writing).
+- **Código Nativo (Arm B vs Arm A)**:
+  - Arm A (Native): **6/6 PASS**, 21.02 tok/s, 11,613 MiB.
+  - Arm B (Froggeric v22.5): **6/6 PASS**, 15.51 tok/s (-26.2%), 11,601 MiB.
+- **Código com DFlash2 n=7 (Arm D vs Arm C)**:
+  - Arm C (DF2 Native): **6/6 PASS**, 33.63 tok/s, 14,465 MiB, draft acc 86.9%.
+  - Arm D (DF2 Froggeric v22.5): **6/6 PASS**, 37.54 tok/s (+11.6%), 14,508 MiB, draft acc 86.9%.
+- **Escrita (Arm F vs Arm E)**:
+  - Arm E (Native): 13.92 tok/s, 11,710 MiB.
+  - Arm F (Froggeric v22.5): 17.77 tok/s (+27.7%), 11,958 MiB.
+  - Status qualitativo: `PENDING_CHATGPT_REVIEW` (respostas salvas em `WRITING_REVIEW_PACKET.md`).
+- **Conclusão de Template**: `FROGGERIC_V225_CODING_PARITY` — paridade funcional total sem regressões de correção. O template nativo permanece o padrão zero-overhead para execução direta.
+
+### Ablação Froggeric v22.4 — código sem DFlash2 (Histórico)
 
 Fonte: `benchmarks/gsq-froggeric-ablation-v1/results/SUMMARY.md`.
 
