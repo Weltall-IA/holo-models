@@ -4,4 +4,5 @@ torch
 transformers
 sentence-transformers
 datasets
+huggingface-hub
 jsonschema
