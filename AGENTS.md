@@ -12,11 +12,16 @@
 
 1. Identificar o tipo → categoria canônica (`text/`, `audio/`, `video/`, `image/`, `embed/`, `rerank/`).
 2. Baixar do fonte oficial direto na pasta canônica: pasta nomeada `origem-quantizacao` (ex.: `text/Qwen3.8-27B-heretic-ara-TQ3_4S/`), sem espaços.
-3. Criar o link em cada runtime que vai usá-lo:
+3. Criar obrigatoriamente dentro da pasta do modelo o arquivo de documentação `<nome-do-modelo>.md` (mesmo nome base do arquivo de pesos/GGUF, ex.: `Qwen3.8-27B-GSQ-RCO-IQ2_S.md`), contendo:
+   - Identificação técnica (arquivo, tamanho, SHA256, origem, arquitetura e quantização);
+   - Especialidade e no que o modelo se destaca (pontos fortes e trade-offs);
+   - Resultados de benchmarks locais medidos no workspace (código, escrita, tok/s, VRAM, draft spec se houver);
+   - Comando recomendado de execução (flags, contexto, KV cache, template).
+4. Criar o link em cada runtime que vai usá-lo:
    - llama/lmstudio/vllm/comfyui: `ln -s ../text/<modelo>/<arquivo>.gguf runtimes/<runtime>/` (symlink);
    - ollama: importar para blob (reflink CoW obrigatório, sem cópia — ver MODEL_STORAGE.md).
-4. Validar o modelo no runtime (boot + geração real) antes de considerar pronto.
-5. Se o modelo deixar de ser usado por um runtime, remover só o link desse runtime; o físico na categoria canônica permanece até a remoção total.
+5. Validar o modelo no runtime (boot + geração real) antes de considerar pronto.
+6. Se o modelo deixar de ser usado por um runtime, remover só o link desse runtime; o físico na categoria canônica permanece até a remoção total.
 
 ## Fluxo: remover modelo (obrigatório)
 
