@@ -6,17 +6,19 @@ import hashlib
 import json
 import os
 import platform
-import statistics
+import random
 import time
 from pathlib import Path
 from typing import Dict, List, Mapping, Sequence
 
+import numpy as np
 import psutil
 
 from metrics import aggregate, bootstrap_ci, per_query_metrics
 
 BENCH_DIR = Path(__file__).resolve().parent
 REPO_ROOT = BENCH_DIR.parents[1]
+SEED = 20260904
 
 MODEL_SPECS = {
     "nemotron_1b_v2": {
@@ -27,7 +29,8 @@ MODEL_SPECS = {
     "jina_v35": {
         "hf_id": "jinaai/jina-reranker-v3.5",
         "adapter": "jina_listwise",
-        "local_candidates": [REPO_ROOT / "rerank" / "jina_reranker_v3_5"],
+        # rerank/jina_reranker_v3_5 contains legacy reports, not model weights.
+        "local_candidates": [],
     },
     "qwen3_06b": {
         "hf_id": "Qwen/Qwen3-Reranker-0.6B",
@@ -43,7 +46,7 @@ MODEL_SPECS = {
 
 
 def load_jsonl(path: Path) -> List[dict]:
-    rows = []
+    rows: List[dict] = []
     with path.open("r", encoding="utf-8") as f:
         for line_no, line in enumerate(f, start=1):
             if not line.strip():
@@ -66,7 +69,9 @@ def sha256_file(path: Path) -> str:
 def verify_frozen_data(data_dir: Path) -> dict:
     manifest_path = data_dir / "freeze_manifest.json"
     if not manifest_path.exists():
-        raise FileNotFoundError(f"Missing {manifest_path}; candidate pools must be frozen before a run")
+        raise FileNotFoundError(
+            f"Missing {manifest_path}; candidate pools must be frozen before a run"
+        )
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     for filename, expected in manifest.get("files", {}).items():
         path = data_dir / filename
@@ -80,40 +85,30 @@ def verify_frozen_data(data_dir: Path) -> dict:
 
 
 def validate_rows(corpus_rows: Sequence[dict], query_rows: Sequence[dict]) -> None:
-    doc_ids = [row["doc_id"] for row in corpus_rows]
+    doc_ids = [str(row["doc_id"]) for row in corpus_rows]
     if len(doc_ids) != len(set(doc_ids)):
         raise ValueError("Duplicate doc_id in corpus")
     corpus_set = set(doc_ids)
 
-    qids = [row["query_id"] for row in query_rows]
+    qids = [str(row["query_id"]) for row in query_rows]
     if len(qids) != len(set(qids)):
         raise ValueError("Duplicate query_id")
 
     for row in query_rows:
-        relevant = row.get("relevant_doc_ids") or []
-        candidates = row.get("candidate_ids") or []
+        qid = str(row["query_id"])
+        relevant = [str(x) for x in row.get("relevant_doc_ids", [])]
+        candidates = [str(x) for x in row.get("candidate_ids", [])]
         if not relevant:
-            raise ValueError(f"{row['query_id']}: no relevant_doc_ids")
+            raise ValueError(f"{qid}: no relevant_doc_ids")
         if len(candidates) < 20:
-            raise ValueError(f"{row['query_id']}: fewer than 20 candidates")
+            raise ValueError(f"{qid}: fewer than 20 candidates")
         if len(candidates) != len(set(candidates)):
-            raise ValueError(f"{row['query_id']}: duplicate candidates")
+            raise ValueError(f"{qid}: duplicate candidates")
         unknown = (set(relevant) | set(candidates)) - corpus_set
         if unknown:
-            raise ValueError(f"{row['query_id']}: unknown doc IDs {sorted(unknown)[:5]}")
+            raise ValueError(f"{qid}: unknown doc IDs {sorted(unknown)[:5]}")
         if not set(relevant).issubset(candidates):
-            raise ValueError(
-                f"{row['query_id']}: pure-reranker candidate pool is not positive-complete"
-            )
-
-
-def resolve_source(model_key: str, overrides: Mapping[str, str]) -> str:
-    if model_key in overrides:
-        return overrides[model_key]
-    for candidate in MODEL_SPECS[model_key]["local_candidates"]:
-        if candidate.exists():
-            return str(candidate)
-    return MODEL_SPECS[model_key]["hf_id"]
+            raise ValueError(f"{qid}: pure-reranker candidate pool is not positive-complete")
 
 
 def parse_overrides(values: Sequence[str]) -> Dict[str, str]:
@@ -126,6 +121,19 @@ def parse_overrides(values: Sequence[str]) -> Dict[str, str]:
             raise ValueError(f"Unknown model key in override: {key}")
         result[key] = value
     return result
+
+
+def _looks_like_model_dir(path: Path) -> bool:
+    return path.is_dir() and (path / "config.json").is_file()
+
+
+def resolve_source(model_key: str, overrides: Mapping[str, str]) -> str:
+    if model_key in overrides:
+        return overrides[model_key]
+    for candidate in MODEL_SPECS[model_key]["local_candidates"]:
+        if _looks_like_model_dir(candidate):
+            return str(candidate)
+    return str(MODEL_SPECS[model_key]["hf_id"])
 
 
 class BaseAdapter:
@@ -155,21 +163,27 @@ class CrossEncoderAdapter(BaseAdapter):
             self.model = CrossEncoder(source, **kwargs)
 
     def rank(self, query: str, documents: Sequence[str]) -> List[int]:
-        scores = self.model.predict([(query, doc) for doc in documents], show_progress_bar=False)
-        values = [float(x) for x in scores]
-        return sorted(range(len(values)), key=lambda i: (-values[i], i))
+        raw_scores = self.model.predict(
+            [(query, doc) for doc in documents],
+            show_progress_bar=False,
+        )
+        values = np.asarray(raw_scores, dtype=np.float64).reshape(-1)
+        if len(values) != len(documents):
+            raise RuntimeError(
+                f"CrossEncoder returned {len(values)} scores for {len(documents)} documents"
+            )
+        return sorted(range(len(values)), key=lambda i: (-float(values[i]), i))
 
     def metadata(self) -> dict:
         meta = super().metadata()
         try:
-            param = next(self.model.model.parameters())
-            meta["parameter_dtype"] = str(param.dtype)
+            config = self.model.model.config
+            meta["parameter_dtype"] = str(next(self.model.model.parameters()).dtype)
+            meta["resolved_revision"] = getattr(config, "_commit_hash", None)
         except Exception:
             meta["parameter_dtype"] = "unknown"
-        try:
-            meta["max_length"] = int(self.model.max_length)
-        except Exception:
-            meta["max_length"] = None
+            meta["resolved_revision"] = None
+        meta["max_length"] = getattr(self.model, "max_length", None)
         return meta
 
     def close(self) -> None:
@@ -183,11 +197,15 @@ class JinaListwiseAdapter(BaseAdapter):
         from transformers import AutoModel
 
         self.torch = torch
-        self.model = AutoModel.from_pretrained(
-            source,
-            dtype="auto",
-            trust_remote_code=True,
-        ).eval().to(device)
+        self.model = (
+            AutoModel.from_pretrained(
+                source,
+                dtype="auto",
+                trust_remote_code=True,
+            )
+            .eval()
+            .to(device)
+        )
 
     def rank(self, query: str, documents: Sequence[str]) -> List[int]:
         with self.torch.inference_mode():
@@ -199,11 +217,13 @@ class JinaListwiseAdapter(BaseAdapter):
 
     def metadata(self) -> dict:
         meta = super().metadata()
+        meta["inference_api"] = "model.rerank(query, documents, top_n=None)"
         try:
             meta["parameter_dtype"] = str(next(self.model.parameters()).dtype)
+            meta["resolved_revision"] = getattr(self.model.config, "_commit_hash", None)
         except Exception:
             meta["parameter_dtype"] = "unknown"
-        meta["inference_api"] = "model.rerank(query, documents, top_n=None)"
+            meta["resolved_revision"] = None
         return meta
 
     def close(self) -> None:
@@ -224,11 +244,15 @@ class NemotronAdapter(BaseAdapter):
         if self.tokenizer.pad_token is None:
             self.tokenizer.pad_token = self.tokenizer.eos_token
 
-        self.model = AutoModelForSequenceClassification.from_pretrained(
-            source,
-            trust_remote_code=True,
-            dtype="auto",
-        ).eval().to(device)
+        self.model = (
+            AutoModelForSequenceClassification.from_pretrained(
+                source,
+                trust_remote_code=True,
+                dtype="auto",
+            )
+            .eval()
+            .to(device)
+        )
         if self.model.config.pad_token_id is None:
             self.model.config.pad_token_id = self.tokenizer.eos_token_id
 
@@ -256,12 +280,21 @@ class NemotronAdapter(BaseAdapter):
                     max_length=self.max_length,
                     return_tensors="pt",
                 ).to(self.device)
-                logits = self.model(**enc).logits.squeeze(-1).detach().float().cpu().tolist()
-                if isinstance(logits, float):
-                    logits = [logits]
-                scores.extend(float(x) for x in logits)
+                values = (
+                    self.model(**enc)
+                    .logits.squeeze(-1)
+                    .detach()
+                    .float()
+                    .cpu()
+                    .reshape(-1)
+                    .tolist()
+                )
+                scores.extend(float(x) for x in values)
+
         if len(scores) != len(documents):
-            raise RuntimeError("Nemotron score count mismatch")
+            raise RuntimeError(
+                f"Nemotron returned {len(scores)} scores for {len(documents)} documents"
+            )
         return sorted(range(len(scores)), key=lambda i: (-scores[i], i))
 
     def metadata(self) -> dict:
@@ -269,6 +302,7 @@ class NemotronAdapter(BaseAdapter):
         meta.update(
             {
                 "parameter_dtype": str(next(self.model.parameters()).dtype),
+                "resolved_revision": getattr(self.model.config, "_commit_hash", None),
                 "max_length": self.max_length,
                 "batch_size": self.batch_size,
                 "prompt_template": "question:{q} \\n \\n passage:{p}",
@@ -281,8 +315,13 @@ class NemotronAdapter(BaseAdapter):
         del self.tokenizer
 
 
-def build_adapter(model_key: str, source: str, device: str, nemotron_batch_size: int) -> BaseAdapter:
-    adapter = MODEL_SPECS[model_key]["adapter"]
+def build_adapter(
+    model_key: str,
+    source: str,
+    device: str,
+    nemotron_batch_size: int,
+) -> BaseAdapter:
+    adapter = str(MODEL_SPECS[model_key]["adapter"])
     if adapter == "jina_listwise":
         return JinaListwiseAdapter(source, device)
     if adapter == "nemotron_native":
@@ -293,9 +332,9 @@ def build_adapter(model_key: str, source: str, device: str, nemotron_batch_size:
 
 
 def runtime_metadata() -> dict:
+    import sentence_transformers
     import torch
     import transformers
-    import sentence_transformers
 
     return {
         "python": platform.python_version(),
@@ -306,6 +345,7 @@ def runtime_metadata() -> dict:
         "cuda_available": torch.cuda.is_available(),
         "cuda_version": torch.version.cuda,
         "gpu": torch.cuda.get_device_name(0) if torch.cuda.is_available() else None,
+        "seed": SEED,
     }
 
 
@@ -313,7 +353,7 @@ def baseline_metrics(query_rows: Sequence[dict]) -> dict:
     pure: Dict[str, dict] = {}
     pipeline: Dict[str, dict] = {}
     for row in query_rows:
-        qid = row["query_id"]
+        qid = str(row["query_id"])
         relevant = row["relevant_doc_ids"]
         pure[qid] = per_query_metrics(row["candidate_ids"], relevant)
         pipeline_ids = row.get("pipeline_candidate_ids", row["candidate_ids"])
@@ -322,6 +362,14 @@ def baseline_metrics(query_rows: Sequence[dict]) -> dict:
         "pure_candidate_order": {"aggregate": aggregate(pure), "per_query": pure},
         "pipeline_first_stage": {"aggregate": aggregate(pipeline), "per_query": pipeline},
     }
+
+
+def _nearest_percentile(values: Sequence[float], q: float) -> float:
+    if not values:
+        return 0.0
+    ordered = sorted(values)
+    idx = min(len(ordered) - 1, max(0, round((len(ordered) - 1) * q)))
+    return ordered[idx]
 
 
 def run_model(
@@ -337,7 +385,7 @@ def run_model(
     if warmup and query_rows:
         row = query_rows[0]
         docs = [corpus[doc_id] for doc_id in row["candidate_ids"]]
-        adapter.rank(row["query"], docs)
+        adapter.rank(str(row["query"]), docs)
         if torch.cuda.is_available():
             torch.cuda.synchronize()
 
@@ -353,53 +401,52 @@ def run_model(
 
     started = time.perf_counter()
     for row in query_rows:
-        qid = row["query_id"]
-        candidate_ids = row["candidate_ids"]
+        qid = str(row["query_id"])
+        candidate_ids = [str(x) for x in row["candidate_ids"]]
         docs = [corpus[doc_id] for doc_id in candidate_ids]
 
         if torch.cuda.is_available():
             torch.cuda.synchronize()
         t0 = time.perf_counter()
-        order = adapter.rank(row["query"], docs)
+        order = adapter.rank(str(row["query"]), docs)
         if torch.cuda.is_available():
             torch.cuda.synchronize()
-        dt = time.perf_counter() - t0
+        latencies.append(time.perf_counter() - t0)
 
         if sorted(order) != list(range(len(candidate_ids))):
             raise RuntimeError(f"{model_key}/{qid}: adapter returned an invalid permutation")
+
         ranked_ids = [candidate_ids[i] for i in order]
         rankings[qid] = ranked_ids
         per_query[qid] = per_query_metrics(ranked_ids, row["relevant_doc_ids"])
-        latencies.append(dt)
         rss_peak = max(rss_peak, process.memory_info().rss)
 
     total_time = time.perf_counter() - started
 
     if torch.cuda.is_available():
-        peak_alloc = torch.cuda.max_memory_allocated() / (1024 ** 2)
-        peak_reserved = torch.cuda.max_memory_reserved() / (1024 ** 2)
+        peak_alloc = torch.cuda.max_memory_allocated() / (1024**2)
+        peak_reserved = torch.cuda.max_memory_reserved() / (1024**2)
     else:
         peak_alloc = 0.0
         peak_reserved = 0.0
 
-    lat_sorted = sorted(latencies)
-
-    def percentile(q: float) -> float:
-        if not lat_sorted:
-            return 0.0
-        idx = min(len(lat_sorted) - 1, max(0, round((len(lat_sorted) - 1) * q)))
-        return lat_sorted[idx]
-
-    group_ids = {row["query_id"]: row.get("group_id", row["query_id"]) for row in query_rows}
+    group_ids = {
+        str(row["query_id"]): str(row.get("group_id", row["query_id"]))
+        for row in query_rows
+    }
     ci = {}
     for metric in ("ndcg@10", "mrr@10"):
         low, high = bootstrap_ci(per_query, metric, group_ids=group_ids)
         ci[metric] = {"low": low, "high": high}
 
     by_dataset: Dict[str, dict] = {}
-    datasets = sorted({row.get("dataset", "HOLO") for row in query_rows})
+    datasets = sorted({str(row.get("dataset", "HOLO")) for row in query_rows})
     for dataset in datasets:
-        ids = [row["query_id"] for row in query_rows if row.get("dataset", "HOLO") == dataset]
+        ids = [
+            str(row["query_id"])
+            for row in query_rows
+            if str(row.get("dataset", "HOLO")) == dataset
+        ]
         subset = {qid: per_query[qid] for qid in ids}
         subset_groups = {qid: group_ids[qid] for qid in ids}
         subset_ci = {}
@@ -423,9 +470,9 @@ def run_model(
         "efficiency": {
             "peak_gpu_allocated_mib": peak_alloc,
             "peak_gpu_reserved_mib": peak_reserved,
-            "peak_process_rss_mib": rss_peak / (1024 ** 2),
-            "latency_p50_s": percentile(0.50),
-            "latency_p95_s": percentile(0.95),
+            "peak_process_rss_mib": rss_peak / (1024**2),
+            "latency_p50_s": _nearest_percentile(latencies, 0.50),
+            "latency_p95_s": _nearest_percentile(latencies, 0.95),
             "queries_per_second": len(query_rows) / total_time if total_time else 0.0,
             "total_time_s": total_time,
         },
@@ -435,12 +482,14 @@ def run_model(
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Run the frozen reranker-v2-unbiased benchmark.")
+    parser = argparse.ArgumentParser(
+        description="Run the frozen reranker-v2-unbiased benchmark."
+    )
     parser.add_argument(
         "--data-dir",
         type=Path,
         default=BENCH_DIR / "data" / "general-v1",
-        help="Frozen data directory containing corpus.jsonl, queries.jsonl and freeze_manifest.json",
+        help="Frozen data directory with corpus.jsonl, queries.jsonl and freeze_manifest.json",
     )
     parser.add_argument(
         "--models",
@@ -461,12 +510,22 @@ def main() -> None:
     parser.add_argument("--force", action="store_true")
     args = parser.parse_args()
 
+    random.seed(SEED)
+    try:
+        import torch
+
+        torch.manual_seed(SEED)
+        if torch.cuda.is_available():
+            torch.cuda.manual_seed_all(SEED)
+    except Exception:
+        pass
+
     manifest = verify_frozen_data(args.data_dir)
     corpus_rows = load_jsonl(args.data_dir / "corpus.jsonl")
     query_rows = load_jsonl(args.data_dir / "queries.jsonl")
     validate_rows(corpus_rows, query_rows)
 
-    corpus = {row["doc_id"]: row["text"] for row in corpus_rows}
+    corpus = {str(row["doc_id"]): str(row["text"]) for row in corpus_rows}
     overrides = parse_overrides(args.model_path)
 
     result_dir = BENCH_DIR / "results" / args.data_dir.name
@@ -486,7 +545,8 @@ def main() -> None:
             raise RuntimeError("Existing baseline belongs to different candidate files")
     else:
         base_path.write_text(
-            json.dumps(baseline_payload, indent=2, ensure_ascii=False, sort_keys=True) + "\n",
+            json.dumps(baseline_payload, indent=2, ensure_ascii=False, sort_keys=True)
+            + "\n",
             encoding="utf-8",
         )
 
@@ -536,6 +596,7 @@ def main() -> None:
             gc.collect()
             try:
                 import torch
+
                 if torch.cuda.is_available():
                     torch.cuda.empty_cache()
             except Exception:
