@@ -1,0 +1,23 @@
+{
+  "timestamp": "2026-09-04 00:40:32",
+  "target_model": "/home/alpha/Playstoria/models/text/ISTA-DASLab-Qwen3.8-27B-GSQ-RCO-IQ2_S/Qwen3.8-27B-GSQ-RCO-IQ2_S.gguf",
+  "draft_model": "/home/alpha/Playstoria/models/text/z-lab-Qwen3.8-27B-DFlash2-GGUF/Qwen3.8-27B-DFlash2-Q4_K_M.gguf",
+  "chat_template": "/home/alpha/Playstoria/models/text/froggeric-Qwen-Fixed-Chat-Templates-v22.4/chat_template.jinja",
+  "conclusion": "KEEP_NATIVE",
+  "arm_a_summary": {
+    "pass_count": 6,
+    "median_speed": 19.77894794915591,
+    "peak_vram": 12213
+  },
+  "arm_b_summary": {
+    "mean_score": 3.52,
+    "median_speed": 21.303537086745607,
+    "peak_vram": 11700
+  },
+  "arm_c_summary": {
+    "pass_count": 6,
+    "median_speed": 46.376009895698104,
+    "median_acceptance_pct": 86.946,
+    "peak_vram": 14374
+  }
+}
