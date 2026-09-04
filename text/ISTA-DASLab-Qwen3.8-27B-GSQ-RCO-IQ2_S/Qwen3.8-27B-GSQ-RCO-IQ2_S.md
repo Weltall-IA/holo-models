@@ -14,11 +14,11 @@
 
 - Melhor resultado local preservado para código: **6/6** no `coding-mini-v1`.
 - Relação qualidade/VRAM muito forte para um 27B.
-- Compatibilidade validada com DFlash2, que quase dobra o throughput sem reduzir o score local de código.
+- Compatibilidade validada com DFlash2, que elevou a mediana histórica de 24.70 para 46.00 tok/s sem reduzir o score local de código.
 - Em escrita criativa fica abaixo do Fable; não é o modelo principal de narração.
-- DFlash2 não é preset padrão para escrita: nos testes de escrita a aceitação foi baixa e o overhead superou o ganho.
-- **Template nativo permanece o preset recomendado.** A ablação Froggeric v22.4 preservou 6/6 em código, mas reduziu o throughput sem draft em ~19.9%; com DFlash2 ficou essencialmente empatado com o nativo.
-- A parte qualitativa de writing da ablação Froggeric de 2026-09-04 precisa de reavaliação: o runner usou uma heurística diferente da auditoria cega original, então o score produzido não é comparável ao `3.54/5` histórico.
+- DFlash2 não é preset padrão para escrita: nos testes históricos de escrita a aceitação foi baixa e o overhead superou o ganho.
+- **Template nativo permanece o preset recomendado.** O clean retest v22.5 mostrou paridade funcional total com Froggeric em non-thinking: mesmas saídas em todos os 18 pares testados, 6/6 em código e 3.54/5 em escrita para ambos.
+- Os deltas de throughput do clean retest v22.5 são preservados como medições daquela sessão, mas não são tratados como efeito causal do template porque os braços foram executados sequencialmente e o sinal variou por workload.
 
 ## MEDIDO LOCALMENTE
 
@@ -47,7 +47,7 @@ Fonte: `benchmarks/coding-mini-v1/results/GSQ_DFLASH2_COMPARISON.md`.
 - Python: **3/3**
 - C++20: **3/3**
 - Mediana de decode: **46.00 tok/s**
-- Ganho sobre GSQ base: **+86.26%**
+- Ganho sobre GSQ base nessa rodada histórica: **+86.26%**
 - Wall time mediano: **13.63 s**
 - Pico de VRAM: **14,086 MiB**
 - Draft acceptance mediana: **86.9%**
@@ -55,23 +55,51 @@ Fonte: `benchmarks/coding-mini-v1/results/GSQ_DFLASH2_COMPARISON.md`.
 
 ### Ablação Froggeric v22.5 — Clean Retest (2026-09-04)
 
-Fonte: `benchmarks/gsq-froggeric-v225-clean-retest-v1/results/SUMMARY.md`.
+Fonte: `benchmarks/gsq-froggeric-v225-clean-retest-v1/results/SUMMARY.md` e `WRITING_CHATGPT_REVIEW.md`.
 
-- Condição de teste: Clean-GPU gate validado (sem processos concorrentes com >=25% SM).
-- Froggeric commit: `4ea21db`, SHA256: `e57684bae4156211a55473c5a63be976a405a37ab5be5ae0e5abf1df5349c4b2`.
-- Flags: `--reasoning-format deepseek --chat-template-kwargs '{"enable_thinking":false,"reasoning_effort":"none"}'`.
-- **Identidade Textual**: Sob non-thinking, o Froggeric v22.5 produziu saídas **100% byte-idênticas** ao template nativo em todos os 18 pares (6 coding, 6 coding DFlash2, 6 writing).
-- **Código Nativo (Arm B vs Arm A)**:
-  - Arm A (Native): **6/6 PASS**, 21.02 tok/s, 11,613 MiB.
-  - Arm B (Froggeric v22.5): **6/6 PASS**, 15.51 tok/s (-26.2%), 11,601 MiB.
-- **Código com DFlash2 n=7 (Arm D vs Arm C)**:
-  - Arm C (DF2 Native): **6/6 PASS**, 33.63 tok/s, 14,465 MiB, draft acc 86.9%.
-  - Arm D (DF2 Froggeric v22.5): **6/6 PASS**, 37.54 tok/s (+11.6%), 14,508 MiB, draft acc 86.9%.
-- **Escrita (Arm F vs Arm E)**:
-  - Arm E (Native): 13.92 tok/s, 11,710 MiB.
-  - Arm F (Froggeric v22.5): 17.77 tok/s (+27.7%), 11,958 MiB.
-  - Status qualitativo: `PENDING_CHATGPT_REVIEW` (respostas salvas em `WRITING_REVIEW_PACKET.md`).
-- **Conclusão de Template**: `FROGGERIC_V225_CODING_PARITY` — paridade funcional total sem regressões de correção. O template nativo permanece o padrão zero-overhead para execução direta.
+- Condição de teste: clean-GPU gate validado antes de cada braço; sem processo externo sustentando carga pesada pelo critério do SPEC.
+- Froggeric commit: `4ea21db90694e60d002500dae85ebff26e4b23ad`.
+- Froggeric SHA256: `e57684bae4156211a55473c5a63be976a405a37ab5be5ae0e5abf1df5349c4b2`.
+- Versão interna: `qwen3.8-froggeric-v22.5`.
+- Integração usada: `--reasoning-format deepseek` + `--chat-template-kwargs '{"enable_thinking":false,"reasoning_effort":"none"}'`.
+- Resultado funcional: **18/18 pares com saída final byte-idêntica** entre Native e Froggeric v22.5:
+  - 6 coding sem draft;
+  - 6 coding com DFlash2;
+  - 6 writing/chat.
+- Isso prova igualdade das saídas finais registradas, não igualdade do prefixo/tokenização renderizada, que não foi capturado diretamente.
+
+#### Código sem draft — Arm A vs Arm B
+
+- Native: **6/6**, mediana **21.02 tok/s**, pico **11,613 MiB**.
+- Froggeric v22.5: **6/6**, mediana **15.51 tok/s**, pico **11,601 MiB**.
+- Delta medido na sessão: **-26.2%**.
+- Interpretação: medição preservada, mas **não atribuída causalmente ao template**. O benchmark não isolou custo de Jinja e foi um único passe sequencial por braço.
+
+#### Código com DFlash2 n=7 — Arm C vs Arm D
+
+- Native: **6/6**, mediana **33.63 tok/s**, pico **14,465 MiB**, draft acc **86.9%**.
+- Froggeric v22.5: **6/6**, mediana **37.54 tok/s**, pico **14,508 MiB**, draft acc **86.9%**.
+- Delta medido na sessão: **+11.6%**.
+- Interpretação: mesma correção e mesma aceitação; o delta de velocidade é **observacional**, não prova que Froggeric acelera DFlash2.
+
+#### Escrita/chat — Arm E vs Arm F
+
+- Todas as 6 saídas Native/Froggeric foram byte-idênticas.
+- As saídas também correspondem aos textos canônicos `gsq_iq2s_base` já avaliados em `chat-writing-v1`, então os scores históricos da mesma rubrica foram reutilizados, sem inventar nova avaliação.
+- Native: **3.54/5** geral; Neutral **3.83/5**; Adult **3.25/5**.
+- Froggeric v22.5: **3.54/5** geral; Neutral **3.83/5**; Adult **3.25/5**.
+- Mediana medida de throughput na sessão: Native **13.92 tok/s**; Froggeric **17.77 tok/s**.
+- O delta de throughput não é usado para afirmar vantagem do template porque o desenho não isolou run-order/clocks/estado térmico e os deltas mudaram de direção entre workloads.
+
+#### Decisão do clean retest
+
+- Correção de código: **PARITY**.
+- Qualidade de escrita: **PARITY**.
+- DFlash2 acceptance: **PARITY**.
+- Efeito de performance do template: **INCONCLUSIVE**.
+- Preset padrão: **KEEP_NATIVE**, por simplicidade de deployment e ausência de ganho funcional medido.
+- Froggeric v22.5: **compatível e corretamente integrado para o modo non-thinking testado**.
+- Tool-calling local: **N/A / não testado** neste benchmark. O upstream anuncia suporte, mas não há validação local deste comportamento nesta rodada.
 
 ### Ablação Froggeric v22.4 — código sem DFlash2 (Histórico)
 
@@ -79,9 +107,9 @@ Fonte: `benchmarks/gsq-froggeric-ablation-v1/results/SUMMARY.md`.
 
 - Score: **6/6**
 - Mediana de decode: **19.78 tok/s**
-- Delta contra o template nativo: **-19.9%**
+- Delta histórico reportado contra o template nativo: **-19.9%**
 - Pico de VRAM: **12,213 MiB**
-- Conclusão: preserva correção, mas piora eficiência; **não usar como preset padrão de código**.
+- A rodada tinha carga de GPU não controlada; usar como histórico de compatibilidade/correção, não como A/B limpo de performance.
 
 ### Ablação Froggeric v22.4 — código com DFlash2 `n_max=7`
 
@@ -89,12 +117,12 @@ Fonte: `benchmarks/gsq-froggeric-ablation-v1/results/SUMMARY.md`.
 
 - Score: **6/6**
 - Mediana de decode: **46.38 tok/s**
-- Controle nativo equivalente: **46.00 tok/s**
-- Delta: **+0.8%**, considerado não material
-- Pico de VRAM: **14,374 MiB** versus **14,086 MiB** no controle nativo
+- Controle histórico: **46.00 tok/s**
+- Delta: **+0.8%**
+- Pico de VRAM: **14,374 MiB** versus **14,086 MiB** no controle histórico
 - Draft acceptance mediana: **86.9%**
 - Mean accepted draft length: **7.08**
-- Conclusão: Froggeric é compatível com DFlash2, mas não traz benefício material suficiente para substituir o template nativo.
+- Rodada preservada como histórico; havia carga de GPU não controlada.
 
 ### Escrita — template nativo
 
@@ -108,11 +136,11 @@ Fonte: `benchmarks/chat-writing-v1/`.
 
 Fonte de geração: `benchmarks/gsq-froggeric-ablation-v1/results/WRITING_FROGGERIC_RESULTS.jsonl`.
 
-- Mediana de throughput: **21.30 tok/s**
+- Mediana de throughput registrada: **21.30 tok/s**
 - Pico de VRAM: **11,700 MiB**
 - 5/6 gerações ficaram fora da faixa de 425–575 palavras.
-- O score automático `3.52/5` produzido no commit de execução **não é canônico**: a função de avaliação do runner não reproduziu a auditoria cega histórica de `chat-writing-v1`.
-- Status qualitativo: **revisão pendente sobre as saídas já geradas; não é necessário rerodar geração**.
+- O score automático `3.52/5` produzido pelo runner **não é canônico** porque não reproduziu a auditoria qualitativa histórica.
+- Não usar esse `3.52` em ranking.
 
 ### Compatibilidade especulativa
 
@@ -123,6 +151,8 @@ Fonte de geração: `benchmarks/gsq-froggeric-ablation-v1/results/WRITING_FROGGE
 ## DECLARADO PELO AUTOR/ORIGEM
 
 Metadados externos do autor/origem não substituem os resultados locais acima. Scores externos não são usados neste perfil para escolher o preset do workspace.
+
+Froggeric upstream declara suporte a tool-calling, thinking e múltiplos runtimes. Neste workspace, o clean retest v22.5 validou apenas o comportamento non-thinking de chat/writing/coding coberto pelo SPEC; tool-calling permanece não testado localmente.
 
 ## Preset recomendado — código
 
@@ -139,7 +169,7 @@ Metadados externos do autor/origem não substituem os resultados locais acima. S
   --jinja --reasoning off
 ```
 
-**Não adicionar `--chat-template-file` Froggeric neste preset.** O template nativo embutido no GGUF é o padrão validado.
+**Não adicionar `--chat-template-file` Froggeric neste preset padrão.** O clean retest mostrou paridade de saída, não superioridade funcional.
 
 Para rodar sem speculative decoding, remover `-md`, `--spec-type`, `--spec-draft-n-max` e `-ngld`.
 
@@ -147,8 +177,8 @@ Para rodar sem speculative decoding, remover `-md`, `--spec-type`, `--spec-draft
 
 - Código corrigido: `benchmarks/coding-mini-v1/`
 - GSQ + DFlash2: `benchmarks/coding-mini-v1/results/GSQ_DFLASH2_COMPARISON.md`
-- Escrita: `benchmarks/chat-writing-v1/`
-- Ablação Froggeric: `benchmarks/gsq-froggeric-ablation-v1/`
-- Execução Froggeric: `de6fe06b9656350cc037052a8be8154e14387a4e`
-- Auditoria/correção de interpretação: `benchmarks/gsq-froggeric-ablation-v1/results/SUMMARY.md`
+- Escrita canônica: `benchmarks/chat-writing-v1/`
+- Froggeric v22.4 histórico: `benchmarks/gsq-froggeric-ablation-v1/`
+- Froggeric v22.5 clean retest: `benchmarks/gsq-froggeric-v225-clean-retest-v1/`
+- Review final de writing v22.5: `benchmarks/gsq-froggeric-v225-clean-retest-v1/results/WRITING_CHATGPT_REVIEW.md`
 - Campo sem evidência versionada deve ser `N/A / não registrado`, nunca estimado.
