@@ -1,0 +1,492 @@
+{
+  "timestamp": "2026-09-04 07:53:40",
+  "model": "jinaai/jina-reranker-v3.5",
+  "jina_avg_mrr": 0.8087142857142857,
+  "nemotron_avg_mrr": 0.8221157407407408,
+  "qwen_avg_mrr": 0.8180267857142857,
+  "base_avg_mrr": 0.7112681878306878,
+  "jina_wins_vs_nemotron": 0,
+  "jina_wins_vs_qwen": 1,
+  "profiles": {
+    "lightonai-mDenseOn": {
+      "base": {
+        "MRR@10": 0.6324153439153439,
+        "nDCG@10": 0.6669103936185549,
+        "HitRate@1": 0.54,
+        "HitRate@10": 0.8,
+        "Recall@10": 0.7933333333333333
+      },
+      "jina_v35": {
+        "metrics": {
+          "MRR@10": 0.8043042328042328,
+          "nDCG@10": 0.8075138524181442,
+          "HitRate@1": 0.7933333333333333,
+          "HitRate@10": 0.8533333333333334,
+          "Recall@10": 0.8433333333333334
+        },
+        "total_time_s": 884.56,
+        "mean_latency_s": 5.8971,
+        "p50_latency_s": 5.8906,
+        "p95_latency_s": 6.0959,
+        "peak_vram_bytes": 5434789888,
+        "peak_vram_mib": 5183.02,
+        "peak_ram_bytes": 2601033728,
+        "peak_ram_mib": 2480.54
+      },
+      "nemotron_1b_v2": {
+        "metrics": {
+          "MRR@10": 0.8137777777777778,
+          "nDCG@10": 0.8157819304641775,
+          "HitRate@1": 0.7933333333333333,
+          "HitRate@10": 0.8533333333333334,
+          "Recall@10": 0.8433333333333334
+        },
+        "total_time_s": 226.79,
+        "mean_latency_s": 1.5105,
+        "p50_latency_s": 1.5105,
+        "p95_latency_s": 1.5752,
+        "peak_vram_bytes": 4204542464,
+        "peak_vram_mib": 4009.76,
+        "peak_ram_bytes": 2587013120,
+        "peak_ram_mib": 2467.17
+      },
+      "qwen3_06": {
+        "metrics": {
+          "MRR@10": 0.8000555555555555,
+          "nDCG@10": 0.8083108698868813,
+          "HitRate@1": 0.7666666666666667,
+          "HitRate@10": 0.8666666666666667,
+          "Recall@10": 0.8566666666666667
+        },
+        "total_time_s": 210.95,
+        "mean_latency_s": 1.4063,
+        "p50_latency_s": 1.4061,
+        "p95_latency_s": 1.4454,
+        "peak_vram_bytes": 2526859264,
+        "peak_vram_mib": 2409.8,
+        "peak_ram_bytes": 2701996032,
+        "peak_ram_mib": 2576.82
+      }
+    },
+    "embeddinggemma-300m": {
+      "base": {
+        "MRR@10": 0.7071851851851851,
+        "nDCG@10": 0.7338185428660454,
+        "HitRate@1": 0.62,
+        "HitRate@10": 0.8466666666666667,
+        "Recall@10": 0.8366666666666667
+      },
+      "jina_v35": {
+        "metrics": {
+          "MRR@10": 0.8135079365079365,
+          "nDCG@10": 0.8212974543896044,
+          "HitRate@1": 0.7866666666666666,
+          "HitRate@10": 0.88,
+          "Recall@10": 0.87
+        },
+        "total_time_s": 879.34,
+        "mean_latency_s": 5.8622,
+        "p50_latency_s": 5.8755,
+        "p95_latency_s": 6.0633,
+        "peak_vram_bytes": 5421104640,
+        "peak_vram_mib": 5169.97,
+        "peak_ram_bytes": 2601062400,
+        "peak_ram_mib": 2480.57
+      },
+      "nemotron_1b_v2": {
+        "metrics": {
+          "MRR@10": 0.8226666666666667,
+          "nDCG@10": 0.8257819304641775,
+          "HitRate@1": 0.8,
+          "HitRate@10": 0.8666666666666667,
+          "Recall@10": 0.8566666666666667
+        },
+        "total_time_s": 225.85,
+        "mean_latency_s": 1.5042,
+        "p50_latency_s": 1.5036,
+        "p95_latency_s": 1.5484,
+        "peak_vram_bytes": 4205413888,
+        "peak_vram_mib": 4010.6,
+        "peak_ram_bytes": 2587426816,
+        "peak_ram_mib": 2467.56
+      },
+      "qwen3_06": {
+        "metrics": {
+          "MRR@10": 0.8197301587301588,
+          "nDCG@10": 0.8293984730200381,
+          "HitRate@1": 0.7866666666666666,
+          "HitRate@10": 0.8933333333333333,
+          "Recall@10": 0.8833333333333333
+        },
+        "total_time_s": 210.25,
+        "mean_latency_s": 1.4016,
+        "p50_latency_s": 1.4001,
+        "p95_latency_s": 1.439,
+        "peak_vram_bytes": 2526859776,
+        "peak_vram_mib": 2409.8,
+        "peak_ram_bytes": 2701996032,
+        "peak_ram_mib": 2576.82
+      }
+    },
+    "nemotron-8B": {
+      "base": {
+        "MRR@10": 0.7459338624338624,
+        "nDCG@10": 0.7693962421228595,
+        "HitRate@1": 0.6733333333333333,
+        "HitRate@10": 0.8733333333333333,
+        "Recall@10": 0.8633333333333333
+      },
+      "jina_v35": {
+        "metrics": {
+          "MRR@10": 0.7885185185185185,
+          "nDCG@10": 0.8051193296673973,
+          "HitRate@1": 0.7466666666666667,
+          "HitRate@10": 0.88,
+          "Recall@10": 0.8766666666666667
+        },
+        "total_time_s": 877.64,
+        "mean_latency_s": 5.8509,
+        "p50_latency_s": 5.8336,
+        "p95_latency_s": 6.0601,
+        "peak_vram_bytes": 5429359616,
+        "peak_vram_mib": 5177.84,
+        "peak_ram_bytes": 2601062400,
+        "peak_ram_mib": 2480.57
+      },
+      "nemotron_1b_v2": {
+        "metrics": {
+          "MRR@10": 0.8232222222222222,
+          "nDCG@10": 0.8262440867436882,
+          "HitRate@1": 0.8,
+          "HitRate@10": 0.8666666666666667,
+          "Recall@10": 0.8566666666666667
+        },
+        "total_time_s": 224.6,
+        "mean_latency_s": 1.4959,
+        "p50_latency_s": 1.4961,
+        "p95_latency_s": 1.5347,
+        "peak_vram_bytes": 4179563520,
+        "peak_vram_mib": 3985.94,
+        "peak_ram_bytes": 2587590656,
+        "peak_ram_mib": 2467.72
+      },
+      "qwen3_06": {
+        "metrics": {
+          "MRR@10": 0.8191931216931216,
+          "nDCG@10": 0.8261555890822295,
+          "HitRate@1": 0.7866666666666666,
+          "HitRate@10": 0.88,
+          "Recall@10": 0.87
+        },
+        "total_time_s": 209.32,
+        "mean_latency_s": 1.3954,
+        "p50_latency_s": 1.3977,
+        "p95_latency_s": 1.4249,
+        "peak_vram_bytes": 2510384640,
+        "peak_vram_mib": 2394.09,
+        "peak_ram_bytes": 2702004224,
+        "peak_ram_mib": 2576.83
+      }
+    },
+    "pplx-4B": {
+      "base": {
+        "MRR@10": 0.7562407407407408,
+        "nDCG@10": 0.7778241030502849,
+        "HitRate@1": 0.7,
+        "HitRate@10": 0.86,
+        "Recall@10": 0.86
+      },
+      "jina_v35": {
+        "metrics": {
+          "MRR@10": 0.8122407407407407,
+          "nDCG@10": 0.8168534497696651,
+          "HitRate@1": 0.7933333333333333,
+          "HitRate@10": 0.8666666666666667,
+          "Recall@10": 0.8566666666666667
+        },
+        "total_time_s": 880.96,
+        "mean_latency_s": 5.873,
+        "p50_latency_s": 5.8829,
+        "p95_latency_s": 6.0533,
+        "peak_vram_bytes": 5446979584,
+        "peak_vram_mib": 5194.64,
+        "peak_ram_bytes": 2601082880,
+        "peak_ram_mib": 2480.59
+      },
+      "nemotron_1b_v2": {
+        "metrics": {
+          "MRR@10": 0.8233333333333334,
+          "nDCG@10": 0.8277090293062968,
+          "HitRate@1": 0.8,
+          "HitRate@10": 0.8733333333333333,
+          "Recall@10": 0.8633333333333333
+        },
+        "total_time_s": 225.66,
+        "mean_latency_s": 1.503,
+        "p50_latency_s": 1.5029,
+        "p95_latency_s": 1.5426,
+        "peak_vram_bytes": 4205413888,
+        "peak_vram_mib": 4010.6,
+        "peak_ram_bytes": 2587652096,
+        "peak_ram_mib": 2467.78
+      },
+      "qwen3_06": {
+        "metrics": {
+          "MRR@10": 0.8220714285714286,
+          "nDCG@10": 0.8282470962983641,
+          "HitRate@1": 0.7933333333333333,
+          "HitRate@10": 0.88,
+          "Recall@10": 0.87
+        },
+        "total_time_s": 210.14,
+        "mean_latency_s": 1.4009,
+        "p50_latency_s": 1.4015,
+        "p95_latency_s": 1.4323,
+        "peak_vram_bytes": 2526857728,
+        "peak_vram_mib": 2409.8,
+        "peak_ram_bytes": 2702004224,
+        "peak_ram_mib": 2576.83
+      }
+    },
+    "qwen3-4B": {
+      "base": {
+        "MRR@10": 0.7010343915343915,
+        "nDCG@10": 0.72852922047902,
+        "HitRate@1": 0.6266666666666667,
+        "HitRate@10": 0.84,
+        "Recall@10": 0.8333333333333334
+      },
+      "jina_v35": {
+        "metrics": {
+          "MRR@10": 0.809962962962963,
+          "nDCG@10": 0.8123484626701106,
+          "HitRate@1": 0.7933333333333333,
+          "HitRate@10": 0.8533333333333334,
+          "Recall@10": 0.8433333333333334
+        },
+        "total_time_s": 879.94,
+        "mean_latency_s": 5.8663,
+        "p50_latency_s": 5.8758,
+        "p95_latency_s": 6.0543,
+        "peak_vram_bytes": 5432264704,
+        "peak_vram_mib": 5180.61,
+        "peak_ram_bytes": 2601086976,
+        "peak_ram_mib": 2480.59
+      },
+      "nemotron_1b_v2": {
+        "metrics": {
+          "MRR@10": 0.8245185185185185,
+          "nDCG@10": 0.828661662125747,
+          "HitRate@1": 0.8,
+          "HitRate@10": 0.8733333333333333,
+          "Recall@10": 0.8633333333333333
+        },
+        "total_time_s": 226.23,
+        "mean_latency_s": 1.5067,
+        "p50_latency_s": 1.5036,
+        "p95_latency_s": 1.5734,
+        "peak_vram_bytes": 4205413888,
+        "peak_vram_mib": 4010.6,
+        "peak_ram_bytes": 2587955200,
+        "peak_ram_mib": 2468.07
+      },
+      "qwen3_06": {
+        "metrics": {
+          "MRR@10": 0.8242962962962963,
+          "nDCG@10": 0.8316191838672966,
+          "HitRate@1": 0.7933333333333333,
+          "HitRate@10": 0.8866666666666667,
+          "Recall@10": 0.8766666666666667
+        },
+        "total_time_s": 210.25,
+        "mean_latency_s": 1.4016,
+        "p50_latency_s": 1.4031,
+        "p95_latency_s": 1.4422,
+        "peak_vram_bytes": 2526857728,
+        "peak_vram_mib": 2409.8,
+        "peak_ram_bytes": 2702004224,
+        "peak_ram_mib": 2576.83
+      }
+    },
+    "jina-v5-omni-small": {
+      "base": {
+        "MRR@10": 0.6742301587301587,
+        "nDCG@10": 0.7053981641822897,
+        "HitRate@1": 0.58,
+        "HitRate@10": 0.8266666666666667,
+        "Recall@10": 0.8166666666666667
+      },
+      "jina_v35": {
+        "metrics": {
+          "MRR@10": 0.8096825396825397,
+          "nDCG@10": 0.8138571367438213,
+          "HitRate@1": 0.7866666666666666,
+          "HitRate@10": 0.86,
+          "Recall@10": 0.85
+        },
+        "total_time_s": 880.04,
+        "mean_latency_s": 5.8669,
+        "p50_latency_s": 5.869,
+        "p95_latency_s": 6.0636,
+        "peak_vram_bytes": 5412850688,
+        "peak_vram_mib": 5162.1,
+        "peak_ram_bytes": 2601086976,
+        "peak_ram_mib": 2480.59
+      },
+      "nemotron_1b_v2": {
+        "metrics": {
+          "MRR@10": 0.8234074074074074,
+          "nDCG@10": 0.8277887971019373,
+          "HitRate@1": 0.8,
+          "HitRate@10": 0.8733333333333333,
+          "Recall@10": 0.8633333333333333
+        },
+        "total_time_s": 225.92,
+        "mean_latency_s": 1.5047,
+        "p50_latency_s": 1.5025,
+        "p95_latency_s": 1.5487,
+        "peak_vram_bytes": 4204542464,
+        "peak_vram_mib": 4009.76,
+        "peak_ram_bytes": 2587967488,
+        "peak_ram_mib": 2468.08
+      },
+      "qwen3_06": {
+        "metrics": {
+          "MRR@10": 0.8215820105820106,
+          "nDCG@10": 0.8264251040084327,
+          "HitRate@1": 0.7933333333333333,
+          "HitRate@10": 0.8733333333333333,
+          "Recall@10": 0.8633333333333333
+        },
+        "total_time_s": 210.29,
+        "mean_latency_s": 1.4019,
+        "p50_latency_s": 1.4041,
+        "p95_latency_s": 1.4344,
+        "peak_vram_bytes": 2524580352,
+        "peak_vram_mib": 2407.63,
+        "peak_ram_bytes": 2702004224,
+        "peak_ram_mib": 2576.83
+      }
+    },
+    "nemotron-1B-Q4": {
+      "base": {
+        "MRR@10": 0.7695079365079365,
+        "nDCG@10": 0.7820185776084891,
+        "HitRate@1": 0.7266666666666667,
+        "HitRate@10": 0.8533333333333334,
+        "Recall@10": 0.8433333333333334
+      },
+      "jina_v35": {
+        "metrics": {
+          "MRR@10": 0.8136375661375661,
+          "nDCG@10": 0.8168850514469982,
+          "HitRate@1": 0.8,
+          "HitRate@10": 0.8533333333333334,
+          "Recall@10": 0.8466666666666667
+        },
+        "total_time_s": 879.53,
+        "mean_latency_s": 5.8635,
+        "p50_latency_s": 5.878,
+        "p95_latency_s": 6.0535,
+        "peak_vram_bytes": 5439713792,
+        "peak_vram_mib": 5187.72,
+        "peak_ram_bytes": 2601086976,
+        "peak_ram_mib": 2480.59
+      },
+      "nemotron_1b_v2": {
+        "metrics": {
+          "MRR@10": 0.8226666666666667,
+          "nDCG@10": 0.8257819304641775,
+          "HitRate@1": 0.8,
+          "HitRate@10": 0.8666666666666667,
+          "Recall@10": 0.8566666666666667
+        },
+        "total_time_s": 225.36,
+        "mean_latency_s": 1.501,
+        "p50_latency_s": 1.4996,
+        "p95_latency_s": 1.5346,
+        "peak_vram_bytes": 4205413888,
+        "peak_vram_mib": 4010.6,
+        "peak_ram_bytes": 2588033024,
+        "peak_ram_mib": 2468.14
+      },
+      "qwen3_06": {
+        "metrics": {
+          "MRR@10": 0.8174444444444444,
+          "nDCG@10": 0.8251535368900003,
+          "HitRate@1": 0.78,
+          "HitRate@10": 0.88,
+          "Recall@10": 0.87
+        },
+        "total_time_s": 209.91,
+        "mean_latency_s": 1.3994,
+        "p50_latency_s": 1.4018,
+        "p95_latency_s": 1.4332,
+        "peak_vram_bytes": 2526857728,
+        "peak_vram_mib": 2409.8,
+        "peak_ram_bytes": 2702004224,
+        "peak_ram_mib": 2576.83
+      }
+    },
+    "bekko-a25m": {
+      "base": {
+        "MRR@10": 0.7035978835978836,
+        "nDCG@10": 0.7295431411627953,
+        "HitRate@1": 0.62,
+        "HitRate@10": 0.84,
+        "Recall@10": 0.83
+      },
+      "jina_v35": {
+        "metrics": {
+          "MRR@10": 0.8178597883597883,
+          "nDCG@10": 0.8239720369988451,
+          "HitRate@1": 0.8,
+          "HitRate@10": 0.8666666666666667,
+          "Recall@10": 0.8633333333333333
+        },
+        "total_time_s": 879.81,
+        "mean_latency_s": 5.8654,
+        "p50_latency_s": 5.8774,
+        "p95_latency_s": 6.0661,
+        "peak_vram_bytes": 5422679040,
+        "peak_vram_mib": 5171.47,
+        "peak_ram_bytes": 2601086976,
+        "peak_ram_mib": 2480.59
+      },
+      "nemotron_1b_v2": {
+        "metrics": {
+          "MRR@10": 0.8233333333333334,
+          "nDCG@10": 0.8277090293062968,
+          "HitRate@1": 0.8,
+          "HitRate@10": 0.8733333333333333,
+          "Recall@10": 0.8633333333333333
+        },
+        "total_time_s": 225.57,
+        "mean_latency_s": 1.5023,
+        "p50_latency_s": 1.5012,
+        "p95_latency_s": 1.5457,
+        "peak_vram_bytes": 4205413888,
+        "peak_vram_mib": 4010.6,
+        "peak_ram_bytes": 2588098560,
+        "peak_ram_mib": 2468.2
+      },
+      "qwen3_06": {
+        "metrics": {
+          "MRR@10": 0.8198412698412698,
+          "nDCG@10": 0.8281643799242506,
+          "HitRate@1": 0.7866666666666666,
+          "HitRate@10": 0.8866666666666667,
+          "Recall@10": 0.8766666666666667
+        },
+        "total_time_s": 210.19,
+        "mean_latency_s": 1.4012,
+        "p50_latency_s": 1.4002,
+        "p95_latency_s": 1.4407,
+        "peak_vram_bytes": 2526859776,
+        "peak_vram_mib": 2409.8,
+        "peak_ram_bytes": 2702004224,
+        "peak_ram_mib": 2576.83
+      }
+    }
+  }
+}
