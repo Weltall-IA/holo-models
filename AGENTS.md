@@ -12,15 +12,20 @@
 
 1. Identificar o tipo → categoria canônica (`text/`, `audio/`, `video/`, `image/`, `embed/`, `rerank/`).
 2. Baixar do fonte oficial direto na pasta canônica: pasta nomeada `origem-quantizacao` (ex.: `text/Qwen3.8-27B-heretic-ara-TQ3_4S/`), sem espaços.
-3. Criar obrigatoriamente dentro da pasta do modelo o arquivo de documentação `<nome-do-modelo>.md` (mesmo nome base do arquivo de pesos/GGUF, ex.: `Qwen3.8-27B-GSQ-RCO-IQ2_S.md`), contendo:
-   - Identificação técnica (arquivo, tamanho, SHA256, origem, arquitetura e quantização);
-   - Especialidade e no que o modelo se destaca (pontos fortes e trade-offs);
-   - Resultados de benchmarks locais medidos no workspace (código, escrita, tok/s, VRAM, draft spec se houver);
-   - Comando recomendado de execução (flags, contexto, KV cache, template).
+3. Criar obrigatoriamente dentro da pasta do modelo o arquivo de documentação `<nome-do-modelo>.md` (mesmo nome base do arquivo de pesos/GGUF, ex.: `Qwen3.8-27B-GSQ-RCO-IQ2_S.md`). O perfil é parte da identidade canônica do peso e deve ser atualizado quando houver nova validação, benchmark ou preset recomendado. Deve conter, no mínimo:
+   - Identificação técnica: nome exato do arquivo, tamanho exato em bytes e GiB, SHA256, origem/autor, arquitetura e quantização;
+   - Especialidade, pontos fortes, limitações e trade-offs;
+   - Resultados de benchmarks locais realmente medidos no workspace: score, tok/s, wall time, pico de VRAM e speculative decoding/MTP quando houver;
+   - Data da última validação local e hardware usado;
+   - Runtime exato usado na validação, incluindo versão/build/commit quando disponível;
+   - Proveniência dos números: caminho do benchmark/resultado e commit de referência quando disponível;
+   - Comando/preset recomendado de execução: flags, contexto, KV cache, template, reasoning e draft quando aplicável;
+   - Separação explícita entre `MEDIDO LOCALMENTE` e `DECLARADO PELO AUTOR/ORIGEM`.
+   - É proibido inventar ou estimar benchmark ausente. Campo não medido ou não registrado deve ser marcado como `N/A / não testado` ou `N/A / não registrado`, com a pendência explícita.
 4. Criar o link em cada runtime que vai usá-lo:
    - llama/lmstudio/vllm/comfyui: `ln -s ../text/<modelo>/<arquivo>.gguf runtimes/<runtime>/` (symlink);
    - ollama: importar para blob (reflink CoW obrigatório, sem cópia — ver MODEL_STORAGE.md).
-5. Validar o modelo no runtime (boot + geração real) antes de considerar pronto.
+5. Validar o modelo no runtime (boot + geração real) antes de considerar pronto e atualizar o `<nome-do-modelo>.md` com a validação efetivamente obtida.
 6. Se o modelo deixar de ser usado por um runtime, remover só o link desse runtime; o físico na categoria canônica permanece até a remoção total.
 
 ## Fluxo: remover modelo (obrigatório)
