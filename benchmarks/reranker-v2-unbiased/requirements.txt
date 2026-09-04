@@ -1,0 +1,7 @@
+numpy
+psutil
+torch
+transformers
+sentence-transformers
+datasets
+jsonschema
