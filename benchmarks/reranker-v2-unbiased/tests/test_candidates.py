@@ -19,6 +19,13 @@ class CandidatePoolTest(unittest.TestCase):
         self.assertIn("d59", pool)
         self.assertEqual(pool[-1], "d59")
 
+    def test_positive_complete_keeps_more_positives_than_top_k(self) -> None:
+        ranked = [f"d{i}" for i in range(50)]
+        positives = [f"d{i}" for i in range(60)]
+        pool = positive_complete_pool(ranked, positives, 50)
+        self.assertEqual(len(pool), 60)
+        self.assertTrue(set(positives).issubset(pool))
+
     def test_bm25_prefers_matching_document(self) -> None:
         bm25 = BM25([
             "alpha beta gamma",

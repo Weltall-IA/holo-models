@@ -51,6 +51,16 @@ def dataset_query_ids(query_rows: Sequence[dict]) -> Dict[str, List[str]]:
     return by_dataset
 
 
+def dimension_query_ids(
+    query_rows: Sequence[dict], field: str
+) -> Dict[str, List[str]]:
+    by_dimension: Dict[str, List[str]] = {}
+    for row in query_rows:
+        value = str(row.get(field, "unknown"))
+        by_dimension.setdefault(value, []).append(str(row["query_id"]))
+    return by_dimension
+
+
 def macro_metric(
     per_query: Mapping[str, Mapping[str, float]],
     by_dataset: Mapping[str, Sequence[str]],
@@ -266,7 +276,83 @@ def main() -> None:
             resamples=args.resamples,
         )
 
-    winner = DISPLAY[top] if top_delta["verdict"] == "a_wins" else "INCONCLUSIVE"
+    top_verdict = str(top_delta["verdict"])
+    winner = DISPLAY[top] if top_verdict == "a_wins" else "INCONCLUSIVE"
+
+    dataset_decisions: Dict[str, dict] = {}
+    if track == "GENERAL":
+        for dataset, qids in by_dataset.items():
+            dataset_ranking = sorted(
+                results,
+                key=lambda key: statistics.fmean(
+                    results[key]["per_query"][qid]["ndcg@10"] for qid in qids
+                ),
+                reverse=True,
+            )
+            dataset_top, dataset_runner_up = dataset_ranking[:2]
+            dataset_delta = paired_bootstrap_delta(
+                {qid: results[dataset_top]["per_query"][qid] for qid in qids},
+                {qid: results[dataset_runner_up]["per_query"][qid] for qid in qids},
+                "ndcg@10",
+                resamples=args.resamples,
+            )
+            dataset_verdict = str(dataset_delta["verdict"])
+            dataset_decisions[dataset] = {
+                "point_estimate_leader": dataset_top,
+                "runner_up": dataset_runner_up,
+                "quality_winner": dataset_top if dataset_verdict == "a_wins" else None,
+                "winner_label": (
+                    DISPLAY[dataset_top]
+                    if dataset_verdict == "a_wins"
+                    else "INCONCLUSIVE"
+                ),
+                "top_vs_runner_ndcg@10": dataset_delta,
+            }
+
+    dimension_groups: Dict[str, Dict[str, List[str]]] = {}
+    if track == "HOLO":
+        for field in ("category", "language"):
+            dimension_groups[field] = dimension_query_ids(query_rows, field)
+        for key in results:
+            model_summary[key]["by_dimension"] = {
+                field: {
+                    value: aggregate(
+                        {
+                            qid: results[key]["per_query"][qid]
+                            for qid in qids
+                        }
+                    )
+                    for value, qids in groups.items()
+                }
+                for field, groups in dimension_groups.items()
+            }
+
+    efficiency_summary: Dict[str, dict] = {}
+    for key in ranking:
+        efficiency = model_summary[key]["efficiency"]
+        vram_gib = efficiency["peak_gpu_allocated_mib"] / 1024.0
+        ndcg = model_summary[key]["ndcg@10"]
+        efficiency_summary[key] = {
+            "ndcg_per_peak_gpu_gib": ndcg / vram_gib if vram_gib else 0.0,
+            "ndcg_per_latency_p50_s": (
+                ndcg / efficiency["latency_p50_s"]
+                if efficiency["latency_p50_s"]
+                else 0.0
+            ),
+        }
+    best_quality_vram = max(
+        ranking, key=lambda key: efficiency_summary[key]["ndcg_per_peak_gpu_gib"]
+    )
+    best_quality_latency = max(
+        ranking, key=lambda key: efficiency_summary[key]["ndcg_per_latency_p50_s"]
+    )
+
+    # Keep machine-readable verdicts explicit for consumers of the report.
+    for pair_metrics in pairwise.values():
+        for delta in pair_metrics.values():
+            delta["verdict"] = str(delta["verdict"]).upper()
+    top_delta["verdict"] = top_verdict.upper()
+
     decision = {
         "track": track,
         "point_estimate_leader": top,
@@ -274,6 +360,9 @@ def main() -> None:
         "quality_winner": top if winner != "INCONCLUSIVE" else None,
         "winner_label": winner,
         "top_vs_runner_ndcg@10": top_delta,
+        "dataset_decisions": dataset_decisions,
+        "best_quality_per_vram": best_quality_vram,
+        "best_quality_per_latency": best_quality_latency,
     }
 
     lines: List[str] = [
@@ -312,6 +401,36 @@ def main() -> None:
                 )
             lines.append("")
 
+        lines.extend(["## Dataset decisions", ""])
+        lines.append(
+            "| Dataset | Point-estimate leader | NDCG@10 decision vs runner-up | 95% CI |"
+        )
+        lines.append("|---|---|---|---:|")
+        for dataset, dataset_decision in dataset_decisions.items():
+            delta = dataset_decision["top_vs_runner_ndcg@10"]
+            lines.append(
+                f"| {dataset} | {DISPLAY[dataset_decision['point_estimate_leader']]} | "
+                f"{dataset_decision['winner_label']} | "
+                f"[{delta['ci_low']:+.4f}, {delta['ci_high']:+.4f}] |"
+            )
+
+    if track == "HOLO":
+        for field, groups in dimension_groups.items():
+            lines.extend(["", f"## By {field}", ""])
+            lines.append(
+                "| Group | Model | NDCG@10 | MRR@10 | MAP | Hit@1 | Recall@10 | Recall@20 |"
+            )
+            lines.append("|---|---|---:|---:|---:|---:|---:|---:|")
+            for value, qids in groups.items():
+                for key in ranking:
+                    metrics = model_summary[key]["by_dimension"][field][value]
+                    lines.append(
+                        f"| {value} | {DISPLAY[key]} | {metrics['ndcg@10']:.4f} | "
+                        f"{metrics['mrr@10']:.4f} | {metrics['map']:.4f} | "
+                        f"{metrics['hit@1']:.4f} | {metrics['recall@10']:.4f} | "
+                        f"{metrics['recall@20']:.4f} |"
+                    )
+
     lines.extend(
         [
             "## Paired significance",
@@ -326,7 +445,7 @@ def main() -> None:
             lines.append(
                 f"| {DISPLAY[a]} − {DISPLAY[b]} | {metric} | "
                 f"{d['mean_delta']:+.4f} | [{d['ci_low']:+.4f}, {d['ci_high']:+.4f}] | "
-                f"{d['verdict']} |"
+                f"{str(d['verdict']).upper()} |"
             )
 
     lines.extend(
@@ -334,8 +453,8 @@ def main() -> None:
             "",
             "## Efficiency",
             "",
-            "| Model | GPU alloc peak MiB | GPU reserved peak MiB | RSS peak MiB | p50 s | p95 s | queries/s |",
-            "|---|---:|---:|---:|---:|---:|---:|",
+            "| Model | GPU alloc peak MiB | GPU reserved peak MiB | RSS peak MiB | p50 s | p95 s | queries/s | total s |",
+            "|---|---:|---:|---:|---:|---:|---:|---:|",
         ]
     )
     for key in ranking:
@@ -344,7 +463,26 @@ def main() -> None:
             f"| {DISPLAY[key]} | {e['peak_gpu_allocated_mib']:.1f} | "
             f"{e['peak_gpu_reserved_mib']:.1f} | {e['peak_process_rss_mib']:.1f} | "
             f"{e['latency_p50_s']:.3f} | {e['latency_p95_s']:.3f} | "
-            f"{e['queries_per_second']:.3f} |"
+            f"{e['queries_per_second']:.3f} | {e['total_time_s']:.3f} |"
+        )
+
+    lines.extend(
+        [
+            "",
+            "## Efficiency trade-offs",
+            "",
+            "| Model | NDCG@10 | Peak VRAM GiB | p50 s | NDCG/GiB | NDCG/p50 s |",
+            "|---|---:|---:|---:|---:|---:|",
+        ]
+    )
+    for key in ranking:
+        e = model_summary[key]["efficiency"]
+        ratios = efficiency_summary[key]
+        lines.append(
+            f"| {DISPLAY[key]} | {model_summary[key]['ndcg@10']:.4f} | "
+            f"{e['peak_gpu_allocated_mib'] / 1024.0:.3f} | {e['latency_p50_s']:.3f} | "
+            f"{ratios['ndcg_per_peak_gpu_gib']:.4f} | "
+            f"{ratios['ndcg_per_latency_p50_s']:.4f} |"
         )
 
     lines.extend(
@@ -360,6 +498,8 @@ def main() -> None:
                 else f"- **No statistically supported winner** between {DISPLAY[top]} and "
                      f"{DISPLAY[runner_up]} at 95% confidence."
             ),
+            f"- Best quality/VRAM: **{DISPLAY[best_quality_vram]}** (NDCG per peak GiB).",
+            f"- Best quality/latency: **{DISPLAY[best_quality_latency]}** (NDCG per p50 second).",
             "- GENERAL and HOLO are separate decisions; this report does not combine them into one score.",
             "",
         ]
@@ -373,6 +513,7 @@ def main() -> None:
         "models": model_summary,
         "pairwise": pairwise,
         "decision": decision,
+        "efficiency": efficiency_summary,
     }
 
     result_dir.mkdir(parents=True, exist_ok=True)

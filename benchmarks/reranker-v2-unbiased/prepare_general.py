@@ -54,12 +54,13 @@ def positive_complete_pool(
                 if pool[idx] not in positive_ids:
                     drop_idx = idx
                     break
-            if drop_idx is None:
-                raise RuntimeError("Cannot inject a positive without dropping another positive")
-            pool.pop(drop_idx)
+            if drop_idx is not None:
+                pool.pop(drop_idx)
         pool.append(positive)
 
-    if len(pool) > top_k:
+    # Some NanoBEIR queries have more judged positives than top_k. In that
+    # case, retain the complete positive set rather than violating the policy.
+    if len(pool) > top_k and len(set(positive_ids)) <= top_k:
         pool = pool[:top_k]
     if len(pool) != len(set(pool)):
         raise AssertionError("Candidate pool contains duplicates")

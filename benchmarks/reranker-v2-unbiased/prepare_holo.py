@@ -99,9 +99,8 @@ def positive_complete_pool(
                 (idx for idx in range(len(pool) - 1, -1, -1) if pool[idx] not in positives),
                 None,
             )
-            if drop_idx is None:
-                raise RuntimeError("Cannot inject a positive without dropping another positive")
-            pool.pop(drop_idx)
+            if drop_idx is not None:
+                pool.pop(drop_idx)
         pool.append(positive)
 
     if not set(positives).issubset(pool):

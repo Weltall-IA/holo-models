@@ -1,0 +1,47 @@
+{
+  "benchmark_id": "reranker-v2-unbiased",
+  "candidate_policy": "lexical_bm25_top50_then_positive_complete_for_pure_reranker_comparison",
+  "candidate_top_k": 50,
+  "counts": {
+    "categories": {
+      "agents": 144,
+      "capabilities": 48,
+      "docs": 24,
+      "routing": 16,
+      "rules": 72
+    },
+    "documents": 50,
+    "intents": 76,
+    "languages": {
+      "en": 152,
+      "pt-BR": 152
+    },
+    "queries": 304,
+    "semantic_families": 32
+  },
+  "files": {
+    "corpus.jsonl": "4fe62cb4649b935919fd9b48ce30e3b87955f2b95547f48f12ef9ed1d4f74bd2",
+    "queries.jsonl": "8017d60420ef060cfb9b524e730ba8ffaa504439b0129892ecf3ce180453d0fe"
+  },
+  "retriever": {
+    "b": 0.75,
+    "k1": 1.5,
+    "tokenizer": "unicode regex [\\w.-]+ + casefold",
+    "type": "local_bm25"
+  },
+  "source": {
+    "dirty": false,
+    "git_head": "841f6854c063e7dd164012c412403e8c2af1fbd7",
+    "included_roots": [
+      "AGENTS.md",
+      "ARCHITECTURE.md",
+      "README.md",
+      "library",
+      "capabilities",
+      "core",
+      "harnesses"
+    ],
+    "repo": "Weltall-IA/holo-agent-tooling"
+  },
+  "track": "HOLO"
+}

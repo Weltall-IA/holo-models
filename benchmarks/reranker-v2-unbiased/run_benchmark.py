@@ -19,6 +19,7 @@ from metrics import aggregate, bootstrap_ci, per_query_metrics
 BENCH_DIR = Path(__file__).resolve().parent
 REPO_ROOT = BENCH_DIR.parents[1]
 SEED = 20260904
+JINA_CUDA_MAX_LENGTH = 16_384
 
 MODEL_SPECS = {
     "nemotron_1b_v2": {
@@ -165,6 +166,7 @@ class CrossEncoderAdapter(BaseAdapter):
     def rank(self, query: str, documents: Sequence[str]) -> List[int]:
         raw_scores = self.model.predict(
             [(query, doc) for doc in documents],
+            batch_size=4,
             show_progress_bar=False,
         )
         values = np.asarray(raw_scores, dtype=np.float64).reshape(-1)
@@ -206,6 +208,16 @@ class JinaListwiseAdapter(BaseAdapter):
             .eval()
             .to(device)
         )
+        self.native_max_length = None
+        self.context_length_override = None
+        if device.startswith("cuda"):
+            self.model._ensure_tokenizer()
+            self.native_max_length = int(self.model._tokenizer.model_max_length)
+            if self.native_max_length > JINA_CUDA_MAX_LENGTH:
+                # Keep the official listwise path while leaving activation
+                # headroom on 16 GiB GPUs for long candidate lists.
+                self.model._tokenizer.model_max_length = JINA_CUDA_MAX_LENGTH
+                self.context_length_override = JINA_CUDA_MAX_LENGTH
 
     def rank(self, query: str, documents: Sequence[str]) -> List[int]:
         with self.torch.inference_mode():
@@ -224,6 +236,8 @@ class JinaListwiseAdapter(BaseAdapter):
         except Exception:
             meta["parameter_dtype"] = "unknown"
             meta["resolved_revision"] = None
+        meta["native_max_length"] = self.native_max_length
+        meta["context_length_override"] = self.context_length_override
         return meta
 
     def close(self) -> None:
@@ -461,7 +475,12 @@ def run_model(
 
     return {
         "model_key": model_key,
-        "model": MODEL_SPECS[model_key],
+        "model": {
+            **MODEL_SPECS[model_key],
+            "local_candidates": [
+                str(path) for path in MODEL_SPECS[model_key]["local_candidates"]
+            ],
+        },
         "adapter_metadata": adapter.metadata(),
         "query_count": len(query_rows),
         "aggregate": aggregate(per_query),
