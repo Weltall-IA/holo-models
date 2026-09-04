@@ -1,0 +1,299 @@
+{
+  "schema_version": "gsq-froggeric-agent-tools-v1",
+  "seed": 9137,
+  "system_prompt": "Você é um agente de software. Use ferramentas quando o pedido depender de dados externos ao texto da conversa. Não invente resultados de ferramentas. Quando já houver informação suficiente no pedido, responda diretamente sem chamar ferramenta.",
+  "tool_catalog": {
+    "read_file": {
+      "type": "function",
+      "function": {
+        "name": "read_file",
+        "description": "Lê um arquivo do workspace, opcionalmente por intervalo de linhas.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "path": {"type": "string"},
+            "start_line": {"type": "integer", "minimum": 1},
+            "end_line": {"type": "integer", "minimum": 1}
+          },
+          "required": ["path"],
+          "additionalProperties": false
+        }
+      }
+    },
+    "search_repo": {
+      "type": "function",
+      "function": {
+        "name": "search_repo",
+        "description": "Procura texto no workspace e retorna caminhos/linhas relevantes.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "query": {"type": "string"},
+            "glob": {"type": "string"}
+          },
+          "required": ["query"],
+          "additionalProperties": false
+        }
+      }
+    },
+    "find_symbol": {
+      "type": "function",
+      "function": {
+        "name": "find_symbol",
+        "description": "Localiza a definição canônica de um símbolo de código.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "name": {"type": "string"}
+          },
+          "required": ["name"],
+          "additionalProperties": false
+        }
+      }
+    },
+    "list_dir": {
+      "type": "function",
+      "function": {
+        "name": "list_dir",
+        "description": "Lista entradas de um diretório do workspace.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "path": {"type": "string"}
+          },
+          "required": ["path"],
+          "additionalProperties": false
+        }
+      }
+    },
+    "calculator": {
+      "type": "function",
+      "function": {
+        "name": "calculator",
+        "description": "Calcula uma expressão aritmética.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "expression": {"type": "string"}
+          },
+          "required": ["expression"],
+          "additionalProperties": false
+        }
+      }
+    }
+  },
+  "matching_semantics": {
+    "equals": "o argumento deve ser exatamente igual",
+    "contains_all_ci": "string deve conter todos os termos, ignorando maiúsculas/minúsculas",
+    "forbid_extra_tool_calls": "nenhuma chamada além da sequência esperada é permitida",
+    "default_unmatched_tool_result": {"error": "NO_MATCHING_STUB"}
+  },
+  "cases": [
+    {
+      "id": "T01",
+      "title": "single_tool_exact_file",
+      "user": "Leia pyproject.toml e me diga somente a versão declarada de holo_core. Não chute.",
+      "tools": ["read_file", "search_repo"],
+      "stubs": [
+        {
+          "tool": "read_file",
+          "arguments": {"path": {"equals": "pyproject.toml"}},
+          "result": "[project.dependencies]\nholo_core = \"2.7.4\"\nrequests = \"2.32.4\""
+        }
+      ],
+      "expected": {
+        "tool_sequence": ["read_file"],
+        "argument_rules": [
+          {"index": 0, "tool": "read_file", "path": {"equals": "pyproject.toml"}}
+        ],
+        "final_must_include": ["2.7.4"],
+        "final_must_not_include": ["NO_MATCHING_STUB"],
+        "forbid_extra_tool_calls": true
+      }
+    },
+    {
+      "id": "T02",
+      "title": "choose_symbol_tool_over_text_search",
+      "user": "Onde a função normalize_ranges é definida? Quero arquivo e linha da definição, não ocorrências de texto.",
+      "tools": ["find_symbol", "search_repo", "read_file"],
+      "stubs": [
+        {
+          "tool": "find_symbol",
+          "arguments": {"name": {"equals": "normalize_ranges"}},
+          "result": {"symbol": "normalize_ranges", "kind": "function", "path": "src/ranges.py", "line": 87}
+        }
+      ],
+      "expected": {
+        "tool_sequence": ["find_symbol"],
+        "argument_rules": [
+          {"index": 0, "tool": "find_symbol", "name": {"equals": "normalize_ranges"}}
+        ],
+        "final_must_include": ["src/ranges.py", "87"],
+        "final_must_not_include": ["NO_MATCHING_STUB"],
+        "forbid_extra_tool_calls": true
+      }
+    },
+    {
+      "id": "T03",
+      "title": "exact_schema_and_line_range",
+      "user": "Consulte apenas as linhas 40 a 45 de src/config.py e responda somente o valor de DEFAULT_TIMEOUT.",
+      "tools": ["read_file", "search_repo"],
+      "stubs": [
+        {
+          "tool": "read_file",
+          "arguments": {
+            "path": {"equals": "src/config.py"},
+            "start_line": {"equals": 40},
+            "end_line": {"equals": 45}
+          },
+          "result": "40: RETRIES = 3\n41: BACKOFF = 1.5\n42:\n43: DEFAULT_TIMEOUT = 30\n44: LOG_LEVEL = \"INFO\"\n45:"
+        }
+      ],
+      "expected": {
+        "tool_sequence": ["read_file"],
+        "argument_rules": [
+          {
+            "index": 0,
+            "tool": "read_file",
+            "path": {"equals": "src/config.py"},
+            "start_line": {"equals": 40},
+            "end_line": {"equals": 45}
+          }
+        ],
+        "final_must_include": ["30"],
+        "final_must_not_include": ["NO_MATCHING_STUB"],
+        "forbid_extra_tool_calls": true
+      }
+    },
+    {
+      "id": "T04",
+      "title": "do_not_call_tool_when_not_needed",
+      "user": "Sem consultar ferramenta: A=7 e B=11. Qual é A+B? Responda só com o número.",
+      "tools": ["calculator", "read_file"],
+      "stubs": [],
+      "expected": {
+        "tool_sequence": [],
+        "argument_rules": [],
+        "final_must_include": ["18"],
+        "final_must_not_include": ["NO_MATCHING_STUB"],
+        "forbid_extra_tool_calls": true
+      }
+    },
+    {
+      "id": "T05",
+      "title": "search_then_read_dependency",
+      "user": "Descubra qual feature flag controla o cache de embeddings e diga o nome da flag e o valor default. Use o repositório, não memória.",
+      "tools": ["search_repo", "read_file"],
+      "stubs": [
+        {
+          "tool": "search_repo",
+          "arguments": {"query": {"contains_all_ci": ["embed", "cache"]}},
+          "result": [{"path": "src/settings/embedding.py", "line": 12, "preview": "ENABLE_EMBED_CACHE = False"}]
+        },
+        {
+          "tool": "read_file",
+          "arguments": {"path": {"equals": "src/settings/embedding.py"}},
+          "result": "10: EMBEDDING_DIM = 1024\n11:\n12: ENABLE_EMBED_CACHE = False\n13: EMBED_CACHE_TTL = 3600"
+        }
+      ],
+      "expected": {
+        "tool_sequence": ["search_repo", "read_file"],
+        "argument_rules": [
+          {"index": 0, "tool": "search_repo", "query": {"contains_all_ci": ["embed", "cache"]}},
+          {"index": 1, "tool": "read_file", "path": {"equals": "src/settings/embedding.py"}}
+        ],
+        "final_must_include": ["ENABLE_EMBED_CACHE", "False"],
+        "final_must_not_include": ["True", "NO_MATCHING_STUB"],
+        "forbid_extra_tool_calls": true
+      }
+    },
+    {
+      "id": "T06",
+      "title": "list_then_select_latest_then_read",
+      "user": "Entre os perfis em configs/agents, qual é o arquivo mais recente e qual modelo ele usa? Descubra pelas ferramentas.",
+      "tools": ["list_dir", "read_file", "search_repo"],
+      "stubs": [
+        {
+          "tool": "list_dir",
+          "arguments": {"path": {"equals": "configs/agents"}},
+          "result": [
+            "holo-2026-08-30.json",
+            "holo-2026-09-03.json",
+            "README.md"
+          ]
+        },
+        {
+          "tool": "read_file",
+          "arguments": {"path": {"equals": "configs/agents/holo-2026-09-03.json"}},
+          "result": "{\"agent\":\"holo\",\"model\":\"gemini-3.7-flash\",\"updated\":\"2026-09-03\"}"
+        }
+      ],
+      "expected": {
+        "tool_sequence": ["list_dir", "read_file"],
+        "argument_rules": [
+          {"index": 0, "tool": "list_dir", "path": {"equals": "configs/agents"}},
+          {"index": 1, "tool": "read_file", "path": {"equals": "configs/agents/holo-2026-09-03.json"}}
+        ],
+        "final_must_include": ["holo-2026-09-03.json", "gemini-3.7-flash"],
+        "final_must_not_include": ["holo-2026-08-30.json usa", "NO_MATCHING_STUB"],
+        "forbid_extra_tool_calls": true
+      }
+    },
+    {
+      "id": "T07",
+      "title": "recover_from_tool_error",
+      "user": "Qual é o timeout de deploy em config/deploy.yaml? Se o caminho estiver errado, encontre o arquivo correto e responda o valor em segundos.",
+      "tools": ["read_file", "search_repo"],
+      "stubs": [
+        {
+          "tool": "read_file",
+          "arguments": {"path": {"equals": "config/deploy.yaml"}},
+          "result": {"error": "FILE_NOT_FOUND", "path": "config/deploy.yaml"}
+        },
+        {
+          "tool": "search_repo",
+          "arguments": {"query": {"contains_all_ci": ["deploy", "timeout"]}},
+          "result": [{"path": "configs/deployment.yaml", "line": 7, "preview": "timeout_seconds: 120"}]
+        },
+        {
+          "tool": "read_file",
+          "arguments": {"path": {"equals": "configs/deployment.yaml"}},
+          "result": "5: retries: 2\n6: strategy: rolling\n7: timeout_seconds: 120\n8: rollback: true"
+        }
+      ],
+      "expected": {
+        "tool_sequence": ["read_file", "search_repo", "read_file"],
+        "argument_rules": [
+          {"index": 0, "tool": "read_file", "path": {"equals": "config/deploy.yaml"}},
+          {"index": 1, "tool": "search_repo", "query": {"contains_all_ci": ["deploy", "timeout"]}},
+          {"index": 2, "tool": "read_file", "path": {"equals": "configs/deployment.yaml"}}
+        ],
+        "final_must_include": ["120"],
+        "final_must_not_include": ["FILE_NOT_FOUND", "NO_MATCHING_STUB"],
+        "forbid_extra_tool_calls": true
+      }
+    },
+    {
+      "id": "T08",
+      "title": "trust_tool_result_over_user_premise",
+      "user": "Acho que schema_version é 4. Confirme o valor atual em config/schema.json e me corrija se eu estiver errado.",
+      "tools": ["read_file", "search_repo"],
+      "stubs": [
+        {
+          "tool": "read_file",
+          "arguments": {"path": {"equals": "config/schema.json"}},
+          "result": "{\"schema_version\":5,\"min_client_version\":\"2.4.0\"}"
+        }
+      ],
+      "expected": {
+        "tool_sequence": ["read_file"],
+        "argument_rules": [
+          {"index": 0, "tool": "read_file", "path": {"equals": "config/schema.json"}}
+        ],
+        "final_must_include": ["5"],
+        "final_must_not_include": ["schema_version é 4", "schema_version=4", "NO_MATCHING_STUB"],
+        "forbid_extra_tool_calls": true
+      }
+    }
+  ]
+}
