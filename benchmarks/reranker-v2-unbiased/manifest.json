@@ -7,33 +7,42 @@
     "seed": 20260904,
     "resamples": 10000,
     "confidence": 0.95,
-    "paired": true
+    "paired": true,
+    "general_method": "stratified_within_dataset_equal_weight_macro",
+    "holo_method": "clustered_by_canonical_source_family"
   },
   "candidate_pool": {
     "top_k": 50,
     "frozen_before_reranking": true,
     "same_candidates_for_all_models": true,
-    "hard_negative_policy": "first_stage_retrieval"
+    "pure_reranker_policy": "positive_complete",
+    "pipeline_recall_reported_separately": true
   },
   "tracks": {
     "general": {
-      "datasets": ["NanoMSMARCO", "NanoNQ", "NanoNFCorpus", "NanoFiQA", "NanoSciFact"],
-      "aggregate_across_datasets": false
+      "datasets": ["NanoMSMARCO", "NanoNQ", "NanoNFCorpus", "NanoFiQA2018", "NanoSciFact"],
+      "source": "sentence-transformers/Nano*-bm25 published BM25 rankings",
+      "aggregate": "equal_weight_macro_across_datasets",
+      "held_out_from_holo": true
     },
     "holo": {
-      "target_queries_min": 300,
-      "target_queries_max": 500,
+      "queries": 304,
+      "semantic_families": 32,
+      "intents": 76,
+      "paraphrases_per_intent": 4,
       "languages": ["pt-BR", "en"],
-      "categories": ["docs", "code", "skills", "tools", "config", "semantic_near_miss"],
+      "categories": ["agents", "rules", "capabilities", "routing", "docs"],
+      "candidate_source": "lexical_bm25_over_frozen_canonical_holo_agent_tooling_corpus",
       "held_out": true
     }
   },
   "models": [
     {"id": "nemotron_1b_v2", "hf_id": "nvidia/llama-nemotron-rerank-1b-v2", "adapter": "nemotron_native"},
     {"id": "jina_v35", "hf_id": "jinaai/jina-reranker-v3.5", "adapter": "jina_listwise"},
-    {"id": "qwen3_06b", "hf_id": "Qwen/Qwen3-Reranker-0.6B", "adapter": "qwen_official"},
-    {"id": "ettin_400m", "hf_id": "cross-encoder/ettin-reranker-400m-v1", "adapter": "cross_encoder"}
+    {"id": "qwen3_06b", "hf_id": "Qwen/Qwen3-Reranker-0.6B", "adapter": "cross_encoder_official"},
+    {"id": "ettin_400m", "hf_id": "cross-encoder/ettin-reranker-400m-v1", "adapter": "cross_encoder_official"}
   ],
   "quality_efficiency_separate": true,
-  "projections_forbidden": true
+  "projections_forbidden": true,
+  "historical_scores_are_not_v2_results": true
 }
