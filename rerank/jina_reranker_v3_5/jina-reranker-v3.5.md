@@ -12,10 +12,11 @@
 ## Especialidade, pontos fortes e trade-offs
 
 - Reranker listwise multilíngue com suporte nativo a listas de documentos e ranking conjunto via causal self-attention.
-- Avaliado no benchmark de rerankers do workspace (top-8 embeddings × 150 queries × 50 candidatos = 60.000 pares).
-- **Não superou** o atual líder de produção `llama-nemotron-rerank-1b-v2` em nenhum dos 8 embeddings (perdeu 8 de 8 confrontos).
+- Avaliado no benchmark de rerankers do workspace (top-8 embeddings × 150 queries × 50 candidatos = 60.000 pares query-documento).
+- **Não superou** o atual líder de produção `llama-nemotron-rerank-1b-v2` em nenhum dos 8 embeddings (perdeu 8 de 8 confrontos no painel de 150 queries).
 - **Trade-off desfavorável em inferência local**: O pipeline listwise com 50 documentos gera sequências de ~22.500 tokens, exigindo **5.07 GB de VRAM** e **~5.87s por query** (~4× mais lento que o Nemotron e o Qwen3-0.6B).
 - **Decisão no Workspace**: **NÃO_COMPENSA**. `llama-nemotron-rerank-1b-v2` permanece o líder e `qwen3-reranker-06` permanece como opção leve.
+- **Distinção de Benchmarks**: Os valores deste documento são **estritamente os MEDIDOS no painel de 150 queries**. Projeções sintéticas para o benchmark histórico de 240 queries foram descartadas por não serem uma medição válida.
 
 ## MEDIDO LOCALMENTE
 

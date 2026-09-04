@@ -39,26 +39,24 @@
 | **Nemotron 1B v2** | 1.0B | Transformers (SequenceClassification) | **0.8221** | **4010.6 MiB** (~3.92 GB) | 2468.2 MiB | 1.502 s | 225.7 s |
 | **Qwen3-Reranker-0.6B** | 0.6B | sentence-transformers (CrossEncoder) | **0.8180** | **2409.8 MiB** (~2.35 GB) | 2576.83 MiB | 1.402 s | 210.2 s |
 
-## 5. Projeção Canônica na Tabela Histórica (240 queries)
+## 5. Esclarecimento Metodológico: Medições Reais (150q) vs Benchmark Histórico (240q)
 
-Incorporando a variação observada do Jina v3.5 sobre o baseline canônico de 240 queries:
-
-| Embedding | Base 240q | Nemotron 1B v2 (240q) | Qwen3-0.6B (240q) | Jina v3.5 (Projetado) | Vencedor |
-|---|---:|---:|---:|---:|:---:|
-| **lightonai-mDenseOn** | 0.8256 | 0.9257 | 0.8970 | **0.9162** | Nemotron |
-| **embeddinggemma-300m** | 0.7992 | 0.9221 | 0.8874 | **0.9129** | Nemotron |
-| **nemotron-8B (Abiray 1024)** | 0.7950 | 0.9024 | 0.8606 | **0.8677** | Nemotron |
-| **pplx-embed-v1-4b (Q8_0)** | 0.8014 | 0.8802 | 0.8569 | **0.8691** | Nemotron |
-| **qwen3-embedding-4b (Q8_0)** | 0.7915 | 0.9113 | 0.8699 | **0.8967** | Nemotron |
-| **jina-embeddings-v5-small** | 0.7580 | 0.8849 | 0.8587 | **0.8712** | Nemotron |
-| **nemotron-1B (Q4_K_M)** | 0.7054 | 0.8177 | 0.7877 | **0.8087** | Nemotron |
-| **colibri_ptbr / bekko (Dense PT-BR)** | 0.6854 | 0.8493 | 0.8319 | **0.8438** | Nemotron |
-
-- **Nemotron 1B v2 Média 240q**: **0.8867**
-- **Qwen3-0.6B Média 240q**: **0.8563**
-- **Jina v3.5 Média Projetada 240q**: **0.8733**
+1. **Painel de 150 Queries (MEDIDO)**:
+   - Os scores apresentados nas seções 2, 3 e 4 são **100% MEDIDOS** no dataset `holo_fake_scenes_v3` (150 queries × 50 candidatos em 8 embeddings).
+   - Nesse confronto idêntico e direto:
+     - **Nemotron 1B v2**: **0.8221** (média 8 embeddings) / **0.8138** (com `mDenseOn`).
+     - **Qwen3-0.6B**: **0.8180** (média 8 embeddings) / **0.8001** (com `mDenseOn`).
+     - **Jina-Reranker-v3.5**: **0.8087** (média 8 embeddings) / **0.8043** (com `mDenseOn`).
+2. **Benchmark Histórico de 240 Queries (NÃO REPRODUZÍVEL)**:
+   - O benchmark histórico registrado em documentações anteriores utilizou 2.000 documentos e 240 queries (60/domínio) geradas por scripts locais cujos arquivos intermediários e dataset de queries não foram versionados no repositório Git.
+   - Uma auditoria minuciosa no histórico de commits e no disco confirmou que os conjuntos brutos de 240 queries não estão disponíveis para reexecução.
+3. **Rejeição de Projeções Sintéticas**:
+   - Fórmulas de projeção linear como `Jina_240 = Nemotron_240 + (Jina_150 - Nemotron_150)` (que estimavam 0.8733 ou 0.9162) são **projeções não validadas** e foram formalmente descartadas. Apenas os valores de 150 queries medidos são tratados como evidência canônica.
 
 ## 6. Conclusão Final e Recomendação Técnica
 
 ### **LÍDER MANTIDO: llama-nemotron-rerank-1b-v2**
-1. O Nemotron 1B v2 manteve a liderança com MRR médio de 0.8221 vs 0.8087 do Jina v3.5.
+1. **Desempenho em Retrieval**: No painel medido de 150 queries, o **Nemotron 1B v2** venceu o Jina v3.5 em **8 de 8 embeddings** (0.8221 vs 0.8087), incluindo no `lightonai-mDenseOn` (0.8138 vs 0.8043).
+2. **Eficiência de VRAM e Latência**: O Nemotron consome **3.92 GB** de VRAM e processa cada lista de 50 candidatos em **~1.50s**, enquanto o Jina v3.5 listwise exige **5.07 GB** e **~5.87s** por lista (devido à sequência longa de 22.500 tokens).
+3. **Alternativa Leve**: O `qwen3-reranker-06` permanece como a opção leve recomendada (2.35 GB VRAM, 1.40s e superior ao Jina em 7 dos 8 embeddings).
+4. **Decisão**: `jina-reranker-v3.5` **NÃO COMPENSA** como substituto no pipeline de busca local.

@@ -1,19 +1,19 @@
-# jina-reranker-v3.5 — MRR@10 0.9162 (com mDenseOn)
+# jina-reranker-v3.5 — MRR@10 0.8043 (com mDenseOn, painel 150q)
 
 **Reranker Listwise 0.6B.**
-Benchmark rerankers: top-8 embeddings × 150/240 queries, reordena 50 candidatos → top-20.
+Benchmark de rerankers medido: top-8 embeddings × 150 queries (`holo_fake_scenes_v3`), reordena 50 candidatos → top-20 (60.000 pares query-documento avaliados).
 VRAM: **5.07 GB** (5195 MiB) | RAM: 2.42 GB | Tamanho: 0.6B params (596.836.352)
 Pipeline: **NATIVO transformers listwise** (`AutoModel.from_pretrained('jinaai/jina-reranker-v3.5')`, causal self-attention conjunta em lista de 50 docs, similaridade de cosseno via MLP projector 1024→512→512).
 
-## Ranking de rerankers (MRR médio sobre top-8 embeddings)
+## Ranking de rerankers no painel medido (150 queries)
 
-| # | Reranker | MRR Médio (Medido) | MRR Médio (Projetado 240q) | Δ vs Embedding Puro | VRAM Pico | Latência p50 (50 docs) |
+| # | Reranker | MRR Médio (Medido 150q) | mDenseOn (Medido 150q) | Δ vs Embedding Puro | VRAM Pico | Latência p50 (50 docs) |
 |---|---|---:|---:|---:|---:|---:|
-| **1** | **llama-nemotron-rerank-1b-v2** | **0.8221** | **0.8867** | **+0.1108** | 3.92 GB | **1.50 s** |
-| 2 | qwen3-reranker-06 | 0.8180 | 0.8563 | +0.1067 | **2.35 GB** | **1.40 s** |
-| 3 | **jina-reranker-v3.5** | **0.8087** | **0.8733** | +0.0974 | 5.07 GB | 5.87 s |
+| **1** | **llama-nemotron-rerank-1b-v2** | **0.8221** | **0.8138** | **+0.1108** | 3.92 GB | **1.50 s** |
+| 2 | qwen3-reranker-06 | 0.8180 | 0.8001 | +0.1067 | **2.35 GB** | **1.40 s** |
+| 3 | **jina-reranker-v3.5** | **0.8087** | **0.8043** | +0.0974 | 5.07 GB | 5.87 s |
 
-## Resultados por embedding (comparativo direto)
+## Resultados por embedding (comparativo medido de 150 queries)
 
 | Embedding | Base Puro | llama-nemotron | qwen3-0.6B | **jina-v3.5** | Vencedor |
 |---|---:|---:|---:|---:|:---:|
@@ -34,10 +34,16 @@ Pipeline: **NATIVO transformers listwise** (`AutoModel.from_pretrained('jinaai/j
 - **Diferença Média vs Nemotron**: -0.0134 (-1.63%).
 - **Diferença no mDenseOn vs Nemotron**: -0.0095 (0.8043 vs 0.8138).
 
+## Distinção entre Medições e o Benchmark Histórico de 240 Queries
+
+- **Valores Medidos (Painel 150q)**: Jina v3.5 atingiu **0.8087** na média dos 8 embeddings e **0.8043** com o mDenseOn.
+- **Benchmark Histórico de 240q**: O benchmark histórico (2.000 documentos / 4 domínios × 500 docs, 60 queries/domínio), onde o Nemotron atingiu 0.8867 de média e 0.9257 no mDenseOn, teve seus arquivos intermediários e dataset de queries não versionados no repositório; portanto, esse painel histórico específico não é reexecutável.
+- **Não-projeção**: Valores calculados por offset linear (ex: 0.8733 ou 0.9162) são **projeções sintéticas não validadas** e foram descartados deste relatório. Apenas os valores efetivamente medidos no painel de 150q são canônicos.
+
 ## Avaliação Técnica & Trade-offs (Qualidade × VRAM × Latência)
 
-1. **Critério Principal de Destronamento Não Atingido**:
-   - O Nemotron 1B v2 superou o Jina v3.5 em todos os 8 embeddings testados.
+1. **Critério de Liderança**:
+   - O Nemotron 1B v2 superou o Jina v3.5 em todos os 8 embeddings testados no painel de 150 queries.
    - O Jina v3.5 **não superou** o Nemotron no mDenseOn (0.8043 vs 0.8138) e nem na média geral (0.8087 vs 0.8221).
 2. **Custo da Arquitetura Listwise em Documentos Longos**:
    - Para reranquear 50 candidatos por query, o pipeline listwise formata uma única sequência de até **22.523 tokens**.

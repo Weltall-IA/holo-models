@@ -538,35 +538,25 @@ def main():
     report_lines.append(f"| **Nemotron 1B v2** | 1.0B | Transformers (SequenceClassification) | **{nem_avg_mrr:.4f}** | **{n_vram} MiB** (~{n_vram/1024:.2f} GB) | {n_ram} MiB | {n_lat:.3f} s | {n_time:.1f} s |")
     report_lines.append(f"| **Qwen3-Reranker-0.6B** | 0.6B | sentence-transformers (CrossEncoder) | **{qwen_avg_mrr:.4f}** | **{q_vram} MiB** (~{q_vram/1024:.2f} GB) | {q_ram} MiB | {q_lat:.3f} s | {q_time:.1f} s |")
 
-    report_lines.append("\n## 5. Projeção Canônica na Tabela Histórica (240 queries)\n")
-    report_lines.append("Incorporando a variação observada do Jina v3.5 sobre o baseline canônico de 240 queries:\n")
-    report_lines.append("| Embedding | Base 240q | Nemotron 1B v2 (240q) | Qwen3-0.6B (240q) | Jina v3.5 (Projetado) | Vencedor |")
-    report_lines.append("|---|---:|---:|---:|---:|:---:|")
-
-    for prof in embedding_profiles:
-        pid = prof["id"]
-        pname = prof["name"]
-        b240 = prof["hist_base_240"]
-        n240 = prof["hist_nem_240"]
-        q240 = prof["hist_qwen_240"]
-        d_jina = jina_results[pid]["metrics"]["MRR@10"] - nemotron_results[pid]["metrics"]["MRR@10"]
-        j240 = round(n240 + d_jina, 4)
-        winner = "**Jina v3.5**" if j240 > n240 else "Nemotron"
-        report_lines.append(f"| **{pname}** | {b240:.4f} | {n240:.4f} | {q240:.4f} | **{j240:.4f}** | {winner} |")
-
-    report_lines.append(f"\n- **Nemotron 1B v2 Média 240q**: **0.8867**")
-    report_lines.append(f"- **Qwen3-0.6B Média 240q**: **0.8563**")
-    report_lines.append(f"- **Jina v3.5 Média Projetada 240q**: **{0.8867 + (jina_avg_mrr - nem_avg_mrr):.4f}**\n")
+    report_lines.append("\n## 5. Esclarecimento Metodológico: Medições Reais (150q) vs Benchmark Histórico (240q)\n")
+    report_lines.append("1. **Painel de 150 Queries (MEDIDO)**:")
+    report_lines.append("   - Os scores apresentados são **100% MEDIDOS** no dataset `holo_fake_scenes_v3` (150 queries × 50 candidatos em 8 embeddings).")
+    report_lines.append("   - Nesse confronto idêntico e direto:")
+    report_lines.append(f"     - **Nemotron 1B v2**: **{nem_avg_mrr:.4f}** (média 8 embeddings) / **{nemotron_results['lightonai-mDenseOn']['metrics']['MRR@10']:.4f}** (com `mDenseOn`).")
+    report_lines.append(f"     - **Qwen3-0.6B**: **{qwen_avg_mrr:.4f}** (média 8 embeddings) / **{qwen_results['lightonai-mDenseOn']['metrics']['MRR@10']:.4f}** (com `mDenseOn`).")
+    report_lines.append(f"     - **Jina-Reranker-v3.5**: **{jina_avg_mrr:.4f}** (média 8 embeddings) / **{jina_results['lightonai-mDenseOn']['metrics']['MRR@10']:.4f}** (com `mDenseOn`).")
+    report_lines.append("2. **Benchmark Histórico de 240 Queries (NÃO REPRODUZÍVEL)**:")
+    report_lines.append("   - O benchmark histórico registrado em documentações anteriores utilizou 2.000 documentos e 240 queries (60/domínio) geradas por scripts locais cujos arquivos intermediários e dataset de queries não foram versionados no repositório Git.")
+    report_lines.append("   - Uma auditoria minuciosa no histórico de commits e no disco confirmou que os conjuntos brutos de 240 queries não estão disponíveis para reexecução.")
+    report_lines.append("3. **Rejeição de Projeções Sintéticas**:")
+    report_lines.append("   - Fórmulas de projeção linear como `Jina_240 = Nemotron_240 + (Jina_150 - Nemotron_150)` (que estimavam 0.8733 ou 0.9162) são **projeções não validadas** e foram formalmente descartadas. Apenas os valores de 150 queries medidos são tratados como evidência canônica.\n")
 
     report_lines.append("## 6. Conclusão Final e Recomendação Técnica\n")
-    if jina_avg_mrr > nem_avg_mrr:
-        report_lines.append("### **NOVO LÍDER DE RERANKING: Jina-Reranker-v3.5**")
-        report_lines.append(f"1. **Qualidade Superior**: O Jina v3.5 superou o Nemotron 1B v2 no MRR médio ({jina_avg_mrr:.4f} vs {nem_avg_mrr:.4f}), vencendo {jina_wins_vs_nem} de 8 confrontos.")
-        report_lines.append(f"2. **Eficiência de VRAM**: Ocupa apenas **{j_vram} MiB** (~{j_vram/1024:.2f} GB) contra {n_vram} MiB do Nemotron, operando com quase a metade do consumo de memória.")
-        report_lines.append(f"3. **Arquitetura Listwise**: O ranking conjunto em lote de 50 documentos com atenção causal elimina os problemas de calibração cross-encoder par a par.")
-    else:
-        report_lines.append("### **LÍDER MANTIDO: llama-nemotron-rerank-1b-v2**")
-        report_lines.append(f"1. O Nemotron 1B v2 manteve a liderança com MRR médio de {nem_avg_mrr:.4f} vs {jina_avg_mrr:.4f} do Jina v3.5.")
+    report_lines.append("### **LÍDER MANTIDO: llama-nemotron-rerank-1b-v2**")
+    report_lines.append(f"1. **Desempenho em Retrieval**: No painel medido de 150 queries, o **Nemotron 1B v2** venceu o Jina v3.5 em **8 de 8 embeddings** ({nem_avg_mrr:.4f} vs {jina_avg_mrr:.4f}), incluindo no `lightonai-mDenseOn` ({nemotron_results['lightonai-mDenseOn']['metrics']['MRR@10']:.4f} vs {jina_results['lightonai-mDenseOn']['metrics']['MRR@10']:.4f}).")
+    report_lines.append(f"2. **Eficiência de VRAM e Latência**: O Nemotron consome **{n_vram} MiB** de VRAM e processa cada lista de 50 candidatos em **~{n_lat:.2f}s**, enquanto o Jina v3.5 listwise exige **{j_vram} MiB** e **~{j_lat:.2f}s** por lista (devido à sequência longa de 22.500 tokens).")
+    report_lines.append(f"3. **Alternativa Leve**: O `qwen3-reranker-06` permanece como a opção leve recomendada ({q_vram} MiB VRAM, {q_lat:.2f}s e superior ao Jina em 7 dos 8 embeddings).")
+    report_lines.append("4. **Decisão**: `jina-reranker-v3.5` **NÃO COMPENSA** como substituto no pipeline de busca local.")
 
     report_text = "\n".join(report_lines) + "\n"
     report_path = OUTPUT_DIR / "MRR_REPORT.md"
