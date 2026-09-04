@@ -14,11 +14,11 @@
 ## Especialidade, pontos fortes e trade-offs
 
 - Draft de speculative decoding usado para acelerar Qwen3.8-27B compatíveis.
-- Com o GSQ IQ2_S preservou 6/6 no benchmark de código e elevou a mediana de 24.70 para 46.00 tok/s.
+- Com o GSQ IQ2_S preservou 6/6 no benchmark de código e elevou a mediana histórica de 24.70 para 46.00 tok/s.
 - O ganho depende fortemente da aceitação do target e do tipo de workload; não deve ser generalizado para qualquer modelo Qwen3.8-27B.
 - Em escrita criativa o DFlash2 não é preset recomendado: a aceitação observada foi baixa e o overhead superou o ganho.
 - `n_max=7` é o maior valor permitido pelo bloco usado no checkpoint/runtime atual; é também o ponto validado no GSQ, não uma regra universal para outros targets.
-- Froggeric v22.4 foi testado junto ao GSQ+DFlash2: manteve 6/6 e 86.9% de aceitação, mas o throughput ficou materialmente empatado com o template nativo. Portanto, **o template nativo continua recomendado**.
+- Froggeric v22.4 e v22.5 foram testados junto ao GSQ+DFlash2 e preservaram 6/6 e 86.9% de aceitação. O template nativo continua recomendado porque não houve ganho funcional de qualidade/correção.
 
 ## MEDIDO LOCALMENTE
 
@@ -36,7 +36,7 @@ Fonte: `benchmarks/coding-mini-v1/results/GSQ_DFLASH2_COMPARISON.md`.
 - Score: **6/6**
 - Mediana target base: **24.70 tok/s**
 - Mediana com DFlash2: **46.00 tok/s**
-- Ganho: **+86.26%**
+- Ganho histórico: **+86.26%**
 - Wall time mediano com DFlash2: **13.63 s**
 - Pico de VRAM do conjunto target+draft: **14,086 MiB**
 - Draft acceptance mediana: **86.9%**
@@ -47,14 +47,15 @@ Fonte: `benchmarks/coding-mini-v1/results/GSQ_DFLASH2_COMPARISON.md`.
 
 Fonte: `benchmarks/gsq-froggeric-v225-clean-retest-v1/results/SUMMARY.md`.
 
-- Score: **6/6 PASS** (100% de integridade preservada, código byte-idêntico ao nativo).
-- Mediana com Froggeric v22.5 (Arm D): **37.54 tok/s**.
-- Controle nativo pareado na mesma sessão limpa (Arm C): **33.63 tok/s**.
-- Delta: **+11.6%**.
-- Pico de VRAM: **14,508 MiB** versus **14,465 MiB** no controle nativo.
-- Draft acceptance mediana: **86.9%** (100% idêntica ao nativo).
+- Score: **6/6 PASS**.
+- Os 6 pares C/D produziram resposta final e código extraído byte-idênticos.
+- Mediana Froggeric v22.5 (Arm D): **37.54 tok/s**.
+- Controle Native pareado (Arm C): **33.63 tok/s**.
+- Delta medido na sessão: **+11.6%**.
+- Pico de VRAM: **14,508 MiB** versus **14,465 MiB** no controle.
+- Draft acceptance mediana: **86.9%**, igual ao Native.
 - Mean accepted draft length: **7.08**.
-- Conclusão: **Compatível com alta taxa de aceitação especulativa e paridade funcional total**.
+- Interpretação: **compatibilidade e paridade funcional estão validadas**. O +11.6% é preservado como observação da sessão, mas não é atribuído causalmente ao Froggeric porque o teste usou braços sequenciais de uma única passagem e não isolou estado de clocks/temperatura/power.
 
 ### GSQ IQ2_S + DFlash2 + Froggeric v22.4 (Histórico)
 
@@ -63,18 +64,18 @@ Fonte: `benchmarks/gsq-froggeric-ablation-v1/results/SUMMARY.md`.
 - Score: **6/6**
 - Mediana com Froggeric: **46.38 tok/s**
 - Controle DFlash2 + template nativo: **46.00 tok/s**
-- Delta: **+0.8%**, sem ganho material
+- Delta: **+0.8%**
 - Pico de VRAM: **14,374 MiB** versus **14,086 MiB** no controle
 - Draft acceptance mediana: **86.9%**
 - Mean accepted draft length: **7.08**
-- Conclusão: **compatível, mas sem benefício suficiente para trocar o template nativo**.
+- A rodada v22.4 tinha carga de GPU não controlada; usar como histórico de compatibilidade, não A/B limpo de performance.
 
 ### Escrita
 
 Fonte: `benchmarks/chat-writing-v1/`.
 
-- Aceitação observada em escrita: aproximadamente **10–12%** nas execuções históricas.
-- Resultado prático: overhead maior que o ganho; **não usar como padrão para writing**.
+- Aceitação observada em escrita: aproximadamente **10–12%** nas execuções históricas com DFlash2.
+- Resultado prático histórico: overhead maior que o ganho; **não usar DFlash2 como padrão para writing**.
 
 ### Outros targets
 
@@ -100,13 +101,14 @@ A descrição de arquitetura DFlash2/candidate selector é metadado da origem/ch
   --jinja --reasoning off
 ```
 
-Não adicionar Froggeric a este preset padrão: a ablação mostrou compatibilidade, mas não ganho material.
+Não adicionar Froggeric a este preset padrão: a ablação mostrou compatibilidade e paridade de saída, mas não ganho funcional comprovado.
 
 ## Proveniência
 
 - Comparação principal: `benchmarks/coding-mini-v1/results/GSQ_DFLASH2_COMPARISON.md`
-- Ablação Froggeric: `benchmarks/gsq-froggeric-ablation-v1/`
-- Execução Froggeric: `de6fe06b9656350cc037052a8be8154e14387a4e`
+- Froggeric v22.4: `benchmarks/gsq-froggeric-ablation-v1/`
+- Froggeric v22.5 clean retest: `benchmarks/gsq-froggeric-v225-clean-retest-v1/`
+- Review final de writing v22.5: `benchmarks/gsq-froggeric-v225-clean-retest-v1/results/WRITING_CHATGPT_REVIEW.md`
 - Código consolidado: `benchmarks/score-completion-template-ablation-v1/results/CODING_SUMMARY.md`
 - Escrita: `benchmarks/chat-writing-v1/`
 - Histórico DFlash2/port: `benchmarks/score-completion-template-ablation-v1/DFLASH2_ADDENDUM.md` e respectivos resultados.
