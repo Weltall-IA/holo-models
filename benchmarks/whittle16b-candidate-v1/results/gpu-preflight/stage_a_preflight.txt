@@ -1,0 +1,74 @@
+=== NVIDIA-SMI ===
+Fri Sep  4 22:44:33 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 610.57.04              KMD Version: 610.57.04     CUDA UMD Version: 13.3     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GeForce RTX 5060 Ti     On  |   00000000:0B:00.0  On |                  N/A |
+|  0%   57C    P3             37W /  150W |    1607MiB /  16311MiB |     10%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|    0   N/A  N/A            1721      G   /usr/lib/Xorg                            35MiB |
+|    0   N/A  N/A            2404    C+G   /usr/bin/kwin_wayland                    71MiB |
+|    0   N/A  N/A            2467      G   /usr/bin/Xwayland                         2MiB |
+|    0   N/A  N/A            2510      G   /usr/bin/plasmashell                    204MiB |
+|    0   N/A  N/A            2976    C+G   ...rack-uuid=3190708988185955192        104MiB |
+|    0   N/A  N/A           13107      G   ...fox-developer-edition/firefox        775MiB |
+|    0   N/A  N/A           13403      G   ...veloper-edition/browser 4 rdd          2MiB |
++-----------------------------------------------------------------------------------------+
+
+
+=== PMON (5 samples, 1s) ===
+# gpu         pid   type     sm    mem    enc    dec    jpg    ofa    command 
+# Idx           #    C/G      %      %      %      %      %      %    name 
+    0       1721     G      -      -      -      -      -      -    Xorg           
+    0       2404   C+G      -      -      -      -      -      -    kwin_wayland   
+    0       2467     G      -      -      -      -      -      -    Xwayland       
+    0       2510     G      -      -      -      -      -      -    plasmashell    
+    0       2976   C+G     10      7      -      -      -      -    Code --gpu-pref
+    0      13107     G      -      -      -      -      -      -    firefox        
+    0      13403     G      -      -      -      -      -      -    firefox -conten
+    0       1721     G      -      -      -      -      -      -    Xorg           
+    0       2404   C+G      -      -      -      -      -      -    kwin_wayland   
+    0       2467     G      -      -      -      -      -      -    Xwayland       
+    0       2510     G      -      -      -      -      -      -    plasmashell    
+    0       2976   C+G     11      7      -      -      -      -    Code --gpu-pref
+    0      13107     G      -      -      -      -      -      -    firefox        
+    0      13403     G      -      -      -      -      -      -    firefox -conten
+    0       1721     G      -      -      -      -      -      -    Xorg           
+    0       2404   C+G      -      -      -      -      -      -    kwin_wayland   
+    0       2467     G      -      -      -      -      -      -    Xwayland       
+    0       2510     G      -      -      -      -      -      -    plasmashell    
+    0       2976   C+G      8      5      -      -      -      -    Code --gpu-pref
+    0      13107     G      2      2      -      -      -      -    firefox        
+    0      13403     G      -      -      -      -      -      -    firefox -conten
+    0       1721     G      -      -      -      -      -      -    Xorg           
+    0       2404   C+G      1      1      -      -      -      -    kwin_wayland   
+    0       2467     G      -      -      -      -      -      -    Xwayland       
+    0       2510     G      -      -      -      -      -      -    plasmashell    
+    0       2976   C+G      7      4      -      -      -      -    Code --gpu-pref
+    0      13107     G      2      2      -      -      -      -    firefox        
+    0      13403     G      -      -      -      -      -      -    firefox -conten
+    0       1721     G      -      -      -      -      -      -    Xorg           
+    0       2404   C+G      3      2      -      -      -      -    kwin_wayland   
+    0       2467     G      -      -      -      -      -      -    Xwayland       
+    0       2510     G      -      -      -      -      -      -    plasmashell    
+    0       2976   C+G      8      5      -      -      -      -    Code --gpu-pref
+    0      13107     G      -      -      -      -      -      -    firefox        
+    0      13403     G      -      -      -      -      -      -    firefox -conten
+
+
+Counts >=25% SM per PID: {}
+Heavy PIDs (>=3 samples >=25%): []
+Attempt: 1
+
+Clean Gate: PASSED

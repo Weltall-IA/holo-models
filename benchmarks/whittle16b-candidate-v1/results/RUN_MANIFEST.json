@@ -1,0 +1,116 @@
+{
+  "benchmark": "whittle16b-candidate-v1",
+  "timestamp": "2026-09-04T22:55:17.380206",
+  "model": {
+    "path": "/home/alpha/Playstoria/models/text/logic65-Qwen3.8-Whittle-16B-v2-Q4_K_M/Qwen3.8-Whittle-16B-v2-Q4_K_M.gguf",
+    "filename": "Qwen3.8-Whittle-16B-v2-Q4_K_M.gguf",
+    "size_bytes": 10142250656,
+    "size_gib": 9.45,
+    "sha256": "335627718b0893a1b077728cd40b4a6b75e2850a6058eb564945f7a2b6265bd2",
+    "hf_repo": "logic65/Qwen3.8-Whittle-16B",
+    "hf_revision": "d18db969059b15423be91f5d4fd119c8c907801c",
+    "hf_gguf_path": "gguf/Qwen3.8-Whittle-16B-v2-Q4_K_M.gguf",
+    "gguf_metadata": {
+      "general.architecture": "qwen35",
+      "general.name": "Q38Whittle2_Hf",
+      "general.size_label": "16B",
+      "general.type": "model",
+      "general.file_type": 15,
+      "general.file_type_str": "Q4_K_M (15)",
+      "general.quantization_version": 2,
+      "qwen35.block_count": 44,
+      "qwen35.context_length": 262144,
+      "qwen35.embedding_length": 5120,
+      "qwen35.attention.head_count": 24,
+      "qwen35.attention.head_count_kv": 4,
+      "qwen35.rope.freq_base": 1000000,
+      "tokenizer.ggml.model": "gpt2",
+      "note": "(parsed via GGUFReader; architecture qwen35 dense pruned 27B->16B, 44 layers vs 60 original)"
+    }
+  },
+  "runtime": {
+    "binary": "/home/alpha/.local/bin/llama",
+    "version": "0.3.0-dev (build 10752, commit b96806d96) — GNU 16.2.1 for Linux x86_64",
+    "hardware": "RTX 5060 Ti 16GB",
+    "threads": 8,
+    "ctx": 8192,
+    "offload": "full (ngl 999)",
+    "flash_attention": "on",
+    "fit": "off",
+    "kv": "q8_0/q4_0"
+  },
+  "author_recipe": {
+    "jinja": true,
+    "thinking": "native ON (not forced off)",
+    "dry_multiplier": 0.8,
+    "dry_base": 1.75,
+    "dry_allowed_length": 4,
+    "repeat_penalty": 1.15,
+    "repeat_last_n": 512,
+    "temperature": 0.7,
+    "top_p": 0.95,
+    "min_p": 0.05,
+    "seed": 9137,
+    "max_tokens_per_case": 3072,
+    "note": "AUTHOR_RECIPE speeds not comparable to historical same-protocol leaderboard"
+  },
+  "stage_a": {
+    "score": "0/6",
+    "median_tok_s_author_recipe": 19.8327979410955,
+    "peak_vram_mib": 11076,
+    "file": "benchmarks/whittle16b-candidate-v1/results/WHITTLE16B_NATIVE_CODING.jsonl",
+    "gate": "0-4 STOP, 5 allow B, 6 allow B+C"
+  },
+  "stage_b": {
+    "status": "SKIPPED",
+    "score": "N/A",
+    "median_tok_s": null,
+    "peak_vram_mib": null,
+    "median_acceptance": null,
+    "file": null,
+    "draft_model": "/home/alpha/Playstoria/models/text/z-lab-Qwen3.8-27B-DFlash2-GGUF/Qwen3.8-27B-DFlash2-Q4_K_M.gguf",
+    "spec_type": "draft-dflash",
+    "spec_n_max": 7,
+    "note": "Whittle 16B structurally pruned; compatibility not assumed; no arch hacks"
+  },
+  "stage_c": {
+    "strict_pass": "SKIPPED",
+    "total_score": "SKIPPED",
+    "file": null,
+    "template": "native Whittle + --jinja + OpenAI tools + author DRY",
+    "cases": "gsq-froggeric-agent-tools-v1 8 canonical",
+    "note": "Only executed if 6/6 coding in stable config"
+  },
+  "historical_controls_reused": {
+    "gsq_base": {
+      "pass": "6/6",
+      "tok_s": 24.7
+    },
+    "gsq_dflash2": {
+      "pass": "6/6",
+      "tok_s": 46.0
+    },
+    "gsq_agent_native": {
+      "strict": "7/8",
+      "score": "70/80"
+    },
+    "whittle_moe_old_different_model": {
+      "pass": "1/6",
+      "tok_s": 19.39,
+      "vram": 15194
+    }
+  },
+  "clean_gpu_preflight": {
+    "stage_a": {
+      "passed": true,
+      "attempt": 1,
+      "file": "benchmarks/whittle16b-candidate-v1/results/gpu-preflight/stage_a_preflight.txt",
+      "smi_snapshot": "Fri Sep  4 22:44:33 2026       \n+-----------------------------------------------------------------------------------------+\n| NVIDIA-SMI 610.57.04              KMD Version: 610.57.04     CUDA UMD Version: 13.3     |\n+-----------------------------------------+------------------------+----------------------+\n| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |\n| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |\n|                                         |                        |               MIG M. |\n|=========================================+========================+======================|\n|   0  NVIDIA GeForce RTX 5060 Ti     On  |   00000000:0B:00.0  On |                  N/A |\n|  0%   57C    P3             37W /  150W |    1607MiB /  16311MiB |     10%      Default |\n|                                         |                        |                  N/A |\n+-----------------------------------------+------------------------+----------------------+\n\n+-----------------------------------------------------------------------------------------+\n| Processes:                                                                              |\n|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |\n|        ID   ID                                                               Usage      |\n|=========================================================================================|\n|    0   N/A  N/A            1721      G   /usr/lib/Xorg                            35MiB |\n|    0   N/A  N/A            2404    C+G   /usr/bin/kwin_wayland                    71MiB |\n|    0   N/A  N/A            2467      G   /usr/bin/Xwayland                         2MiB |\n|    0   N/A  N/A            2510      G   /usr/bin/plasmashell                    204MiB |\n|    0   N/A  N/A            2976    C+G   ...rack-uuid=3190708988185955192        104MiB |\n|    0   N/A  N/A           13107      G   ...fox-developer-edition/firefox        775MiB |\n|    0   N/A  N/A           13403      G   ...veloper-edition/browser 4 rdd          2MiB |\n+-----------------------------------------------------------------------------------------+\n",
+      "pmon_snapshot": "# gpu         pid   type     sm    mem    enc    dec    jpg    ofa    command \n# Idx           #    C/G      %      %      %      %      %      %    name \n    0       1721     G      -      -      -      -      -      -    Xorg           \n    0       2404   C+G      -      -      -      -      -      -    kwin_wayland   \n    0       2467     G      -      -      -      -      -      -    Xwayland       \n    0       2510     G      -      -      -      -      -      -    plasmashell    \n    0       2976   C+G     10      7      -      -      -      -    Code --gpu-pref\n    0      13107     G      -      -      -      -      -      -    firefox        \n    0      13403     G      -      -      -      -      -      -    firefox -conten\n    0       1721     G      -      -      -      -      -      -    Xorg           \n    0       2404   C+G      -      -      -      -      -      -    kwin_wayland   \n    0       2467     G      -      -      -      -      -      -    Xwayland       \n    0       2510     G      -      -      -      -      -      -    plasmashell    \n    0       2976   C+G     11      7      -      -      -      -    Code --gpu-pref\n    0      13107     G      -      -      -      -      -      -    firefox        \n    0      13403     G      -      -      -      -      -      -    firefox -conten\n    0       1721     G      -      -      -      -      -      -    Xorg           \n    0       2404   C+G      -      -      -      -      -      -    kwin_wayland   \n    0       2467     G      -      -      -      -      -      -    Xwayland       \n    0       2510     G      -      -      -      -      -      -    plasmashell    \n    0       2976   C+G      8      5      -      -      -      -    Code --gpu-pref\n    0      13107     G      2      2      -      -      -      -    firefox        \n    0      13403     G      -      -      -      -      -      -    firefox -conten\n    0       1721     G      -      -      -      -      -      -    Xorg           \n    0       2404   C+G      1      1      -      -      -      -    kwin_wayland   \n    0       2467     G      -      -      -      -      -      -    Xwayland       \n    0       2510     G      -      -      -      -      -      -    plasmashell    \n    0       2976   C+G      7      4      -      -      -      -    Code --gpu-pref\n    0      13107     G      2      2      -      -      -      -    firefox        \n    0      13403     G      -      -      -      -      -      -    firefox -conten\n    0       1721     G      -      -      -      -      -      -    Xorg           \n    0       2404   C+G      3      2      -      -      -      -    kwin_wayland   \n    0       2467     G      -      -      -      -      -      -    Xwayland       \n    0       2510     G      -      -      -      -      -      -    plasmashell    \n    0       2976   C+G      8      5      -      -      -      -    Code --gpu-pref\n    0      13107     G      -      -      -      -      -      -    firefox        \n    0      13403     G      -      -      -      -      -      -    firefox -conten\n"
+    },
+    "stage_b": "SKIPPED_GATE_0_4",
+    "stage_c": "SKIPPED_GATE_0_4"
+  },
+  "classification": "WHITTLE16B_REJECT",
+  "git_commit": "9f38f42fc285edebc8cafc8f9e5a977995011fc8"
+}
