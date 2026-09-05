@@ -1,0 +1,146 @@
+{
+  "benchmark_id": "embedding-v3",
+  "corpus": {
+    "combined_sha256": "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b",
+    "documents": 600,
+    "path": "benchmarks/embedding-v3/data/holo_fake_scenes_v3",
+    "queries": 150,
+    "version": "holo_fake_scenes_v3"
+  },
+  "generated_at": "2026-09-04T19:52:07.842812+00:00",
+  "historical_results_reused": false,
+  "models": {
+    "embeddinggemma_300m": {
+      "backend": "llama.cpp",
+      "batch_size": 16,
+      "dimension": 768,
+      "label": "embeddinggemma-300m",
+      "mode": "embeddinggemma_query_document_templates",
+      "repo": "google/embeddinggemma-300m",
+      "revision": "local-weight-hash",
+      "weight_files": [
+        {
+          "bytes": 277852192,
+          "file": "embeddinggemma-300M-qat-Q4_0.gguf",
+          "sha256": "50d28e22432a148f6f8a86eab3700f92add5d1f54baf7790675a2a4dadbccf26"
+        }
+      ]
+    },
+    "jina_v5_omni_small": {
+      "backend": "sentence-transformers",
+      "batch_size": 4,
+      "dimension": 1024,
+      "label": "jina-v5-omni-small",
+      "mode": "encode_query_document",
+      "repo": "jinaai/jina-embeddings-v5-omni-small",
+      "revision": "5c54692f22e186fc12ea38a9193e3ff9e1cda2a3",
+      "weight_files": [
+        {
+          "bytes": 40426056,
+          "file": "adapters/classification/adapter_model.safetensors",
+          "sha256": "7a4a2c03a0162f72851f92da8e845a093908b6306df1ba0ac8510e16f32fbf41"
+        },
+        {
+          "bytes": 40426056,
+          "file": "adapters/clustering/adapter_model.safetensors",
+          "sha256": "48c11c24755b0f99d9eca37cbf14e9f9bab873399972d6a2a6324bb85f18b107"
+        },
+        {
+          "bytes": 40426056,
+          "file": "adapters/retrieval/adapter_model.safetensors",
+          "sha256": "7d180ecf335b3b527007209cf1978458b53031da2ac2e4f5a674b7cf478d97f8"
+        },
+        {
+          "bytes": 40426056,
+          "file": "adapters/text-matching/adapter_model.safetensors",
+          "sha256": "a52850402728451e135f91f41365bdc9d085104da265e585c19f598cc8309a9b"
+        },
+        {
+          "bytes": 3252667112,
+          "file": "model.safetensors",
+          "sha256": "2614c3dc9b0e81f66b4cf3bc8055c27a50c388b459960ed90947a5fe53c50244"
+        }
+      ]
+    },
+    "mdenseon": {
+      "backend": "sentence-transformers",
+      "batch_size": 16,
+      "dimension": 768,
+      "label": "lightonai-mDenseOn",
+      "mode": "encode_query_document",
+      "repo": "lightonai/mDenseOn",
+      "revision": "local-weight-hash",
+      "weight_files": [
+        {
+          "bytes": 1227771776,
+          "file": "model.safetensors",
+          "sha256": "a336c49fc679aeb23969114b12fb7317804da3cc7d8bc214818009dea39d545c"
+        }
+      ]
+    },
+    "nemotron_embedding": {
+      "backend": "sentence-transformers",
+      "batch_size": 2,
+      "dimension": 2048,
+      "label": "Nemotron-Embedding",
+      "mode": "encode_query_document",
+      "repo": "nvidia/omni-embed-nemotron-3b",
+      "revision": "local-weight-hash",
+      "weight_files": [
+        {
+          "bytes": 4994841696,
+          "file": "model-00001-of-00002.safetensors",
+          "sha256": "ce5d2ff1be32177ae0bc173931f0335a21c5298837257ea1f6d853b222bdf48c"
+        },
+        {
+          "bytes": 4412249056,
+          "file": "model-00002-of-00002.safetensors",
+          "sha256": "dd03af73e3f2843978de3c867fd515e900fa0e9fd331d3f92529380f4e27a27c"
+        }
+      ]
+    },
+    "qwen3_embedding_4b": {
+      "backend": "sentence-transformers",
+      "batch_size": 2,
+      "dimension": 2560,
+      "label": "Qwen3-Embedding-4B",
+      "mode": "official_query_prompt_name",
+      "repo": "Qwen/Qwen3-Embedding-4B",
+      "revision": "5cf2132abc99cad020ac570b19d031efec650f2b",
+      "weight_files": [
+        {
+          "bytes": 4965826464,
+          "file": "model-00001-of-00002.safetensors",
+          "sha256": "e70bfe3c970523fb7ef4eddffed2254ce3f1e7150c3de2af4342de129dd756f8"
+        },
+        {
+          "bytes": 3077765624,
+          "file": "model-00002-of-00002.safetensors",
+          "sha256": "ed1b87c8e9eb7e535a1a155e4fd00d9f4dba80e58a6db48a4c9f82cede7079c1"
+        }
+      ]
+    },
+    "wemm_embedding_2b": {
+      "backend": "sentence-transformers",
+      "batch_size": 4,
+      "dimension": 2048,
+      "label": "WeMM-Embedding-2B",
+      "mode": "official_encode_query_document",
+      "repo": "tencent/WeMM-Embedding-2B",
+      "revision": "bbd6cd4bf52cfc6716f752a2df80b2706720bd95",
+      "weight_files": [
+        {
+          "bytes": 5441695216,
+          "file": "model.safetensors",
+          "sha256": "e1a1ad752808c26965aa97d37bf4a9bca71d838513f41e83790cb1e71cac6e59"
+        }
+      ]
+    }
+  },
+  "projected_results": false,
+  "run_id": "wemm-v1",
+  "same_corpus_and_queries_for_all_models": true,
+  "source_benchmark_commit": "6cdd9c5",
+  "text_first": true,
+  "visual_test": "not_run"
+}

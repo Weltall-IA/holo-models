@@ -1,0 +1,305 @@
+{
+  "benchmark_id": "reranker-v2-unbiased",
+  "data_dir": "/home/alpha/Playstoria/models/benchmarks/reranker-v2-unbiased/data/general-v1",
+  "decision": {
+    "best_quality_per_latency": "nemotron_1b_v2",
+    "best_quality_per_vram": "jina_v35",
+    "dataset_decisions": {
+      "NanoFiQA2018": {
+        "point_estimate_leader": "jina_v35",
+        "quality_winner": null,
+        "runner_up": "nemotron_1b_v2",
+        "top_vs_runner_ndcg@10": {
+          "ci_high": 0.06217750738270841,
+          "ci_low": -0.0588046240127083,
+          "mean_delta": 0.0007251327834208305,
+          "verdict": "inconclusive"
+        },
+        "winner_label": "INCONCLUSIVE"
+      },
+      "NanoMSMARCO": {
+        "point_estimate_leader": "ettin_400m",
+        "quality_winner": null,
+        "runner_up": "qwen3_06b",
+        "top_vs_runner_ndcg@10": {
+          "ci_high": 0.08660729218115806,
+          "ci_low": -0.05456116804292749,
+          "mean_delta": 0.01540028778768626,
+          "verdict": "inconclusive"
+        },
+        "winner_label": "INCONCLUSIVE"
+      },
+      "NanoNFCorpus": {
+        "point_estimate_leader": "jina_v35",
+        "quality_winner": null,
+        "runner_up": "nemotron_1b_v2",
+        "top_vs_runner_ndcg@10": {
+          "ci_high": 0.04381622408882609,
+          "ci_low": -0.012090376103461082,
+          "mean_delta": 0.013646331902691424,
+          "verdict": "inconclusive"
+        },
+        "winner_label": "INCONCLUSIVE"
+      },
+      "NanoNQ": {
+        "point_estimate_leader": "nemotron_1b_v2",
+        "quality_winner": "nemotron_1b_v2",
+        "runner_up": "jina_v35",
+        "top_vs_runner_ndcg@10": {
+          "ci_high": 0.11368860439116851,
+          "ci_low": 0.024772292685797007,
+          "mean_delta": 0.06663782167099411,
+          "verdict": "a_wins"
+        },
+        "winner_label": "Nemotron 1B v2"
+      },
+      "NanoSciFact": {
+        "point_estimate_leader": "nemotron_1b_v2",
+        "quality_winner": "nemotron_1b_v2",
+        "runner_up": "qwen3_06b",
+        "top_vs_runner_ndcg@10": {
+          "ci_high": 0.08015996969213647,
+          "ci_low": 0.004606871994427991,
+          "mean_delta": 0.040860627136328403,
+          "verdict": "a_wins"
+        },
+        "winner_label": "Nemotron 1B v2"
+      }
+    },
+    "point_estimate_leader": "nemotron_1b_v2",
+    "quality_winner": null,
+    "runner_up": "jina_v35",
+    "top_vs_runner_ndcg@10": {
+      "ci_high": 0.04107685451744638,
+      "ci_low": -0.006369485841462082,
+      "mean_delta": 0.017391183576672697,
+      "verdict": "INCONCLUSIVE"
+    },
+    "track": "GENERAL",
+    "winner_label": "INCONCLUSIVE"
+  },
+  "efficiency": {
+    "ettin_400m": {
+      "ndcg_per_latency_p50_s": 0.29340677994971903,
+      "ndcg_per_peak_gpu_gib": 0.11112951230485574
+    },
+    "jina_v35": {
+      "ndcg_per_latency_p50_s": 0.37681009868195137,
+      "ndcg_per_peak_gpu_gib": 0.2769909293949569
+    },
+    "nemotron_1b_v2": {
+      "ndcg_per_latency_p50_s": 0.4543805139532534,
+      "ndcg_per_peak_gpu_gib": 0.2577985592701149
+    },
+    "qwen3_06b": {
+      "ndcg_per_latency_p50_s": 0.38091894285834965,
+      "ndcg_per_peak_gpu_gib": 0.05720464198867584
+    }
+  },
+  "measured_only": true,
+  "models": {
+    "ettin_400m": {
+      "aggregate_query_weighted": {
+        "hit@1": 0.636,
+        "map": 0.677830844976902,
+        "mrr@10": 0.727963492063492,
+        "ndcg@10": 0.7196530828357434,
+        "recall@10": 0.7625948215729298,
+        "recall@20": 0.8432654150411051
+      },
+      "efficiency": {
+        "latency_p50_s": 2.4527486480001244,
+        "latency_p95_s": 7.24949157100491,
+        "peak_gpu_allocated_mib": 6631.224609375,
+        "peak_gpu_reserved_mib": 10724.0,
+        "peak_process_rss_mib": 1738.62890625,
+        "queries_per_second": 0.3679089822975231,
+        "total_time_s": 679.5158912370025
+      },
+      "mrr@10": 0.7279634920634921,
+      "mrr@10_ci95": {
+        "high": 0.7737993253968255,
+        "low": 0.6818076587301587
+      },
+      "ndcg@10": 0.7196530828357434,
+      "ndcg@10_ci95": {
+        "high": 0.7601692943890166,
+        "low": 0.6783362852217611
+      }
+    },
+    "jina_v35": {
+      "aggregate_query_weighted": {
+        "hit@1": 0.624,
+        "map": 0.6977695546994853,
+        "mrr@10": 0.7291301587301587,
+        "ndcg@10": 0.7434835467520319,
+        "recall@10": 0.8007100068349177,
+        "recall@20": 0.8691332237229684
+      },
+      "efficiency": {
+        "latency_p50_s": 1.9730987819930306,
+        "latency_p95_s": 3.427583910000976,
+        "peak_gpu_allocated_mib": 2748.5634765625,
+        "peak_gpu_reserved_mib": 2858.0,
+        "peak_process_rss_mib": 2036.328125,
+        "queries_per_second": 0.47725255366340813,
+        "total_time_s": 523.8316653960064
+      },
+      "mrr@10": 0.7291301587301587,
+      "mrr@10_ci95": {
+        "high": 0.7729922222222223,
+        "low": 0.6850919444444444
+      },
+      "ndcg@10": 0.7434835467520319,
+      "ndcg@10_ci95": {
+        "high": 0.7817531202858088,
+        "low": 0.7051989020517775
+      }
+    },
+    "nemotron_1b_v2": {
+      "aggregate_query_weighted": {
+        "hit@1": 0.648,
+        "map": 0.7233565849755174,
+        "mrr@10": 0.7512444444444444,
+        "ndcg@10": 0.7608747303287046,
+        "recall@10": 0.8003858943076199,
+        "recall@20": 0.8673874739971686
+      },
+      "efficiency": {
+        "latency_p50_s": 1.6745320429981803,
+        "latency_p95_s": 3.1999102989939274,
+        "peak_gpu_allocated_mib": 3022.265625,
+        "peak_gpu_reserved_mib": 4218.0,
+        "peak_process_rss_mib": 2058.296875,
+        "queries_per_second": 0.5633096377704493,
+        "total_time_s": 443.8056501030005
+      },
+      "mrr@10": 0.7512444444444444,
+      "mrr@10_ci95": {
+        "high": 0.794046111111111,
+        "low": 0.7077102777777777
+      },
+      "ndcg@10": 0.7608747303287046,
+      "ndcg@10_ci95": {
+        "high": 0.7976546677497902,
+        "low": 0.7230401044448463
+      }
+    },
+    "qwen3_06b": {
+      "aggregate_query_weighted": {
+        "hit@1": 0.588,
+        "map": 0.6662158846655418,
+        "mrr@10": 0.7046523809523809,
+        "ndcg@10": 0.7069239888745331,
+        "recall@10": 0.7605889116298826,
+        "recall@20": 0.8291161592553815
+      },
+      "efficiency": {
+        "latency_p50_s": 1.855838367002434,
+        "latency_p95_s": 5.262697316997219,
+        "peak_gpu_allocated_mib": 12654.3955078125,
+        "peak_gpu_reserved_mib": 13098.0,
+        "peak_process_rss_mib": 1929.859375,
+        "queries_per_second": 0.48484217769797194,
+        "total_time_s": 515.6317075940024
+      },
+      "mrr@10": 0.7046523809523809,
+      "mrr@10_ci95": {
+        "high": 0.7506301984126984,
+        "low": 0.6596124206349206
+      },
+      "ndcg@10": 0.7069239888745331,
+      "ndcg@10_ci95": {
+        "high": 0.74784582685229,
+        "low": 0.6662708996159132
+      }
+    }
+  },
+  "pairwise": {
+    "jina_v35__vs__ettin_400m": {
+      "mrr@10": {
+        "ci_high": 0.03168904761904762,
+        "ci_low": -0.028310198412698412,
+        "mean_delta": 0.0011666666666666665,
+        "verdict": "INCONCLUSIVE"
+      },
+      "ndcg@10": {
+        "ci_high": 0.04812159195943436,
+        "ci_low": 0.00021255533242414896,
+        "mean_delta": 0.023830463916288507,
+        "verdict": "A_WINS"
+      }
+    },
+    "jina_v35__vs__qwen3_06b": {
+      "mrr@10": {
+        "ci_high": 0.055478333333333324,
+        "ci_low": -0.0063451190476190395,
+        "mean_delta": 0.024477777777777782,
+        "verdict": "INCONCLUSIVE"
+      },
+      "ndcg@10": {
+        "ci_high": 0.06178595696494484,
+        "ci_low": 0.011649743113291776,
+        "mean_delta": 0.03655955787749872,
+        "verdict": "A_WINS"
+      }
+    },
+    "nemotron_1b_v2__vs__ettin_400m": {
+      "mrr@10": {
+        "ci_high": 0.05710813492063492,
+        "ci_low": -0.010283253968253954,
+        "mean_delta": 0.02328095238095238,
+        "verdict": "INCONCLUSIVE"
+      },
+      "ndcg@10": {
+        "ci_high": 0.06753264996492278,
+        "ci_low": 0.015197833008823504,
+        "mean_delta": 0.0412216474929612,
+        "verdict": "A_WINS"
+      }
+    },
+    "nemotron_1b_v2__vs__jina_v35": {
+      "mrr@10": {
+        "ci_high": 0.05333166666666664,
+        "ci_low": -0.009090833333333333,
+        "mean_delta": 0.02211428571428571,
+        "verdict": "INCONCLUSIVE"
+      },
+      "ndcg@10": {
+        "ci_high": 0.04107685451744638,
+        "ci_low": -0.006369485841462082,
+        "mean_delta": 0.017391183576672697,
+        "verdict": "INCONCLUSIVE"
+      }
+    },
+    "nemotron_1b_v2__vs__qwen3_06b": {
+      "mrr@10": {
+        "ci_high": 0.07572722222222222,
+        "ci_low": 0.016818769841269846,
+        "mean_delta": 0.04659206349206349,
+        "verdict": "A_WINS"
+      },
+      "ndcg@10": {
+        "ci_high": 0.0782254217812603,
+        "ci_low": 0.029354742784654324,
+        "mean_delta": 0.05395074145417141,
+        "verdict": "A_WINS"
+      }
+    },
+    "qwen3_06b__vs__ettin_400m": {
+      "mrr@10": {
+        "ci_high": 0.010474960317460312,
+        "ci_low": -0.056556190476190475,
+        "mean_delta": -0.02331111111111111,
+        "verdict": "INCONCLUSIVE"
+      },
+      "ndcg@10": {
+        "ci_high": 0.01405136482151499,
+        "ci_low": -0.039320774192697326,
+        "mean_delta": -0.012729093961210216,
+        "verdict": "INCONCLUSIVE"
+      }
+    }
+  },
+  "track": "GENERAL"
+}
