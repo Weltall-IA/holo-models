@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.0",
+  "measured": true,
+  "projected": false,
+  "dataset": {
+    "name": "holo_fake_scenes_v3",
+    "corpus_sha256": "59cf7d64a68770731e28308e421129d3193eacd2a10ba182da8dcf286249d85b",
+    "queries_sha256": "9aa48f789df1e3b246979a049478b217cfda1e47fad12a131b5618f4f17e329b",
+    "combined_sha256": "8e1b7a6dd6f51d98e1ffe1738b6a59498df24c49b2edca24850b838687dd149b",
+    "documents": 600,
+    "queries": 150,
+    "works": 30,
+    "query_types_count": 7
+  },
+  "models": {
+    "embeddinggemma": {
+      "repo": "google/embeddinggemma-300m",
+      "revision": "57c266a740f537b4dc058e1b0cda161fd15afa75",
+      "local_path": "/home/alpha/.cache/huggingface/hub/models--google--embeddinggemma-300m/snapshots/57c266a740f537b4dc058e1b0cda161fd15afa75",
+      "query_prefix": "task: search result | query: ",
+      "document_prefix": "title: none | text: ",
+      "pooling": "sentence-transformers default (mean)",
+      "max_length": 2048
+    },
+    "literary_minilm": {
+      "repo": "RafaelUI/literary-minilm",
+      "revision": "92a6516f32321dc4048b49c9e6eb2b9aaa7e8e8f",
+      "local_path": "/home/alpha/Playstoria/models/embed/literary/RafaelUI-literary-minilm-92a6516f",
+      "max_seq_length": 128,
+      "pooling": "sentence-transformers default (mean)"
+    },
+    "nemotron": {
+      "local_path": "/home/alpha/Playstoria/models/rerank/llama_nemotron_rerank_1b_v2",
+      "revision": "7b6d977e129a50b29c6b557d5d38c2e7c0f527e7",
+      "architecture": "LlamaBidirectionalForSequenceClassification",
+      "format": "question:{query} \\n\\n passage:{passage}",
+      "max_length": 2048,
+      "precision": "bfloat16"
+    }
+  },
+  "thread_limit": 8,
+  "batch_size": 64,
+  "nemotron_batch_size": 8,
+  "warmup_excluded": true,
+  "hardware": {
+    "gpu": "NVIDIA GeForce RTX 5060 Ti",
+    "vram_gb": 16
+  },
+  "software": {
+    "python": "3.12.13",
+    "torch": "2.11.0+cu130",
+    "transformers": "5.14.1",
+    "sentence_transformers": "5.7.0"
+  },
+  "bootstrap_config": {
+    "n_resamples": 10000,
+    "seed": 20260904,
+    "ci_level": 0.95,
+    "stratified_by": "query_type"
+  }
+}

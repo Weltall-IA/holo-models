@@ -1,0 +1,56 @@
+{
+  "measured": true,
+  "projected": false,
+  "models": {
+    "embeddinggemma_nemotron": "google/embeddinggemma-300m + nvidia/llama-nemotron-rerank-1b-v2",
+    "literary_nemotron": "RafaelUI/literary-minilm + nvidia/llama-nemotron-rerank-1b-v2"
+  },
+  "metrics": {
+    "embeddinggemma_nemotron": {
+      "nDCG@10": 0.8277090293062966,
+      "MRR@10": 0.8233333333333334,
+      "MAP": 0.8133333333333334,
+      "Hit@1": 0.8,
+      "Recall@10": 0.8633333333333333,
+      "Recall@20": 0.9666666666666667,
+      "Recall@50": 1.0
+    },
+    "literary_nemotron": {
+      "nDCG@10": 0.6401694976158203,
+      "MRR@10": 0.6377777777777777,
+      "MAP": 0.6277777777777778,
+      "Hit@1": 0.62,
+      "Recall@10": 0.67,
+      "Recall@20": 0.7733333333333333,
+      "Recall@50": 0.7733333333333333
+    }
+  },
+  "top50_coverage": {
+    "embeddinggemma": 1.0,
+    "literary_minilm": 0.7733333333333333
+  },
+  "bootstrap": {
+    "ndcg10": {
+      "measured": true,
+      "projected": false,
+      "mean_diff": -0.1873449516678244,
+      "ci95_lower": -0.24613329719926225,
+      "ci95_upper": -0.13385419768423845,
+      "verdict": "EMBEDDINGGEMMA_WINS",
+      "n_bootstrap": 10000,
+      "seed": 20260904,
+      "stratified_by": "query_type"
+    },
+    "mrr10": {
+      "measured": true,
+      "projected": false,
+      "mean_diff": -0.18536206666666666,
+      "ci95_lower": -0.24355555555555553,
+      "ci95_upper": -0.13222222222222224,
+      "verdict": "EMBEDDINGGEMMA_WINS",
+      "n_bootstrap": 10000,
+      "seed": 20260904,
+      "stratified_by": "query_type"
+    }
+  }
+}

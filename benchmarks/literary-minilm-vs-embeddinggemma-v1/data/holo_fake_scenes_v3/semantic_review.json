@@ -1,0 +1,288 @@
+{
+  "schema_version": "1.0",
+  "corpus_version": "holo_fake_scenes_v3",
+  "reviewer": "agente-local",
+  "reviewed_at": "2026-07-18T16:55:00-03:00",
+  "items": [
+    {
+      "query_id": "query-0001",
+      "status": "approved",
+      "relevant_matches_query": true,
+      "negatives_are_hard_but_wrong": true,
+      "query_does_not_leak_answer": true,
+      "notes": "A consulta descreve a descoberta por mensagens sem depender de uma confissão."
+    },
+    {
+      "query_id": "query-0011",
+      "status": "approved",
+      "relevant_matches_query": true,
+      "negatives_are_hard_but_wrong": true,
+      "query_does_not_leak_answer": true,
+      "notes": "A consulta descreve a descoberta por mensagens sem depender de uma confissão."
+    },
+    {
+      "query_id": "query-0021",
+      "status": "approved",
+      "relevant_matches_query": true,
+      "negatives_are_hard_but_wrong": true,
+      "query_does_not_leak_answer": true,
+      "notes": "A consulta descreve a descoberta por mensagens sem depender de uma confissão."
+    },
+    {
+      "query_id": "query-0031",
+      "status": "approved",
+      "relevant_matches_query": true,
+      "negatives_are_hard_but_wrong": true,
+      "query_does_not_leak_answer": true,
+      "notes": "A mentira é descoberta pelo conflito entre horários e provas."
+    },
+    {
+      "query_id": "query-0040",
+      "status": "approved",
+      "relevant_matches_query": true,
+      "negatives_are_hard_but_wrong": true,
+      "query_does_not_leak_answer": true,
+      "notes": "A cena é de fuga planejada, não apenas de perseguição."
+    },
+    {
+      "query_id": "query-0041",
+      "status": "approved",
+      "relevant_matches_query": true,
+      "negatives_are_hard_but_wrong": true,
+      "query_does_not_leak_answer": true,
+      "notes": "A resposta depende de conectar pronomes, consequências e acontecimentos anteriores."
+    },
+    {
+      "query_id": "query-0048",
+      "status": "approved",
+      "relevant_matches_query": true,
+      "negatives_are_hard_but_wrong": true,
+      "query_does_not_leak_answer": true,
+      "notes": "A resposta depende de conectar pronomes, consequências e acontecimentos anteriores."
+    },
+    {
+      "query_id": "query-0056",
+      "status": "approved",
+      "relevant_matches_query": true,
+      "negatives_are_hard_but_wrong": true,
+      "query_does_not_leak_answer": true,
+      "notes": "A resposta depende de conectar pronomes, consequências e acontecimentos anteriores."
+    },
+    {
+      "query_id": "query-0063",
+      "status": "approved",
+      "relevant_matches_query": true,
+      "negatives_are_hard_but_wrong": true,
+      "query_does_not_leak_answer": true,
+      "notes": "A resposta depende de conectar pronomes, consequências e acontecimentos anteriores."
+    },
+    {
+      "query_id": "query-0070",
+      "status": "approved",
+      "relevant_matches_query": true,
+      "negatives_are_hard_but_wrong": true,
+      "query_does_not_leak_answer": true,
+      "notes": "A resposta depende de conectar pronomes, consequências e acontecimentos anteriores."
+    },
+    {
+      "query_id": "query-0071",
+      "status": "approved",
+      "relevant_matches_query": true,
+      "negatives_are_hard_but_wrong": true,
+      "query_does_not_leak_answer": true,
+      "notes": "A consulta exige distinguir emoção observável de interpretação equivocada."
+    },
+    {
+      "query_id": "query-0077",
+      "status": "approved",
+      "relevant_matches_query": true,
+      "negatives_are_hard_but_wrong": true,
+      "query_does_not_leak_answer": true,
+      "notes": "A consulta exige distinguir emoção observável de interpretação equivocada."
+    },
+    {
+      "query_id": "query-0083",
+      "status": "approved",
+      "relevant_matches_query": true,
+      "negatives_are_hard_but_wrong": true,
+      "query_does_not_leak_answer": true,
+      "notes": "A consulta exige distinguir emoção observável de interpretação equivocada."
+    },
+    {
+      "query_id": "query-0089",
+      "status": "approved",
+      "relevant_matches_query": true,
+      "negatives_are_hard_but_wrong": true,
+      "query_does_not_leak_answer": true,
+      "notes": "A consulta exige distinguir emoção observável de interpretação equivocada."
+    },
+    {
+      "query_id": "query-0095",
+      "status": "approved",
+      "relevant_matches_query": true,
+      "negatives_are_hard_but_wrong": true,
+      "query_does_not_leak_answer": true,
+      "notes": "A consulta exige distinguir emoção observável de interpretação equivocada."
+    },
+    {
+      "query_id": "query-0096",
+      "status": "approved",
+      "relevant_matches_query": true,
+      "negatives_are_hard_but_wrong": true,
+      "query_does_not_leak_answer": true,
+      "notes": "O diálogo precisa ser interpretado pragmaticamente, não apenas por palavras exatas."
+    },
+    {
+      "query_id": "query-0101",
+      "status": "approved",
+      "relevant_matches_query": true,
+      "negatives_are_hard_but_wrong": true,
+      "query_does_not_leak_answer": true,
+      "notes": "O diálogo precisa ser interpretado pragmaticamente, não apenas por palavras exatas."
+    },
+    {
+      "query_id": "query-0106",
+      "status": "approved",
+      "relevant_matches_query": true,
+      "negatives_are_hard_but_wrong": true,
+      "query_does_not_leak_answer": true,
+      "notes": "O diálogo precisa ser interpretado pragmaticamente, não apenas por palavras exatas."
+    },
+    {
+      "query_id": "query-0111",
+      "status": "approved",
+      "relevant_matches_query": true,
+      "negatives_are_hard_but_wrong": true,
+      "query_does_not_leak_answer": true,
+      "notes": "O diálogo precisa ser interpretado pragmaticamente, não apenas por palavras exatas."
+    },
+    {
+      "query_id": "query-0115",
+      "status": "approved",
+      "relevant_matches_query": true,
+      "negatives_are_hard_but_wrong": true,
+      "query_does_not_leak_answer": true,
+      "notes": "O diálogo precisa ser interpretado pragmaticamente, não apenas por palavras exatas."
+    },
+    {
+      "query_id": "query-0116",
+      "status": "approved",
+      "relevant_matches_query": true,
+      "negatives_are_hard_but_wrong": true,
+      "query_does_not_leak_answer": true,
+      "notes": "A consulta exige recuperar nomes próprios e contexto específico da obra."
+    },
+    {
+      "query_id": "query-0119",
+      "status": "approved",
+      "relevant_matches_query": true,
+      "negatives_are_hard_but_wrong": true,
+      "query_does_not_leak_answer": true,
+      "notes": "A consulta exige recuperar nomes próprios e contexto específico da obra."
+    },
+    {
+      "query_id": "query-0123",
+      "status": "approved",
+      "relevant_matches_query": true,
+      "negatives_are_hard_but_wrong": true,
+      "query_does_not_leak_answer": true,
+      "notes": "A consulta exige recuperar nomes próprios e contexto específico da obra."
+    },
+    {
+      "query_id": "query-0127",
+      "status": "approved",
+      "relevant_matches_query": true,
+      "negatives_are_hard_but_wrong": true,
+      "query_does_not_leak_answer": true,
+      "notes": "A consulta exige recuperar nomes próprios e contexto específico da obra."
+    },
+    {
+      "query_id": "query-0130",
+      "status": "approved",
+      "relevant_matches_query": true,
+      "negatives_are_hard_but_wrong": true,
+      "query_does_not_leak_answer": true,
+      "notes": "A consulta exige recuperar nomes próprios e contexto específico da obra."
+    },
+    {
+      "query_id": "query-0131",
+      "status": "approved",
+      "relevant_matches_query": true,
+      "negatives_are_hard_but_wrong": true,
+      "query_does_not_leak_answer": true,
+      "notes": "A consulta deve recuperar uma sequência textual literal."
+    },
+    {
+      "query_id": "query-0133",
+      "status": "approved",
+      "relevant_matches_query": true,
+      "negatives_are_hard_but_wrong": true,
+      "query_does_not_leak_answer": true,
+      "notes": "A consulta deve recuperar uma sequência textual literal."
+    },
+    {
+      "query_id": "query-0136",
+      "status": "approved",
+      "relevant_matches_query": true,
+      "negatives_are_hard_but_wrong": true,
+      "query_does_not_leak_answer": true,
+      "notes": "A consulta deve recuperar uma sequência textual literal."
+    },
+    {
+      "query_id": "query-0138",
+      "status": "approved",
+      "relevant_matches_query": true,
+      "negatives_are_hard_but_wrong": true,
+      "query_does_not_leak_answer": true,
+      "notes": "A consulta deve recuperar uma sequência textual literal."
+    },
+    {
+      "query_id": "query-0140",
+      "status": "approved",
+      "relevant_matches_query": true,
+      "negatives_are_hard_but_wrong": true,
+      "query_does_not_leak_answer": true,
+      "notes": "A consulta deve recuperar uma sequência textual literal."
+    },
+    {
+      "query_id": "query-0141",
+      "status": "approved",
+      "relevant_matches_query": true,
+      "negatives_are_hard_but_wrong": true,
+      "query_does_not_leak_answer": true,
+      "notes": "A consulta contrasta explicitamente duas cenas semanticamente próximas."
+    },
+    {
+      "query_id": "query-0143",
+      "status": "approved",
+      "relevant_matches_query": true,
+      "negatives_are_hard_but_wrong": true,
+      "query_does_not_leak_answer": true,
+      "notes": "A consulta contrasta explicitamente duas cenas semanticamente próximas."
+    },
+    {
+      "query_id": "query-0146",
+      "status": "approved",
+      "relevant_matches_query": true,
+      "negatives_are_hard_but_wrong": true,
+      "query_does_not_leak_answer": true,
+      "notes": "A consulta contrasta explicitamente duas cenas semanticamente próximas."
+    },
+    {
+      "query_id": "query-0148",
+      "status": "approved",
+      "relevant_matches_query": true,
+      "negatives_are_hard_but_wrong": true,
+      "query_does_not_leak_answer": true,
+      "notes": "A consulta contrasta explicitamente duas cenas semanticamente próximas."
+    },
+    {
+      "query_id": "query-0150",
+      "status": "approved",
+      "relevant_matches_query": true,
+      "negatives_are_hard_but_wrong": true,
+      "query_does_not_leak_answer": true,
+      "notes": "A consulta contrasta explicitamente duas cenas semanticamente próximas."
+    }
+  ]
+}

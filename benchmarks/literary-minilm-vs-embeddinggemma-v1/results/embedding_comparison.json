@@ -1,0 +1,61 @@
+{
+  "measured": true,
+  "projected": false,
+  "models": {
+    "embeddinggemma": "google/embeddinggemma-300m",
+    "literary_minilm": "RafaelUI/literary-minilm"
+  },
+  "metrics": {
+    "embeddinggemma": {
+      "nDCG@10": 0.7500757929489053,
+      "MRR@10": 0.729015873015873,
+      "MAP": 0.719015873015873,
+      "Hit@1": 0.6666666666666666,
+      "Recall@10": 0.8366666666666667,
+      "Recall@20": 0.9666666666666667,
+      "Recall@50": 1.0
+    },
+    "literary_minilm": {
+      "nDCG@10": 0.13199606164165653,
+      "MRR@10": 0.08205026455026455,
+      "MAP": 0.08193915343915342,
+      "Hit@1": 0.03333333333333333,
+      "Recall@10": 0.30333333333333334,
+      "Recall@20": 0.6166666666666667,
+      "Recall@50": 0.7733333333333333
+    },
+    "difference_literary_minus_gemma": {
+      "nDCG@10": -0.6180797313072487,
+      "MRR@10": -0.6469656084656085,
+      "MAP": -0.6370767195767195,
+      "Hit@1": -0.6333333333333333,
+      "Recall@10": -0.5333333333333333,
+      "Recall@20": -0.35,
+      "Recall@50": -0.22666666666666668
+    }
+  },
+  "bootstrap": {
+    "ndcg10": {
+      "measured": true,
+      "projected": false,
+      "mean_diff": -0.6184524389819639,
+      "ci95_lower": -0.670988970238409,
+      "ci95_upper": -0.5659483124361094,
+      "verdict": "EMBEDDINGGEMMA_WINS",
+      "n_bootstrap": 10000,
+      "seed": 20260904,
+      "stratified_by": "query_type"
+    },
+    "mrr10": {
+      "measured": true,
+      "projected": false,
+      "mean_diff": -0.6474793740740741,
+      "ci95_lower": -0.6990664021164021,
+      "ci95_upper": -0.5948035714285715,
+      "verdict": "EMBEDDINGGEMMA_WINS",
+      "n_bootstrap": 10000,
+      "seed": 20260904,
+      "stratified_by": "query_type"
+    }
+  }
+}
