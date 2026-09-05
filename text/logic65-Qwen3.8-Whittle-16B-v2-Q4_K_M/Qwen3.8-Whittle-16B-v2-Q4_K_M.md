@@ -7,15 +7,15 @@
 - SHA256: `335627718b0893a1b077728cd40b4a6b75e2850a6058eb564945f7a2b6265bd2`
 - Origem: `logic65/Qwen3.8-Whittle-16B`
 - Revisão HF: `d18db969059b15423be91f5d4fd119c8c907801c`
-- Caminho canônico: `text/logic65-Qwen3.8-Whittle-16B-v2-Q4_K_M/Qwen3.8-Whittle-16B-v2-Q4_K_M.gguf`
+- Caminho canônico histórico: `text/logic65-Qwen3.8-Whittle-16B-v2-Q4_K_M/Qwen3.8-Whittle-16B-v2-Q4_K_M.gguf` (pesos removidos localmente após avaliação)
 - Arquitetura: `qwen35` dense pruned (44 layers, 5120 embed, 24 heads, context 262144) — Qwen3.8 27B → ~16.8B healed
 - Quantização: `Q4_K_M` (file_type 15, ~4.5 bpw, quantization_version 2)
 - GGUF metadados: `general.name=Q38Whittle2_Hf`, `general.size_label=16B`, `tokenizer=gpt2`
-- Status no workspace: candidato avaliado 2026-09-04 / classificação WHITTLE16B_REJECT
+- Status no workspace: candidato avaliado 2026-09-04 / classificação `WHITTLE16B_REJECT`; pesos e symlink de runtime removidos
 
 ## Especialidade, pontos fortes e trade-offs
 
-- **0/6** no coding-mini-v1 — rejeitado para código principal.
+- **0/6** no coding-mini-v1 — rejeitado para código principal; não faz parte dos presets ativos.
 - Mediana AUTHOR_RECIPE: 19.83 tok/s (não comparável diretamente a leaderboard same-protocol 24.70 GSQ).
 - Pico VRAM Stage A: 11076 MiB.
 - DFlash2 não avaliado (gate).
@@ -65,17 +65,18 @@ Fonte: `benchmarks/whittle16b-candidate-v1/results/WHITTLE16B_NATIVE_CODING.json
 - Modelo estruturalmente podado → DFlash2 compatibility NÃO assumida.
 - Scores externos do card não foram usados para classificação; apenas medições locais.
 
-## Preset recomendado
+## Execução histórica
 
 ```bash
-# Whittle 16B v2 Q4_K_M — receita autora (coding) — NÃO é preset padrão atual por gate 0–4/6 ou 5/6
+# Whittle 16B v2 Q4_K_M — receita autora registrada no benchmark; pesos removidos localmente
 /home/alpha/.local/bin/llama serve \
   -m /home/alpha/Playstoria/models/text/logic65-Qwen3.8-Whittle-16B-v2-Q4_K_M/Qwen3.8-Whittle-16B-v2-Q4_K_M.gguf \
   -c 8192 -np 1 -ngl 999 -fa on --fit off -ctk q8_0 -ctv q4_0 -t 8 -tb 8 \
   --jinja --reasoning on --reasoning-format auto --chat-template-kwargs '{"enable_thinking":true}' \
   --dry-multiplier 0.8 --dry-base 1.75 --dry-allowed-length 4 --repeat-penalty 1.15 --repeat-last-n 512
 ```
-- **Não usar como coder principal** até atingir 6/6 estável. GSQ continua preset padrão (ver `text/ISTA-DASLab-Qwen3.8-27B-GSQ-RCO-IQ2_S/`).
+- Este comando é apenas histórico e não é executável neste workspace sem novo download. Não recomendar novo download, salvo investigação histórica ou reteste futuro explícito.
+- **Não usar como coder principal**. GSQ continua preset padrão (ver `text/ISTA-DASLab-Qwen3.8-27B-GSQ-RCO-IQ2_S/`).
 
 ## Limitações
 
