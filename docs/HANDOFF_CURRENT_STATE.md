@@ -1,227 +1,479 @@
-# HANDOFF — Estado atual dos benchmarks locais
+# HANDOFF — Estado atual do benchmark de imagem
 
-Atualizado em 2026-09-02.
+Atualizado em 2026-09-09.
 
-## Repositório e regra de trabalho
+## Repositório e hardware
 
 - Repositório: `Weltall-IA/holo-models`
-- Branch canônica: `master`
-- HEAD imediatamente antes deste handoff: `d12f0a7df20a7999ea620d4405ccdbbb3ae5f7b3`
-- O ChatGPT é responsável por criar/modificar benchmark e semântica no repositório.
-- A IA local é executora: pode preparar ambiente, baixar/compilar runtime quando explicitamente autorizado e executar os testes, mas não deve alterar perguntas, evaluator, regras, parâmetros ou benchmark para “fazer passar”.
-- Antes de interpretar uma rodada, prefira artefatos brutos, evaluator, hidden tests e logs. Não trate `RESULTS.md` como autoridade causal.
-
-## Hardware / ambiente relevante
-
-- Arch Linux
+- Branch atual de trabalho: `review/image-t2i-blind-v1`
+- HEAD anterior a este handoff: `5fa42b500ea8816e579dc0a99a63905e29a66923`
+- Raiz local: `/home/alpha/Playstoria/models/`
+- SO: Arch Linux
 - GPU: RTX 5060 Ti 16 GB
-- raiz dos modelos: `/home/alpha/Playstoria/models/`
-- pesos de texto: `/home/alpha/Playstoria/models/text/`
-- preferência prática: evitar mais de 8 CPU threads para não travar a máquina.
+- RAM: ~31 GB
+- Limite prático: no máximo 8 CPU threads
+- Não usar `/tmp` ou `/dev/shm` para artifacts/pesos grandes: `/tmp` é tmpfs e já causou pressão de RAM/swap severa.
 
-## Runtime DFlash2 que finalmente funcionou
+## Regra de trabalho
 
-O erro histórico `wrong number of tensors; expected 81, got 58` NÃO provava incompatibilidade GSQ + DFlash2. Os runtimes testados antes eram anteriores ao suporte DFlash2 real.
+- O ChatGPT define semântica do benchmark, critérios, comparações e próximos testes.
+- A IA local executa, mede, baixa/compila runtime quando explicitamente autorizado e não deve mudar prompts/evaluator/presets para “fazer passar”.
+- Preservar sempre logs, manifests, PNGs e resultados históricos antes de remover pesos.
+- Não usar `git add .` nem `git add -A`.
+- Pesos nunca devem ser staged.
 
-Runtime válido usado na rodada v4:
+---
 
-- upstream `llama.cpp`
-- commit: `b96806d96061049a5b574269b049bf6241d63d46`
-- versão: `0.3.0-dev`, build `10752`
-- wrapper usado pelo benchmark: `~/.local/bin/llama`
-- binário real local: `/home/alpha/Playstoria/models/engines/llama.cpp/build/bin/llama-server`
+# 1. Benchmark T2I principal — finalistas atuais
 
-Houve um incidente em que o `build/bin/llama-server` foi sobrescrito por um wrapper recursivo que chamava a si mesmo. A causa foi diagnosticada pelo `strace`; o target `llama-server` foi relinkado/reconstruído. Não interpretar aquele timeout como falha CUDA.
+Campanha final:
 
-Não voltar a usar para DFlash2:
+`benchmarks/image-t2i-final-v1/`
 
-- `/usr/bin/llama-server` build 10621
-- `geo-llama` commit `3e62554` (anterior à PR DFlash2 real)
-- DeepGrove histórico sem revalidação explícita.
+Prompts canônicos herdados de:
 
-## Target, draft e template do v4
+`benchmarks/image-t2i-16gb-v1/PROMPTS.json`
 
-Target:
+Seeds:
 
-`/home/alpha/Playstoria/models/text/ISTA-DASLab-Qwen3.8-27B-GSQ-RCO-IQ2_S/Qwen3.8-27B-GSQ-RCO-IQ2_S.gguf`
+- T01 = 51001
+- T02 = 51002
+- T03 = 51003
+- T04 = 51004
+- T05 = 51005
+- T06 = 51006
+- T07 = 51007
+- T08 = 51008
 
-SHA256:
+Resolução: 1024x1024.
 
-`16c9802111aa9ef3acde465188d6d601f8db128ee3d828ad983a5caca4135ecb`
+Sem LoRA/ControlNet/upscale/prompt enhancement no benchmark base, exceto a variante Ideogram especializada explicitamente documentada abaixo.
 
-DFlash2 draft:
+## Finalistas testados
 
-`/home/alpha/Playstoria/models/text/z-lab-Qwen3.8-27B-DFlash2-GGUF/Qwen3.8-27B-DFlash2-Q4_K_M.gguf`
+### FLUX.2 Klein 9B stock KV-INT8 ConvRot
 
-SHA256:
+Checkpoint local usado:
 
-`1a25c56858e1ebe93f2718ac1d49d1151f9323325c1bbfd6209370f4db131ebd`
+`wraps/FLUX.2-klein-9B-KV-INT8-ConvRot-ComfyUI`
 
-Froggeric:
+- rev: `686016cf4a324e5c5a1a8855b11446533f0eef5f`
+- peso: `flux-2-klein-9b-kv-int8-convrot.safetensors`
+- bytes: 9,439,891,920
+- SHA256: `b446f68e990a43f78887a6d15fc52ba84ea6cf1d2d9ca89d7f5e6d113240c886`
+- encoder: `qwen_3_8b_fp8mixed.safetensors`
+- VAE: `flux2-vae.safetensors`
+- preset consolidado: 20 steps, Euler + Flux2Scheduler, CFG 5
+- warm median histórico: 42.822 s/img
 
-- versão: `qwen3.8-froggeric-v22.4`
-- revisão: `e649070`
-- template local: `/home/alpha/Playstoria/models/text/froggeric-Qwen-Fixed-Chat-Templates-v22.4/chat_template.jinja`
+### Krea 2 Turbo INT8 ConvRot
 
-## Repo-worker GSQ + DFlash2 v4
+IMPORTANTE: foi Krea **2**, não Krea 1. Qualquer menção antiga a “Krea 1” é erro de rótulo, não de checkpoint.
+
+- repo: `Comfy-Org/Krea-2`
+- rev: `e5ea8b4dd7f38f348b138eb0fe29f92c0e367e96`
+- peso: `krea2_turbo_int8_convrot.safetensors`
+- bytes: 13,492,686,496
+- SHA256: `8e4eeda70dd5037ab1ba2bef6b417f9f901e26093117cf397f741fc1fdaaf3f1`
+- encoder: `qwen3vl_4b_fp8_scaled.safetensors`
+- VAE: `qwen_image_vae.safetensors`
+- preset: 8 steps, Euler/simple, CFG 1
+- warm median histórico: 17.880 s/img
+
+### Z-Image Turbo NVFP4
+
+- repo: `Comfy-Org/z_image_turbo`
+- rev: `08d04455279082882deaabc8d0d09fc914c071e1`
+- peso: `z_image_turbo_nvfp4.safetensors`
+- bytes: 4,509,509,600
+- SHA256: `a553c889dbcb910de4c98293237573219a37007c1074a3f04576646a088bd5c8`
+- encoder: `qwen_3_4b_fp4_mixed.safetensors`
+- VAE: `ae.safetensors`
+- preset: 8 steps, res_multistep/simple, CFG 1, ModelSamplingAuraFlow shift=3.0
+- warm median histórico: 6.124 s/img
+
+### Ideogram 4 Realism Fused A2
+
+A variante stock do Ideogram 4 teve falsos positivos graves do safety banner.
+
+Evolução:
+
+- plain-text stock: 1/8 imagens válidas
+- JSON oficial validado: 4/8 válidas
+- `Winnougan/Ideogram_Instant_NSFW` INT8 ConvRot: 8/8 válidas
+- `mrjackspade/Ideogram4-Natural-Language-Text-Encoder` step 5000 + stock Quality: 8/8 válidas
+- Realism Engine V5 como LoRA dinâmico: runtime inviável por centenas de patches/offload
+- solução final: fundir o Realism Engine V5 offline nos dois diffusion models e usar o NL encoder step 5000
+
+Pesos derivados locais:
+
+- conditional: `ideogram4_realism-v5-s055_fp8.safetensors`
+  - SHA256 `914ed111d4baeed487b30619fd5df200262416f214d32b249a710982449f38d9`
+  - 9,280,745,925 bytes
+- unconditional: `ideogram4_unconditional_realism-v5-s055_nvfp4.safetensors`
+  - SHA256 `6ed937cfb3557e60132b66e57348c48eec25eb375e15d9b5b644a8411db34101`
+  - 5,490,554,845 bytes
+- Realism Engine V5 strength = 0.55
+- encoder: `qwen3vl_8b_ideogram4_nl_s020_v1_step_00005000_fp8_scaled.safetensors`
+- VAE: `flux2-vae.safetensors`
+
+Merge foi feito out-of-core/streaming em:
+
+`benchmarks/image-t2i-final-v1/fuse_realism_v5.py`
+
+Sem LoRA dinâmico durante inferência (`dynamic_lora_patches = 0`).
+
+Gate de steps:
+
+- A1 12 steps: 4/4 PASS, ~89.9 s/img
+- A2 20 steps: 4/4 PASS, ~99.7 s/img
+- A3 48 steps: 4/4 PASS, ~163.1 s/img
+
+Blind gate interno congelado antes do reveal:
+
+- T01: A2 > A3 > A1
+- T02: A1 > A3 > A2
+- T03: A2 > A3 > A1
+- T06: A1 > A2 > A3
+
+Pontuação ordinal simples 3/2/1:
+
+- A2 = 9
+- A1 = 8
+- A3 = 7
+
+A2/20 steps escolhido para a final.
+
+Config A2:
+
+- 20 steps
+- Euler
+- `Ideogram4Scheduler(mu=0.5, std=1.75)`
+- `DualModelGuider(cfg=7.0)`
+- `CFGOverride(cfg=3.0, start_percent=0.7)`
+- natural language via NL encoder step 5000
+
+---
+
+# 2. Final cega Krea vs Z vs FLUX vs Ideogram
+
+Review:
+
+`benchmarks/image-t2i-final-v1/review-final-ideogram-a2-v1/`
+
+32/32 imagens válidas, 8/8 por modelo, zero placeholders e zero safety banners.
+
+Mapping revelado após congelar ranking visual.
+
+Ranking cego congelado por caso:
+
+- T01: D > B > C > A
+- T02: A > D > B > C
+- T03: B > C > D > A
+- T04: C > B > D > A
+- T05: A > C > B > D
+- T06: A > B > C > D
+- T07: A > D > C > B
+- T08: A > B > C > D
+
+Mapping final:
+
+- T01: A=FLUX, B=Krea, C=Z, D=Ideogram
+- T02: A=FLUX, B=Krea, C=Z, D=Ideogram
+- T03: A=Z, B=FLUX, C=Krea, D=Ideogram
+- T04: A=Krea, B=Z, C=FLUX, D=Ideogram
+- T05: A=Ideogram, B=FLUX, C=Krea, D=Z
+- T06: A=Krea, B=FLUX, C=Z, D=Ideogram
+- T07: A=FLUX, B=Ideogram, C=Z, D=Krea
+- T08: A=FLUX, B=Krea, C=Z, D=Ideogram
+
+Pontuação ordinal 4/3/2/1:
+
+- FLUX.2 Klein stock: 26
+- Krea 2 Turbo: 22
+- Ideogram Realism A2: 18
+- Z-Image Turbo: 14
+
+Vitórias por caso:
+
+- FLUX: T02, T03, T04, T07, T08 = 5/8
+- Ideogram A2: T01, T05 = 2/8
+- Krea: T06 = 1/8
+- Z: 0/8
+
+Interpretação provisória correta:
+
+- FLUX é o vencedor geral em qualidade visual desta suíte.
+- Krea fica forte como renderer rápido de alta qualidade.
+- Z continua relevante principalmente pela classe de velocidade (~6.1 s/img warm), não por vencer qualidade nesta final.
+- Ideogram só deve ser mantido se sua vantagem em certos tipos de cena justificar o custo/complexidade; não inventar papel apenas para “aproveitar” o modelo.
+
+---
+
+# 3. Variantes derrotadas/removidas
+
+Já foram removidas após pairwise:
+
+- Z-Image Base INT8 ConvRot
+- Z-Image Turbo INT8 ConvRot challenger
+- Krea Raw INT8 ConvRot
+- FLUX True-V3 int8mixedrow
+
+Foram recuperados ~58.75 GiB nessa limpeza.
+
+LLaDA community antigo também foi removido anteriormente, mas os resultados históricos foram preservados.
+
+---
+
+# 4. Reabertura do LLaDA — motivo
+
+O usuário questionou corretamente o resultado ruim porque o benchmark público do `inclusionAI/LLaDA-Image` mostra desempenho muito melhor do que vimos localmente.
+
+O resultado antigo NÃO deve mais ser usado para condenar a família inteira.
+
+Reclassificação do antigo:
+
+`LLADA_COMMUNITY_LOW_MEMORY_STACK`
+
+Stack antiga:
+
+- transformer INT8 comunitário
+- text encoder Q4_K_M
+- RealRebel ComfyUI/custom node
+
+Essa stack ficou ruim no benchmark visual e lenta/instável no Base, mas não reproduz a stack oficial.
+
+---
+
+# 5. Auditoria oficial LLaDA atual
 
 Diretório:
 
-`benchmarks/repo-worker-gsq-dflash2-v4/`
+`tasks/llada-official-audit/`
 
-Commit dos resultados:
+GitHub oficial:
 
-`d12f0a7df20a7999ea620d4405ccdbbb3ae5f7b3`
+`inclusionAI/LLaDA-Image`
 
-Fonte de tarefas:
+Commit:
 
-- source repo HEAD: `5a7720c3d4874524e4b8fda6c7be5ae456208fdd`
-- seed: `9137`
-- 16/16 runs concluídas
-- infra errors: `0`
+`e7c861b0aaa00d2f7ed49600a3a6f170e02a9d59`
 
-Perfis:
+Turbo-FP8:
 
-1. `iq2-dflash-frog-medium`
-2. `iq2-dflash-frog-medium-b256`
+- repo `inclusionAI/LLaDA-Image-Turbo-FP8`
+- rev `664a975e4b4980fb750fd47b2f87e1874bb14bd7`
+- 36 arquivos
+- 25,001,206,121 bytes
+- manifest: `tasks/llada-official-audit/MANIFEST_Turbo-FP8.json`
 
-Configuração principal:
+Base-FP8 ainda NÃO baixado:
 
-- ctx 32768
-- np 1
-- full GPU
-- FA on
-- fit off
-- K cache q8_0
-- V cache q4_0
-- threads / batch threads 2 / 2
-- DFlash2 `draft-dflash`, `spec-draft-n-max=7`
-- Froggeric v22.4
-- reasoning on
-- reasoning effort medium
-- temperature 0.2
-- top_p 0.95
+- rev `7678c6071b139e1989565db41122b16d767cc585`
 
-Resultados objetivos versionados:
+Base BF16 rev conhecido:
 
-| perfil | estrito | hidden | protocol failures | recovery | mediana | tool errors | peak VRAM | server decode |
-|---|---:|---:|---:|---:|---:|---:|---:|---:|
-| medium | 7/8 | 5/5 | 1 | 1/1 | 148.4s | 2 | 14793 MiB | 18.12 tok/s |
-| medium + B256 | 7/8 | 4/5 | 1 | 1/1 | 131.8s | 3 | 15361 MiB | 18.63 tok/s |
+- `e4e2703f410f7ddb6ee8d6b09dac6a8ec5093039`
 
-### Correção qualitativa importante do v4
+Venv isolado:
 
-No perfil `medium`, a única falha estrita foi T4 por protocolo/finalização. A implementação terminou funcionalmente correta e public + hidden deram `10 passed`; o modelo não conseguiu emitir `done` antes do request timeout. Portanto a leitura prática é:
+`tasks/llada-official-audit/.venv`
 
-- `medium`: 7/8 estrito, **8/8 funcional**.
-- `medium+B256`: 7/8 estrito e **7/8 funcional**; em T4 houve falha real (o modelo removeu `return value`, tentou corrigir, gerou patch inválido e terminou com hidden tests falhando).
+Versões:
 
-Conclusão operacional atual: para worker, preferir **Froggeric medium sem hard budget B256**.
+- Python 3.11.15
+- torch 2.8.0+cu128
+- transformers 4.57.6
+- diffusers 0.39.0
 
-### Caveats do v4
+## Problema do transformer FP8 oficial
 
-- `DFLASH_METRICS.json` ficou nulo porque o parser antigo não reconheceu o formato atual das métricas speculative; isso não significa que o draft não foi usado.
-- A IA local adicionou ao runner um `direct_request_json` durante a execução. Isso foi uma modificação operacional não desejada e deve ser tratada como contaminação de procedimento, embora perguntas/evaluator não tenham sido mudados por isso.
-- `CONTROLLED_CONFIG.json` registra `runtime_source` como “official llama.app prebuilt CUDA binary”, mas o runtime efetivo foi o upstream `llama.cpp` compilado localmente no commit `b96806d`, exposto pelo wrapper `~/.local/bin/llama`. Não rerodar apenas para corrigir esse metadado.
+O transformer FP8 oficial não é carregável corretamente pelo Diffusers público atual testado:
 
-## v2 de referência
+- `quant_method=fp8` não é suportado como esperado
+- layout publicado usa `to_qkv`/`w13` fundidos, enquanto o código público espera splits `to_q/to_k/to_v`, `w1/w3`
+- bypass silencioso foi rejeitado porque poderia randomizar/pular pesos
 
-`benchmarks/repo-worker-challenger-v2/`
+Portanto o teste oficial staged usou:
 
-Ponto útil para comparação:
+- text encoder FP8 oficial (~17.3 GB, 9 shards, split GPU/CPU)
+- transformer BF16 oficial (~13.08 GB, split 22 blocos GPU / 8 CPU)
+- pipeline oficial `LLaDAImagePipeline`
 
-- GSQ IQ2_S Thinking OFF: server decode ~14.42 tok/s, mediana 59.1s, peak 12995 MiB.
-- GSQ IQ3_XXS Thinking OFF: server decode ~14.05 tok/s, mediana 54.7s, peak 14069 MiB.
+Isto é MAIS fiel em precisão que o antigo INT8/Q4, embora não seja “full FP8”.
 
-O T7 original tinha falso negativo no evaluator; a colocação correta é policy-only. Para leituras qualitativas, a correção manual histórica é IQ2 OFF 8/8 e IQ3 OFF 8/8.
+Nome correto da variante atual:
 
-Não comparar diretamente o `server_decode_tps` de workload agente com tok/s de chat puro ou `llama-bench`.
+`LLADA_OFFICIAL_STAGED_TURBO`
 
-## Velocidade: por que apareceu ~25 tok/s em modelos antigos
+Não chamá-la de “full FP8”.
 
-Existe `tasks/speed_benchmark.py` no repositório. Ele mede chat simples com:
+## Runner staged
 
-- ctx 4096
-- 8 threads
-- short prompt
-- 256 tokens de geração
-- `timings.predicted_per_second` da API
+Arquivo:
 
-Esse cenário é muito mais próximo de “chat/escrita contínua” do que o repo-worker, cujo contexto cresce após tool calls.
+`tasks/llada-official-audit/run_staged.py`
 
-Logo, números antigos de RVN/Hauhau perto de 20–25 tok/s não devem ser comparados diretamente aos ~18 tok/s médios do v4 agente.
+Estratégia:
 
-## Teste ad hoc local recente de DFlash2
+1. Fase A: carregar encoder/queryformer/text projection oficiais, calcular embeddings, liberar completamente.
+2. Fase B: carregar transformer BF16 + VAE e gerar usando embeddings pré-computados.
 
-A IA local criou/rodou localmente um comparativo de velocidade sob condições simplificadas, aparentemente não versionado no master na hora desta anotação. Reportou:
+Isso evitou OOM sem recorrer ao encoder Q4.
 
-| modelo | decode reportado |
-|---|---:|
-| GSQ IQ2_S + DFlash2 | 13.16 tok/s |
-| GSQ IQ2_S base | 5.24 tok/s |
-| GRUG IQ3_M | 4.96 tok/s |
-| YMQ uncensored | 4.77 tok/s |
-| Fable Q3_K_M | 3.77 tok/s |
+Memória observada:
 
-Também reportou acceptance DFlash2 de 46.8% e ganho interno de ~2.51x versus GSQ base no mesmo script.
+- Fase A: 64–84 s por caso
+- RSS <2.3 GB
+- GPU pico ~11.5–11.8 GB
+- após free GPU ~3.7–4.0 GB
+- Fase B: RSS pico ~10 GB
+- GPU pico 14133–14304 MiB
+- MemAvailable mínimo ~15.8 GB
+- swap ~8→11 GB durante loads, sem thrashing
 
-Tratar esses números como **provisórios até auditar a fórmula/métrica exata**, porque o GSQ base de 5.24 diverge bastante do server decode de 14.42 tok/s observado no v2. Não usar esse teste para concluir “RVN é mais rápido/lento” sem padronizar a métrica.
+Config Turbo:
 
-## Próximo objetivo definido pelo usuário: benchmark de chat/escrita
+- 1024x1024
+- 4 steps
+- guidance_scale 1.0
+- generation_mode text
+- `stochastic_sampling=false`
 
-O usuário quer medir a velocidade que realmente sente ao conversar/escrever histórias, não velocidade de agente/código.
+Resultados:
 
-Teste desejado:
+- smoke 63001: PASS
+- T01/51001: PASS — Fase A 68.4 s + Fase B 59.8 s
+- T03/51003: PASS — Fase A 74.7 s + Fase B 54.9 s
+- T06/51006: PASS — Fase A 64.0 s + Fase B 37.6 s
 
-- **dois contos de aproximadamente 500 palavras por modelo**;
-- um conto neutro/normal;
-- um conto adulto “sem censura”, destinado a observar recusa, suavização/moralização e liberdade de escrita;
-- medir tok/s de geração de chat, não repo-worker;
-- reasoning OFF para este benchmark de escrita;
-- mesmas condições entre modelos;
-- idealmente repetir cada prompt 3 vezes para reduzir ruído.
+Outputs:
 
-Métricas desejadas por saída:
+`tasks/llada-official-audit/outputs/llada-official-turbo-fp8/`
 
-- `timings.predicted_per_second` / métrica de geração escolhida e documentada;
-- completion tokens;
-- wall time;
-- palavras geradas;
-- TTFT/prompt TPS como secundárias;
-- recusou diretamente?;
-- suavizou/moralizou?;
-- completou o conto próximo de 500 palavras?;
-- VRAM pico.
+Base oficial ainda NÃO executado. A decisão depende de avaliação visual humana do Turbo oficial staged.
 
-O par de prompts deve ter complexidade narrativa semelhante para que a principal variável entre eles seja sensibilidade/censura, não dificuldade linguística.
+---
 
-Há scripts antigos de escrita no repositório (`tasks/run_writing_benchmark.py` e `tasks/run_writing_benchmark_rerun.py`). Eles já contêm prompts de escrita adulta e modelos como RVN/Hauhau, mas usam runtime/configurações antigas. **Não reutilizar cegamente**: ler primeiro e aproveitar apenas o que fizer sentido para o novo benchmark controlado.
+# 6. Comparação cega LLaDA atual — PRÓXIMO PASSO IMEDIATO
 
-## Modelos/candidatos relevantes para o benchmark de chat
+Já criada e pronta:
 
-Confirmar os paths existentes antes de criar a suíte final. Candidatos discutidos recentemente:
+`tasks/llada-official-audit/review/`
 
-- GSQ-RCO IQ2_S base
-- GSQ-RCO IQ2_S + DFlash2
-- RVN IQ3_M multilingual MTP
-- HauhauCS Aggressive IQ3_XS
-- Fable Distill Heretic Q3_K_M
-- GRUG v1.1 IQ3_M
-- YMQ Uncensored
-- Qwen3.8 9B Heretic pode entrar como referência de velocidade, se útil.
+Casos:
 
-Não reintroduzir Bonsai, Vireqo ou Minitron sem pedido explícito do usuário.
+- T01
+- T03
+- T06
 
-## Instrução para o próximo ChatGPT
+Cinco candidatos por caso:
 
-Ao retomar em um novo chat:
+1. `LLADA_OFFICIAL_STAGED_TURBO`
+   - encoder FP8 oficial
+   - transformer BF16 oficial
+   - pipeline oficial
+   - Turbo 4 steps
+   - stochastic_sampling=false
 
-1. Leia este arquivo inteiro.
-2. Leia `AGENTS.md`.
-3. Inspecione os artefatos versionados do v4 e o histórico relevante antes de modificar benchmark.
-4. Não use a síntese subjetiva da IA local como autoridade quando os JSON/logs permitem reconstruir o resultado.
-5. Mantenha a IA local como executor, não autora da semântica do benchmark.
-6. O próximo trabalho esperado é **desenhar/versionar o benchmark de chat com dois contos de ~500 palavras (neutro + adulto/sem suavização), reasoning OFF, métrica de tok/s padronizada**, e só depois enviar uma ordem de execução para a IA local.
-7. Antes de criar a nova suíte, verifique os modelos e paths realmente existentes e audite `tasks/speed_benchmark.py` / scripts de writing antigos para não duplicar trabalho nem misturar métricas.
+2. LLaDA community antigo
+   - transformer INT8
+   - encoder Q4_K_M
+   - RealRebel ComfyUI
 
-Não rerode o repo-worker v4 apenas para “confirmar” o que já está estabelecido.
+3. Krea 2 Turbo INT8 ConvRot
+
+4. Z-Image Turbo NVFP4
+
+5. FLUX.2 Klein 9B stock KV-INT8 ConvRot
+
+Grids:
+
+- `tasks/llada-official-audit/review/grids/T01.png`
+- `tasks/llada-official-audit/review/grids/T03.png`
+- `tasks/llada-official-audit/review/grids/T06.png`
+- contact sheet: `tasks/llada-official-audit/review/grids/ALL.png`
+
+15 PNGs cegos:
+
+`tasks/llada-official-audit/review/blind/T01/A.png ... E.png`
+`tasks/llada-official-audit/review/blind/T03/A.png ... E.png`
+`tasks/llada-official-audit/review/blind/T06/A.png ... E.png`
+
+Mapping:
+
+`tasks/llada-official-audit/review/BLIND_MAPPING.json`
+
+NÃO foi revelado ainda.
+
+Nenhuma nova inferência foi feita para montar essa review.
+
+## Próxima ação obrigatória
+
+O próximo ChatGPT deve PRIMEIRO avaliar cegamente `ALL.png` ou, preferencialmente, `T01.png`, `T03.png` e `T06.png`, congelar o ranking A–E de cada caso e SÓ ENTÃO pedir/revelar `BLIND_MAPPING.json`.
+
+Objetivo da comparação:
+
+1. medir quanto o LLaDA oficial staged melhorou sobre o LLaDA INT8+Q4 antigo;
+2. ver se o oficial staged encosta em Krea/Z/FLUX;
+3. decidir se vale gastar tempo/disco com o `LLaDA-Image Base` oficial de 50 steps.
+
+NÃO baixar nem executar Base antes desse julgamento visual.
+
+---
+
+# 7. Incidentes e proteções importantes
+
+## tmpfs / RAM
+
+Um merge anterior de Ideogram congelou o desktop porque:
+
+- tempfile foi para `/tmp` (tmpfs/RAM)
+- o código reteve `orig_tensors` integralmente
+- RAM acabou e ~15 GB foram empurrados para swap
+
+Correção consolidada:
+
+- nunca usar `/tmp`, `/dev/shm` ou filesystem RAM-backed para artifacts grandes
+- merges out-of-core/streaming tensor a tensor
+- guardas de MemAvailable/swap/disco/processos
+- `.partial` + rename atômico
+
+## Watchdog final
+
+Runner final foi corrigido para:
+
+- máximo 8 CPUs via `sched_setaffinity`
+- `OMP/MKL/OPENBLAS/NUMEXPR/VECLIB/BLIS = 8`
+- `torch.set_num_threads(8)`
+- `torch.set_num_interop_threads(1)`
+- RLIMIT_NPROC herdado do sistema, sem limite artificial de 512
+- ComfyUI isolado por caso
+- `/interrupt`
+- SIGTERM/SIGKILL + wait
+- cleanup em finally
+
+RLIMIT_NPROC efetivo observado:
+
+`(127567, 127567)`
+
+---
+
+# 8. Instrução explícita para o próximo ChatGPT
+
+LEIA ESTE ARQUIVO INTEIRO ANTES DE RESPONDER OU DAR NOVA ORDEM PARA A IA LOCAL.
+
+Depois:
+
+1. Leia `AGENTS.md`.
+2. NÃO recomece o benchmark.
+3. NÃO remova mais pesos antes de verificar o estado atual.
+4. NÃO conclua que LLaDA é ruim com base apenas no antigo INT8+Q4.
+5. NÃO diga que Krea usado era Krea 1; foi Krea 2 Turbo INT8 ConvRot.
+6. Avalie cegamente agora as grids LLaDA em `tasks/llada-official-audit/review/grids/`.
+7. Congele rankings A–E de T01/T03/T06 antes de revelar mapping.
+8. Só depois decida se o Base LLaDA oficial 50-step merece teste.
+9. Continue separando qualidade visual de performance.
+10. Não invente papel para todo modelo apenas para justificá-lo; só manter modelos que tenham vantagem prática real.
+
+Estado esperado imediatamente após ler este handoff: **avaliar a comparação cega LLaDA oficial staged vs community antigo vs Krea vs Z vs FLUX**.
