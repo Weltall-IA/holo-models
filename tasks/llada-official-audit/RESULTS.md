@@ -1,0 +1,36 @@
+# Auditoria oficial LLaDA-Image — resultados (2026-09-09)
+
+## Configuração executada
+- Pipeline oficial `LLaDAImagePipeline`, semântica preservada (scheduler, template, QueryFormer, projection, transformer math, VAE, sampling)
+- Runner staged `tasks/llada-official-audit/run_staged.py` (Fase A encode → free → Fase B diffuse)
+- stochastic_sampling=false forçado para Turbo (default do repo é true)
+- 1024x1024, 4 steps, guidance 1.0, seeds oficiais
+- Mistura documentada: encoder = oficial FP8 (`...Turbo-FP8` rev 664a975e), transformer = oficial BF16 (`...Turbo` rev f4afc52d, mesma arquitetura/treino), pois o transformer FP8 não carrega em nenhum diffusers público (quant_method `fp8` desconhecido + layout fundido vs split)
+
+## Fase A (encoder oficial FP8, split ~9 camadas GPU / resto CPU)
+- Smoke: embeds (1,290,2560) em 83.5 s; pico GPU 15742→liberado 3882 MiB
+- T01: embeds (1,351,2560) em 68.4 s
+- T03: embeds (1,352,2560) em 74.7 s
+- T06: embeds (1,368,2560) em 64.0 s
+- Após cada Fase A: encoder removido, GPU volta a ~3.7–4.0 GB, RSS < 2 GB
+
+## Fase B (transformer BF16 split 22 GPU / 8 CPU + VAE CUDA, transformer liberado antes do decode)
+- Smoke 63001: PASS 1024x1024 RGB, 14.0 s, peak VRAM 14133 MiB
+- T01/51001: PASS 1024x1024 RGB, 59.8 s, peak VRAM 14237 MiB
+- T03/51003: PASS 1024x1024 RGB, 54.9 s, peak VRAM 14297 MiB
+- T06/51006: PASS 1024x1024 RGB, 37.6 s, peak VRAM 14304 MiB
+- Outputs: `tasks/llada-official-audit/outputs/llada-official-turbo-fp8/`
+
+## Memória/swap
+- RSS Fase B pico: ~10 GB (transformer load); após free < 2 GB
+- MemAvailable mínimo observado: ~15.8 GB; swap cresceu de ~8 para ~11 GB durante loads (offload CPU do accelerate), sem thrashing; zero OOM após o split
+- Warnings preservados: `transformer.to("cpu")` recusa em modelo com hooks (del + empty_cache libera mesmo assim); `use_uniform_sigmas` ignorado pelo diffusers 0.39 (runner usa grid explícita como o código oficial prevê)
+
+## CPU offload genérico
+- Declarado no código: `model_cpu_offload_seq = "text_encoder->queryformer->text_projection->sigvq->transformer->vae"`
+- Teste de smoke com `enable_model_cpu_offload()` na stack inteira NÃO executado (carregaria ~25 GB de uma vez = OOM por construção, foi exatamente a falha anterior)
+- Risco de device mismatch: `__call__` usa `self.transformer.device` / `self.vae.device` diretamente; com hooks do accelerate esses atributos não refletem o streaming — o runner staged evita o problema por construção (cada fase com devices explícitos)
+- Nenhum patch local na matemática foi necessário; apenas gerenciamento de memória + bypass do loader FP8 (documentado acima)
+
+## Base FP8
+- NÃO executado. O gate Turbo passou tecnicamente (4/4 PNGs válidos), mas qualidade visual promissora vs fraca é decisão humana — sem julgamento visual local, conforme instrução.

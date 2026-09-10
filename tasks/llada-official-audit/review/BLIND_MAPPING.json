@@ -1,0 +1,23 @@
+{
+  "T01": {
+    "D": "LLADA_OFFICIAL_STAGED_TURBO",
+    "E": "LLADA_COMMUNITY_INT8_Q4",
+    "C": "KREA_TURBO_INT8",
+    "B": "Z_IMAGE_TURBO_NVFP4",
+    "A": "FLUX_KLEIN_STOCK"
+  },
+  "T03": {
+    "A": "LLADA_OFFICIAL_STAGED_TURBO",
+    "C": "LLADA_COMMUNITY_INT8_Q4",
+    "B": "KREA_TURBO_INT8",
+    "D": "Z_IMAGE_TURBO_NVFP4",
+    "E": "FLUX_KLEIN_STOCK"
+  },
+  "T06": {
+    "D": "LLADA_OFFICIAL_STAGED_TURBO",
+    "C": "LLADA_COMMUNITY_INT8_Q4",
+    "A": "KREA_TURBO_INT8",
+    "B": "Z_IMAGE_TURBO_NVFP4",
+    "E": "FLUX_KLEIN_STOCK"
+  }
+}
