@@ -1,0 +1,233 @@
+{
+  "benchmark_id": "embedding-v3",
+  "dataset": {
+    "category_labels": "N/A / query_type labels only",
+    "corpus_version": "holo_fake_scenes_v3",
+    "documents": 600,
+    "english": "N/A / not present",
+    "language": "pt-BR",
+    "queries": 150
+  },
+  "decisions": {
+    "best_quality_per_latency": "embeddinggemma_300m",
+    "best_quality_per_vram": "embeddinggemma_300m",
+    "mrr_point_leader": "mdenseon",
+    "ndcg_point_leader": "mdenseon",
+    "visual_test": "NOT RUN / frozen benchmark is text-only"
+  },
+  "efficiency_ratios": {
+    "embeddinggemma_300m": {
+      "quality_per_latency_p50_s": 4.9617237222848924,
+      "quality_per_peak_vram_gib": 1.445094990443661
+    },
+    "jina_v5_omni_small": {
+      "quality_per_latency_p50_s": 3.9711283926612326,
+      "quality_per_peak_vram_gib": 0.18716551564550582
+    },
+    "mdenseon": {
+      "quality_per_latency_p50_s": 4.123178135239595,
+      "quality_per_peak_vram_gib": 0.5420324547328612
+    },
+    "nemotron_embedding": {
+      "quality_per_latency_p50_s": 2.588728660600079,
+      "quality_per_peak_vram_gib": 0.04646220997810648
+    },
+    "qwen3_embedding_4b": {
+      "quality_per_latency_p50_s": 3.6264581609077595,
+      "quality_per_peak_vram_gib": 0.09101389673809976
+    },
+    "wemm_embedding_2b": {
+      "quality_per_latency_p50_s": 3.0149973620198764,
+      "quality_per_peak_vram_gib": 0.13520578937239872
+    }
+  },
+  "measured_only": true,
+  "models": {
+    "embeddinggemma_300m": {
+      "efficiency": {
+        "batch_latency_p50_s": 0.1490373595006531,
+        "batch_latency_p95_s": 0.40089693845293367,
+        "batch_size": 16,
+        "documents_per_second": 53.269238294329476,
+        "llama_server": "/home/alpha/.local/bin/llama-server",
+        "load_seconds": 2.513474772000336,
+        "peak_gpu_allocated_mib": 524.0,
+        "peak_gpu_reserved_mib": null,
+        "peak_process_rss_mib": 1310.44921875,
+        "pooling": "mean",
+        "queries_per_second": 13.317309573582369,
+        "total_seconds": 11.263536314989324
+      },
+      "label": "embeddinggemma-300m",
+      "metrics": {
+        "HitRate@1": 0.6266666666666667,
+        "HitRate@10": 0.8533333333333334,
+        "MAP": 0.7117788210142161,
+        "MRR@10": 0.7123412698412699,
+        "Recall@10": 0.8433333333333334,
+        "Recall@20": 0.96,
+        "Recall@50": 1.0,
+        "nDCG@10": 0.7394822021410922
+      }
+    },
+    "jina_v5_omni_small": {
+      "efficiency": {
+        "batch_latency_p50_s": 0.17776869999215705,
+        "batch_latency_p95_s": 0.18628898164679414,
+        "batch_size": 4,
+        "cuda_available": true,
+        "documents_per_second": 11.661293526104384,
+        "dtype": "torch.bfloat16",
+        "max_seq_length": 32768,
+        "peak_gpu_allocated_mib": 3862.2763671875,
+        "peak_gpu_reserved_mib": 3898.0,
+        "peak_process_rss_mib": 4777.5390625,
+        "queries_per_second": 2.915323381526096,
+        "total_seconds": 51.452268023000215
+      },
+      "label": "jina-v5-omni-small",
+      "metrics": {
+        "HitRate@1": 0.5866666666666667,
+        "HitRate@10": 0.8266666666666667,
+        "MAP": 0.6782273601914705,
+        "MRR@10": 0.6752222222222222,
+        "Recall@10": 0.8166666666666667,
+        "Recall@20": 0.9833333333333333,
+        "Recall@50": 1.0,
+        "nDCG@10": 0.7059423318653315
+      }
+    },
+    "mdenseon": {
+      "efficiency": {
+        "batch_latency_p50_s": 0.17999695050093578,
+        "batch_latency_p95_s": 0.19087497255313793,
+        "batch_size": 16,
+        "cuda_available": true,
+        "documents_per_second": 28.683052442507435,
+        "dtype": "torch.float32",
+        "max_seq_length": 8192,
+        "peak_gpu_allocated_mib": 1402.0771484375,
+        "peak_gpu_reserved_mib": 1446.0,
+        "peak_process_rss_mib": 2388.55078125,
+        "queries_per_second": 7.170763110626859,
+        "total_seconds": 20.918275738004013
+      },
+      "label": "lightonai-mDenseOn",
+      "metrics": {
+        "HitRate@1": 0.6666666666666666,
+        "HitRate@10": 0.8266666666666667,
+        "MAP": 0.7245937435360086,
+        "MRR@10": 0.7249444444444444,
+        "Recall@10": 0.8166666666666667,
+        "Recall@20": 0.9266666666666666,
+        "Recall@50": 0.9533333333333334,
+        "nDCG@10": 0.7421594907152621
+      }
+    },
+    "nemotron_embedding": {
+      "efficiency": {
+        "batch_latency_p50_s": 0.16587837199040223,
+        "batch_latency_p95_s": 0.17729611299728276,
+        "batch_size": 2,
+        "cuda_available": true,
+        "documents_per_second": 6.902902060154524,
+        "dtype": "torch.bfloat16",
+        "max_seq_length": 32768,
+        "peak_gpu_allocated_mib": 9464.0361328125,
+        "peak_gpu_reserved_mib": 9496.0,
+        "peak_process_rss_mib": 5867.42578125,
+        "queries_per_second": 1.725725515038631,
+        "total_seconds": 86.9199642080057
+      },
+      "label": "Nemotron-Embedding",
+      "metrics": {
+        "HitRate@1": 0.24,
+        "HitRate@10": 0.6933333333333334,
+        "MAP": 0.3649655084206903,
+        "MRR@10": 0.3511031746031746,
+        "Recall@10": 0.69,
+        "Recall@20": 0.84,
+        "Recall@50": 0.8933333333333333,
+        "nDCG@10": 0.4294140957452356
+      }
+    },
+    "qwen3_embedding_4b": {
+      "efficiency": {
+        "batch_latency_p50_s": 0.19372665099217556,
+        "batch_latency_p95_s": 0.20768751300056465,
+        "batch_size": 2,
+        "cuda_available": true,
+        "documents_per_second": 6.358787359201664,
+        "dtype": "torch.bfloat16",
+        "max_seq_length": 40960,
+        "peak_gpu_allocated_mib": 7904.31591796875,
+        "peak_gpu_reserved_mib": 7968.0,
+        "peak_process_rss_mib": 5808.19140625,
+        "queries_per_second": 1.589696839800416,
+        "total_seconds": 94.35761350499524
+      },
+      "label": "Qwen3-Embedding-4B",
+      "metrics": {
+        "HitRate@1": 0.56,
+        "HitRate@10": 0.84,
+        "MAP": 0.6688014085158048,
+        "MRR@10": 0.6656190476190477,
+        "Recall@10": 0.83,
+        "Recall@20": 1.0,
+        "Recall@50": 1.0,
+        "nDCG@10": 0.7025415944759044
+      }
+    },
+    "wemm_embedding_2b": {
+      "efficiency": {
+        "batch_latency_p50_s": 0.24081552349525737,
+        "batch_latency_p95_s": 0.25741396229641395,
+        "batch_size": 4,
+        "cuda_available": true,
+        "documents_per_second": 9.658545750887665,
+        "dtype": "torch.bfloat16",
+        "max_seq_length": 262144,
+        "peak_gpu_allocated_mib": 5498.9033203125,
+        "peak_gpu_reserved_mib": 5546.0,
+        "peak_process_rss_mib": 6445.0546875,
+        "queries_per_second": 2.4146364377219163,
+        "total_seconds": 62.121153170999605
+      },
+      "label": "WeMM-Embedding-2B",
+      "metrics": {
+        "HitRate@1": 0.6266666666666667,
+        "HitRate@10": 0.8466666666666667,
+        "MAP": 0.6979938810086879,
+        "MRR@10": 0.6975820105820106,
+        "Recall@10": 0.8366666666666667,
+        "Recall@20": 0.96,
+        "Recall@50": 1.0,
+        "nDCG@10": 0.7260581680716366
+      }
+    }
+  },
+  "projected": false,
+  "run_id": "wemm-v1",
+  "wemm_pairwise": {
+    "embeddinggemma_300m": {
+      "mrr@10_delta_wemm_minus_model": -0.01475925925925925,
+      "ndcg@10_delta_wemm_minus_model": -0.013424034069455582
+    },
+    "jina_v5_omni_small": {
+      "mrr@10_delta_wemm_minus_model": 0.02235978835978847,
+      "ndcg@10_delta_wemm_minus_model": 0.020115836206305082
+    },
+    "mdenseon": {
+      "mrr@10_delta_wemm_minus_model": -0.027362433862433755,
+      "ndcg@10_delta_wemm_minus_model": -0.016101322643625515
+    },
+    "nemotron_embedding": {
+      "mrr@10_delta_wemm_minus_model": 0.34647883597883605,
+      "ndcg@10_delta_wemm_minus_model": 0.296644072326401
+    },
+    "qwen3_embedding_4b": {
+      "mrr@10_delta_wemm_minus_model": 0.03196296296296297,
+      "ndcg@10_delta_wemm_minus_model": 0.023516573595732226
+    }
+  }
+}

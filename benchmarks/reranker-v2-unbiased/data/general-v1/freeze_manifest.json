@@ -1,0 +1,29 @@
+{
+  "benchmark_id": "reranker-v2-unbiased",
+  "candidate_policy": "published_bm25_top50_then_positive_complete_for_pure_reranker_comparison",
+  "candidate_top_k": 50,
+  "counts": {
+    "datasets": 5,
+    "documents": 20548,
+    "queries": 250
+  },
+  "datasets": {
+    "NanoFiQA2018": "sentence-transformers/NanoFiQA2018-bm25",
+    "NanoMSMARCO": "sentence-transformers/NanoMSMARCO-bm25",
+    "NanoNFCorpus": "sentence-transformers/NanoNFCorpus-bm25",
+    "NanoNQ": "sentence-transformers/NanoNQ-bm25",
+    "NanoSciFact": "sentence-transformers/NanoSciFact-bm25"
+  },
+  "files": {
+    "corpus.jsonl": "f06aba86b241782ec546628af3a0f8c85ea3f5c22e73d6dc83ed9b8ecd6af7ac",
+    "queries.jsonl": "deff021ab669cea4edb09af9434dbf46fff1523f0ef7222556f6532ac2f74682"
+  },
+  "source_revisions": {
+    "sentence-transformers/NanoFiQA2018-bm25": "79256fa1031d39c8b81e502b05148b8552d81d13",
+    "sentence-transformers/NanoMSMARCO-bm25": "cc723805cce1a4c41024b607f85126d354bfb695",
+    "sentence-transformers/NanoNFCorpus-bm25": "fcc1c0453c36c9165a8d43eb5562bcd97cc325e1",
+    "sentence-transformers/NanoNQ-bm25": "6695efba77add94ee567fb52e1793974d67e92ae",
+    "sentence-transformers/NanoSciFact-bm25": "babf2760967167b46120be4184d552aed2a28d46"
+  },
+  "track": "GENERAL"
+}

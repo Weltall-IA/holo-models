@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0",
+  "corpus_version": "holo_fake_scenes_v3",
+  "generator_seed": 20260718,
+  "token_estimator": "regex_word_tokens_ptbr_v2",
+  "counts": {
+    "works": 30,
+    "chunks": 600,
+    "queries": 150
+  },
+  "query_distribution": {
+    "semantic_event": 40,
+    "context_dependency": 30,
+    "emotion_intention": 25,
+    "indirect_dialogue": 20,
+    "character_name": 15,
+    "exact_phrase": 10,
+    "similar_scene": 10
+  },
+  "token_distribution": {
+    "min": 226,
+    "max": 269,
+    "mean": 246.682,
+    "median": 247.0
+  },
+  "template_overlap": {
+    "max_jaccard_5gram": 0.463855,
+    "chunk_a": "work-010-ep-001-scene-005-chunk-001",
+    "chunk_b": "work-030-ep-001-scene-005-chunk-001"
+  },
+  "errors": [],
+  "warnings": [],
+  "all_automated_checks_passed": true
+}

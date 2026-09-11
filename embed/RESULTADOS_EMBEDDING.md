@@ -212,3 +212,28 @@ em retrieval visual (VDR), confirmado com +0.011 sobre o BGE-VL-large.
 - Visão: qwen3-vl-2b-vdr (0.9634) + BGE-VL-large fallback (0.9522)
 - Reserva: omni-nemotron-3B (áudio), jina-v5-omni-small (generalista),
   LFM2.5 (reflink)
+
+---
+
+## ADENDO MEDIDO — WeMM-Embedding-2B (2026-09-04)
+
+Execução textual separada, sem misturar com os resultados históricos acima.
+Foi usado o corpus congelado `holo_fake_scenes_v3` (600 documentos, 150
+queries PT-BR, ranking completo) e a implementação oficial
+`SentenceTransformer.encode_query/encode_document` do WeMM. O resultado
+completo, manifesto, rankings e vetores estão em:
+`benchmarks/embedding-v3/results/wemm-v1/REPORT.md`.
+
+| Modelo | NDCG@10 | MRR@10 | VRAM pico | RAM pico | p50 batch |
+|---|---:|---:|---:|---:|---:|
+| lightonai-mDenseOn | 0.7422 | 0.7249 | 1402 MiB | 2389 MiB | 0.180 s |
+| embeddinggemma-300m | 0.7395 | 0.7123 | 524 MiB | 1310 MiB | 0.149 s |
+| **WeMM-Embedding-2B** | **0.7261** | **0.6976** | 5499 MiB | 6445 MiB | 0.241 s |
+| jina-v5-omni-small | 0.7059 | 0.6752 | 3862 MiB | 4778 MiB | 0.178 s |
+| Qwen3-Embedding-4B | 0.7025 | 0.6656 | 7904 MiB | 5808 MiB | 0.194 s |
+| Nemotron-Embedding atual | 0.4294 | 0.3511 | 9464 MiB | 5867 MiB | 0.166 s |
+
+O WeMM ficou abaixo do mDenseOn no texto PT-BR e acima de Jina v5 e
+Qwen3-Embedding-4B nesta execução. Inglês e labels `code/docs/tools/agent`
+não existem no corpus congelado e permanecem `N/A`; nenhum teste visual foi
+projetado ou misturado ao placar textual.
