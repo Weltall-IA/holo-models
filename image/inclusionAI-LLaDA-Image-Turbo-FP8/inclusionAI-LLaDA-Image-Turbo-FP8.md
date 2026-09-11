@@ -15,7 +15,7 @@
 - Scheduler: `stochastic_sampling=false` forçado (default do repo é true; upstream recomenda false para Turbo)
 
 ## MEDIDO LOCALMENTE
-- FASE A (encoder oficial FP8, device_map split 10×GPU/10×CPU): embeds pos=(1,290,2560) em 83.5 s; GPU 11685 MiB no pico; após free GPU volta a ~3882 MiB
+- FASE A (encoder oficial FP8, device_map auto max 8GiB GPU: ~9–10 camadas no GPU, resto CPU): embeds pos=(1,290,2560) em 83.5 s; pico GPU total (nvidia-smi, inclui ~3.7 GB baseline desktop) ~11.5–11.8 GB nas runs finais; após free GPU volta a ~3.7–4.0 GB
 - Smoke 63001 (4 steps, CFG 1.0, seed 63001): PASS, 1024x1024 RGB, Phase B 14.0 s, peak VRAM 14133 MiB
 - T01/seed 51001: PASS, 1024x1024 RGB
 - T03/seed 51003: PASS, 1024x1024 RGB

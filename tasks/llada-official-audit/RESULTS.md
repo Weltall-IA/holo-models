@@ -8,7 +8,7 @@
 - Mistura documentada: encoder = oficial FP8 (`...Turbo-FP8` rev 664a975e), transformer = oficial BF16 (`...Turbo` rev f4afc52d, mesma arquitetura/treino), pois o transformer FP8 não carrega em nenhum diffusers público (quant_method `fp8` desconhecido + layout fundido vs split)
 
 ## Fase A (encoder oficial FP8, split ~9 camadas GPU / resto CPU)
-- Smoke: embeds (1,290,2560) em 83.5 s; pico GPU 15742→liberado 3882 MiB
+- Smoke: embeds (1,290,2560) em 83.5 s; pico GPU total (nvidia-smi) ~11.7 GB na config final (split 8GiB), liberado p/ ~3882 MiB. Nota: 15742 MiB registrado em tentativa descartada com split 12GiB (encoder lotou a VRAM e o run falhou no queryformer por OOM); não é métrica da config final. Todos os valores GPU aqui são totais nvidia-smi incluindo ~3.7 GB de baseline do desktop, salvo indicação contrária.
 - T01: embeds (1,351,2560) em 68.4 s
 - T03: embeds (1,352,2560) em 74.7 s
 - T06: embeds (1,368,2560) em 64.0 s

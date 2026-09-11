@@ -1,8 +1,11 @@
 #!/usr/bin/env python3
-"""Staged low-memory runner for official LLaDA-Image-Turbo-FP8.
+"""Staged low-memory runner for official LLaDA-Image-Turbo audit.
 
-FASE A: prompt encoding with ONLY tokenizer + text_encoder + queryformer + text_projection.
-FASE B: diffusion with ONLY scheduler + transformer FP8 + VAE, using precomputed embeds.
+FASE A: prompt encoding with ONLY tokenizer + official FP8 text_encoder + queryformer
++ text_projection (from inclusionAI/LLaDA-Image-Turbo-FP8).
+FASE B: diffusion with ONLY scheduler + official BF16 Turbo transformer + VAE,
+using precomputed embeds. The FP8 transformer checkpoint is unloadable on public
+diffusers (see phase_b_diffuse docstring); BF16 is same architecture/training.
 Never loads the full stack simultaneously. No RealRebel/ComfyUI, no Q4/INT8.
 """
 import argparse
@@ -70,7 +73,7 @@ def phase_a_encode(model_dir: Path, prompt: str, do_cfg: bool, neg_prompt: str =
     max_mem = {0: "8GiB", "cpu": "24GiB"}
     print("PhaseA: loading tokenizer...", flush=True)
     tokenizer = AutoTokenizer.from_pretrained(model_dir / "tokenizer", trust_remote_code=False)
-    print("PhaseA: loading text_encoder (device_map=auto, max_memory cuda 12GiB)...", flush=True)
+    print("PhaseA: loading text_encoder (device_map=auto, max_memory cuda 8GiB)...", flush=True)
     text_encoder = AutoModel.from_pretrained(
         model_dir / "text_encoder", dtype=torch.bfloat16,
         trust_remote_code=True, device_map="auto", max_memory=max_mem,
