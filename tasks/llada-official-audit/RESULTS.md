@@ -34,3 +34,14 @@
 
 ## Base FP8
 - NÃO executado. O gate Turbo passou tecnicamente (4/4 PNGs válidos), mas qualidade visual promissora vs fraca é decisão humana — sem julgamento visual local, conforme instrução.
+
+## Rodada uniform-v2 (schedule oficial correta)
+- Status da rodada original (Kumaraswamy): INVALID_FOR_OFFICIAL_QUALITY_COMPARISON por schedule mismatch; preservada apenas como evidência histórica em `outputs/llada-official-turbo-fp8/`.
+- Runner corrigido para respeitar `scheduler.config["use_uniform_sigmas"]` (uniforme p/ este snapshot).
+- Smoke 63001: PASS, 1024x1024 RGB, Fase A 83.1 s, Fase B 37.3 s, peak VRAM 12239 MiB, sigmas `[1000.0, 900.0, 750.0, 500.0]`, stochastic_sampling=false.
+- T01/51001: PASS, Fase A 82.6 s, Fase B 31.4 s, peak VRAM 12181 MiB.
+- T03/51003: PASS, Fase A 86.9 s, Fase B 32.0 s, peak VRAM 12349 MiB.
+- T06/51006: PASS, Fase A 83.4 s, Fase B 30.9 s, peak VRAM 12694 MiB.
+- Outputs: `tasks/llada-official-audit/outputs/llada-official-turbo-uniform-v2/` (SHA256 distintos dos antigos).
+- Review cega v2 (6 candidatos, labels A–F, shuffle independente): `tasks/llada-official-audit/review-uniform-v2/`.
+- Nenhum vencedor declarado; somente julgamento visual cego poderá decidir qualidade.

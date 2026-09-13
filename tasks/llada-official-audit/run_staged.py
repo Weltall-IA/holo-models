@@ -199,11 +199,20 @@ def phase_b_diffuse(model_dir: Path, emb_path: str, seed: int, out_png: str,
     shape = (1, in_ch, h // lsf, w // lsf)
     latents = randn_tensor(shape, generator=gen, device=device, dtype=torch.float32).to(dtype).float()
 
-    schedule_steps = steps + 1
-    schedule = torch.linspace(0.001, 1.0, schedule_steps, dtype=torch.float64)[:-1]
-    schedule = (1 - (1 - schedule ** 1.17) ** 0.8) ** 1.1
-    sigmas = (1 - schedule).tolist()
-    sched.set_timesteps(sigmas=sigmas, device=device)
+    # Official schedule selection (pipeline_llada_image.py, upstream e7c861b):
+    # use_uniform_sigmas=true -> uniform pre-shift grid; else Kumaraswamy route.
+    # Never hardcoded: the runner respects scheduler_config to stay reusable.
+    use_uniform = bool(sched.config.get("use_uniform_sigmas", False))
+    if use_uniform:
+        sigmas = torch.linspace(1.0, 0.0, steps + 1, dtype=torch.float32)[:-1].tolist()
+        sched.set_timesteps(sigmas=sigmas, device=device)
+    else:
+        schedule_steps = steps + 1
+        schedule = torch.linspace(0.001, 1.0, schedule_steps, dtype=torch.float64)[:-1]
+        schedule = (1 - (1 - schedule ** 1.17) ** 0.8) ** 1.1
+        sigmas = (1 - schedule).tolist()
+        sched.set_timesteps(sigmas=sigmas, device=device)
+    print(f"PhaseB: use_uniform_sigmas={use_uniform} sigmas={sched.timesteps.tolist() if hasattr(sched.timesteps, 'tolist') else list(sched.timesteps)}", flush=True)
     timesteps = sched.timesteps
 
     def to_dev(embeds, mask):

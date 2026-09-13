@@ -111,6 +111,16 @@ selecionar a rota A/B como o código oficial, mantendo todo o resto idêntico.
 Reexecutar somente T01/T03/T06 após a correção. Nenhuma inferência foi
 executada nesta auditoria.
 
+## Retest uniform-v2 (executado após esta auditoria)
+- Runner corrigido (respeita `use_uniform_sigmas`; log confirma
+  `use_uniform_sigmas=True sigmas=[1000.0, 900.0, 750.0, 500.0]`).
+- Smoke + T01/T03/T06: 4/4 PASS, 1024x1024 RGB, stochastic_sampling=false,
+  mesmos prompts/seeds/encoder/transformer/VAE.
+- Rodada original reclassificada: INVALID_FOR_OFFICIAL_QUALITY_COMPARISON
+  (evidência histórica preservada).
+- Review cega v2 com 6 candidatos em `review-uniform-v2/` (mapping novo,
+  independente, não revelado).
+
 ## Decisão sobre o próximo teste (Fase 6)
 - NÃO repetir o Turbo na configuração atual (schedule incorreta).
 - O próximo candidato LLaDA materialmente novo continua sendo o Base oficial
