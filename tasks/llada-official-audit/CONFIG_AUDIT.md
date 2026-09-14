@@ -121,8 +121,13 @@ executada nesta auditoria.
 - Review cega v2 com 6 candidatos em `review-uniform-v2/` (mapping novo,
   independente, não revelado).
 
+## Reveal v3 e encerramento do Turbo (2026-09-14)
+- Médias congeladas: FLUX 4.53 > Krea 4.30 > Z 4.00 > community 3.57 > Turbo uniform correto 3.43 > Turbo wrong-schedule 3.13.
+- Correção da schedule: +0.30 média, +0.9 em T01; T06 segue grave (1.4). Turbo encerrado sem vantagem global sobre o community.
+- Gate do Base planejado em `tasks/llada-official-base-audit/PLAN.md` (nenhum peso baixado, nenhuma inferência executada).
+
 ## Decisão sobre o próximo teste (Fase 6)
-- NÃO repetir o Turbo na configuração atual (schedule incorreta).
+- NÃO repetir o Turbo em nenhuma configuração (nem correta nem incorreta).
 - O próximo candidato LLaDA materialmente novo continua sendo o Base oficial
   de 50 steps (FP8 rev `7678c6071b139e1989565db41122b16d767cc585` / BF16 rev
   `e4e2703f410f7ddb6ee8d6b09dac6a8ec5093039`), mas download SOMENTE após

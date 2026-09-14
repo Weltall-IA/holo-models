@@ -38,10 +38,15 @@
 ## Rodada uniform-v2 (schedule oficial correta)
 - Status da rodada original (Kumaraswamy): INVALID_FOR_OFFICIAL_QUALITY_COMPARISON por schedule mismatch; preservada apenas como evidência histórica em `outputs/llada-official-turbo-fp8/`.
 - Runner corrigido para respeitar `scheduler.config["use_uniform_sigmas"]` (uniforme p/ este snapshot).
-- Smoke 63001: PASS, 1024x1024 RGB, Fase A 83.1 s, Fase B 37.3 s, peak VRAM 12239 MiB, sigmas `[1000.0, 900.0, 750.0, 500.0]`, stochastic_sampling=false.
+- Smoke 63001: PASS, 1024x1024 RGB, Fase A 83.1 s, Fase B 37.3 s, peak VRAM 12239 MiB, input_uniform_sigmas `[1.0, 0.75, 0.5, 0.25]`, effective_timesteps `[1000.0, 900.0, 750.0, 500.0]`, stochastic_sampling=false. (Nota: logs antigos rotulavam os timesteps efetivos como "sigmas"; corrigido — não é erro de inferência, só de rótulo.)
 - T01/51001: PASS, Fase A 82.6 s, Fase B 31.4 s, peak VRAM 12181 MiB.
 - T03/51003: PASS, Fase A 86.9 s, Fase B 32.0 s, peak VRAM 12349 MiB.
 - T06/51006: PASS, Fase A 83.4 s, Fase B 30.9 s, peak VRAM 12694 MiB.
 - Outputs: `tasks/llada-official-audit/outputs/llada-official-turbo-uniform-v2/` (SHA256 distintos dos antigos).
 - Review cega v2 (6 candidatos, labels A–F, shuffle independente): `tasks/llada-official-audit/review-uniform-v2/`.
 - Nenhum vencedor declarado; somente julgamento visual cego poderá decidir qualidade.
+
+## Reveal v3 e encerramento do Turbo (2026-09-14)
+- Scores congelados (médias): FLUX 4.53, Krea 4.30, Z 4.00, community INT8+Q4 3.57, Turbo uniform correto 3.43, Turbo wrong-schedule 3.13.
+- Corrigir `use_uniform_sigmas` melhorou o Turbo (+0.30 média, +0.9 em T01), mas NÃO resolveu a falha grave de composição/contagem em T06 (1.4 vs 1.8 do community) e NÃO deu vantagem global sobre o community INT8+Q4.
+- Turbo oficial: ENCERRADO. Não repetir. Próximo candidato materialmente novo: Base oficial 50-step (`tasks/llada-official-base-audit/PLAN.md`).
